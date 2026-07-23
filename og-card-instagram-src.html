@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@600;700;800;900&display=swap" rel="stylesheet">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    width: 1000px; height: 1000px; overflow: hidden; font-family: 'Inter', system-ui, sans-serif;
+    position: relative;
+    background-image:
+      radial-gradient(circle, #ee1c28 25px, transparent 26.5px),
+      radial-gradient(circle, #ee1c28 25px, transparent 26.5px);
+    background-size: 124px 124px;
+    background-position: 0 -37px, 62px 25px;
+    background-color: #fff;
+  }
+
+  /* black bar across the middle, same header-bar style as the site;
+     its full-width corners fall outside Instagram's circular crop, which is
+     expected, leaving a ring of polka dots visible top and bottom */
+  .bar {
+    position: absolute; left: 0; right: 0; top: 320px; bottom: 320px;
+    background: #000;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .brand { display: flex; align-items: center; gap: 11px; font-size: 100px; font-weight: 900; letter-spacing: -3.5px; color: #fff; line-height: 1; }
+  .brand svg { width: 92px; height: 92px; }
+</style>
+</head>
+<body>
+  <div class="bar">
+    <div class="brand">
+      Polka<svg viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg"><defs><mask id="dotm"><rect width="32" height="32" fill="white"/><text x="16" y="21" text-anchor="middle" font-family="Inter,system-ui,sans-serif" font-size="11" font-weight="900" letter-spacing="1.5" fill="black">DOT</text></mask></defs><circle cx="16" cy="16" r="15" fill="#ee1c28" mask="url(#dotm)"/></svg>Bike
+    </div>
+  </div>
+</body>
+</html>

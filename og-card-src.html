@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@600;700;800;900&display=swap" rel="stylesheet">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { width: 1200px; height: 630px; overflow: hidden; background: #fff; font-family: 'Inter', system-ui, sans-serif; position: relative; }
+
+  /* top + bottom polka-dot bands, same diamond lattice as the site */
+  .band {
+    position: absolute; left: 0; right: 0; height: 150px;
+    background-image:
+      radial-gradient(circle, #ee1c28 25px, transparent 26.5px),
+      radial-gradient(circle, #ee1c28 25px, transparent 26.5px);
+    background-size: 124px 124px;
+    background-repeat: repeat;
+  }
+  .band.top    { top: 0;    background-position: 0 -37px, 62px 25px; }
+  .band.bottom { bottom: 0; background-position: 0 63px, 62px 1px; }
+
+  /* black header-style bar filling the whole middle */
+  .bar {
+    position: absolute; left: 0; right: 0; top: 150px; bottom: 150px;
+    background: #000;
+    display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 26px;
+  }
+  .brand { display: flex; align-items: center; gap: 10px; font-size: 100px; font-weight: 900; letter-spacing: -4px; color: #fff; line-height: 1; }
+  .brand svg { width: 92px; height: 92px; }
+
+  .tag { font-size: 28px; font-weight: 700; color: #fff; letter-spacing: -0.3px; }
+  .tag span { color: #fff; font-weight: 600; }
+  .url { font-size: 25px; font-weight: 800; color: #fff; letter-spacing: 0.5px; }
+  .url span { color: #ee1c28; }
+  .tdf { font-size: 27px; font-weight: 800; color: #fff; letter-spacing: -0.2px; }
+  .tdf span { color: #ffe600; }
+</style>
+</head>
+<body>
+  <div class="band top"></div>
+  <div class="band bottom"></div>
+  <div class="bar">
+    <div class="brand">
+      Polka<svg viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg"><defs><mask id="dotm"><rect width="32" height="32" fill="white"/><text x="16" y="21" text-anchor="middle" font-family="Inter,system-ui,sans-serif" font-size="11" font-weight="900" letter-spacing="1.5" fill="black">DOT</text></mask></defs><circle cx="16" cy="16" r="15" fill="#ee1c28" mask="url(#dotm)"/></svg>Bike
+    </div>
+    <div class="tag">Gear calculators &amp; climbing tools <span>· road, gravel and mountain bikes</span></div>
+    <div class="url">polka<span>dot</span>bike.com</div>
+    <div class="tdf">Can you ride the climbs of the <span>Tour de France</span> with your choice of gears? Find out here.</div>
+  </div>
+</body>
+</html>

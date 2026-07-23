@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@600;700;800;900&display=swap" rel="stylesheet">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { width: 1200px; height: 630px; overflow: hidden; background: #fff; font-family: 'Inter', system-ui, sans-serif; position: relative; }
+
+  /* top + bottom polka-dot bands, same diamond lattice as the site */
+  .band {
+    position: absolute; left: 0; right: 0; height: 195px;
+    background-image:
+      radial-gradient(circle, #ee1c28 25px, transparent 26.5px),
+      radial-gradient(circle, #ee1c28 25px, transparent 26.5px);
+    background-size: 124px 124px;
+    background-repeat: repeat;
+  }
+  .band.top    { top: 0;    background-position: 0 -37px, 62px 25px; }
+  .band.bottom { bottom: 0; background-position: 0 63px, 62px 1px; }
+
+  /* black header-style bar, shrunk to hug the wordmark instead of leaving a
+     big empty gap below it — was 330px top/bottom-aligned, now 240px centred */
+  .bar {
+    position: absolute; left: 0; right: 0; top: 195px; bottom: 195px;
+    background: #000;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .brand { display: flex; align-items: center; gap: 14px; font-size: 130px; font-weight: 900; letter-spacing: -5px; color: #fff; line-height: 1; }
+  .brand svg { width: 120px; height: 120px; }
+</style>
+</head>
+<body>
+  <div class="band top"></div>
+  <div class="band bottom"></div>
+  <div class="bar">
+    <div class="brand">
+      Polka<svg viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg"><defs><mask id="dotm"><rect width="32" height="32" fill="white"/><text x="16" y="21" text-anchor="middle" font-family="Inter,system-ui,sans-serif" font-size="11" font-weight="900" letter-spacing="1.5" fill="black">DOT</text></mask></defs><circle cx="16" cy="16" r="15" fill="#ee1c28" mask="url(#dotm)"/></svg>Bike
+    </div>
+  </div>
+</body>
+</html>

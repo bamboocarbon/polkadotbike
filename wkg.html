@@ -1,0 +1,1011 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>W/kg &amp; Watts Power Calculator · Polka Dot Bike</title>
+    <meta name="description" content="Work out your power-to-weight ratio in watts per kilo, see where you sit from novice to pro, and the W/kg you need for any climb.">
+    <link rel="canonical" href="https://polkadotbike.com/wkg.html">
+    <meta name="robots" content="index, follow">
+    <meta name="theme-color" content="#ef4444">
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="Polka Dot Bike">
+    <meta property="og:title" content="W/kg &amp; Watts Power Calculator · Polka Dot Bike">
+    <meta property="og:description" content="Work out your power-to-weight ratio in watts per kilo, see where you sit from novice to pro, and the W/kg you need for any climb.">
+    <meta property="og:url" content="https://polkadotbike.com/wkg.html">
+    <meta property="og:image" content="https://polkadotbike.com/og-card.png">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="W/kg &amp; Watts Power Calculator · Polka Dot Bike">
+    <meta name="twitter:description" content="Work out your power-to-weight ratio in watts per kilo, see where you sit from novice to pro, and the W/kg you need for any climb.">
+    <meta name="twitter:image" content="https://polkadotbike.com/og-card.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=IBM+Plex+Sans:wght@600;700&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
+    <style>
+        :root {
+            --accent:       #3b82f6;
+            --accent-light: #93c5fd;
+            --glass:        rgba(4,9,26,0.97);
+            --border:       rgba(255,255,255,0.08);
+            --text:         #e8edf5;
+            --muted:        #64748b;
+            --sec:          #94a3b8;
+            --green:        #22c55e;
+            --amber:        #f59e0b;
+            --red:          #ef4444;
+        }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { font-family: 'Inter', system-ui, sans-serif; min-height: 100vh; color: var(--text); overflow-x: hidden; background: #fff; }
+
+        .bg-scene { position: fixed; inset: 0; z-index: 0; pointer-events: none; overflow: hidden; }
+        .bg-sky { position: absolute; inset: 0; background: #fff; }
+        .bg-mountains { position: absolute; inset: 0; background-image: radial-gradient(circle,rgba(239,68,68,0.22) 28%,transparent 28%), radial-gradient(circle,rgba(239,68,68,0.22) 28%,transparent 28%); background-size: 44px 44px; background-position: 0 0, 22px 22px; }
+
+        header { position: sticky; top: 0; z-index: 100; background: rgba(4,9,26,0.85); backdrop-filter: blur(16px); border-bottom: 1px solid var(--border); padding: 0 24px; height: 54px; display: flex; align-items: center; justify-content: space-between; }
+        .logo { font-size: 19px; font-weight: 900; letter-spacing: -0.5px; color: #fff; text-decoration: none; display: inline-flex; align-items: center; gap: 3px; }
+        .logo span { color: var(--accent); }
+        .logo-dot-svg { width: 32px; height: 32px; flex-shrink: 0; }
+        nav { display: flex; gap: 2px; align-items: center; }
+        nav a { color: var(--sec); text-decoration: none; font-size: 13px; font-weight: 500; padding: 6px 13px; border-radius: 6px; transition: all 0.15s; text-align: center; line-height: 1.2; }
+        nav a:hover { color: #fff; background: rgba(255,255,255,0.06); }
+        nav a.active { color: var(--accent); background: rgba(59,130,246,0.12); }
+        @media (max-width: 768px) { header { padding: 0 12px; } nav a { font-size: 11px; padding: 4px 6px; } }
+
+        .hero { position: relative; z-index: 1; text-align: center; padding: 40px 20px 28px; }
+        .hero h1 { font-size: clamp(28px,5vw,48px); font-weight: 900; letter-spacing: -1.5px; line-height: 1.1; background: linear-gradient(135deg,#0f172a 0%,#1e3a5f 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; filter: drop-shadow(0 1px 4px rgba(255,255,255,0.8)); }
+        .hero p { margin-top: 10px; font-size: 15px; color: rgba(15,23,42,0.72); max-width: 520px; margin-left: auto; margin-right: auto; }
+
+        .container { position: relative; z-index: 1; max-width: 1320px; margin: 0 auto; padding: 0 20px 60px; }
+        .calc-grid { display: grid; grid-template-columns: 290px 1fr 270px; gap: 18px; align-items: start; }
+        @media (max-width: 1100px) { .calc-grid { grid-template-columns: 280px 1fr; } .rail { display: none; } }
+        @media (max-width: 720px)  { .calc-grid { grid-template-columns: 1fr; } :root { --muted: #94a3b8; } }
+
+        .glass { background: var(--glass); border: 1px solid rgba(255,255,255,0.12); border-radius: 16px; }
+
+        .input-panel { overflow: hidden; }
+        @media (min-width: 721px) { .input-panel { position: sticky; top: 70px; } }
+        .panel-head { padding: 13px 18px; font-size: 10px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); border-bottom: 1px solid var(--border); }
+        .form-body { padding: 18px; display: flex; flex-direction: column; gap: 20px; }
+        .form-label { display: block; font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: var(--muted); }
+
+        .gender-toggle { display: grid; grid-template-columns: 1fr 1fr; background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.08); border-radius: 9px; overflow: hidden; margin-top: 8px; }
+        .gender-btn { padding: 9px 6px; background: transparent; border: none; color: var(--muted); font-size: 12px; font-weight: 700; font-family: inherit; cursor: pointer; transition: all 0.15s; text-align: center; }
+        .gender-btn.active { background: #12b05f; color: #fff; }
+        .unit-toggle { display: grid; grid-template-columns: 1fr 1fr; background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.08); border-radius: 9px; overflow: hidden; margin-top: 8px; }
+        .unit-btn { padding: 9px 6px; background: transparent; border: none; color: var(--muted); font-size: 12px; font-weight: 700; font-family: inherit; cursor: pointer; transition: all 0.15s; text-align: center; }
+        .unit-btn.active { background: rgba(255,255,255,0.12); color: #fff; }
+
+        .row-between { display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; }
+        .big-val { font-size: 22px; font-weight: 800; color: #fff; line-height: 1; }
+        .big-val span { font-size: 11px; font-weight: 400; color: var(--muted); margin-left: 2px; }
+        .big-val-wrap { display: inline-flex; align-items: baseline; gap: 2px; }
+        .big-val-input { font-size: 22px; font-weight: 800; color: #fff; background: transparent; border: none; border-bottom: 1px solid rgba(255,255,255,0.18); width: 72px; text-align: right; font-family: inherit; padding: 0 0 1px; outline: none; -moz-appearance: textfield; cursor: text; }
+        .big-val-input::-webkit-outer-spin-button, .big-val-input::-webkit-inner-spin-button { -webkit-appearance: none; }
+        .big-val-input:focus { border-bottom-color: var(--accent); }
+        .big-val-unit { font-size: 11px; font-weight: 400; color: var(--muted); }
+        input[type="range"] { width: 100%; height: 3px; background: rgba(255,255,255,0.1); border-radius: 2px; appearance: none; cursor: pointer; }
+        input[type="range"]::-webkit-slider-thumb { appearance: none; width: 18px; height: 18px; border-radius: 50%; background: #12b05f; cursor: pointer; }
+        .range-labels { display: flex; justify-content: space-between; margin-top: 5px; color: var(--muted); font-size: 10px; }
+
+        .results { display: flex; flex-direction: column; gap: 16px; }
+
+        .wkg-hero { padding: 28px 24px 24px; border-radius: 16px; background: var(--glass); border: 1px solid rgba(255,255,255,0.12); text-align: center; }
+        .wkg-number {font-family:'IBM Plex Sans',Inter,system-ui,sans-serif; font-size: 76px; font-weight: 700; letter-spacing: -1px; line-height: 1; }
+        .wkg-unit { font-size: 22px; font-weight: 400; color: var(--sec); letter-spacing: 0; margin-left: 4px; vertical-align: middle; }
+        .wkg-cat-badge { display: inline-block; margin-top: 14px; padding: 5px 18px; border-radius: 20px; font-size: 13px; font-weight: 700; letter-spacing: 0.04em; border: 1px solid; }
+        .wkg-cat-desc { margin-top: 8px; font-size: 13px; color: var(--sec); }
+
+        .stats-row { display: grid; grid-template-columns: repeat(3,1fr); gap: 12px; }
+        .stat-card { padding: 16px 18px; border-radius: 14px; background: var(--glass); border: 1px solid rgba(255,255,255,0.12); }
+        .stat-label { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: var(--muted); margin-bottom: 6px; }
+        .stat-val {font-family:'IBM Plex Sans',Inter,system-ui,sans-serif; font-size: 24px; font-weight: 700; letter-spacing: 0; line-height: 1; }
+        .stat-val .u { font-size: 12px; font-weight: 400; color: var(--sec); letter-spacing: 0; margin-left: 3px; }
+
+        .gauge-card { padding: 22px 24px 18px; border-radius: 16px; background: var(--glass); border: 1px solid rgba(255,255,255,0.12); }
+        .gauge-title { font-size: 13px; font-weight: 700; color: #fff; margin-bottom: 18px; }
+        .gauge-bar { display: flex; height: 14px; border-radius: 7px; overflow: hidden; width: 100%; }
+        .gauge-segment { flex-shrink: 0; }
+        .gauge-marker-row { position: relative; height: 16px; margin-top: 3px; }
+        .gauge-marker { position: absolute; transform: translateX(-50%); transition: left 0.25s ease; }
+        .gauge-marker::before { content: ''; display: block; width: 0; height: 0; border-left: 7px solid transparent; border-right: 7px solid transparent; border-bottom: 11px solid #fff; }
+        .gauge-labels-row { display: flex; margin-top: 10px; }
+        .gauge-lbl { flex-shrink: 0; font-size: 9px; font-weight: 700; color: var(--muted); text-align: center; text-transform: uppercase; letter-spacing: 0.03em; overflow: hidden; line-height: 1.3; }
+        .gauge-lbl.current { color: #fff; }
+        @media (max-width: 560px) { .gauge-lbl:not(.current) { font-size: 0; } }
+
+        .chart-card { padding: 20px 22px 14px; border-radius: 16px; background: var(--glass); border: 1px solid rgba(255,255,255,0.12); }
+        .next-card { padding: 20px; border-radius: 14px; background: var(--glass); border: 1px solid rgba(255,255,255,0.12); }
+        .next-head { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: var(--muted); margin-bottom: 14px; }
+        .next-intro { font-size: 12px; color: var(--sec); margin-bottom: 14px; line-height: 1.5; }
+        .next-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+        .next-item { background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.08); border-radius: 10px; padding: 16px 14px; text-align: center; }
+        .next-item-head { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: var(--muted); margin-bottom: 10px; }
+        .next-item-val {font-family:'IBM Plex Sans',Inter,system-ui,sans-serif; font-size: 28px; font-weight: 700; letter-spacing: 0; color: #fff; line-height: 1; }
+        .next-item-val .u { font-size: 15px; font-weight: 600; margin-left: 2px; }
+        .next-item-constraint { font-size: 12px; color: #e2e8f0; margin-top: 8px; line-height: 1.5; }
+        .next-peak { text-align: center; padding: 10px 0; }
+        .next-peak-icon { font-size: 36px; margin-bottom: 10px; }
+        .next-peak-text { font-size: 16px; font-weight: 700; color: #fff; }
+        .next-peak-sub { font-size: 12px; color: var(--muted); margin-top: 4px; }
+
+        .climb-link-card { padding: 16px 20px; border-radius: 14px; background: var(--glass); border: 1px solid rgba(59,130,246,0.35); display: flex; align-items: center; justify-content: space-between; gap: 14px; text-decoration: none; transition: all 0.15s; }
+        .climb-link-card:hover { background: rgba(4,9,26,0.92); border-color: rgba(59,130,246,0.6); }
+        .climb-link-text { font-size: 13px; font-weight: 600; color: var(--accent-light); }
+        .climb-link-sub { font-size: 11px; color: var(--muted); margin-top: 3px; }
+        .climb-link-arrow { font-size: 22px; color: var(--accent); flex-shrink: 0; }
+
+        .rail { display: flex; flex-direction: column; gap: 16px; position: sticky; top: 70px; }
+        .rail-card { border-radius: 14px; background: var(--glass); border: 1px solid rgba(255,255,255,0.12); overflow: hidden; }
+        .rail-head { padding: 12px 16px; font-size: 10px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); border-bottom: 1px solid var(--border); }
+        .rail-body { padding: 14px 16px; }
+        .tip-text { font-size: 12px; color: var(--sec); line-height: 1.65; }
+        .tip-text p+p { margin-top: 10px; }
+        .tip-text strong { color: var(--text); }
+
+        .cat-table { width: 100%; border-collapse: collapse; font-size: 11px; }
+        .cat-table td { padding: 6px 6px; border-bottom: 1px solid rgba(255,255,255,0.06); vertical-align: middle; }
+        .cat-table tr:last-child td { border-bottom: none; }
+        .cat-dot { width: 8px; height: 8px; border-radius: 50%; display: inline-block; margin-right: 7px; vertical-align: middle; flex-shrink: 0; }
+        .cat-name { color: var(--sec); }
+        .cat-name.current { color: #fff; font-weight: 700; }
+        .cat-range { color: var(--muted); text-align: right; white-space: nowrap; }
+
+        footer { position: relative; z-index: 1; border-top: 1px solid var(--border); padding: 24px 20px; text-align: center; }
+        footer p { font-size: 12px; color: var(--muted); }
+        footer a { color: var(--muted); text-decoration: none; }
+        footer a:hover { color: var(--sec); }
+    </style>
+<style id="polka-hero-dots">
+  /* Bright-white bg; red diamond polka-dots band at top of hero; title(left)+subtitle(right) below on white. */
+  .bg-mountains { display: none !important; }
+  .bg-sky { background: #fff !important; }
+  header { background: #000 !important; }
+  .hero {
+    position: relative; z-index: 1; box-sizing: border-box;
+    padding: 164px 24px 8px; margin-bottom: 34px;
+    background-image:
+      radial-gradient(circle, #ee1c28 25px, transparent 26.5px),
+      radial-gradient(circle, #ee1c28 25px, transparent 26.5px);
+    background-size: 124px 124px; background-position: 0 0, 62px 62px; background-repeat: repeat;
+    display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: 6px 24px; text-align: left;
+  }
+  .hero::after { content: ""; position: absolute; left: 0; right: 0; top: 154px; bottom: 0; background: #fff; z-index: -1; }
+  .hero > h1 { margin: 0; color: #000 !important; -webkit-text-fill-color: #000 !important; background: none !important; filter: none !important; }
+  .hero > p  { margin: 0; max-width: 340px; text-align: left; color: #000 !important; font-weight: 700 !important; }
+
+  /* ===== UCI World-Championship bold palette (dots stay red) ===== */
+  :root {
+    --glass: #000; --glass2: #000;
+    --accent: #1a72e0; --accent-light: #7fb3f0;
+    --green: #12b05f; --amber: #ffcd00; --red: #ee1c28;
+  }
+  .glass, .input-panel, .stat-card, .chart-card, .achieve-card, .rail-card, .buy-card { border-color: rgba(255,255,255,0.14); }
+  .logo span { color: #fff !important; }
+  /* groupset / brand tabs: text + lower line only (no box tint). Bold hues. */
+  .brand-tab.active[data-brand="shimano"]    { color:#2b8bff !important; background:transparent !important; border-bottom-color:#1a72e0 !important; }
+  .brand-tab.active[data-brand="sram"]       { color:#ff1f2b !important; background:transparent !important; border-bottom-color:#ee1c28 !important; }
+  .brand-tab.active[data-brand="campagnolo"] { color:#ffcf1a !important; background:transparent !important; border-bottom-color:#ffcd00 !important; }
+  .brand-tab.active[data-brand="custom"]     { color:#17c86c !important; background:transparent !important; border-bottom-color:#12b05f !important; }
+  .cust-mode-btn.active { background:#12b05f; }
+  /* derailleur page: segmented filter buttons — no fill, bold groupset colours + lower line */
+  .filter-btn.active { background:transparent !important; color:#fff !important; border-bottom:2px solid rgba(255,255,255,0.85); }
+  .filter-btn.active[data-fbrand="shimano"]    { color:#2b8bff !important; border-bottom-color:#1a72e0; }
+  .filter-btn.active[data-fbrand="sram"]       { color:#ff1f2b !important; border-bottom-color:#ee1c28; }
+  .filter-btn.active[data-fbrand="campagnolo"] { color:#ffcf1a !important; border-bottom-color:#ffcd00; }
+  /* alert / status colours (bold, not pale) */
+  .stat-green { color:#17c86c !important; }
+  .stat-red   { color:#ff1f2b !important; }
+  .verdict-card.v-yes  { border-color:rgba(18,176,95,0.5) !important; }
+  .verdict-card.v-warn { border-color:rgba(255,205,0,0.55) !important; }
+  .verdict-card.v-no   { border-color:rgba(238,28,40,0.5) !important; }
+  .verdict-card.v-yes  .verdict-main { color:#17c86c; }
+  .verdict-card.v-warn .verdict-main { color:#ffcf1a; }
+  .verdict-card.v-no   .verdict-main { color:#ff1f2b; }
+  .dr-group.ok   .dr-group-label, .dr-group.ok   .dr-status { color:#17c86c !important; }
+  .dr-group.warn .dr-group-label, .dr-group.warn .dr-status { color:#ffcf1a !important; }
+  .dr-group.no   .dr-group-label, .dr-group.no   .dr-status { color:#ff1f2b !important; }
+  /* bottom polka-dot band: white gap after content, then 3 dot rows down to the page bottom */
+  body::after {
+    content: ""; display: block; position: relative; z-index: 1; width: 100%; height: 186px; margin-top: 4px;
+    background-image:
+      radial-gradient(circle, #ee1c28 25px, transparent 26.5px),
+      radial-gradient(circle, #ee1c28 25px, transparent 26.5px);
+    background-size: 124px 124px; background-position: 0px -31px, 62px 31px; background-repeat: repeat;
+  }
+</style>
+<style id="pdb-inline-brand">
+  /* Inline brand mark: "Polka(DOT)Bike" with DOT knocked into a red circle, as per the header logo */
+  .pdb-brand{font-weight:800;white-space:nowrap;}
+  .pdb-dot{display:inline-block;width:1.35em;height:1.35em;vertical-align:-0.3em;margin:0 0.12em;overflow:hidden;text-indent:-9999px;white-space:nowrap;background:url("data:image/svg+xml;utf8,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 32 32%22%3E%3Ccircle cx=%2216%22 cy=%2216%22 r=%2216%22 fill=%22%23ef4444%22/%3E%3Ctext x=%2216.75%22 y=%2220%22 text-anchor=%22middle%22 font-family=%22Inter,system-ui,sans-serif%22 font-size=%2210.5%22 font-weight=%22900%22 letter-spacing=%221.5%22 fill=%22%23000%22%3EDOT%3C/text%3E%3C/svg%3E") no-repeat center/contain;}
+</style>
+<style id="polka-mobile-nav">
+  /* Mobile: nav scrolls horizontally inside the header bar instead of stretching the page */
+  @media (max-width: 768px) {
+    html, body { overflow-x: hidden; }
+    header { gap: 8px; }
+    .logo { flex-shrink: 0; }
+    nav {
+      min-width: 0;
+      overflow-x: auto; -webkit-overflow-scrolling: touch;
+      flex-wrap: nowrap; max-width: 100%;
+      scrollbar-width: none; -ms-overflow-style: none;
+    }
+    nav::-webkit-scrollbar { display: none; }
+    nav a { white-space: nowrap; flex-shrink: 0; }
+    .hero-bikes { font-size: 16px !important; margin-top: 6px !important; }
+
+    /* Smaller polka dots on mobile: same diamond pattern at ~60% scale, more dots across */
+    .hero {
+      padding-top: 85px;
+      background-image:
+        radial-gradient(circle, #ee1c28 12px, transparent 13.5px),
+        radial-gradient(circle, #ee1c28 12px, transparent 13.5px);
+      background-size: 60px 60px;
+      background-position: 0 0, 30px 30px;
+    }
+    .hero::after { top: 75px; }
+    body::after {
+      height: 90px;
+      background-image:
+        radial-gradient(circle, #ee1c28 12px, transparent 13.5px),
+        radial-gradient(circle, #ee1c28 12px, transparent 13.5px);
+      background-size: 60px 60px;
+      background-position: 0 -15px, 30px 15px;
+    }
+  }
+</style>
+<!-- GA-CONSENT-LOADER START -->
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  window.pdbLoadGA = function(){
+    if (window.pdbGALoaded) return;
+    window.pdbGALoaded = true;
+    var s = document.createElement('script');
+    s.async = true;
+    s.src = 'https://www.googletagmanager.com/gtag/js?id=G-24JBH53W09';
+    document.head.appendChild(s);
+    gtag('js', new Date());
+    gtag('config', 'G-24JBH53W09');
+  };
+</script>
+<!-- GA-CONSENT-LOADER END -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebApplication",
+  "@id": "https://polkadotbike.com/wkg.html#app",
+  "name": "W/kg and FTP Calculator",
+  "url": "https://polkadotbike.com/wkg.html",
+  "applicationCategory": "UtilitiesApplication",
+  "operatingSystem": "Any",
+  "browserRequirements": "Requires JavaScript",
+  "offers": {
+    "@type": "Offer",
+    "price": "0",
+    "priceCurrency": "GBP"
+  },
+  "description": "Work out your power-to-weight ratio in watts per kilo, see where you sit from novice to pro, and the W/kg you need for any climb.",
+  "author": {
+    "@type": "Person",
+    "name": "Robin Gillingham",
+    "url": "https://polkadotbike.com/about.html"
+  },
+  "isPartOf": {
+    "@id": "https://polkadotbike.com/#website"
+  }
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Home",
+      "item": "https://polkadotbike.com/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "W/KG and FTP",
+      "item": "https://polkadotbike.com/wkg.html"
+    }
+  ]
+}
+</script>
+</head>
+<body>
+<!-- CONSENT-BANNER START -->
+<style>
+  #pdb-consent{position:fixed;left:0;right:0;bottom:0;z-index:999;background:#000;color:#fff;
+    padding:16px 20px;display:flex;flex-wrap:wrap;align-items:center;justify-content:center;
+    gap:12px 20px;font-family:system-ui,sans-serif;box-shadow:0 -2px 12px rgba(0,0,0,.3)}
+  #pdb-consent[hidden]{display:none}
+  #pdb-consent p{margin:0;font-size:14px;line-height:1.5;max-width:560px;color:#e5e9ee}
+  #pdb-consent a{color:#7fb3f0;text-decoration:underline}
+  #pdb-consent .pdb-consent-btns{display:flex;gap:10px;flex-shrink:0}
+  #pdb-consent button{font:inherit;font-weight:600;font-size:14px;padding:9px 18px;border-radius:6px;
+    cursor:pointer;border:1px solid #fff}
+  #pdb-consent .pdb-accept{background:#1a72e0;color:#fff;border-color:#1a72e0}
+  #pdb-consent .pdb-reject{background:transparent;color:#fff}
+  @media (max-width:640px){#pdb-consent{justify-content:flex-start;text-align:left}}
+</style>
+<div id="pdb-consent" role="dialog" aria-label="Cookie consent" hidden>
+  <p>I use Google Analytics cookies to see how the site's used. See the <a href="privacy.html">privacy policy</a> for details.</p>
+  <div class="pdb-consent-btns">
+    <button type="button" class="pdb-reject" id="pdb-consent-reject">Reject</button>
+    <button type="button" class="pdb-accept" id="pdb-consent-accept">Accept</button>
+  </div>
+</div>
+<script>
+(function(){
+  var KEY = 'pdb_consent';
+  function getChoice(){ try { return localStorage.getItem(KEY); } catch(e) { return null; } }
+  function setChoice(v){ try { localStorage.setItem(KEY, v); } catch(e) {} }
+  var choice = getChoice();
+  if (choice === 'accepted' && window.pdbLoadGA) window.pdbLoadGA();
+  if (choice) return;
+  var el = document.getElementById('pdb-consent');
+  if (!el) return;
+  el.hidden = false;
+  document.getElementById('pdb-consent-accept').addEventListener('click', function(){
+    setChoice('accepted');
+    if (window.pdbLoadGA) window.pdbLoadGA();
+    el.hidden = true;
+  });
+  document.getElementById('pdb-consent-reject').addEventListener('click', function(){
+    setChoice('rejected');
+    el.hidden = true;
+  });
+})();
+</script>
+<!-- CONSENT-BANNER END -->
+<noscript><div style="position:relative;z-index:50;background:#ffcd00;color:#000;font-family:system-ui,sans-serif;font-size:14px;font-weight:600;text-align:center;padding:10px 16px">This site&#8217;s interactive calculators need JavaScript to run. The stage and climb listings on the <a href="tdf.html" style="color:#000">Tour de France 2026</a> and <a href="giro26.html" style="color:#000">Giro 2026</a> pages are still readable without it.</div></noscript>
+
+<div class="bg-scene"><div class="bg-sky"></div><div class="bg-mountains"></div></div>
+<header>
+    <a class="logo" href="index.html">Polka<svg class="logo-dot-svg" viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg"><defs><mask id="dotm"><rect width="32" height="32" fill="white"/><text x="16" y="21" text-anchor="middle" font-family="Inter,system-ui,sans-serif" font-size="11" font-weight="900" letter-spacing="1.5" fill="black">DOT</text></mask></defs><circle cx="16" cy="16" r="15" fill="#ef4444" mask="url(#dotm)"/></svg><span>Bike</span></a>
+    <nav>
+        <a href="index.html">Gear<br>Calculator</a>
+        <a href="climb.html">Climb<br>Planner</a>
+        <a href="compare.html">Groupset<br>Comparator</a>
+        <a href="derailleur.html">Derailleur<br>Capacity</a>
+        <a href="wkg.html" class="active">W/KG<br>and FTP</a>
+        <a href="giro26.html">Giro 2026</a>
+        <a href="tdf.html">TDF 2026</a>
+        <a href="about.html">About</a>
+        <a href="guide.html">Guide</a>
+        <a href="glossary.html">Glossary</a>
+        <a href="contact.html">Contact</a>
+    </nav>
+</header>
+
+<div class="hero">
+    <h1>W/kg Power Profile</h1>
+    <p>Enter your FTP and body weight — see where you rank and exactly what it takes to reach the next level.</p>
+    <div class="hero-bikes" style="flex-basis:100%;max-width:1120px;margin:12px auto 0;display:flex;justify-content:space-between;align-items:center;font-size:28px;font-weight:900;letter-spacing:-1px;color:#0f172a">
+        <span>Road Bikes</span><span>Mountain Bikes</span><span>Gravel Bikes</span>
+    </div>
+</div>
+
+<div class="container">
+<div class="calc-grid">
+
+    <!-- INPUT PANEL -->
+    <div class="input-panel glass">
+        <div class="panel-head">Your Numbers</div>
+        <div class="form-body">
+
+            <div>
+                <div class="form-label">Gender</div>
+                <div class="gender-toggle">
+                    <button class="gender-btn active" data-gender="male"   onclick="setGender('male')">Male</button>
+                    <button class="gender-btn"         data-gender="female" onclick="setGender('female')">Female</button>
+                </div>
+            </div>
+
+            <div>
+                <div class="form-label">Weight Units</div>
+                <div class="unit-toggle">
+                    <button class="unit-btn active" data-unit="kg"  onclick="setUnit('kg')">kg</button>
+                    <button class="unit-btn"         data-unit="lbs" onclick="setUnit('lbs')">lbs</button>
+                </div>
+            </div>
+
+            <div>
+                <div class="row-between">
+                    <div class="form-label" style="margin:0">Age</div>
+                    <div class="big-val" id="age-display">35<span>yrs</span></div>
+                </div>
+                <input type="range" id="age-slider" min="18" max="80" step="1" value="35"
+                    oninput="document.getElementById('age-display').innerHTML=this.value+'<span>yrs</span>'; calculate()">
+                <div class="range-labels"><span>18</span><span>80</span></div>
+            </div>
+
+            <div>
+                <div class="row-between">
+                    <div class="form-label" style="margin:0">FTP</div>
+                    <div class="big-val" id="ftp-display">200<span>W</span></div>
+                </div>
+                <input type="range" id="ftp-slider" min="60" max="500" step="5" value="200"
+                    oninput="document.getElementById('ftp-display').innerHTML=this.value+'<span>W</span>'; calculate()">
+                <div class="range-labels"><span>60 W</span><span>500 W</span></div>
+            </div>
+
+            <div>
+                <div class="row-between">
+                    <div class="form-label" style="margin:0">Body Weight</div>
+                    <div class="big-val-wrap"><input class="big-val-input" type="number" id="weight-input" value="70.0" onchange="weightInputChange('weight')" onkeydown="if(event.key==='Enter')this.blur()"><span class="big-val-unit" id="weight-unit-lbl">kg</span></div>
+                </div>
+                <input type="range" id="weight-slider" min="40" max="130" step="0.1" value="70"
+                    oninput="updateWeightDisplays(); calculate()">
+                <div class="range-labels" id="weight-range-labels"><span>40 kg</span><span>130 kg</span></div>
+            </div>
+
+            <div>
+                <div class="row-between">
+                    <div class="form-label" style="margin:0">Bike Weight <span style="font-size:9px;color:var(--muted);font-weight:400;text-transform:none;letter-spacing:0">(for Climb Planner)</span></div>
+                    <div class="big-val-wrap"><input class="big-val-input" type="number" id="bike-input" value="8.0" onchange="weightInputChange('bike')" onkeydown="if(event.key==='Enter')this.blur()"><span class="big-val-unit" id="bike-unit-lbl">kg</span></div>
+                </div>
+                <input type="range" id="bike-slider" min="4" max="16" step="0.1" value="8"
+                    oninput="updateWeightDisplays(); calculate()">
+                <div class="range-labels" id="bike-range-labels"><span>4 kg</span><span>16 kg</span></div>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- RESULTS -->
+    <div class="results">
+
+        <!-- Hero W/kg -->
+        <div class="wkg-hero">
+            <div class="wkg-number" id="wkg-number">—</div>
+            <div><div id="wkg-cat-badge" class="wkg-cat-badge" style="display:none"></div></div>
+            <div class="wkg-cat-desc" id="wkg-cat-desc"></div>
+            <div id="age-ctx" style="display:none;margin-top:14px;padding-top:12px;border-top:1px solid rgba(255,255,255,0.1);font-size:13px;color:var(--sec);line-height:1.5;"></div>
+        </div>
+
+        <!-- Stats -->
+        <div class="stats-row">
+            <div class="stat-card">
+                <div class="stat-label">FTP</div>
+                <div class="stat-val" id="stat-ftp">—</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-label">Body Weight</div>
+                <div class="stat-val" id="stat-weight">—</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-label">Category</div>
+                <div class="stat-val" id="stat-cat" style="font-size:17px;letter-spacing:0;line-height:1.2;padding-top:3px">—</div>
+            </div>
+        </div>
+
+        <!-- FTP vs Weight chart -->
+        <div class="chart-card">
+            <div class="gauge-title">Power map — FTP by body weight</div>
+            <canvas id="ftp-chart" style="width:100%;display:block"></canvas>
+        </div>
+
+        <!-- Gauge -->
+        <div class="gauge-card">
+            <div class="gauge-title">Where you sit</div>
+            <div class="gauge-bar" id="gauge-bar"></div>
+            <div class="gauge-marker-row"><div class="gauge-marker" id="gauge-marker" style="left:0%"></div></div>
+            <div class="gauge-labels-row" id="gauge-labels"></div>
+        </div>
+
+        <!-- Next Level -->
+        <div class="next-card">
+            <div class="next-head">To reach the next level</div>
+            <div id="next-content"></div>
+        </div>
+
+        <!-- Climb Planner link -->
+        <a class="climb-link-card" id="climb-link" href="climb.html">
+            <div>
+                <div class="climb-link-text">Take this to the Climb Planner</div>
+                <div class="climb-link-sub" id="climb-link-sub">See which gears are achievable on a climb at your power</div>
+            </div>
+            <div class="climb-link-arrow">→</div>
+        </a>
+
+    </div>
+
+    <!-- RAIL -->
+    <div class="rail">
+        <div class="rail-card">
+            <div class="rail-head">Categories</div>
+            <div class="rail-body">
+                <table class="cat-table" id="cat-table"></table>
+            </div>
+        </div>
+        <div class="rail-card">
+            <div class="rail-head">About W/kg</div>
+            <div class="rail-body">
+                <div class="tip-text">
+                    <p><strong>W/kg</strong> is the most useful single number in competitive cycling — it determines how fast you climb and how you compare across all rider sizes.</p>
+                    <p><strong>FTP</strong> (Functional Threshold Power) is roughly your 60-minute best sustainable power, or 95% of a 20-minute all-out effort. Use a recent test for an accurate number.</p>
+                    <p><strong>Body weight</strong> should be your morning weight in kit — not your bike weight. The lighter the rider at the same FTP, the faster they climb.</p>
+                    <p><strong>Categories</strong> are based on Coggan's power profile table — the standard reference used by coaches and training software worldwide. Values are FTP-based, not peak sprint power.</p>
+                    <p>W/kg matters most on climbs and sustained efforts. On flat roads, absolute watts and aerodynamics dominate; gravity is what makes power-to-weight the decisive number.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+</div>
+
+<!-- BEGIN AADS AD UNIT 2448890 -->
+<div id="frame" style="width: 100%;margin: auto;position: relative; z-index: 99998;">
+          <iframe data-aa='2448890' src='//acceptable.a-ads.com/2448890/?size=Adaptive&background_color=transparent'
+                            style='border:0; padding:0; width:70%; height:auto; overflow:hidden;display: block;margin: auto'></iframe>
+        </div>
+<!-- END AADS AD UNIT 2448890 -->
+<footer>
+    <p><span class="pdb-brand">Polka<span class="pdb-dot">DOT</span>Bike</span> — Category benchmarks based on Coggan power profile tables. FTP-based values for sustained climbing performance.</p>
+    <p style="margin-top:6px"><a href="index.html">← Gear Calculator</a> · <a href="climb.html">Climb Planner</a> · <a href="guide.html">Guide</a> · <a href="glossary.html">Glossary</a> · <a href="about.html">About</a> · <a href="contact.html">Contact</a> · <a href="privacy.html">Privacy</a> · <a href="disclaimer.html">Disclaimer</a></p>
+    <p style="margin-top:8px;font-size:0.85em;opacity:0.65">Also by me: <a href="https://digitalcredityield.com" target="_blank" rel="noopener">Digital Credit Yield</a> — Bitcoin &amp; Ethereum treasury income, explained.</p>
+    <p style="margin-top:10px"><a href="https://www.instagram.com/polkadotbike.cc/" target="_blank" rel="noopener" aria-label="Instagram" style="display:inline-flex;vertical-align:middle;margin:0 7px"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="2" y="2" width="20" height="20" rx="5.5"/><circle cx="12" cy="12" r="4.3"/><circle cx="17.4" cy="6.6" r="1.05" fill="currentColor" stroke="none"/></svg></a><a href="https://www.facebook.com/profile.php?id=61591463441672" target="_blank" rel="noopener" aria-label="Facebook" style="display:inline-flex;vertical-align:middle;margin:0 7px"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M13.5 21.9v-8.4h2.82l.42-3.27h-3.24V8.03c0-.95.26-1.6 1.63-1.6h1.74V3.55C16.55 3.47 15.6 3.4 14.5 3.4c-2.33 0-3.93 1.42-3.93 4.03v2.8H7.74v3.27h2.83v8.4h2.93z"/></svg></a></p>
+</footer>
+
+<script>
+const CATS = {
+    male: [
+        { label:'Untrained',    min:0,   max:2.0, color:'#475569', desc:'Just getting started' },
+        { label:'Recreational', min:2.0, max:2.5, color:'#64748b', desc:'Regular rider' },
+        { label:'Cat 5',        min:2.5, max:3.0, color:'#3b82f6', desc:'Entry-level racer' },
+        { label:'Cat 4',        min:3.0, max:3.5, color:'#22c55e', desc:'Competitive club rider' },
+        { label:'Cat 3',        min:3.5, max:4.0, color:'#84cc16', desc:'Strong club racer' },
+        { label:'Cat 2',        min:4.0, max:4.5, color:'#f59e0b', desc:'Semi-elite' },
+        { label:'Cat 1',        min:4.5, max:5.0, color:'#f97316', desc:'Elite amateur' },
+        { label:'Pro',          min:5.0, max:5.5, color:'#ef4444', desc:'Professional level' },
+        { label:'WorldTour',    min:5.5, max:7.0, color:'#dc2626', desc:'Top of the sport' },
+    ],
+    female: [
+        { label:'Untrained',    min:0,   max:1.5, color:'#475569', desc:'Just getting started' },
+        { label:'Recreational', min:1.5, max:2.0, color:'#64748b', desc:'Regular rider' },
+        { label:'Cat 5',        min:2.0, max:2.5, color:'#3b82f6', desc:'Entry-level racer' },
+        { label:'Cat 4',        min:2.5, max:3.0, color:'#22c55e', desc:'Competitive club rider' },
+        { label:'Cat 3',        min:3.0, max:3.5, color:'#84cc16', desc:'Strong club racer' },
+        { label:'Cat 2',        min:3.5, max:4.0, color:'#f59e0b', desc:'Semi-elite' },
+        { label:'Cat 1',        min:4.0, max:4.5, color:'#f97316', desc:'Elite amateur' },
+        { label:'Pro',          min:4.5, max:5.0, color:'#ef4444', desc:'Professional level' },
+        { label:'WorldTour',    min:5.0, max:6.5, color:'#dc2626', desc:'Top of the sport' },
+    ]
+};
+
+const LBS = 2.20462;
+let gender = 'male';
+let unit   = 'kg';
+
+/* Age grading factors — peak = 1.0 at ~30 (male) / ~28 (female).
+   Based on typical FTP decline curves for endurance athletes.
+   Interpolate linearly between these anchor points. */
+const AGE_FACTORS = {
+    male: [
+        [18,0.93],[20,0.95],[22,0.97],[25,0.98],[28,0.99],[30,1.00],
+        [35,0.97],[40,0.93],[45,0.88],[50,0.82],[55,0.75],[60,0.68],
+        [65,0.61],[70,0.54],[75,0.48],[80,0.43]
+    ],
+    female: [
+        [18,0.93],[20,0.95],[22,0.97],[25,0.99],[28,1.00],[30,1.00],
+        [35,0.96],[40,0.92],[45,0.87],[50,0.80],[55,0.73],[60,0.66],
+        [65,0.59],[70,0.52],[75,0.46],[80,0.41]
+    ]
+};
+
+function getAgeFactor(age) {
+    const pts = AGE_FACTORS[gender];
+    if (age <= pts[0][0])              return pts[0][1];
+    if (age >= pts[pts.length - 1][0]) return pts[pts.length - 1][1];
+    for (let i = 1; i < pts.length; i++) {
+        if (age <= pts[i][0]) {
+            const t = (age - pts[i-1][0]) / (pts[i][0] - pts[i-1][0]);
+            return pts[i-1][1] + t * (pts[i][1] - pts[i-1][1]);
+        }
+    }
+    return 1.0;
+}
+
+function toKg(v)    { return unit === 'lbs' ? v / LBS : v; }
+function fromKg(kg) { return unit === 'lbs' ? kg * LBS : kg; }
+function fmtWt(kg)  { return unit === 'lbs' ? (kg * LBS).toFixed(1) + ' lbs' : kg.toFixed(1) + ' kg'; }
+function unitLabel(){ return unit === 'lbs' ? 'lbs' : 'kg'; }
+
+function setGender(g) {
+    gender = g;
+    document.querySelectorAll('.gender-btn').forEach(b => b.classList.toggle('active', b.dataset.gender === g));
+    calculate();
+}
+
+function setUnit(u) {
+    const bodyKg = toKg(parseFloat(document.getElementById('weight-slider').value));
+    const bikeKg = toKg(parseFloat(document.getElementById('bike-slider').value));
+    unit = u;
+    document.querySelectorAll('.unit-btn').forEach(b => b.classList.toggle('active', b.dataset.unit === u));
+
+    const ws = document.getElementById('weight-slider');
+    const bs = document.getElementById('bike-slider');
+
+    if (u === 'lbs') {
+        ws.min = 88;  ws.max = 287; ws.step = 0.2;
+        bs.min = 8.8; bs.max = 35;  bs.step = 0.2;
+        document.getElementById('weight-range-labels').innerHTML = '<span>88 lbs</span><span>287 lbs</span>';
+        document.getElementById('bike-range-labels').innerHTML   = '<span>9 lbs</span><span>35 lbs</span>';
+    } else {
+        ws.min = 40; ws.max = 130; ws.step = 0.1;
+        bs.min = 4;  bs.max = 16;  bs.step = 0.1;
+        document.getElementById('weight-range-labels').innerHTML = '<span>40 kg</span><span>130 kg</span>';
+        document.getElementById('bike-range-labels').innerHTML   = '<span>4 kg</span><span>16 kg</span>';
+    }
+
+    ws.value = fromKg(bodyKg).toFixed(1);
+    bs.value = fromKg(bikeKg).toFixed(1);
+    updateWeightDisplays();
+    calculate();
+}
+
+function updateWeightDisplays() {
+    const bodyVal = parseFloat(document.getElementById('weight-slider').value);
+    const bikeVal = parseFloat(document.getElementById('bike-slider').value);
+    const u = unitLabel();
+    document.getElementById('weight-input').value   = bodyVal.toFixed(1);
+    document.getElementById('bike-input').value     = bikeVal.toFixed(1);
+    document.getElementById('weight-unit-lbl').textContent = u;
+    document.getElementById('bike-unit-lbl').textContent   = u;
+}
+
+function weightInputChange(which) {
+    const inputId  = which === 'weight' ? 'weight-input' : 'bike-input';
+    const sliderId = which === 'weight' ? 'weight-slider' : 'bike-slider';
+    const input = document.getElementById(inputId);
+    const s     = document.getElementById(sliderId);
+    let v = parseFloat(input.value);
+    if (isNaN(v)) { input.value = s.value; return; }
+    v = Math.min(parseFloat(s.max), Math.max(parseFloat(s.min), v));
+    v = Math.round(v / parseFloat(s.step)) * parseFloat(s.step);
+    input.value = v.toFixed(1);
+    s.value = v;
+    calculate();
+}
+
+function drawFTPChart(ftp, bodyKg, catColor) {
+    const canvas = document.getElementById('ftp-chart');
+    if (!canvas) return;
+    const W = canvas.offsetWidth;
+    if (!W) return;
+    const dpr = window.devicePixelRatio || 1;
+    const H = 232;
+    canvas.width  = Math.round(W * dpr);
+    canvas.height = Math.round(H * dpr);
+    canvas.style.height = H + 'px';
+    const ctx = canvas.getContext('2d');
+    ctx.scale(dpr, dpr);
+
+    const PAD = { top: 22, right: 62, bottom: 32, left: 44 };
+    const cW = W - PAD.left - PAD.right;
+    const cH = H - PAD.top  - PAD.bottom;
+    const WMin = 40, WMax = 130, FMin = 60, FMax = 500;
+    const xOf = kg => PAD.left + (kg - WMin) / (WMax - WMin) * cW;
+    const yOf = w  => PAD.top  + cH - (w  - FMin) / (FMax - FMin) * cH;
+    const cats = CATS[gender];
+
+    /* clip region */
+    ctx.save();
+    ctx.beginPath();
+    ctx.rect(PAD.left, PAD.top, cW, cH);
+    ctx.clip();
+
+    /* category band fills */
+    cats.forEach(c => {
+        ctx.beginPath();
+        ctx.moveTo(xOf(WMin), yOf(c.min * WMin));
+        ctx.lineTo(xOf(WMax), yOf(c.min * WMax));
+        ctx.lineTo(xOf(WMax), yOf(c.max * WMax));
+        ctx.lineTo(xOf(WMin), yOf(c.max * WMin));
+        ctx.closePath();
+        ctx.fillStyle = c.color + '1a';
+        ctx.fill();
+    });
+
+    /* subtle gridlines */
+    ctx.strokeStyle = 'rgba(255,255,255,0.04)';
+    ctx.lineWidth = 1;
+    [100, 200, 300, 400].forEach(f => {
+        ctx.beginPath(); ctx.moveTo(PAD.left, yOf(f)); ctx.lineTo(PAD.left + cW, yOf(f)); ctx.stroke();
+    });
+
+    /* W/kg threshold lines */
+    cats.forEach(c => {
+        if (c.min === 0) return;
+        let x1 = WMin, y1 = c.min * WMin, x2 = WMax, y2 = c.min * WMax;
+        if (y1 > FMax) { x1 = FMax / c.min; y1 = FMax; }
+        if (y2 > FMax) { x2 = FMax / c.min; y2 = FMax; }
+        if (y1 < FMin) { x1 = FMin / c.min; y1 = FMin; }
+        if (y2 < FMin) { x2 = FMin / c.min; y2 = FMin; }
+        if (x1 > WMax || x2 < WMin) return;
+        ctx.beginPath();
+        ctx.moveTo(xOf(x1), yOf(y1));
+        ctx.lineTo(xOf(x2), yOf(y2));
+        ctx.strokeStyle = c.color;
+        ctx.lineWidth = 1.5;
+        ctx.setLineDash([]);
+        ctx.stroke();
+    });
+
+    /* crosshairs */
+    const ux = xOf(bodyKg), uy = yOf(Math.min(Math.max(ftp, FMin), FMax));
+    ctx.strokeStyle = 'rgba(255,255,255,0.18)';
+    ctx.lineWidth = 1;
+    ctx.setLineDash([4, 4]);
+    ctx.beginPath(); ctx.moveTo(PAD.left, uy); ctx.lineTo(ux, uy); ctx.stroke();
+    ctx.beginPath(); ctx.moveTo(ux, uy);       ctx.lineTo(ux, PAD.top + cH); ctx.stroke();
+    ctx.setLineDash([]);
+
+    ctx.restore(); /* end clip */
+
+    /* category labels */
+    cats.forEach(c => {
+        if (c.min === 0) return;
+        const yAtRight = c.min * WMax;
+        ctx.font = '600 9px Inter, system-ui, sans-serif';
+        if (yAtRight <= FMax && yAtRight >= FMin) {
+            ctx.fillStyle = c.color;
+            ctx.textAlign = 'left';
+            ctx.fillText(c.label, xOf(WMax) + 5, yOf(yAtRight) + 3);
+        } else if (yAtRight > FMax) {
+            const exitX = FMax / c.min;
+            if (exitX >= WMin && exitX <= WMax) {
+                ctx.fillStyle = c.color;
+                ctx.textAlign = 'center';
+                ctx.fillText(c.label, xOf(exitX), PAD.top - 5);
+            }
+        }
+    });
+
+    /* axis labels */
+    ctx.font = '10px Inter, system-ui, sans-serif';
+    ctx.fillStyle = '#94a3b8';
+    ctx.textAlign = 'right';
+    [100, 200, 300, 400, 500].forEach(f => ctx.fillText(f, PAD.left - 6, yOf(f) + 3));
+    ctx.save();
+    ctx.translate(11, PAD.top + cH / 2);
+    ctx.rotate(-Math.PI / 2);
+    ctx.textAlign = 'center';
+    ctx.font = '600 9px Inter, system-ui, sans-serif';
+    ctx.fillStyle = '#94a3b8';
+    ctx.fillText('Power (W)', 0, 0);
+    ctx.restore();
+
+    ctx.textAlign = 'center';
+    ctx.font = '10px Inter, system-ui, sans-serif';
+    ctx.fillStyle = '#94a3b8';
+    [50, 60, 70, 80, 90, 100, 110, 120].forEach(kg => {
+        ctx.fillText(unit === 'lbs' ? Math.round(kg * LBS) : kg, xOf(kg), PAD.top + cH + 16);
+    });
+    ctx.fillStyle = '#64748b';
+    ctx.font = '600 9px Inter, system-ui, sans-serif';
+    ctx.fillText(unit === 'lbs' ? 'body weight (lbs)' : 'body weight (kg)', PAD.left + cW / 2, PAD.top + cH + 29);
+
+    /* chart border */
+    ctx.strokeStyle = 'rgba(255,255,255,0.07)';
+    ctx.lineWidth = 1;
+    ctx.strokeRect(PAD.left, PAD.top, cW, cH);
+
+    /* user dot */
+    const g = ctx.createRadialGradient(ux, uy, 0, ux, uy, 14);
+    g.addColorStop(0, catColor + '50');
+    g.addColorStop(1, catColor + '00');
+    ctx.beginPath(); ctx.arc(ux, uy, 14, 0, Math.PI * 2); ctx.fillStyle = g; ctx.fill();
+    ctx.beginPath(); ctx.arc(ux, uy,  7, 0, Math.PI * 2); ctx.fillStyle = '#fff'; ctx.fill();
+    ctx.beginPath(); ctx.arc(ux, uy,  4, 0, Math.PI * 2); ctx.fillStyle = catColor; ctx.fill();
+}
+
+function getCat(wkg) {
+    const cats = CATS[gender];
+    for (let i = cats.length - 1; i >= 0; i--) {
+        if (wkg >= cats[i].min) return { cat: cats[i], idx: i };
+    }
+    return { cat: cats[0], idx: 0 };
+}
+
+function calculate() {
+    const ftp    = parseInt(document.getElementById('ftp-slider').value);
+    const bodyKg = toKg(parseFloat(document.getElementById('weight-slider').value));
+    const bikeKg = toKg(parseFloat(document.getElementById('bike-slider').value));
+    const sysKg  = +(bodyKg + bikeKg).toFixed(1);
+    const wkg    = ftp / bodyKg;
+    const cats   = CATS[gender];
+    const { cat, idx } = getCat(wkg);
+
+    const GAUGE_MIN = 1.0;
+    const GAUGE_MAX = cats[cats.length - 1].max;
+    const range = GAUGE_MAX - GAUGE_MIN;
+
+    // Hero number
+    document.getElementById('wkg-number').innerHTML =
+        `<span style="color:${cat.color}">${wkg.toFixed(2)}</span><span class="wkg-unit">W/kg</span>`;
+
+    const badge = document.getElementById('wkg-cat-badge');
+    badge.textContent       = cat.label;
+    badge.style.color       = cat.color;
+    badge.style.background  = cat.color + '22';
+    badge.style.borderColor = cat.color + '55';
+    badge.style.display     = 'inline-block';
+    document.getElementById('wkg-cat-desc').textContent = cat.desc;
+
+    // Stats
+    const bodyDisplay = unit === 'lbs' ? (bodyKg * LBS).toFixed(1) : bodyKg.toFixed(1);
+    document.getElementById('stat-ftp').innerHTML    = `${ftp}<span class="u">W</span>`;
+    document.getElementById('stat-weight').innerHTML = `${bodyDisplay}<span class="u">${unitLabel()}</span>`;
+    const catEl = document.getElementById('stat-cat');
+    catEl.textContent = cat.label;
+    catEl.style.color = cat.color;
+
+    // Gauge
+    const barEl = document.getElementById('gauge-bar');
+    const lblEl = document.getElementById('gauge-labels');
+    barEl.innerHTML = '';
+    lblEl.innerHTML = '';
+    cats.forEach((c, i) => {
+        const segMin = Math.max(c.min, GAUGE_MIN);
+        const segMax = Math.min(c.max, GAUGE_MAX);
+        if (segMax <= segMin) return;
+        const pct = ((segMax - segMin) / range * 100).toFixed(2);
+        const seg = document.createElement('div');
+        seg.className        = 'gauge-segment';
+        seg.style.flex       = `0 0 ${pct}%`;
+        seg.style.background = c.color;
+        seg.title            = `${c.label}: ${c.min}–${c.max} W/kg`;
+        barEl.appendChild(seg);
+        const lbl = document.createElement('div');
+        lbl.className  = 'gauge-lbl' + (i === idx ? ' current' : '');
+        lbl.style.flex = `0 0 ${pct}%`;
+        lbl.textContent = c.label;
+        lblEl.appendChild(lbl);
+    });
+
+    // Marker
+    const clampedWkg = Math.min(Math.max(wkg, GAUGE_MIN), GAUGE_MAX);
+    document.getElementById('gauge-marker').style.left =
+        ((clampedWkg - GAUGE_MIN) / range * 100).toFixed(1) + '%';
+
+    // Next level
+    const nextContent = document.getElementById('next-content');
+    if (idx >= cats.length - 1) {
+        nextContent.innerHTML = `<div class="next-peak">
+            <div class="next-peak-icon">🏆</div>
+            <div class="next-peak-text">WorldTour level</div>
+            <div class="next-peak-sub">You're at the very top of the sport</div>
+        </div>`;
+    } else {
+        const next        = cats[idx + 1];
+        const wattsNeeded = Math.ceil(next.min * bodyKg) - ftp;
+        const kgToLose    = +(bodyKg - ftp / next.min).toFixed(1);
+        const wtToLose    = unit === 'lbs' ? (kgToLose * LBS).toFixed(1) : kgToLose.toFixed(1);
+        const u           = unitLabel();
+        nextContent.innerHTML = `
+            <div class="next-intro">To reach <strong style="color:#fff">${next.label}</strong> (${next.min} W/kg):</div>
+            <div class="next-grid">
+                <div class="next-item">
+                    <div class="next-item-head">Raise your FTP</div>
+                    <div class="next-item-val" style="color:${next.color}">+${wattsNeeded}<span class="u" style="color:${next.color}">W</span></div>
+                    <div class="next-item-constraint">keeping weight at <strong>${fmtWt(bodyKg)}</strong></div>
+                </div>
+                <div class="next-item">
+                    <div class="next-item-head">Lose body weight</div>
+                    <div class="next-item-val" style="color:${next.color}">−${wtToLose}<span class="u" style="color:${next.color}">${u}</span></div>
+                    <div class="next-item-constraint">keeping FTP at <strong>${ftp} W</strong></div>
+                </div>
+            </div>`;
+    }
+
+    // Age rating
+    const age = parseInt(document.getElementById('age-slider').value);
+    const af  = getAgeFactor(age);
+    const adjWkg = wkg / af;
+    const { cat: aCat, idx: aIdx } = getCat(adjWkg);
+    const ageCtx = document.getElementById('age-ctx');
+    if (age <= 32) {
+        ageCtx.innerHTML = `Age ${age} — at or near peak cycling age. Your category reflects your current ability.`;
+    } else {
+        const ageQual = aIdx >= 7 ? 'elite level' :
+                        aIdx >= 6 ? 'outstanding' :
+                        aIdx >= 5 ? 'excellent' :
+                        aIdx >= 4 ? 'very strong' :
+                        aIdx >= 3 ? 'solid' :
+                        aIdx >= 2 ? 'fair' : 'developing';
+        ageCtx.innerHTML = `Age ${age} · <strong style="color:${aCat.color}">${aCat.label} for your age group</strong> · ${ageQual} for a masters rider`;
+    }
+    ageCtx.style.display = 'block';
+
+    // FTP vs Weight chart
+    drawFTPChart(ftp, bodyKg, cat.color);
+
+    // Climb planner link — always passes kg regardless of display unit
+    document.getElementById('climb-link').href = `climb.html?pw=${ftp}&wt=${sysKg}`;
+    document.getElementById('climb-link-sub').textContent =
+        `${ftp}W · ${fmtWt(bodyKg)} body + ${fmtWt(bikeKg)} bike = ${fmtWt(sysKg)} system weight`;
+
+    // Rail categories table
+    document.getElementById('cat-table').innerHTML = cats.map((c, i) => `
+        <tr>
+            <td><span class="cat-dot" style="background:${c.color}"></span><span class="cat-name${i === idx ? ' current' : ''}">${c.label}</span></td>
+            <td class="cat-range">${c.min === 0 ? '< ' + c.max : c.min + ' – ' + (c === cats[cats.length-1] ? c.max+'+' : c.max)}</td>
+        </tr>`).join('');
+
+    // Persist in kg always
+    try {
+        const sh = JSON.parse(localStorage.getItem('cg_shared') || '{}');
+        sh.pw     = ftp;
+        sh.wt     = sysKg;
+        sh.bwt    = +bodyKg.toFixed(2);
+        sh.bkw    = +bikeKg.toFixed(2);
+        sh.gender = gender;
+        sh.wunit  = unit;
+        sh.age    = parseInt(document.getElementById('age-slider').value);
+        localStorage.setItem('cg_shared', JSON.stringify(sh));
+    } catch(e) {}
+}
+
+(function init() {
+    let ftp = 200, bodyKg = 70, bikeKg = 8, savedGender = 'male', savedUnit = 'kg', savedAge = 35;
+    try {
+        const sh = JSON.parse(localStorage.getItem('cg_shared') || '{}');
+        if (sh.pw)   ftp    = Math.min(500, Math.max(60,  parseFloat(sh.pw)));
+        const rawBody = sh.bwt || sh.wt;
+        if (rawBody) bodyKg = Math.min(130, Math.max(40,  parseFloat(rawBody)));
+        if (sh.bkw)  bikeKg = Math.min(16,  Math.max(4,   parseFloat(sh.bkw)));
+        if (sh.gender && ['male','female'].includes(sh.gender)) savedGender = sh.gender;
+        if (sh.wunit  && ['kg','lbs'].includes(sh.wunit))       savedUnit   = sh.wunit;
+        if (sh.age)  savedAge = Math.min(80, Math.max(18, parseInt(sh.age)));
+    } catch(e) {}
+
+    const p = new URLSearchParams(location.search);
+    if (p.get('pw')) ftp    = Math.min(500, Math.max(60,  parseFloat(p.get('pw'))));
+    if (p.get('wt')) bodyKg = Math.min(130, Math.max(40,  parseFloat(p.get('wt'))));
+
+    // Gender
+    gender = savedGender;
+    document.querySelectorAll('.gender-btn').forEach(b => b.classList.toggle('active', b.dataset.gender === savedGender));
+
+    // Weight unit — update slider ranges before setting values
+    unit = savedUnit;
+    document.querySelectorAll('.unit-btn').forEach(b => b.classList.toggle('active', b.dataset.unit === savedUnit));
+    const ws = document.getElementById('weight-slider');
+    const bs = document.getElementById('bike-slider');
+    if (savedUnit === 'lbs') {
+        ws.min = 88;  ws.max = 287; ws.step = 0.2;
+        bs.min = 8.8; bs.max = 35;  bs.step = 0.2;
+        document.getElementById('weight-range-labels').innerHTML = '<span>88 lbs</span><span>287 lbs</span>';
+        document.getElementById('bike-range-labels').innerHTML   = '<span>9 lbs</span><span>35 lbs</span>';
+    }
+
+    // Age
+    document.getElementById('age-slider').value = savedAge;
+    document.getElementById('age-display').innerHTML = savedAge + '<span>yrs</span>';
+
+    // FTP
+    document.getElementById('ftp-slider').value = ftp;
+    document.getElementById('ftp-display').innerHTML = ftp + '<span>W</span>';
+
+    // Weights — convert from kg to whichever unit is active
+    ws.value = fromKg(bodyKg).toFixed(1);
+    bs.value = fromKg(bikeKg).toFixed(1);
+
+    updateWeightDisplays();
+    calculate();
+})();
+
+window.addEventListener('resize', calculate);
+</script>
+</body>
+</html>

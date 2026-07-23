@@ -1,0 +1,1604 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cycling Climb Planner — Gradient &amp; Gearing · Polka Dot Bike</title>
+    <meta name="description" content="Climb Planner for road cyclists: enter a gradient and length, your weight and gearing, and see the cadence, speed and watts per kilo you'll need to get up it.">
+    <link rel="canonical" href="https://polkadotbike.com/climb.html">
+    <meta name="robots" content="index, follow">
+    <meta name="theme-color" content="#ef4444">
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="Polka Dot Bike">
+    <meta property="og:title" content="Cycling Climb Planner — Gradient &amp; Gearing · Polka Dot Bike">
+    <meta property="og:description" content="Climb Planner for road cyclists: enter a gradient and length, your weight and gearing, and see the cadence, speed and watts per kilo you'll need to get up it.">
+    <meta property="og:url" content="https://polkadotbike.com/climb.html">
+    <meta property="og:image" content="https://polkadotbike.com/og-card.png">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Cycling Climb Planner — Gradient &amp; Gearing · Polka Dot Bike">
+    <meta name="twitter:description" content="Climb Planner for road cyclists: enter a gradient and length, your weight and gearing, and see the cadence, speed and watts per kilo you'll need to get up it.">
+    <meta name="twitter:image" content="https://polkadotbike.com/og-card.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=IBM+Plex+Sans:wght@600;700&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
+    <style>
+        :root {
+            --accent:       #3b82f6;
+            --accent-light: #93c5fd;
+            --glass:        rgba(4, 9, 26, 0.97);
+            --border:       rgba(255,255,255,0.08);
+            --text:         #e8edf5;
+            --muted:        #64748b;
+            --sec:          #94a3b8;
+            --green:        #22c55e;
+            --amber:        #f59e0b;
+            --red:          #ef4444;
+        }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { font-family: 'Inter', system-ui, sans-serif; min-height: 100vh; color: var(--text); overflow-x: hidden; background: #fff; }
+
+        /* ── POLKA DOT BACKDROP ── */
+        .bg-scene { position: fixed; inset: 0; z-index: 0; pointer-events: none; overflow: hidden; }
+        .bg-sky { position: absolute; inset: 0; background: #fff; }
+        .bg-mountains {
+            position: absolute; inset: 0;
+            background-image:
+                radial-gradient(circle, rgba(239,68,68,0.22) 28%, transparent 28%),
+                radial-gradient(circle, rgba(239,68,68,0.22) 28%, transparent 28%);
+            background-size: 44px 44px;
+            background-position: 0 0, 22px 22px;
+        }
+
+
+
+        /* ── HEADER ── */
+        header { position: sticky; top: 0; z-index: 100; background: rgba(4,9,26,0.85); backdrop-filter: blur(16px); border-bottom: 1px solid var(--border); padding: 0 24px; height: 54px; display: flex; align-items: center; justify-content: space-between; }
+        .logo { font-size: 19px; font-weight: 900; letter-spacing: -0.5px; color: #fff; text-decoration: none; display: inline-flex; align-items: center; gap: 3px; }
+        .logo span { color: var(--accent); }
+        .logo-dot-svg { width: 32px; height: 32px; flex-shrink: 0; }
+        nav { display: flex; gap: 2px; align-items: center; }
+        nav a { color: var(--sec); text-decoration: none; font-size: 13px; font-weight: 500; padding: 6px 13px; border-radius: 6px; transition: all 0.15s; text-align: center; line-height: 1.2; }
+        nav a:hover { color: #fff; background: rgba(255,255,255,0.06); }
+        nav a.active { color: var(--accent); background: rgba(59,130,246,0.12); }
+        @media (max-width: 768px) { header { padding: 0 12px; } nav a { font-size: 11px; padding: 4px 7px; } }
+
+        /* ── HERO ── */
+        .hero { position: relative; z-index: 1; text-align: center; padding: 40px 20px 28px; }
+        .hero h1 { font-size: clamp(28px,5vw,48px); font-weight: 900; letter-spacing: -1.5px; line-height: 1.1; background: linear-gradient(135deg,#0f172a 0%,#1e3a5f 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; filter: drop-shadow(0 1px 4px rgba(255,255,255,0.8)); }
+        .hero p { margin-top: 10px; font-size: 15px; color: rgba(15,23,42,0.72); max-width: 520px; margin-left: auto; margin-right: auto; }
+
+        /* ── LAYOUT ── */
+        .container { position: relative; z-index: 1; max-width: 1320px; margin: 0 auto; padding: 0 20px 60px; }
+        .calc-grid { display: grid; grid-template-columns: 290px 1fr 270px; gap: 18px; align-items: start; }
+        @media (max-width: 1100px) { .calc-grid { grid-template-columns: 280px 1fr; } .rail { display: none; } }
+        @media (max-width: 720px)  { .calc-grid { grid-template-columns: 1fr; } .input-panel { position: static; } :root { --muted: #94a3b8; } }
+
+        /* ── GLASS ── */
+        .glass { background: var(--glass); border: 1px solid rgba(255,255,255,0.12); border-radius: 16px; }
+
+        /* ── INPUT PANEL ── */
+        .input-panel { overflow: hidden; }
+        @media (min-width: 721px) {
+            .input-panel { position: sticky; top: 70px; max-height: calc(100vh - 82px); overflow-y: auto; overflow-x: hidden; }
+            .input-panel { scrollbar-width: none; }
+            .input-panel::-webkit-scrollbar { display: none; }
+        }
+        .panel-head { padding: 13px 18px; font-size: 10px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); border-bottom: 1px solid var(--border); }
+        .disc-tabs { display: grid; grid-template-columns: 1fr 1fr 1fr; border-bottom: 1px solid var(--border); }
+        .disc-tab { padding: 10px 6px; text-align: center; cursor: pointer; font-size: 10px; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; color: var(--muted); background: transparent; border: none; border-right: 1px solid var(--border); border-bottom: 2px solid transparent; transition: all 0.2s; font-family: inherit; }
+        .disc-tab:last-child { border-right: none; }
+        .disc-tab.active { color: #e2e8f0; border-bottom-color: rgba(255,255,255,0.4); background: rgba(255,255,255,0.04); }
+        .brand-tabs { display: flex; border-bottom: 1px solid var(--border); }
+        .brand-tab { flex: 1; padding: 12px 6px; text-align: center; cursor: pointer; font-size: 11px; font-weight: 700; letter-spacing: 0.04em; color: var(--muted); background: transparent; border: none; border-right: 1px solid var(--border); border-bottom: 2px solid transparent; transition: all 0.2s; font-family: inherit; }
+        .brand-tab:last-child { border-right: none; }
+        .brand-tab.active[data-brand="shimano"]    { color: #60a5fa; background: rgba(59,130,246,0.1);  border-bottom-color: #3b82f6; }
+        .brand-tab.active[data-brand="sram"]       { color: #f87171; background: rgba(239,68,68,0.1);   border-bottom-color: #ef4444; }
+        .brand-tab.active[data-brand="campagnolo"] { color: #fbbf24; background: rgba(245,158,11,0.1);  border-bottom-color: #f59e0b; }
+        .brand-tab.active[data-brand="custom"]     { color: #c4b5fd; background: rgba(139,92,246,0.12); border-bottom-color: #8b5cf6; }
+        .brand-tab[data-brand="custom"]            { font-size: 11px; }
+        /* Custom gearing form */
+        .cust-section { display:none; flex-direction:column; gap:16px; }
+        .cust-mode-toggle { display:grid; grid-template-columns:1fr 1fr; background:rgba(255,255,255,0.04); border:1px solid rgba(255,255,255,0.08); border-radius:9px; overflow:hidden; }
+        .cust-mode-btn { padding:9px; background:transparent; border:none; color:var(--muted); font-size:12px; font-weight:700; font-family:inherit; cursor:pointer; text-align:center; transition:all 0.15s; }
+        .cust-mode-btn.active { background:#8b5cf6; color:#fff; }
+        .cust-ring-row { display:grid; grid-template-columns:1fr 16px 1fr; gap:4px; align-items:end; }
+        .cust-sep { font-size:15px; color:var(--muted); text-align:center; padding-bottom:9px; }
+        .cust-ring-cell { display:flex; flex-direction:column; gap:4px; }
+        .cust-ring-cell label { font-size:10px; font-weight:600; color:var(--sec); letter-spacing:.06em; text-transform:uppercase; text-align:center; }
+        .cust-spinner { display:flex; align-items:center; background:rgba(255,255,255,0.05); border:1px solid rgba(255,255,255,0.1); border-radius:9px; overflow:hidden; }
+        .cust-spin-btn { width:30px; height:40px; background:transparent; border:none; color:var(--muted); font-size:18px; cursor:pointer; font-family:inherit; transition:all 0.1s; line-height:1; }
+        .cust-spin-btn:hover { background:rgba(255,255,255,0.08); color:#fff; }
+        .cust-spin-val { flex:1; text-align:center; font-size:19px; font-weight:800; color:#fff; line-height:1; }
+        .cust-spin-unit { font-size:9px; color:var(--muted); font-weight:400; }
+        input.cust-cass-input { width:100%; background:rgba(255,255,255,0.05); border:1px solid rgba(255,255,255,0.1); border-radius:9px; color:var(--text); padding:9px 12px; font-size:13px; font-family:'Inter',monospace,system-ui; transition:border-color 0.15s; }
+        input.cust-cass-input:focus { outline:none; border-color:#8b5cf6; }
+        .cust-hint { margin-top:5px; font-size:11px; color:var(--muted); min-height:14px; }
+        .cust-hint.ok  { color:#22c55e; }
+        .cust-hint.err { color:#ef4444; }
+        .form-body { padding: 18px; display: flex; flex-direction: column; gap: 16px; }
+        .form-group label { display: block; font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: var(--muted); margin-bottom: 7px; }
+        select { width: 100%; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); border-radius: 9px; color: var(--text); padding: 9px 32px 9px 12px; font-size: 13px; font-family: inherit; appearance: none; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='10' fill='%2364748b' viewBox='0 0 16 16'%3E%3Cpath d='M7.247 11.14L2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 12px center; cursor: pointer; transition: border-color 0.15s; }
+        select:focus { outline: none; border-color: var(--accent); }
+        select option { background: #0d1635; }
+        .cr-grid { display: grid; grid-template-columns: repeat(auto-fill,minmax(62px,1fr)); gap: 6px; }
+        .cr-btn { padding: 8px 4px; background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.08); border-radius: 8px; color: var(--sec); font-size: 12px; font-weight: 600; font-family: inherit; cursor: pointer; text-align: center; transition: all 0.15s; }
+        .cr-btn:hover  { border-color: rgba(255,255,255,0.25); color: #fff; }
+        .cr-btn.active { background: rgba(59,130,246,0.15); border-color: var(--accent); color: #fff; }
+        .row-between { display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; }
+        .big-val { font-size: 22px; font-weight: 800; color: #fff; line-height: 1; }
+        .big-val span { font-size: 11px; font-weight: 400; color: var(--muted); margin-left: 2px; }
+        input[type="range"] { width: 100%; height: 3px; background: rgba(255,255,255,0.1); border-radius: 2px; appearance: none; cursor: pointer; }
+        input[type="range"]::-webkit-slider-thumb { appearance: none; width: 18px; height: 18px; border-radius: 50%; background: var(--accent); cursor: pointer; }
+        .range-labels { display: flex; justify-content: space-between; margin-top: 5px; color: var(--muted); font-size: 10px; }
+        .pos-tabs { display: flex; background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.08); border-radius: 9px; overflow: hidden; }
+        .pos-btn { flex: 1; padding: 7px 4px; background: transparent; border: none; color: var(--muted); font-size: 11px; font-weight: 600; font-family: inherit; cursor: pointer; transition: all 0.15s; }
+        .pos-btn.active { background: var(--accent); color: #fff; }
+        .wt-unit-toggle, .dst-unit-toggle { display: flex; background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.08); border-radius: 6px; overflow: hidden; }
+        .wt-unit-btn, .dst-unit-btn { padding: 3px 9px; background: transparent; border: none; color: var(--muted); font-size: 10px; font-weight: 700; font-family: inherit; cursor: pointer; transition: all 0.15s; }
+        .wt-unit-btn.active, .dst-unit-btn.active { background: rgba(255,255,255,0.14); color: #fff; }
+        .pos-cda { display: block; font-size: 8px; font-weight: 500; letter-spacing: 0; opacity: 0.65; margin-top: 2px; }
+        .big-val-wrap { display: inline-flex; align-items: baseline; gap: 2px; }
+        .big-val-input { font-size: 22px; font-weight: 800; color: #fff; background: transparent; border: none; border-bottom: 1px solid rgba(255,255,255,0.18); width: 72px; text-align: right; font-family: inherit; padding: 0 0 1px; outline: none; -moz-appearance: textfield; cursor: text; }
+        .big-val-input::-webkit-outer-spin-button, .big-val-input::-webkit-inner-spin-button { -webkit-appearance: none; }
+        .big-val-input:focus { border-bottom-color: var(--accent); }
+        .big-val-unit { font-size: 11px; font-weight: 400; color: var(--muted); }
+
+        /* ── RESULTS ── */
+        .results { display: flex; flex-direction: column; gap: 16px; }
+
+        /* Stats */
+        .stats-row { display: grid; grid-template-columns: repeat(3,1fr); gap: 12px; }
+        .stat-card { padding: 16px 18px; border-radius: 14px; background: var(--glass); border: 1px solid rgba(255,255,255,0.12); }
+        .stat-label { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: var(--muted); margin-bottom: 6px; }
+        .stat-val {font-family:'IBM Plex Sans',Inter,system-ui,sans-serif; font-size: 24px; font-weight: 700; letter-spacing: 0; line-height: 1; }
+        .stat-val .u { font-size: 12px; font-weight: 400; color: var(--sec); letter-spacing: 0; margin-left: 3px; }
+        .stat-green { color: #4ade80; }
+        .stat-red   { color: #f87171; }
+        @media (max-width: 600px) { .stats-row { grid-template-columns: 1fr 1fr; } }
+
+        /* ── VERDICT ── */
+        .verdict-card { padding: 16px 20px; border-radius: 14px; border: 1px solid; display: flex; align-items: center; gap: 16px; }
+        .verdict-card.v-yes  { background: var(--glass); border-color: rgba(34,197,94,0.40); }
+        .verdict-card.v-warn { background: var(--glass); border-color: rgba(245,158,11,0.45); }
+        .verdict-card.v-no   { background: var(--glass); border-color: rgba(239,68,68,0.40); }
+        .verdict-icon { font-size: 30px; flex-shrink: 0; width: 42px; text-align: center; }
+        .verdict-body { flex: 1; min-width: 0; }
+        .verdict-main { font-size: 15px; font-weight: 700; }
+        .verdict-card.v-yes  .verdict-main { color: #4ade80; }
+        .verdict-card.v-warn .verdict-main { color: #fbbf24; }
+        .verdict-card.v-no   .verdict-main { color: #f87171; }
+        .verdict-meta { font-size: 12px; color: var(--sec); margin-top: 4px; line-height: 1.5; }
+
+        /* ── POWER CHART ── */
+        .chart-card { padding: 22px 24px 16px; border-radius: 16px; background: var(--glass); border: 1px solid rgba(255,255,255,0.12); }
+        .chart-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px; flex-wrap: wrap; gap: 10px; }
+        .chart-title    { font-size: 13px; font-weight: 700; color: #fff; }
+        .chart-subtitle { font-size: 11px; color: var(--muted); margin-top: 2px; }
+        .chart-legend { display: flex; gap: 14px; flex-wrap: wrap; align-items: center; }
+        .share-btn { padding: 6px 12px; background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.12); border-radius: 8px; color: var(--muted); font-size: 11px; font-weight: 600; font-family: inherit; cursor: pointer; transition: all 0.2s; white-space: nowrap; margin-left: auto; }
+        .share-btn:hover { background: rgba(255,255,255,0.12); color: #e2e8f0; }
+        .share-btn.copied { background: rgba(34,197,94,0.15); border-color: #22c55e; color: #22c55e; }
+        #print-overlay{display:none;position:fixed;inset:0;z-index:500;background:rgba(0,0,0,0.88);padding:20px;overflow-y:auto;align-items:flex-start;justify-content:center}
+        #print-modal{background:#fff;border-radius:14px;padding:28px 32px;max-width:860px;width:100%;margin:auto;color:#1e293b}
+        .rpt-header{display:flex;align-items:center;justify-content:space-between;padding-bottom:14px;border-bottom:2px solid #e2e8f0;margin-bottom:14px}
+        .rpt-logo{font-size:20px;font-weight:900;letter-spacing:-.5px;color:#1e293b;display:inline-flex;align-items:center;gap:3px}
+        .rpt-logo-dot{width:26px;height:26px;flex-shrink:0}
+        .rpt-heading{font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:#64748b}
+        .rpt-meta{font-size:12px;color:#475569;background:#f8fafc;border:1px solid #e2e8f0;border-radius:8px;padding:9px 14px;margin-bottom:16px;line-height:1.7}
+        .rpt-meta strong{color:#1e293b}
+        .rpt-chart-bg{background:#f8fafc;border:1px solid #e2e8f0;border-radius:10px;padding:12px;margin-bottom:18px;overflow:hidden}
+        .rpt-chart-bg svg{width:100%;height:auto;display:block}
+        .rpt-table{width:100%;border-collapse:collapse;font-size:11px;margin-bottom:4px}
+        .rpt-table th{background:#f1f5f9;padding:5px 7px;font-weight:700;color:#334155;text-align:center;border:1px solid #e2e8f0;white-space:nowrap}
+        .rpt-table td{padding:5px 7px;text-align:center;border:1px solid #e2e8f0;vertical-align:middle}
+        .rpt-table td.cross{opacity:.35}
+        .rpt-ring-lbl{text-align:left !important;white-space:nowrap;font-weight:700;font-size:11px}
+        .rpt-cog{font-size:12px;font-weight:700;color:#1e293b}
+        .rpt-spd{font-size:11px;font-weight:600;color:#3b82f6}
+        .rpt-dev{font-size:10px;color:#64748b}
+        .rpt-pwr{font-size:11px;font-weight:600}
+        .rpt-cross-note{font-size:10px;color:#94a3b8;margin-top:6px}
+        .print-actions{display:flex;justify-content:flex-end;gap:10px;margin-top:20px;padding-top:16px;border-top:1px solid #e2e8f0}
+        .print-close-btn{padding:8px 18px;background:#f1f5f9;border:1px solid #e2e8f0;border-radius:8px;color:#475569;font-size:12px;font-weight:600;font-family:inherit;cursor:pointer}
+        .print-print-btn{padding:8px 18px;background:#3b82f6;border:1px solid #2563eb;border-radius:8px;color:#fff;font-size:12px;font-weight:700;font-family:inherit;cursor:pointer}
+        @media print{
+            @page{margin:12mm}
+            body>*:not(#print-overlay){display:none !important}
+            #print-overlay{display:block !important;position:static !important;background:none !important;padding:0 !important;overflow:visible !important}
+            #print-modal{box-shadow:none !important;border-radius:0 !important;max-width:100% !important;padding:16px !important}
+            .print-actions{display:none !important}
+        }
+        .cl-item { display: flex; align-items: center; gap: 6px; font-size: 11px; color: var(--muted); }
+        .cl-line { width: 20px; height: 3px; border-radius: 2px; }
+        .chart-wrap { position: relative; width: 100%; }
+        .chart-wrap svg { width: 100%; height: auto; display: block; overflow: visible; }
+        .chart-tooltip { position: fixed; background: rgba(6,12,30,0.97); border: 1px solid rgba(255,255,255,0.14); border-radius: 10px; padding: 10px 14px; pointer-events: none; white-space: nowrap; z-index: 200; opacity: 0; transition: opacity 0.1s; box-shadow: 0 10px 30px rgba(0,0,0,0.6); }
+        .chart-tooltip.show { opacity: 1; }
+        .ct-ring   { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 4px; }
+        .ct-speed  {font-family:'IBM Plex Sans',Inter,system-ui,sans-serif; font-size: 20px; font-weight: 700; letter-spacing: 0; line-height: 1; margin-bottom: 3px; }
+        .ct-detail { font-size: 11px; color: var(--muted); }
+        .chart-empty { text-align: center; padding: 60px 20px; color: var(--muted); font-size: 14px; }
+
+        /* ── ACHIEVABILITY CARDS ── */
+        .achieve-card { border-radius: 16px; background: var(--glass); border: 1px solid rgba(255,255,255,0.12); overflow: hidden; }
+        .achieve-head { padding: 14px 20px; border-bottom: 1px solid var(--border); }
+        .achieve-title { font-size: 13px; font-weight: 700; }
+        .achieve-sub   { font-size: 11px; color: var(--muted); margin-top: 2px; }
+        .achieve-cols  { display: grid; grid-template-columns: 1fr 1fr; }
+        .achieve-col   { padding: 14px; }
+        .achieve-col + .achieve-col { border-left: 1px solid var(--border); }
+        .achieve-col-head { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 10px; padding-bottom: 8px; border-bottom: 1px solid var(--border); }
+        .gcard { display: flex; justify-content: space-between; align-items: center; padding: 9px 11px; border-radius: 9px; border: 1px solid; margin-bottom: 6px; transition: all 0.15s; }
+        .gcard.ok    { background: rgba(34,197,94,0.08);  border-color: rgba(34,197,94,0.25); }
+        .gcard.warn  { background: rgba(245,158,11,0.08); border-color: rgba(245,158,11,0.25); }
+        .gcard.hard  { background: rgba(239,68,68,0.08);  border-color: rgba(239,68,68,0.20); opacity: 0.55; }
+        .gcard.cross { opacity: 0.22; border-color: rgba(255,255,255,0.08); background: transparent; }
+        .gc-cog  { width: 34px; height: 34px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 11px; font-weight: 800; border: 2px solid; }
+        .ok   .gc-cog  { color: var(--green); border-color: rgba(34,197,94,0.5); background: rgba(34,197,94,0.1); }
+        .warn .gc-cog  { color: var(--amber); border-color: rgba(245,158,11,0.5); background: rgba(245,158,11,0.1); }
+        .hard .gc-cog  { color: var(--red);   border-color: rgba(239,68,68,0.4);  background: rgba(239,68,68,0.08); }
+        .cross .gc-cog { color: var(--muted); border-color: rgba(255,255,255,0.1); background: transparent; }
+        .gc-mid { flex: 1; padding: 0 10px; }
+        .gc-watts { font-size: 13px; font-weight: 700; }
+        .ok   .gc-watts { color: var(--green); }
+        .warn .gc-watts { color: var(--amber); }
+        .hard .gc-watts { color: var(--red);   }
+        .gc-spd  { font-size: 10px; color: var(--muted); margin-top: 1px; }
+        .gc-badge { font-size: 9px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; padding: 3px 7px; border-radius: 4px; }
+        .ok   .gc-badge { background: rgba(34,197,94,0.15);  color: var(--green); }
+        .warn .gc-badge { background: rgba(245,158,11,0.15); color: var(--amber); }
+        .hard .gc-badge { background: rgba(239,68,68,0.12);  color: var(--red);   }
+        .cross .gc-badge { display: none; }
+        @media (max-width: 520px) { .achieve-cols { grid-template-columns: 1fr; } .achieve-col+.achieve-col { border-left:none; border-top: 1px solid var(--border); } }
+
+        /* ── RAIL ── */
+        .rail { display: flex; flex-direction: column; gap: 16px; position: sticky; top: 70px; }
+        .rail-card { border-radius: 14px; background: var(--glass); border: 1px solid rgba(255,255,255,0.12); overflow: hidden; }
+        .rail-head { padding: 12px 16px; font-size: 10px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); border-bottom: 1px solid var(--border); }
+        .rail-body { padding: 14px 16px; }
+        .tip-text { font-size: 12px; color: var(--sec); line-height: 1.65; }
+        .tip-text p+p { margin-top: 10px; }
+        .tip-text strong { color: var(--text); }
+        .rec-box { background: rgba(34,197,94,0.08); border: 1px solid rgba(34,197,94,0.25); border-radius: 10px; padding: 12px 14px; margin-bottom: 12px; }
+        .rec-label { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: var(--green); margin-bottom: 4px; }
+        .rec-gear  {font-family:'IBM Plex Sans',Inter,system-ui,sans-serif; font-size: 18px; font-weight: 700; color: #fff; }
+        .rec-sub   { font-size: 11px; color: var(--muted); margin-top: 2px; }
+
+        /* ── FOOTER ── */
+        footer { position: relative; z-index: 1; border-top: 1px solid var(--border); padding: 24px 20px; text-align: center; }
+        footer p { font-size: 12px; color: var(--muted); }
+        footer a { color: var(--muted); text-decoration: none; }
+        footer a:hover { color: var(--sec); }
+    </style>
+<style id="polka-hero-dots">
+  /* Bright-white bg; red diamond polka-dots band at top of hero; title(left)+subtitle(right) below on white. */
+  .bg-mountains { display: none !important; }
+  .bg-sky { background: #fff !important; }
+  header { background: #000 !important; }
+  .hero {
+    position: relative; z-index: 1; box-sizing: border-box;
+    padding: 164px 24px 8px; margin-bottom: 34px;
+    background-image:
+      radial-gradient(circle, #ee1c28 25px, transparent 26.5px),
+      radial-gradient(circle, #ee1c28 25px, transparent 26.5px);
+    background-size: 124px 124px; background-position: 0 0, 62px 62px; background-repeat: repeat;
+    display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: 6px 24px; text-align: left;
+  }
+  .hero::after { content: ""; position: absolute; left: 0; right: 0; top: 154px; bottom: 0; background: #fff; z-index: -1; }
+  .hero > h1 { margin: 0; color: #000 !important; -webkit-text-fill-color: #000 !important; background: none !important; filter: none !important; }
+  .hero > p  { margin: 0; max-width: 340px; text-align: left; color: #000 !important; font-weight: 700 !important; }
+
+  /* ===== UCI World-Championship bold palette (dots stay red) ===== */
+  :root {
+    --glass: #000; --glass2: #000;
+    --accent: #1a72e0; --accent-light: #7fb3f0;
+    --green: #12b05f; --amber: #ffcd00; --red: #ee1c28;
+  }
+  .glass, .input-panel, .stat-card, .chart-card, .achieve-card, .rail-card, .buy-card { border-color: rgba(255,255,255,0.14); }
+  .logo span { color: #fff !important; }
+  /* groupset / brand tabs: text + lower line only (no box tint). Bold hues. */
+  .brand-tab.active[data-brand="shimano"]    { color:#2b8bff !important; background:transparent !important; border-bottom-color:#1a72e0 !important; }
+  .brand-tab.active[data-brand="sram"]       { color:#ff1f2b !important; background:transparent !important; border-bottom-color:#ee1c28 !important; }
+  .brand-tab.active[data-brand="campagnolo"] { color:#ffcf1a !important; background:transparent !important; border-bottom-color:#ffcd00 !important; }
+  .brand-tab.active[data-brand="custom"]     { color:#17c86c !important; background:transparent !important; border-bottom-color:#12b05f !important; }
+  .cust-mode-btn.active { background:#12b05f; }
+  /* derailleur page: segmented filter buttons — no fill, bold groupset colours + lower line */
+  .filter-btn.active { background:transparent !important; color:#fff !important; border-bottom:2px solid rgba(255,255,255,0.85); }
+  .filter-btn.active[data-fbrand="shimano"]    { color:#2b8bff !important; border-bottom-color:#1a72e0; }
+  .filter-btn.active[data-fbrand="sram"]       { color:#ff1f2b !important; border-bottom-color:#ee1c28; }
+  .filter-btn.active[data-fbrand="campagnolo"] { color:#ffcf1a !important; border-bottom-color:#ffcd00; }
+  /* alert / status colours (bold, not pale) */
+  .stat-green { color:#17c86c !important; }
+  .stat-red   { color:#ff1f2b !important; }
+  /* gear achievability cards: bright text hues on black, no card-wide fade —
+     "hard" reads by colour, not by dimming; only cross-chain fades */
+  .gcard.ok    { background:rgba(18,176,95,0.10); border-color:rgba(18,176,95,0.45); }
+  .gcard.warn  { background:rgba(255,205,0,0.07); border-color:rgba(255,205,0,0.45); }
+  .gcard.hard  { background:rgba(238,28,40,0.10); border-color:rgba(238,28,40,0.45); opacity:1; }
+  .gcard.cross { opacity:0.45; }
+  .ok   .gc-cog { color:#17c86c; border-color:rgba(18,176,95,0.7); background:transparent; }
+  .warn .gc-cog { color:#ffcf1a; border-color:rgba(255,205,0,0.7); background:transparent; }
+  .hard .gc-cog { color:#ff1f2b; border-color:rgba(238,28,40,0.7); background:transparent; }
+  .ok   .gc-watts { color:#17c86c; }
+  .warn .gc-watts { color:#ffcf1a; }
+  .hard .gc-watts { color:#ff1f2b; }
+  .gc-spd { color:#94a3b8; }
+  .ok   .gc-badge { background:transparent; border:1px solid rgba(18,176,95,0.6); color:#17c86c; }
+  .warn .gc-badge { background:transparent; border:1px solid rgba(255,205,0,0.6); color:#ffcf1a; }
+  .hard .gc-badge { background:transparent; border:1px solid rgba(238,28,40,0.6); color:#ff1f2b; }
+  .verdict-card.v-yes  { border-color:rgba(18,176,95,0.5) !important; }
+  .verdict-card.v-warn { border-color:rgba(255,205,0,0.55) !important; }
+  .verdict-card.v-no   { border-color:rgba(238,28,40,0.5) !important; }
+  .verdict-card.v-yes  .verdict-main { color:#17c86c; }
+  .verdict-card.v-warn .verdict-main { color:#ffcf1a; }
+  .verdict-card.v-no   .verdict-main { color:#ff1f2b; }
+  .dr-group.ok   .dr-group-label, .dr-group.ok   .dr-status { color:#17c86c !important; }
+  .dr-group.warn .dr-group-label, .dr-group.warn .dr-status { color:#ffcf1a !important; }
+  .dr-group.no   .dr-group-label, .dr-group.no   .dr-status { color:#ff1f2b !important; }
+  /* bottom polka-dot band: white gap after content, then 3 dot rows down to the page bottom */
+  body::after {
+    content: ""; display: block; position: relative; z-index: 1; width: 100%; height: 186px; margin-top: 4px;
+    background-image:
+      radial-gradient(circle, #ee1c28 25px, transparent 26.5px),
+      radial-gradient(circle, #ee1c28 25px, transparent 26.5px);
+    background-size: 124px 124px; background-position: 0px -31px, 62px 31px; background-repeat: repeat;
+  }
+</style>
+<style id="pdb-inline-brand">
+  /* Inline brand mark: "Polka(DOT)Bike" with DOT knocked into a red circle, as per the header logo */
+  .pdb-brand{font-weight:800;white-space:nowrap;}
+  .pdb-dot{display:inline-block;width:1.35em;height:1.35em;vertical-align:-0.3em;margin:0 0.12em;overflow:hidden;text-indent:-9999px;white-space:nowrap;background:url("data:image/svg+xml;utf8,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 32 32%22%3E%3Ccircle cx=%2216%22 cy=%2216%22 r=%2216%22 fill=%22%23ef4444%22/%3E%3Ctext x=%2216.75%22 y=%2220%22 text-anchor=%22middle%22 font-family=%22Inter,system-ui,sans-serif%22 font-size=%2210.5%22 font-weight=%22900%22 letter-spacing=%221.5%22 fill=%22%23000%22%3EDOT%3C/text%3E%3C/svg%3E") no-repeat center/contain;}
+</style>
+<style id="polka-mobile-nav">
+  /* Mobile: nav scrolls horizontally inside the header bar instead of stretching the page */
+  @media (max-width: 768px) {
+    html, body { overflow-x: hidden; }
+    header { gap: 8px; }
+    .logo { flex-shrink: 0; }
+    nav {
+      min-width: 0;
+      overflow-x: auto; -webkit-overflow-scrolling: touch;
+      flex-wrap: nowrap; max-width: 100%;
+      scrollbar-width: none; -ms-overflow-style: none;
+    }
+    nav::-webkit-scrollbar { display: none; }
+    nav a { white-space: nowrap; flex-shrink: 0; }
+    .hero-bikes { font-size: 16px !important; margin-top: 6px !important; }
+
+    /* Smaller polka dots on mobile: same diamond pattern at ~60% scale, more dots across */
+    .hero {
+      padding-top: 85px;
+      background-image:
+        radial-gradient(circle, #ee1c28 12px, transparent 13.5px),
+        radial-gradient(circle, #ee1c28 12px, transparent 13.5px);
+      background-size: 60px 60px;
+      background-position: 0 0, 30px 30px;
+    }
+    .hero::after { top: 75px; }
+    body::after {
+      height: 90px;
+      background-image:
+        radial-gradient(circle, #ee1c28 12px, transparent 13.5px),
+        radial-gradient(circle, #ee1c28 12px, transparent 13.5px);
+      background-size: 60px 60px;
+      background-position: 0 -15px, 30px 15px;
+    }
+  }
+</style>
+<!-- GA-CONSENT-LOADER START -->
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  window.pdbLoadGA = function(){
+    if (window.pdbGALoaded) return;
+    window.pdbGALoaded = true;
+    var s = document.createElement('script');
+    s.async = true;
+    s.src = 'https://www.googletagmanager.com/gtag/js?id=G-24JBH53W09';
+    document.head.appendChild(s);
+    gtag('js', new Date());
+    gtag('config', 'G-24JBH53W09');
+  };
+</script>
+<!-- GA-CONSENT-LOADER END -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebApplication",
+  "@id": "https://polkadotbike.com/climb.html#app",
+  "name": "Climb Gearing Planner",
+  "url": "https://polkadotbike.com/climb.html",
+  "applicationCategory": "UtilitiesApplication",
+  "operatingSystem": "Any",
+  "browserRequirements": "Requires JavaScript",
+  "offers": {
+    "@type": "Offer",
+    "price": "0",
+    "priceCurrency": "GBP"
+  },
+  "description": "Climb Planner for road cyclists: enter a gradient and length, your weight and gearing, and see the cadence, speed and watts per kilo you'll need to get up it.",
+  "author": {
+    "@type": "Person",
+    "name": "Robin Gillingham",
+    "url": "https://polkadotbike.com/about.html"
+  },
+  "isPartOf": {
+    "@id": "https://polkadotbike.com/#website"
+  }
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Home",
+      "item": "https://polkadotbike.com/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "Climb Planner",
+      "item": "https://polkadotbike.com/climb.html"
+    }
+  ]
+}
+</script>
+</head>
+<body>
+<!-- CONSENT-BANNER START -->
+<style>
+  #pdb-consent{position:fixed;left:0;right:0;bottom:0;z-index:999;background:#000;color:#fff;
+    padding:16px 20px;display:flex;flex-wrap:wrap;align-items:center;justify-content:center;
+    gap:12px 20px;font-family:system-ui,sans-serif;box-shadow:0 -2px 12px rgba(0,0,0,.3)}
+  #pdb-consent[hidden]{display:none}
+  #pdb-consent p{margin:0;font-size:14px;line-height:1.5;max-width:560px;color:#e5e9ee}
+  #pdb-consent a{color:#7fb3f0;text-decoration:underline}
+  #pdb-consent .pdb-consent-btns{display:flex;gap:10px;flex-shrink:0}
+  #pdb-consent button{font:inherit;font-weight:600;font-size:14px;padding:9px 18px;border-radius:6px;
+    cursor:pointer;border:1px solid #fff}
+  #pdb-consent .pdb-accept{background:#1a72e0;color:#fff;border-color:#1a72e0}
+  #pdb-consent .pdb-reject{background:transparent;color:#fff}
+  @media (max-width:640px){#pdb-consent{justify-content:flex-start;text-align:left}}
+</style>
+<div id="pdb-consent" role="dialog" aria-label="Cookie consent" hidden>
+  <p>I use Google Analytics cookies to see how the site's used. See the <a href="privacy.html">privacy policy</a> for details.</p>
+  <div class="pdb-consent-btns">
+    <button type="button" class="pdb-reject" id="pdb-consent-reject">Reject</button>
+    <button type="button" class="pdb-accept" id="pdb-consent-accept">Accept</button>
+  </div>
+</div>
+<script>
+(function(){
+  var KEY = 'pdb_consent';
+  function getChoice(){ try { return localStorage.getItem(KEY); } catch(e) { return null; } }
+  function setChoice(v){ try { localStorage.setItem(KEY, v); } catch(e) {} }
+  var choice = getChoice();
+  if (choice === 'accepted' && window.pdbLoadGA) window.pdbLoadGA();
+  if (choice) return;
+  var el = document.getElementById('pdb-consent');
+  if (!el) return;
+  el.hidden = false;
+  document.getElementById('pdb-consent-accept').addEventListener('click', function(){
+    setChoice('accepted');
+    if (window.pdbLoadGA) window.pdbLoadGA();
+    el.hidden = true;
+  });
+  document.getElementById('pdb-consent-reject').addEventListener('click', function(){
+    setChoice('rejected');
+    el.hidden = true;
+  });
+})();
+</script>
+<!-- CONSENT-BANNER END -->
+<noscript><div style="position:relative;z-index:50;background:#ffcd00;color:#000;font-family:system-ui,sans-serif;font-size:14px;font-weight:600;text-align:center;padding:10px 16px">This site&#8217;s interactive calculators need JavaScript to run. The stage and climb listings on the <a href="tdf.html" style="color:#000">Tour de France 2026</a> and <a href="giro26.html" style="color:#000">Giro 2026</a> pages are still readable without it.</div></noscript>
+
+<!-- MOUNTAIN BACKDROP -->
+<div class="bg-scene">
+    <div class="bg-sky"></div>
+    <div class="bg-mountains"></div>
+</div>
+
+<header>
+    <a class="logo" href="index.html">Polka<svg class="logo-dot-svg" viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg"><defs><mask id="dotm"><rect width="32" height="32" fill="white"/><text x="16" y="21" text-anchor="middle" font-family="Inter,system-ui,sans-serif" font-size="11" font-weight="900" letter-spacing="1.5" fill="black">DOT</text></mask></defs><circle cx="16" cy="16" r="15" fill="#ef4444" mask="url(#dotm)"/></svg><span>Bike</span></a>
+    <nav>
+        <a href="index.html">Gear<br>Calculator</a>
+        <a href="climb.html" class="active">Climb<br>Planner</a>
+        <a href="compare.html">Groupset<br>Comparator</a>
+        <a href="derailleur.html">Derailleur<br>Capacity</a>
+        <a href="wkg.html">W/KG<br>and FTP</a>
+        <a href="giro26.html">Giro 2026</a>
+        <a href="tdf.html">TDF 2026</a>
+        <a href="about.html">About</a>
+        <a href="guide.html">Guide</a>
+        <a href="glossary.html">Glossary</a>
+        <a href="contact.html">Contact</a>
+    </nav>
+</header>
+
+<div class="hero">
+    <h1>Climb Planner</h1>
+    <p>Enter your power, weight and the gradient — see instantly which gears are achievable and how fast you'll go.</p>
+    <div class="hero-bikes" style="flex-basis:100%;max-width:1120px;margin:12px auto 0;display:flex;justify-content:space-between;align-items:center;font-size:28px;font-weight:900;letter-spacing:-1px;color:#0f172a">
+        <span>Road Bikes</span><span>Mountain Bikes</span><span>Gravel Bikes</span>
+    </div>
+</div>
+
+<div class="container">
+<div class="calc-grid">
+
+    <!-- INPUT PANEL -->
+    <div class="input-panel glass">
+        <div class="panel-head">Configure</div>
+        <div class="disc-tabs">
+            <button class="disc-tab active" data-disc="road"   onclick="selectDiscipline('road')">Road</button>
+            <button class="disc-tab"         data-disc="mtb"    onclick="selectDiscipline('mtb')">MTB</button>
+            <button class="disc-tab"         data-disc="gravel" onclick="selectDiscipline('gravel')">Gravel</button>
+        </div>
+        <div class="brand-tabs">
+            <button class="brand-tab active" data-brand="shimano"    onclick="selectBrand('shimano')">Shimano</button>
+            <button class="brand-tab"         data-brand="sram"       onclick="selectBrand('sram')">SRAM</button>
+            <button class="brand-tab"         data-brand="campagnolo" onclick="selectBrand('campagnolo')">Campagnolo</button>
+            <button class="brand-tab"         data-brand="custom"     onclick="selectBrand('custom')">Custom</button>
+        </div>
+        <div class="form-body">
+
+            <div class="form-group" id="fg-groupset">
+                <label>Groupset</label>
+                <select id="sel-groupset" onchange="onGroupsetChange()"></select>
+            </div>
+            <div class="form-group" id="fg-chainring">
+                <label>Chainring</label>
+                <div class="cr-grid" id="cr-grid"></div>
+            </div>
+            <div class="form-group" id="fg-cassette">
+                <label>Cassette</label>
+                <select id="sel-cassette" onchange="calculate()"></select>
+            </div>
+
+            <!-- CUSTOM GEARING SECTION -->
+            <div class="cust-section" id="cust-section">
+                <div class="form-group">
+                    <label>Drivetrain Type</label>
+                    <div class="cust-mode-toggle">
+                        <button class="cust-mode-btn active" data-crank="2x" onclick="setCrankMode('2x')">2× Double</button>
+                        <button class="cust-mode-btn"        data-crank="1x" onclick="setCrankMode('1x')">1× Single</button>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>Chainrings</label>
+                    <div class="cust-ring-row">
+                        <div class="cust-ring-cell">
+                            <label>Big Ring</label>
+                            <div class="cust-spinner">
+                                <button class="cust-spin-btn" onclick="adjCust('big',-1)">−</button>
+                                <div class="cust-spin-val"><span id="cust-big-val">50</span><span class="cust-spin-unit">T</span></div>
+                                <button class="cust-spin-btn" onclick="adjCust('big',+1)">+</button>
+                            </div>
+                        </div>
+                        <div class="cust-sep" id="cust-sep">−</div>
+                        <div class="cust-ring-cell" id="cust-small-cell">
+                            <label>Small Ring</label>
+                            <div class="cust-spinner">
+                                <button class="cust-spin-btn" onclick="adjCust('small',-1)">−</button>
+                                <div class="cust-spin-val"><span id="cust-small-val">34</span><span class="cust-spin-unit">T</span></div>
+                                <button class="cust-spin-btn" onclick="adjCust('small',+1)">+</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>Cassette Cog Sizes</label>
+                    <input type="text" class="cust-cass-input" id="cust-cassette"
+                           placeholder="e.g. 11,13,15,17,19,22,25,28"
+                           value="11,13,15,17,19,22,25,28"
+                           oninput="calculate()">
+                    <div class="cust-hint" id="cust-hint"></div>
+                </div>
+            </div>
+            <div class="form-group">
+                <label>Wheel &amp; Tyre</label>
+                <select id="sel-wheel" onchange="calculate()"></select>
+            </div>
+
+            <div class="form-group">
+                <label>Crank Length</label>
+                <select id="sel-crank" onchange="calculate()">
+                    <option value="155">155 mm</option>
+                    <option value="157.5">157.5 mm</option>
+                    <option value="160">160 mm</option>
+                    <option value="162.5">162.5 mm</option>
+                    <option value="165">165 mm</option>
+                    <option value="167.5">167.5 mm</option>
+                    <option value="170">170 mm</option>
+                    <option value="172.5" selected>172.5 mm</option>
+                    <option value="175">175 mm</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <div class="row-between">
+                    <label>Cadence</label>
+                    <div class="big-val" id="cadence-display">90<span>rpm</span></div>
+                </div>
+                <input type="range" id="cadence-slider" min="60" max="120" value="90"
+                    oninput="document.getElementById('cadence-display').innerHTML=this.value+'<span>rpm</span>'; calculate()">
+                <div class="range-labels"><span>60</span><span>120 rpm</span></div>
+            </div>
+
+            <div class="form-group">
+                <div class="row-between">
+                    <label>Your Power</label>
+                    <div class="big-val" id="power-display">200<span>W</span></div>
+                </div>
+                <input type="range" id="power-slider" min="60" max="600" step="5" value="200"
+                    oninput="document.getElementById('power-display').innerHTML=this.value+'<span>W</span>'; calculate()">
+                <div class="range-labels"><span>60 W</span><span>600 W</span></div>
+            </div>
+
+            <div class="form-group">
+                <div class="row-between">
+                    <label>Weight Units</label>
+                    <div class="wt-unit-toggle">
+                        <button class="wt-unit-btn active" data-wtu="kg"  onclick="setWeightUnit('kg')">kg</button>
+                        <button class="wt-unit-btn"        data-wtu="lbs" onclick="setWeightUnit('lbs')">lbs</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="row-between">
+                    <label>Body Weight</label>
+                    <div class="big-val-wrap"><input class="big-val-input" type="number" id="weight-input" value="70.0" onchange="weightInputChange('weight')" onkeydown="if(event.key==='Enter')this.blur()"><span class="big-val-unit" id="weight-unit-lbl">kg</span></div>
+                </div>
+                <input type="range" id="weight-slider" min="40" max="130" step="0.1" value="70"
+                    oninput="updateWeightDisplays(); calculate()">
+                <div class="range-labels" id="weight-range-labels"><span>40 kg</span><span>130 kg</span></div>
+            </div>
+
+            <div class="form-group">
+                <div class="row-between">
+                    <label>Bike Weight</label>
+                    <div class="big-val-wrap"><input class="big-val-input" type="number" id="bike-input" value="8.0" onchange="weightInputChange('bike')" onkeydown="if(event.key==='Enter')this.blur()"><span class="big-val-unit" id="bike-unit-lbl">kg</span></div>
+                </div>
+                <input type="range" id="bike-slider" min="4" max="16" step="0.1" value="8"
+                    oninput="updateWeightDisplays(); calculate()">
+                <div class="range-labels" id="bike-range-labels"><span>4 kg</span><span>16 kg</span></div>
+            </div>
+
+            <div class="form-group">
+                <div class="row-between">
+                    <label>Road Gradient</label>
+                    <div class="big-val" id="gradient-display">5<span>%</span></div>
+                </div>
+                <input type="range" id="gradient-slider" min="-5" max="20" value="5"
+                    oninput="document.getElementById('gradient-display').innerHTML=this.value+'<span>%</span>'; calculate()">
+                <div class="range-labels"><span>-5%</span><span>+20%</span></div>
+            </div>
+
+            <div class="form-group">
+                <div class="row-between">
+                    <label>Climb Distance</label>
+                    <div style="display:flex;align-items:center;gap:8px">
+                        <div class="dst-unit-toggle">
+                            <button class="dst-unit-btn active" data-dstu="km" onclick="setDistUnit('km')">km</button>
+                            <button class="dst-unit-btn" data-dstu="mi" onclick="setDistUnit('mi')">mi</button>
+                        </div>
+                        <div class="big-val" id="dist-display">10<span>km</span></div>
+                    </div>
+                </div>
+                <input type="range" id="dist-slider" min="1" max="30" value="10"
+                    oninput="updateDistDisplay(); calculate()">
+                <div class="range-labels" id="dist-range-labels"><span>1 km</span><span>30 km</span></div>
+            </div>
+
+            <div class="form-group">
+                <label>Riding Position (CdA)</label>
+                <div class="pos-tabs">
+                    <button class="pos-btn" data-cda="0.45" onclick="setPos(this)">Upright<span class="pos-cda">0.45</span></button>
+                    <button class="pos-btn active" data-cda="0.36" onclick="setPos(this)">Hoods<span class="pos-cda">0.36</span></button>
+                    <button class="pos-btn" data-cda="0.32" onclick="setPos(this)">Drops<span class="pos-cda">0.32</span></button>
+                    <button class="pos-btn" data-cda="0.22" onclick="setPos(this)">TT<span class="pos-cda">0.22</span></button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- RESULTS -->
+    <div class="results">
+
+        <div class="stats-row">
+            <div class="stat-card">
+                <div class="stat-label">Your Power</div>
+                <div class="stat-val" id="stat-power">—</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-label">Achievable Gears</div>
+                <div class="stat-val" id="stat-count">—</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-label">Best Climbing Speed</div>
+                <div class="stat-val" id="stat-best">—</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-label">Gradient</div>
+                <div class="stat-val" id="stat-grade">—</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-label">VAM</div>
+                <div class="stat-val" id="stat-vam">—</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-label">Summit Time</div>
+                <div class="stat-val" id="stat-time">—</div>
+            </div>
+        </div>
+
+        <div class="verdict-card" id="verdict-card" style="display:none"></div>
+
+        <!-- POWER CHART -->
+        <div class="chart-card">
+            <div class="chart-header">
+                <div>
+                    <div class="chart-title">Power Required per Gear</div>
+                    <div class="chart-subtitle">Gears below the dashed line are achievable at your power · hover for details</div>
+                </div>
+                <div class="chart-legend">
+                    <div class="cl-item"><div class="cl-line" style="background:#aeb8c2"></div>Big ring</div>
+                    <div class="cl-item"><div class="cl-line" style="background:#7d8896"></div>Small ring</div>
+                    <div class="cl-item"><div class="cl-line" style="background:#fff;opacity:0.4;border-top:2px dashed #fff"></div>Your power</div>
+                    <button class="share-btn" id="share-btn" onclick="copyLink()">⬡ Copy link</button>
+                    <button class="share-btn" onclick="showPrintReport()">⎙ Report</button>
+                </div>
+            </div>
+            <div class="chart-wrap" id="chart-wrap">
+                <div class="chart-empty">Configure groupset and power to see your climb profile</div>
+            </div>
+        </div>
+        <div class="chart-tooltip" id="chart-tooltip"></div>
+
+        <!-- ACHIEVABILITY CARDS -->
+        <div class="achieve-card">
+            <div class="achieve-head">
+                <div class="achieve-title" id="achieve-title">Gear Achievability</div>
+                <div class="achieve-sub">Green = within your power · Amber = within 15% of limit · Red = too hard · × = cross-chain</div>
+            </div>
+            <div class="achieve-cols" id="achieve-cols">
+                <div style="padding:40px;text-align:center;color:var(--muted);font-size:13px;grid-column:1/-1">Select a groupset to see gear achievability</div>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- RAIL -->
+    <div class="rail">
+        <div class="rail-card" id="rec-card" style="display:none">
+            <div class="rail-head">Recommended Gear</div>
+            <div class="rail-body">
+                <div class="rec-box">
+                    <div class="rec-label">Best climbing gear</div>
+                    <div class="rec-gear" id="rec-gear">—</div>
+                    <div class="rec-sub" id="rec-sub">—</div>
+                </div>
+                <div class="tip-text" id="rec-tip"></div>
+            </div>
+        </div>
+        <div class="rail-card">
+            <div class="rail-head">How It Works</div>
+            <div class="rail-body">
+                <div class="tip-text">
+                    <p><strong>Power model</strong> — watts required = gravity + rolling resistance + aerodynamic drag, all multiplied by speed. This is the standard cycling physics model.</p>
+                    <p><strong>Green gears</strong> are comfortably within your power. <strong>Amber</strong> gears are within 15% of your limit — hard but possible. <strong>Red</strong> gears need more watts than you've set.</p>
+                    <p><strong>CdA</strong> is your drag coefficient × frontal area. Hoods ≈ 0.36, drops ≈ 0.32, TT position ≈ 0.22. It has less effect on climbs than on flat roads.</p>
+                    <p><strong>System weight</strong> — include rider, clothing, shoes, bike, water and food. Every kilogram matters on a climb.</p>
+                    <p><strong>VAM</strong> (velocità ascensionale media) is vertical metres climbed per hour — the classic climber's metric. Pro riders hit 1,500–1,800 m/hr on steep mountain stages.</p>
+                    <p><strong>Crank length</strong> affects leverage, not speed. Shorter cranks (e.g. 170mm) spin more freely but reduce torque per pedal stroke — the equivalent chainring shows what size would give the same leverage on a 172.5mm reference.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+</div>
+
+<!-- BEGIN AADS AD UNIT 2448890 -->
+<div id="frame" style="width: 100%;margin: auto;position: relative; z-index: 99998;">
+          <iframe data-aa='2448890' src='//acceptable.a-ads.com/2448890/?size=Adaptive&background_color=transparent'
+                            style='border:0; padding:0; width:70%; height:auto; overflow:hidden;display: block;margin: auto'></iframe>
+        </div>
+<!-- END AADS AD UNIT 2448890 -->
+<footer>
+    <p><span class="pdb-brand">Polka<span class="pdb-dot">DOT</span>Bike</span> — Power calculations use CdA 0.36 (hoods), Crr 0.004, air density 1.225 kg/m³. Results are estimates.</p>
+    <p style="margin-top:6px"><a href="index.html">← Gear Calculator</a> · <a href="guide.html">Guide</a> · <a href="glossary.html">Glossary</a> · <a href="about.html">About</a> · <a href="contact.html">Contact</a> · <a href="privacy.html">Privacy</a> · <a href="disclaimer.html">Disclaimer</a></p>
+    <p style="margin-top:8px;font-size:0.85em;opacity:0.65">Also by me: <a href="https://digitalcredityield.com" target="_blank" rel="noopener">Digital Credit Yield</a> — Bitcoin &amp; Ethereum treasury income, explained.</p>
+    <p style="margin-top:10px"><a href="https://www.instagram.com/polkadotbike.cc/" target="_blank" rel="noopener" aria-label="Instagram" style="display:inline-flex;vertical-align:middle;margin:0 7px"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="2" y="2" width="20" height="20" rx="5.5"/><circle cx="12" cy="12" r="4.3"/><circle cx="17.4" cy="6.6" r="1.05" fill="currentColor" stroke="none"/></svg></a><a href="https://www.facebook.com/profile.php?id=61591463441672" target="_blank" rel="noopener" aria-label="Facebook" style="display:inline-flex;vertical-align:middle;margin:0 7px"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M13.5 21.9v-8.4h2.82l.42-3.27h-3.24V8.03c0-.95.26-1.6 1.63-1.6h1.74V3.55C16.55 3.47 15.6 3.4 14.5 3.4c-2.33 0-3.93 1.42-3.93 4.03v2.8H7.74v3.27h2.83v8.4h2.93z"/></svg></a></p>
+</footer>
+
+<script src="db.js"></script>
+<script>
+/* ============================================================
+   GROUPSET DATABASE
+============================================================ */
+/* ============================================================
+   STATE
+============================================================ */
+const S = { discipline:'road', brand:'shimano', groupset:null, crIdx:0, cda:0.36 };
+const LBS_C = 2.20462;
+let weightUnit = 'kg';
+
+function toKg(v)    { return weightUnit === 'lbs' ? v / LBS_C : v; }
+function fromKg(kg) { return weightUnit === 'lbs' ? kg * LBS_C : kg; }
+function bodyKg()   { return toKg(parseFloat(document.getElementById('weight-slider').value)); }
+function bikeKg()   { return toKg(parseFloat(document.getElementById('bike-slider').value)); }
+
+// Climbing power is driven by total system weight = body + bike
+function toMassKg() { return bodyKg() + bikeKg(); }
+
+function updateWeightDisplays() {
+    document.getElementById('weight-input').value = parseFloat(document.getElementById('weight-slider').value).toFixed(1);
+    document.getElementById('bike-input').value   = parseFloat(document.getElementById('bike-slider').value).toFixed(1);
+    document.getElementById('weight-unit-lbl').textContent = weightUnit;
+    document.getElementById('bike-unit-lbl').textContent   = weightUnit;
+}
+
+function weightInputChange(which) {
+    const inputId  = which === 'weight' ? 'weight-input'  : 'bike-input';
+    const sliderId = which === 'weight' ? 'weight-slider' : 'bike-slider';
+    const input = document.getElementById(inputId);
+    const s     = document.getElementById(sliderId);
+    let v = parseFloat(input.value);
+    if (isNaN(v)) { input.value = s.value; return; }
+    v = Math.min(parseFloat(s.max), Math.max(parseFloat(s.min), v));
+    v = Math.round(v / parseFloat(s.step)) * parseFloat(s.step);
+    input.value = v.toFixed(1);
+    s.value = v;
+    calculate();
+}
+
+function setWeightUnit(u) {
+    const bKg = bodyKg();
+    const kKg = bikeKg();
+    weightUnit = u;
+    document.querySelectorAll('.wt-unit-btn').forEach(b => b.classList.toggle('active', b.dataset.wtu === u));
+    const ws = document.getElementById('weight-slider');
+    const bs = document.getElementById('bike-slider');
+    if (u === 'lbs') {
+        ws.min = 88;  ws.max = 287; ws.step = 0.2;
+        bs.min = 8.8; bs.max = 35;  bs.step = 0.2;
+        document.getElementById('weight-range-labels').innerHTML = '<span>88 lbs</span><span>287 lbs</span>';
+        document.getElementById('bike-range-labels').innerHTML   = '<span>9 lbs</span><span>35 lbs</span>';
+    } else {
+        ws.min = 40; ws.max = 130; ws.step = 0.1;
+        bs.min = 4;  bs.max = 16;  bs.step = 0.1;
+        document.getElementById('weight-range-labels').innerHTML = '<span>40 kg</span><span>130 kg</span>';
+        document.getElementById('bike-range-labels').innerHTML   = '<span>4 kg</span><span>16 kg</span>';
+    }
+    ws.value = fromKg(bKg).toFixed(1);
+    bs.value = fromKg(kKg).toFixed(1);
+    updateWeightDisplays();
+    calculate();
+}
+const MI_C = 1.60934;
+let distUnit = 'km';
+
+function toDistKm() {
+    const v = parseFloat(document.getElementById('dist-slider').value);
+    return distUnit === 'mi' ? v * MI_C : v;
+}
+function updateDistDisplay() {
+    const v = parseFloat(document.getElementById('dist-slider').value);
+    document.getElementById('dist-display').innerHTML = distUnit === 'mi'
+        ? `${v.toFixed(1)}<span>mi</span>` : `${Math.round(v)}<span>km</span>`;
+}
+function setDistUnit(u) {
+    const km = toDistKm();
+    distUnit = u;
+    document.querySelectorAll('.dst-unit-btn').forEach(b => b.classList.toggle('active', b.dataset.dstu === u));
+    const s = document.getElementById('dist-slider');
+    if (u === 'mi') {
+        s.min = 0.5; s.max = 19; s.step = 0.5;
+        s.value = Math.min(19, Math.max(0.5, +(km / MI_C).toFixed(1)));
+        document.getElementById('dist-range-labels').innerHTML = '<span>0.5 mi</span><span>19 mi</span>';
+    } else {
+        s.min = 1; s.max = 30; s.step = 1;
+        s.value = Math.min(30, Math.max(1, Math.round(km)));
+        document.getElementById('dist-range-labels').innerHTML = '<span>1 km</span><span>30 km</span>';
+    }
+    updateDistDisplay();
+    calculate();
+}
+
+const accentMap      = { shimano:'#1a72e0', sram:'#ee1c28', campagnolo:'#ffcd00', custom:'#12b05f' };
+const accentLightMap = { shimano:'#7fb3f0', sram:'#ff7178', campagnolo:'#ffe066', custom:'#5fd39a' };
+const CUST = { crankType:'2x', big:50, small:34 };
+const CUST_LIMITS = { big:[32,70], small:[22,52] };
+
+/* ============================================================
+   PHYSICS
+============================================================ */
+function calcPower(speedKmh, mass, gradePct, cda) {
+    const v = speedKmh / 3.6;
+    const g = 9.81, Crr = 0.004, rho = 1.225;
+    const gr = Math.atan(gradePct / 100);
+    const Fg = mass * g * Math.sin(gr);
+    const Fr = Crr * mass * g * Math.cos(gr);
+    const Fa = 0.5 * rho * cda * v * v;
+    return Math.max(0, (Fg + Fr + Fa) * v);
+}
+
+function speedAtPower(watts, mass, gradePct, cda) {
+    const g = 9.81, Crr = 0.004, rho = 1.225;
+    const gr = Math.atan(gradePct / 100);
+    const B  = mass * g * (Math.sin(gr) + Crr * Math.cos(gr));
+    const A  = 0.5 * rho * cda;
+    if (watts <= 0 || B <= 0 && A <= 0) return 0;
+    let v = Math.max(0.1, Math.cbrt(watts / A)); // rough starting point
+    for (let i = 0; i < 80; i++) {
+        const fv  = A * v * v * v + B * v - watts;
+        const dfv = 3 * A * v * v + B;
+        if (Math.abs(dfv) < 1e-9) break;
+        const dv = fv / dfv;
+        v = Math.max(0.01, v - dv);
+        if (Math.abs(dv) < 1e-6) break;
+    }
+    return v * 3.6;
+}
+
+/* ============================================================
+   DISCIPLINE / BRAND / GROUPSET
+============================================================ */
+function selectDiscipline(d) {
+    S.discipline = d; S.crIdx = 0;
+    document.querySelectorAll('.disc-tab').forEach(t => t.classList.toggle('active', t.dataset.disc === d));
+    const brands = DISC_BRANDS[d];
+    document.querySelectorAll('.brand-tab').forEach(t => {
+        t.style.display = (t.dataset.brand === 'custom' || brands.includes(t.dataset.brand)) ? '' : 'none';
+    });
+    updateWheels();
+    if (S.brand === 'custom') selectBrand('custom');
+    else if (!brands.includes(S.brand)) selectBrand(brands[0]);
+    else selectBrand(S.brand);
+}
+
+function updateWheels() {
+    const sel = document.getElementById('sel-wheel');
+    sel.innerHTML = '';
+    WHEELS[S.discipline].forEach((w, i) => {
+        const o = document.createElement('option');
+        o.value = w.circ; o.textContent = w.label;
+        if (w.dflt) o.selected = true;
+        sel.appendChild(o);
+    });
+    // Select first option if nothing selected
+    if (sel.selectedIndex < 0) sel.selectedIndex = 0;
+}
+
+function selectBrand(brand) {
+    S.brand = brand; S.crIdx = 0;
+    document.querySelectorAll('.brand-tab').forEach(t => t.classList.toggle('active', t.dataset.brand === brand));
+    document.documentElement.style.setProperty('--accent',       accentMap[brand]);
+    document.documentElement.style.setProperty('--accent-light', accentLightMap[brand]);
+    const isCustom = brand === 'custom';
+    document.getElementById('fg-groupset').style.display  = isCustom ? 'none' : '';
+    document.getElementById('fg-chainring').style.display = isCustom ? 'none' : '';
+    document.getElementById('fg-cassette').style.display  = isCustom ? 'none' : '';
+    document.getElementById('cust-section').style.display = isCustom ? 'flex' : 'none';
+    if (isCustom) { calculate(); return; }
+    populateGroupsets();
+}
+
+function setCrankMode(mode) {
+    CUST.crankType = mode;
+    document.querySelectorAll('.cust-mode-btn').forEach(b => b.classList.toggle('active', b.dataset.crank === mode));
+    const show = mode === '2x';
+    document.getElementById('cust-small-cell').style.visibility = show ? '' : 'hidden';
+    document.getElementById('cust-sep').style.visibility        = show ? '' : 'hidden';
+    calculate();
+}
+
+function adjCust(key, delta) {
+    const [mn, mx] = CUST_LIMITS[key];
+    CUST[key] = Math.min(mx, Math.max(mn, CUST[key] + delta));
+    if (key === 'big'   && CUST.big   <= CUST.small) CUST.small = Math.max(CUST_LIMITS.small[0], CUST.big - 1);
+    if (key === 'small' && CUST.small >= CUST.big)   CUST.big   = Math.min(CUST_LIMITS.big[1],   CUST.small + 1);
+    document.getElementById('cust-big-val').textContent   = CUST.big;
+    document.getElementById('cust-small-val').textContent = CUST.small;
+    calculate();
+}
+
+function parseCustomCassette() {
+    const raw = document.getElementById('cust-cassette').value.trim();
+    const nums = raw.split(/[\s,;]+/).map(s => parseInt(s)).filter(n => !isNaN(n) && n >= 8 && n <= 56);
+    if (nums.length < 2) return null;
+    const unique = [...new Set(nums)];
+    unique.sort((a, b) => a - b);
+    return unique;
+}
+
+function populateGroupsets() {
+    const sel = document.getElementById('sel-groupset');
+    sel.innerHTML = '';
+    const brandData = DB[S.discipline][S.brand];
+    const eras = brandData._eras || [];
+    const groups = {};
+    eras.forEach(e => groups[e] = []);
+    Object.keys(brandData).forEach(name => {
+        if (name === '_eras') return;
+        const gs = brandData[name];
+        if (gs && gs.era && groups[gs.era] !== undefined) groups[gs.era].push(name);
+    });
+    let firstKey = null;
+    eras.forEach(era => {
+        if (!groups[era] || !groups[era].length) return;
+        const grp = document.createElement('optgroup');
+        grp.label = era;
+        groups[era].forEach(name => {
+            if (!firstKey) firstKey = name;
+            const o = document.createElement('option');
+            o.value = name; o.textContent = name;
+            grp.appendChild(o);
+        });
+        sel.appendChild(grp);
+    });
+    S.groupset = firstKey;
+    onGroupsetChange();
+}
+
+function onGroupsetChange() {
+    S.groupset = document.getElementById('sel-groupset').value;
+    S.crIdx = 0;
+    const data = DB[S.discipline][S.brand][S.groupset];
+    const grid = document.getElementById('cr-grid');
+    grid.innerHTML = '';
+    data.chainrings.forEach((cr, i) => {
+        const btn = document.createElement('button');
+        btn.className = 'cr-btn' + (i === 0 ? ' active' : '');
+        btn.textContent = cr.label; btn.onclick = () => selectCR(i); grid.appendChild(btn);
+    });
+    const cs = document.getElementById('sel-cassette');
+    cs.innerHTML = '';
+    data.cassettes.forEach(c => {
+        const o = document.createElement('option'); o.value = c.label; o.textContent = c.label; cs.appendChild(o);
+    });
+    calculate();
+}
+
+function selectCR(i) {
+    S.crIdx = i;
+    document.querySelectorAll('.cr-btn').forEach((b, j) => b.classList.toggle('active', j === i));
+    calculate();
+}
+
+function setPos(btn) {
+    S.cda = parseFloat(btn.dataset.cda);
+    document.querySelectorAll('.pos-btn').forEach(b => b.classList.toggle('active', b === btn));
+    calculate();
+}
+
+/* ============================================================
+   CALCULATE
+============================================================ */
+function calculate() {
+    const isCustom = S.brand === 'custom';
+    const circ    = parseInt(document.getElementById('sel-wheel').value);
+    const cadence = parseInt(document.getElementById('cadence-slider').value);
+    const mass    = toMassKg();
+    const grade   = parseInt(document.getElementById('gradient-slider').value);
+    const userPwr = parseInt(document.getElementById('power-slider').value);
+    const crankLen  = parseFloat(document.getElementById('sel-crank').value);
+    const climbDist = toDistKm();
+
+    let outer, inner, teeth, crLabelText, csLabelText;
+    if (isCustom) {
+        teeth = parseCustomCassette();
+        const hint = document.getElementById('cust-hint');
+        if (!teeth) {
+            hint.className = 'cust-hint err';
+            hint.textContent = 'Enter at least 2 cog sizes, e.g. 11,13,15,17,19,22,25,28';
+            return;
+        }
+        hint.className   = 'cust-hint ok';
+        hint.textContent = `${teeth.length} sprocket${teeth.length > 1 ? 's' : ''} · ${teeth[0]}–${teeth[teeth.length-1]}T`;
+        outer = CUST.big;
+        inner = CUST.crankType === '2x' ? CUST.small : null;
+        crLabelText = inner ? `${outer}/${inner}` : `${outer}T Single Ring`;
+        csLabelText = `${teeth[0]}-${teeth[teeth.length-1]}T`;
+    } else {
+        const data    = DB[S.discipline][S.brand][S.groupset];
+        const cr      = data.chainrings[S.crIdx];
+        const csLabel = document.getElementById('sel-cassette').value;
+        const cass    = data.cassettes.find(c => c.label === csLabel);
+        if (!cr || !cass) return;
+        outer = cr.outer;
+        inner = cr.inner;
+        teeth = cass.teeth;
+        crLabelText = cr.label;
+        csLabelText = csLabel;
+    }
+    const isSingle = !inner;
+    const n = teeth.length;
+    const CC = 2;
+
+    function isCross(ring, i) {
+        if (isSingle) return false;
+        return (ring==='outer'&&i>=n-CC)||(ring==='inner'&&i<CC);
+    }
+    function spd(ring, cog)   { return (ring/cog) * circ/1000 * cadence * 60 / 1000; }
+    function pwr(speedKmh)    { return calcPower(speedKmh, mass, grade, S.cda); }
+
+    const bigGears   = teeth.map((cog,i) => ({ cog, spd:spd(outer,cog), pwr:pwr(spd(outer,cog)), cross:isCross('outer',i) }));
+    const smallGears = isSingle ? null : teeth.map((cog,i) => ({ cog, spd:spd(inner,cog), pwr:pwr(spd(inner,cog)), cross:isCross('inner',i) }));
+
+    const allGears = isSingle ? bigGears : [...bigGears, ...smallGears];
+    const usable = allGears.filter(g => !g.cross && g.pwr <= userPwr);
+    const total  = allGears.filter(g => !g.cross);
+    const best   = usable.length ? usable.reduce((a,b) => a.spd > b.spd ? a : b) : null;
+
+    // VAM (m/hr vertical ascent) and summit time
+    const vam     = (best && grade > 0) ? Math.round(best.spd * grade * 10) : null;
+    const timeMin = best ? (climbDist / best.spd * 60) : null;
+    function fmtTime(t) {
+        if (t === null) return null;
+        if (t >= 60) return `${Math.floor(t/60)}h ${Math.round(t % 60)}m`;
+        return `${Math.round(t)} min`;
+    }
+    const timeFmt = fmtTime(timeMin);
+
+    // Crank arm equivalence vs 172.5mm road reference
+    const REF_CRANK = 172.5;
+    const equivOuter = (outer * crankLen / REF_CRANK).toFixed(1);
+    const equivInner = inner ? (inner * crankLen / REF_CRANK).toFixed(1) : null;
+
+    // Stats
+    document.getElementById('stat-power').innerHTML = `${userPwr}<span class="u">W</span>`;
+    document.getElementById('stat-count').innerHTML = `<span class="${usable.length>0?'stat-green':'stat-red'}">${usable.length}</span><span class="u"> / ${total.length}</span>`;
+    document.getElementById('stat-best').innerHTML  = best ? `${best.spd.toFixed(1)}<span class="u">km/h</span>` : `<span class="stat-red">none</span>`;
+    document.getElementById('stat-grade').innerHTML = `${grade>0?'+':''}${grade}<span class="u">%</span>`;
+    document.getElementById('stat-vam').innerHTML   = grade <= 0
+        ? `<span style="font-size:17px;letter-spacing:0">N/A</span><div style="font-size:9px;color:var(--muted);margin-top:3px;font-weight:600;letter-spacing:0.05em;text-transform:uppercase">on flat</div>`
+        : vam !== null ? `${vam.toLocaleString()}<span class="u">m/hr</span>` : `<span class="u">—</span>`;
+    document.getElementById('stat-time').innerHTML  = timeFmt ? timeFmt : `<span class="u">—</span>`;
+
+    // Verdict card
+    const vc = document.getElementById('verdict-card');
+    if (vc) {
+        let cls, icon, main, meta;
+        if (usable.length === 0) {
+            const minPwr = total.length ? Math.round(Math.min(...total.map(g => g.pwr))) : 0;
+            cls = 'v-no'; icon = '✕';
+            main = 'This climb exceeds your current power';
+            meta = `Easiest gear needs ${minPwr}W — reduce gradient, increase power output, or choose a lower gear ratio`;
+        } else if (usable.length <= Math.ceil(total.length * 0.35)) {
+            cls = 'v-warn'; icon = '⚠';
+            main = 'Possible, but you\'re near your limit';
+            meta = `${usable.length} of ${total.length} gears within your ${userPwr}W`;
+        } else {
+            cls = 'v-yes'; icon = '✓';
+            main = 'This climb is achievable';
+            meta = `${usable.length} of ${total.length} gears within your ${userPwr}W`;
+        }
+        const parts = [meta];
+        if (timeFmt && grade > 0) {
+            const distDisp = distUnit === 'mi' ? `${(climbDist / MI_C).toFixed(1)}mi` : `${Math.round(climbDist)}km`;
+            parts.push(`${distDisp} takes ~${timeFmt}`);
+        }
+        if (crankLen !== REF_CRANK) parts.push(`${crankLen}mm cranks — ${outer}T feels like ${equivOuter}T on 172.5mm ref`);
+        vc.className = `verdict-card ${cls}`;
+        vc.style.display = '';
+        vc.innerHTML = `<div class="verdict-icon">${icon}</div><div class="verdict-body"><div class="verdict-main">${main}</div><div class="verdict-meta">${parts.join(' · ')}</div></div>`;
+    }
+
+    // Rail recommendation
+    if (best) {
+        const ring = isSingle ? `${outer}T single ring` : (bigGears.includes(best) ? `${outer}T big ring` : `${inner}T small ring`);
+        document.getElementById('rec-card').style.display = 'block';
+        document.getElementById('rec-gear').textContent = `${ring} / ${best.cog}T`;
+        const subParts = [`${best.spd.toFixed(1)} km/h`, `${Math.round(best.pwr)}W`];
+        if (vam !== null) subParts.push(`${vam.toLocaleString()} m/hr VAM`);
+        document.getElementById('rec-sub').textContent = subParts.join(' · ');
+        let tipHtml = `<p>The hardest gear you can sustain at <strong>${userPwr}W</strong> on <strong>${grade}%</strong> at <strong>${cadence} rpm</strong>.</p>`;
+        if (timeFmt && grade > 0) {
+            const distDisp = distUnit === 'mi' ? `${(climbDist / MI_C).toFixed(1)}mi` : `${Math.round(climbDist)}km`;
+            tipHtml += `<p>At this pace, a <strong>${distDisp}</strong> climb takes roughly <strong>${timeFmt}</strong>.</p>`;
+        }
+        if (crankLen !== REF_CRANK) tipHtml += `<p>On <strong>${crankLen}mm</strong> cranks, your ${outer}T chainring applies the same leverage as a <strong>${equivOuter}T</strong> on 172.5mm cranks.</p>`;
+        tipHtml += `<p>Shift to a smaller cog when the gradient eases.</p>`;
+        document.getElementById('rec-tip').innerHTML = tipHtml;
+    } else {
+        document.getElementById('rec-card').style.display = 'none';
+    }
+
+    const ringLabel = isSingle ? `${outer}T Single Ring` : crLabelText;
+    document.getElementById('achieve-title').textContent = `${ringLabel} · ${csLabelText} Cassette · ${grade}% gradient`;
+    renderPowerChart(bigGears, smallGears, userPwr, cadence, isSingle);
+    renderAchievability(bigGears, smallGears, outer, inner, userPwr, isSingle);
+    window.LAST_CALC = { groupset: isCustom ? 'Custom' : S.groupset, crLabel: crLabelText, csLabel: csLabelText, outer, inner, isSingle, bigGears, smallGears, mass, grade, userPwr, cadence, crankLen, climbDist, distUnit, vam, timeFmt, equivOuter };
+
+    updateURL();
+    saveSharedState();
+}
+
+function saveSharedState() {
+    try {
+        const sh = JSON.parse(localStorage.getItem('cg_shared') || '{}');
+        Object.assign(sh, {
+            d:   S.discipline, b: S.brand, g: S.groupset||'',
+            cr:  S.crIdx,
+            cs:  document.getElementById('sel-cassette').value||'',
+            w:   document.getElementById('sel-wheel').value||'',
+            cad: document.getElementById('cadence-slider').value,
+            pw:  document.getElementById('power-slider').value,
+            wt:  toMassKg().toFixed(2),
+            bwt: bodyKg().toFixed(2),
+            bkw: bikeKg().toFixed(2),
+            wunit: weightUnit,
+            gr:  document.getElementById('gradient-slider').value,
+            cda: S.cda,
+            ck:  document.getElementById('sel-crank').value,
+            dst: toDistKm().toFixed(1)
+        });
+        sh.cust = { ct: CUST.crankType, big: CUST.big, small: CUST.small, cass: document.getElementById('cust-cassette').value };
+        localStorage.setItem('cg_shared', JSON.stringify(sh));
+    } catch(e) {}
+}
+
+function copyLink() {
+    navigator.clipboard.writeText(location.href).then(() => {
+        const btn = document.getElementById('share-btn');
+        btn.textContent = '✓ Copied!';
+        btn.classList.add('copied');
+        setTimeout(() => { btn.textContent = '⬡ Copy link'; btn.classList.remove('copied'); }, 2000);
+    });
+}
+
+function updateURL() {
+    const p = new URLSearchParams({
+        d:   S.discipline, b: S.brand, g: S.groupset||'',
+        cr:  S.crIdx, cs: document.getElementById('sel-cassette').value||'',
+        w:   document.getElementById('sel-wheel').value||'',
+        cad: document.getElementById('cadence-slider').value,
+        pw:  document.getElementById('power-slider').value,
+        wt:  toMassKg().toFixed(2),
+        bwt: bodyKg().toFixed(1),
+        bkw: bikeKg().toFixed(1),
+        wunit: weightUnit,
+        gr:  document.getElementById('gradient-slider').value,
+        cda: S.cda,
+        ck:  document.getElementById('sel-crank').value,
+        dst: toDistKm().toFixed(1)
+    });
+    if (S.brand === 'custom') {
+        p.set('xk', CUST.crankType); p.set('xb', CUST.big); p.set('xs', CUST.small);
+        p.set('xc', document.getElementById('cust-cassette').value);
+    }
+    try{ history.replaceState(null, '', '?' + p.toString()); }catch(e){}
+}
+
+/* ============================================================
+   POWER CHART
+============================================================ */
+function renderPowerChart(bigG, smallG, userPwr, cadence, isSingle) {
+    const wrap = document.getElementById('chart-wrap');
+    const bigCol   = '#aeb8c2';
+    const smallCol = '#7d8896';
+
+    const mob=window.innerWidth<720; const W=mob?420:760, H=mob?520:460, pL=62, pR=22, pT=20, pB=50;
+    const cW=W-pL-pR, cH=H-pT-pB;
+    const n = bigG.length;
+
+    // Reverse: slow (large cog) on left, fast (small cog) on right
+    const hasSmall  = !isSingle;
+    const bigPlot   = [...bigG].reverse();
+    const smallPlot = hasSmall ? [...smallG].reverse() : [];
+
+    const maxPwr = Math.max(...bigG.map(g=>g.pwr), ...(hasSmall ? smallG.map(g=>g.pwr) : []), userPwr * 1.1);
+    const yStep  = maxPwr > 500 ? 100 : maxPwr > 250 ? 50 : 25;
+    const yMax   = Math.ceil(maxPwr / yStep + 1) * yStep;
+
+    const sx = i   => pL + (n < 2 ? cW/2 : i/(n-1)*cW);
+    const sy = w   => pT + cH * (1 - w / yMax);
+
+    // Grid + labels
+    let grid='', yLbls='';
+    for (let v=0; v<=yMax; v+=yStep) {
+        const y = sy(v).toFixed(1);
+        grid  += `<line x1="${pL}" x2="${pL+cW}" y1="${y}" y2="${y}" stroke="rgba(255,255,255,0.05)" stroke-width="1"/>`;
+        yLbls += `<text x="${pL-9}" y="${(+y+5).toFixed(1)}" text-anchor="end" font-size="14" fill="#94a3b8">${v}</text>`;
+    }
+    const xLbls = bigPlot.map((g,i) =>
+        `<text x="${sx(i).toFixed(1)}" y="${(pT+cH+20).toFixed(1)}" text-anchor="middle" font-size="${n>12?12:14}" fill="#94a3b8">${g.cog}T</text>`
+    ).join('') +
+        `<text x="${(pL+cW/2).toFixed(1)}" y="${(pT+cH+42).toFixed(1)}" text-anchor="middle" font-size="14" font-weight="600" fill="#64748b">Cassette sprocket size (teeth)</text>`;
+    const midY = (pT+cH/2).toFixed(0);
+    const yAxisLbl = `<text transform="rotate(-90,14,${midY})" x="14" y="${+midY+5}" text-anchor="middle" font-size="13" fill="#94a3b8">watts</text>`;
+
+    // Smooth Catmull-Rom curves
+    function smoothPath(coords) {
+        if (coords.length < 2) return `M ${coords[0].x},${coords[0].y}`;
+        let d = `M ${coords[0].x.toFixed(1)},${coords[0].y.toFixed(1)}`;
+        for (let i=0; i<coords.length-1; i++) {
+            const p0=coords[Math.max(0,i-1)], p1=coords[i], p2=coords[i+1], p3=coords[Math.min(coords.length-1,i+2)];
+            d += ` C ${(p1.x+(p2.x-p0.x)/6).toFixed(1)},${(p1.y+(p2.y-p0.y)/6).toFixed(1)} ${(p2.x-(p3.x-p1.x)/6).toFixed(1)},${(p2.y-(p3.y-p1.y)/6).toFixed(1)} ${p2.x.toFixed(1)},${p2.y.toFixed(1)}`;
+        }
+        return d;
+    }
+
+    const bigCoords   = bigPlot.map((g,i)  => ({x:sx(i), y:sy(g.pwr)}));
+    const smallCoords = hasSmall ? smallPlot.map((g,i) => ({x:sx(i), y:sy(g.pwr)})) : null;
+    const bigLine     = smoothPath(bigCoords);
+    const smallLine   = hasSmall ? smoothPath(smallCoords) : null;
+    const bot         = pT + cH;
+
+    // Achievable zone fill (below user power line)
+    const pyLine = sy(userPwr);
+    const bigArea   = `${bigLine}   L ${bigCoords[n-1].x.toFixed(1)},${bot} L ${bigCoords[0].x.toFixed(1)},${bot} Z`;
+    const smallArea = hasSmall ? `${smallLine} L ${smallCoords[n-1].x.toFixed(1)},${bot} L ${smallCoords[0].x.toFixed(1)},${bot} Z` : null;
+
+    // Dots coloured by achievability
+    function dotColor(pwr, cross) {
+        if (cross) return null;
+        const ratio = pwr / userPwr;
+        if (ratio <= 1.00) return '#12b05f';
+        if (ratio <= 1.15) return '#ffcd00';
+        return '#ee1c28';
+    }
+
+    function makeDots(plot, lineCol, ring) {
+        return plot.map((g,i) => {
+            const x = sx(i).toFixed(1), y = sy(g.pwr).toFixed(1);
+            const s = 6, cross = g.cross;
+            const col = dotColor(g.pwr, cross);
+            return (cross
+                ? `<line x1="${+x-s}" y1="${+y-s}" x2="${+x+s}" y2="${+y+s}" stroke="${lineCol}" stroke-width="3.5" stroke-linecap="round"/>
+                   <line x1="${+x+s}" y1="${+y-s}" x2="${+x-s}" y2="${+y+s}" stroke="${lineCol}" stroke-width="3.5" stroke-linecap="round"/>`
+                : `<circle cx="${x}" cy="${y}" r="5.5" fill="${col}"/>`
+            ) + `<circle cx="${x}" cy="${y}" r="18" fill="transparent" class="chart-hover-pt"
+                    data-ring="${ring}" data-cog="${g.cog}" data-pwr="${g.pwr.toFixed(0)}"
+                    data-spd="${g.spd.toFixed(2)}" data-cross="${cross}" style="cursor:pointer"/>`;
+        }).join('');
+    }
+
+    // Your power line label
+    const pwrLineLabel = pyLine >= pT && pyLine <= bot
+        ? `<line x1="${pL}" x2="${pL+cW}" y1="${pyLine.toFixed(1)}" y2="${pyLine.toFixed(1)}" stroke="rgba(255,255,255,0.55)" stroke-width="1.5" stroke-dasharray="8 5"/>
+           <rect x="${pL+cW-58}" y="${(pyLine-12).toFixed(1)}" width="56" height="16" rx="4" fill="rgba(6,12,30,0.85)"/>
+           <text x="${(pL+cW-30).toFixed(1)}" y="${(pyLine-4).toFixed(1)}" text-anchor="middle" dominant-baseline="central" font-size="11" font-weight="700" fill="rgba(255,255,255,0.80)">${userPwr}W</text>`
+        : '';
+
+    wrap.innerHTML = `
+        <svg viewBox="0 0 ${W} ${H}" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+                <clipPath id="chart-clip">
+                    <rect x="${pL}" y="${pT}" width="${cW}" height="${cH}"/>
+                </clipPath>
+            </defs>
+            ${grid}
+            <line x1="${pL}" x2="${pL}"    y1="${pT}" y2="${bot}" stroke="rgba(255,255,255,0.09)" stroke-width="1"/>
+            <line x1="${pL}" x2="${pL+cW}" y1="${bot}" y2="${bot}" stroke="rgba(255,255,255,0.09)" stroke-width="1"/>
+            <path d="${bigLine}"   fill="none" stroke="${bigCol}"   stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round"/>
+            ${hasSmall ? `<path d="${smallLine}" fill="none" stroke="${smallCol}" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round"/>` : ''}
+            ${makeDots(bigPlot,   bigCol,   'big')}
+            ${hasSmall ? makeDots(smallPlot, smallCol, 'small') : ''}
+            ${pwrLineLabel}
+            ${yLbls}
+            ${xLbls}
+            ${yAxisLbl}
+        </svg>`;
+
+    // Tooltips
+    const tip = document.getElementById('chart-tooltip');
+    wrap.querySelectorAll('.chart-hover-pt').forEach(el => {
+        el.addEventListener('mousemove', e => {
+            const d = el.dataset, cross = d.cross==='true';
+            const isBig = d.ring==='big';
+            const lineCol = isBig ? bigCol : smallCol;
+            const pwr = parseInt(d.pwr), ratio = pwr / userPwr;
+            const statusCol = cross ? 'var(--muted)' : ratio<=1?'#12b05f':ratio<=1.15?'#ffcd00':'#ee1c28';
+            const statusLbl = cross ? 'cross-chain' : ratio<=1?'achievable':ratio<=1.15?'near limit':'too hard';
+            const ringName = isBig ? (isSingle ? 'Single Ring' : 'Big Ring') : 'Small Ring';
+            tip.innerHTML = `
+                <div class="ct-ring" style="color:${lineCol}">${ringName} · ${d.cog}T</div>
+                <div class="ct-speed" style="color:${statusCol}">${d.pwr}<span style="font-size:11px;font-weight:500;color:var(--sec);margin-left:4px">W required</span></div>
+                <div class="ct-detail">${d.spd} km/h · <span style="color:${statusCol}">${statusLbl}</span></div>`;
+            const tx = e.clientX+16, maxX = window.innerWidth-220;
+            tip.style.left = Math.min(tx,maxX)+'px';
+            tip.style.top  = Math.max(10, e.clientY-80)+'px';
+            tip.classList.add('show');
+        });
+        el.addEventListener('mouseleave', () => tip.classList.remove('show'));
+    });
+}
+
+/* ============================================================
+   ACHIEVABILITY CARDS
+============================================================ */
+function renderAchievability(bigG, smallG, outer, inner, userPwr, isSingle) {
+    function cardClass(g) {
+        if (g.cross) return 'cross';
+        const r = g.pwr / userPwr;
+        if (r <= 1.00) return 'ok';
+        if (r <= 1.15) return 'warn';
+        return 'hard';
+    }
+    function badgeLabel(g) {
+        if (g.cross) return 'Cross-chain';
+        const r = g.pwr / userPwr;
+        if (r <= 1.00) return '✓ OK';
+        if (r <= 1.15) return '~ Limit';
+        return '✕ Hard';
+    }
+
+    function makeCol(gears, ring, ringLabel) {
+        let html = `<div class="achieve-col">
+            <div class="achieve-col-head" style="color:var(--accent${ring==='small'?'-light':''})">${ringLabel}</div>`;
+        gears.forEach(g => {
+            const cls = cardClass(g);
+            html += `<div class="gcard ${cls}">
+                <div class="gc-cog">${g.cog}T</div>
+                <div class="gc-mid">
+                    <div class="gc-watts">${Math.round(g.pwr)}W</div>
+                    <div class="gc-spd">${g.spd.toFixed(1)} km/h</div>
+                </div>
+                <div class="gc-badge">${badgeLabel(g)}</div>
+            </div>`;
+        });
+        html += '</div>';
+        return html;
+    }
+
+    const bigLabel = isSingle ? `${outer}T Single Ring` : `${outer}T Big Ring`;
+    document.getElementById('achieve-cols').innerHTML =
+        makeCol(bigG, 'big', bigLabel) +
+        (isSingle ? '' : makeCol(smallG, 'small', `${inner}T Small Ring`));
+}
+
+/* ============================================================
+   INIT
+============================================================ */
+(function() {
+    const urlP = new URLSearchParams(location.search);
+    let sh = {};
+    if (!urlP.get('d') && !urlP.get('g')) {
+        try { sh = JSON.parse(localStorage.getItem('cg_shared') || '{}'); } catch(e) {}
+    }
+    const disc = (['road','mtb','gravel'].includes(urlP.get('d') || sh.d)) ? (urlP.get('d') || sh.d) : 'road';
+    selectDiscipline(disc);
+    const brand = urlP.get('b') || sh.b;
+    if (brand === 'custom') {
+        const sc = sh.cust || {};
+        const cBig = urlP.get('xb') || sc.big, cSmall = urlP.get('xs') || sc.small;
+        const cKind = urlP.get('xk') || sc.ct, cCass = urlP.get('xc') || sc.cass;
+        if (cBig)   CUST.big   = parseInt(cBig)   || CUST.big;
+        if (cSmall) CUST.small = parseInt(cSmall) || CUST.small;
+        CUST.crankType = cKind === '1x' ? '1x' : '2x';
+        if (cCass) document.getElementById('cust-cassette').value = cCass;
+        document.getElementById('cust-big-val').textContent   = CUST.big;
+        document.getElementById('cust-small-val').textContent = CUST.small;
+        selectBrand('custom');
+        setCrankMode(CUST.crankType);
+    } else if (brand && DISC_BRANDS[S.discipline].includes(brand)) {
+        selectBrand(brand);
+    }
+    const gsEl = document.getElementById('sel-groupset');
+    const gsName = urlP.get('g') || sh.g;
+    if (gsName && [...gsEl.options].some(o => o.value === gsName)) { gsEl.value = gsName; onGroupsetChange(); }
+    const crVal = urlP.get('cr') ?? sh.cr;
+    if (crVal) selectCR(parseInt(crVal) || 0);
+    const csEl = document.getElementById('sel-cassette');
+    const csVal = urlP.get('cs') || sh.cs;
+    if (csVal && [...csEl.options].some(o => o.value === csVal)) csEl.value = csVal;
+    const wEl = document.getElementById('sel-wheel');
+    const wVal = urlP.get('w') || sh.w;
+    if (wVal && [...wEl.options].some(o => o.value === wVal)) wEl.value = wVal;
+    const cadVal = urlP.get('cad') || sh.cad;
+    if (cadVal) { const s = document.getElementById('cadence-slider'); s.value = cadVal; document.getElementById('cadence-display').innerHTML = cadVal + '<span>rpm</span>'; }
+    const pwVal = urlP.get('pw') || sh.pw;
+    if (pwVal)  { const s = document.getElementById('power-slider');   s.value = pwVal;  document.getElementById('power-display').innerHTML   = pwVal  + '<span>W</span>'; }
+    // Weight units — set slider ranges before values
+    const savedWUnit = urlP.get('wunit') || sh.wunit;
+    if (['kg','lbs'].includes(savedWUnit)) weightUnit = savedWUnit;
+    document.querySelectorAll('.wt-unit-btn').forEach(b => b.classList.toggle('active', b.dataset.wtu === weightUnit));
+    const wsEl = document.getElementById('weight-slider');
+    const bsEl = document.getElementById('bike-slider');
+    if (weightUnit === 'lbs') {
+        wsEl.min = 88;  wsEl.max = 287; wsEl.step = 0.2;
+        bsEl.min = 8.8; bsEl.max = 35;  bsEl.step = 0.2;
+        document.getElementById('weight-range-labels').innerHTML = '<span>88 lbs</span><span>287 lbs</span>';
+        document.getElementById('bike-range-labels').innerHTML   = '<span>9 lbs</span><span>35 lbs</span>';
+    }
+    // Body & bike weight (stored in kg); wt is the combined system weight (legacy fallback)
+    const rawBody = urlP.get('bwt') || sh.bwt || sh.wt;
+    const rawBike = urlP.get('bkw') || sh.bkw;
+    let bodyK = 70, bikeK = 8;
+    if (rawBody) bodyK = Math.min(130, Math.max(40, parseFloat(rawBody)));
+    if (rawBike) bikeK = Math.min(16,  Math.max(4,  parseFloat(rawBike)));
+    wsEl.value = fromKg(bodyK).toFixed(1);
+    bsEl.value = fromKg(bikeK).toFixed(1);
+    updateWeightDisplays();
+    const grVal = urlP.get('gr') || sh.gr;
+    if (grVal)  { const s = document.getElementById('gradient-slider');s.value = grVal;  document.getElementById('gradient-display').innerHTML = grVal + '<span>%</span>'; }
+    const cdaVal = urlP.get('cda') || sh.cda;
+    if (cdaVal) {
+        S.cda = parseFloat(cdaVal);
+        document.querySelectorAll('.pos-btn').forEach(b => b.classList.toggle('active', parseFloat(b.dataset.cda) === S.cda));
+    }
+    const ckVal = urlP.get('ck') || sh.ck;
+    if (ckVal) document.getElementById('sel-crank').value = ckVal;
+    const dstVal = urlP.get('dst') || sh.dst;
+    if (dstVal) { const s = document.getElementById('dist-slider'); s.value = Math.min(30, Math.max(1, Math.round(parseFloat(dstVal)))); updateDistDisplay(); }
+    calculate();
+})();
+
+function showPrintReport() {
+    const lc = window.LAST_CALC;
+    if (!lc) return;
+    const wEl = document.getElementById('sel-wheel');
+    const wheelLabel = wEl.options[wEl.selectedIndex]?.text || '';
+    const svgEl = document.querySelector('#chart-wrap svg');
+    const svgHTML = svgEl ? svgEl.outerHTML
+        .replace(/rgba\(255,255,255,0\.05\)/g,'rgba(0,0,0,0.09)')
+        .replace(/rgba\(255,255,255,0\.09\)/g,'rgba(0,0,0,0.18)')
+        .replace(/fill="#94a3b8"/g,'fill="#64748b"') : '';
+
+    const bigAccent = '#3b82f6', smlAccent = '#6366f1';
+
+    function makeRow(gears, ringT, label, color) {
+        const rev = [...gears].reverse();
+        const cells = rev.map(g => {
+            const achievable = !g.cross && g.pwr <= lc.userPwr;
+            const pwrColor = achievable ? '#16a34a' : '#dc2626';
+            return `<td class="${g.cross ? 'cross' : ''}">
+                <div class="rpt-cog">${g.cog}T</div>
+                <div class="rpt-spd">${g.spd.toFixed(1)}&thinsp;km/h</div>
+                <div class="rpt-pwr" style="color:${pwrColor}">${Math.round(g.pwr)}W</div>
+            </td>`;
+        }).join('');
+        const headers = rev.map((_,i) => `<th>G${i+1}</th>`).join('');
+        return { headers, cells: `<tr><td class="rpt-ring-lbl" style="color:${color}">${label}<br><span style="font-size:10px;color:#94a3b8;font-weight:400">${ringT}T ring</span></td>${cells}</tr>` };
+    }
+
+    const bigRow = makeRow(lc.bigGears, lc.outer, 'Big Ring', bigAccent);
+    const smlRow = lc.isSingle ? null : makeRow(lc.smallGears, lc.inner, 'Small Ring', smlAccent);
+    const logoSVG = `<svg class="rpt-logo-dot" viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg"><defs><mask id="rdotm"><rect width="32" height="32" fill="white"/><text x="16" y="21" text-anchor="middle" font-family="Inter,system-ui,sans-serif" font-size="11" font-weight="900" letter-spacing="1.5" fill="black">DOT</text></mask></defs><circle cx="16" cy="16" r="15" fill="#ef4444" mask="url(#rdotm)"/></svg>`;
+
+    document.getElementById('print-report').innerHTML = `
+        <div class="rpt-header">
+            <div class="rpt-logo">Polka${logoSVG}Bike</div>
+            <div class="rpt-heading">Climb Planner Report</div>
+        </div>
+        <div class="rpt-meta">
+            <strong>${lc.groupset}</strong> &nbsp;·&nbsp; ${lc.crLabel} chainring &nbsp;·&nbsp; ${lc.csLabel} cassette &nbsp;·&nbsp; ${wheelLabel} &nbsp;·&nbsp; <strong>${lc.crankLen}mm</strong> cranks${lc.crankLen !== 172.5 ? ` (≈${lc.equivOuter}T on 172.5mm ref)` : ''}<br>
+            <strong>${lc.userPwr}W</strong> rider power &nbsp;·&nbsp; <strong>${lc.mass}kg</strong> total weight &nbsp;·&nbsp; <strong>${lc.grade > 0 ? '+' : ''}${lc.grade}%</strong> gradient &nbsp;·&nbsp; ${lc.cadence} rpm${lc.grade > 0 && lc.vam ? ` &nbsp;·&nbsp; VAM <strong>${lc.vam.toLocaleString()}</strong> m/hr &nbsp;·&nbsp; ${lc.distUnit === 'mi' ? (lc.climbDist / MI_C).toFixed(1) + 'mi' : Math.round(lc.climbDist) + 'km'} ≈ <strong>${lc.timeFmt}</strong>` : ''}
+        </div>
+        <div class="rpt-chart-bg">${svgHTML}</div>
+        <table class="rpt-table">
+            <thead><tr><th style="text-align:left">Ring</th>${bigRow.headers}</tr></thead>
+            <tbody>
+                ${bigRow.cells}
+                ${smlRow ? smlRow.cells : ''}
+            </tbody>
+        </table>
+        <div class="rpt-cross-note">Power shown is required watts for that gear at ${lc.cadence} rpm on a ${lc.grade}% gradient. Green = achievable at ${lc.userPwr}W. Dimmed = cross-chain.</div>
+    `;
+    document.getElementById('print-overlay').style.display = 'flex';
+}
+function closePrintReport() { document.getElementById('print-overlay').style.display = 'none'; }
+</script>
+
+<div id="print-overlay">
+    <div id="print-modal">
+        <div id="print-report"></div>
+        <div class="print-actions">
+            <button class="print-close-btn" onclick="closePrintReport()">✕ Close</button>
+            <button class="print-print-btn" onclick="window.print()">⎙ Print / Save PDF</button>
+        </div>
+    </div>
+</div>
+</body>
+</html>

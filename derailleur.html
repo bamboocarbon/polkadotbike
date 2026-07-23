@@ -1,0 +1,673 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Derailleur Capacity Calculator · Polka Dot Bike</title>
+    <meta name="description" content="Check whether a cassette and chainring combo fits your rear derailleur. Enter your ratios and see total capacity versus the maximum your mech can wrap.">
+    <link rel="canonical" href="https://polkadotbike.com/derailleur.html">
+    <meta name="robots" content="index, follow">
+    <meta name="theme-color" content="#ef4444">
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="Polka Dot Bike">
+    <meta property="og:title" content="Derailleur Capacity Calculator · Polka Dot Bike">
+    <meta property="og:description" content="Check whether a cassette and chainring combo fits your rear derailleur. Enter your ratios and see total capacity versus the maximum your mech can wrap.">
+    <meta property="og:url" content="https://polkadotbike.com/derailleur.html">
+    <meta property="og:image" content="https://polkadotbike.com/og-card.png">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Derailleur Capacity Calculator · Polka Dot Bike">
+    <meta name="twitter:description" content="Check whether a cassette and chainring combo fits your rear derailleur. Enter your ratios and see total capacity versus the maximum your mech can wrap.">
+    <meta name="twitter:image" content="https://polkadotbike.com/og-card.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=IBM+Plex+Sans:wght@600;700&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
+    <style>
+        :root { --accent:#3b82f6; --accent-light:#93c5fd; --glass:rgba(4,9,26,0.97); --border:rgba(255,255,255,0.08); --text:#e8edf5; --muted:#64748b; --sec:#94a3b8; --green:#22c55e; --amber:#f59e0b; --red:#ef4444; }
+        * { box-sizing:border-box; margin:0; padding:0; }
+        body { font-family:'Inter',system-ui,sans-serif; min-height:100vh; color:var(--text); overflow-x:hidden; background:#fff; }
+        .bg-scene { position:fixed; inset:0; z-index:0; pointer-events:none; }
+        .bg-sky { position:absolute; inset:0; background:#fff; }
+        .bg-mountains { position:absolute; inset:0; background-image:radial-gradient(circle,rgba(239,68,68,0.22) 28%,transparent 28%),radial-gradient(circle,rgba(239,68,68,0.22) 28%,transparent 28%); background-size:44px 44px; background-position:0 0,22px 22px; }
+        header { position:sticky; top:0; z-index:100; background:rgba(4,9,26,0.85); backdrop-filter:blur(16px); border-bottom:1px solid var(--border); padding:0 24px; height:54px; display:flex; align-items:center; justify-content:space-between; }
+        .logo { font-size:19px; font-weight:900; letter-spacing:-0.5px; color:#fff; text-decoration:none; display:inline-flex; align-items:center; gap:3px; }
+        .logo span { color:var(--accent); }
+        .logo-dot-svg { width:32px; height:32px; flex-shrink:0; }
+        nav { display:flex; gap:2px; align-items:center; }
+        nav a { color:var(--sec); text-decoration:none; font-size:13px; font-weight:500; padding:6px 13px; border-radius:6px; transition:all 0.15s; text-align:center; line-height:1.2; }
+        nav a:hover { color:#fff; background:rgba(255,255,255,0.06); }
+        nav a.active { color:var(--accent); background:rgba(59,130,246,0.12); }
+        @media (max-width:768px) { header { padding:0 12px; } nav a { font-size:11px; padding:4px 6px; } }
+        .hero { position:relative; z-index:1; text-align:center; padding:40px 20px 28px; }
+        .hero h1 { font-size:clamp(28px,5vw,48px); font-weight:900; letter-spacing:-1.5px; line-height:1.1; background:linear-gradient(135deg,#0f172a 0%,#1e3a5f 100%); -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text; filter:drop-shadow(0 1px 4px rgba(255,255,255,0.8)); }
+        .hero p { margin-top:10px; font-size:15px; color:rgba(15,23,42,0.72); max-width:520px; margin-left:auto; margin-right:auto; }
+        .container { position:relative; z-index:1; max-width:1320px; margin:0 auto; padding:0 20px 60px; }
+        .calc-grid { display:grid; grid-template-columns:290px 1fr 270px; gap:18px; align-items:start; }
+        @media (max-width:1100px) { .calc-grid { grid-template-columns:280px 1fr; } .rail { display:none; } }
+        @media (max-width:720px)  { .calc-grid { grid-template-columns:1fr; } :root { --muted:#94a3b8; } }
+        .glass { background:var(--glass); border:1px solid rgba(255,255,255,0.12); border-radius:16px; }
+        .input-panel { overflow:hidden; }
+        @media (min-width:721px) { .input-panel { position:sticky; top:70px; } }
+        .panel-head { padding:13px 18px; font-size:10px; font-weight:700; letter-spacing:0.1em; text-transform:uppercase; color:var(--muted); border-bottom:1px solid var(--border); }
+        .form-body { padding:18px; display:flex; flex-direction:column; gap:20px; }
+        .form-label { display:block; font-size:10px; font-weight:700; text-transform:uppercase; letter-spacing:0.08em; color:var(--muted); margin-bottom:8px; }
+        .mode-toggle { display:grid; grid-template-columns:1fr 1fr; background:rgba(255,255,255,0.04); border:1px solid rgba(255,255,255,0.08); border-radius:9px; overflow:hidden; }
+        .mode-btn { padding:9px 6px; background:transparent; border:none; color:var(--muted); font-size:12px; font-weight:700; font-family:inherit; cursor:pointer; transition:all 0.15s; text-align:center; }
+        .mode-btn.active { background:#12b05f; color:#fff; }
+        .teeth-row { display:grid; grid-template-columns:1fr 20px 1fr; gap:4px; align-items:end; }
+        .teeth-sep { font-size:18px; font-weight:400; color:var(--muted); text-align:center; padding-bottom:10px; }
+        .teeth-cell { display:flex; flex-direction:column; }
+        .teeth-cell .form-label { text-align:center; }
+        .teeth-spinner { display:flex; align-items:center; background:rgba(255,255,255,0.05); border:1px solid rgba(255,255,255,0.1); border-radius:9px; overflow:hidden; }
+        .teeth-btn { width:32px; height:44px; background:transparent; border:none; color:var(--muted); font-size:18px; cursor:pointer; flex-shrink:0; transition:all 0.1s; font-family:inherit; }
+        .teeth-btn:hover { background:rgba(255,255,255,0.08); color:#fff; }
+        .teeth-val { flex:1; text-align:center; font-size:20px; font-weight:800; color:#fff; line-height:1; }
+        .teeth-unit { font-size:10px; color:var(--muted); font-weight:500; }
+        .cap-box { background:rgba(255,255,255,0.03); border:1px solid rgba(255,255,255,0.1); border-radius:12px; padding:14px 16px; }
+        .cap-formula { display:flex; align-items:center; justify-content:center; gap:8px; flex-wrap:wrap; margin-bottom:12px; min-height:52px; }
+        .cap-term { text-align:center; }
+        .cap-num  {font-family:'IBM Plex Sans',Inter,system-ui,sans-serif; font-size:22px; font-weight: 700; color:#fff; line-height:1; }
+        .cap-sub  { font-size:9px; color:var(--muted); margin-top:2px; }
+        .cap-op   { font-size:16px; color:var(--muted); padding-top:2px; }
+        .cap-total { text-align:center; border-top:1px solid var(--border); padding-top:12px; }
+        .cap-total-num {font-family:'IBM Plex Sans',Inter,system-ui,sans-serif; font-size:34px; font-weight: 700; color:#12b05f; letter-spacing: 0; line-height:1; }
+        .cap-total-lbl { font-size:10px; color:var(--muted); text-transform:uppercase; letter-spacing:0.08em; margin-top:3px; }
+        .results { display:flex; flex-direction:column; gap:12px; }
+        .filter-bar { display:flex; gap:8px; flex-wrap:wrap; }
+        .filter-group { display:flex; background:rgba(4,9,26,0.88); border:1px solid rgba(255,255,255,0.14); border-radius:8px; overflow:hidden; }
+        .filter-btn { padding:7px 13px; background:transparent; border:none; color:#94a3b8; font-size:11px; font-weight:600; font-family:inherit; cursor:pointer; transition:all 0.12s; white-space:nowrap; }
+        .filter-btn:not(:last-child) { border-right:1px solid rgba(255,255,255,0.08); }
+        .filter-btn:hover { background:rgba(255,255,255,0.06); color:#e2e8f0; }
+        .filter-btn.active { background:rgba(18,176,95,0.28); color:#5fd39a; }
+        .result-summary { font-size:12px; color:#94a3b8; background:rgba(4,9,26,0.92); border:1px solid rgba(255,255,255,0.12); border-radius:8px; padding:8px 14px; }
+        .result-summary strong { color:#fff; }
+        .dr-group { border-radius:14px; background:var(--glass); border:1px solid rgba(255,255,255,0.12); overflow:hidden; }
+        .dr-group-head { padding:10px 16px; border-bottom:1px solid var(--border); display:flex; align-items:center; gap:10px; }
+        .dr-group-icon { font-size:13px; }
+        .dr-group-label { font-size:11px; font-weight:700; text-transform:uppercase; letter-spacing:0.08em; }
+        .dr-group.ok   .dr-group-label { color:#4ade80; }
+        .dr-group.warn .dr-group-label { color:#fbbf24; }
+        .dr-group.no   .dr-group-label { color:#f87171; }
+        .dr-group-count { font-size:11px; color:var(--muted); margin-left:auto; }
+        .dr-card { display:flex; align-items:center; gap:12px; padding:11px 16px; border-bottom:1px solid rgba(255,255,255,0.05); }
+        .dr-card:last-child { border-bottom:none; }
+        .dr-card:hover { background:rgba(255,255,255,0.02); }
+        .dr-dot { width:7px; height:7px; border-radius:50%; flex-shrink:0; }
+        .dr-info { flex:1; min-width:0; }
+        .dr-name { font-size:13px; font-weight:600; color:#fff; }
+        .dr-detail { font-size:11px; color:var(--muted); margin-top:2px; }
+        .dr-tags { display:flex; gap:4px; flex-shrink:0; }
+        .dr-tag { padding:2px 6px; background:rgba(255,255,255,0.06); border:1px solid rgba(255,255,255,0.08); border-radius:4px; font-size:10px; font-weight:700; color:var(--muted); white-space:nowrap; }
+        .dr-status { flex-shrink:0; font-size:13px; font-weight:700; min-width:28px; text-align:right; }
+        .dr-group.ok   .dr-status { color:#4ade80; }
+        .dr-group.warn .dr-status { color:#fbbf24; }
+        .dr-group.no   .dr-status { color:#f87171; }
+        .rail { display:flex; flex-direction:column; gap:16px; position:sticky; top:70px; }
+        .rail-card { border-radius:14px; background:var(--glass); border:1px solid rgba(255,255,255,0.12); overflow:hidden; }
+        .rail-head { padding:12px 16px; font-size:10px; font-weight:700; letter-spacing:0.08em; text-transform:uppercase; color:var(--muted); border-bottom:1px solid var(--border); }
+        .rail-body { padding:14px 16px; }
+        .tip-text { font-size:12px; color:var(--sec); line-height:1.65; }
+        .tip-text p+p { margin-top:10px; }
+        .tip-text strong { color:var(--text); }
+        footer { position:relative; z-index:1; border-top:1px solid var(--border); padding:24px 20px; text-align:center; }
+        footer p { font-size:12px; color:var(--muted); }
+        footer a { color:var(--muted); text-decoration:none; }
+        footer a:hover { color:var(--sec); }
+    </style>
+<style id="polka-hero-dots">
+  /* Bright-white bg; red diamond polka-dots band at top of hero; title(left)+subtitle(right) below on white. */
+  .bg-mountains { display: none !important; }
+  .bg-sky { background: #fff !important; }
+  header { background: #000 !important; }
+  .hero {
+    position: relative; z-index: 1; box-sizing: border-box;
+    padding: 164px 24px 8px; margin-bottom: 34px;
+    background-image:
+      radial-gradient(circle, #ee1c28 25px, transparent 26.5px),
+      radial-gradient(circle, #ee1c28 25px, transparent 26.5px);
+    background-size: 124px 124px; background-position: 0 0, 62px 62px; background-repeat: repeat;
+    display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: 6px 24px; text-align: left;
+  }
+  .hero::after { content: ""; position: absolute; left: 0; right: 0; top: 154px; bottom: 0; background: #fff; z-index: -1; }
+  .hero > h1 { margin: 0; color: #000 !important; -webkit-text-fill-color: #000 !important; background: none !important; filter: none !important; }
+  .hero > p  { margin: 0; max-width: 340px; text-align: left; color: #000 !important; font-weight: 700 !important; }
+
+  /* ===== UCI World-Championship bold palette (dots stay red) ===== */
+  :root {
+    --glass: #000; --glass2: #000;
+    --accent: #1a72e0; --accent-light: #7fb3f0;
+    --green: #12b05f; --amber: #ffcd00; --red: #ee1c28;
+  }
+  .glass, .input-panel, .stat-card, .chart-card, .achieve-card, .rail-card, .buy-card { border-color: rgba(255,255,255,0.14); }
+  .logo span { color: #fff !important; }
+  /* groupset / brand tabs: text + lower line only (no box tint). Bold hues. */
+  .brand-tab.active[data-brand="shimano"]    { color:#2b8bff !important; background:transparent !important; border-bottom-color:#1a72e0 !important; }
+  .brand-tab.active[data-brand="sram"]       { color:#ff1f2b !important; background:transparent !important; border-bottom-color:#ee1c28 !important; }
+  .brand-tab.active[data-brand="campagnolo"] { color:#ffcf1a !important; background:transparent !important; border-bottom-color:#ffcd00 !important; }
+  .brand-tab.active[data-brand="custom"]     { color:#17c86c !important; background:transparent !important; border-bottom-color:#12b05f !important; }
+  .cust-mode-btn.active { background:#12b05f; }
+  /* derailleur page: segmented filter buttons — no fill, bold groupset colours + lower line */
+  .filter-btn.active { background:transparent !important; color:#fff !important; border-bottom:2px solid rgba(255,255,255,0.85); }
+  .filter-btn.active[data-fbrand="shimano"]    { color:#2b8bff !important; border-bottom-color:#1a72e0; }
+  .filter-btn.active[data-fbrand="sram"]       { color:#ff1f2b !important; border-bottom-color:#ee1c28; }
+  .filter-btn.active[data-fbrand="campagnolo"] { color:#ffcf1a !important; border-bottom-color:#ffcd00; }
+  /* alert / status colours (bold, not pale) */
+  .stat-green { color:#17c86c !important; }
+  .stat-red   { color:#ff1f2b !important; }
+  .verdict-card.v-yes  { border-color:rgba(18,176,95,0.5) !important; }
+  .verdict-card.v-warn { border-color:rgba(255,205,0,0.55) !important; }
+  .verdict-card.v-no   { border-color:rgba(238,28,40,0.5) !important; }
+  .verdict-card.v-yes  .verdict-main { color:#17c86c; }
+  .verdict-card.v-warn .verdict-main { color:#ffcf1a; }
+  .verdict-card.v-no   .verdict-main { color:#ff1f2b; }
+  .dr-group.ok   .dr-group-label, .dr-group.ok   .dr-status { color:#17c86c !important; }
+  .dr-group.warn .dr-group-label, .dr-group.warn .dr-status { color:#ffcf1a !important; }
+  .dr-group.no   .dr-group-label, .dr-group.no   .dr-status { color:#ff1f2b !important; }
+  /* bottom polka-dot band: white gap after content, then 3 dot rows down to the page bottom */
+  body::after {
+    content: ""; display: block; position: relative; z-index: 1; width: 100%; height: 186px; margin-top: 4px;
+    background-image:
+      radial-gradient(circle, #ee1c28 25px, transparent 26.5px),
+      radial-gradient(circle, #ee1c28 25px, transparent 26.5px);
+    background-size: 124px 124px; background-position: 0px -31px, 62px 31px; background-repeat: repeat;
+  }
+</style>
+<style id="pdb-inline-brand">
+  /* Inline brand mark: "Polka(DOT)Bike" with DOT knocked into a red circle, as per the header logo */
+  .pdb-brand{font-weight:800;white-space:nowrap;}
+  .pdb-dot{display:inline-block;width:1.35em;height:1.35em;vertical-align:-0.3em;margin:0 0.12em;overflow:hidden;text-indent:-9999px;white-space:nowrap;background:url("data:image/svg+xml;utf8,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 32 32%22%3E%3Ccircle cx=%2216%22 cy=%2216%22 r=%2216%22 fill=%22%23ef4444%22/%3E%3Ctext x=%2216.75%22 y=%2220%22 text-anchor=%22middle%22 font-family=%22Inter,system-ui,sans-serif%22 font-size=%2210.5%22 font-weight=%22900%22 letter-spacing=%221.5%22 fill=%22%23000%22%3EDOT%3C/text%3E%3C/svg%3E") no-repeat center/contain;}
+</style>
+<style id="polka-mobile-nav">
+  /* Mobile: nav scrolls horizontally inside the header bar instead of stretching the page */
+  @media (max-width: 768px) {
+    html, body { overflow-x: hidden; }
+    header { gap: 8px; }
+    .logo { flex-shrink: 0; }
+    nav {
+      min-width: 0;
+      overflow-x: auto; -webkit-overflow-scrolling: touch;
+      flex-wrap: nowrap; max-width: 100%;
+      scrollbar-width: none; -ms-overflow-style: none;
+    }
+    nav::-webkit-scrollbar { display: none; }
+    nav a { white-space: nowrap; flex-shrink: 0; }
+    .hero-bikes { font-size: 16px !important; margin-top: 6px !important; }
+
+    /* Smaller polka dots on mobile: same diamond pattern at ~60% scale, more dots across */
+    .hero {
+      padding-top: 85px;
+      background-image:
+        radial-gradient(circle, #ee1c28 12px, transparent 13.5px),
+        radial-gradient(circle, #ee1c28 12px, transparent 13.5px);
+      background-size: 60px 60px;
+      background-position: 0 0, 30px 30px;
+    }
+    .hero::after { top: 75px; }
+    body::after {
+      height: 90px;
+      background-image:
+        radial-gradient(circle, #ee1c28 12px, transparent 13.5px),
+        radial-gradient(circle, #ee1c28 12px, transparent 13.5px);
+      background-size: 60px 60px;
+      background-position: 0 -15px, 30px 15px;
+    }
+  }
+</style>
+<!-- GA-CONSENT-LOADER START -->
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  window.pdbLoadGA = function(){
+    if (window.pdbGALoaded) return;
+    window.pdbGALoaded = true;
+    var s = document.createElement('script');
+    s.async = true;
+    s.src = 'https://www.googletagmanager.com/gtag/js?id=G-24JBH53W09';
+    document.head.appendChild(s);
+    gtag('js', new Date());
+    gtag('config', 'G-24JBH53W09');
+  };
+</script>
+<!-- GA-CONSENT-LOADER END -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebApplication",
+  "@id": "https://polkadotbike.com/derailleur.html#app",
+  "name": "Derailleur Capacity Checker",
+  "url": "https://polkadotbike.com/derailleur.html",
+  "applicationCategory": "UtilitiesApplication",
+  "operatingSystem": "Any",
+  "browserRequirements": "Requires JavaScript",
+  "offers": {
+    "@type": "Offer",
+    "price": "0",
+    "priceCurrency": "GBP"
+  },
+  "description": "Check whether a cassette and chainring combo fits your rear derailleur. Enter your ratios and see total capacity versus the maximum your mech can wrap.",
+  "author": {
+    "@type": "Person",
+    "name": "Robin Gillingham",
+    "url": "https://polkadotbike.com/about.html"
+  },
+  "isPartOf": {
+    "@id": "https://polkadotbike.com/#website"
+  }
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Home",
+      "item": "https://polkadotbike.com/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "Derailleur Capacity",
+      "item": "https://polkadotbike.com/derailleur.html"
+    }
+  ]
+}
+</script>
+</head>
+<body>
+<!-- CONSENT-BANNER START -->
+<style>
+  #pdb-consent{position:fixed;left:0;right:0;bottom:0;z-index:999;background:#000;color:#fff;
+    padding:16px 20px;display:flex;flex-wrap:wrap;align-items:center;justify-content:center;
+    gap:12px 20px;font-family:system-ui,sans-serif;box-shadow:0 -2px 12px rgba(0,0,0,.3)}
+  #pdb-consent[hidden]{display:none}
+  #pdb-consent p{margin:0;font-size:14px;line-height:1.5;max-width:560px;color:#e5e9ee}
+  #pdb-consent a{color:#7fb3f0;text-decoration:underline}
+  #pdb-consent .pdb-consent-btns{display:flex;gap:10px;flex-shrink:0}
+  #pdb-consent button{font:inherit;font-weight:600;font-size:14px;padding:9px 18px;border-radius:6px;
+    cursor:pointer;border:1px solid #fff}
+  #pdb-consent .pdb-accept{background:#1a72e0;color:#fff;border-color:#1a72e0}
+  #pdb-consent .pdb-reject{background:transparent;color:#fff}
+  @media (max-width:640px){#pdb-consent{justify-content:flex-start;text-align:left}}
+</style>
+<div id="pdb-consent" role="dialog" aria-label="Cookie consent" hidden>
+  <p>I use Google Analytics cookies to see how the site's used. See the <a href="privacy.html">privacy policy</a> for details.</p>
+  <div class="pdb-consent-btns">
+    <button type="button" class="pdb-reject" id="pdb-consent-reject">Reject</button>
+    <button type="button" class="pdb-accept" id="pdb-consent-accept">Accept</button>
+  </div>
+</div>
+<script>
+(function(){
+  var KEY = 'pdb_consent';
+  function getChoice(){ try { return localStorage.getItem(KEY); } catch(e) { return null; } }
+  function setChoice(v){ try { localStorage.setItem(KEY, v); } catch(e) {} }
+  var choice = getChoice();
+  if (choice === 'accepted' && window.pdbLoadGA) window.pdbLoadGA();
+  if (choice) return;
+  var el = document.getElementById('pdb-consent');
+  if (!el) return;
+  el.hidden = false;
+  document.getElementById('pdb-consent-accept').addEventListener('click', function(){
+    setChoice('accepted');
+    if (window.pdbLoadGA) window.pdbLoadGA();
+    el.hidden = true;
+  });
+  document.getElementById('pdb-consent-reject').addEventListener('click', function(){
+    setChoice('rejected');
+    el.hidden = true;
+  });
+})();
+</script>
+<!-- CONSENT-BANNER END -->
+<noscript><div style="position:relative;z-index:50;background:#ffcd00;color:#000;font-family:system-ui,sans-serif;font-size:14px;font-weight:600;text-align:center;padding:10px 16px">This site&#8217;s interactive calculators need JavaScript to run. The stage and climb listings on the <a href="tdf.html" style="color:#000">Tour de France 2026</a> and <a href="giro26.html" style="color:#000">Giro 2026</a> pages are still readable without it.</div></noscript>
+
+<div class="bg-scene"><div class="bg-sky"></div><div class="bg-mountains"></div></div>
+
+<header>
+    <a class="logo" href="index.html">Polka<svg class="logo-dot-svg" viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg"><defs><mask id="dotm"><rect width="32" height="32" fill="white"/><text x="16" y="21" text-anchor="middle" font-family="Inter,system-ui,sans-serif" font-size="11" font-weight="900" letter-spacing="1.5" fill="black">DOT</text></mask></defs><circle cx="16" cy="16" r="15" fill="#ef4444" mask="url(#dotm)"/></svg><span>Bike</span></a>
+    <nav>
+        <a href="index.html">Gear<br>Calculator</a>
+        <a href="climb.html">Climb<br>Planner</a>
+        <a href="compare.html">Groupset<br>Comparator</a>
+        <a href="derailleur.html" class="active">Derailleur<br>Capacity</a>
+        <a href="wkg.html">W/KG<br>and FTP</a>
+        <a href="giro26.html">Giro 2026</a>
+        <a href="tdf.html">TDF 2026</a>
+        <a href="about.html">About</a>
+        <a href="guide.html">Guide</a>
+        <a href="glossary.html">Glossary</a>
+        <a href="contact.html">Contact</a>
+    </nav>
+</header>
+
+<div class="hero">
+    <h1>Derailleur Capacity</h1>
+    <p>Enter your chainring and cassette sizes — see instantly which derailleurs can handle your setup.</p>
+    <div class="hero-bikes" style="flex-basis:100%;max-width:1120px;margin:12px auto 0;display:flex;justify-content:space-between;align-items:center;font-size:28px;font-weight:900;letter-spacing:-1px;color:#0f172a">
+        <span>Road Bikes</span><span>Mountain Bikes</span><span>Gravel Bikes</span>
+    </div>
+</div>
+
+<div class="container">
+<div class="calc-grid">
+
+    <div class="input-panel glass">
+        <div class="panel-head">Your Drivetrain</div>
+        <div class="form-body">
+
+            <div>
+                <div class="form-label">Drivetrain Type</div>
+                <div class="mode-toggle">
+                    <button class="mode-btn active" data-mode="2x" onclick="setMode('2x')">2× Double</button>
+                    <button class="mode-btn"        data-mode="1x" onclick="setMode('1x')">1× Single</button>
+                </div>
+            </div>
+
+            <div id="front-section">
+                <div class="form-label">Chainrings</div>
+                <div class="teeth-row">
+                    <div class="teeth-cell">
+                        <div class="form-label">Big Ring</div>
+                        <div class="teeth-spinner">
+                            <button class="teeth-btn" onclick="adj('bigRing',-1)">−</button>
+                            <div class="teeth-val"><span id="bigRing-val">50</span><span class="teeth-unit">T</span></div>
+                            <button class="teeth-btn" onclick="adj('bigRing',+1)">+</button>
+                        </div>
+                    </div>
+                    <div class="teeth-sep" id="front-sep">−</div>
+                    <div class="teeth-cell" id="small-ring-cell">
+                        <div class="form-label">Small Ring</div>
+                        <div class="teeth-spinner">
+                            <button class="teeth-btn" onclick="adj('smallRing',-1)">−</button>
+                            <div class="teeth-val"><span id="smallRing-val">34</span><span class="teeth-unit">T</span></div>
+                            <button class="teeth-btn" onclick="adj('smallRing',+1)">+</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div>
+                <div class="form-label">Cassette Range</div>
+                <div class="teeth-row">
+                    <div class="teeth-cell">
+                        <div class="form-label">Big Cog</div>
+                        <div class="teeth-spinner">
+                            <button class="teeth-btn" onclick="adj('bigCog',-1)">−</button>
+                            <div class="teeth-val"><span id="bigCog-val">32</span><span class="teeth-unit">T</span></div>
+                            <button class="teeth-btn" onclick="adj('bigCog',+1)">+</button>
+                        </div>
+                    </div>
+                    <div class="teeth-sep">−</div>
+                    <div class="teeth-cell">
+                        <div class="form-label">Small Cog</div>
+                        <div class="teeth-spinner">
+                            <button class="teeth-btn" onclick="adj('smallCog',-1)">−</button>
+                            <div class="teeth-val"><span id="smallCog-val">11</span><span class="teeth-unit">T</span></div>
+                            <button class="teeth-btn" onclick="adj('smallCog',+1)">+</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="cap-box">
+                <div class="cap-formula" id="cap-formula"></div>
+                <div class="cap-total">
+                    <div class="cap-total-num" id="cap-total-num">—</div>
+                    <div class="cap-total-lbl">Required Capacity</div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <div class="results">
+        <div class="filter-bar">
+            <div class="filter-group">
+                <button class="filter-btn active" onclick="setFilter('brand','all',this)">All Brands</button>
+                <button class="filter-btn" data-fbrand="shimano" onclick="setFilter('brand','shimano',this)">Shimano</button>
+                <button class="filter-btn" data-fbrand="sram" onclick="setFilter('brand','sram',this)">SRAM</button>
+                <button class="filter-btn" data-fbrand="campagnolo" onclick="setFilter('brand','campagnolo',this)">Campagnolo</button>
+            </div>
+            <div class="filter-group">
+                <button class="filter-btn active" onclick="setFilter('disc','all',this)">All Types</button>
+                <button class="filter-btn" onclick="setFilter('disc','road',this)">Road</button>
+                <button class="filter-btn" onclick="setFilter('disc','mtb',this)">MTB</button>
+                <button class="filter-btn" onclick="setFilter('disc','gravel',this)">Gravel</button>
+            </div>
+        </div>
+        <div class="result-summary" id="result-summary"></div>
+        <div id="results-list"></div>
+    </div>
+
+    <div class="rail">
+        <div class="rail-card">
+            <div class="rail-head">How It Works</div>
+            <div class="rail-body">
+                <div class="tip-text">
+                    <p><strong>Required capacity</strong> = (big ring − small ring) + (big cog − small cog). Your derailleur's rated total capacity must be at or above this number.</p>
+                    <p><strong>Max sprocket</strong> is a separate hard limit — the derailleur arm must physically reach your biggest cog regardless of the capacity figure.</p>
+                    <p><strong>Marginal</strong> means within 3T of the limit. May shift fine with B-screw adjustment, but you're outside the manufacturer's guaranteed range.</p>
+                    <p><strong>1× drivetrains</strong> have no front chainring difference, so required capacity equals cassette range only.</p>
+                </div>
+            </div>
+        </div>
+        <div class="rail-card">
+            <div class="rail-head">Cage Lengths</div>
+            <div class="rail-body">
+                <div class="tip-text">
+                    <p><strong>SS (short cage)</strong> — lighter, stiffer. For compact doubles (50/34) with tight cassettes (11–28T). Lower total capacity.</p>
+                    <p><strong>GS (medium cage)</strong> — standard for most road and gravel. Handles typical 2× setups and moderately wide cassettes to ~36T.</p>
+                    <p><strong>SGS / long cage</strong> — MTB and touring. Required for large cassettes (40T+).</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+</div>
+
+<!-- BEGIN AADS AD UNIT 2448890 -->
+<div id="frame" style="width: 100%;margin: auto;position: relative; z-index: 99998;">
+          <iframe data-aa='2448890' src='//acceptable.a-ads.com/2448890/?size=Adaptive&background_color=transparent'
+                            style='border:0; padding:0; width:70%; height:auto; overflow:hidden;display: block;margin: auto'></iframe>
+        </div>
+<!-- END AADS AD UNIT 2448890 -->
+<footer>
+    <p><span class="pdb-brand">Polka<span class="pdb-dot">DOT</span>Bike</span> — Capacity figures from published manufacturer specifications. Always verify with your derailleur's manual.</p>
+    <p style="margin-top:6px"><a href="index.html">← Gear Calculator</a> · <a href="climb.html">Climb Planner</a> · <a href="guide.html">Guide</a> · <a href="glossary.html">Glossary</a> · <a href="about.html">About</a> · <a href="contact.html">Contact</a> · <a href="privacy.html">Privacy</a> · <a href="disclaimer.html">Disclaimer</a></p>
+    <p style="margin-top:8px;font-size:0.85em;opacity:0.65">Also by me: <a href="https://digitalcredityield.com" target="_blank" rel="noopener">Digital Credit Yield</a> — Bitcoin &amp; Ethereum treasury income, explained.</p>
+    <p style="margin-top:10px"><a href="https://www.instagram.com/polkadotbike.cc/" target="_blank" rel="noopener" aria-label="Instagram" style="display:inline-flex;vertical-align:middle;margin:0 7px"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="2" y="2" width="20" height="20" rx="5.5"/><circle cx="12" cy="12" r="4.3"/><circle cx="17.4" cy="6.6" r="1.05" fill="currentColor" stroke="none"/></svg></a><a href="https://www.facebook.com/profile.php?id=61591463441672" target="_blank" rel="noopener" aria-label="Facebook" style="display:inline-flex;vertical-align:middle;margin:0 7px"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M13.5 21.9v-8.4h2.82l.42-3.27h-3.24V8.03c0-.95.26-1.6 1.63-1.6h1.74V3.55C16.55 3.47 15.6 3.4 14.5 3.4c-2.33 0-3.93 1.42-3.93 4.03v2.8H7.74v3.27h2.83v8.4h2.93z"/></svg></a></p>
+</footer>
+
+<script>
+const S = { mode:'2x', bigRing:50, smallRing:34, bigCog:32, smallCog:11 };
+const LIMITS = { bigRing:[32,70], smallRing:[24,52], bigCog:[11,53], smallCog:[10,16] };
+const F = { brand:'all', disc:'all' };
+
+const brandColor = { shimano:'#1a72e0', sram:'#ee1c28', campagnolo:'#ffcd00' };
+
+const DB = [
+  { brand:'shimano', name:'Dura-Ace RD-R9200',     speed:12, disc:['road'],          cage:'GS', maxSprocket:34, totalCap:35 },
+  { brand:'shimano', name:'Ultegra RD-R8100',       speed:12, disc:['road'],          cage:'GS', maxSprocket:34, totalCap:35 },
+  { brand:'shimano', name:'105 RD-R7100',           speed:12, disc:['road'],          cage:'GS', maxSprocket:36, totalCap:36 },
+  { brand:'shimano', name:'Dura-Ace RD-R9100',      speed:11, disc:['road'],          cage:'SS', maxSprocket:30, totalCap:29 },
+  { brand:'shimano', name:'Ultegra RD-R8000 SS',    speed:11, disc:['road'],          cage:'SS', maxSprocket:30, totalCap:30 },
+  { brand:'shimano', name:'Ultegra RD-R8000 GS',    speed:11, disc:['road'],          cage:'GS', maxSprocket:34, totalCap:35 },
+  { brand:'shimano', name:'105 RD-R7000 SS',        speed:11, disc:['road'],          cage:'SS', maxSprocket:30, totalCap:30 },
+  { brand:'shimano', name:'105 RD-R7000 GS',        speed:11, disc:['road'],          cage:'GS', maxSprocket:34, totalCap:35 },
+  { brand:'shimano', name:'Tiagra RD-4700 GS',      speed:10, disc:['road'],          cage:'GS', maxSprocket:34, totalCap:37 },
+  { brand:'shimano', name:'GRX RD-RX822',           speed:12, disc:['gravel','road'], cage:'GS', maxSprocket:36, totalCap:36 },
+  { brand:'shimano', name:'GRX RD-RX812 GS',        speed:11, disc:['gravel'],        cage:'GS', maxSprocket:42, totalCap:43 },
+  { brand:'shimano', name:'XTR RD-M9100',           speed:12, disc:['mtb'],           cage:'GS', maxSprocket:51, totalCap:49 },
+  { brand:'shimano', name:'Deore XT RD-M8100',      speed:12, disc:['mtb'],           cage:'GS', maxSprocket:51, totalCap:49 },
+  { brand:'shimano', name:'SLX RD-M7100',           speed:12, disc:['mtb'],           cage:'GS', maxSprocket:51, totalCap:49 },
+  { brand:'shimano', name:'Deore RD-M6100',         speed:12, disc:['mtb'],           cage:'GS', maxSprocket:51, totalCap:49 },
+  { brand:'shimano', name:'XTR RD-M9000',           speed:11, disc:['mtb'],           cage:'GS', maxSprocket:46, totalCap:43 },
+  { brand:'shimano', name:'Deore XT RD-M8000',      speed:11, disc:['mtb','gravel'],  cage:'GS', maxSprocket:46, totalCap:43 },
+  { brand:'shimano', name:'SLX RD-M7000',           speed:11, disc:['mtb'],           cage:'GS', maxSprocket:46, totalCap:40 },
+  { brand:'sram',    name:'Red eTap AXS',           speed:12, disc:['road'],          cage:'GS', maxSprocket:36, totalCap:35 },
+  { brand:'sram',    name:'Force eTap AXS',         speed:12, disc:['road'],          cage:'GS', maxSprocket:36, totalCap:35 },
+  { brand:'sram',    name:'Rival eTap AXS',         speed:12, disc:['road'],          cage:'GS', maxSprocket:36, totalCap:36 },
+  { brand:'sram',    name:'Force XPLR AXS',         speed:12, disc:['gravel'],        cage:'GS', maxSprocket:44, totalCap:42 },
+  { brand:'sram',    name:'Rival XPLR AXS',         speed:12, disc:['gravel'],        cage:'GS', maxSprocket:44, totalCap:42 },
+  { brand:'sram',    name:'Red 22 SS',              speed:11, disc:['road'],          cage:'SS', maxSprocket:28, totalCap:28 },
+  { brand:'sram',    name:'Red 22 GS',              speed:11, disc:['road'],          cage:'GS', maxSprocket:32, totalCap:32 },
+  { brand:'sram',    name:'Force 22 GS',            speed:11, disc:['road'],          cage:'GS', maxSprocket:32, totalCap:32 },
+  { brand:'sram',    name:'Rival 22 GS',            speed:11, disc:['road'],          cage:'GS', maxSprocket:32, totalCap:32 },
+  { brand:'sram',    name:'XX1 Eagle',              speed:12, disc:['mtb'],           cage:'GS', maxSprocket:52, totalCap:48 },
+  { brand:'sram',    name:'X01 Eagle',              speed:12, disc:['mtb','gravel'],  cage:'GS', maxSprocket:52, totalCap:48 },
+  { brand:'sram',    name:'GX Eagle',               speed:12, disc:['mtb','gravel'],  cage:'GS', maxSprocket:52, totalCap:48 },
+  { brand:'sram',    name:'NX Eagle',               speed:12, disc:['mtb'],           cage:'GS', maxSprocket:52, totalCap:48 },
+  { brand:'sram',    name:'SX Eagle',               speed:12, disc:['mtb'],           cage:'GS', maxSprocket:52, totalCap:48 },
+  { brand:'campagnolo', name:'Super Record 12s GS', speed:12, disc:['road'],          cage:'GS', maxSprocket:32, totalCap:36 },
+  { brand:'campagnolo', name:'Super Record 12s SS', speed:12, disc:['road'],          cage:'SS', maxSprocket:29, totalCap:29 },
+  { brand:'campagnolo', name:'Record 12s GS',       speed:12, disc:['road'],          cage:'GS', maxSprocket:32, totalCap:36 },
+  { brand:'campagnolo', name:'Chorus 12s GS',       speed:12, disc:['road'],          cage:'GS', maxSprocket:32, totalCap:36 },
+  { brand:'campagnolo', name:'Centaur 11s GS',      speed:11, disc:['road'],          cage:'GS', maxSprocket:32, totalCap:36 },
+  { brand:'campagnolo', name:'Ekar (13-speed)',      speed:13, disc:['gravel'],        cage:'GS', maxSprocket:44, totalCap:44 },
+];
+
+function setFilter(key, val, btn) {
+    F[key] = val;
+    btn.closest('.filter-group').querySelectorAll('.filter-btn').forEach(b => b.classList.toggle('active', b === btn));
+    render();
+}
+
+function adj(key, delta) {
+    const [min, max] = LIMITS[key];
+    S[key] = Math.min(max, Math.max(min, S[key] + delta));
+    if (key === 'bigRing'   && S.bigRing   <= S.smallRing) S.smallRing = S.bigRing - 1;
+    if (key === 'smallRing' && S.smallRing >= S.bigRing)   S.bigRing   = S.smallRing + 1;
+    if (key === 'bigCog'    && S.bigCog    <= S.smallCog)  S.smallCog  = S.bigCog - 1;
+    if (key === 'smallCog'  && S.smallCog  >= S.bigCog)    S.bigCog    = S.smallCog + 1;
+    updateDisplays();
+    render();
+}
+
+function setMode(mode) {
+    S.mode = mode;
+    document.querySelectorAll('.mode-btn').forEach(b => b.classList.toggle('active', b.dataset.mode === mode));
+    const vis = mode === '2x';
+    document.getElementById('small-ring-cell').style.visibility = vis ? '' : 'hidden';
+    document.getElementById('front-sep').style.visibility       = vis ? '' : 'hidden';
+    updateDisplays();
+    render();
+}
+
+function getCapacity() {
+    const frontDiff = S.mode === '1x' ? 0 : Math.max(0, S.bigRing - S.smallRing);
+    const rearDiff  = Math.max(0, S.bigCog - S.smallCog);
+    return { frontDiff, rearDiff, total: frontDiff + rearDiff };
+}
+
+function updateDisplays() {
+    ['bigRing','smallRing','bigCog','smallCog'].forEach(k => {
+        document.getElementById(k + '-val').textContent = S[k];
+    });
+    const { frontDiff, rearDiff, total } = getCapacity();
+    let formulaHtml;
+    if (S.mode === '1x') {
+        formulaHtml = `<div class="cap-term"><div class="cap-num">${rearDiff}T</div><div class="cap-sub">${S.bigCog}T − ${S.smallCog}T cassette</div></div>`;
+    } else {
+        formulaHtml = `
+            <div class="cap-term"><div class="cap-num">${frontDiff}T</div><div class="cap-sub">${S.bigRing}−${S.smallRing} front</div></div>
+            <div class="cap-op">+</div>
+            <div class="cap-term"><div class="cap-num">${rearDiff}T</div><div class="cap-sub">${S.bigCog}−${S.smallCog} rear</div></div>
+            <div class="cap-op">=</div>
+            <div class="cap-term"><div class="cap-num" style="color:#12b05f">${total}T</div><div class="cap-sub">total</div></div>`;
+    }
+    document.getElementById('cap-formula').innerHTML = formulaHtml;
+    document.getElementById('cap-total-num').textContent = total + 'T';
+}
+
+function checkDerailleur(d) {
+    const { total } = getCapacity();
+    const sprocketOk = S.bigCog <= d.maxSprocket;
+    const capOk      = total <= d.totalCap;
+    const marginal   = capOk && total > d.totalCap - 3;
+    if (!sprocketOk && !capOk) return 'no-both';
+    if (!sprocketOk)           return 'no-sprocket';
+    if (!capOk)                return 'no-cap';
+    if (marginal)              return 'warn';
+    return 'ok';
+}
+
+function statusTier(s) {
+    if (s === 'ok')   return 'ok';
+    if (s === 'warn') return 'warn';
+    return 'no';
+}
+
+function render() {
+    const { total } = getCapacity();
+    const list = DB.filter(d => {
+        if (F.brand !== 'all' && d.brand !== F.brand)        return false;
+        if (F.disc  !== 'all' && !d.disc.includes(F.disc))   return false;
+        return true;
+    }).map(d => ({ ...d, status: checkDerailleur(d) }));
+
+    const groups = { ok:[], warn:[], no:[] };
+    list.forEach(d => groups[statusTier(d.status)].push(d));
+
+    const defs = [
+        { key:'ok',   icon:'✓', label:'Within Spec' },
+        { key:'warn', icon:'⚠', label:'Marginal — within 3T of limit' },
+        { key:'no',   icon:'✕', label:'Exceeds Capacity' },
+    ];
+
+    let html = '';
+    defs.forEach(({ key, icon, label }) => {
+        const items = groups[key];
+        if (!items.length) return;
+        html += `<div class="dr-group ${key}" style="margin-bottom:12px">
+            <div class="dr-group-head">
+                <span class="dr-group-icon">${icon}</span>
+                <span class="dr-group-label">${label}</span>
+                <span class="dr-group-count">${items.length}</span>
+            </div>`;
+        items.forEach(d => {
+            const spare   = d.totalCap - total;
+            const discStr = d.disc.map(dc => dc === 'mtb' ? 'MTB' : dc[0].toUpperCase() + dc.slice(1)).join('/');
+            let detail = '';
+            if (key === 'ok' || key === 'warn') {
+                detail = `${d.totalCap}T capacity · max ${d.maxSprocket}T cog${spare >= 0 ? ' · ' + (spare > 0 ? '+' : '') + spare + 'T to spare' : ''}`;
+            } else {
+                const parts = [];
+                if (d.status === 'no-cap' || d.status === 'no-both')      parts.push(`needs ${total}T, rated ${d.totalCap}T`);
+                if (d.status === 'no-sprocket' || d.status === 'no-both') parts.push(`your ${S.bigCog}T cog exceeds ${d.maxSprocket}T max`);
+                detail = parts.join(' · ');
+            }
+            html += `<div class="dr-card">
+                <div class="dr-dot" style="background:${brandColor[d.brand]}"></div>
+                <div class="dr-info">
+                    <div class="dr-name">${d.name}</div>
+                    <div class="dr-detail">${detail}</div>
+                </div>
+                <div class="dr-tags">
+                    <span class="dr-tag">${d.speed}s</span>
+                    <span class="dr-tag">${d.cage}</span>
+                    <span class="dr-tag">${discStr}</span>
+                </div>
+                <div class="dr-status">${icon}</div>
+            </div>`;
+        });
+        html += '</div>';
+    });
+
+    if (!html) html = `<div style="padding:40px;text-align:center;color:var(--muted);font-size:13px">No derailleurs match your filters</div>`;
+
+    document.getElementById('results-list').innerHTML = html;
+    const okCount = groups.ok.length;
+    document.getElementById('result-summary').innerHTML =
+        `<strong>${okCount}</strong> of <strong>${list.length}</strong> derailleurs within spec for <strong>${total}T</strong> required capacity`;
+}
+
+updateDisplays();
+render();
+</script>
+</body>
+</html>
