@@ -1468,10 +1468,12 @@ function renderAchievability(bigG, smallG, outer, inner, userPwr, isSingle) {
 ============================================================ */
 (function() {
     const urlP = new URLSearchParams(location.search);
+    // Always load saved settings as the fallback base — every field below already
+    // prefers its own URL param over sh.<key>, so a link that only forwards a few
+    // params (e.g. the TDF/Giro "Plan this climb" button, which omits bwt/bkw/wunit)
+    // still inherits the rest from localStorage instead of silently reverting to defaults.
     let sh = {};
-    if (!urlP.get('d') && !urlP.get('g')) {
-        try { sh = JSON.parse(localStorage.getItem('cg_shared') || '{}'); } catch(e) {}
-    }
+    try { sh = JSON.parse(localStorage.getItem('cg_shared') || '{}'); } catch(e) {}
     const disc = (['road','mtb','gravel'].includes(urlP.get('d') || sh.d)) ? (urlP.get('d') || sh.d) : 'road';
     selectDiscipline(disc);
     const brand = urlP.get('b') || sh.b;
