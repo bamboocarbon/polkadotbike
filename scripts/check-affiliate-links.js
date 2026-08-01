@@ -1,7 +1,10 @@
 #!/usr/bin/env node
 /*
- * Checks every Performance Bicycle affiliate link in index.html still resolves
- * to a real, in-stock product page (or a valid category fallback page).
+ * Checks every Performance Bicycle affiliate link in pb-links.js still
+ * resolves to a real, in-stock product page (or a valid category fallback
+ * page). pb-links.js is shared by every page with a "Buy These Components"
+ * box (index.html, climb.html, compare.html, ...), so this checks all of
+ * them in one pass.
  *
  * Shells out to curl rather than using fetch(): performancebicycle.avln.me
  * fingerprints the client (not just User-Agent) and serves a 200 JS
@@ -15,7 +18,7 @@ const fs = require('fs');
 const path = require('path');
 const { execFileSync } = require('child_process');
 
-const INDEX_HTML = path.join(__dirname, '..', 'index.html');
+const PB_LINKS_JS = path.join(__dirname, '..', 'pb-links.js');
 const BROWSER_UA = 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0 Safari/537.36';
 
 const DEAD_PAGE_PHRASES = [
@@ -34,13 +37,27 @@ const DEAD_PAGE_PHRASES = [
 function extractObjectLiteral(src, constName) {
     const re = new RegExp(`const ${constName} = \\{([\\s\\S]*?)\\n\\};`);
     const m = src.match(re);
-    if (!m) throw new Error(`Could not find ${constName} in index.html`);
+    if (!m) throw new Error(`Could not find ${constName} in pb-links.js`);
     const body = m[1];
     const entries = [];
     const entryRe = /(?:'((?:[^'\\]|\\.)*)'|(\w+))\s*:\s*'((?:[^'\\]|\\.)*)'/g;
     let em;
     while ((em = entryRe.exec(body))) entries.push([em[1] || em[2], em[3]]);
     return entries;
+}
+
+function extractStringConst(src, constName) {
+    const re = new RegExp(`const ${constName} = '([^']*)'`);
+    const m = src.match(re);
+    if (!m) throw new Error(`Could not find ${constName} in pb-links.js`);
+    return m[1];
+}
+
+// Checks a link regardless of whether it's currently a tracked avln.me
+// redirect or a direct performancebike.com URL (covers links still on the
+// TODO list to get a real tracking link generated for them).
+function checkLink(key, url) {
+    return url.includes('avln.me') ? checkTrackedLink(key, url) : checkDestination(key, url, url);
 }
 
 function curlHeaders(url) {
@@ -102,15 +119,17 @@ function checkDestination(key, trackUrl, dest) {
 }
 
 function main() {
-    const src = fs.readFileSync(INDEX_HTML, 'utf8');
+    const src = fs.readFileSync(PB_LINKS_JS, 'utf8');
     const links = extractObjectLiteral(src, 'PB_LINKS');
     const fallbacks = extractObjectLiteral(src, 'PB_BRAND_FALLBACK');
+    const generic = extractStringConst(src, 'PB_GENERIC_LINK');
 
-    console.log(`Checking ${links.length} exact groupset links + ${fallbacks.length} brand fallback pages...\n`);
+    console.log(`Checking ${links.length} exact groupset links + ${fallbacks.length} brand fallback pages + 1 generic link...\n`);
 
     const results = [];
-    for (const [key, url] of links) results.push(checkTrackedLink(key, url));
-    for (const [brand, url] of fallbacks) results.push(checkTrackedLink(`fallback:${brand}`, url));
+    for (const [key, url] of links) results.push(checkLink(key, url));
+    for (const [brand, url] of fallbacks) results.push(checkLink(`fallback:${brand}`, url));
+    results.push(checkLink('generic', generic));
 
     let broken = 0;
     for (const r of results) {

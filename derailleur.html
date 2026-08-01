@@ -110,6 +110,17 @@
         .tip-text { font-size:12px; color:var(--sec); line-height:1.65; }
         .tip-text p+p { margin-top:10px; }
         .tip-text strong { color:var(--text); }
+        .pb-logo-chip { display:block; width:100%; max-width:220px; height:auto; margin:0 auto 12px; }
+        .pb-buy-link {
+            display: flex; align-items: center; gap: 10px; padding: 11px 14px; border-radius: 9px;
+            background: rgba(var(--pb-rgb, 226,76,0), 0.10); border: 1px solid rgba(var(--pb-rgb, 226,76,0), 0.4); color: var(--pb-light, #ff8a4c);
+            font-size: 13px; font-weight: 700; text-decoration: none; transition: all 0.15s;
+        }
+        .pb-buy-link:hover { background: rgba(var(--pb-rgb, 226,76,0), 0.18); }
+        .pb-buy-link .pb-text { flex: 1; line-height: 1.35; }
+        .pb-buy-link .pb-text small { display: block; font-weight: 500; color: var(--sec); font-size: 10.5px; margin-top: 1px; }
+        .pb-buy-link .pb-arrow { flex-shrink: 0; }
+        .pb-note { font-size: 10.5px; color: var(--muted); margin-top: 8px; text-align: center; }
         footer { position:relative; z-index:1; border-top:1px solid var(--border); padding:24px 20px; text-align:center; }
         footer p { font-size:12px; color:var(--muted); }
         footer a { color:var(--muted); text-decoration:none; }
@@ -328,7 +339,7 @@
 })();
 </script>
 <!-- CONSENT-BANNER END -->
-<noscript><div style="position:relative;z-index:50;background:#ffcd00;color:#000;font-family:system-ui,sans-serif;font-size:14px;font-weight:600;text-align:center;padding:10px 16px">This site&#8217;s interactive calculators need JavaScript to run. The stage and climb listings on the <a href="tdf.html" style="color:#000">Tour de France 2026</a> and <a href="giro26.html" style="color:#000">Giro 2026</a> pages are still readable without it.</div></noscript>
+<noscript><div style="position:relative;z-index:50;background:#ffcd00;color:#000;font-family:system-ui,sans-serif;font-size:14px;font-weight:600;text-align:center;padding:10px 16px">This site&#8217;s interactive calculators need JavaScript to run. The stage and climb listings on the <a href="tdf.html" style="color:#000">Tour de France 2026</a>, <a href="giro26.html" style="color:#000">Giro 2026</a> and <a href="vuelta.html" style="color:#000">Vuelta 2026</a> pages are still readable without it.</div></noscript>
 
 <div class="bg-scene"><div class="bg-sky"></div><div class="bg-mountains"></div></div>
 
@@ -342,6 +353,7 @@
         <a href="wkg.html">W/KG<br>and FTP</a>
         <a href="giro26.html">Giro 2026</a>
         <a href="tdf.html">TDF 2026</a>
+        <a href="vuelta.html">Vuelta 2026</a>
         <a href="about.html">About</a>
         <a href="guide.html">Guide</a>
         <a href="glossary.html">Glossary</a>
@@ -450,6 +462,17 @@
 
     <div class="rail">
         <div class="rail-card">
+            <div class="rail-head">Buy These Components</div>
+            <div class="rail-body">
+                <img class="pb-logo-chip" src="pb-logo.png" alt="Performance Bicycle">
+                <a class="pb-buy-link" id="pb-buy-link" href="#" target="_blank" rel="noopener sponsored">
+                    <span class="pb-text">Shop groupsets<small>Opens in a new tab</small></span>
+                    <span class="pb-arrow">→</span>
+                </a>
+                <p class="pb-note">Affiliate link — I may earn a small commission at no extra cost to you.</p>
+            </div>
+        </div>
+        <div class="rail-card">
             <div class="rail-head">How It Works</div>
             <div class="rail-body">
                 <div class="tip-text">
@@ -488,7 +511,12 @@
     <p style="margin-top:10px"><a href="https://www.instagram.com/polkadotbike.cc/" target="_blank" rel="noopener" aria-label="Instagram" style="display:inline-flex;vertical-align:middle;margin:0 7px"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="2" y="2" width="20" height="20" rx="5.5"/><circle cx="12" cy="12" r="4.3"/><circle cx="17.4" cy="6.6" r="1.05" fill="currentColor" stroke="none"/></svg></a><a href="https://www.facebook.com/profile.php?id=61591463441672" target="_blank" rel="noopener" aria-label="Facebook" style="display:inline-flex;vertical-align:middle;margin:0 7px"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M13.5 21.9v-8.4h2.82l.42-3.27h-3.24V8.03c0-.95.26-1.6 1.63-1.6h1.74V3.55C16.55 3.47 15.6 3.4 14.5 3.4c-2.33 0-3.93 1.42-3.93 4.03v2.8H7.74v3.27h2.83v8.4h2.93z"/></svg></a></p>
 </footer>
 
+<script src="pb-links.js"></script>
 <script>
+const pbLinkElDerailleur = document.getElementById('pb-buy-link');
+pbLinkElDerailleur.href = PB_GENERIC_LINK;
+pbSetBrandColor(pbLinkElDerailleur, '#12b05f', '#5fd39a'); // matches accentMap.custom on other pages — no groupset context here
+
 const S = { mode:'2x', bigRing:50, smallRing:34, bigCog:32, smallCog:11 };
 const LIMITS = { bigRing:[32,70], smallRing:[24,52], bigCog:[11,53], smallCog:[10,16] };
 const F = { brand:'all', disc:'all' };

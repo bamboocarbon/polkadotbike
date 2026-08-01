@@ -672,15 +672,15 @@
             gap: 10px;
             padding: 11px 14px;
             border-radius: 9px;
-            background: rgba(226,76,0,0.10);
-            border: 1px solid rgba(226,76,0,0.4);
-            color: #ff8a4c;
+            background: rgba(var(--pb-rgb, 226,76,0), 0.10);
+            border: 1px solid rgba(var(--pb-rgb, 226,76,0), 0.4);
+            color: var(--pb-light, #ff8a4c);
             font-size: 13px;
             font-weight: 700;
             text-decoration: none;
             transition: all 0.15s;
         }
-        .pb-buy-link:hover { background: rgba(226,76,0,0.18); }
+        .pb-buy-link:hover { background: rgba(var(--pb-rgb, 226,76,0), 0.18); }
         .pb-buy-link .pb-text { flex: 1; line-height: 1.35; }
         .pb-buy-link .pb-text small { display: block; font-weight: 500; color: var(--sec); font-size: 10.5px; margin-top: 1px; }
         .pb-buy-link .pb-arrow { flex-shrink: 0; }
@@ -1137,6 +1137,7 @@
 </footer>
 
 <script src="db.js"></script>
+<script src="pb-links.js"></script>
 <script>
 /* ============================================================
    NOTE: DB, DISC_BRANDS, WHEELS loaded from db.js
@@ -1149,50 +1150,6 @@ const S = { discipline:'road', brand:'shimano', groupset:null, crIdx:0, unit:'km
 
 const accentMap      = { shimano:'#1a72e0', sram:'#ee1c28', campagnolo:'#ffcd00', custom:'#12b05f' };
 const accentLightMap = { shimano:'#7fb3f0', sram:'#ff7178', campagnolo:'#ffe066', custom:'#5fd39a' };
-
-/* ============================================================
-   PERFORMANCE BICYCLE — affiliate links
-   Tracked Avelon links (performancebicycle.avln.me/c/...) to the
-   exact product page for current-production groupsets. XX1/X01
-   Eagle have no working product URL yet (their pages 404'd when
-   generating links — SKUs likely delisted) so they fall back, same
-   as discontinued/vintage groupsets, to the brand's category page.
-   ============================================================ */
-const PB_LINKS = {
-    'road|shimano|Dura-Ace R9200': 'https://performancebicycle.avln.me/c/YKwviJvoqEVW',
-    'road|shimano|Ultegra R8100': 'https://performancebicycle.avln.me/c/uqinWGyBqfQK',
-    'road|shimano|105 R7100': 'https://performancebicycle.avln.me/c/lNjvnJXXgdfP',
-    'road|shimano|Claris R2000 (2017–)': 'https://performancebicycle.avln.me/c/dEMYzkXvpKxR',
-    'road|sram|Red AXS (2019–)': 'https://performancebicycle.avln.me/c/XfydHERIXuZR',
-    'road|sram|Force AXS (2019–)': 'https://performancebicycle.avln.me/c/SJQLzEMxGKFO',
-    'road|sram|Rival AXS (2020–)': 'https://performancebicycle.avln.me/c/JkxSQIgAvQWV',
-    'road|campagnolo|Super Record Wireless 13 (2022–)': 'https://performancebicycle.avln.me/c/sryymYrYyFln',
-    'mtb|shimano|XTR M9100 (2018–)': 'https://performancebicycle.avln.me/c/QrAdxfMtxkle',
-    'mtb|shimano|Deore XT M8100 (2020–)': 'https://performancebicycle.avln.me/c/NwRmppstoUEg',
-    'mtb|shimano|Deore M6100 (2019–)': 'https://performancebicycle.avln.me/c/iTGEbftjIIso',
-    'mtb|sram|XX SL Eagle Transmission AXS (2023–)': 'https://performancebicycle.avln.me/c/yhzxjkCyNpQk',
-    'mtb|sram|XX Eagle Transmission AXS (2023–)': 'https://performancebicycle.avln.me/c/DndxMAiaOcKv',
-    'mtb|sram|X0 Eagle Transmission AXS (2023–)': 'https://performancebicycle.avln.me/c/gkEyUEMyFRhn',
-    'mtb|sram|GX Eagle Transmission AXS (2024–)': 'https://performancebicycle.avln.me/c/kuwEidikZGqF',
-    'mtb|sram|GX Eagle (2017–)': 'https://performancebicycle.avln.me/c/SgLcBkzshhtd',
-    'mtb|sram|NX Eagle (2017–)': 'https://performancebicycle.avln.me/c/XRbAdWLHDKIz',
-    'gravel|shimano|GRX RX820 2× (2022–)': 'https://performancebicycle.avln.me/c/QoZGYKwpQFYN',
-    'gravel|shimano|GRX RX820 1× (2022–)': 'https://performancebicycle.avln.me/c/wNQjdgfJMStT',
-    'gravel|sram|Force XPLR AXS (2022–)': 'https://performancebicycle.avln.me/c/WiFZuaaWMFzH',
-    'gravel|sram|Rival XPLR AXS (2022–)': 'https://performancebicycle.avln.me/c/YknJubPAFNpm',
-    'gravel|sram|Apex XPLR AXS (2022–)': 'https://performancebicycle.avln.me/c/bwDyPCgmTywP',
-    'gravel|campagnolo|Ekar (2021–)': 'https://performancebicycle.avln.me/c/XgHAQIpdMAZh'
-};
-const PB_BRAND_FALLBACK = {
-    shimano: 'https://performancebicycle.avln.me/c/vxevSRiDwcZX',
-    sram: 'https://performancebicycle.avln.me/c/oVHpASsHTmed',
-    campagnolo: 'https://performancebicycle.avln.me/c/VtLxjTjGPCGw'
-};
-function pbLinkFor(discipline, brand, groupset) {
-    const key = `${discipline}|${brand}|${groupset}`;
-    if (PB_LINKS[key]) return { url: PB_LINKS[key], exact: true };
-    return { url: PB_BRAND_FALLBACK[brand] || 'https://www.performancebike.com/bike-bicycle-groupsets/c16817', exact: false };
-}
 
 /* ============================================================
    DISCIPLINE
@@ -1403,10 +1360,12 @@ function calculate() {
     document.getElementById('buy-card').style.display = 'block';
 
     const pb = pbLinkFor(S.discipline, S.brand, S.groupset);
-    document.getElementById('pb-buy-link').href = pb.url;
+    const pbLinkEl = document.getElementById('pb-buy-link');
+    pbLinkEl.href = pb.url;
     document.getElementById('pb-buy-text').innerHTML = pb.exact
         ? 'Shop this groupset<small>Opens in a new tab</small>'
         : 'Browse similar groupsets<small>Exact model not stocked — opens in a new tab</small>';
+    pbSetBrandColor(pbLinkEl, accentMap[S.brand], accentLightMap[S.brand]);
 
     window.LAST_CALC = { groupset: S.groupset, brand: S.brand, crLabel: cr.label, csLabel, outer, inner, isSingle, bigGears, smallGears, ul, cadence: cadence, unit: S.unit };
 
@@ -1768,7 +1727,13 @@ function calculateCustom() {
     const cassLabel = `${teeth[0]}-${teeth[teeth.length-1]}T Custom`;
     document.getElementById('cards-title').textContent = `${ringLabel} · ${cassLabel}`;
     renderCards(bigGears, smallGears, outer, inner, ul, isSingle);
-    document.getElementById('buy-card').style.display = 'none';
+
+    document.getElementById('buy-label').textContent = `${ringLabel} · ${cassLabel}`;
+    document.getElementById('buy-card').style.display = 'block';
+    const pbLinkElCustom = document.getElementById('pb-buy-link');
+    pbLinkElCustom.href = PB_GENERIC_LINK;
+    document.getElementById('pb-buy-text').innerHTML = 'Shop groupsets<small>Opens in a new tab</small>';
+    pbSetBrandColor(pbLinkElCustom, accentMap.custom, accentLightMap.custom);
 
     window.LAST_CALC = { groupset:'Custom', brand:'custom', crLabel:ringLabel, csLabel:cassLabel, outer, inner, isSingle, bigGears, smallGears, ul, cadence };
 

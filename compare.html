@@ -79,6 +79,15 @@ nav a.active{color:var(--accent);background:rgba(59,130,246,.12)}
 .brand-tab.active[data-brand="campagnolo"]{color:#fbbf24;background:rgba(245,158,11,.10);border-bottom-color:#f59e0b}
 .brand-tab.active[data-brand="custom"]    {color:#c084fc;background:rgba(192,132,252,.10);border-bottom-color:#c084fc}
 .form-body{padding:14px 16px;display:flex;flex-direction:column;gap:14px}
+.buy-label{font-size:12px;color:var(--sec);margin-bottom:10px;line-height:1.5}
+.buy-label strong{color:var(--text);display:block;font-size:13px}
+.pb-logo-chip{display:block;width:100%;max-width:220px;height:auto;margin:0 auto 12px}
+.pb-buy-link{display:flex;align-items:center;gap:10px;padding:11px 14px;border-radius:9px;background:rgba(var(--pb-rgb, 226,76,0),0.10);border:1px solid rgba(var(--pb-rgb, 226,76,0),0.4);color:var(--pb-light, #ff8a4c);font-size:13px;font-weight:700;text-decoration:none;transition:all .15s}
+.pb-buy-link:hover{background:rgba(var(--pb-rgb, 226,76,0),0.18)}
+.pb-buy-link .pb-text{flex:1;line-height:1.35}
+.pb-buy-link .pb-text small{display:block;font-weight:500;color:var(--sec);font-size:10.5px;margin-top:1px}
+.pb-buy-link .pb-arrow{flex-shrink:0}
+.pb-note{font-size:10.5px;color:var(--muted);margin-top:8px;text-align:center}
 .form-group label{display:block;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);margin-bottom:6px}
 select{width:100%;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.10);border-radius:9px;color:var(--text);padding:8px 28px 8px 10px;font-size:12px;font-family:inherit;appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='10' fill='%2364748b' viewBox='0 0 16 16'%3E%3Cpath d='M7.247 11.14L2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 10px center;cursor:pointer;transition:border-color .15s}
 select:focus{outline:none;border-color:var(--accent)}
@@ -390,7 +399,7 @@ footer a:hover{color:var(--sec)}
 })();
 </script>
 <!-- CONSENT-BANNER END -->
-<noscript><div style="position:relative;z-index:50;background:#ffcd00;color:#000;font-family:system-ui,sans-serif;font-size:14px;font-weight:600;text-align:center;padding:10px 16px">This site&#8217;s interactive calculators need JavaScript to run. The stage and climb listings on the <a href="tdf.html" style="color:#000">Tour de France 2026</a> and <a href="giro26.html" style="color:#000">Giro 2026</a> pages are still readable without it.</div></noscript>
+<noscript><div style="position:relative;z-index:50;background:#ffcd00;color:#000;font-family:system-ui,sans-serif;font-size:14px;font-weight:600;text-align:center;padding:10px 16px">This site&#8217;s interactive calculators need JavaScript to run. The stage and climb listings on the <a href="tdf.html" style="color:#000">Tour de France 2026</a>, <a href="giro26.html" style="color:#000">Giro 2026</a> and <a href="vuelta.html" style="color:#000">Vuelta 2026</a> pages are still readable without it.</div></noscript>
 
 <div class="bg-scene">
   <div class="bg-sky"></div>
@@ -407,6 +416,7 @@ footer a:hover{color:var(--sec)}
     <a href="wkg.html">W/KG<br>and FTP</a>
     <a href="giro26.html">Giro 2026</a>
     <a href="tdf.html">TDF 2026</a>
+        <a href="vuelta.html">Vuelta 2026</a>
     <a href="about.html">About</a>
     <a href="guide.html">Guide</a>
     <a href="glossary.html">Glossary</a>
@@ -487,6 +497,19 @@ footer a:hover{color:var(--sec)}
           <label>Wheel &amp; Tyre</label>
           <select id="sel-wh-ac" onchange="renderAll()"></select>
         </div>
+      </div>
+    </div>
+    <!-- BUY THESE COMPONENTS (System A's selected groupset) -->
+    <div class="glass" id="buy-card" style="display:none;margin-top:16px;border-radius:16px">
+      <div class="panel-head">Buy These Components</div>
+      <div class="form-body">
+          <img class="pb-logo-chip" src="pb-logo.png" alt="Performance Bicycle">
+          <div class="buy-label"><strong id="buy-label">—</strong>Selected configuration</div>
+          <a class="pb-buy-link" id="pb-buy-link" href="#" target="_blank" rel="noopener sponsored">
+              <span class="pb-text" id="pb-buy-text">Shop this groupset<small>Opens in a new tab</small></span>
+              <span class="pb-arrow">→</span>
+          </a>
+          <p class="pb-note">Affiliate link — I may earn a small commission at no extra cost to you.</p>
       </div>
     </div>
   </div>
@@ -654,6 +677,7 @@ footer a:hover{color:var(--sec)}
 </footer>
 
 <script src="db.js"></script>
+<script src="pb-links.js"></script>
 <script>
 /* ── JS ERROR DISPLAY (temporary debug) ── */
 window.onerror = function(msg, src, line, col) {
@@ -1021,8 +1045,31 @@ function renderAll(){
   updateLegend(a,b);
   renderChart(a,b);
   renderStats(a,b);
+  updateBuyCard(a);
   saveState();
   window.LAST_CMP_CALC = { a, b };
+}
+
+function updateBuyCard(a){
+  if(SA.mode==='custom'){
+    document.getElementById('buy-label').textContent=`${a.cr.label} · ${a.cass.label}`;
+    document.getElementById('buy-card').style.display='block';
+    const pbLinkElCustom=document.getElementById('pb-buy-link');
+    pbLinkElCustom.href=PB_GENERIC_LINK;
+    document.getElementById('pb-buy-text').innerHTML='Shop groupsets<small>Opens in a new tab</small>';
+    pbSetBrandColor(pbLinkElCustom, accentMap.custom, accentLightMap.custom);
+    return;
+  }
+  document.getElementById('buy-label').textContent=
+    `${SA.groupset.replace(/\s*\([^)]+\)\s*/g,'').trim()} · ${a.cr.label} · ${a.cass.label}`;
+  document.getElementById('buy-card').style.display='block';
+  const pb=pbLinkFor(SA.discipline, SA.brand, SA.groupset);
+  const pbLinkEl=document.getElementById('pb-buy-link');
+  pbLinkEl.href=pb.url;
+  document.getElementById('pb-buy-text').innerHTML=pb.exact
+    ? 'Shop this groupset<small>Opens in a new tab</small>'
+    : 'Browse similar groupsets<small>Exact model not stocked — opens in a new tab</small>';
+  pbSetBrandColor(pbLinkEl, accentMap[SA.brand], accentLightMap[SA.brand]);
 }
 
 function updateLegend(a,b){
