@@ -113,7 +113,7 @@
         .pb-logo-chip { display:block; width:100%; max-width:220px; height:auto; margin:0 auto 12px; }
         .pb-buy-link {
             display: flex; align-items: center; gap: 10px; padding: 11px 14px; border-radius: 9px;
-            background: rgba(var(--pb-rgb, 226,76,0), 0.10); border: 1px solid rgba(var(--pb-rgb, 226,76,0), 0.4); color: var(--pb-light, #ff8a4c);
+            background: rgba(var(--pb-rgb, 226,76,0), 0.10); border: 1px solid var(--pb-hex, #e24c00); color: var(--pb-text, #ff8a4c);
             font-size: 13px; font-weight: 700; text-decoration: none; transition: all 0.15s;
         }
         .pb-buy-link:hover { background: rgba(var(--pb-rgb, 226,76,0), 0.18); }
@@ -515,7 +515,7 @@
 <script>
 const pbLinkElDerailleur = document.getElementById('pb-buy-link');
 pbLinkElDerailleur.href = PB_GENERIC_LINK;
-pbSetBrandColor(pbLinkElDerailleur, '#12b05f', '#5fd39a'); // matches accentMap.custom on other pages — no groupset context here
+pbSetBrandColor(pbLinkElDerailleur, '#12b05f', '#17c86c'); // matches accentMap.custom / PB_VIVID_TEXT.custom on other pages — no groupset context here
 
 const S = { mode:'2x', bigRing:50, smallRing:34, bigCog:32, smallCog:11 };
 const LIMITS = { bigRing:[32,70], smallRing:[24,52], bigCog:[11,53], smallCog:[10,16] };

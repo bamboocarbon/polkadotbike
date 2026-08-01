@@ -276,8 +276,8 @@
             padding: 11px 14px;
             border-radius: 9px;
             background: rgba(var(--pb-rgb, 226,76,0), 0.10);
-            border: 1px solid rgba(var(--pb-rgb, 226,76,0), 0.4);
-            color: var(--pb-light, #ff8a4c);
+            border: 1px solid var(--pb-hex, #e24c00);
+            color: var(--pb-text, #ff8a4c);
             font-size: 13px;
             font-weight: 700;
             text-decoration: none;
@@ -1170,7 +1170,7 @@ function calculate() {
         const pbLinkElCustom = document.getElementById('pb-buy-link');
         pbLinkElCustom.href = PB_GENERIC_LINK;
         document.getElementById('pb-buy-text').innerHTML = 'Shop groupsets<small>Opens in a new tab</small>';
-        pbSetBrandColor(pbLinkElCustom, accentMap.custom, accentLightMap.custom);
+        pbSetBrandColor(pbLinkElCustom, accentMap.custom, PB_VIVID_TEXT.custom);
     } else {
         document.getElementById('buy-label').textContent =
             `${S.groupset.replace(/\s*\([^)]+\)\s*/g,'').trim()} · ${crLabelText} · ${csLabelText}`;
@@ -1181,7 +1181,7 @@ function calculate() {
         document.getElementById('pb-buy-text').innerHTML = pb.exact
             ? 'Shop this groupset<small>Opens in a new tab</small>'
             : 'Browse similar groupsets<small>Exact model not stocked — opens in a new tab</small>';
-        pbSetBrandColor(pbLinkEl, accentMap[S.brand], accentLightMap[S.brand]);
+        pbSetBrandColor(pbLinkEl, accentMap[S.brand], PB_VIVID_TEXT[S.brand]);
     }
 
     const isSingle = !inner;

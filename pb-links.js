@@ -51,16 +51,23 @@ function pbLinkFor(discipline, brand, groupset) {
     return { url: PB_BRAND_FALLBACK[brand] || 'https://www.performancebike.com/bike-bicycle-groupsets/c16817', exact: false };
 }
 
-// Recolours the "Shop this groupset" button to match the selected brand
-// (accentMap/accentLightMap hex values, already defined per-page). Sets CSS
-// custom properties rather than background/color directly so the existing
-// :hover rule keeps working — inline styles would otherwise permanently
-// override it.
-function pbSetBrandColor(linkEl, hex, light) {
+// The active brand tab's text colour is a more vivid override (wins via
+// !important in the "bold palette" theme block) than its own border colour
+// — accentMap matches the border, this matches the text, so the button can
+// match both exactly instead of looking washed out next to the tabs.
+const PB_VIVID_TEXT = { shimano: '#2b8bff', sram: '#ff1f2b', campagnolo: '#ffcf1a', custom: '#17c86c' };
+
+// Recolours the "Shop this groupset" button to match the selected brand —
+// full-saturation border/text like the active brand tab uses, translucent
+// tint only on the background. Sets CSS custom properties rather than
+// background/color directly so the existing :hover rule keeps working —
+// inline styles would otherwise permanently override it.
+function pbSetBrandColor(linkEl, hex, textHex) {
     hex = hex || '#e24c00';
-    light = light || hex;
+    textHex = textHex || hex;
     const h = hex.replace('#', '');
     const rgb = `${parseInt(h.substring(0, 2), 16)},${parseInt(h.substring(2, 4), 16)},${parseInt(h.substring(4, 6), 16)}`;
     linkEl.style.setProperty('--pb-rgb', rgb);
-    linkEl.style.setProperty('--pb-light', light);
+    linkEl.style.setProperty('--pb-hex', hex);
+    linkEl.style.setProperty('--pb-text', textHex);
 }

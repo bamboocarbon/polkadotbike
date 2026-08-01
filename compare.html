@@ -82,7 +82,7 @@ nav a.active{color:var(--accent);background:rgba(59,130,246,.12)}
 .buy-label{font-size:12px;color:var(--sec);margin-bottom:10px;line-height:1.5}
 .buy-label strong{color:var(--text);display:block;font-size:13px}
 .pb-logo-chip{display:block;width:100%;max-width:220px;height:auto;margin:0 auto 12px}
-.pb-buy-link{display:flex;align-items:center;gap:10px;padding:11px 14px;border-radius:9px;background:rgba(var(--pb-rgb, 226,76,0),0.10);border:1px solid rgba(var(--pb-rgb, 226,76,0),0.4);color:var(--pb-light, #ff8a4c);font-size:13px;font-weight:700;text-decoration:none;transition:all .15s}
+.pb-buy-link{display:flex;align-items:center;gap:10px;padding:11px 14px;border-radius:9px;background:rgba(var(--pb-rgb, 226,76,0),0.10);border:1px solid var(--pb-hex, #e24c00);color:var(--pb-text, #ff8a4c);font-size:13px;font-weight:700;text-decoration:none;transition:all .15s}
 .pb-buy-link:hover{background:rgba(var(--pb-rgb, 226,76,0),0.18)}
 .pb-buy-link .pb-text{flex:1;line-height:1.35}
 .pb-buy-link .pb-text small{display:block;font-weight:500;color:var(--sec);font-size:10.5px;margin-top:1px}
@@ -1057,7 +1057,7 @@ function updateBuyCard(a){
     const pbLinkElCustom=document.getElementById('pb-buy-link');
     pbLinkElCustom.href=PB_GENERIC_LINK;
     document.getElementById('pb-buy-text').innerHTML='Shop groupsets<small>Opens in a new tab</small>';
-    pbSetBrandColor(pbLinkElCustom, accentMap.custom, accentLightMap.custom);
+    pbSetBrandColor(pbLinkElCustom, accentMap.custom, PB_VIVID_TEXT.custom);
     return;
   }
   document.getElementById('buy-label').textContent=
@@ -1069,7 +1069,7 @@ function updateBuyCard(a){
   document.getElementById('pb-buy-text').innerHTML=pb.exact
     ? 'Shop this groupset<small>Opens in a new tab</small>'
     : 'Browse similar groupsets<small>Exact model not stocked — opens in a new tab</small>';
-  pbSetBrandColor(pbLinkEl, accentMap[SA.brand], accentLightMap[SA.brand]);
+  pbSetBrandColor(pbLinkEl, accentMap[SA.brand], PB_VIVID_TEXT[SA.brand]);
 }
 
 function updateLegend(a,b){
