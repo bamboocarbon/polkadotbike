@@ -665,6 +665,7 @@
         .buy-link:hover { background: rgba(59,130,246,0.16); }
         .buy-link:last-child { margin-bottom: 0; }
 
+        .pb-logo-chip { display: block; width: 100%; max-width: 220px; height: auto; margin: 0 auto 12px; }
         .pb-buy-link {
             display: flex;
             align-items: center;
@@ -680,7 +681,6 @@
             transition: all 0.15s;
         }
         .pb-buy-link:hover { background: rgba(226,76,0,0.18); }
-        .pb-buy-link img { width: 20px; height: 20px; flex-shrink: 0; border-radius: 4px; }
         .pb-buy-link .pb-text { flex: 1; line-height: 1.35; }
         .pb-buy-link .pb-text small { display: block; font-weight: 500; color: var(--sec); font-size: 10.5px; margin-top: 1px; }
         .pb-buy-link .pb-arrow { flex-shrink: 0; }
@@ -1090,10 +1090,10 @@
         <div class="rail-card" id="buy-card" style="display:none">
             <div class="rail-head">Buy These Components</div>
             <div class="rail-body">
+                <img class="pb-logo-chip" src="pb-logo.png" alt="Performance Bicycle">
                 <div class="buy-label"><strong id="buy-label">—</strong>Selected configuration</div>
                 <a class="pb-buy-link" id="pb-buy-link" href="#" target="_blank" rel="noopener sponsored">
-                    <img src="pb-icon.png" alt="">
-                    <span class="pb-text" id="pb-buy-text">Shop at Performance Bicycle<small>Opens in a new tab</small></span>
+                    <span class="pb-text" id="pb-buy-text">Shop this groupset<small>Opens in a new tab</small></span>
                     <span class="pb-arrow">→</span>
                 </a>
                 <p class="pb-note">Affiliate link — I may earn a small commission at no extra cost to you.</p>
@@ -1405,8 +1405,8 @@ function calculate() {
     const pb = pbLinkFor(S.discipline, S.brand, S.groupset);
     document.getElementById('pb-buy-link').href = pb.url;
     document.getElementById('pb-buy-text').innerHTML = pb.exact
-        ? 'Shop this groupset at Performance Bicycle<small>Opens in a new tab</small>'
-        : 'Browse similar groupsets at Performance Bicycle<small>Exact model not stocked — opens in a new tab</small>';
+        ? 'Shop this groupset<small>Opens in a new tab</small>'
+        : 'Browse similar groupsets<small>Exact model not stocked — opens in a new tab</small>';
 
     window.LAST_CALC = { groupset: S.groupset, brand: S.brand, crLabel: cr.label, csLabel, outer, inner, isSingle, bigGears, smallGears, ul, cadence: cadence, unit: S.unit };
 
