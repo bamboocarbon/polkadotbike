@@ -819,11 +819,41 @@ mtb: {
 
   sram: {
     _eras: [
+      '12-speed Eagle Transmission (T-Type) · 2023–present',
       '12-speed Eagle · 2017–present',
       '11-speed · 2012–2018',
       '10-speed · 2006–2014',
     ],
-    // ── 12-speed Eagle ─────────────────────────────────────
+    // ── 12-speed Eagle Transmission (T-Type) — direct-mount UDH, replaced XX1/X01 Eagle AXS ──
+    'XX SL Eagle Transmission AXS (2023–)': {
+      era:'12-speed Eagle Transmission (T-Type) · 2023–present',
+      chainrings:[{label:'30T 1×',outer:30,inner:null},{label:'32T 1×',outer:32,inner:null},{label:'34T 1×',outer:34,inner:null},{label:'36T 1×',outer:36,inner:null},{label:'38T 1×',outer:38,inner:null}],
+      cassettes:[
+        {label:'10-52',teeth:[10,12,14,16,18,21,24,28,32,36,42,52]},
+      ]
+    },
+    'XX Eagle Transmission AXS (2023–)': {
+      era:'12-speed Eagle Transmission (T-Type) · 2023–present',
+      chainrings:[{label:'30T 1×',outer:30,inner:null},{label:'32T 1×',outer:32,inner:null},{label:'34T 1×',outer:34,inner:null},{label:'36T 1×',outer:36,inner:null},{label:'38T 1×',outer:38,inner:null}],
+      cassettes:[
+        {label:'10-52',teeth:[10,12,14,16,18,21,24,28,32,36,42,52]},
+      ]
+    },
+    'X0 Eagle Transmission AXS (2023–)': {
+      era:'12-speed Eagle Transmission (T-Type) · 2023–present',
+      chainrings:[{label:'30T 1×',outer:30,inner:null},{label:'32T 1×',outer:32,inner:null},{label:'34T 1×',outer:34,inner:null},{label:'36T 1×',outer:36,inner:null},{label:'38T 1×',outer:38,inner:null}],
+      cassettes:[
+        {label:'10-52',teeth:[10,12,14,16,18,21,24,28,32,36,42,52]},
+      ]
+    },
+    'GX Eagle Transmission AXS (2024–)': {
+      era:'12-speed Eagle Transmission (T-Type) · 2023–present',
+      chainrings:[{label:'30T 1×',outer:30,inner:null},{label:'32T 1×',outer:32,inner:null},{label:'34T 1×',outer:34,inner:null},{label:'36T 1×',outer:36,inner:null},{label:'38T 1×',outer:38,inner:null}],
+      cassettes:[
+        {label:'10-52',teeth:[10,12,14,16,18,21,24,28,32,36,42,52]},
+      ]
+    },
+    // ── 12-speed Eagle (cable/AXS, non-Transmission) ─────────────────────────────────────
     'XX1 Eagle (2017–)': {
       era:'12-speed Eagle · 2017–present',
       chainrings:[{label:'34T 1×',outer:34,inner:null},{label:'32T 1×',outer:32,inner:null},{label:'36T 1×',outer:36,inner:null},{label:'38T 1×',outer:38,inner:null}],

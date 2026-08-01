@@ -1,0 +1,39 @@
+name: Check affiliate links
+
+on:
+  schedule:
+    # Every Monday 09:00 UTC
+    - cron: '0 9 * * 1'
+  workflow_dispatch: {}
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+      - name: Check Performance Bicycle affiliate links
+        run: node scripts/check-affiliate-links.js
+      - name: Email failure alert via Resend
+        if: failure()
+        env:
+          RESEND_API_KEY: ${{ secrets.RESEND_API_KEY }}
+          RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+        run: |
+          node -e "
+            const fs = require('fs');
+            const body = fs.readFileSync('link-check-failures.txt', 'utf8');
+            const payload = {
+              from: 'Polka Dot Bike Link Checker <onboarding@resend.dev>',
+              to: ['polkadotbike@outlook.com'],
+              subject: 'Performance Bicycle affiliate link check failed',
+              text: 'One or more affiliate links on polkadotbike.com are broken:\n\n' + body + '\nFull run: ' + process.env.RUN_URL,
+            };
+            fs.writeFileSync('resend-payload.json', JSON.stringify(payload));
+          "
+          curl -s -X POST 'https://api.resend.com/emails' \
+            -H "Authorization: Bearer $RESEND_API_KEY" \
+            -H 'Content-Type: application/json' \
+            -d @resend-payload.json
