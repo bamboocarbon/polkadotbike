@@ -26,7 +26,7 @@ jobs:
             const fs = require('fs');
             const body = fs.readFileSync('link-check-failures.txt', 'utf8');
             const payload = {
-              from: 'Polka Dot Bike Link Checker <onboarding@resend.dev>',
+              from: 'Polka Dot Bike Alerts <alerts@digitalcredityield.com>',
               to: ['polkadotbike@outlook.com'],
               subject: 'Performance Bicycle affiliate link check failed',
               text: 'One or more affiliate links on polkadotbike.com are broken:\n\n' + body + '\nFull run: ' + process.env.RUN_URL,
