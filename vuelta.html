@@ -1,0 +1,857 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>La Vuelta a España 2026 Climbs &amp; Gearing · Polka Dot Bike</title>
+    <meta name="description" content="Every major climb of the 2026 Vuelta a España — gradient, length and category. Pick a puerto and plan the exact gearing you'll need with the Climb Planner.">
+    <link rel="canonical" href="https://polkadotbike.com/vuelta.html">
+    <meta name="robots" content="index, follow">
+    <meta name="theme-color" content="#ef4444">
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="Polka Dot Bike">
+    <meta property="og:title" content="La Vuelta a España 2026 Climbs &amp; Gearing · Polka Dot Bike">
+    <meta property="og:description" content="Every major climb of the 2026 Vuelta a España — gradient, length and category. Pick a puerto and plan the exact gearing you'll need with the Climb Planner.">
+    <meta property="og:url" content="https://polkadotbike.com/vuelta.html">
+    <meta property="og:image" content="https://polkadotbike.com/og-card.png">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="La Vuelta a España 2026 Climbs &amp; Gearing · Polka Dot Bike">
+    <meta name="twitter:description" content="Every major climb of the 2026 Vuelta a España — gradient, length and category. Pick a puerto and plan the exact gearing you'll need with the Climb Planner.">
+    <meta name="twitter:image" content="https://polkadotbike.com/og-card.png">
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebPage",
+      "name": "La Vuelta a España 2026 Climbs & Gearing",
+      "url": "https://polkadotbike.com/vuelta.html",
+      "description": "Every major climb of the 2026 Vuelta a España — gradient, length and category — with a planner for the gearing you'll need.",
+      "isPartOf": { "@type": "WebSite", "name": "Polka Dot Bike", "url": "https://polkadotbike.com/" },
+      "breadcrumb": {
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+          { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://polkadotbike.com/" },
+          { "@type": "ListItem", "position": 2, "name": "Vuelta a España 2026 Climbs", "item": "https://polkadotbike.com/vuelta.html" }
+        ]
+      }
+    }
+    </script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=IBM+Plex+Sans:wght@600;700&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css"/>
+    <style>
+        :root {
+            --accent:       #f59e0b;
+            --accent-light: #fcd34d;
+            --glass:        rgba(4,9,26,0.97);
+            --border:       rgba(255,255,255,0.08);
+            --text:         #e8edf5;
+            --muted:        #64748b;
+            --sec:          #94a3b8;
+        }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { font-family: 'Inter', system-ui, sans-serif; min-height: 100vh; color: var(--text); overflow-x: hidden; background: #fff; }
+        .bg-scene { position: fixed; inset: 0; z-index: 0; pointer-events: none; overflow: hidden; }
+        .bg-sky { position: absolute; inset: 0; background: #fff; }
+        .bg-mountains { position: absolute; inset: 0; background-image: radial-gradient(circle,rgba(239,68,68,0.22) 28%,transparent 28%), radial-gradient(circle,rgba(239,68,68,0.22) 28%,transparent 28%); background-size: 44px 44px; background-position: 0 0, 22px 22px; }
+        header { position: sticky; top: 0; z-index: 100; background: rgba(4,9,26,0.85); backdrop-filter: blur(16px); border-bottom: 1px solid var(--border); padding: 0 24px; height: 54px; display: flex; align-items: center; justify-content: space-between; }
+        .logo { font-size: 19px; font-weight: 900; letter-spacing: -0.5px; color: #fff; text-decoration: none; display: inline-flex; align-items: center; gap: 3px; }
+        .logo span { color: var(--accent); }
+        .logo-dot-svg { width: 32px; height: 32px; flex-shrink: 0; }
+        nav { display: flex; gap: 2px; align-items: center; }
+        nav a { color: var(--sec); text-decoration: none; font-size: 13px; font-weight: 500; padding: 6px 13px; border-radius: 6px; transition: all 0.15s; text-align: center; line-height: 1.2; }
+        nav a:hover { color: #fff; background: rgba(255,255,255,0.06); }
+        nav a.active { color: var(--accent); background: rgba(245,158,11,0.12); }
+        @media (max-width: 768px) { header { padding: 0 12px; } nav a { font-size: 11px; padding: 4px 6px; } }
+        .hero { position: relative; z-index: 1; text-align: center; padding: 40px 20px 24px; }
+        .hero h1 { font-size: clamp(26px,5vw,46px); font-weight: 900; letter-spacing: -1.5px; line-height: 1.1; background: linear-gradient(135deg,#0f172a 0%,#1e3a5f 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; filter: drop-shadow(0 1px 4px rgba(255,255,255,0.8)); }
+        .hero p { margin-top: 10px; font-size: 15px; color: rgba(15,23,42,0.72); max-width: 520px; margin-left: auto; margin-right: auto; }
+        .hero-stats { display: flex; justify-content: center; gap: 24px; flex-wrap: wrap; margin-top: 16px; }
+        .hs-item { text-align: center; }
+        .hs-val {font-family:'IBM Plex Sans',Inter,system-ui,sans-serif; font-size: 22px; font-weight: 700; letter-spacing: 0; color: #1e293b; }
+        .hs-lbl { font-size: 10px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.08em; color: rgba(15,23,42,0.5); margin-top: 1px; }
+        .container { position: relative; z-index: 1; max-width: 1160px; margin: 0 auto; padding: 0 20px 60px; }
+        .tdf-grid { display: grid; grid-template-columns: 270px 1fr; gap: 18px; align-items: start; }
+        @media (max-width: 740px) { .tdf-grid { grid-template-columns: 1fr; } }
+        .glass { background: var(--glass); border: 1px solid rgba(255,255,255,0.12); border-radius: 16px; }
+        .stage-sidebar { position: sticky; top: 70px; max-height: calc(100vh - 86px); overflow-y: auto; overflow-x: hidden; scrollbar-width: none; border-radius: 14px; }
+        .stage-sidebar::-webkit-scrollbar { display: none; }
+        .sidebar-head { padding: 11px 14px; font-size: 10px; font-weight: 800; letter-spacing: 0.1em; text-transform: uppercase; color: var(--accent); border-bottom: 1px solid var(--border); }
+        .stage-btn { width: 100%; padding: 9px 12px; background: transparent; border: none; border-bottom: 1px solid var(--border); cursor: pointer; text-align: left; font-family: inherit; display: flex; align-items: flex-start; gap: 9px; transition: background 0.15s; }
+        .stage-btn:last-child { border-bottom: none; }
+        .stage-btn:hover { background: rgba(255,255,255,0.04); }
+        .stage-btn.active { background: rgba(245,158,11,0.14); }
+        .s-badge { width: 28px; height: 28px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 11px; font-weight: 800; flex-shrink: 0; border: none; }
+        .s-info { flex: 1; min-width: 0; }
+        .s-finish { font-size: 13px; font-weight: 600; color: var(--text); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; line-height: 1.2; }
+        .stage-btn.active .s-finish { color: #fff; }
+        .s-meta { font-size: 11px; color: var(--muted); margin-top: 3px; }
+        .s-stats { font-size: 11px; color: var(--sec); margin-top: 3px; }
+        .s-badge.type-m  { background: #ffcd00; color: #000; }
+        .s-badge.type-mm { background: #8b5cf6; color: #fff; }
+        .s-badge.type-h  { background: #000; color: #fff; box-shadow: inset 0 0 0 1.5px #fff; }
+        .s-badge.type-s  { background: #12b05f; color: #fff; }
+        .s-badge.type-t  { background: #1a72e0; color: #fff; }
+        .stage-mobile-select { display: none; width: 100%; background: var(--glass); border: 1px solid rgba(255,255,255,0.12); border-radius: 12px; color: var(--text); padding: 12px 16px; font-size: 14px; font-family: inherit; appearance: none; cursor: pointer; margin-bottom: 14px; }
+        .stage-mobile-select option { background: #0d1635; }
+        @media (max-width: 740px) { .stage-sidebar { display: none; } .stage-mobile-select { display: block; } }
+        .stage-header { padding: 16px 20px 18px; margin-bottom: 12px; }
+        .sh-top { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; margin-bottom: 8px; }
+        .type-badge { font-size: 8px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.07em; padding: 2px 7px; border-radius: 4px; }
+        .badge-m  { background: #ffcd00; color: #000; }
+        .badge-mm { background: #8b5cf6; color: #fff; }
+        .badge-h  { background: #000; color: #fff; box-shadow: inset 0 0 0 1px rgba(255,255,255,0.25); }
+        .badge-s  { background: #12b05f; color: #fff; }
+        .badge-t  { background: #1a72e0; color: #fff; }
+        .badge-queen { background: rgba(220,38,38,0.3); color: #fca5a5; border: 1px solid rgba(220,38,38,0.4); }
+        .badge-uphill { background: rgba(245,158,11,0.25); color: #fcd34d; border: 1px solid rgba(245,158,11,0.4); }
+        .sh-route { font-size: 18px; font-weight: 800; color: #fff; letter-spacing: -0.3px; margin-bottom: 6px; line-height: 1.2; }
+        .sh-stats { display: flex; gap: 20px; flex-wrap: wrap; font-size: 12px; color: var(--sec); }
+        .sh-stats strong { color: var(--text); }
+        .sh-notes { font-size: 12px; color: var(--sec); margin-top: 9px; line-height: 1.55; }
+        .sh-date { font-size: 11px; color: var(--muted); }
+        .climbs-list { display: flex; flex-direction: column; gap: 10px; }
+        .no-climbs { padding: 28px 20px; text-align: center; font-size: 13px; color: var(--muted); background: var(--glass); border: 1px solid rgba(255,255,255,0.08); border-radius: 14px; line-height: 1.6; }
+        .climb-card { padding: 15px 17px; background: var(--glass); border: 1px solid rgba(255,255,255,0.09); border-radius: 13px; }
+        .climb-card.is-finish { border-color: rgba(239,68,68,0.28); }
+        .cc-top { display: flex; align-items: flex-start; gap: 8px; margin-bottom: 10px; flex-wrap: wrap; }
+        .cc-cat { font-size: 9px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.07em; padding: 3px 8px; border-radius: 5px; white-space: nowrap; flex-shrink: 0; margin-top: 2px; border: none; }
+        .cat-esp  { background: #ee1c28; color: #fff; }
+        .cat-cat1 { background: #ffcd00; color: #000; }
+        .cat-cat2 { background: #12b05f; color: #fff; }
+        .cat-cat3 { background: #1a72e0; color: #fff; }
+        .cat-tbc  { background: #475569; color: #fff; }
+        .cc-name-block { flex: 1; min-width: 0; }
+        .cc-name { font-size: 14px; font-weight: 700; color: #fff; line-height: 1.25; }
+        .cc-range { font-size: 10px; color: var(--muted); margin-top: 2px; }
+        .finish-tag { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; color: #fcd34d; background: rgba(245,158,11,0.10); border: 1px solid rgba(245,158,11,0.4); padding: 4px 9px; border-radius: 5px; white-space: nowrap; flex-shrink: 0; margin-top: 3px; }
+        .cc-stats { display: flex; gap: 20px; flex-wrap: wrap; margin-bottom: 9px; align-items: flex-end; }
+        .cs-item { display: flex; flex-direction: column; }
+        .cs-val {font-family:'IBM Plex Sans',Inter,system-ui,sans-serif; font-size: 22px; font-weight: 700; letter-spacing: 0; color: #fff; line-height: 1; }
+        .cs-label { font-size: 9px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.08em; color: var(--muted); margin-top: 3px; }
+        .cs-val.sm { font-size: 15px; letter-spacing: 0; }
+        .cc-notes { font-size: 11px; color: var(--sec); line-height: 1.55; margin-bottom: 10px; }
+        .tbc-note { font-size: 11px; color: var(--muted); font-style: italic; margin-top: 4px; }
+        .plan-btn { display: inline-flex; align-self: flex-start; align-items: center; gap: 6px; padding: 7px 14px; background: #1a72e0; border: none; border-radius: 9px; color: #fff; font-size: 12px; font-weight: 700; text-decoration: none; transition: all 0.15s; cursor: pointer; }
+        .plan-btn:hover { background: #3b8ef0; color: #fff; }
+        .cc-body { display: flex; gap: 16px; align-items: flex-start; margin-top: 10px; }
+        .cc-body .cc-profile { flex-shrink: 0; margin: 0; }
+        .cc-body-right { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 10px; }
+        .cc-body-right .cc-stats { margin-bottom: 0; gap: 6px 18px; }
+        .cc-profile { margin: 8px 0 10px; }
+        .cc-profile svg { display: block; }
+        .profile-meta { display: flex; justify-content: space-between; margin-top: 3px; font-size: 9px; color: var(--muted); }
+        footer { position: relative; z-index: 1; border-top: 1px solid var(--border); padding: 24px 20px; text-align: center; }
+        footer p { font-size: 12px; color: var(--muted); }
+        footer a { color: var(--muted); text-decoration: none; }
+        footer a:hover { color: var(--sec); }
+        /* Route map */
+        .map-outer { position: relative; z-index: 1; max-width: 780px; margin: 0 auto 22px; padding: 0 20px; }
+        #vuelta-map { height: 400px; border-radius: 14px; border: 1px solid rgba(100,130,150,0.3); background: #cfe8f7; }
+        .map-city { display: inline-block; transform: translate(-50%, 10px); white-space: nowrap; font-family: 'Inter', system-ui, sans-serif; font-size: 10.5px; font-weight: 600; color: #1e293b; pointer-events: none; }
+        .map-city.right { transform: translate(14px, -50%); }
+        .map-city.left { transform: translate(calc(-100% - 14px), -50%); }
+        .map-country { display: inline-block; transform: translate(-50%, -50%); white-space: nowrap; font-family: 'Inter', system-ui, sans-serif; font-size: 15px; font-weight: 800; letter-spacing: 0.35em; pointer-events: none; }
+        .map-legend { display: flex; gap: 18px; align-items: center; justify-content: center; flex-wrap: wrap; margin-top: 9px; font-size: 11px; color: var(--sec); }
+        .ml-item { display: flex; align-items: center; gap: 5px; }
+        .ml-dot { width: 9px; height: 9px; border-radius: 50%; display: inline-block; flex-shrink: 0; }
+        .ml-m { background: #ffcd00; } .ml-mm { background: #8b5cf6; } .ml-h { background: #000; } .ml-s { background: #12b05f; } .ml-t { background: #1a72e0; }
+        .map-dot { width: 22px; height: 22px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 9px; font-weight: 800; color: #fff; border: none; cursor: pointer; font-family: 'Inter', system-ui, sans-serif; transition: transform 0.12s, box-shadow 0.12s; line-height: 1; }
+        .map-dot:hover { box-shadow: 0 0 0 3px rgba(255,255,255,0.2); transform: scale(1.3); }
+        .map-dot.active { box-shadow: 0 0 0 3px rgba(255,255,255,0.3); transform: scale(1.35); }
+        .map-dot.md-m { background: #ffcd00; color: #000; } .map-dot.md-mm { background: #8b5cf6; } .map-dot.md-h { background: #000; border: 1.5px solid #fff; } .map-dot.md-s { background: #12b05f; } .map-dot.md-t { background: #1a72e0; }
+        .leaflet-tooltip.map-tip { background: rgba(4,9,26,0.96); border: 1px solid rgba(255,255,255,0.12); color: #e8edf5; font-family: 'Inter', system-ui, sans-serif; font-size: 12px; border-radius: 8px; padding: 6px 10px; white-space: nowrap; box-shadow: 0 4px 16px rgba(0,0,0,0.5); }
+        .leaflet-tooltip.map-tip::before { border-top-color: rgba(255,255,255,0.12); }
+        .leaflet-control-attribution { font-size: 10px !important; background: rgba(255,255,255,0.75) !important; color: #475569 !important; border-radius: 6px 0 0 0 !important; }
+    </style>
+<style id="polka-hero-dots">
+  /* Bright-white bg; red diamond polka-dots band at top of hero; title(left)+subtitle(right) below on white. */
+  .bg-mountains { display: none !important; }
+  .bg-sky { background: #fff !important; }
+  header { background: #000 !important; }
+  .hero {
+    position: relative; z-index: 1; box-sizing: border-box;
+    padding: 164px 24px 8px; margin-bottom: 34px;
+    background-image:
+      radial-gradient(circle, #ee1c28 25px, transparent 26.5px),
+      radial-gradient(circle, #ee1c28 25px, transparent 26.5px);
+    background-size: 124px 124px; background-position: 0 0, 62px 62px; background-repeat: repeat;
+    display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: 6px 24px; text-align: left;
+  }
+  .hero::after { content: ""; position: absolute; left: 0; right: 0; top: 154px; bottom: 0; background: #fff; z-index: -1; }
+  .hero > h1 { margin: 0; color: #000 !important; -webkit-text-fill-color: #000 !important; background: none !important; filter: none !important; }
+  .hero > p  { margin: 0; max-width: 340px; text-align: left; color: #000 !important; font-weight: 700 !important; }
+  body::after {
+    content: ""; display: block; position: relative; z-index: 1; width: 100%; height: 186px; margin-top: 4px;
+    background-image:
+      radial-gradient(circle, #ee1c28 25px, transparent 26.5px),
+      radial-gradient(circle, #ee1c28 25px, transparent 26.5px);
+    background-size: 124px 124px; background-position: 0px -31px, 62px 31px; background-repeat: repeat;
+  }
+</style>
+<style id="pdb-inline-brand">
+  .pdb-brand{font-weight:800;white-space:nowrap;}
+  .pdb-dot{display:inline-block;width:1.35em;height:1.35em;vertical-align:-0.3em;margin:0 0.12em;overflow:hidden;text-indent:-9999px;white-space:nowrap;background:url("data:image/svg+xml;utf8,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 32 32%22%3E%3Ccircle cx=%2216%22 cy=%2216%22 r=%2216%22 fill=%22%23ef4444%22/%3E%3Ctext x=%2216.75%22 y=%2220%22 text-anchor=%22middle%22 font-family=%22Inter,system-ui,sans-serif%22 font-size=%2210.5%22 font-weight=%22900%22 letter-spacing=%221.5%22 fill=%22%23000%22%3EDOT%3C/text%3E%3C/svg%3E") no-repeat center/contain;}
+</style>
+<style id="polka-mobile-nav">
+  @media (max-width: 768px) {
+    html, body { overflow-x: hidden; }
+    header { gap: 8px; }
+    .logo { flex-shrink: 0; }
+    nav {
+      min-width: 0;
+      overflow-x: auto; -webkit-overflow-scrolling: touch;
+      flex-wrap: nowrap; max-width: 100%;
+      scrollbar-width: none; -ms-overflow-style: none;
+    }
+    nav::-webkit-scrollbar { display: none; }
+    nav a { white-space: nowrap; flex-shrink: 0; }
+    .hero-bikes { font-size: 16px !important; margin-top: 6px !important; }
+    .hero {
+      padding-top: 85px;
+      background-image:
+        radial-gradient(circle, #ee1c28 12px, transparent 13.5px),
+        radial-gradient(circle, #ee1c28 12px, transparent 13.5px);
+      background-size: 60px 60px;
+      background-position: 0 0, 30px 30px;
+    }
+    .hero::after { top: 75px; }
+    body::after {
+      height: 90px;
+      background-image:
+        radial-gradient(circle, #ee1c28 12px, transparent 13.5px),
+        radial-gradient(circle, #ee1c28 12px, transparent 13.5px);
+      background-size: 60px 60px;
+      background-position: 0 -15px, 30px 15px;
+    }
+  }
+</style>
+<!-- GA-CONSENT-LOADER START -->
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  window.pdbLoadGA = function(){
+    if (window.pdbGALoaded) return;
+    window.pdbGALoaded = true;
+    var s = document.createElement('script');
+    s.async = true;
+    s.src = 'https://www.googletagmanager.com/gtag/js?id=G-24JBH53W09';
+    document.head.appendChild(s);
+    gtag('js', new Date());
+    gtag('config', 'G-24JBH53W09');
+  };
+</script>
+<!-- GA-CONSENT-LOADER END -->
+<style id="dcy-inline-brand">
+  .dcy-brand{font-weight:800;letter-spacing:-0.01em;white-space:nowrap;}
+  .dcy-square{display:inline-block;width:0.62em;height:0.62em;background:#c8893a;border-radius:2px;margin:0 0.25em 0 0;vertical-align:0.02em;}
+</style>
+<script nowprocket data-noptimize="1" data-cfasync="false" data-wpfc-render="false" seraph-accel-crit="1" data-no-defer="1" data-cmp-ab="2">
+  (function () {
+      var script = document.createElement("script");
+      script.async = 1;
+      script.setAttribute("data-cmp-ab","2");
+      script.src = 'https://emrldtp.com/NTU4Mzkx.js?t=558391';
+      document.head.appendChild(script);
+  })();
+</script>
+</head>
+<body>
+<!-- CONSENT-BANNER START -->
+<style>
+  #pdb-consent{position:fixed;left:0;right:0;bottom:0;z-index:999;background:#000;color:#fff;
+    padding:16px 20px;display:flex;flex-wrap:wrap;align-items:center;justify-content:center;
+    gap:12px 20px;font-family:system-ui,sans-serif;box-shadow:0 -2px 12px rgba(0,0,0,.3)}
+  #pdb-consent[hidden]{display:none}
+  #pdb-consent p{margin:0;font-size:14px;line-height:1.5;max-width:560px;color:#e5e9ee}
+  #pdb-consent a{color:#7fb3f0;text-decoration:underline}
+  #pdb-consent .pdb-consent-btns{display:flex;gap:10px;flex-shrink:0}
+  #pdb-consent button{font:inherit;font-weight:600;font-size:14px;padding:9px 18px;border-radius:6px;
+    cursor:pointer;border:1px solid #fff}
+  #pdb-consent .pdb-accept{background:#1a72e0;color:#fff;border-color:#1a72e0}
+  #pdb-consent .pdb-reject{background:transparent;color:#fff}
+  @media (max-width:640px){#pdb-consent{justify-content:flex-start;text-align:left}}
+</style>
+<div id="pdb-consent" role="dialog" aria-label="Cookie consent" hidden>
+  <p>I use Google Analytics cookies to see how the site's used. See the <a href="privacy.html">privacy policy</a> for details.</p>
+  <div class="pdb-consent-btns">
+    <button type="button" class="pdb-reject" id="pdb-consent-reject">Reject</button>
+    <button type="button" class="pdb-accept" id="pdb-consent-accept">Accept</button>
+  </div>
+</div>
+<script>
+(function(){
+  var KEY = 'pdb_consent';
+  function getChoice(){ try { return localStorage.getItem(KEY); } catch(e) { return null; } }
+  function setChoice(v){ try { localStorage.setItem(KEY, v); } catch(e) {} }
+  var choice = getChoice();
+  if (choice === 'accepted' && window.pdbLoadGA) window.pdbLoadGA();
+  if (choice) return;
+  var el = document.getElementById('pdb-consent');
+  if (!el) return;
+  el.hidden = false;
+  document.getElementById('pdb-consent-accept').addEventListener('click', function(){
+    setChoice('accepted');
+    if (window.pdbLoadGA) window.pdbLoadGA();
+    el.hidden = true;
+  });
+  document.getElementById('pdb-consent-reject').addEventListener('click', function(){
+    setChoice('rejected');
+    el.hidden = true;
+  });
+})();
+</script>
+<!-- CONSENT-BANNER END -->
+<noscript><div style="position:relative;z-index:50;background:#ffcd00;color:#000;font-family:system-ui,sans-serif;font-size:14px;font-weight:600;text-align:center;padding:10px 16px">This site&#8217;s interactive calculators need JavaScript to run. The stage and climb listings on the <a href="tdf.html" style="color:#000">Tour de France 2026</a>, <a href="giro26.html" style="color:#000">Giro 2026</a> and <a href="vuelta.html" style="color:#000">Vuelta 2026</a> pages are still readable without it.</div></noscript>
+
+<div class="bg-scene"><div class="bg-sky"></div><div class="bg-mountains"></div></div>
+<header>
+    <a class="logo" href="index.html">Polka<svg class="logo-dot-svg" viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg"><defs><mask id="dotm"><rect width="32" height="32" fill="white"/><text x="16" y="21" text-anchor="middle" font-family="Inter,system-ui,sans-serif" font-size="11" font-weight="900" letter-spacing="1.5" fill="black">DOT</text></mask></defs><circle cx="16" cy="16" r="15" fill="#ef4444" mask="url(#dotm)"/></svg><span>Bike</span></a>
+    <nav>
+        <a href="index.html">Gear<br>Calculator</a>
+        <a href="climb.html">Climb<br>Planner</a>
+        <a href="compare.html">Groupset<br>Comparator</a>
+        <a href="derailleur.html">Derailleur<br>Capacity</a>
+        <a href="wkg.html">W/KG<br>and FTP</a>
+        <a href="giro26.html">Giro 2026</a>
+        <a href="tdf.html">TDF 2026</a>
+        <a href="vuelta.html" class="active">Vuelta 2026</a>
+        <a href="about.html">About</a>
+        <a href="guide.html">Guide</a>
+        <a href="glossary.html">Glossary</a>
+        <a href="contact.html">Contact</a>
+    </nav>
+</header>
+
+<div class="hero">
+    <h1>La Vuelta a España 2026</h1>
+    <p>Pick a puerto — see the gradient, length, and category, then send it straight to the Climb Planner with your setup.</p>
+    <div class="hero-stats">
+        <div class="hs-item"><div class="hs-val">21</div><div class="hs-lbl">Stages</div></div>
+        <div class="hs-item"><div class="hs-val">10</div><div class="hs-lbl">Mountain days</div></div>
+        <div class="hs-item"><div class="hs-val">4</div><div class="hs-lbl">Especial climbs</div></div>
+        <div class="hs-item"><div class="hs-val">2</div><div class="hs-lbl">Time trials</div></div>
+        <div class="hs-item"><div class="hs-val">22 Aug</div><div class="hs-lbl">Monaco start</div></div>
+        <div class="hs-item"><div class="hs-val">13 Sep</div><div class="hs-lbl">Granada</div></div>
+    </div>
+</div>
+
+<div class="map-outer">
+    <div id="vuelta-map"></div>
+    <div class="map-legend">
+        <div class="ml-item"><span class="ml-dot ml-m"></span> Mountain</div>
+        <div class="ml-item"><span class="ml-dot ml-mm"></span> Medium Mtns</div>
+        <div class="ml-item"><span class="ml-dot ml-h"></span> Hilly</div>
+        <div class="ml-item"><span class="ml-dot ml-s"></span> Flat</div>
+        <div class="ml-item"><span class="ml-dot ml-t"></span> ITT</div>
+        <span style="color:var(--muted)">— click any marker to open that stage</span>
+    </div>
+</div>
+
+<div class="container">
+
+    <select class="stage-mobile-select" id="stage-select-mobile" onchange="renderStage(parseInt(this.value))"></select>
+
+    <div class="tdf-grid">
+
+        <div class="stage-sidebar glass" id="stage-sidebar"></div>
+
+        <div id="stage-detail"></div>
+
+    </div>
+</div>
+
+<!-- BEGIN AADS AD UNIT 2448890 -->
+<div id="frame" style="width: 100%;margin: auto;position: relative; z-index: 99998;">
+          <iframe data-aa='2448890' src='//acceptable.a-ads.com/2448890/?size=Adaptive&background_color=transparent'
+                            style='border:0; padding:0; width:70%; height:auto; overflow:hidden;display: block;margin: auto'></iframe>
+        </div>
+<!-- END AADS AD UNIT 2448890 -->
+<footer>
+    <p><span class="pdb-brand">Polka<span class="pdb-dot">DOT</span>Bike</span> · La Vuelta a España 2026 · Stage list, dates and climb categories from the official Vuelta roadbook.<br>Per-stage elevation gain and some climb lengths/gradients come from Komoot's route data; the rest are independently researched<br>or reconstructed estimates from the official stage profile. All gradients are average values.</p>
+    <p style="margin-top:6px"><a href="index.html">← Gear Calculator</a> · <a href="wkg.html">W/KG and FTP</a> · <a href="guide.html">Guide</a> · <a href="glossary.html">Glossary</a> · <a href="about.html">About</a> · <a href="contact.html">Contact</a> · <a href="privacy.html">Privacy</a> · <a href="disclaimer.html">Disclaimer</a></p>
+    <p style="margin-top:8px;font-size:0.85em;opacity:0.65">Also by me: <a href="https://digitalcredityield.com" target="_blank" rel="noopener" class="dcy-brand"><span class="dcy-square"></span>Digital Credit Yield</a> — Bitcoin &amp; Ethereum treasury income, explained.</p>
+    <p style="margin-top:10px"><a href="https://www.instagram.com/polkadotbike.cc/" target="_blank" rel="noopener" aria-label="Instagram" style="display:inline-flex;vertical-align:middle;margin:0 7px"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="2" y="2" width="20" height="20" rx="5.5"/><circle cx="12" cy="12" r="4.3"/><circle cx="17.4" cy="6.6" r="1.05" fill="currentColor" stroke="none"/></svg></a><a href="https://www.facebook.com/profile.php?id=61591463441672" target="_blank" rel="noopener" aria-label="Facebook" style="display:inline-flex;vertical-align:middle;margin:0 7px"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M13.5 21.9v-8.4h2.82l.42-3.27h-3.24V8.03c0-.95.26-1.6 1.63-1.6h1.74V3.55C16.55 3.47 15.6 3.4 14.5 3.4c-2.33 0-3.93 1.42-3.93 4.03v2.8H7.74v3.27h2.83v8.4h2.93z"/></svg></a></p>
+</footer>
+
+<script src="https://unpkg.com/topojson-client@3.1.0/dist/topojson-client.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
+<script>
+const STAGES = [
+    {num:1,  date:'2026-08-22', start:'Monaco',                     finish:'Monaco',                    dist:9,     type:'ITT',     vgain:90,   notes:'Opening time trial through the Principality\'s streets — technical, with the first race leader decided by seconds.'},
+    {num:2,  date:'2026-08-23', start:'Monaco',                     finish:'Manosque',                  dist:215,   type:'Hilly',   vgain:3060, notes:'Longest stage of the race. Technical start through Nice before Provence\'s rolling lavender country; two Cat3 climbs (Alto Châteauneuf-Grasse, Col de Saint Andrieu) should suit the fast finishers.'},
+    {num:3,  date:'2026-08-24', start:'Gruissan',                   finish:'Font Romeu',                dist:166,   type:'Medium',  vgain:2660, notes:'Flat start gradually rising into the Pyrénées Orientales. Col de Mont-Louis (Cat1) sets up the first summit finish of the race at Font Romeu (Cat2), 1,937m.'},
+    {num:4,  date:'2026-08-25', start:'Andorra la Vella',           finish:'Andorra la Vella',          dist:104,   type:'Mountain',vgain:2890, notes:'Short but brutal loop entirely within Andorra: Port d\'Envalira (Cat1, the highest paved pass in the Pyrenees), Collada de Beixalís (Cat1) and Coll d\'Ordino (Cat1) before a short finishing ramp at Alto de La Comella (Cat3).'},
+    {num:5,  date:'2026-08-26', start:'Falset. Costa Daurada',      finish:'Roquetes. Terres de l\'Ebre', dist:171, type:'Hilly',   vgain:1690,  notes:'Alto de Paüls (Cat3) is the only real difficulty; likely a sprint finish in the Terres de l\'Ebre.'},
+    {num:6,  date:'2026-08-27', start:'Alcossebre',                 finish:'Castelló',                  dist:176,   type:'Medium',  vgain:3080, notes:'Puerto de la Serratella and Alto del Desierto de las Palmas (both Cat2) before a dirt-road finale up Puerto El Bartolo (Cat1, 3km unpaved) and a fast descent into Castelló.'},
+    {num:7,  date:'2026-08-28', start:'Vall d\'Alba',                finish:'Aramón Valdelinares',       dist:149,   type:'Mountain',vgain:3750, notes:'Second summit finish of the race, climbing into Teruel\'s Sierra de Gúdar via Puerto El Remolcador and Puerto de San Rafael (both Cat2) before the ski-station finish at Valdelinares.'},
+    {num:8,  date:'2026-08-29', start:'Puçol',                      finish:'Xeraco',                    dist:168,   type:'Flat',    vgain:1270,  notes:'Last chance for the sprinters in week one; Puerto de Barx (Cat2) crests just before the finish in Xeraco.'},
+    {num:9,  date:'2026-08-30', start:'La Vila Joiosa / Villajoyosa',finish:'Alto de Aitana. Costa Blanca', dist:187, type:'Mountain',vgain:4940, notes:'Brutal way to close the first week — six categorised climbs and nearly 5,000m of climbing, including Puerto de El Miserat (Cat1), before the legendary Alto de Aitana summit finish above the Costa Blanca.'},
+    {num:10, date:'2026-09-01', start:'Alcaraz',                    finish:'Elche de la Sierra',        dist:184,   type:'Hilly',   vgain:2720, notes:'Winding stage through Albacete province after the first rest day; three Cat3 climbs (Puerto del Peralejo, Puerto de Aýna, Puerto de Socovos) could suit a breakaway.'},
+    {num:11, date:'2026-09-02', start:'Cartagena',                  finish:'Lorca',                     dist:156,   type:'Flat',    vgain:1310,  notes:'Another sprint opportunity, but Alto del Morrón de Totana (Cat3) crests just 30km from the finish.'},
+    {num:12, date:'2026-09-03', start:'Vera',                       finish:'Calar Alto',                dist:166,   type:'Mountain',vgain:4530, notes:'Andalucía\'s toughest welcome: the traditional Velefique–Calar Alto double, climbing to Europe\'s largest astronomical observatory at over 2,100m.'},
+    {num:13, date:'2026-09-04', start:'Almuñécar',                  finish:'Loja',                      dist:193,   type:'Medium',  vgain:3410, notes:'Winding stage that front-loads its difficulty — Venta de la Cebada (Cat1) and Alto del Legionario (Cat2) come in the first half, with a flatter run to Loja.'},
+    {num:14, date:'2026-09-05', start:'Jaén',                       finish:'Sierra de la Pandera',      dist:152,   type:'Mountain',vgain:4170, notes:'One of La Vuelta\'s most decisive summit finishes since 2002 — Puerto de Los Villares and Puerto de Locubín (both Cat2) set up the final ramps to Sierra de la Pandera.'},
+    {num:15, date:'2026-09-06', start:'Palma del Río',               finish:'Córdoba',                   dist:181,   type:'Medium',  vgain:3130,  notes:'Sierra Morena classic-style stage with three Cat3 climbs before the traditional reduced-group finish in Córdoba, on the eve of the second rest day.'},
+    {num:16, date:'2026-09-08', start:'Cortegana',                  finish:'La Rábida. Palos de la Frontera', dist:186, type:'Hilly', vgain:1980,  notes:'One of the last chances for the sprinters — winding through Huelva\'s hills before a flat run along the coast to the Columbus monuments at La Rábida.'},
+    {num:17, date:'2026-09-09', start:'Dos Hermanas',                finish:'Sevilla',                   dist:189,   type:'Flat',    vgain:890,  notes:'The flattest stage of the race; an early breakaway is the main variable before a bunch sprint through Seville\'s streets.'},
+    {num:18, date:'2026-09-10', start:'El Puerto de Santa María',    finish:'Jerez de la Frontera',      dist:32,    type:'ITT',     vgain:190,   notes:'Second and final time trial, along the Cádiz coastline where the wind could make real time differences among the GC contenders.'},
+    {num:19, date:'2026-09-11', start:'Vélez-Málaga',                finish:'Peñas Blancas. Estepona',   dist:205,   type:'Hilly',   vgain:4190, uphillFinish:true, notes:'Flat and coastal for most of the day before the Serranía de Ronda piles on the fatigue ahead of the final climb to Peñas Blancas (Cat1) — scene of Richard Carapaz\'s 2022 stage win.'},
+    {num:20, date:'2026-09-12', start:'La Calahorra',                finish:'Collado del Alguacil',      dist:187,   type:'Mountain',vgain:5120, notes:'La Vuelta\'s last great mountain stage and queen stage: Alto de Hazallanas climbed twice either side of Puerto del Purche, before the unprecedented, brand-new summit finish at Collado del Alguacil — 8.3km at 9.8%.'},
+    {num:21, date:'2026-09-13', start:'Carrefour Granada',           finish:'Granada',                   dist:99,    type:'Flat',    vgain:1280,  notes:'Ceremonial-style final stage with a circuit finish past the Alhambra, crowning the winner of La Vuelta 26 in Granada.'},
+];
+
+const CLIMBS = [
+    // Stage 2
+    {stage:2,  name:'Alto Châteauneuf-Grasse',       range:'Provence',            len:7.4,  grad:3.0,  elev:410,  cat:'Cat3', kbf:170.6, notes:'Gradual foothill climb above the Riviera.'},
+    {stage:2,  name:'Col de Saint Andrieu',          range:'Provence',            len:5.86, grad:4.4,  elev:508,  cat:'Cat3', kbf:109.0, notes:'Length/gradient from Komoot\'s GPS route data (confirmed by Robin as climb #6 on the official Komoot stage map).'},
+    // Stage 3
+    {stage:3,  name:'Col de Mont-Louis',              range:'Pyrénées Orientales', len:8.6,  grad:5.75, elev:1570, cat:'Cat1', kbf:15.3,  profile:[4.0,4.5,5.0,5.5,5.5,6.0,6.5,7.0,7.8], notes:'Steady mid-mountain grind via Fontpédrouse; sets up the descent into Font Romeu.'},
+    {stage:3,  name:'Font Romeu',                     range:'Pyrénées Orientales', len:9.87, grad:4.5,  elev:1937, cat:'Cat2', kbf:0,     notes:'First summit finish of the race. Short final rise off the Mont-Louis descent — matches organisers\' own description of the last km easing to around 4.5%. Length/gradient from Komoot\'s GPS route data (best-guess match by position — not independently cross-checked against another source).'},
+    // Stage 4
+    {stage:4,  name:'Port d\'Envalira',               range:'Andorra',             len:25.3, grad:5.1,  elev:2409, cat:'Cat1', kbf:78.7,  profile:[3,4,4,4.5,5,5,5,5,5.5,5.5,5,5,4.5,4,4,4.5,5,5.5,6,6.5,7,7,6.5,6,5.5], notes:'The highest paved pass in the Pyrenees. Long and steady from Andorra la Vella via El Tarter — altitude is the real difficulty, not the gradient.'},
+    {stage:4,  name:'Collada de Beixalís',            range:'Andorra',             len:6.7,  grad:8.3,  elev:1803, cat:'Cat1', kbf:44.6,  profile:[6,7,7,8,9,10,12], notes:'Irregular, narrow road via Encamp with hairpins and ramps over 20% — the toughest climb of the day pound for pound.'},
+    {stage:4,  name:'Coll d\'Ordino',                  range:'Andorra',             len:9.8,  grad:7.1,  elev:1989, cat:'Cat1', kbf:25.2,  profile:[5,5.5,6,6.5,7,7.5,8,8.5,9,10.7], notes:'Steady lower slopes via Ordino, harder in the closing kilometres. Steepest section 10.7%.'},
+    {stage:4,  name:'Alto de La Comella',              range:'Andorra',             len:4.1,  grad:5.9,  elev:1347, cat:'Cat3', kbf:3.9,   notes:'Short finishing ramp back into Andorra la Vella. Length/gradient from Komoot\'s route elevation data (unofficial, not yet cross-checked against another source).'},
+    // Stage 5
+    {stage:5,  name:'Alto de Paüls',                   range:'Terres de l\'Ebre',   len:4.1,  grad:6.0,  elev:381,  cat:'Cat3', kbf:23.4,  notes:'Length/gradient from Komoot.'},
+    // Stage 6
+    {stage:6,  name:'Puerto de la Serratella',        range:'Castellón',           len:19.0, grad:3.3,  elev:799,  cat:'Cat2', kbf:135.4, notes:'Long, gradual ascent — categorised more for cumulative altitude gain than steepness.'},
+    {stage:6,  name:'Coll de la Bandereta',           range:'Castellón',           len:4.7,  grad:6.7,  elev:785,  cat:'Cat3', kbf:109.8, notes:'Climbed from the west (Rosildos side) before descending to Benlloch, confirmed against the route map. Max gradient 9.6%.'},
+    {stage:6,  name:'Alto del Desierto de las Palmas', range:'Castellón',          len:9.5,  grad:4.3,  elev:418,  cat:'Cat2', kbf:47.5,  notes:'Climbed from Benicàssim on the coast.'},
+    {stage:6,  name:'Puerto El Bartolo',               range:'Castellón',          len:11.7, grad:6.0,  elev:713,  cat:'Cat1', kbf:19.1,  profile:[2,2.5,3,3,3.5,4,4.5,5,5.5,6,8,17], notes:'First-ever dirt-road finale for La Vuelta — the final ~3.5km run on gravel/sterrato before a fast paved descent into Castelló. Steepest ramp 17.2%.'},
+    // Stage 7
+    {stage:7,  name:'Puerto El Remolcador',            range:'Teruel',              len:10.3, grad:4.2,  elev:982,  cat:'Cat2', kbf:96.4,  notes:''},
+    {stage:7,  name:'Alto de Zucaina',                 range:'Teruel',              len:5.41, grad:5.0,  elev:814,  cat:'Cat3', kbf:82.1,  notes:'Length/gradient from Komoot.'},
+    {stage:7,  name:'Puerto Fuente de Rubielos',        range:'Teruel',              len:11.4, grad:3.3,  elev:1002, cat:'Cat3', kbf:43.6,  notes:'Gradual, sustained ascent.'},
+    {stage:7,  name:'Puerto de San Rafael',            range:'Teruel',              len:14.2, grad:3.7,  elev:1558, cat:'Cat2', kbf:12.3,  notes:'Long false-flat approach before the road continues on to the Valdelinares finish.'},
+    {stage:7,  name:'Aramón Valdelinares',             range:'Teruel',              len:9.08, grad:4.6,  elev:1961, cat:'Cat1', kbf:0,     notes:'Summit finish at the Sierra de Gúdar ski station, climbed via Puerto de San Rafael from Mora de Rubielos. Length/gradient from Komoot\'s GPS route data — the last (and only major) climb on this stage, so a confident match for the actual finish ascent, replacing an earlier figure that was mistakenly for the Alcalá de la Selva side.'},
+    // Stage 8
+    {stage:8,  name:'Puerto de Barx',                  range:'Valencia',            len:7.42, grad:4.0,  elev:317,  cat:'Cat2', kbf:22.2,  notes:'Crests just before the finish in Xeraco. Length/gradient from Komoot.'},
+    // Stage 9
+    {stage:9,  name:'Puerto de Tárbena',                range:'Costa Blanca',        len:12.1, grad:3.0,  elev:594,  cat:'Cat2', kbf:150.3, notes:'Gradual, early climb of the day.'},
+    {stage:9,  name:'Puerto de El Miserat',             range:'Costa Blanca',        len:18.0, grad:2.6,  elev:634,  cat:'Cat1', kbf:113.0, notes:'Long and gradual rather than steep — the Cat1 reflects length and cumulative altitude gain.'},
+    {stage:9,  name:'Puerto de Tollos',                 range:'Costa Blanca',        len:4.24, grad:5.6,  elev:829,  cat:'Cat3', kbf:96.2,  notes:'Climbed from the north — length/gradient from Komoot, cross-checked against CyclingCols\' matching "North, from CV-712/CV-713" profile (4.8km/4.5%).'},
+    {stage:9,  name:'Puerto de Tudons',                 range:'Costa Blanca',        len:4.99, grad:6.0,  elev:1027, cat:'Cat2', kbf:65.1,  notes:'Length/gradient from Komoot, the specific final segment up to the summit (not the much longer climb-from-the-stage-start figure CyclingCols lists).'},
+    {stage:9,  name:'Puerto de Benifallim',             range:'Costa Blanca',        len:10.5, grad:3.0,  elev:1013, cat:'Cat3', kbf:46.8,  notes:'Gradual approach into the closing kilometres before Aitana.'},
+    {stage:9,  name:'Alto de Aitana',                   range:'Costa Blanca',        len:21.5, grad:5.8,  elev:1545, cat:'ESP',  kbf:0,     profile:[3,3.5,4,4.5,5,5,5.5,6,5,4.5,4,4.5,5,5.5,6,6.5,7,7.5,8,8.5,9,9.2], notes:'One of Spain\'s hardest summit finishes, used by La Vuelta in 2015, 2019 and 2021. Long, irregular grind with a max gradient around 9.2%.'},
+    // Stage 10
+    {stage:10, name:'Puerto del Peralejo',              range:'Albacete',            len:13.5, grad:1.5,  elev:1132, cat:'Cat3', kbf:136.4, notes:'Very gradual climb from Fábricas de Riópar — length/gradient from CyclingCols, confirmed as the correct approach side by matching the stage\'s actual direction of travel. Max gradient 9.2%.'},
+    {stage:10, name:'Puerto de Aýna',                   range:'Albacete',            len:7.0,  grad:3.7,  elev:950,  cat:'Cat3', kbf:97.7,  notes:''},
+    {stage:10, name:'Puerto de Socovos',                range:'Albacete',            len:3.31, grad:5.0,  elev:782,  cat:'Cat3', kbf:20.7,  notes:'Length/gradient from Komoot, the final segment leading to the summit. A separate, earlier rise (1.74km at 6%) also appears before it on the same approach.'},
+    // Stage 11
+    {stage:11, name:'Alto del Morrón de Totana',        range:'Murcia',              len:11.6, grad:3.3,  elev:624,  cat:'Cat3', kbf:33.5,  notes:'Crests around 30km from the finish in Lorca.'},
+    // Stage 12
+    {stage:12, name:'Alto del Cabecico',                range:'Almería',             len:4.28, grad:4.0,  elev:471,  cat:'Cat3', kbf:149.9, notes:'Length/gradient from Komoot.'},
+    {stage:12, name:'Alto Cóbdar',                      range:'Almería',             len:5.33, grad:5.0,  elev:668,  cat:'Cat3', kbf:108.4, notes:'Length/gradient from Komoot.'},
+    {stage:12, name:'Collado García',                   range:'Almería',             len:4.15, grad:4.8,  elev:1239, cat:'Cat2', kbf:79.3,  notes:'Length/gradient from Komoot, combining two consecutive detected segments (1.53km + 2.62km, both ~5%) into one continuous climb.'},
+    {stage:12, name:'Alto de Velefique',                range:'Almería',             len:20.1, grad:5.7,  elev:1789, cat:'Cat1', kbf:30.4,  notes:'Climbed from Velefique town, cresting before a descent toward Bacares and the final push to Calar Alto. Length/gradient from CyclingCols\' "South, from Velefique" profile — an exact match for this stage\'s approach town. Max gradient 11.0%.'},
+    {stage:12, name:'Calar Alto',                       range:'Almería',             len:18.19, grad:5.15, elev:2153, cat:'ESP',  kbf:0,     notes:'Summit finish at Europe\'s largest astronomical observatory, over 2,100m — one of the hardest climbs in the south of Spain. Length/gradient calculated from Komoot\'s elevation chart between the Bacares altitude/distance markers (1,196m to the 2,134m summit) — a strong match to the roadbook\'s own Bacares altitude of 1,197m.'},
+    // Stage 13
+    {stage:13, name:'Venta de la Cebada',                range:'Granada',             len:7.4,  grad:6.7,  elev:819,  cat:'Cat1', kbf:165.0, notes:''},
+    {stage:13, name:'Alto del Legionario',              range:'Granada',             len:22.0, grad:2.6,  elev:1347, cat:'Cat2', kbf:109.0, notes:'Long, gradual ascent via Padul.'},
+    {stage:13, name:'Puerto de Granada',                range:'Granada',             len:13.5, grad:3.3,  elev:1034, cat:'Cat2', kbf:37.0,  notes:''},
+    // Stage 14
+    {stage:14, name:'Puerto de Los Villares',           range:'Jaén',                len:11.4, grad:5.2,  elev:1180, cat:'Cat2', kbf:60.6,  notes:''},
+    {stage:14, name:'Puerto de Locubín',                range:'Jaén',                len:10.1, grad:4.5,  elev:1085, cat:'Cat2', kbf:20.4,  notes:'Leads into the final push to Sierra de la Pandera.'},
+    {stage:14, name:'Sierra de la Pandera',             range:'Jaén',                len:8.4,  grad:7.8,  elev:1797, cat:'ESP',  kbf:0,     profile:[4,5,6,7,7.5,8,8.5,16.4], notes:'One of La Vuelta\'s classic brutal summit finishes since 2002, with several sectors over 15% — including inside the final kilometre, where it touches 18%.'},
+    // Stage 15
+    {stage:15, name:'Puerto de la Forestal',            range:'Córdoba',             len:15.5, grad:2.6,  elev:497,  cat:'Cat3', kbf:146.5, notes:'Gradual climb into the Sierra Morena.'},
+    {stage:15, name:'Alto de Villaviciosa de Córdoba',  range:'Córdoba',             len:11.59,grad:3.2,  elev:735,  cat:'Cat3', kbf:59.5,  notes:'Length/gradient calculated from Komoot\'s elevation chart between the base and summit markers.'},
+    {stage:15, name:'Puerto Artafi',                    range:'Córdoba',             len:6.28, grad:5.2,  elev:523,  cat:'Cat3', kbf:27.8,  notes:'Length/gradient calculated from Komoot\'s elevation chart for the correct (stage-direction) side — a different, steeper segment than CyclingCols\' only listed profile, which climbs the opposite way from Medina Azahara.'},
+    // Stage 19
+    {stage:19, name:'Puerto de Las Abejas',             range:'Serranía de Ronda',   len:10.5, grad:4.9,  elev:887,  cat:'Cat2', kbf:115.8, notes:''},
+    {stage:19, name:'Puerto del Viento',                range:'Serranía de Ronda',   len:13.8, grad:3.8,  elev:1078, cat:'Cat2', kbf:101.5, notes:'Climbed from the east, from El Burgo. Length/gradient from CyclingCols. Max gradient 9.6%.'},
+    {stage:19, name:'Peñas Blancas',                     range:'Costa del Sol',      len:19.0, grad:6.7,  elev:1264, cat:'Cat1', kbf:0,     profile:[2,3,4,5,5.5,6,6,6.5,7,7,6.5,7,7.5,8,8.5,9,13,13,8.8], notes:'Scene of Richard Carapaz\'s stage win in 2022, extended a few km longer than the 2013 version. Starts almost at sea level in Estepona; several ramps over 14%.'},
+    // Stage 20
+    {stage:20, name:'Puerto de Blancares',                range:'Granada',           len:8.53, grad:3.75, elev:1292, cat:'Cat3', kbf:134.2, notes:'Length/gradient calculated from Komoot\'s elevation chart for the correct (Guadix-side) direction — the summit altitude this gives (1,296m) matches the roadbook\'s 1,292m almost exactly, confirming the right side this time, unlike CyclingCols\' only listed (opposite-direction) profile.'},
+    {stage:20, name:'Alto de Hazallanas',                 range:'Sierra Nevada',     len:7.1,  grad:9.75, elev:1668, cat:'Cat1', kbf:96.5,  profile:[13,12,9,9,9,9,7.25], notes:'First of two ascents today. Brutal from the start — especially steep in the opening 2km.'},
+    {stage:20, name:'Puerto del Purche',                range:'Sierra Nevada',     len:6.96, grad:9.0,  elev:1460, cat:'Cat1', kbf:58.7,  notes:'Climbed via Huétor Vega, sitting exactly between the two Hazallanas ascents. Length/gradient from Komoot\'s GPS route data.'},
+    {stage:20, name:'Alto de Hazallanas (2nd ascent)',    range:'Sierra Nevada',     len:7.1,  grad:9.75, elev:1668, cat:'Cat1', kbf:31.4,  profile:[13,12,9,9,9,9,7.25], notes:'Second ascent of the day, same climb as earlier — scene of Chris Horner\'s surprise 2013 stage win nearby at this same summit.'},
+    {stage:20, name:'Collado del Alguacil',                range:'Sierra Nevada',    len:8.3,  grad:9.8,  elev:1882, cat:'ESP',  kbf:0,     profile:[6,7,8,9,10,11,12,15.4], notes:'Brand-new, unprecedented summit finish and La Vuelta 26\'s last great challenge — 8.3km at an official average of 9.8%.'},
+];
+
+const TYPE_INFO = {
+    'Mountain': { badge: 'Mountain',        cls: 'badge-m',  sidebarCls: 'type-m' },
+    'Medium':   { badge: 'Medium Mtns',     cls: 'badge-mm', sidebarCls: 'type-mm' },
+    'Hilly':    { badge: 'Hilly',           cls: 'badge-h',  sidebarCls: 'type-h' },
+    'Flat':     { badge: 'Flat',            cls: 'badge-s',  sidebarCls: 'type-s' },
+    'ITT':      { badge: 'ITT',             cls: 'badge-t',  sidebarCls: 'type-t' },
+};
+const CAT_CLS = { ESP:'cat-esp', Cat1:'cat-cat1', Cat2:'cat-cat2', Cat3:'cat-cat3', TBC:'cat-tbc' };
+const MONTH_SHORT = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+
+function fmtDate(iso) {
+    const [y,m,d] = iso.split('-').map(Number);
+    const days = ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
+    const dow = days[new Date(y, m-1, d).getDay()];
+    return `${dow} ${d} ${MONTH_SHORT[m-1]}`;
+}
+
+function gradColor(g) {
+    if (g < 5)  return '#12b05f';
+    if (g < 7)  return '#ffcd00';
+    if (g < 9)  return '#ff6600';
+    return '#ee1c28';
+}
+
+function buildPlanUrl(climb) {
+    const p = {};
+    try {
+        const sh = JSON.parse(localStorage.getItem('cg_shared') || '{}');
+        ['d','b','g','cr','cs','w','cad','pw','wt','cda','ck'].forEach(k => {
+            if (sh[k] !== undefined && sh[k] !== '') p[k] = sh[k];
+        });
+    } catch(e) {}
+    p.gr  = Math.round(climb.grad);
+    p.dst = climb.len;
+    return 'climb.html?' + new URLSearchParams(p).toString();
+}
+
+function stageClimbs(num) {
+    const list = CLIMBS.filter(c => c.stage === num);
+    return list.sort((a, b) => {
+        if (a.kbf === null && b.kbf === null) return 0;
+        if (a.kbf === null) return -1;
+        if (b.kbf === null) return 1;
+        return b.kbf - a.kbf;
+    });
+}
+
+function renderProfile(c) {
+    if (!c.profile || !c.profile.length) return '';
+    const p = c.profile;
+
+    let cum = 0;
+    const elev = [0, ...p.map(g => (cum += g * 10, cum))];
+    const totalElev = elev[elev.length - 1];
+
+    const KM_PX      = 12;
+    const PX_PER_100M = 6;
+    const H = 90, pad = 4;
+    const W = p.length * KM_PX + pad * 2;
+    const iH = H - pad * 2;
+    const yb = H - pad;
+
+    const useH = Math.min(iH, totalElev / 100 * PX_PER_100M);
+
+    const fills = p.map((g, i) => {
+        const col = g < 5 ? '#12b05f' : g < 7 ? '#ffcd00' : g < 9 ? '#ff6600' : '#ee1c28';
+        const x1 = (pad + i * KM_PX).toFixed(1);
+        const x2 = (pad + (i + 1) * KM_PX).toFixed(1);
+        const y1 = (pad + iH - elev[i]     / totalElev * useH).toFixed(1);
+        const y2 = (pad + iH - elev[i + 1] / totalElev * useH).toFixed(1);
+        return `<polygon points="${x1},${yb} ${x1},${y1} ${x2},${y2} ${x2},${yb}" fill="${col}"/>`;
+    }).join('');
+
+    const outline = elev.map((e, i) =>
+        `${(pad + i * KM_PX).toFixed(1)},${(pad + iH - e / totalElev * useH).toFixed(1)}`
+    ).join(' ');
+
+    return `<div class="cc-profile"><svg viewBox="0 0 ${W} ${H}" style="display:block;width:${W}px;height:${H}px;border-radius:4px;overflow:hidden"><rect width="${W}" height="${H}" fill="rgba(0,0,0,0.28)" rx="4"/>${fills}<polyline points="${outline}" fill="none" stroke="rgba(255,255,255,0.72)" stroke-width="1.5" stroke-linejoin="round"/></svg><div class="profile-meta" style="width:${W}px"><span>▲ ${Math.round(totalElev)}m gain</span><span>${c.len}km</span></div></div>`;
+}
+
+function renderClimbCard(c) {
+    const isFinish = c.kbf === 0;
+    const hasData  = c.len !== null && c.grad !== null;
+    const catCls   = CAT_CLS[c.cat] || 'cat-tbc';
+    const gCol     = c.grad !== null ? gradColor(c.grad) : '';
+
+    let statsHtml = '';
+    if (hasData) {
+        const lenStr  = c.len % 1 === 0 ? c.len : c.len.toFixed(2).replace(/\.?0+$/, '');
+        const gradStr = c.grad % 1 === 0 ? c.grad : parseFloat(c.grad.toFixed(2));
+        statsHtml = `<div class="cc-stats">
+            <div class="cs-item">
+                <div class="cs-val">${lenStr}</div>
+                <div class="cs-label">km</div>
+            </div>
+            <div class="cs-item">
+                <div class="cs-val" style="color:${gCol}">${gradStr}%</div>
+                <div class="cs-label">avg gradient</div>
+            </div>
+            ${c.elev ? `<div class="cs-item"><div class="cs-val sm">▲ ${c.elev.toLocaleString()}m</div><div class="cs-label">summit</div></div>` : ''}
+            ${c.kbf > 0 ? `<div class="cs-item"><div class="cs-val sm">${c.kbf}km</div><div class="cs-label">to finish</div></div>` : ''}
+        </div>`;
+    }
+
+    const planBtn = hasData
+        ? `<a class="plan-btn" href="${buildPlanUrl(c)}">Plan this climb →</a>`
+        : `<div class="tbc-note">Length and gradient not yet confirmed — check back closer to race day.</div>`;
+
+    const ccTop = `<div class="cc-top">
+            <span class="cc-cat ${catCls}">${c.cat}</span>
+            <div class="cc-name-block">
+                <div style="display:flex;align-items:center;gap:7px;flex-wrap:wrap">
+                    <span class="cc-name">${c.name}</span>
+                    ${isFinish ? '<span class="finish-tag">Stage Finish</span>' : ''}
+                </div>
+                <div class="cc-range">${c.range}</div>
+            </div>
+        </div>`;
+
+    const profileHtml = renderProfile(c);
+    if (profileHtml) {
+        return `<div class="climb-card${isFinish ? ' is-finish' : ''}">
+            ${ccTop}
+            <div class="cc-body">
+                ${profileHtml}
+                <div class="cc-body-right">
+                    ${statsHtml}
+                    ${c.notes ? `<div class="cc-notes">${c.notes}</div>` : ''}
+                    ${planBtn}
+                </div>
+            </div>
+        </div>`;
+    }
+
+    return `<div class="climb-card${isFinish ? ' is-finish' : ''}">
+        ${ccTop}
+        ${statsHtml}
+        ${c.notes ? `<div class="cc-notes">${c.notes}</div>` : ''}
+        ${planBtn}
+    </div>`;
+}
+
+const STAGE_COORDS = [
+    {num:1,  sLat:43.7384, sLng: 7.4246, fLat:43.7384, fLng: 7.4246, anchor:[25,25]},
+    {num:2,  sLat:43.7384, sLng: 7.4246, fLat:43.8290, fLng: 5.7863},
+    {num:3,  sLat:43.1090, sLng: 3.0876, fLat:42.5019, fLng: 2.0331},
+    {num:4,  sLat:42.5063, sLng: 1.5218, fLat:42.5063, fLng: 1.5218, anchor:[25,25]},
+    {num:5,  sLat:41.1462, sLng: 0.8206, fLat:40.8137, fLng: 0.4986},
+    {num:6,  sLat:40.2306, sLng: 0.2497, fLat:39.9864, fLng:-0.0513},
+    {num:7,  sLat:40.1160, sLng:-0.0520, fLat:40.3350, fLng:-0.7160},
+    {num:8,  sLat:39.6167, sLng:-0.3167, fLat:39.0333, fLng:-0.3167},
+    {num:9,  sLat:38.5075, sLng:-0.2331, fLat:38.6467, fLng:-0.2611},
+    {num:10, sLat:38.6333, sLng:-2.4667, fLat:38.4667, fLng:-2.0500},
+    {num:11, sLat:37.6050, sLng:-0.9861, fLat:37.6717, fLng:-1.7011},
+    {num:12, sLat:37.2489, sLng:-1.8514, fLat:37.2233, fLng:-2.5464},
+    {num:13, sLat:36.7333, sLng:-3.6833, fLat:37.1667, fLng:-4.1500},
+    {num:14, sLat:37.7667, sLng:-3.7833, fLat:37.6167, fLng:-3.7333},
+    {num:15, sLat:37.7136, sLng:-5.2822, fLat:37.8882, fLng:-4.7794},
+    {num:16, sLat:37.9139, sLng:-6.8258, fLat:37.2144, fLng:-6.8908},
+    {num:17, sLat:37.2833, sLng:-5.9167, fLat:37.3891, fLng:-5.9845},
+    {num:18, sLat:36.5928, sLng:-6.2331, fLat:36.6850, fLng:-6.1261},
+    {num:19, sLat:36.7833, sLng:-4.1000, fLat:36.4283, fLng:-5.1467},
+    {num:20, sLat:37.1833, sLng:-3.0667, fLat:37.1000, fLng:-3.4000},
+    {num:21, sLat:37.1773, sLng:-3.5986, fLat:37.1773, fLng:-3.5986, anchor:[25,25]},
+];
+
+async function initMap() {
+    if (typeof L === 'undefined') { console.warn('Leaflet not loaded'); return; }
+
+    const map = L.map('vuelta-map', { scrollWheelZoom: false, zoomControl: true, zoomSnap: 0.5 });
+
+    map.attributionControl.addAttribution('Map data: Natural Earth');
+
+    map.createPane('countries');
+    map.getPane('countries').style.zIndex = 300;
+    map.getPane('countries').style.pointerEvents = 'none';
+
+    map.createPane('maplabels');
+    map.getPane('maplabels').style.zIndex = 450;
+    map.getPane('maplabels').style.pointerEvents = 'none';
+
+    const typeColor   = { Mountain:'#ffcd00', Medium:'#8b5cf6', Hilly:'#000000', Flat:'#12b05f', ITT:'#1a72e0' };
+    const typeDotCls  = { Mountain:'md-m', Medium:'md-mm', Hilly:'md-h', Flat:'md-s', ITT:'md-t' };
+
+    function makeIcon(num, type, active, anchor) {
+        const a = anchor || [11, 11];
+        return L.divIcon({
+            className: '',
+            html: `<div class="map-dot ${typeDotCls[type]||'md-s'}${active?' active':''}">${num}</div>`,
+            iconSize: [22, 22], iconAnchor: a, tooltipAnchor: [0, -14],
+        });
+    }
+
+    const markers = {};
+    let activeNum = null;
+
+    STAGE_COORDS.forEach((sc, i) => {
+        const stage = STAGES.find(s => s.num === sc.num);
+        const col = typeColor[stage.type] || '#94a3b8';
+
+        L.polyline([[sc.sLat, sc.sLng], [sc.fLat, sc.fLng]], {
+            color: col, weight: 3.5, opacity: 0.85,
+        }).addTo(map);
+
+        if (i < STAGE_COORDS.length - 1) {
+            const nx = STAGE_COORDS[i + 1];
+            if (Math.hypot(sc.fLat - nx.sLat, sc.fLng - nx.sLng) > 0.02) {
+                L.polyline([[sc.fLat, sc.fLng], [nx.sLat, nx.sLng]], {
+                    color: '#64748b', weight: 1.5, opacity: 0.6, dashArray: '4 6',
+                }).addTo(map);
+            }
+        }
+
+        const m = L.marker([sc.fLat, sc.fLng], {
+            icon: makeIcon(sc.num, stage.type, false, sc.anchor),
+            zIndexOffset: sc.num * 10,
+        }).addTo(map);
+
+        m.bindTooltip(
+            `<b>Stage ${sc.num}</b> · ${stage.start} → ${stage.finish}<br>${stage.dist} km · ${stage.type}`,
+            { className: 'map-tip', direction: 'top', offset: [0, -12] }
+        );
+
+        m.on('click', () => renderStage(sc.num));
+        markers[sc.num] = { m, stage, anchor: sc.anchor };
+    });
+
+    window._mapUpdate = function(num) {
+        if (activeNum !== null && markers[activeNum]) {
+            const { m, stage, anchor } = markers[activeNum];
+            m.setIcon(makeIcon(activeNum, stage.type, false, anchor));
+        }
+        if (markers[num]) {
+            const { m, stage, anchor } = markers[num];
+            m.setIcon(makeIcon(num, stage.type, true, anchor));
+        }
+        activeNum = num;
+    };
+
+    const pts = STAGE_COORDS.flatMap(sc => [[sc.sLat, sc.sLng], [sc.fLat, sc.fLng]]);
+    map.fitBounds(pts, { padding: [36, 36] });
+    if (window.innerWidth <= 768) {
+        map.panBy([-16, 0], { animate: false });
+    }
+    map.setMinZoom(map.getZoom());
+
+    const CITY_LABELS = [
+        {num:1,  end:'f', name:'Monaco', cls:'right'},
+        {num:4,  end:'f', name:'Andorra', cls:'left'},
+        {num:6,  end:'f', name:'Castelló', cls:'right'},
+        {num:9,  end:'f', name:'Alicante', cls:'right'},
+        {num:12, end:'f', name:'Almería', cls:'right'},
+        {num:15, end:'f', name:'Córdoba', cls:'left'},
+        {num:17, end:'f', name:'Sevilla', cls:'left'},
+        {num:20, end:'f', name:'Granada', cls:'right'},
+    ];
+    CITY_LABELS.forEach(c => {
+        const sc = STAGE_COORDS.find(x => x.num === c.num); if (!sc) return;
+        const lat = c.end === 's' ? sc.sLat : sc.fLat;
+        const lng = c.end === 's' ? sc.sLng : sc.fLng;
+        L.marker([lat, lng], {
+            pane: 'maplabels', interactive: false, keyboard: false,
+            icon: L.divIcon({ className: '', html: `<div class="map-city ${c.cls || ''}">${c.name}</div>`, iconSize: [0, 0] }),
+        }).addTo(map);
+    });
+
+    [
+        { lat: 44.5, lng: 1.5,  name: 'FRANCE', color: 'rgba(140,20,26,0.55)' },
+        { lat: 39.0, lng: -3.5, name: 'SPAIN',  color: 'rgba(255,255,255,0.65)' },
+    ].forEach(c => {
+        L.marker([c.lat, c.lng], {
+            pane: 'maplabels', interactive: false, keyboard: false,
+            icon: L.divIcon({ className: '', html: `<div class="map-country" style="color:${c.color}">${c.name}</div>`, iconSize: [0, 0] }),
+        }).addTo(map);
+    });
+
+    try {
+        const world = await fetch('https://cdn.jsdelivr.net/npm/world-atlas@2/countries-50m.json').then(r => r.json());
+        const topo = typeof topojson !== 'undefined' ? topojson : window.topojson;
+        if (!topo) throw new Error('topojson not loaded');
+        L.geoJSON(topo.feature(world, world.objects.countries), {
+            pane: 'countries',
+            filter: f => +f.id === 250 || +f.id === 724 || +f.id === 20,
+            style: f => {
+                if (+f.id === 724) return { fillColor: '#c81e2c', fillOpacity: 1, color: '#fff', weight: 1.5 }; // Spain — leader jersey red
+                if (+f.id === 250) return { fillColor: '#f2a89a', fillOpacity: 1, color: '#fff', weight: 1.5 }; // France — pale warm red (not pink)
+                return { fillColor: '#f2a89a', fillOpacity: 1, color: '#fff', weight: 1 };                      // Andorra — pale warm red like France
+            }
+        }).addTo(map);
+    } catch(e) {
+        console.warn('Vuelta map country layer unavailable:', e.message);
+    }
+
+    map.setMaxBounds(L.latLngBounds(pts).pad(0.5));
+}
+
+function renderStage(num) {
+    const stage = STAGES.find(s => s.num === num);
+    if (!stage) return;
+
+    if (window._mapUpdate) window._mapUpdate(num);
+
+    document.querySelectorAll('.stage-btn').forEach(b =>
+        b.classList.toggle('active', parseInt(b.dataset.num) === num));
+    const mob = document.getElementById('stage-select-mobile');
+    if (mob) mob.value = num;
+
+    const ti   = TYPE_INFO[stage.type] || TYPE_INFO['Flat'];
+    const date = fmtDate(stage.date);
+    const isQueen = num === 20;
+
+    const climbs = stageClimbs(num);
+    let climbsHtml;
+    if (climbs.length === 0) {
+        const msg = stage.type === 'ITT' ? 'Individual Time Trial — no categorised climbs in the dataset.' :
+                    stage.type === 'Flat' ? 'Flat stage — no categorised climbs.' :
+                    'Detailed climb data not yet available for this stage.';
+        climbsHtml = `<div class="no-climbs">${msg}</div>`;
+    } else {
+        climbsHtml = `<div class="climbs-list">${climbs.map(renderClimbCard).join('')}</div>`;
+    }
+
+    document.getElementById('stage-detail').innerHTML = `
+        <div class="stage-header glass">
+            <div class="sh-top">
+                <span class="type-badge ${ti.cls}">${ti.badge}</span>
+                ${isQueen ? '<span class="type-badge badge-queen">Queen Stage</span>' : ''}
+                ${stage.uphillFinish ? '<span class="type-badge badge-uphill">Uphill Finish</span>' : ''}
+                <span class="sh-date">${date} 2026</span>
+            </div>
+            <div class="sh-route">Stage ${num}: ${stage.start} → ${stage.finish}</div>
+            <div class="sh-stats">
+                <span><strong>${stage.dist}</strong> km</span>
+                <span><strong>${stage.vgain.toLocaleString()}</strong> m elevation gain (approx.)</span>
+                ${climbs.length ? `<span><strong>${climbs.length}</strong> categorised climb${climbs.length !== 1 ? 's' : ''}</span>` : ''}
+            </div>
+            ${stage.notes ? `<div class="sh-notes">${stage.notes}</div>` : ''}
+        </div>
+        ${climbsHtml}`;
+}
+
+function buildSidebar() {
+    const sidebar = document.getElementById('stage-sidebar');
+    const mobSel  = document.getElementById('stage-select-mobile');
+    sidebar.innerHTML = '<div class="sidebar-head">Vuelta Stages</div>';
+    STAGES.forEach(s => {
+        const ti  = TYPE_INFO[s.type] || TYPE_INFO['Flat'];
+        const btn = document.createElement('button');
+        btn.className    = 'stage-btn';
+        btn.dataset.num  = s.num;
+        btn.onclick      = () => renderStage(s.num);
+        btn.innerHTML    = `<div class="s-badge ${ti.sidebarCls}" style="margin-top:2px">${s.num}</div>
+            <div class="s-info">
+                <div class="s-finish">${s.start} → ${s.finish}</div>
+                <div class="s-meta">${fmtDate(s.date).slice(4)}</div>
+                <div class="s-stats">${s.dist} km &nbsp;·&nbsp; ▲ ${s.vgain.toLocaleString()} m</div>
+            </div>`;
+        sidebar.appendChild(btn);
+
+        const opt = document.createElement('option');
+        opt.value       = s.num;
+        opt.textContent = `Stage ${s.num} — ${s.start} → ${s.finish}`;
+        mobSel.appendChild(opt);
+    });
+}
+
+function defaultStage() {
+    const t  = new Date();
+    const today = `${t.getFullYear()}-${String(t.getMonth()+1).padStart(2,'0')}-${String(t.getDate()).padStart(2,'0')}`;
+    if (today < '2026-08-22' || today > '2026-09-13') return 1;
+    const match = STAGES.find(s => s.date === today);
+    if (match) return match.num;
+    const past = STAGES.filter(s => s.date <= today);
+    return past.length ? past[past.length - 1].num : 1;
+}
+
+buildSidebar();
+renderStage(parseInt(new URLSearchParams(location.search).get('s')) || defaultStage());
+initMap();
+</script>
+</body>
+</html>
