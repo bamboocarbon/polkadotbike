@@ -480,7 +480,7 @@
     </div>
 
     <div class="rail">
-        <div class="rail-card">
+        <div class="rail-card" id="buy-card">
             <div class="rail-head">Buy These Components</div>
             <div class="rail-body">
                 <img class="pb-logo-chip" src="pb-logo.png" alt="Performance Bicycle">
@@ -716,7 +716,31 @@ function render() {
     const okCount = groups.ok.length;
     document.getElementById('result-summary').innerHTML =
         `<strong>${okCount}</strong> of <strong>${list.length}</strong> derailleurs within spec for <strong>${total}T</strong> required capacity`;
+
+    positionBuyCard();
 }
+
+/* On mobile, move the buy-card up to sit right before the "Exceeds
+   Capacity" (red) result group, so it's seen before the bad news -
+   falls back to the end of the results list if there's no red group
+   this render, and back into the rail sidebar on desktop. */
+function positionBuyCard() {
+    const buyCard = document.getElementById('buy-card');
+    const resultsList = document.getElementById('results-list');
+    const rail = document.querySelector('.rail');
+    if (!buyCard || !resultsList || !rail) return;
+    if (window.innerWidth <= 720) {
+        const redGroup = resultsList.querySelector('.dr-group.no');
+        if (redGroup) {
+            resultsList.insertBefore(buyCard, redGroup);
+        } else if (buyCard.parentElement !== resultsList) {
+            resultsList.appendChild(buyCard);
+        }
+    } else if (buyCard.parentElement !== rail) {
+        rail.insertBefore(buyCard, rail.firstChild);
+    }
+}
+window.addEventListener('resize', positionBuyCard);
 
 updateDisplays();
 render();

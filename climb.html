@@ -1673,6 +1673,24 @@ function showPrintReport() {
     document.getElementById('print-overlay').style.display = 'flex';
 }
 function closePrintReport() { document.getElementById('print-overlay').style.display = 'none'; }
+
+/* On mobile, move the buy-card up to sit right after the power-required
+   chart instead of at the bottom of the stacked rail. */
+function positionBuyCard() {
+    const buyCard = document.getElementById('buy-card');
+    const achieveCard = document.querySelector('.achieve-card');
+    const rail = document.querySelector('.rail');
+    if (!buyCard || !achieveCard || !rail) return;
+    if (window.innerWidth <= 720) {
+        if (buyCard.nextElementSibling !== achieveCard) {
+            achieveCard.parentNode.insertBefore(buyCard, achieveCard);
+        }
+    } else if (buyCard.parentElement !== rail) {
+        rail.insertBefore(buyCard, rail.firstChild);
+    }
+}
+positionBuyCard();
+window.addEventListener('resize', positionBuyCard);
 </script>
 
 <div id="print-overlay">

@@ -1880,6 +1880,24 @@ function showPrintReport() {
 function closePrintReport() {
     document.getElementById('print-overlay').style.display = 'none';
 }
+
+/* On mobile, move the buy-card up to sit right after the gear
+   development chart instead of at the bottom of the stacked rail. */
+function positionBuyCard() {
+    const buyCard = document.getElementById('buy-card');
+    const cardsCard = document.querySelector('.cards-card');
+    const rail = document.querySelector('.rail');
+    if (!buyCard || !cardsCard || !rail) return;
+    if (window.innerWidth <= 720) {
+        if (buyCard.nextElementSibling !== cardsCard) {
+            cardsCard.parentNode.insertBefore(buyCard, cardsCard);
+        }
+    } else if (buyCard.parentElement !== rail) {
+        rail.insertBefore(buyCard, rail.firstChild);
+    }
+}
+positionBuyCard();
+window.addEventListener('resize', positionBuyCard);
 </script>
 
 <div id="print-overlay">
