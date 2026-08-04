@@ -58,7 +58,7 @@
         .bg-mountains { position: absolute; inset: 0; background-image: radial-gradient(circle,rgba(239,68,68,0.22) 28%,transparent 28%), radial-gradient(circle,rgba(239,68,68,0.22) 28%,transparent 28%); background-size: 44px 44px; background-position: 0 0, 22px 22px; }
         header { position: sticky; top: 0; z-index: 100; background: rgba(4,9,26,0.85); backdrop-filter: blur(16px); border-bottom: 1px solid var(--border); padding: 0 24px; height: 54px; display: flex; align-items: center; justify-content: space-between; }
         .logo { font-size: 19px; font-weight: 900; letter-spacing: -0.5px; color: #fff; text-decoration: none; display: inline-flex; align-items: center; gap: 3px; }
-        .logo span { color: var(--accent); }
+        .logo span { color: #fff; }
         .logo-dot-svg { width: 32px; height: 32px; flex-shrink: 0; }
         nav { display: flex; gap: 2px; align-items: center; }
         nav a { color: var(--sec); text-decoration: none; font-size: 13px; font-weight: 500; padding: 6px 13px; border-radius: 6px; transition: all 0.15s; text-align: center; line-height: 1.2; }
@@ -136,6 +136,8 @@
         .tbc-note { font-size: 11px; color: var(--muted); font-style: italic; margin-top: 4px; }
         .plan-btn { display: inline-flex; align-self: flex-start; align-items: center; gap: 6px; padding: 7px 14px; background: #1a72e0; border: none; border-radius: 9px; color: #fff; font-size: 12px; font-weight: 700; text-decoration: none; transition: all 0.15s; cursor: pointer; }
         .plan-btn:hover { background: #3b8ef0; color: #fff; }
+        .stay-card { margin-top: 14px; padding: 15px 17px; }
+        .stay-card-title { font-size: 13px; font-weight: 700; color: var(--text); margin-bottom: 10px; }
         .cc-body { display: flex; gap: 16px; align-items: flex-start; margin-top: 10px; }
         .cc-body .cc-profile { flex-shrink: 0; margin: 0; }
         .cc-body-right { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 10px; }
@@ -150,18 +152,16 @@
         /* Route map */
         .map-outer { position: relative; z-index: 1; max-width: 780px; margin: 0 auto 22px; padding: 0 20px; }
         #vuelta-map { height: 400px; border-radius: 14px; border: 1px solid rgba(100,130,150,0.3); background: #cfe8f7; }
-        .map-city { display: inline-block; transform: translate(-50%, 10px); white-space: nowrap; font-family: 'Inter', system-ui, sans-serif; font-size: 10.5px; font-weight: 600; color: #1e293b; pointer-events: none; }
-        .map-city.right { transform: translate(14px, -50%); }
-        .map-city.left { transform: translate(calc(-100% - 14px), -50%); }
+        .map-city { display: inline-block; white-space: nowrap; font-family: 'Inter', system-ui, sans-serif; font-size: 10.5px; font-weight: 600; color: #1e293b; pointer-events: none; }
         .map-country { display: inline-block; transform: translate(-50%, -50%); white-space: nowrap; font-family: 'Inter', system-ui, sans-serif; font-size: 15px; font-weight: 800; letter-spacing: 0.35em; pointer-events: none; }
         .map-legend { display: flex; gap: 18px; align-items: center; justify-content: center; flex-wrap: wrap; margin-top: 9px; font-size: 11px; color: var(--sec); }
         .ml-item { display: flex; align-items: center; gap: 5px; }
         .ml-dot { width: 9px; height: 9px; border-radius: 50%; display: inline-block; flex-shrink: 0; }
-        .ml-m { background: #ffcd00; } .ml-mm { background: #8b5cf6; } .ml-h { background: #000; } .ml-s { background: #12b05f; } .ml-t { background: #1a72e0; }
+        .ml-m { background: #ffe600; } .ml-h { background: #000; } .ml-s { background: #12b05f; } .ml-t { background: #1a72e0; }
         .map-dot { width: 22px; height: 22px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 9px; font-weight: 800; color: #fff; border: none; cursor: pointer; font-family: 'Inter', system-ui, sans-serif; transition: transform 0.12s, box-shadow 0.12s; line-height: 1; }
         .map-dot:hover { box-shadow: 0 0 0 3px rgba(255,255,255,0.2); transform: scale(1.3); }
-        .map-dot.active { box-shadow: 0 0 0 3px rgba(255,255,255,0.3); transform: scale(1.35); }
-        .map-dot.md-m { background: #ffcd00; color: #000; } .map-dot.md-mm { background: #8b5cf6; } .map-dot.md-h { background: #000; border: 1.5px solid #fff; } .map-dot.md-s { background: #12b05f; } .map-dot.md-t { background: #1a72e0; }
+        .map-dot.active { box-shadow: 0 0 0 3px rgba(255,255,255,0.3); }
+        .map-dot.md-m { background: #ffe600; color: #000; } .map-dot.md-mm { background: #8b5cf6; } .map-dot.md-h { background: #000; } .map-dot.md-s { background: #12b05f; } .map-dot.md-t { background: #1a72e0; }
         .leaflet-tooltip.map-tip { background: rgba(4,9,26,0.96); border: 1px solid rgba(255,255,255,0.12); color: #e8edf5; font-family: 'Inter', system-ui, sans-serif; font-size: 12px; border-radius: 8px; padding: 6px 10px; white-space: nowrap; box-shadow: 0 4px 16px rgba(0,0,0,0.5); }
         .leaflet-tooltip.map-tip::before { border-top-color: rgba(255,255,255,0.12); }
         .leaflet-control-attribution { font-size: 10px !important; background: rgba(255,255,255,0.75) !important; color: #475569 !important; border-radius: 6px 0 0 0 !important; }
@@ -353,7 +353,6 @@
     <div id="vuelta-map"></div>
     <div class="map-legend">
         <div class="ml-item"><span class="ml-dot ml-m"></span> Mountain</div>
-        <div class="ml-item"><span class="ml-dot ml-mm"></span> Medium Mtns</div>
         <div class="ml-item"><span class="ml-dot ml-h"></span> Hilly</div>
         <div class="ml-item"><span class="ml-dot ml-s"></span> Flat</div>
         <div class="ml-item"><span class="ml-dot ml-t"></span> ITT</div>
@@ -665,8 +664,25 @@ async function initMap() {
     map.getPane('maplabels').style.zIndex = 450;
     map.getPane('maplabels').style.pointerEvents = 'none';
 
-    const typeColor   = { Mountain:'#ffcd00', Medium:'#8b5cf6', Hilly:'#000000', Flat:'#12b05f', ITT:'#1a72e0' };
-    const typeDotCls  = { Mountain:'md-m', Medium:'md-mm', Hilly:'md-h', Flat:'md-s', ITT:'md-t' };
+    try {
+        const world = await fetch('https://cdn.jsdelivr.net/npm/world-atlas@2/countries-50m.json').then(r => r.json());
+        const topo = typeof topojson !== 'undefined' ? topojson : window.topojson;
+        if (!topo) throw new Error('topojson not loaded');
+        L.geoJSON(topo.feature(world, world.objects.countries), {
+            pane: 'countries',
+            filter: f => +f.id === 250 || +f.id === 724 || +f.id === 20,
+            style: f => {
+                if (+f.id === 724) return { fillColor: '#c81e2c', fillOpacity: 1, weight: 0 }; // Spain — leader jersey red
+                if (+f.id === 250) return { fillColor: '#f2a89a', fillOpacity: 1, weight: 0 }; // France — pale warm red (not pink)
+                return { fillColor: '#f2a89a', fillOpacity: 1, weight: 0 };                     // Andorra — pale warm red like France
+            }
+        }).addTo(map);
+    } catch(e) {
+        console.warn('Vuelta map country layer unavailable:', e.message);
+    }
+
+    const typeColor   = { Mountain:'#ffe600', Medium:'#ffe600', Hilly:'#000000', Flat:'#12b05f', ITT:'#1a72e0' };
+    const typeDotCls  = { Mountain:'md-m', Medium:'md-m', Hilly:'md-h', Flat:'md-s', ITT:'md-t' };
 
     function makeIcon(num, type, active, anchor) {
         const a = anchor || [11, 11];
@@ -680,6 +696,9 @@ async function initMap() {
     const markers = {};
     let activeNum = null;
 
+    const obstacleSegments = [];
+    const obstaclePoints = [];
+
     STAGE_COORDS.forEach((sc, i) => {
         const stage = STAGES.find(s => s.num === sc.num);
         const col = typeColor[stage.type] || '#94a3b8';
@@ -687,15 +706,19 @@ async function initMap() {
         L.polyline([[sc.sLat, sc.sLng], [sc.fLat, sc.fLng]], {
             color: col, weight: 3.5, opacity: 0.85,
         }).addTo(map);
+        obstacleSegments.push([[sc.sLat, sc.sLng], [sc.fLat, sc.fLng]]);
 
         if (i < STAGE_COORDS.length - 1) {
             const nx = STAGE_COORDS[i + 1];
             if (Math.hypot(sc.fLat - nx.sLat, sc.fLng - nx.sLng) > 0.02) {
                 L.polyline([[sc.fLat, sc.fLng], [nx.sLat, nx.sLng]], {
-                    color: '#64748b', weight: 1.5, opacity: 0.6, dashArray: '4 6',
+                    color: '#000000', weight: 2, opacity: 0.85, dashArray: '4 6',
                 }).addTo(map);
+                obstacleSegments.push([[sc.fLat, sc.fLng], [nx.sLat, nx.sLng]]);
             }
         }
+
+        obstaclePoints.push([sc.fLat, sc.fLng]);
 
         const m = L.marker([sc.fLat, sc.fLng], {
             icon: makeIcon(sc.num, stage.type, false, sc.anchor),
@@ -704,7 +727,7 @@ async function initMap() {
 
         m.bindTooltip(
             `<b>Stage ${sc.num}</b> · ${stage.start} → ${stage.finish}<br>${stage.dist} km · ${stage.type}`,
-            { className: 'map-tip', direction: 'top', offset: [0, -12] }
+            { className: 'map-tip', direction: 'auto', offset: [0, -12] }
         );
 
         m.on('click', () => renderStage(sc.num));
@@ -729,30 +752,120 @@ async function initMap() {
         map.panBy([-16, 0], { animate: false });
     }
     map.setMinZoom(map.getZoom());
+    const initialZoom = map.getZoom();
 
     const CITY_LABELS = [
-        {num:1,  end:'f', name:'Monaco', cls:'right'},
+        {num:1,  end:'f', name:'Monaco', cls:'left'},
         {num:4,  end:'f', name:'Andorra', cls:'left'},
         {num:6,  end:'f', name:'Castelló', cls:'right'},
         {num:9,  end:'f', name:'Alicante', cls:'right'},
-        {num:12, end:'f', name:'Almería', cls:'right'},
-        {num:15, end:'f', name:'Córdoba', cls:'left'},
-        {num:17, end:'f', name:'Sevilla', cls:'left'},
-        {num:20, end:'f', name:'Granada', cls:'right'},
+        {num:12, end:'f', name:'Almería', cls:'right', dense:true},
+        {num:15, end:'f', name:'Córdoba', cls:'top', dense:true},
+        {num:17, end:'f', name:'Sevilla', cls:'left', dense:true},
+        {num:20, end:'f', name:'Granada', cls:'bottom', dense:true},
     ];
+    const cityLabelMarkers = [];
     CITY_LABELS.forEach(c => {
         const sc = STAGE_COORDS.find(x => x.num === c.num); if (!sc) return;
         const lat = c.end === 's' ? sc.sLat : sc.fLat;
         const lng = c.end === 's' ? sc.sLng : sc.fLng;
-        L.marker([lat, lng], {
+        const marker = L.marker([lat, lng], {
             pane: 'maplabels', interactive: false, keyboard: false,
-            icon: L.divIcon({ className: '', html: `<div class="map-city ${c.cls || ''}">${c.name}</div>`, iconSize: [0, 0] }),
+            icon: L.divIcon({ className: '', html: `<div class="map-city">${c.name}</div>`, iconSize: [0, 0] }),
         }).addTo(map);
+        cityLabelMarkers.push({ marker, name: c.name, pref: c.cls || 'right', dense: !!c.dense });
     });
 
+    // City labels: exactly one fixed distance from their dot (20px) in one
+    // of 4 cardinal directions, chosen by checking each against route lines,
+    // transit dashes, stage dots and already-placed labels. The distance
+    // never changes, so a label reads the same at every zoom level - only
+    // which of the 4 sides it sits on can vary.
+    const labelMeasureCtx = document.createElement('canvas').getContext('2d');
+    labelMeasureCtx.font = '600 10.5px Inter, system-ui, sans-serif';
+    const textWidth = (str) => labelMeasureCtx.measureText(str).width;
+
+    function segsIntersect(p1, p2, p3, p4) {
+        const d = (p2.x - p1.x) * (p4.y - p3.y) - (p2.y - p1.y) * (p4.x - p3.x);
+        if (d === 0) return false;
+        const t = ((p3.x - p1.x) * (p4.y - p3.y) - (p3.y - p1.y) * (p4.x - p3.x)) / d;
+        const u = ((p3.x - p1.x) * (p2.y - p1.y) - (p3.y - p1.y) * (p2.x - p1.x)) / d;
+        return t >= 0 && t <= 1 && u >= 0 && u <= 1;
+    }
+    function segIntersectsRect(p1, p2, rect) {
+        const segMinX = Math.min(p1.x, p2.x), segMaxX = Math.max(p1.x, p2.x);
+        const segMinY = Math.min(p1.y, p2.y), segMaxY = Math.max(p1.y, p2.y);
+        if (segMaxX < rect.x || segMinX > rect.x + rect.w || segMaxY < rect.y || segMinY > rect.y + rect.h) return false;
+        const inside = (pt) => pt.x >= rect.x && pt.x <= rect.x + rect.w && pt.y >= rect.y && pt.y <= rect.y + rect.h;
+        if (inside(p1) || inside(p2)) return true;
+        const c1 = { x: rect.x, y: rect.y }, c2 = { x: rect.x + rect.w, y: rect.y };
+        const c3 = { x: rect.x + rect.w, y: rect.y + rect.h }, c4 = { x: rect.x, y: rect.y + rect.h };
+        return segsIntersect(p1, p2, c1, c2) || segsIntersect(p1, p2, c2, c3) ||
+               segsIntersect(p1, p2, c3, c4) || segsIntersect(p1, p2, c4, c1);
+    }
+    function circleIntersectsRect(c, rect) {
+        const closestX = Math.max(rect.x, Math.min(c.x, rect.x + rect.w));
+        const closestY = Math.max(rect.y, Math.min(c.y, rect.y + rect.h));
+        const dx = c.x - closestX, dy = c.y - closestY;
+        return (dx * dx + dy * dy) <= c.r * c.r;
+    }
+    function rectsOverlap(a, b) {
+        return !(a.x + a.w < b.x || b.x + b.w < a.x || a.y + a.h < b.y || b.y + b.h < a.y);
+    }
+
+    function placeCityLabels() {
+        const DIST = map.getZoom() > initialZoom ? 20 : 10, DOT_R = 11, pad = 3;
+        const segPx = obstacleSegments.map(([a, b]) => [map.latLngToContainerPoint(a), map.latLngToContainerPoint(b)]);
+        const ptPx = obstaclePoints.map(p => map.latLngToContainerPoint(p));
+        const placedRects = [];
+
+        cityLabelMarkers.forEach(({ marker, name, pref, dense }) => {
+            const el = marker.getElement();
+            if (!el) return;
+            const inner = el.querySelector('.map-city');
+            if (!inner) return;
+
+            // The southern cluster (Córdoba/Sevilla/Granada/Almería) is too
+            // tightly packed to label cleanly at the default zoom - only
+            // show those once the user has zoomed in enough for real space.
+            if (dense && map.getZoom() <= initialZoom) {
+                inner.style.display = 'none';
+                return;
+            }
+            inner.style.display = '';
+
+            const anchor = map.latLngToContainerPoint(marker.getLatLng());
+            const w = textWidth(name), h = 14;
+            const dirs = {
+                right:  { dx: DIST,      dy: -h / 2 },
+                left:   { dx: -DIST - w, dy: -h / 2 },
+                top:    { dx: -w / 2,    dy: -DIST - h },
+                bottom: { dx: -w / 2,    dy: DIST },
+            };
+            const order = [pref, ...Object.keys(dirs).filter(k => k !== pref)];
+
+            let chosen = dirs[order[0]], chosenRect = null, bestScore = Infinity;
+            for (const key of order) {
+                const o = dirs[key];
+                const rect = { x: anchor.x + o.dx - pad, y: anchor.y + o.dy - pad, w: w + pad * 2, h: h + pad * 2 };
+                const segHits = segPx.filter(([a, b]) => segIntersectsRect(a, b, rect)).length;
+                const ptHits = ptPx.filter(p => circleIntersectsRect({ x: p.x, y: p.y, r: DOT_R }, rect)).length;
+                const labelHits = placedRects.filter(r => rectsOverlap(rect, r)).length;
+                const score = segHits + ptHits + labelHits;
+                if (score < bestScore) { bestScore = score; chosen = o; chosenRect = rect; }
+                if (score === 0) break;
+            }
+            placedRects.push(chosenRect);
+            inner.style.transform = `translate(${chosen.dx}px, ${chosen.dy}px)`;
+        });
+    }
+
+    placeCityLabels();
+    map.on('zoomend moveend', placeCityLabels);
+
     [
-        { lat: 44.5, lng: 1.5,  name: 'FRANCE', color: 'rgba(140,20,26,0.55)' },
-        { lat: 39.0, lng: -3.5, name: 'SPAIN',  color: 'rgba(255,255,255,0.65)' },
+        { lat: 44.1, lng: 3.0,  name: 'FRANCE', color: 'rgba(140,20,26,0.55)' },
+        { lat: 40.0, lng: -3.5, name: 'SPAIN',  color: 'rgba(255,255,255,0.65)' },
     ].forEach(c => {
         L.marker([c.lat, c.lng], {
             pane: 'maplabels', interactive: false, keyboard: false,
@@ -760,31 +873,33 @@ async function initMap() {
         }).addTo(map);
     });
 
-    try {
-        const world = await fetch('https://cdn.jsdelivr.net/npm/world-atlas@2/countries-50m.json').then(r => r.json());
-        const topo = typeof topojson !== 'undefined' ? topojson : window.topojson;
-        if (!topo) throw new Error('topojson not loaded');
-        L.geoJSON(topo.feature(world, world.objects.countries), {
-            pane: 'countries',
-            filter: f => +f.id === 250 || +f.id === 724 || +f.id === 20,
-            style: f => {
-                if (+f.id === 724) return { fillColor: '#c81e2c', fillOpacity: 1, color: '#fff', weight: 1.5 }; // Spain — leader jersey red
-                if (+f.id === 250) return { fillColor: '#f2a89a', fillOpacity: 1, color: '#fff', weight: 1.5 }; // France — pale warm red (not pink)
-                return { fillColor: '#f2a89a', fillOpacity: 1, color: '#fff', weight: 1 };                      // Andorra — pale warm red like France
-            }
-        }).addTo(map);
-    } catch(e) {
-        console.warn('Vuelta map country layer unavailable:', e.message);
-    }
-
     map.setMaxBounds(L.latLngBounds(pts).pad(0.5));
+
+    // renderStage() runs before initMap() finishes on page load, so the
+    // initial stage's dot never got marked active. Catch up now.
+    if (pendingActiveStage !== null) window._mapUpdate(pendingActiveStage);
 }
+
+const STAY22_LINKS = {
+    1: 'https://stay22.com/embed/6a71c12c3a105edaeb723bfd',
+    2: 'https://stay22.com/embed/6a71c1653a105edaeb723d7d',
+    3: 'https://stay22.com/embed/6a71c19c3a105edaeb723f74',
+    4: 'https://stay22.com/embed/6a71c3423a105edaeb724981',
+    5: 'https://stay22.com/embed/6a71c3913a105edaeb724bbd',
+    6: 'https://stay22.com/embed/6a71c3dc3a105edaeb724e1e',
+    7: 'https://stay22.com/embed/6a71c4be3a105edaeb7254d4',
+    8: 'https://stay22.com/embed/6a71c5093a105edaeb725670',
+    9: 'https://stay22.com/embed/6a71c5af3a105edaeb725a85'
+};
+
+let pendingActiveStage = null;
 
 function renderStage(num) {
     const stage = STAGES.find(s => s.num === num);
     if (!stage) return;
 
     if (window._mapUpdate) window._mapUpdate(num);
+    else pendingActiveStage = num;
 
     document.querySelectorAll('.stage-btn').forEach(b =>
         b.classList.toggle('active', parseInt(b.dataset.num) === num));
@@ -822,6 +937,11 @@ function renderStage(num) {
             </div>
             ${stage.notes ? `<div class="sh-notes">${stage.notes}</div>` : ''}
         </div>
+        ${STAY22_LINKS[num] ? `
+        <div class="stage-header glass stay-card">
+            <div class="stay-card-title">🏨 Where to stay in ${stage.finish}</div>
+            <iframe src="${STAY22_LINKS[num]}" width="100%" height="428" frameborder="0" loading="lazy" style="border-radius:12px;display:block;"></iframe>
+        </div>` : ''}
         ${climbsHtml}`;
 }
 
