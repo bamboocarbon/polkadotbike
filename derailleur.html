@@ -712,6 +712,14 @@ function render() {
 
     if (!html) html = `<div style="padding:40px;text-align:center;color:var(--muted);font-size:13px">No derailleurs match your filters</div>`;
 
+    // The buy-card may currently live inside results-list (moved there on
+    // mobile) - detach it first so the innerHTML reassignment below doesn't
+    // destroy it along with the old results.
+    const buyCardEl = document.getElementById('buy-card');
+    if (buyCardEl && buyCardEl.parentElement === document.getElementById('results-list')) {
+        document.body.appendChild(buyCardEl);
+    }
+
     document.getElementById('results-list').innerHTML = html;
     const okCount = groups.ok.length;
     document.getElementById('result-summary').innerHTML =
