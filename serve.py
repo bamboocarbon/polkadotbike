@@ -12,6 +12,8 @@ class NoCacheHandler(http.server.SimpleHTTPRequestHandler):
     def log_message(self, fmt, *args):
         pass  # silence request logs
 
+socketserver.TCPServer.allow_reuse_address = True
+
 print(f'Serving on http://localhost:{PORT}  (Ctrl+C to stop)')
 with socketserver.TCPServer(('', PORT), NoCacheHandler) as httpd:
     httpd.serve_forever()

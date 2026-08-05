@@ -138,6 +138,8 @@
         .plan-btn:hover { background: #3b8ef0; color: #fff; }
         .stay-card { margin-top: 14px; padding: 15px 17px; }
         .stay-card-title { font-size: 13px; font-weight: 700; color: var(--text); margin-bottom: 10px; }
+        .bb-logo-chip { display: block; width: 100%; max-width: 180px; height: auto; margin: 0 auto 12px; }
+        .kiwi-logo-chip { display: block; width: 100%; max-width: 110px; height: auto; margin: 0 auto 12px; }
         .cc-body { display: flex; gap: 16px; align-items: flex-start; margin-top: 10px; }
         .cc-body .cc-profile { flex-shrink: 0; margin: 0; }
         .cc-body-right { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 10px; }
@@ -151,6 +153,12 @@
         footer a:hover { color: var(--sec); }
         /* Route map */
         .map-outer { position: relative; z-index: 1; max-width: 780px; margin: 0 auto 22px; padding: 0 20px; }
+        .stay-row { display: grid; grid-template-columns: 1fr 260px; gap: 18px; align-items: stretch; }
+        @media (max-width: 900px) { .stay-row { grid-template-columns: 1fr; } }
+        .stay-row .stay-card { margin-top: 0; }
+        .stay-col { display: flex; flex-direction: column; gap: 14px; height: 100%; }
+        .stay-row .stay-card { display: flex; flex-direction: column; flex: 1; }
+        .bike-hire-card { display: flex; flex-direction: column; gap: 14px; }
         #vuelta-map { height: 400px; border-radius: 14px; border: 1px solid rgba(100,130,150,0.3); background: #cfe8f7; }
         .map-city { display: inline-block; white-space: nowrap; font-family: 'Inter', system-ui, sans-serif; font-size: 10.5px; font-weight: 600; color: #1e293b; pointer-events: none; }
         .map-country { display: inline-block; transform: translate(-50%, -50%); white-space: nowrap; font-family: 'Inter', system-ui, sans-serif; font-size: 15px; font-weight: 800; letter-spacing: 0.35em; pointer-events: none; }
@@ -883,6 +891,31 @@ const STAY22_LINKS = {
     9: 'https://stay22.com/embed/6a71c5af3a105edaeb725a85'
 };
 
+// Kiwi.com flight links by visitor country (via /api/geo, Vercel's x-vercel-ip-country
+// header — only resolves on the live Vercel deployment, not the local dev server).
+// "default" is a placeholder until country-specific Travelpayouts links are generated.
+const KIWI_LINKS = {
+    default: 'https://www.kiwi.com',
+    GB: 'https://kiwi.tpo.mx/jz2ccunJ',
+    US: 'https://kiwi.tpo.mx/YMW30pH9',
+    IT: 'https://kiwi.tpo.mx/Gvvfo5KE',
+    DK: 'https://kiwi.tpo.mx/cExRgmNn',
+    DE: 'https://kiwi.tpo.mx/cExRgmNn',
+    FR: 'https://kiwi.tpo.mx/cExRgmNn',
+    ES: 'https://kiwi.tpo.mx/hVaYpFno',
+    BR: 'https://kiwi.tpo.mx/vdXSh4q9',
+    PL: 'https://kiwi.tpo.mx/sT1YbqpT',
+    NL: 'https://kiwi.tpo.mx/sT1YbqpT',
+    CZ: 'https://kiwi.tpo.mx/qfqDemwB',
+    FI: 'https://kiwi.tpo.mx/l243fbRT'
+};
+let visitorCountry = null;
+function applyKiwiLink() {
+    const url = (visitorCountry && KIWI_LINKS[visitorCountry]) || KIWI_LINKS.default;
+    document.querySelectorAll('.kiwi-flight-link').forEach(a => { a.href = url; });
+}
+fetch('/api/geo').then(r => r.json()).then(d => { visitorCountry = d.country; applyKiwiLink(); }).catch(() => {});
+
 let pendingActiveStage = null;
 
 function renderStage(num) {
@@ -928,12 +961,53 @@ function renderStage(num) {
             </div>
             ${stage.notes ? `<div class="sh-notes">${stage.notes}</div>` : ''}
         </div>
-        ${STAY22_LINKS[num] ? `
+        ${(num === 1 || STAY22_LINKS[num]) ? `
+        <div class="stay-row">
+            <div class="stay-col">
+                ${num === 1 ? `
+                <div class="stage-header glass stay-card">
+                    <div class="stay-card-title">🏨 Where to stay in ${stage.finish} (test — dated 2pm today to tomorrow)</div>
+                    <iframe src="https://stay22.com/embed/6a73000d5a6c26f0d308f3c7" width="100%" frameborder="0" loading="lazy" style="border-radius:12px;display:block;flex:1;"></iframe>
+                </div>` : ''}
+                ${STAY22_LINKS[num] ? `
+                <div class="stage-header glass stay-card">
+                    <div class="stay-card-title">🏨 Where to stay in ${stage.finish}</div>
+                    <iframe src="${STAY22_LINKS[num]}" width="100%" frameborder="0" loading="lazy" style="border-radius:12px;display:block;flex:1;"></iframe>
+                </div>` : ''}
+            </div>
+            <div class="bike-hire-card">
+                <div class="stage-header glass stay-card">
+                    <div class="stay-card-title">🚲 Rent a bike</div>
+                    <img class="bb-logo-chip" src="bikesbooking-logo.png" alt="BikesBooking.com">
+                    <p style="font-size:13px;color:var(--muted);margin:0 0 12px;line-height:1.5;">Riding the route yourself, or just want wheels while following the race? Compare rental rates worldwide.</p>
+                    <a class="plan-btn" href="https://bikesbooking.tpo.mx/DgOZPOji" target="_blank" rel="noopener sponsored">Compare bike rentals →</a>
+                    <p style="font-size:11px;color:var(--muted);margin:10px 0 0;">Affiliate link — I may earn a small commission at no extra cost to you.</p>
+                </div>
+                <div class="stage-header glass stay-card">
+                    <div class="stay-card-title">✈️ Fly to the race</div>
+                    <img class="kiwi-logo-chip" src="kiwi-logo.svg" alt="Kiwi.com">
+                    <p style="font-size:13px;color:var(--muted);margin:0 0 12px;line-height:1.5;">Following the race from further afield? Compare flights to the nearest stage town.</p>
+                    <a class="plan-btn kiwi-flight-link" href="https://www.kiwi.com" target="_blank" rel="noopener sponsored">Compare flights →</a>
+                    <p style="font-size:11px;color:var(--muted);margin:10px 0 0;">Affiliate link — I may earn a small commission at no extra cost to you.</p>
+                </div>
+            </div>
+        </div>` : `
         <div class="stage-header glass stay-card">
-            <div class="stay-card-title">🏨 Where to stay in ${stage.finish}</div>
-            <iframe src="${STAY22_LINKS[num]}" width="100%" height="428" frameborder="0" loading="lazy" style="border-radius:12px;display:block;"></iframe>
-        </div>` : ''}
+            <div class="stay-card-title">🚲 Rent a bike for race day</div>
+            <img class="bb-logo-chip" src="bikesbooking-logo.png" alt="BikesBooking.com">
+            <p style="font-size:13px;color:var(--muted);margin:0 0 12px;line-height:1.5;">Riding the route yourself or just want wheels while you're following the race? Compare rental rates worldwide.</p>
+            <a class="plan-btn" href="https://bikesbooking.tpo.mx/DgOZPOji" target="_blank" rel="noopener sponsored">Compare bike rentals →</a>
+            <p style="font-size:11px;color:var(--muted);margin:10px 0 0;">Affiliate link — I may earn a small commission at no extra cost to you.</p>
+        </div>
+        <div class="stage-header glass stay-card">
+            <div class="stay-card-title">✈️ Fly to the race</div>
+            <img class="kiwi-logo-chip" src="kiwi-logo.svg" alt="Kiwi.com">
+            <p style="font-size:13px;color:var(--muted);margin:0 0 12px;line-height:1.5;">Following the race from further afield? Compare flights to the nearest stage town.</p>
+            <a class="plan-btn kiwi-flight-link" href="https://www.kiwi.com" target="_blank" rel="noopener sponsored">Compare flights →</a>
+            <p style="font-size:11px;color:var(--muted);margin:10px 0 0;">Affiliate link — I may earn a small commission at no extra cost to you.</p>
+        </div>`}
         ${climbsHtml}`;
+    applyKiwiLink();
 }
 
 function buildSidebar() {
