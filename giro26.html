@@ -963,7 +963,7 @@ async function initMap() {
             const nx = STAGE_COORDS[i + 1];
             if (Math.hypot(sc.fLat - nx.sLat, sc.fLng - nx.sLng) > 0.02) {
                 L.polyline([[sc.fLat, sc.fLng], [nx.sLat, nx.sLng]], {
-                    color: '#64748b', weight: 1.5, opacity: 0.6, dashArray: '4 6',
+                    color: '#000000', weight: 2, opacity: 0.85, dashArray: '4 6',
                 }).addTo(map);
             }
         }
@@ -1046,10 +1046,10 @@ async function initMap() {
             pane: 'countries',
             filter: f => [380, 100, 756, 674].includes(+f.id),
             style: f => {
-                if (+f.id === 380) return { fillColor: '#ff8fc4', fillOpacity: 1, color: '#fff', weight: 1.5 }; // Italy — maglia rosa pink
-                if (+f.id === 100) return { fillColor: '#ffd3e6', fillOpacity: 1, color: '#fff', weight: 1.5 }; // Bulgaria — pale pink
-                if (+f.id === 674) return { fillColor: '#ff8fc4', fillOpacity: 1, color: 'none', weight: 0 };   // San Marino — blend into Italy
-                return { fillColor: '#ffd3e6', fillOpacity: 1, color: '#fff', weight: 1 };                      // Switzerland — pale pink (stage 16)
+                if (+f.id === 380) return { fillColor: '#ff8fc4', fillOpacity: 1, weight: 0 }; // Italy — maglia rosa pink
+                if (+f.id === 100) return { fillColor: '#ffd3e6', fillOpacity: 1, weight: 0 }; // Bulgaria — pale pink
+                if (+f.id === 674) return { fillColor: '#ff8fc4', fillOpacity: 1, weight: 0 };   // San Marino — blend into Italy
+                return { fillColor: '#ffd3e6', fillOpacity: 1, weight: 0 };                      // Switzerland — pale pink (stage 16)
             }
         }).addTo(map);
     } catch(e) {
