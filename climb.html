@@ -188,8 +188,8 @@
         .rpt-heading{font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:#64748b}
         .rpt-meta{font-size:12px;color:#475569;background:#f8fafc;border:1px solid #e2e8f0;border-radius:8px;padding:9px 14px;margin-bottom:16px;line-height:1.7}
         .rpt-meta strong{color:#1e293b}
-        .rpt-chart-bg{background:#f8fafc;border:1px solid #e2e8f0;border-radius:10px;padding:12px;margin-bottom:18px;overflow:hidden}
-        .rpt-chart-bg svg{width:100%;height:auto;display:block}
+        .rpt-chart-bg{background:#f8fafc;border:1px solid #e2e8f0;border-radius:10px;padding:12px;margin-bottom:18px;overflow:hidden;text-align:center}
+        .rpt-chart-bg svg{width:auto;height:auto;max-width:100%;max-height:280px;display:inline-block}
         .rpt-table{width:100%;border-collapse:collapse;font-size:11px;margin-bottom:4px}
         .rpt-table th{background:#f1f5f9;padding:5px 7px;font-weight:700;color:#334155;text-align:center;border:1px solid #e2e8f0;white-space:nowrap}
         .rpt-table td{padding:5px 7px;text-align:center;border:1px solid #e2e8f0;vertical-align:middle}
@@ -209,6 +209,7 @@
             #print-overlay{display:block !important;position:static !important;background:none !important;padding:0 !important;overflow:visible !important}
             #print-modal{box-shadow:none !important;border-radius:0 !important;max-width:100% !important;padding:16px !important}
             .print-actions{display:none !important}
+            .rpt-chart-bg, .rpt-table{page-break-inside:avoid}
         }
         .cl-item { display: flex; align-items: center; gap: 6px; font-size: 11px; color: var(--muted); }
         .cl-line { width: 20px; height: 3px; border-radius: 2px; }
@@ -713,10 +714,10 @@
             <div class="form-group">
                 <div class="row-between">
                     <label>Road Gradient</label>
-                    <div class="big-val" id="gradient-display">5<span>%</span></div>
+                    <div class="big-val-wrap"><input class="big-val-input" type="number" id="gradient-input" value="5.0" step="0.1" onchange="gradientInputChange()" onkeydown="if(event.key==='Enter')this.blur()"><span class="big-val-unit">%</span></div>
                 </div>
-                <input type="range" id="gradient-slider" min="-5" max="20" value="5"
-                    oninput="document.getElementById('gradient-display').innerHTML=this.value+'<span>%</span>'; calculate()">
+                <input type="range" id="gradient-slider" min="-5" max="20" step="0.1" value="5"
+                    oninput="updateGradientDisplay(); calculate()">
                 <div class="range-labels"><span>-5%</span><span>+20%</span></div>
             </div>
 
@@ -728,21 +729,31 @@
                             <button class="dst-unit-btn active" data-dstu="km" onclick="setDistUnit('km')">km</button>
                             <button class="dst-unit-btn" data-dstu="mi" onclick="setDistUnit('mi')">mi</button>
                         </div>
-                        <div class="big-val" id="dist-display">10<span>km</span></div>
+                        <div class="big-val-wrap"><input class="big-val-input" type="number" id="dist-input" value="10.0" step="0.1" onchange="distInputChange()" onkeydown="if(event.key==='Enter')this.blur()"><span class="big-val-unit" id="dist-unit-lbl">km</span></div>
                     </div>
                 </div>
-                <input type="range" id="dist-slider" min="1" max="30" value="10"
+                <input type="range" id="dist-slider" min="1" max="30" step="0.1" value="10"
                     oninput="updateDistDisplay(); calculate()">
                 <div class="range-labels" id="dist-range-labels"><span>1 km</span><span>30 km</span></div>
             </div>
 
             <div class="form-group">
                 <label>Riding Position (CdA)</label>
-                <div class="pos-tabs">
+                <div class="pos-tabs" id="riding-pos-tabs">
                     <button class="pos-btn" data-cda="0.45" onclick="setPos(this)">Upright<span class="pos-cda">0.45</span></button>
                     <button class="pos-btn active" data-cda="0.36" onclick="setPos(this)">Hoods<span class="pos-cda">0.36</span></button>
                     <button class="pos-btn" data-cda="0.32" onclick="setPos(this)">Drops<span class="pos-cda">0.32</span></button>
                     <button class="pos-btn" data-cda="0.22" onclick="setPos(this)">TT<span class="pos-cda">0.22</span></button>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label>Surface (Crr)</label>
+                <div class="pos-tabs" id="surface-tabs">
+                    <button class="pos-btn active" data-crr="0.004" onclick="setSurface(this)">Asphalt<span class="pos-cda">0.004</span></button>
+                    <button class="pos-btn" data-crr="0.007" onclick="setSurface(this)">Hardpack<span class="pos-cda">0.007</span></button>
+                    <button class="pos-btn" data-crr="0.012" onclick="setSurface(this)">Gravel<span class="pos-cda">0.012</span></button>
+                    <button class="pos-btn" data-crr="0.020" onclick="setSurface(this)">Rocky<span class="pos-cda">0.020</span></button>
                 </div>
             </div>
 
@@ -847,6 +858,7 @@
                     <p><strong>Power model</strong> — watts required = gravity + rolling resistance + aerodynamic drag, all multiplied by speed. This is the standard cycling physics model.</p>
                     <p><strong>Green gears</strong> are comfortably within your power. <strong>Amber</strong> gears are within 15% of your limit — hard but possible. <strong>Red</strong> gears need more watts than you've set.</p>
                     <p><strong>CdA</strong> is your drag coefficient × frontal area. Hoods ≈ 0.36, drops ≈ 0.32, TT position ≈ 0.22. It has less effect on climbs than on flat roads.</p>
+                    <p><strong>Surface (Crr)</strong> is rolling resistance — it rises sharply off tarmac. Smooth asphalt ≈ 0.004, hardpack gravel ≈ 0.007, loose gravel ≈ 0.012, rocky/rough off-road ≈ 0.020. These are reference estimates — actual resistance also depends on tyre width and pressure, and rough terrain adds traction losses this model can't capture.</p>
                     <p><strong>System weight</strong> — include rider, clothing, shoes, bike, water and food. Every kilogram matters on a climb.</p>
                     <p><strong>VAM</strong> (velocità ascensionale media) is vertical metres climbed per hour — the classic climber's metric. Pro riders hit 1,500–1,800 m/hr on steep mountain stages.</p>
                     <p><strong>Crank length</strong> affects leverage, not speed. Shorter cranks (e.g. 170mm) spin more freely but reduce torque per pedal stroke — the equivalent chainring shows what size would give the same leverage on a 172.5mm reference.</p>
@@ -865,7 +877,7 @@
         </div>
 <!-- END AADS AD UNIT 2448890 -->
 <footer>
-    <p><span class="pdb-brand">Polka<span class="pdb-dot">DOT</span>Bike</span> — Power calculations use CdA 0.36 (hoods), Crr 0.004, air density 1.225 kg/m³. Results are estimates.</p>
+    <p><span class="pdb-brand">Polka<span class="pdb-dot">DOT</span>Bike</span> — Power calculations use CdA 0.36 (hoods), Crr 0.004 (asphalt, adjustable), air density 1.225 kg/m³. Results are estimates.</p>
     <p style="margin-top:6px"><a href="index.html">← Gear Calculator</a> · <a href="guide.html">Guide</a> · <a href="glossary.html">Glossary</a> · <a href="about.html">About</a> · <a href="contact.html">Contact</a> · <a href="privacy.html">Privacy</a> · <a href="disclaimer.html">Disclaimer</a></p>
     <p style="margin-top:8px;font-size:0.85em;opacity:0.65">Also by me: <a href="https://digitalcredityield.com" target="_blank" rel="noopener" class="dcy-brand"><span class="dcy-square"></span>Digital Credit Yield</a> — Bitcoin &amp; Ethereum treasury income, explained.</p>
     <p style="margin-top:10px"><a href="https://www.instagram.com/polkadotbike.cc/" target="_blank" rel="noopener" aria-label="Instagram" style="display:inline-flex;vertical-align:middle;margin:0 7px"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="2" y="2" width="20" height="20" rx="5.5"/><circle cx="12" cy="12" r="4.3"/><circle cx="17.4" cy="6.6" r="1.05" fill="currentColor" stroke="none"/></svg></a><a href="https://www.facebook.com/profile.php?id=61591463441672" target="_blank" rel="noopener" aria-label="Facebook" style="display:inline-flex;vertical-align:middle;margin:0 7px"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M13.5 21.9v-8.4h2.82l.42-3.27h-3.24V8.03c0-.95.26-1.6 1.63-1.6h1.74V3.55C16.55 3.47 15.6 3.4 14.5 3.4c-2.33 0-3.93 1.42-3.93 4.03v2.8H7.74v3.27h2.83v8.4h2.93z"/></svg></a></p>
@@ -880,7 +892,7 @@
 /* ============================================================
    STATE
 ============================================================ */
-const S = { discipline:'road', brand:'shimano', groupset:null, crIdx:0, cda:0.36 };
+const S = { discipline:'road', brand:'shimano', groupset:null, crIdx:0, cda:0.36, crr:0.004 };
 const LBS_C = 2.20462;
 let weightUnit = 'kg';
 
@@ -945,8 +957,19 @@ function toDistKm() {
 }
 function updateDistDisplay() {
     const v = parseFloat(document.getElementById('dist-slider').value);
-    document.getElementById('dist-display').innerHTML = distUnit === 'mi'
-        ? `${v.toFixed(1)}<span>mi</span>` : `${Math.round(v)}<span>km</span>`;
+    document.getElementById('dist-input').value = v.toFixed(1);
+    document.getElementById('dist-unit-lbl').textContent = distUnit;
+}
+function distInputChange() {
+    const input = document.getElementById('dist-input');
+    const s     = document.getElementById('dist-slider');
+    let v = parseFloat(input.value);
+    if (isNaN(v)) { input.value = parseFloat(s.value).toFixed(1); return; }
+    v = Math.min(parseFloat(s.max), Math.max(parseFloat(s.min), v));
+    v = Math.round(v / parseFloat(s.step)) * parseFloat(s.step);
+    input.value = v.toFixed(1);
+    s.value = v;
+    calculate();
 }
 function setDistUnit(u) {
     const km = toDistKm();
@@ -954,15 +977,31 @@ function setDistUnit(u) {
     document.querySelectorAll('.dst-unit-btn').forEach(b => b.classList.toggle('active', b.dataset.dstu === u));
     const s = document.getElementById('dist-slider');
     if (u === 'mi') {
-        s.min = 0.5; s.max = 19; s.step = 0.5;
+        s.min = 0.5; s.max = 19; s.step = 0.1;
         s.value = Math.min(19, Math.max(0.5, +(km / MI_C).toFixed(1)));
         document.getElementById('dist-range-labels').innerHTML = '<span>0.5 mi</span><span>19 mi</span>';
     } else {
-        s.min = 1; s.max = 30; s.step = 1;
-        s.value = Math.min(30, Math.max(1, Math.round(km)));
+        s.min = 1; s.max = 30; s.step = 0.1;
+        s.value = Math.min(30, Math.max(1, +km.toFixed(1)));
         document.getElementById('dist-range-labels').innerHTML = '<span>1 km</span><span>30 km</span>';
     }
     updateDistDisplay();
+    calculate();
+}
+
+function updateGradientDisplay() {
+    const v = parseFloat(document.getElementById('gradient-slider').value);
+    document.getElementById('gradient-input').value = v.toFixed(1);
+}
+function gradientInputChange() {
+    const input = document.getElementById('gradient-input');
+    const s     = document.getElementById('gradient-slider');
+    let v = parseFloat(input.value);
+    if (isNaN(v)) { input.value = parseFloat(s.value).toFixed(1); return; }
+    v = Math.min(parseFloat(s.max), Math.max(parseFloat(s.min), v));
+    v = Math.round(v / parseFloat(s.step)) * parseFloat(s.step);
+    input.value = v.toFixed(1);
+    s.value = v;
     calculate();
 }
 
@@ -974,9 +1013,9 @@ const CUST_LIMITS = { big:[32,70], small:[22,52] };
 /* ============================================================
    PHYSICS
 ============================================================ */
-function calcPower(speedKmh, mass, gradePct, cda) {
+function calcPower(speedKmh, mass, gradePct, cda, crr) {
     const v = speedKmh / 3.6;
-    const g = 9.81, Crr = 0.004, rho = 1.225;
+    const g = 9.81, Crr = crr ?? 0.004, rho = 1.225;
     const gr = Math.atan(gradePct / 100);
     const Fg = mass * g * Math.sin(gr);
     const Fr = Crr * mass * g * Math.cos(gr);
@@ -984,8 +1023,8 @@ function calcPower(speedKmh, mass, gradePct, cda) {
     return Math.max(0, (Fg + Fr + Fa) * v);
 }
 
-function speedAtPower(watts, mass, gradePct, cda) {
-    const g = 9.81, Crr = 0.004, rho = 1.225;
+function speedAtPower(watts, mass, gradePct, cda, crr) {
+    const g = 9.81, Crr = crr ?? 0.004, rho = 1.225;
     const gr = Math.atan(gradePct / 100);
     const B  = mass * g * (Math.sin(gr) + Crr * Math.cos(gr));
     const A  = 0.5 * rho * cda;
@@ -1129,7 +1168,13 @@ function selectCR(i) {
 
 function setPos(btn) {
     S.cda = parseFloat(btn.dataset.cda);
-    document.querySelectorAll('.pos-btn').forEach(b => b.classList.toggle('active', b === btn));
+    document.querySelectorAll('#riding-pos-tabs .pos-btn').forEach(b => b.classList.toggle('active', b === btn));
+    calculate();
+}
+
+function setSurface(btn) {
+    S.crr = parseFloat(btn.dataset.crr);
+    document.querySelectorAll('#surface-tabs .pos-btn').forEach(b => b.classList.toggle('active', b === btn));
     calculate();
 }
 
@@ -1141,7 +1186,7 @@ function calculate() {
     const circ    = parseInt(document.getElementById('sel-wheel').value);
     const cadence = parseInt(document.getElementById('cadence-slider').value);
     const mass    = toMassKg();
-    const grade   = parseInt(document.getElementById('gradient-slider').value);
+    const grade   = parseFloat(document.getElementById('gradient-slider').value);
     const userPwr = parseInt(document.getElementById('power-slider').value);
     const crankLen  = parseFloat(document.getElementById('sel-crank').value);
     const climbDist = toDistKm();
@@ -1203,7 +1248,7 @@ function calculate() {
         return (ring==='outer'&&i>=n-CC)||(ring==='inner'&&i<CC);
     }
     function spd(ring, cog)   { return (ring/cog) * circ/1000 * cadence * 60 / 1000; }
-    function pwr(speedKmh)    { return calcPower(speedKmh, mass, grade, S.cda); }
+    function pwr(speedKmh)    { return calcPower(speedKmh, mass, grade, S.cda, S.crr); }
 
     const bigGears   = teeth.map((cog,i) => ({ cog, spd:spd(outer,cog), pwr:pwr(spd(outer,cog)), cross:isCross('outer',i) }));
     const smallGears = isSingle ? null : teeth.map((cog,i) => ({ cog, spd:spd(inner,cog), pwr:pwr(spd(inner,cog)), cross:isCross('inner',i) }));
@@ -1258,7 +1303,7 @@ function calculate() {
         }
         const parts = [meta];
         if (timeFmt && grade > 0) {
-            const distDisp = distUnit === 'mi' ? `${(climbDist / MI_C).toFixed(1)}mi` : `${Math.round(climbDist)}km`;
+            const distDisp = distUnit === 'mi' ? `${(climbDist / MI_C).toFixed(1)}mi` : `${climbDist.toFixed(1)}km`;
             parts.push(`${distDisp} takes ~${timeFmt}`);
         }
         if (crankLen !== REF_CRANK) parts.push(`${crankLen}mm cranks — ${outer}T feels like ${equivOuter}T on 172.5mm ref`);
@@ -1277,7 +1322,7 @@ function calculate() {
         document.getElementById('rec-sub').textContent = subParts.join(' · ');
         let tipHtml = `<p>The hardest gear you can sustain at <strong>${userPwr}W</strong> on <strong>${grade}%</strong> at <strong>${cadence} rpm</strong>.</p>`;
         if (timeFmt && grade > 0) {
-            const distDisp = distUnit === 'mi' ? `${(climbDist / MI_C).toFixed(1)}mi` : `${Math.round(climbDist)}km`;
+            const distDisp = distUnit === 'mi' ? `${(climbDist / MI_C).toFixed(1)}mi` : `${climbDist.toFixed(1)}km`;
             tipHtml += `<p>At this pace, a <strong>${distDisp}</strong> climb takes roughly <strong>${timeFmt}</strong>.</p>`;
         }
         if (crankLen !== REF_CRANK) tipHtml += `<p>On <strong>${crankLen}mm</strong> cranks, your ${outer}T chainring applies the same leverage as a <strong>${equivOuter}T</strong> on 172.5mm cranks.</p>`;
@@ -1291,7 +1336,9 @@ function calculate() {
     document.getElementById('achieve-title').textContent = `${ringLabel} · ${csLabelText} Cassette · ${grade}% gradient`;
     renderPowerChart(bigGears, smallGears, userPwr, cadence, isSingle);
     renderAchievability(bigGears, smallGears, outer, inner, userPwr, isSingle);
-    window.LAST_CALC = { groupset: isCustom ? 'Custom' : S.groupset, crLabel: crLabelText, csLabel: csLabelText, outer, inner, isSingle, bigGears, smallGears, mass, grade, userPwr, cadence, crankLen, climbDist, distUnit, vam, timeFmt, equivOuter };
+    const surfaceBtn = document.querySelector('#surface-tabs .pos-btn.active');
+    const surfaceLabel = surfaceBtn ? surfaceBtn.childNodes[0].textContent.trim() : 'Asphalt';
+    window.LAST_CALC = { groupset: isCustom ? 'Custom' : S.groupset, crLabel: crLabelText, csLabel: csLabelText, outer, inner, isSingle, bigGears, smallGears, mass, grade, userPwr, cadence, crankLen, climbDist, distUnit, vam, timeFmt, equivOuter, crr: S.crr, surfaceLabel };
 
     updateURL();
     saveSharedState();
@@ -1313,6 +1360,7 @@ function saveSharedState() {
             wunit: weightUnit,
             gr:  document.getElementById('gradient-slider').value,
             cda: S.cda,
+            crr: S.crr,
             ck:  document.getElementById('sel-crank').value,
             dst: toDistKm().toFixed(1)
         });
@@ -1343,6 +1391,7 @@ function updateURL() {
         wunit: weightUnit,
         gr:  document.getElementById('gradient-slider').value,
         cda: S.cda,
+        crr: S.crr,
         ck:  document.getElementById('sel-crank').value,
         dst: toDistKm().toFixed(1)
     });
@@ -1597,16 +1646,21 @@ function renderAchievability(bigG, smallG, outer, inner, userPwr, isSingle) {
     bsEl.value = fromKg(bikeK).toFixed(1);
     updateWeightDisplays();
     const grVal = urlP.get('gr') || sh.gr;
-    if (grVal)  { const s = document.getElementById('gradient-slider');s.value = grVal;  document.getElementById('gradient-display').innerHTML = grVal + '<span>%</span>'; }
+    if (grVal)  { const s = document.getElementById('gradient-slider'); s.value = grVal; updateGradientDisplay(); }
     const cdaVal = urlP.get('cda') || sh.cda;
     if (cdaVal) {
         S.cda = parseFloat(cdaVal);
-        document.querySelectorAll('.pos-btn').forEach(b => b.classList.toggle('active', parseFloat(b.dataset.cda) === S.cda));
+        document.querySelectorAll('#riding-pos-tabs .pos-btn').forEach(b => b.classList.toggle('active', parseFloat(b.dataset.cda) === S.cda));
+    }
+    const crrVal = urlP.get('crr') || sh.crr;
+    if (crrVal) {
+        S.crr = parseFloat(crrVal);
+        document.querySelectorAll('#surface-tabs .pos-btn').forEach(b => b.classList.toggle('active', parseFloat(b.dataset.crr) === S.crr));
     }
     const ckVal = urlP.get('ck') || sh.ck;
     if (ckVal) document.getElementById('sel-crank').value = ckVal;
     const dstVal = urlP.get('dst') || sh.dst;
-    if (dstVal) { const s = document.getElementById('dist-slider'); s.value = Math.min(30, Math.max(1, Math.round(parseFloat(dstVal)))); updateDistDisplay(); }
+    if (dstVal) { const s = document.getElementById('dist-slider'); s.value = Math.min(30, Math.max(1, parseFloat(dstVal))); updateDistDisplay(); }
     calculate();
 })();
 
@@ -1649,7 +1703,7 @@ function showPrintReport() {
         </div>
         <div class="rpt-meta">
             <strong>${lc.groupset}</strong> &nbsp;·&nbsp; ${lc.crLabel} chainring &nbsp;·&nbsp; ${lc.csLabel} cassette &nbsp;·&nbsp; ${wheelLabel} &nbsp;·&nbsp; <strong>${lc.crankLen}mm</strong> cranks${lc.crankLen !== 172.5 ? ` (≈${lc.equivOuter}T on 172.5mm ref)` : ''}<br>
-            <strong>${lc.userPwr}W</strong> rider power &nbsp;·&nbsp; <strong>${lc.mass}kg</strong> total weight &nbsp;·&nbsp; <strong>${lc.grade > 0 ? '+' : ''}${lc.grade}%</strong> gradient &nbsp;·&nbsp; ${lc.cadence} rpm${lc.grade > 0 && lc.vam ? ` &nbsp;·&nbsp; VAM <strong>${lc.vam.toLocaleString()}</strong> m/hr &nbsp;·&nbsp; ${lc.distUnit === 'mi' ? (lc.climbDist / MI_C).toFixed(1) + 'mi' : Math.round(lc.climbDist) + 'km'} ≈ <strong>${lc.timeFmt}</strong>` : ''}
+            <strong>${lc.userPwr}W</strong> rider power &nbsp;·&nbsp; <strong>${lc.mass}kg</strong> total weight &nbsp;·&nbsp; <strong>${lc.grade > 0 ? '+' : ''}${lc.grade}%</strong> gradient &nbsp;·&nbsp; ${lc.cadence} rpm${lc.crr !== 0.004 ? ` &nbsp;·&nbsp; <strong>${lc.surfaceLabel}</strong> surface (Crr ${lc.crr})` : ''}${lc.grade > 0 && lc.vam ? ` &nbsp;·&nbsp; VAM <strong>${lc.vam.toLocaleString()}</strong> m/hr &nbsp;·&nbsp; ${lc.distUnit === 'mi' ? (lc.climbDist / MI_C).toFixed(1) + 'mi' : lc.climbDist.toFixed(1) + 'km'} ≈ <strong>${lc.timeFmt}</strong>` : ''}
         </div>
         <div class="rpt-chart-bg">${svgHTML}</div>
         <table class="rpt-table">
