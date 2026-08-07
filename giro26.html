@@ -94,6 +94,16 @@
         .sh-date { font-size: 11px; color: var(--muted); }
         .climbs-list { display: flex; flex-direction: column; gap: 10px; }
         .no-climbs { padding: 28px 20px; text-align: center; font-size: 13px; color: var(--muted); background: var(--glass); border: 1px solid rgba(255,255,255,0.08); border-radius: 14px; line-height: 1.6; }
+        .stay-card { margin-top: 14px; padding: 15px 17px; }
+        .stay-card-title { font-size: 13px; font-weight: 700; color: var(--text); margin-bottom: 10px; }
+        .title-icon-bright { filter: brightness(2.1) saturate(2.4) contrast(1.15); }
+        .bb-logo-chip { display: block; width: 100%; max-width: 180px; height: auto; margin: 0 auto 12px; filter: brightness(1.35) saturate(1.5) contrast(1.1); }
+        .kiwi-logo-chip { display: block; width: 100%; max-width: 110px; height: auto; margin: 0 auto 12px; filter: brightness(1.35) saturate(1.5) contrast(1.1); }
+        .stay-row { display: grid; grid-template-columns: 1fr 260px; gap: 18px; align-items: stretch; }
+        @media (max-width: 900px) { .stay-row { grid-template-columns: 1fr; } }
+        .stay-row .stay-card { margin-top: 0; display: flex; flex-direction: column; flex: 1; }
+        .stay-col { display: flex; flex-direction: column; gap: 14px; height: 100%; }
+        .bike-hire-card { display: flex; flex-direction: column; gap: 14px; }
         .climb-card { padding: 15px 17px; background: var(--glass); border: 1px solid rgba(255,255,255,0.09); border-radius: 13px; }
         .climb-card.is-finish { border-color: rgba(236,72,153,0.28); }
         .cc-top { display: flex; align-items: flex-start; gap: 8px; margin-bottom: 10px; flex-wrap: wrap; }
@@ -157,8 +167,8 @@
     position: relative; z-index: 1; box-sizing: border-box;
     padding: 164px 24px 8px; margin-bottom: 34px;
     background-image:
-      radial-gradient(circle, #ee1c28 25px, transparent 26.5px),
-      radial-gradient(circle, #ee1c28 25px, transparent 26.5px);
+      radial-gradient(circle, var(--polka-dot-color, #ee1c28) 25px, transparent 26.5px),
+      radial-gradient(circle, var(--polka-dot-color, #ee1c28) 25px, transparent 26.5px);
     background-size: 124px 124px; background-position: 0 0, 62px 62px; background-repeat: repeat;
     display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: 6px 24px; text-align: left;
   }
@@ -201,11 +211,25 @@
   body::after {
     content: ""; display: block; position: relative; z-index: 1; width: 100%; height: 186px; margin-top: 4px;
     background-image:
-      radial-gradient(circle, #ee1c28 25px, transparent 26.5px),
-      radial-gradient(circle, #ee1c28 25px, transparent 26.5px);
+      radial-gradient(circle, var(--polka-dot-color, #ee1c28) 25px, transparent 26.5px),
+      radial-gradient(circle, var(--polka-dot-color, #ee1c28) 25px, transparent 26.5px);
     background-size: 124px 124px; background-position: 0px -31px, 62px 31px; background-repeat: repeat;
   }
 </style>
+<!-- VUELTA-DOT-SWITCH -->
+<script>
+(function(){
+  // La Vuelta a España 2026 runs 22 Aug - 13 Sep. During that window, swap the
+  // site's decorative polka-dot pattern from red to the Vuelta mountains-jersey
+  // blue on every page, then automatically revert to red once the race ends.
+  var now = new Date();
+  var start = new Date('2026-08-22T00:00:00');
+  var end   = new Date('2026-09-13T23:59:59');
+  if (now >= start && now <= end) {
+    document.documentElement.style.setProperty('--polka-dot-color', '#1a72e0');
+  }
+})();
+</script>
 <style id="pdb-inline-brand">
   /* Inline brand mark: "Polka(DOT)Bike" with DOT knocked into a red circle, as per the header logo */
   .pdb-brand{font-weight:800;white-space:nowrap;}
@@ -231,8 +255,8 @@
     .hero {
       padding-top: 85px;
       background-image:
-        radial-gradient(circle, #ee1c28 12px, transparent 13.5px),
-        radial-gradient(circle, #ee1c28 12px, transparent 13.5px);
+        radial-gradient(circle, var(--polka-dot-color, #ee1c28) 12px, transparent 13.5px),
+        radial-gradient(circle, var(--polka-dot-color, #ee1c28) 12px, transparent 13.5px);
       background-size: 60px 60px;
       background-position: 0 0, 30px 30px;
     }
@@ -240,8 +264,8 @@
     body::after {
       height: 90px;
       background-image:
-        radial-gradient(circle, #ee1c28 12px, transparent 13.5px),
-        radial-gradient(circle, #ee1c28 12px, transparent 13.5px);
+        radial-gradient(circle, var(--polka-dot-color, #ee1c28) 12px, transparent 13.5px),
+        radial-gradient(circle, var(--polka-dot-color, #ee1c28) 12px, transparent 13.5px);
       background-size: 60px 60px;
       background-position: 0 -15px, 30px 15px;
     }
@@ -431,6 +455,12 @@
     </div>
 </div>
 
+<!-- BEGIN AADS AD UNIT 2448890 -->
+<div id="frame" style="width: 100%;margin: auto;position: relative; z-index: 99998;">
+          <iframe data-aa='2448890' src='//acceptable.a-ads.com/2448890/?size=Adaptive&background_color=transparent'
+                            style='border:0; padding:0; width:70%; height:auto; overflow:hidden;display: block;margin: auto'></iframe>
+        </div>
+<!-- END AADS AD UNIT 2448890 -->
 <!-- STATIC-STAGE-INDEX START (generated by gen_static_index.js — do not hand-edit; re-run the script) -->
 <style>
 .static-index { position:relative; z-index:1; max-width:1160px; margin:30px auto 0; padding:0 20px; }
@@ -647,12 +677,6 @@
 </section>
 <!-- STATIC-STAGE-INDEX END -->
 
-<!-- BEGIN AADS AD UNIT 2448890 -->
-<div id="frame" style="width: 100%;margin: auto;position: relative; z-index: 99998;">
-          <iframe data-aa='2448890' src='//acceptable.a-ads.com/2448890/?size=Adaptive&background_color=transparent'
-                            style='border:0; padding:0; width:70%; height:auto; overflow:hidden;display: block;margin: auto'></iframe>
-        </div>
-<!-- END AADS AD UNIT 2448890 -->
 <footer>
     <p><span class="pdb-brand">Polka<span class="pdb-dot">DOT</span>Bike</span> · Giro d'Italia 2026 · Stage and climb data from official race roadbooks; gradients are average values.</p>
     <p style="margin-top:6px"><a href="index.html">← Gear Calculator</a> · <a href="tdf.html">TDF 2026</a> · <a href="guide.html">Guide</a> · <a href="glossary.html">Glossary</a> · <a href="about.html">About</a> · <a href="contact.html">Contact</a> · <a href="privacy.html">Privacy</a> · <a href="disclaimer.html">Disclaimer</a></p>
@@ -1062,6 +1086,57 @@ async function initMap() {
     map.setMaxBounds(L.latLngBounds(pts).pad(0.6));
 }
 
+// Stay22 "where to stay" embed per stage finish town. Empty until per-stage
+// embed links are added (same pattern as vuelta.html's STAY22_LINKS).
+const STAY22_LINKS = {
+    1: 'https://stay22.com/embed/6a75db68f7087c7ae2d8ddc2',
+    2: 'https://stay22.com/embed/6a75db9ff7087c7ae2d8dead',
+    3: 'https://stay22.com/embed/6a75dbe5f7087c7ae2d8dff7',
+    4: 'https://stay22.com/embed/6a75dc0ef7087c7ae2d8e0cf',
+    5: 'https://stay22.com/embed/6a75dc53f7087c7ae2d8e273',
+    6: 'https://stay22.com/embed/6a75dca5f7087c7ae2d8e536',
+    7: 'https://stay22.com/embed/6a75dd2af7087c7ae2d8e998',
+    8: 'https://stay22.com/embed/6a75dd5ef7087c7ae2d8eb4c',
+    9: 'https://stay22.com/embed/6a75dd91f7087c7ae2d8ec87',
+    10: 'https://stay22.com/embed/6a75ddc5f319eca4b6a7b4ee',
+    11: 'https://stay22.com/embed/6a75ddecf319eca4b6a7b6ee',
+    12: 'https://stay22.com/embed/6a75de14f319eca4b6a7b83e',
+    13: 'https://stay22.com/embed/6a75de43f319eca4b6a7ba1b',
+    14: 'https://stay22.com/embed/6a75de78f319eca4b6a7bbf5',
+    15: 'https://stay22.com/embed/6a75dea7f319eca4b6a7bd3f',
+    16: 'https://stay22.com/embed/6a75df43f319eca4b6a7c3aa',
+    17: 'https://stay22.com/embed/6a75df81f319eca4b6a7c584',
+    18: 'https://stay22.com/embed/6a75dfb35b4eef3604f2f24d',
+    19: 'https://stay22.com/embed/6a75dfe7f319eca4b6a7c8db',
+    20: 'https://stay22.com/embed/6a75e014f319eca4b6a7ca9f',
+    21: 'https://stay22.com/embed/6a75e03df319eca4b6a7ccaa'
+};
+
+// Kiwi.com flight links by visitor country (via /api/geo, Vercel's x-vercel-ip-country
+// header — only resolves on the live Vercel deployment, not the local dev server).
+// "default" is a placeholder until country-specific Travelpayouts links are generated.
+const KIWI_LINKS = {
+    default: 'https://www.kiwi.com',
+    GB: 'https://kiwi.tpo.mx/jz2ccunJ',
+    US: 'https://kiwi.tpo.mx/YMW30pH9',
+    IT: 'https://kiwi.tpo.mx/Gvvfo5KE',
+    DK: 'https://kiwi.tpo.mx/cExRgmNn',
+    DE: 'https://kiwi.tpo.mx/cExRgmNn',
+    FR: 'https://kiwi.tpo.mx/cExRgmNn',
+    ES: 'https://kiwi.tpo.mx/hVaYpFno',
+    BR: 'https://kiwi.tpo.mx/vdXSh4q9',
+    PL: 'https://kiwi.tpo.mx/sT1YbqpT',
+    NL: 'https://kiwi.tpo.mx/sT1YbqpT',
+    CZ: 'https://kiwi.tpo.mx/qfqDemwB',
+    FI: 'https://kiwi.tpo.mx/l243fbRT'
+};
+let visitorCountry = null;
+function applyKiwiLink() {
+    const url = (visitorCountry && KIWI_LINKS[visitorCountry]) || KIWI_LINKS.default;
+    document.querySelectorAll('.kiwi-flight-link').forEach(a => { a.href = url; });
+}
+fetch('/api/geo').then(r => r.json()).then(d => { visitorCountry = d.country; applyKiwiLink(); }).catch(() => {});
+
 function renderStage(num) {
     const stage = STAGES.find(s => s.num === num);
     if (!stage) return;
@@ -1104,7 +1179,47 @@ function renderStage(num) {
             </div>
             ${stage.notes ? `<div class="sh-notes">${stage.notes}</div>` : ''}
         </div>
+        ${STAY22_LINKS[num] ? `
+        <div class="stay-row">
+            <div class="stay-col">
+                <div class="stage-header glass stay-card">
+                    <div class="stay-card-title">🏨 Where to stay in ${stage.finish}</div>
+                    <iframe src="${STAY22_LINKS[num]}" width="100%" frameborder="0" loading="lazy" style="border-radius:12px;display:block;flex:1;"></iframe>
+                </div>
+            </div>
+            <div class="bike-hire-card">
+                <div class="stage-header glass stay-card">
+                    <div class="stay-card-title"><span class="title-icon-bright">🚲</span> Rent a bike</div>
+                    <img class="bb-logo-chip" src="bikesbooking-logo.png" alt="BikesBooking.com">
+                    <p style="font-size:13px;color:var(--muted);margin:0 0 12px;line-height:1.5;">Riding the route yourself, or just want wheels while following the race? Compare rental rates worldwide.</p>
+                    <a class="plan-btn" href="https://bikesbooking.tpo.mx/DgOZPOji" target="_blank" rel="noopener sponsored">Compare bike rentals →</a>
+                    <p style="font-size:11px;color:var(--muted);margin:10px 0 0;">Affiliate link — I may earn a small commission at no extra cost to you.</p>
+                </div>
+                <div class="stage-header glass stay-card">
+                    <div class="stay-card-title">✈️ Fly to the race</div>
+                    <img class="kiwi-logo-chip" src="kiwi-logo.svg" alt="Kiwi.com">
+                    <p style="font-size:13px;color:var(--muted);margin:0 0 12px;line-height:1.5;">Following the race from further afield? Compare flights to the nearest stage town.</p>
+                    <a class="plan-btn kiwi-flight-link" href="https://www.kiwi.com" target="_blank" rel="noopener sponsored">Compare flights →</a>
+                    <p style="font-size:11px;color:var(--muted);margin:10px 0 0;">Affiliate link — I may earn a small commission at no extra cost to you.</p>
+                </div>
+            </div>
+        </div>` : `
+        <div class="stage-header glass stay-card">
+            <div class="stay-card-title"><span class="title-icon-bright">🚲</span> Rent a bike for race day</div>
+            <img class="bb-logo-chip" src="bikesbooking-logo.png" alt="BikesBooking.com">
+            <p style="font-size:13px;color:var(--muted);margin:0 0 12px;line-height:1.5;">Riding the route yourself or just want wheels while you're following the race? Compare rental rates worldwide.</p>
+            <a class="plan-btn" href="https://bikesbooking.tpo.mx/DgOZPOji" target="_blank" rel="noopener sponsored">Compare bike rentals →</a>
+            <p style="font-size:11px;color:var(--muted);margin:10px 0 0;">Affiliate link — I may earn a small commission at no extra cost to you.</p>
+        </div>
+        <div class="stage-header glass stay-card">
+            <div class="stay-card-title">✈️ Fly to the race</div>
+            <img class="kiwi-logo-chip" src="kiwi-logo.svg" alt="Kiwi.com">
+            <p style="font-size:13px;color:var(--muted);margin:0 0 12px;line-height:1.5;">Following the race from further afield? Compare flights to the nearest stage town.</p>
+            <a class="plan-btn kiwi-flight-link" href="https://www.kiwi.com" target="_blank" rel="noopener sponsored">Compare flights →</a>
+            <p style="font-size:11px;color:var(--muted);margin:10px 0 0;">Affiliate link — I may earn a small commission at no extra cost to you.</p>
+        </div>`}
         ${climbsHtml}`;
+    applyKiwiLink();
 
     try { history.replaceState(null,'','?s='+num); } catch(e) {}
 }

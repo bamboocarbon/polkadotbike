@@ -195,8 +195,8 @@ footer a:hover{color:var(--sec)}
     position: relative; z-index: 1; box-sizing: border-box;
     padding: 164px 24px 8px; margin-bottom: 34px;
     background-image:
-      radial-gradient(circle, #ee1c28 25px, transparent 26.5px),
-      radial-gradient(circle, #ee1c28 25px, transparent 26.5px);
+      radial-gradient(circle, var(--polka-dot-color, #ee1c28) 25px, transparent 26.5px),
+      radial-gradient(circle, var(--polka-dot-color, #ee1c28) 25px, transparent 26.5px);
     background-size: 124px 124px; background-position: 0 0, 62px 62px; background-repeat: repeat;
     display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: 6px 24px; text-align: left;
   }
@@ -239,11 +239,25 @@ footer a:hover{color:var(--sec)}
   body::after {
     content: ""; display: block; position: relative; z-index: 1; width: 100%; height: 186px; margin-top: 4px;
     background-image:
-      radial-gradient(circle, #ee1c28 25px, transparent 26.5px),
-      radial-gradient(circle, #ee1c28 25px, transparent 26.5px);
+      radial-gradient(circle, var(--polka-dot-color, #ee1c28) 25px, transparent 26.5px),
+      radial-gradient(circle, var(--polka-dot-color, #ee1c28) 25px, transparent 26.5px);
     background-size: 124px 124px; background-position: 0px -31px, 62px 31px; background-repeat: repeat;
   }
 </style>
+<!-- VUELTA-DOT-SWITCH -->
+<script>
+(function(){
+  // La Vuelta a España 2026 runs 22 Aug - 13 Sep. During that window, swap the
+  // site's decorative polka-dot pattern from red to the Vuelta mountains-jersey
+  // blue on every page, then automatically revert to red once the race ends.
+  var now = new Date();
+  var start = new Date('2026-08-22T00:00:00');
+  var end   = new Date('2026-09-13T23:59:59');
+  if (now >= start && now <= end) {
+    document.documentElement.style.setProperty('--polka-dot-color', '#1a72e0');
+  }
+})();
+</script>
 <style id="pdb-inline-brand">
   /* Inline brand mark: "Polka(DOT)Bike" with DOT knocked into a red circle, as per the header logo */
   .pdb-brand{font-weight:800;white-space:nowrap;}
@@ -269,8 +283,8 @@ footer a:hover{color:var(--sec)}
     .hero {
       padding-top: 85px;
       background-image:
-        radial-gradient(circle, #ee1c28 12px, transparent 13.5px),
-        radial-gradient(circle, #ee1c28 12px, transparent 13.5px);
+        radial-gradient(circle, var(--polka-dot-color, #ee1c28) 12px, transparent 13.5px),
+        radial-gradient(circle, var(--polka-dot-color, #ee1c28) 12px, transparent 13.5px);
       background-size: 60px 60px;
       background-position: 0 0, 30px 30px;
     }
@@ -278,8 +292,8 @@ footer a:hover{color:var(--sec)}
     body::after {
       height: 90px;
       background-image:
-        radial-gradient(circle, #ee1c28 12px, transparent 13.5px),
-        radial-gradient(circle, #ee1c28 12px, transparent 13.5px);
+        radial-gradient(circle, var(--polka-dot-color, #ee1c28) 12px, transparent 13.5px),
+        radial-gradient(circle, var(--polka-dot-color, #ee1c28) 12px, transparent 13.5px);
       background-size: 60px 60px;
       background-position: 0 -15px, 30px 15px;
     }
