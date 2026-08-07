@@ -4,3 +4,6 @@ mountain-full.jpg.bak
 nohup.out
 *.log
 og-card-src.html
+gen_climb_pages.js
+lib
+data

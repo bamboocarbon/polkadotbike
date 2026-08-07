@@ -8,18 +8,17 @@
 // Both are idempotent via marker comments — re-run after editing STAGES/CLIMBS.
 const fs = require('fs');
 const path = require('path');
-const DIR = '/Users/robingillingham/cycle gears';
-const ORIGIN = 'https://polkadotbike.com';
+const { RACES, ORIGIN, DIR, buildDataset } = require('./lib/climbs');
 
-const RACES = [
-  // h2col: race colour for the section title
-  // specialCat/specialLabel: this race's top climb category and how to phrase it in the intro line
-  // country: SportsEvent location. datePublished: preserved from the blocks this replaces.
-  // Race start/end dates are derived from STAGES, never hardcoded here.
-  { file: 'tdf.html',    name: 'Tour de France 2026',    slug: 'tdf',    h2col: '#ffe94d', specialCat: 'HC',  specialLabel: 'hors-catégorie',   country: 'France', descName: '2026 Tour de France', datePublished: '2026-07-04', breadcrumb: 'Tour de France 2026 Climbs' },
-  { file: 'giro26.html', name: "Giro d'Italia 2026",     slug: 'giro',   h2col: '#ec4899', specialCat: 'HC',  specialLabel: 'hors-catégorie',   country: 'Italy',  descName: "2026 Giro d'Italia", datePublished: '2026-07-04', breadcrumb: "Giro d'Italia 2026 Climbs" },
-  { file: 'vuelta.html', name: 'La Vuelta a España 2026',slug: 'vuelta', h2col: '#ef4444', specialCat: 'ESP', specialLabel: 'especial-category', country: 'Spain',  descName: '2026 Vuelta a España', datePublished: '2026-07-30', breadcrumb: 'Vuelta a España 2026 Climbs' },
-];
+// Climb -> generated page lookup, so the index can link a climb's NAME at its
+// own page while the "Plan this climb" action still goes to the Climb Planner.
+const DATASET = buildDataset();
+const PAGE_BY_RAW_NAME = new Map();
+for (const c of DATASET.climbs) {
+  if (!c.hasPage) continue;
+  for (const a of c.ascents) PAGE_BY_RAW_NAME.set(`${a.race}|${a.rawName}`, c.slug);
+}
+const climbPageSlug = (raceKey, rawName) => PAGE_BY_RAW_NAME.get(`${raceKey}|${rawName}`) || null;
 
 const BUILD_DATE = new Date().toISOString().slice(0, 10);
 
@@ -55,6 +54,7 @@ const cssFor = race => `
 .si-climbs a { color:#3b8ef0; text-decoration:none; }
 .si-climbs a:hover { text-decoration:underline; }
 .si-climbs .cc-cat { margin-right:6px; }
+.si-plan { white-space:nowrap; font-size:0.82rem; font-weight:600; opacity:0.85; }
 `.trim();
 
 function buildSection(race, STAGES, CLIMBS) {
@@ -86,16 +86,23 @@ function buildSection(race, STAGES, CLIMBS) {
       const climbLis = climbs.map(c => {
         const badge = `<span class="cc-cat ${CAT_CLS[c.cat] || 'cat-tbc'}">${esc(c.cat)}</span>`;
         const hasData = c.len !== null && c.grad !== null;
-        const nameHtml = hasData
-          ? `<a href="climb.html?gr=${Math.round(c.grad)}&amp;dst=${c.len}"><strong>${esc(c.name)}</strong></a>`
-          : `<strong>${esc(c.name)}</strong>`;
+        // Two distinct actions, two destinations: the NAME opens the climb's own
+        // page; "Plan" opens the Climb Planner pre-filled. Climbs that were
+        // quality-gated out keep the old behaviour (name -> planner).
+        const slug = climbPageSlug(race.key, c.name);
+        const planHref = `climb.html?gr=${Math.round(c.grad)}&amp;dst=${c.len}`;
+        const nameHtml = slug
+          ? `<a href="climbs/${slug}.html"><strong>${esc(c.name)}</strong></a>`
+          : (hasData ? `<a href="${planHref}"><strong>${esc(c.name)}</strong></a>`
+                     : `<strong>${esc(c.name)}</strong>`);
+        const planHtml = (slug && hasData) ? ` <a class="si-plan" href="${planHref}">Plan&nbsp;→</a>` : '';
         const stats = hasData
           ? ` — ${c.len}&#8202;km at ${c.grad}%` +
             (c.elev ? `, summit ${c.elev.toLocaleString('en-GB')}&#8202;m` : '') +
             (c.kbf === 0 ? ', stage finish' : (c.kbf > 0 ? `, ${c.kbf}&#8202;km from the finish` : ''))
           : ' — details to be confirmed';
         const notes = c.notes ? ` ${esc(c.notes)}` : '';
-        return `      <li>${badge}${nameHtml}${stats}.${notes}</li>`;
+        return `      <li>${badge}${nameHtml}${stats}.${notes}${planHtml}</li>`;
       }).join('\n');
       climbsBlock = `    <ul class="si-climbs">\n${climbLis}\n    </ul>`;
     }
@@ -174,14 +181,17 @@ function buildGraph(race, STAGES, CLIMBS) {
         name: `Climbs of the ${race.descName}`,
         numberOfItems: listed.length,
         itemListOrder: 'https://schema.org/ItemListOrderAscending',
-        // Interim: each item points at its stage anchor on this page. Phase 3
-        // repoints these at the individual /climbs/<slug>.html pages.
-        itemListElement: listed.map((c, i) => ({
-          '@type': 'ListItem',
-          position: i + 1,
-          name: c.name,
-          url: `${pageUrl}#stage-${c.stage}`
-        }))
+        // Each item points at the climb's own page where one was generated;
+        // climbs below the quality gate fall back to their stage anchor here.
+        itemListElement: listed.map((c, i) => {
+          const slug = climbPageSlug(race.key, c.name);
+          return {
+            '@type': 'ListItem',
+            position: i + 1,
+            name: c.name,
+            url: slug ? `${ORIGIN}/climbs/${slug}.html` : `${pageUrl}#stage-${c.stage}`
+          };
+        })
       },
       {
         '@type': 'BreadcrumbList',
@@ -193,6 +203,23 @@ function buildGraph(race, STAGES, CLIMBS) {
       }
     ]
   };
+}
+
+// Runtime lookup so the interactive explorer's climb cards can link a climb's
+// name at its own page, exactly as the static index does.
+function buildClimbPagesBlock(race, CLIMBS) {
+  const map = {};
+  for (const c of CLIMBS) {
+    const slug = climbPageSlug(race.key, c.name);
+    if (slug) map[c.name] = slug;
+  }
+  return `<!-- CLIMB-PAGES START (generated by gen_static_index.js — do not hand-edit; re-run the script) -->
+<script>
+/* climb name -> /climbs/<slug>.html, for climbs that cleared the quality gate */
+const CLIMB_PAGES = ${JSON.stringify(map)};
+</script>
+<!-- CLIMB-PAGES END -->
+`;
 }
 
 function buildJsonLdBlock(race, STAGES, CLIMBS) {
@@ -256,10 +283,13 @@ for (const race of RACES) {
     }
   );
 
+  html = html.replace(/\n*<!-- CLIMB-PAGES START[\s\S]*?<!-- CLIMB-PAGES END -->\n*/, '\n');
+
   const jsonLd = buildJsonLdBlock(race, STAGES, CLIMBS);
+  const climbPages = buildClimbPagesBlock(race, CLIMBS);
   if (!html.includes('</head>')) throw new Error(`${race.file}: no </head>`);
   html = html.replace(/\n*<\/head>/, '\n</head>');
-  html = html.replace('</head>', `${jsonLd}</head>`);
+  html = html.replace('</head>', `${climbPages}${jsonLd}</head>`);
 
   fs.writeFileSync(fp, html);
 

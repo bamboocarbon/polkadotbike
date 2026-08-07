@@ -1,0 +1,520 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Puerto de El Purche — Gradient, Profile &amp; Gearing · Polka Dot Bike</title>
+    <meta name="description" content="Puerto de El Purche: 6.96km at 9%, summit 1,483m. Gradient profile, every race ascent, and the gearing you'd need to ride it yourself.">
+    <link rel="canonical" href="https://polkadotbike.com/climbs/puerto-de-el-purche.html">
+    <meta name="robots" content="index, follow">
+    <meta name="theme-color" content="#ef4444">
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+    <meta property="og:type" content="article">
+    <meta property="og:site_name" content="Polka Dot Bike">
+    <meta property="og:title" content="Puerto de El Purche — Gradient, Profile &amp; Gearing · Polka Dot Bike">
+    <meta property="og:description" content="Puerto de El Purche: 6.96km at 9%, summit 1,483m. Gradient profile, every race ascent, and the gearing you'd need to ride it yourself.">
+    <meta property="og:url" content="https://polkadotbike.com/climbs/puerto-de-el-purche.html">
+    <meta property="og:image" content="https://polkadotbike.com/og-card.png">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Puerto de El Purche — Gradient, Profile &amp; Gearing · Polka Dot Bike">
+    <meta name="twitter:description" content="Puerto de El Purche: 6.96km at 9%, summit 1,483m. Gradient profile, every race ascent, and the gearing you'd need to ride it yourself.">
+    <meta name="twitter:image" content="https://polkadotbike.com/og-card.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=IBM+Plex+Sans:wght@600;700&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
+<style>
+        :root {
+            --accent:       #3b82f6;
+            --accent-light: #93c5fd;
+            --glass:   rgba(4, 9, 26, 0.92);
+            --glass2:  rgba(4, 9, 26, 0.95);
+            --border:  rgba(255,255,255,0.08);
+            --text:    #e8edf5;
+            --muted:   #64748b;
+            --sec:     #94a3b8;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+
+        body {
+            font-family: 'Inter', system-ui, sans-serif;
+            min-height: 100vh;
+            color: var(--text);
+            overflow-x: hidden;
+            background: #fff;
+        }
+
+        /* ═══════ MOUNTAIN BACKDROP ═══════ */
+        .bg-scene { position: fixed; inset: 0; z-index: 0; pointer-events: none; overflow: hidden; }
+        .bg-sky { position: absolute; inset: 0; background: #fff; }
+        .bg-mountains {
+            position: absolute; inset: 0;
+            background-image:
+                radial-gradient(circle, rgba(239,68,68,0.22) 28%, transparent 28%),
+                radial-gradient(circle, rgba(239,68,68,0.22) 28%, transparent 28%);
+            background-size: 44px 44px;
+            background-position: 0 0, 22px 22px;
+        }
+
+        /* ═══════ HEADER ═══════ */
+        header {
+            position: sticky; top: 0; z-index: 100;
+            background: rgba(4,9,26,0.85);
+            backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px);
+            border-bottom: 1px solid var(--border);
+            padding: 0 24px; height: 54px;
+            display: flex; align-items: center; justify-content: space-between;
+        }
+        .logo {
+            font-size: 19px; font-weight: 900; letter-spacing: -0.5px;
+            color: #fff; text-decoration: none;
+            display: inline-flex; align-items: center; gap: 3px;
+        }
+        .logo span { color: var(--accent); }
+        .logo-dot-svg { width: 32px; height: 32px; flex-shrink: 0; }
+        nav { display: flex; gap: 2px; align-items: center; }
+        nav a {
+            color: var(--sec); text-decoration: none;
+            font-size: 13px; font-weight: 500;
+            padding: 6px 13px; border-radius: 6px;
+            transition: all 0.15s; text-align: center; line-height: 1.2;
+        }
+        nav a:hover  { color: #fff; background: rgba(255,255,255,0.06); }
+        nav a.active { color: var(--accent); background: rgba(59,130,246,0.12); }
+        @media (max-width: 768px) { header { padding: 0 12px; } nav a { font-size: 11px; padding: 4px 7px; } }
+
+        /* ═══════ HERO ═══════ */
+        .hero { position: relative; z-index: 1; text-align: center; padding: 40px 20px 22px; }
+        .hero h1 {
+            font-size: clamp(28px, 5vw, 46px); font-weight: 900;
+            letter-spacing: -1.5px; line-height: 1.1;
+            background: linear-gradient(135deg, #0f172a 0%, #1e3a5f 100%);
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+            filter: drop-shadow(0 1px 4px rgba(255,255,255,0.8));
+        }
+        .hero p {
+            margin-top: 10px; font-size: 15px; color: rgba(15,23,42,0.72);
+            max-width: 540px; margin-left: auto; margin-right: auto;
+        }
+
+        /* ═══════ LAYOUT ═══════ */
+        .container { position: relative; z-index: 1; max-width: 880px; margin: 0 auto; padding: 0 20px 60px; }
+
+        .glass {
+            background: var(--glass);
+            backdrop-filter: blur(24px); -webkit-backdrop-filter: blur(24px);
+            border: 1px solid var(--border); border-radius: 16px;
+        }
+
+        /* intro card */
+        .intro { padding: 22px 24px; margin-bottom: 18px; }
+        .intro p { font-size: 15px; line-height: 1.62; color: var(--text); }
+        .intro p + p { margin-top: 12px; }
+
+        /* jump bar */
+        .jump { padding: 16px 18px; margin-bottom: 24px; }
+        .jump h2 { font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; color: var(--muted); margin-bottom: 11px; }
+        .jump-links { display: flex; flex-wrap: wrap; gap: 7px; }
+        .jump-links a {
+            font-size: 12.5px; font-weight: 600; color: var(--accent-light);
+            text-decoration: none; padding: 5px 11px; border-radius: 999px;
+            background: rgba(59,130,246,0.10); border: 1px solid rgba(59,130,246,0.22);
+            transition: all 0.15s;
+        }
+        .jump-links a:hover { background: rgba(59,130,246,0.22); color: #fff; }
+
+        /* term groups */
+        .group-title {
+            position: relative; z-index: 1;
+            font-size: 13px; font-weight: 800; text-transform: uppercase; letter-spacing: 1.5px;
+            color: var(--accent); margin: 30px 4px 12px;
+            display: flex; align-items: center; gap: 10px;
+        }
+        .group-title::after { content: ""; flex: 1; height: 2px; background: var(--accent); }
+
+        .term { padding: 18px 22px; margin-bottom: 12px; scroll-margin-top: 70px; }
+        .term h3 { font-size: 18px; font-weight: 800; color: #fff; letter-spacing: -0.3px; margin-bottom: 8px; }
+        .term h3 .alt { font-size: 13px; font-weight: 500; color: var(--muted); margin-left: 6px; }
+        .term p { font-size: 14.5px; line-height: 1.6; color: var(--text); }
+        .term p + p { margin-top: 9px; }
+        .term .take { color: var(--sec); font-style: italic; }
+        .where {
+            margin-top: 11px; font-size: 12.5px; color: var(--muted);
+            border-top: 1px solid var(--border); padding-top: 10px;
+        }
+        .where strong { color: var(--sec); font-weight: 600; }
+        .where a { color: var(--accent-light); text-decoration: none; font-weight: 600; }
+        .where a:hover { color: #fff; text-decoration: underline; }
+
+        /* author note */
+        .author {
+            padding: 20px 24px; margin-top: 26px;
+            border-left: 3px solid var(--accent);
+        }
+        .author p { font-size: 13.5px; line-height: 1.6; color: var(--sec); font-style: italic; }
+        .author p + p { margin-top: 9px; }
+        .author strong { color: var(--text); font-style: normal; font-weight: 700; }
+
+        /* ═══════ FOOTER ═══════ */
+        footer { position: relative; z-index: 1; border-top: 1px solid var(--border); padding: 24px 20px; text-align: center; }
+        footer p { font-size: 12px; color: var(--muted); }
+        footer p + p { margin-top: 4px; }
+        footer a { color: var(--muted); text-decoration: none; }
+        footer a:hover { color: var(--sec); }
+    </style>
+<style>
+.cl-wrap { position:relative; z-index:1; max-width:900px; margin:0 auto; padding:0 20px 60px; }
+    .cl-head { margin-bottom:18px; }
+    .cl-head h1 { font-size:clamp(28px,5vw,44px); font-weight:900; letter-spacing:-1.2px; line-height:1.08; color:#0f172a; }
+    .cl-sub { margin-top:8px; font-size:14px; color:rgba(15,23,42,0.72); font-weight:600; }
+    .cl-card { background:var(--glass); border:1px solid rgba(255,255,255,0.12); border-radius:16px; padding:18px 20px; margin-bottom:16px; }
+    .cl-card h2 { font-size:1.05rem; margin:0 0 10px; color:#fff; }
+    .cl-stats { display:grid; grid-template-columns:repeat(auto-fit,minmax(96px,1fr)); gap:14px; }
+    .cl-stat .v { font-family:'IBM Plex Sans',Inter,system-ui,sans-serif; font-size:23px; font-weight:700; color:#fff; line-height:1; }
+    .cl-stat .l { font-size:9.5px; font-weight:700; text-transform:uppercase; letter-spacing:0.08em; color:var(--muted); margin-top:5px; }
+    .cl-note { font-size:0.92rem; line-height:1.6; color:var(--sec); margin-top:10px; }
+    .cl-note + .cl-note { margin-top:8px; }
+    table.cl-km { width:100%; border-collapse:collapse; font-size:0.86rem; margin-top:4px; }
+    table.cl-km th, table.cl-km td { padding:5px 8px; text-align:left; border-bottom:1px solid rgba(255,255,255,0.08); }
+    table.cl-km th { color:var(--muted); font-size:9.5px; text-transform:uppercase; letter-spacing:0.08em; font-weight:700; }
+    table.cl-km td { color:var(--sec); }
+    table.cl-km td.g { font-weight:700; }
+    .cl-asc { border-top:1px solid rgba(255,255,255,0.08); padding-top:10px; margin-top:10px; }
+    .cl-asc:first-of-type { border-top:none; padding-top:0; margin-top:0; }
+    .cl-asc-h { font-size:0.95rem; font-weight:700; color:#fff; }
+    .cl-asc-h a { color:#3b8ef0; text-decoration:none; }
+    .cl-asc-h a:hover { text-decoration:underline; }
+    .cl-asc-m { font-size:0.86rem; color:var(--muted); margin-top:3px; }
+    .cl-cta { display:inline-flex; align-items:center; gap:6px; padding:9px 16px; background:#1a72e0; border-radius:9px; color:#fff; font-size:13px; font-weight:700; text-decoration:none; margin-top:12px; }
+    .cl-cta:hover { background:#3b8ef0; color:#fff; }
+    .cl-links { font-size:0.9rem; line-height:1.9; }
+    .cl-links a { color:#3b8ef0; text-decoration:none; }
+    .cl-links a:hover { text-decoration:underline; }
+    .cl-assume { font-size:0.8rem; color:var(--muted); margin-top:10px; line-height:1.5; }
+    .cc-cat { font-size:9px; font-weight:800; text-transform:uppercase; letter-spacing:0.07em; padding:3px 8px; border-radius:5px; white-space:nowrap; border:none; display:inline-block; vertical-align:middle; }
+    .cat-hc { background:#ee1c28; color:#fff; } .cat-esp { background:#ee1c28; color:#fff; }
+    .cat-cat1 { background:#ffcd00; color:#000; } .cat-cat2 { background:#12b05f; color:#fff; }
+    .cat-cat3 { background:#1a72e0; color:#fff; } .cat-cat4 { background:#000; color:#fff; box-shadow:inset 0 0 0 1px rgba(255,255,255,0.25); }
+    .cat-tbc { background:#475569; color:#fff; }
+    .cc-profile { margin:8px 0 4px; }
+    .cc-profile svg { display:block; }
+    .profile-meta { display:flex; justify-content:space-between; margin-top:3px; font-size:9.5px; color:var(--muted); }
+</style>
+<style id="polka-hero-dots">
+  /* Bright-white bg; red diamond polka-dots band at top of hero; title(left)+subtitle(right) below on white. */
+  .bg-mountains { display: none !important; }
+  .bg-sky { background: #fff !important; }
+  header { background: #000 !important; }
+  .hero {
+    position: relative; z-index: 1; box-sizing: border-box;
+    padding: 164px 24px 8px; margin-bottom: 34px;
+    background-image:
+      radial-gradient(circle, var(--polka-dot-color, #ee1c28) 25px, transparent 26.5px),
+      radial-gradient(circle, var(--polka-dot-color, #ee1c28) 25px, transparent 26.5px);
+    background-size: 124px 124px; background-position: 0 0, 62px 62px; background-repeat: repeat;
+    display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: 6px 24px; text-align: left;
+  }
+  .hero::after { content: ""; position: absolute; left: 0; right: 0; top: 154px; bottom: 0; background: #fff; z-index: -1; }
+  .hero > h1 { margin: 0; color: #000 !important; -webkit-text-fill-color: #000 !important; background: none !important; filter: none !important; }
+  .hero > p  { margin: 0; max-width: 340px; text-align: left; color: #000 !important; font-weight: 700 !important; }
+
+  /* ===== UCI World-Championship bold palette (dots stay red) ===== */
+  :root {
+    --glass: #000; --glass2: #000;
+    --accent: #1a72e0; --accent-light: #7fb3f0;
+    --green: #12b05f; --amber: #ffcd00; --red: #ee1c28;
+  }
+  .glass, .input-panel, .stat-card, .chart-card, .achieve-card, .rail-card, .buy-card { border-color: rgba(255,255,255,0.14); }
+  .logo span { color: #fff !important; }
+  /* groupset / brand tabs: text + lower line only (no box tint). Bold hues. */
+  .brand-tab.active[data-brand="shimano"]    { color:#2b8bff !important; background:transparent !important; border-bottom-color:#1a72e0 !important; }
+  .brand-tab.active[data-brand="sram"]       { color:#ff1f2b !important; background:transparent !important; border-bottom-color:#ee1c28 !important; }
+  .brand-tab.active[data-brand="campagnolo"] { color:#ffcf1a !important; background:transparent !important; border-bottom-color:#ffcd00 !important; }
+  .brand-tab.active[data-brand="custom"]     { color:#17c86c !important; background:transparent !important; border-bottom-color:#12b05f !important; }
+  .cust-mode-btn.active { background:#12b05f; }
+  /* derailleur page: segmented filter buttons — no fill, bold groupset colours + lower line */
+  .filter-btn.active { background:transparent !important; color:#fff !important; border-bottom:2px solid rgba(255,255,255,0.85); }
+  .filter-btn.active[data-fbrand="shimano"]    { color:#2b8bff !important; border-bottom-color:#1a72e0; }
+  .filter-btn.active[data-fbrand="sram"]       { color:#ff1f2b !important; border-bottom-color:#ee1c28; }
+  .filter-btn.active[data-fbrand="campagnolo"] { color:#ffcf1a !important; border-bottom-color:#ffcd00; }
+  /* alert / status colours (bold, not pale) */
+  .stat-green { color:#17c86c !important; }
+  .stat-red   { color:#ff1f2b !important; }
+  .verdict-card.v-yes  { border-color:rgba(18,176,95,0.5) !important; }
+  .verdict-card.v-warn { border-color:rgba(255,205,0,0.55) !important; }
+  .verdict-card.v-no   { border-color:rgba(238,28,40,0.5) !important; }
+  .verdict-card.v-yes  .verdict-main { color:#17c86c; }
+  .verdict-card.v-warn .verdict-main { color:#ffcf1a; }
+  .verdict-card.v-no   .verdict-main { color:#ff1f2b; }
+  .dr-group.ok   .dr-group-label, .dr-group.ok   .dr-status { color:#17c86c !important; }
+  .dr-group.warn .dr-group-label, .dr-group.warn .dr-status { color:#ffcf1a !important; }
+  .dr-group.no   .dr-group-label, .dr-group.no   .dr-status { color:#ff1f2b !important; }
+  /* bottom polka-dot band: white gap after content, then 3 dot rows down to the page bottom */
+  body::after {
+    content: ""; display: block; position: relative; z-index: 1; width: 100%; height: 186px; margin-top: 4px;
+    background-image:
+      radial-gradient(circle, var(--polka-dot-color, #ee1c28) 25px, transparent 26.5px),
+      radial-gradient(circle, var(--polka-dot-color, #ee1c28) 25px, transparent 26.5px);
+    background-size: 124px 124px; background-position: 0px -31px, 62px 31px; background-repeat: repeat;
+  }
+</style>
+<!-- VUELTA-DOT-SWITCH -->
+<script>
+(function(){
+  // La Vuelta a España 2026 runs 22 Aug - 13 Sep. During that window, swap the
+  // site's decorative polka-dot pattern from red to the Vuelta mountains-jersey
+  // blue on every page, then automatically revert to red once the race ends.
+  var now = new Date();
+  var start = new Date('2026-08-22T00:00:00');
+  var end   = new Date('2026-09-13T23:59:59');
+  if (now >= start && now <= end) {
+    document.documentElement.style.setProperty('--polka-dot-color', '#1a72e0');
+  }
+})();
+</script>
+<style id="pdb-inline-brand">
+  /* Inline brand mark: "Polka(DOT)Bike" with DOT knocked into a red circle, as per the header logo */
+  .pdb-brand{font-weight:800;white-space:nowrap;}
+  .pdb-dot{display:inline-block;width:1.35em;height:1.35em;vertical-align:-0.3em;margin:0 0.12em;overflow:hidden;text-indent:-9999px;white-space:nowrap;background:url("data:image/svg+xml;utf8,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 32 32%22%3E%3Ccircle cx=%2216%22 cy=%2216%22 r=%2216%22 fill=%22%23ef4444%22/%3E%3Ctext x=%2216.75%22 y=%2220%22 text-anchor=%22middle%22 font-family=%22Inter,system-ui,sans-serif%22 font-size=%2210.5%22 font-weight=%22900%22 letter-spacing=%221.5%22 fill=%22%23000%22%3EDOT%3C/text%3E%3C/svg%3E") no-repeat center/contain;}
+</style>
+<style id="polka-mobile-nav">
+  /* Mobile: nav scrolls horizontally inside the header bar instead of stretching the page */
+  @media (max-width: 768px) {
+    html, body { overflow-x: hidden; }
+    header { gap: 8px; }
+    .logo { flex-shrink: 0; }
+    nav {
+      min-width: 0;
+      overflow-x: auto; -webkit-overflow-scrolling: touch;
+      flex-wrap: nowrap; max-width: 100%;
+      scrollbar-width: none; -ms-overflow-style: none;
+    }
+    nav::-webkit-scrollbar { display: none; }
+    nav a { white-space: nowrap; flex-shrink: 0; }
+    .hero-bikes { font-size: 16px !important; margin-top: 6px !important; }
+
+    /* Smaller polka dots on mobile: same diamond pattern at ~60% scale, more dots across */
+    .hero {
+      padding-top: 85px;
+      background-image:
+        radial-gradient(circle, var(--polka-dot-color, #ee1c28) 12px, transparent 13.5px),
+        radial-gradient(circle, var(--polka-dot-color, #ee1c28) 12px, transparent 13.5px);
+      background-size: 60px 60px;
+      background-position: 0 0, 30px 30px;
+    }
+    .hero::after { top: 75px; }
+    body::after {
+      height: 90px;
+      background-image:
+        radial-gradient(circle, var(--polka-dot-color, #ee1c28) 12px, transparent 13.5px),
+        radial-gradient(circle, var(--polka-dot-color, #ee1c28) 12px, transparent 13.5px);
+      background-size: 60px 60px;
+      background-position: 0 -15px, 30px 15px;
+    }
+  }
+</style>
+<style id="dcy-inline-brand">
+  /* Reciprocal DCY brand mark: small orange square + bold wordmark, matching DCY's own header logo */
+  .dcy-brand{font-weight:800;letter-spacing:-0.01em;white-space:nowrap;}
+  .dcy-square{display:inline-block;width:0.62em;height:0.62em;background:#c8893a;border-radius:2px;margin:0 0.25em 0 0;vertical-align:0.02em;}
+</style>
+<!-- GA-CONSENT-LOADER START -->
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  window.pdbLoadGA = function(){
+    if (window.pdbGALoaded) return;
+    window.pdbGALoaded = true;
+    var s = document.createElement('script');
+    s.async = true;
+    s.src = 'https://www.googletagmanager.com/gtag/js?id=G-24JBH53W09';
+    document.head.appendChild(s);
+    gtag('js', new Date());
+    gtag('config', 'G-24JBH53W09');
+  };
+</script>
+<!-- GA-CONSENT-LOADER END -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebPage",
+      "@id": "https://polkadotbike.com/climbs/puerto-de-el-purche.html#page",
+      "url": "https://polkadotbike.com/climbs/puerto-de-el-purche.html",
+      "name": "Puerto de El Purche — Gradient, Profile & Gearing",
+      "description": "Puerto de El Purche: 6.96km at 9%, summit 1,483m. Gradient profile, every race ascent, and the gearing you'd need to ride it yourself.",
+      "isPartOf": {
+        "@id": "https://polkadotbike.com/#website"
+      },
+      "author": {
+        "@id": "https://polkadotbike.com/about.html#robin"
+      },
+      "dateModified": "2026-08-07",
+      "mainEntity": {
+        "@id": "https://polkadotbike.com/climbs/puerto-de-el-purche.html#climb"
+      },
+      "breadcrumb": {
+        "@id": "https://polkadotbike.com/climbs/puerto-de-el-purche.html#breadcrumb"
+      }
+    },
+    {
+      "@type": "Place",
+      "@id": "https://polkadotbike.com/climbs/puerto-de-el-purche.html#climb",
+      "name": "Puerto de El Purche",
+      "containedInPlace": {
+        "@type": "Place",
+        "name": "Sierra Nevada"
+      },
+      "elevation": {
+        "@type": "QuantitativeValue",
+        "value": 1483,
+        "unitCode": "MTR"
+      }
+    },
+    {
+      "@type": "BreadcrumbList",
+      "@id": "https://polkadotbike.com/climbs/puerto-de-el-purche.html#breadcrumb",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Home",
+          "item": "https://polkadotbike.com/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "La Vuelta a España 2026 Climbs",
+          "item": "https://polkadotbike.com/vuelta.html"
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": "Puerto de El Purche",
+          "item": "https://polkadotbike.com/climbs/puerto-de-el-purche.html"
+        }
+      ]
+    }
+  ]
+}
+</script>
+</head>
+<body>
+<style>
+  #pdb-consent{position:fixed;left:0;right:0;bottom:0;z-index:999;background:#000;color:#fff;
+    padding:16px 20px;display:flex;flex-wrap:wrap;align-items:center;justify-content:center;
+    gap:12px 20px;font-family:system-ui,sans-serif;box-shadow:0 -2px 12px rgba(0,0,0,.3)}
+  #pdb-consent[hidden]{display:none}
+  #pdb-consent p{margin:0;font-size:14px;line-height:1.5;max-width:560px;color:#e5e9ee}
+  #pdb-consent a{color:#7fb3f0;text-decoration:underline}
+  #pdb-consent .pdb-consent-btns{display:flex;gap:10px;flex-shrink:0}
+  #pdb-consent button{font:inherit;font-weight:600;font-size:14px;padding:9px 18px;border-radius:6px;
+    cursor:pointer;border:1px solid #fff}
+  #pdb-consent .pdb-accept{background:#1a72e0;color:#fff;border-color:#1a72e0}
+  #pdb-consent .pdb-reject{background:transparent;color:#fff}
+  @media (max-width:640px){#pdb-consent{justify-content:flex-start;text-align:left}}
+</style>
+<div id="pdb-consent" role="dialog" aria-label="Cookie consent" hidden>
+  <p>I use Google Analytics cookies to see how the site's used. See the <a href="/privacy.html">privacy policy</a> for details.</p>
+  <div class="pdb-consent-btns">
+    <button type="button" class="pdb-reject" id="pdb-consent-reject">Reject</button>
+    <button type="button" class="pdb-accept" id="pdb-consent-accept">Accept</button>
+  </div>
+</div>
+<script>
+(function(){
+  var KEY = 'pdb_consent';
+  function getChoice(){ try { return localStorage.getItem(KEY); } catch(e) { return null; } }
+  function setChoice(v){ try { localStorage.setItem(KEY, v); } catch(e) {} }
+  var choice = getChoice();
+  if (choice === 'accepted' && window.pdbLoadGA) window.pdbLoadGA();
+  if (choice) return;
+  var el = document.getElementById('pdb-consent');
+  if (!el) return;
+  el.hidden = false;
+  document.getElementById('pdb-consent-accept').addEventListener('click', function(){
+    setChoice('accepted');
+    if (window.pdbLoadGA) window.pdbLoadGA();
+    el.hidden = true;
+  });
+  document.getElementById('pdb-consent-reject').addEventListener('click', function(){
+    setChoice('rejected');
+    el.hidden = true;
+  });
+})();
+</script>
+<noscript><div style="position:relative;z-index:50;background:#ffcd00;color:#000;font-family:system-ui,sans-serif;font-size:14px;font-weight:600;text-align:center;padding:10px 16px">This site&#8217;s interactive calculators need JavaScript to run. The stage and climb listings on the <a href="/tdf.html" style="color:#000">Tour de France 2026</a>, <a href="/giro26.html" style="color:#000">Giro 2026</a> and <a href="/vuelta.html" style="color:#000">Vuelta 2026</a> pages are still readable without it.</div></noscript>
+<div class="bg-scene"><div class="bg-sky"></div><div class="bg-mountains"></div></div>
+<header>
+    <a class="logo" href="/index.html">Polka<svg class="logo-dot-svg" viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg"><defs><mask id="dotm"><rect width="32" height="32" fill="white"/><text x="16" y="21" text-anchor="middle" font-family="Inter,system-ui,sans-serif" font-size="11" font-weight="900" letter-spacing="1.5" fill="black">DOT</text></mask></defs><circle cx="16" cy="16" r="15" fill="#ef4444" mask="url(#dotm)"/></svg><span>Bike</span></a>
+    <nav>
+        <a href="/index.html">Gear<br>Calculator</a>
+        <a href="/climb.html">Climb<br>Planner</a>
+        <a href="/compare.html">Groupset<br>Comparator</a>
+        <a href="/derailleur.html">Derailleur<br>Capacity</a>
+        <a href="/wkg.html">W/KG<br>and FTP</a>
+        <a href="/giro26.html">Giro 2026</a>
+        <a href="/tdf.html">TDF 2026</a>
+        <a href="/vuelta.html">Vuelta 2026</a>
+        <a href="/about.html">About</a>
+        <a href="/guide.html">Guide</a>
+        <a href="/glossary.html">Glossary</a>
+        <a href="/contact.html">Contact</a>
+    </nav>
+</header>
+
+<div class="hero">
+    <h1>Puerto de El Purche</h1>
+    <p class="cl-sub">Sierra Nevada · La Vuelta</p>
+</div>
+
+<div class="cl-wrap">
+
+    <div class="cl-card">
+        <h2><span class="cc-cat cat-cat1">Cat1</span> &nbsp;The numbers</h2>
+        <div class="cl-stats"><div class="cl-stat"><div class="v">6.96</div><div class="l">km long</div></div><div class="cl-stat"><div class="v">9%</div><div class="l">avg gradient</div></div><div class="cl-stat"><div class="v">1,483m</div><div class="l">summit</div></div></div>
+    </div>
+
+
+<div class="cl-card"><h2>What gearing do you need?</h2>
+      <p class="cl-note">Riding Puerto de El Purche at a steady <strong>200W</strong>, a 75kg rider on an 8kg bike would climb at roughly <strong>9.3 km/h</strong> — about <strong>45 min</strong> to the top and a VAM of roughly <strong>834 m/hr</strong>.</p>
+      <p class="cl-note">To turn <strong>85 rpm</strong> at that speed you want something easier than a 34×36 — this gradient is beyond a standard road setup at that cadence. Anything harder and you will be grinding below 85 rpm for 6.96km.</p>
+      <a class="cl-cta" href="/climb.html?gr=9&amp;dst=6.96">Plan this climb with your own setup →</a>
+      <p class="cl-assume">Assumes 200W sustained, 83kg all-in, hoods position (CdA 0.36), asphalt (Crr 0.004) and 700×28c wheels. Change any of those in the <a href="/climb.html" style="color:#3b8ef0">Climb Planner</a> — the figures move a lot with weight and power.</p></div>
+
+    <div class="cl-card">
+        <h2>Where it appears — 2 ascents</h2>
+        
+        <div class="cl-asc">
+      <div class="cl-asc-h"><span class="cc-cat cat-cat1">Cat1</span>
+        <a href="/vuelta.html?s=20">La Vuelta a España 2026 — Stage 20: La Calahorra → Collado del Alguacil</a> — 1st ascent</div>
+      <div class="cl-asc-m">6.96km at 9% · summit 1,483m · 92.5km from the finish</div>
+      <div class="cl-note">Climbed via Huétor Vega. Length/gradient from Komoot's GPS route data.</div>
+    </div><div class="cl-asc">
+      <div class="cl-asc-h"><span class="cc-cat cat-cat1">Cat1</span>
+        <a href="/vuelta.html?s=20">La Vuelta a España 2026 — Stage 20: La Calahorra → Collado del Alguacil</a> — 2nd ascent</div>
+      <div class="cl-asc-m">6.96km at 9% · summit 1,483m · 61.3km from the finish</div>
+      <div class="cl-note">Second ascent of the day, same climb as earlier.</div>
+    </div>
+    </div>
+
+    <div class="cl-card cl-links">
+        <h2>Work out your own numbers</h2>
+        <a href="/climb.html">Climb Planner</a> — speed, time and gearing for any gradient with your power and weight.<br>
+        <a href="/index.html">Gear Ratio Calculator</a> — every gear your bike actually has, in order.<br>
+        <a href="/wkg.html">W/kg &amp; FTP</a> — the number that really predicts how you climb.<br>
+        <a href="/glossary.html">Glossary</a> — gradient, VAM, gear inches and the rest, explained.
+    </div>
+
+</div>
+
+<footer>
+    <p><span class="pdb-brand">Polka<span class="pdb-dot">DOT</span>Bike</span> — Climb profiles, gradients and the gearing you need. Figures are indicative.</p>
+    <p style="margin-top:6px"><a href="/index.html">← Gear Calculator</a> · <a href="/guide.html">Guide</a> · <a href="/about.html">About</a> · <a href="/contact.html">Contact</a> · <a href="/privacy.html">Privacy</a> · <a href="/disclaimer.html">Disclaimer</a></p>
+    <p style="margin-top:8px;font-size:0.85em;opacity:0.65">Also by me: <a href="https://digitalcredityield.com" target="_blank" rel="noopener" class="dcy-brand"><span class="dcy-square"></span>Digital Credit Yield</a> — Bitcoin &amp; Ethereum treasury income, explained.</p>
+    <p style="margin-top:10px"><a href="https://www.instagram.com/polkadotbike.cc/" target="_blank" rel="noopener" aria-label="Instagram" style="display:inline-flex;vertical-align:middle;margin:0 7px"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="2" y="2" width="20" height="20" rx="5.5"/><circle cx="12" cy="12" r="4.3"/><circle cx="17.4" cy="6.6" r="1.05" fill="currentColor" stroke="none"/></svg></a><a href="https://www.facebook.com/profile.php?id=61591463441672" target="_blank" rel="noopener" aria-label="Facebook" style="display:inline-flex;vertical-align:middle;margin:0 7px"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M13.5 21.9v-8.4h2.82l.42-3.27h-3.24V8.03c0-.95.26-1.6 1.63-1.6h1.74V3.55C16.55 3.47 15.6 3.4 14.5 3.4c-2.33 0-3.93 1.42-3.93 4.03v2.8H7.74v3.27h2.83v8.4h2.93z"/></svg></a></p>
+</footer>
+</body>
+</html>
