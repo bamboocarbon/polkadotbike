@@ -358,6 +358,178 @@ ${chrome.footer}
 `;
 }
 
+
+const INDEX_CSS = `
+    .ci-wrap { position:relative; z-index:1; max-width:1000px; margin:0 auto; padding:0 20px 60px; }
+    .ci-intro { color:var(--muted); font-size:0.95rem; line-height:1.55; margin:0 0 16px; max-width:70ch; }
+    .ci-tools { display:flex; flex-wrap:wrap; gap:10px; align-items:center; margin-bottom:14px; }
+    #ci-search { flex:1; min-width:240px; background:rgba(255,255,255,0.05); border:1px solid rgba(255,255,255,0.14);
+                 border-radius:10px; color:var(--text); padding:11px 14px; font-size:14px; font-family:inherit; }
+    #ci-search:focus { outline:none; border-color:#1a72e0; }
+    #ci-search::placeholder { color:var(--muted); }
+    .ci-chip { padding:8px 14px; border-radius:9px; background:rgba(255,255,255,0.05);
+               border:1px solid rgba(255,255,255,0.12); color:var(--sec); font-size:12.5px; font-weight:600;
+               font-family:inherit; cursor:pointer; }
+    .ci-chip.active { background:#1a72e0; border-color:#1a72e0; color:#fff; }
+    .ci-count { font-size:12px; color:var(--muted); margin-bottom:10px; }
+    .ci-list { list-style:none; margin:0; padding:0; display:grid; gap:8px; }
+    .ci-list a { display:flex; align-items:center; gap:11px; flex-wrap:wrap; padding:12px 15px; border-radius:12px;
+                 background:var(--glass); border:1px solid rgba(255,255,255,0.12); text-decoration:none; }
+    .ci-list a:hover { border-color:rgba(255,255,255,0.3); }
+    .ci-name { font-size:1rem; font-weight:700; color:#fff; }
+    .ci-meta { font-size:0.84rem; color:var(--muted); margin-left:auto; text-align:right; }
+    .ci-none { padding:22px; text-align:center; color:var(--muted); font-size:14px; }
+    @media (max-width:560px) { .ci-meta { margin-left:0; width:100%; text-align:left; } }
+`.trim();
+
+// Accent-insensitive haystack so typing "montjuic" finds "Montjuïc".
+const fold = s => s.normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase();
+
+function buildIndexPage(dataset, chrome) {
+  const pages = dataset.climbs.filter(c => c.hasPage);
+  const url = `${ORIGIN}/climbs/`;
+  const title = 'Every Climb of the 2026 Grand Tours · Polka Dot Bike';
+  const metaDesc = `All ${pages.length} categorised climbs of the 2026 Tour de France, Giro d'Italia and Vuelta a España — gradient, length, summit altitude and the gearing you'd need for each.`;
+
+  const raceName = k => dataset.races.find(r => r.key === k).short;
+
+  const items = pages.map(c => {
+    const bits = [];
+    if (c.len != null && c.grad != null) bits.push(`${num(c.len)}km · ${num(c.grad)}%`);
+    if (c.elev) bits.push(`${c.elev.toLocaleString('en-GB')}m`);
+    bits.push(c.races.map(raceName).join(' · '));
+    return `      <li data-h="${esc(fold(c.name + ' ' + (c.range || '')))}" data-race="${c.races.join(' ')}">
+        <a href="/climbs/${c.slug}.html">
+          <span class="cc-cat ${CAT_CLS[c.cat] || 'cat-tbc'}">${esc(c.cat)}</span>
+          <span class="ci-name">${esc(c.name)}</span>
+          <span class="ci-meta">${esc(bits.join(' · '))}</span>
+        </a>
+      </li>`;
+  }).join('\n');
+
+  const graph = {
+    '@context': 'https://schema.org',
+    '@graph': [
+      { '@type': 'CollectionPage', '@id': `${url}#page`, url,
+        name: 'Every Climb of the 2026 Grand Tours', description: metaDesc,
+        isPartOf: { '@id': `${ORIGIN}/#website` }, author: { '@id': `${ORIGIN}/about.html#robin` },
+        dateModified: BUILD_DATE, mainEntity: { '@id': `${url}#list` }, breadcrumb: { '@id': `${url}#breadcrumb` } },
+      { '@type': 'ItemList', '@id': `${url}#list`, name: 'Climbs of the 2026 Grand Tours',
+        numberOfItems: pages.length, itemListOrder: 'https://schema.org/ItemListOrderAscending',
+        itemListElement: pages.map((c, i) => ({ '@type': 'ListItem', position: i + 1, name: c.name, url: `${ORIGIN}/climbs/${c.slug}.html` })) },
+      { '@type': 'BreadcrumbList', '@id': `${url}#breadcrumb`, itemListElement: [
+        { '@type': 'ListItem', position: 1, name: 'Home', item: `${ORIGIN}/` },
+        { '@type': 'ListItem', position: 2, name: 'Climbs', item: url } ] },
+    ],
+  };
+
+  return `<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>${esc(title)}</title>
+    <meta name="description" content="${esc(metaDesc)}">
+    <link rel="canonical" href="${url}">
+    <meta name="robots" content="index, follow">
+    <meta name="theme-color" content="#ef4444">
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="Polka Dot Bike">
+    <meta property="og:title" content="${esc(title)}">
+    <meta property="og:description" content="${esc(metaDesc)}">
+    <meta property="og:url" content="${url}">
+    <meta property="og:image" content="${ORIGIN}/og-card.png">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="${esc(title)}">
+    <meta name="twitter:description" content="${esc(metaDesc)}">
+    <meta name="twitter:image" content="${ORIGIN}/og-card.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=IBM+Plex+Sans:wght@600;700&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
+${chrome.baseStyle}
+<style>
+${PAGE_CSS}
+${INDEX_CSS}
+</style>
+${chrome.dotsStyle}
+${chrome.dotSwitch}
+${chrome.brandStyle}
+${chrome.navStyle}
+${chrome.dcyStyle}
+${chrome.ga}
+<script type="application/ld+json">
+${JSON.stringify(graph, null, 2)}
+</script>
+</head>
+<body>
+${chrome.consent}
+${chrome.noscript}
+<div class="bg-scene"><div class="bg-sky"></div><div class="bg-mountains"></div></div>
+${chrome.header}
+
+<div class="hero">
+    <h1>Every climb of the 2026 Grand Tours</h1>
+    <p class="cl-sub">Tour de France · Giro d'Italia · La Vuelta a España</p>
+</div>
+
+<div class="ci-wrap">
+    <p class="ci-intro">Every categorised climb of the three 2026 Grand Tours, with its length, average gradient and summit altitude. Open any climb for its gradient profile kilometre by kilometre, every stage it appears on, and the gearing you'd need to ride it yourself.</p>
+
+    <div class="ci-tools">
+        <input id="ci-search" type="search" autocomplete="off" placeholder="Search a climb — try Galibier, Tourmalet, Aitana…" aria-label="Search climbs">
+        <button class="ci-chip active" data-race="all">All</button>
+        <button class="ci-chip" data-race="tdf">Tour</button>
+        <button class="ci-chip" data-race="giro">Giro</button>
+        <button class="ci-chip" data-race="vuelta">Vuelta</button>
+    </div>
+
+    <div class="ci-count" id="ci-count">${pages.length} climbs</div>
+    <ul class="ci-list" id="ci-list">
+${items}
+    </ul>
+    <div class="ci-none" id="ci-none" hidden>No climb matches that. Try part of the name — "tourmalet", "aitana", "giau".</div>
+</div>
+
+${chrome.footer}
+<script>
+(function(){
+  var search = document.getElementById('ci-search');
+  var list   = document.getElementById('ci-list');
+  var items  = Array.prototype.slice.call(list.children);
+  var count  = document.getElementById('ci-count');
+  var none   = document.getElementById('ci-none');
+  var race   = 'all';
+  var fold = function(s){ return s.normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase(); };
+  function apply(){
+    var q = fold(search.value.trim());
+    var shown = 0;
+    items.forEach(function(li){
+      var okQ = !q || li.dataset.h.indexOf(q) !== -1;
+      var okR = race === 'all' || li.dataset.race.split(' ').indexOf(race) !== -1;
+      var vis = okQ && okR;
+      li.hidden = !vis;
+      if (vis) shown++;
+    });
+    count.textContent = shown + (shown === 1 ? ' climb' : ' climbs');
+    none.hidden = shown !== 0;
+  }
+  search.addEventListener('input', apply);
+  Array.prototype.forEach.call(document.querySelectorAll('.ci-chip'), function(b){
+    b.addEventListener('click', function(){
+      race = b.dataset.race;
+      Array.prototype.forEach.call(document.querySelectorAll('.ci-chip'), function(x){ x.classList.toggle('active', x === b); });
+      apply();
+    });
+  });
+})();
+</script>
+</body>
+</html>
+`;
+}
+
 /* ---- run ----------------------------------------------------------------- */
 const dataset = buildDataset();
 
@@ -374,12 +546,13 @@ const chrome = loadChrome();
 const pages = dataset.climbs.filter(c => c.hasPage);
 
 // Remove any stale pages from a previous run whose climb no longer qualifies.
-const keep = new Set(pages.map(c => `${c.slug}.html`));
+const keep = new Set([...pages.map(c => `${c.slug}.html`), 'index.html']);
 for (const f of fs.readdirSync(OUT_DIR)) {
   if (f.endsWith('.html') && !keep.has(f)) { fs.unlinkSync(path.join(OUT_DIR, f)); console.log(`  removed stale ${f}`); }
 }
 
 for (const c of pages) fs.writeFileSync(path.join(OUT_DIR, `${c.slug}.html`), buildPage(c, chrome, dataset));
+fs.writeFileSync(path.join(OUT_DIR, 'index.html'), buildIndexPage(dataset, chrome));
 
 fs.writeFileSync(path.join(DATA_DIR, 'climbs.json'), JSON.stringify({
   generated: BUILD_DATE,

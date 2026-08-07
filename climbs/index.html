@@ -1,0 +1,1670 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Every Climb of the 2026 Grand Tours · Polka Dot Bike</title>
+    <meta name="description" content="All 87 categorised climbs of the 2026 Tour de France, Giro d'Italia and Vuelta a España — gradient, length, summit altitude and the gearing you'd need for each.">
+    <link rel="canonical" href="https://polkadotbike.com/climbs/">
+    <meta name="robots" content="index, follow">
+    <meta name="theme-color" content="#ef4444">
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="Polka Dot Bike">
+    <meta property="og:title" content="Every Climb of the 2026 Grand Tours · Polka Dot Bike">
+    <meta property="og:description" content="All 87 categorised climbs of the 2026 Tour de France, Giro d'Italia and Vuelta a España — gradient, length, summit altitude and the gearing you'd need for each.">
+    <meta property="og:url" content="https://polkadotbike.com/climbs/">
+    <meta property="og:image" content="https://polkadotbike.com/og-card.png">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Every Climb of the 2026 Grand Tours · Polka Dot Bike">
+    <meta name="twitter:description" content="All 87 categorised climbs of the 2026 Tour de France, Giro d'Italia and Vuelta a España — gradient, length, summit altitude and the gearing you'd need for each.">
+    <meta name="twitter:image" content="https://polkadotbike.com/og-card.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=IBM+Plex+Sans:wght@600;700&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
+<style>
+        :root {
+            --accent:       #3b82f6;
+            --accent-light: #93c5fd;
+            --glass:   rgba(4, 9, 26, 0.92);
+            --glass2:  rgba(4, 9, 26, 0.95);
+            --border:  rgba(255,255,255,0.08);
+            --text:    #e8edf5;
+            --muted:   #64748b;
+            --sec:     #94a3b8;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+
+        body {
+            font-family: 'Inter', system-ui, sans-serif;
+            min-height: 100vh;
+            color: var(--text);
+            overflow-x: hidden;
+            background: #fff;
+        }
+
+        /* ═══════ MOUNTAIN BACKDROP ═══════ */
+        .bg-scene { position: fixed; inset: 0; z-index: 0; pointer-events: none; overflow: hidden; }
+        .bg-sky { position: absolute; inset: 0; background: #fff; }
+        .bg-mountains {
+            position: absolute; inset: 0;
+            background-image:
+                radial-gradient(circle, rgba(239,68,68,0.22) 28%, transparent 28%),
+                radial-gradient(circle, rgba(239,68,68,0.22) 28%, transparent 28%);
+            background-size: 44px 44px;
+            background-position: 0 0, 22px 22px;
+        }
+
+        /* ═══════ HEADER ═══════ */
+        header {
+            position: sticky; top: 0; z-index: 100;
+            background: rgba(4,9,26,0.85);
+            backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px);
+            border-bottom: 1px solid var(--border);
+            padding: 0 24px; height: 54px;
+            display: flex; align-items: center; justify-content: space-between;
+        }
+        .logo {
+            font-size: 19px; font-weight: 900; letter-spacing: -0.5px;
+            color: #fff; text-decoration: none;
+            display: inline-flex; align-items: center; gap: 3px;
+        }
+        .logo span { color: var(--accent); }
+        .logo-dot-svg { width: 32px; height: 32px; flex-shrink: 0; }
+        nav { display: flex; gap: 2px; align-items: center; }
+        nav a {
+            color: var(--sec); text-decoration: none;
+            font-size: 13px; font-weight: 500;
+            padding: 6px 13px; border-radius: 6px;
+            transition: all 0.15s; text-align: center; line-height: 1.2;
+        }
+        nav a:hover  { color: #fff; background: rgba(255,255,255,0.06); }
+        nav a.active { color: var(--accent); background: rgba(59,130,246,0.12); }
+        @media (max-width: 768px) { header { padding: 0 12px; } nav a { font-size: 11px; padding: 4px 7px; } }
+
+        /* ═══════ HERO ═══════ */
+        .hero { position: relative; z-index: 1; text-align: center; padding: 40px 20px 22px; }
+        .hero h1 {
+            font-size: clamp(28px, 5vw, 46px); font-weight: 900;
+            letter-spacing: -1.5px; line-height: 1.1;
+            background: linear-gradient(135deg, #0f172a 0%, #1e3a5f 100%);
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+            filter: drop-shadow(0 1px 4px rgba(255,255,255,0.8));
+        }
+        .hero p {
+            margin-top: 10px; font-size: 15px; color: rgba(15,23,42,0.72);
+            max-width: 540px; margin-left: auto; margin-right: auto;
+        }
+
+        /* ═══════ LAYOUT ═══════ */
+        .container { position: relative; z-index: 1; max-width: 880px; margin: 0 auto; padding: 0 20px 60px; }
+
+        .glass {
+            background: var(--glass);
+            backdrop-filter: blur(24px); -webkit-backdrop-filter: blur(24px);
+            border: 1px solid var(--border); border-radius: 16px;
+        }
+
+        /* intro card */
+        .intro { padding: 22px 24px; margin-bottom: 18px; }
+        .intro p { font-size: 15px; line-height: 1.62; color: var(--text); }
+        .intro p + p { margin-top: 12px; }
+
+        /* jump bar */
+        .jump { padding: 16px 18px; margin-bottom: 24px; }
+        .jump h2 { font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; color: var(--muted); margin-bottom: 11px; }
+        .jump-links { display: flex; flex-wrap: wrap; gap: 7px; }
+        .jump-links a {
+            font-size: 12.5px; font-weight: 600; color: var(--accent-light);
+            text-decoration: none; padding: 5px 11px; border-radius: 999px;
+            background: rgba(59,130,246,0.10); border: 1px solid rgba(59,130,246,0.22);
+            transition: all 0.15s;
+        }
+        .jump-links a:hover { background: rgba(59,130,246,0.22); color: #fff; }
+
+        /* term groups */
+        .group-title {
+            position: relative; z-index: 1;
+            font-size: 13px; font-weight: 800; text-transform: uppercase; letter-spacing: 1.5px;
+            color: var(--accent); margin: 30px 4px 12px;
+            display: flex; align-items: center; gap: 10px;
+        }
+        .group-title::after { content: ""; flex: 1; height: 2px; background: var(--accent); }
+
+        .term { padding: 18px 22px; margin-bottom: 12px; scroll-margin-top: 70px; }
+        .term h3 { font-size: 18px; font-weight: 800; color: #fff; letter-spacing: -0.3px; margin-bottom: 8px; }
+        .term h3 .alt { font-size: 13px; font-weight: 500; color: var(--muted); margin-left: 6px; }
+        .term p { font-size: 14.5px; line-height: 1.6; color: var(--text); }
+        .term p + p { margin-top: 9px; }
+        .term .take { color: var(--sec); font-style: italic; }
+        .where {
+            margin-top: 11px; font-size: 12.5px; color: var(--muted);
+            border-top: 1px solid var(--border); padding-top: 10px;
+        }
+        .where strong { color: var(--sec); font-weight: 600; }
+        .where a { color: var(--accent-light); text-decoration: none; font-weight: 600; }
+        .where a:hover { color: #fff; text-decoration: underline; }
+
+        /* author note */
+        .author {
+            padding: 20px 24px; margin-top: 26px;
+            border-left: 3px solid var(--accent);
+        }
+        .author p { font-size: 13.5px; line-height: 1.6; color: var(--sec); font-style: italic; }
+        .author p + p { margin-top: 9px; }
+        .author strong { color: var(--text); font-style: normal; font-weight: 700; }
+
+        /* ═══════ FOOTER ═══════ */
+        footer { position: relative; z-index: 1; border-top: 1px solid var(--border); padding: 24px 20px; text-align: center; }
+        footer p { font-size: 12px; color: var(--muted); }
+        footer p + p { margin-top: 4px; }
+        footer a { color: var(--muted); text-decoration: none; }
+        footer a:hover { color: var(--sec); }
+    </style>
+<style>
+.cl-wrap { position:relative; z-index:1; max-width:900px; margin:0 auto; padding:0 20px 60px; }
+    .cl-head { margin-bottom:18px; }
+    .cl-head h1 { font-size:clamp(28px,5vw,44px); font-weight:900; letter-spacing:-1.2px; line-height:1.08; color:#0f172a; }
+    .cl-sub { margin-top:8px; font-size:14px; color:rgba(15,23,42,0.72); font-weight:600; }
+    .cl-card { background:var(--glass); border:1px solid rgba(255,255,255,0.12); border-radius:16px; padding:18px 20px; margin-bottom:16px; }
+    .cl-card h2 { font-size:1.05rem; margin:0 0 10px; color:#fff; }
+    .cl-stats { display:grid; grid-template-columns:repeat(auto-fit,minmax(96px,1fr)); gap:14px; }
+    .cl-stat .v { font-family:'IBM Plex Sans',Inter,system-ui,sans-serif; font-size:23px; font-weight:700; color:#fff; line-height:1; }
+    .cl-stat .l { font-size:9.5px; font-weight:700; text-transform:uppercase; letter-spacing:0.08em; color:var(--muted); margin-top:5px; }
+    .cl-note { font-size:0.92rem; line-height:1.6; color:var(--sec); margin-top:10px; }
+    .cl-note + .cl-note { margin-top:8px; }
+    table.cl-km { width:100%; border-collapse:collapse; font-size:0.86rem; margin-top:4px; }
+    table.cl-km th, table.cl-km td { padding:5px 8px; text-align:left; border-bottom:1px solid rgba(255,255,255,0.08); }
+    table.cl-km th { color:var(--muted); font-size:9.5px; text-transform:uppercase; letter-spacing:0.08em; font-weight:700; }
+    table.cl-km td { color:var(--sec); }
+    table.cl-km td.g { font-weight:700; }
+    .cl-asc { border-top:1px solid rgba(255,255,255,0.08); padding-top:10px; margin-top:10px; }
+    .cl-asc:first-of-type { border-top:none; padding-top:0; margin-top:0; }
+    .cl-asc-h { font-size:0.95rem; font-weight:700; color:#fff; }
+    .cl-asc-h a { color:#3b8ef0; text-decoration:none; }
+    .cl-asc-h a:hover { text-decoration:underline; }
+    .cl-asc-m { font-size:0.86rem; color:var(--muted); margin-top:3px; }
+    .cl-cta { display:inline-flex; align-items:center; gap:6px; padding:9px 16px; background:#1a72e0; border-radius:9px; color:#fff; font-size:13px; font-weight:700; text-decoration:none; margin-top:12px; }
+    .cl-cta:hover { background:#3b8ef0; color:#fff; }
+    .cl-links { font-size:0.9rem; line-height:1.9; }
+    .cl-links a { color:#3b8ef0; text-decoration:none; }
+    .cl-links a:hover { text-decoration:underline; }
+    .cl-assume { font-size:0.8rem; color:var(--muted); margin-top:10px; line-height:1.5; }
+    .cc-cat { font-size:9px; font-weight:800; text-transform:uppercase; letter-spacing:0.07em; padding:3px 8px; border-radius:5px; white-space:nowrap; border:none; display:inline-block; vertical-align:middle; }
+    .cat-hc { background:#ee1c28; color:#fff; } .cat-esp { background:#ee1c28; color:#fff; }
+    .cat-cat1 { background:#ffcd00; color:#000; } .cat-cat2 { background:#12b05f; color:#fff; }
+    .cat-cat3 { background:#1a72e0; color:#fff; } .cat-cat4 { background:#000; color:#fff; box-shadow:inset 0 0 0 1px rgba(255,255,255,0.25); }
+    .cat-tbc { background:#475569; color:#fff; }
+    .cc-profile { margin:8px 0 4px; }
+    .cc-profile svg { display:block; }
+    .profile-meta { display:flex; justify-content:space-between; margin-top:3px; font-size:9.5px; color:var(--muted); }
+.ci-wrap { position:relative; z-index:1; max-width:1000px; margin:0 auto; padding:0 20px 60px; }
+    .ci-intro { color:var(--muted); font-size:0.95rem; line-height:1.55; margin:0 0 16px; max-width:70ch; }
+    .ci-tools { display:flex; flex-wrap:wrap; gap:10px; align-items:center; margin-bottom:14px; }
+    #ci-search { flex:1; min-width:240px; background:rgba(255,255,255,0.05); border:1px solid rgba(255,255,255,0.14);
+                 border-radius:10px; color:var(--text); padding:11px 14px; font-size:14px; font-family:inherit; }
+    #ci-search:focus { outline:none; border-color:#1a72e0; }
+    #ci-search::placeholder { color:var(--muted); }
+    .ci-chip { padding:8px 14px; border-radius:9px; background:rgba(255,255,255,0.05);
+               border:1px solid rgba(255,255,255,0.12); color:var(--sec); font-size:12.5px; font-weight:600;
+               font-family:inherit; cursor:pointer; }
+    .ci-chip.active { background:#1a72e0; border-color:#1a72e0; color:#fff; }
+    .ci-count { font-size:12px; color:var(--muted); margin-bottom:10px; }
+    .ci-list { list-style:none; margin:0; padding:0; display:grid; gap:8px; }
+    .ci-list a { display:flex; align-items:center; gap:11px; flex-wrap:wrap; padding:12px 15px; border-radius:12px;
+                 background:var(--glass); border:1px solid rgba(255,255,255,0.12); text-decoration:none; }
+    .ci-list a:hover { border-color:rgba(255,255,255,0.3); }
+    .ci-name { font-size:1rem; font-weight:700; color:#fff; }
+    .ci-meta { font-size:0.84rem; color:var(--muted); margin-left:auto; text-align:right; }
+    .ci-none { padding:22px; text-align:center; color:var(--muted); font-size:14px; }
+    @media (max-width:560px) { .ci-meta { margin-left:0; width:100%; text-align:left; } }
+</style>
+<style id="polka-hero-dots">
+  /* Bright-white bg; red diamond polka-dots band at top of hero; title(left)+subtitle(right) below on white. */
+  .bg-mountains { display: none !important; }
+  .bg-sky { background: #fff !important; }
+  header { background: #000 !important; }
+  .hero {
+    position: relative; z-index: 1; box-sizing: border-box;
+    padding: 164px 24px 8px; margin-bottom: 34px;
+    background-image:
+      radial-gradient(circle, var(--polka-dot-color, #ee1c28) 25px, transparent 26.5px),
+      radial-gradient(circle, var(--polka-dot-color, #ee1c28) 25px, transparent 26.5px);
+    background-size: 124px 124px; background-position: 0 0, 62px 62px; background-repeat: repeat;
+    display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: 6px 24px; text-align: left;
+  }
+  .hero::after { content: ""; position: absolute; left: 0; right: 0; top: 154px; bottom: 0; background: #fff; z-index: -1; }
+  .hero > h1 { margin: 0; color: #000 !important; -webkit-text-fill-color: #000 !important; background: none !important; filter: none !important; }
+  .hero > p  { margin: 0; max-width: 340px; text-align: left; color: #000 !important; font-weight: 700 !important; }
+
+  /* ===== UCI World-Championship bold palette (dots stay red) ===== */
+  :root {
+    --glass: #000; --glass2: #000;
+    --accent: #1a72e0; --accent-light: #7fb3f0;
+    --green: #12b05f; --amber: #ffcd00; --red: #ee1c28;
+  }
+  .glass, .input-panel, .stat-card, .chart-card, .achieve-card, .rail-card, .buy-card { border-color: rgba(255,255,255,0.14); }
+  .logo span { color: #fff !important; }
+  /* groupset / brand tabs: text + lower line only (no box tint). Bold hues. */
+  .brand-tab.active[data-brand="shimano"]    { color:#2b8bff !important; background:transparent !important; border-bottom-color:#1a72e0 !important; }
+  .brand-tab.active[data-brand="sram"]       { color:#ff1f2b !important; background:transparent !important; border-bottom-color:#ee1c28 !important; }
+  .brand-tab.active[data-brand="campagnolo"] { color:#ffcf1a !important; background:transparent !important; border-bottom-color:#ffcd00 !important; }
+  .brand-tab.active[data-brand="custom"]     { color:#17c86c !important; background:transparent !important; border-bottom-color:#12b05f !important; }
+  .cust-mode-btn.active { background:#12b05f; }
+  /* derailleur page: segmented filter buttons — no fill, bold groupset colours + lower line */
+  .filter-btn.active { background:transparent !important; color:#fff !important; border-bottom:2px solid rgba(255,255,255,0.85); }
+  .filter-btn.active[data-fbrand="shimano"]    { color:#2b8bff !important; border-bottom-color:#1a72e0; }
+  .filter-btn.active[data-fbrand="sram"]       { color:#ff1f2b !important; border-bottom-color:#ee1c28; }
+  .filter-btn.active[data-fbrand="campagnolo"] { color:#ffcf1a !important; border-bottom-color:#ffcd00; }
+  /* alert / status colours (bold, not pale) */
+  .stat-green { color:#17c86c !important; }
+  .stat-red   { color:#ff1f2b !important; }
+  .verdict-card.v-yes  { border-color:rgba(18,176,95,0.5) !important; }
+  .verdict-card.v-warn { border-color:rgba(255,205,0,0.55) !important; }
+  .verdict-card.v-no   { border-color:rgba(238,28,40,0.5) !important; }
+  .verdict-card.v-yes  .verdict-main { color:#17c86c; }
+  .verdict-card.v-warn .verdict-main { color:#ffcf1a; }
+  .verdict-card.v-no   .verdict-main { color:#ff1f2b; }
+  .dr-group.ok   .dr-group-label, .dr-group.ok   .dr-status { color:#17c86c !important; }
+  .dr-group.warn .dr-group-label, .dr-group.warn .dr-status { color:#ffcf1a !important; }
+  .dr-group.no   .dr-group-label, .dr-group.no   .dr-status { color:#ff1f2b !important; }
+  /* bottom polka-dot band: white gap after content, then 3 dot rows down to the page bottom */
+  body::after {
+    content: ""; display: block; position: relative; z-index: 1; width: 100%; height: 186px; margin-top: 4px;
+    background-image:
+      radial-gradient(circle, var(--polka-dot-color, #ee1c28) 25px, transparent 26.5px),
+      radial-gradient(circle, var(--polka-dot-color, #ee1c28) 25px, transparent 26.5px);
+    background-size: 124px 124px; background-position: 0px -31px, 62px 31px; background-repeat: repeat;
+  }
+</style>
+<!-- VUELTA-DOT-SWITCH -->
+<script>
+(function(){
+  // La Vuelta a España 2026 runs 22 Aug - 13 Sep. During that window, swap the
+  // site's decorative polka-dot pattern from red to the Vuelta mountains-jersey
+  // blue on every page, then automatically revert to red once the race ends.
+  var now = new Date();
+  var start = new Date('2026-08-22T00:00:00');
+  var end   = new Date('2026-09-13T23:59:59');
+  if (now >= start && now <= end) {
+    document.documentElement.style.setProperty('--polka-dot-color', '#1a72e0');
+  }
+})();
+</script>
+<style id="pdb-inline-brand">
+  /* Inline brand mark: "Polka(DOT)Bike" with DOT knocked into a red circle, as per the header logo */
+  .pdb-brand{font-weight:800;white-space:nowrap;}
+  .pdb-dot{display:inline-block;width:1.35em;height:1.35em;vertical-align:-0.3em;margin:0 0.12em;overflow:hidden;text-indent:-9999px;white-space:nowrap;background:url("data:image/svg+xml;utf8,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 32 32%22%3E%3Ccircle cx=%2216%22 cy=%2216%22 r=%2216%22 fill=%22%23ef4444%22/%3E%3Ctext x=%2216.75%22 y=%2220%22 text-anchor=%22middle%22 font-family=%22Inter,system-ui,sans-serif%22 font-size=%2210.5%22 font-weight=%22900%22 letter-spacing=%221.5%22 fill=%22%23000%22%3EDOT%3C/text%3E%3C/svg%3E") no-repeat center/contain;}
+</style>
+<style id="polka-mobile-nav">
+  /* Mobile: nav scrolls horizontally inside the header bar instead of stretching the page */
+  @media (max-width: 768px) {
+    html, body { overflow-x: hidden; }
+    header { gap: 8px; }
+    .logo { flex-shrink: 0; }
+    nav {
+      min-width: 0;
+      overflow-x: auto; -webkit-overflow-scrolling: touch;
+      flex-wrap: nowrap; max-width: 100%;
+      scrollbar-width: none; -ms-overflow-style: none;
+    }
+    nav::-webkit-scrollbar { display: none; }
+    nav a { white-space: nowrap; flex-shrink: 0; }
+    .hero-bikes { font-size: 16px !important; margin-top: 6px !important; }
+
+    /* Smaller polka dots on mobile: same diamond pattern at ~60% scale, more dots across */
+    .hero {
+      padding-top: 85px;
+      background-image:
+        radial-gradient(circle, var(--polka-dot-color, #ee1c28) 12px, transparent 13.5px),
+        radial-gradient(circle, var(--polka-dot-color, #ee1c28) 12px, transparent 13.5px);
+      background-size: 60px 60px;
+      background-position: 0 0, 30px 30px;
+    }
+    .hero::after { top: 75px; }
+    body::after {
+      height: 90px;
+      background-image:
+        radial-gradient(circle, var(--polka-dot-color, #ee1c28) 12px, transparent 13.5px),
+        radial-gradient(circle, var(--polka-dot-color, #ee1c28) 12px, transparent 13.5px);
+      background-size: 60px 60px;
+      background-position: 0 -15px, 30px 15px;
+    }
+  }
+</style>
+<style id="dcy-inline-brand">
+  /* Reciprocal DCY brand mark: small orange square + bold wordmark, matching DCY's own header logo */
+  .dcy-brand{font-weight:800;letter-spacing:-0.01em;white-space:nowrap;}
+  .dcy-square{display:inline-block;width:0.62em;height:0.62em;background:#c8893a;border-radius:2px;margin:0 0.25em 0 0;vertical-align:0.02em;}
+</style>
+<!-- GA-CONSENT-LOADER START -->
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  window.pdbLoadGA = function(){
+    if (window.pdbGALoaded) return;
+    window.pdbGALoaded = true;
+    var s = document.createElement('script');
+    s.async = true;
+    s.src = 'https://www.googletagmanager.com/gtag/js?id=G-24JBH53W09';
+    document.head.appendChild(s);
+    gtag('js', new Date());
+    gtag('config', 'G-24JBH53W09');
+  };
+</script>
+<!-- GA-CONSENT-LOADER END -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "CollectionPage",
+      "@id": "https://polkadotbike.com/climbs/#page",
+      "url": "https://polkadotbike.com/climbs/",
+      "name": "Every Climb of the 2026 Grand Tours",
+      "description": "All 87 categorised climbs of the 2026 Tour de France, Giro d'Italia and Vuelta a España — gradient, length, summit altitude and the gearing you'd need for each.",
+      "isPartOf": {
+        "@id": "https://polkadotbike.com/#website"
+      },
+      "author": {
+        "@id": "https://polkadotbike.com/about.html#robin"
+      },
+      "dateModified": "2026-08-07",
+      "mainEntity": {
+        "@id": "https://polkadotbike.com/climbs/#list"
+      },
+      "breadcrumb": {
+        "@id": "https://polkadotbike.com/climbs/#breadcrumb"
+      }
+    },
+    {
+      "@type": "ItemList",
+      "@id": "https://polkadotbike.com/climbs/#list",
+      "name": "Climbs of the 2026 Grand Tours",
+      "numberOfItems": 87,
+      "itemListOrder": "https://schema.org/ItemListOrderAscending",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Alpe d'Huez",
+          "url": "https://polkadotbike.com/climbs/alpe-dhuez.html"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Alto de Aitana",
+          "url": "https://polkadotbike.com/climbs/alto-de-aitana.html"
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": "Alto de Velefique",
+          "url": "https://polkadotbike.com/climbs/alto-de-velefique.html"
+        },
+        {
+          "@type": "ListItem",
+          "position": 4,
+          "name": "Alto del Desierto de las Palmas",
+          "url": "https://polkadotbike.com/climbs/alto-del-desierto-de-las-palmas.html"
+        },
+        {
+          "@type": "ListItem",
+          "position": 5,
+          "name": "Alto del Legionario",
+          "url": "https://polkadotbike.com/climbs/alto-del-legionario.html"
+        },
+        {
+          "@type": "ListItem",
+          "position": 6,
+          "name": "Aramón Valdelinares",
+          "url": "https://polkadotbike.com/climbs/aramon-valdelinares.html"
+        },
+        {
+          "@type": "ListItem",
+          "position": 7,
+          "name": "Ballon d'Alsace",
+          "url": "https://polkadotbike.com/climbs/ballon-dalsace.html"
+        },
+        {
+          "@type": "ListItem",
+          "position": 8,
+          "name": "Blockhaus",
+          "url": "https://polkadotbike.com/climbs/blockhaus.html"
+        },
+        {
+          "@type": "ListItem",
+          "position": 9,
+          "name": "Borovets Pass",
+          "url": "https://polkadotbike.com/climbs/borovets-pass.html"
+        },
+        {
+          "@type": "ListItem",
+          "position": 10,
+          "name": "Calar Alto",
+          "url": "https://polkadotbike.com/climbs/calar-alto.html"
+        },
+        {
+          "@type": "ListItem",
+          "position": 11,
+          "name": "Carì",
+          "url": "https://polkadotbike.com/climbs/cari.html"
+        },
+        {
+          "@type": "ListItem",
+          "position": 12,
+          "name": "Clauzetto",
+          "url": "https://polkadotbike.com/climbs/clauzetto.html"
+        },
+        {
+          "@type": "ListItem",
+          "position": 13,
+          "name": "Coi",
+          "url": "https://polkadotbike.com/climbs/coi.html"
+        },
+        {
+          "@type": "ListItem",
+          "position": 14,
+          "name": "Col Bayard",
+          "url": "https://polkadotbike.com/climbs/col-bayard.html"
+        },
+        {
+          "@type": "ListItem",
+          "position": 15,
+          "name": "Col d'Aspin",
+          "url": "https://polkadotbike.com/climbs/col-daspin.html"
+        },
+        {
+          "@type": "ListItem",
+          "position": 16,
+          "name": "Col d'Ornon",
+          "url": "https://polkadotbike.com/climbs/col-dornon.html"
+        },
+        {
+          "@type": "ListItem",
+          "position": 17,
+          "name": "Col de Coudons",
+          "url": "https://polkadotbike.com/climbs/col-de-coudons.html"
+        },
+        {
+          "@type": "ListItem",
+          "position": 18,
+          "name": "Col de la Croix de Fer",
+          "url": "https://polkadotbike.com/climbs/col-de-la-croix-de-fer.html"
+        },
+        {
+          "@type": "ListItem",
+          "position": 19,
+          "name": "Col de la Griffoul",
+          "url": "https://polkadotbike.com/climbs/col-de-la-griffoul.html"
+        },
+        {
+          "@type": "ListItem",
+          "position": 20,
+          "name": "Col de Mont-Louis",
+          "url": "https://polkadotbike.com/climbs/col-de-mont-louis.html"
+        },
+        {
+          "@type": "ListItem",
+          "position": 21,
+          "name": "Col de Montségur",
+          "url": "https://polkadotbike.com/climbs/col-de-montsegur.html"
+        },
+        {
+          "@type": "ListItem",
+          "position": 22,
+          "name": "Col de Pertus",
+          "url": "https://polkadotbike.com/climbs/col-de-pertus.html"
+        },
+        {
+          "@type": "ListItem",
+          "position": 23,
+          "name": "Col de Sarenne",
+          "url": "https://polkadotbike.com/climbs/col-de-sarenne.html"
+        },
+        {
+          "@type": "ListItem",
+          "position": 24,
+          "name": "Col de Toses (Collada de Toses)",
+          "url": "https://polkadotbike.com/climbs/col-de-toses-collada-de-toses.html"
+        },
+        {
+          "@type": "ListItem",
+          "position": 25,
+          "name": "Col du Galibier",
+          "url": "https://polkadotbike.com/climbs/col-du-galibier.html"
+        },
+        {
+          "@type": "ListItem",
+          "position": 26,
+          "name": "Col du Haag",
+          "url": "https://polkadotbike.com/climbs/col-du-haag.html"
+        },
+        {
+          "@type": "ListItem",
+          "position": 27,
+          "name": "Col du Noyer",
+          "url": "https://polkadotbike.com/climbs/col-du-noyer.html"
+        },
+        {
+          "@type": "ListItem",
+          "position": 28,
+          "name": "Col du Page",
+          "url": "https://polkadotbike.com/climbs/col-du-page.html"
+        },
+        {
+          "@type": "ListItem",
+          "position": 29,
+          "name": "Col du Saint-Barthélemy",
+          "url": "https://polkadotbike.com/climbs/col-du-saint-barthelemy.html"
+        },
+        {
+          "@type": "ListItem",
+          "position": 30,
+          "name": "Col du Télégraphe",
+          "url": "https://polkadotbike.com/climbs/col-du-telegraphe.html"
+        },
+        {
+          "@type": "ListItem",
+          "position": 31,
+          "name": "Col du Tourmalet",
+          "url": "https://polkadotbike.com/climbs/col-du-tourmalet.html"
+        },
+        {
+          "@type": "ListItem",
+          "position": 32,
+          "name": "Coll d'Ordino",
+          "url": "https://polkadotbike.com/climbs/coll-dordino.html"
+        },
+        {
+          "@type": "ListItem",
+          "position": 33,
+          "name": "Collada de Beixalís",
+          "url": "https://polkadotbike.com/climbs/collada-de-beixalis.html"
+        },
+        {
+          "@type": "ListItem",
+          "position": 34,
+          "name": "Collado del Alguacil",
+          "url": "https://polkadotbike.com/climbs/collado-del-alguacil.html"
+        },
+        {
+          "@type": "ListItem",
+          "position": 35,
+          "name": "Collado García",
+          "url": "https://polkadotbike.com/climbs/collado-garcia.html"
+        },
+        {
+          "@type": "ListItem",
+          "position": 36,
+          "name": "Colle di Guaitarola",
+          "url": "https://polkadotbike.com/climbs/colle-di-guaitarola.html"
+        },
+        {
+          "@type": "ListItem",
+          "position": 37,
+          "name": "Corno alle Scale",
+          "url": "https://polkadotbike.com/climbs/corno-alle-scale.html"
+        },
+        {
+          "@type": "ListItem",
+          "position": 38,
+          "name": "Côte d'Engins",
+          "url": "https://polkadotbike.com/climbs/cote-dengins.html"
+        },
+        {
+          "@type": "ListItem",
+          "position": 39,
+          "name": "Côte de Bègues",
+          "url": "https://polkadotbike.com/climbs/cote-de-begues.html"
+        },
+        {
+          "@type": "ListItem",
+          "position": 40,
+          "name": "Côte de la Butte Montmartre",
+          "url": "https://polkadotbike.com/climbs/cote-de-la-butte-montmartre.html"
+        },
+        {
+          "@type": "ListItem",
+          "position": 41,
+          "name": "Côte de Larringes",
+          "url": "https://polkadotbike.com/climbs/cote-de-larringes.html"
+        },
+        {
+          "@type": "ListItem",
+          "position": 42,
+          "name": "Côte de Monteynard",
+          "url": "https://polkadotbike.com/climbs/cote-de-monteynard.html"
+        },
+        {
+          "@type": "ListItem",
+          "position": 43,
+          "name": "Côte du Château de Montjuïc",
+          "url": "https://polkadotbike.com/climbs/cote-du-chateau-de-montjuic.html"
+        },
+        {
+          "@type": "ListItem",
+          "position": 44,
+          "name": "Côte du Stade Olympique de Montjuïc",
+          "url": "https://polkadotbike.com/climbs/cote-du-stade-olympique-de-montjuic.html"
+        },
+        {
+          "@type": "ListItem",
+          "position": 45,
+          "name": "Cozzo Tunno",
+          "url": "https://polkadotbike.com/climbs/cozzo-tunno.html"
+        },
+        {
+          "@type": "ListItem",
+          "position": 46,
+          "name": "Fermo",
+          "url": "https://polkadotbike.com/climbs/fermo.html"
+        },
+        {
+          "@type": "ListItem",
+          "position": 47,
+          "name": "Font Romeu",
+          "url": "https://polkadotbike.com/climbs/font-romeu.html"
+        },
+        {
+          "@type": "ListItem",
+          "position": 48,
+          "name": "Forcella Staulanza",
+          "url": "https://polkadotbike.com/climbs/forcella-staulanza.html"
+        },
+        {
+          "@type": "ListItem",
+          "position": 49,
+          "name": "Gavarnie-Gèdre",
+          "url": "https://polkadotbike.com/climbs/gavarnie-gedre.html"
+        },
+        {
+          "@type": "ListItem",
+          "position": 50,
+          "name": "Grand Ballon",
+          "url": "https://polkadotbike.com/climbs/grand-ballon.html"
+        },
+        {
+          "@type": "ListItem",
+          "position": 51,
+          "name": "Le Salève – Col de la Croisette",
+          "url": "https://polkadotbike.com/climbs/le-saleve-col-de-la-croisette.html"
+        },
+        {
+          "@type": "ListItem",
+          "position": 52,
+          "name": "Leontica",
+          "url": "https://polkadotbike.com/climbs/leontica.html"
+        },
+        {
+          "@type": "ListItem",
+          "position": 53,
+          "name": "Les Angles",
+          "url": "https://polkadotbike.com/climbs/les-angles.html"
+        },
+        {
+          "@type": "ListItem",
+          "position": 54,
+          "name": "Lin Noir",
+          "url": "https://polkadotbike.com/climbs/lin-noir.html"
+        },
+        {
+          "@type": "ListItem",
+          "position": 55,
+          "name": "Montagna Grande di Viggiano",
+          "url": "https://polkadotbike.com/climbs/montagna-grande-di-viggiano.html"
+        },
+        {
+          "@type": "ListItem",
+          "position": 56,
+          "name": "Muro di Ca' del Poggio",
+          "url": "https://polkadotbike.com/climbs/muro-di-ca-del-poggio.html"
+        },
+        {
+          "@type": "ListItem",
+          "position": 57,
+          "name": "Orcières-Merlette",
+          "url": "https://polkadotbike.com/climbs/orcieres-merlette.html"
+        },
+        {
+          "@type": "ListItem",
+          "position": 58,
+          "name": "Passo Duran",
+          "url": "https://polkadotbike.com/climbs/passo-duran.html"
+        },
+        {
+          "@type": "ListItem",
+          "position": 59,
+          "name": "Passo Falzarego",
+          "url": "https://polkadotbike.com/climbs/passo-falzarego.html"
+        },
+        {
+          "@type": "ListItem",
+          "position": 60,
+          "name": "Passo Giau",
+          "url": "https://polkadotbike.com/climbs/passo-giau.html"
+        },
+        {
+          "@type": "ListItem",
+          "position": 61,
+          "name": "Peñas Blancas",
+          "url": "https://polkadotbike.com/climbs/penas-blancas.html"
+        },
+        {
+          "@type": "ListItem",
+          "position": 62,
+          "name": "Piancavallo",
+          "url": "https://polkadotbike.com/climbs/piancavallo.html"
+        },
+        {
+          "@type": "ListItem",
+          "position": 63,
+          "name": "Piani di Pezzè",
+          "url": "https://polkadotbike.com/climbs/piani-di-pezze.html"
+        },
+        {
+          "@type": "ListItem",
+          "position": 64,
+          "name": "Pila",
+          "url": "https://polkadotbike.com/climbs/pila.html"
+        },
+        {
+          "@type": "ListItem",
+          "position": 65,
+          "name": "Plateau de Solaison Brison",
+          "url": "https://polkadotbike.com/climbs/plateau-de-solaison-brison.html"
+        },
+        {
+          "@type": "ListItem",
+          "position": 66,
+          "name": "Port d'Envalira",
+          "url": "https://polkadotbike.com/climbs/port-denvalira.html"
+        },
+        {
+          "@type": "ListItem",
+          "position": 67,
+          "name": "Puerto de Barx",
+          "url": "https://polkadotbike.com/climbs/puerto-de-barx.html"
+        },
+        {
+          "@type": "ListItem",
+          "position": 68,
+          "name": "Puerto de El Duque",
+          "url": "https://polkadotbike.com/climbs/puerto-de-el-duque.html"
+        },
+        {
+          "@type": "ListItem",
+          "position": 69,
+          "name": "Puerto de El Miserat",
+          "url": "https://polkadotbike.com/climbs/puerto-de-el-miserat.html"
+        },
+        {
+          "@type": "ListItem",
+          "position": 70,
+          "name": "Puerto de El Purche",
+          "url": "https://polkadotbike.com/climbs/puerto-de-el-purche.html"
+        },
+        {
+          "@type": "ListItem",
+          "position": 71,
+          "name": "Puerto de Granada",
+          "url": "https://polkadotbike.com/climbs/puerto-de-granada.html"
+        },
+        {
+          "@type": "ListItem",
+          "position": 72,
+          "name": "Puerto de la Serratella",
+          "url": "https://polkadotbike.com/climbs/puerto-de-la-serratella.html"
+        },
+        {
+          "@type": "ListItem",
+          "position": 73,
+          "name": "Puerto de Las Abejas",
+          "url": "https://polkadotbike.com/climbs/puerto-de-las-abejas.html"
+        },
+        {
+          "@type": "ListItem",
+          "position": 74,
+          "name": "Puerto de Locubín",
+          "url": "https://polkadotbike.com/climbs/puerto-de-locubin.html"
+        },
+        {
+          "@type": "ListItem",
+          "position": 75,
+          "name": "Puerto de Los Villares",
+          "url": "https://polkadotbike.com/climbs/puerto-de-los-villares.html"
+        },
+        {
+          "@type": "ListItem",
+          "position": 76,
+          "name": "Puerto de San Rafael",
+          "url": "https://polkadotbike.com/climbs/puerto-de-san-rafael.html"
+        },
+        {
+          "@type": "ListItem",
+          "position": 77,
+          "name": "Puerto de Tárbena",
+          "url": "https://polkadotbike.com/climbs/puerto-de-tarbena.html"
+        },
+        {
+          "@type": "ListItem",
+          "position": 78,
+          "name": "Puerto de Tudons",
+          "url": "https://polkadotbike.com/climbs/puerto-de-tudons.html"
+        },
+        {
+          "@type": "ListItem",
+          "position": 79,
+          "name": "Puerto del Viento",
+          "url": "https://polkadotbike.com/climbs/puerto-del-viento.html"
+        },
+        {
+          "@type": "ListItem",
+          "position": 80,
+          "name": "Puerto El Bartolo",
+          "url": "https://polkadotbike.com/climbs/puerto-el-bartolo.html"
+        },
+        {
+          "@type": "ListItem",
+          "position": 81,
+          "name": "Puerto El Remolcador",
+          "url": "https://polkadotbike.com/climbs/puerto-el-remolcador.html"
+        },
+        {
+          "@type": "ListItem",
+          "position": 82,
+          "name": "Puy Mary – Pas de Peyrol",
+          "url": "https://polkadotbike.com/climbs/puy-mary-pas-de-peyrol.html"
+        },
+        {
+          "@type": "ListItem",
+          "position": 83,
+          "name": "Roccaraso",
+          "url": "https://polkadotbike.com/climbs/roccaraso.html"
+        },
+        {
+          "@type": "ListItem",
+          "position": 84,
+          "name": "Sierra de la Pandera",
+          "url": "https://polkadotbike.com/climbs/sierra-de-la-pandera.html"
+        },
+        {
+          "@type": "ListItem",
+          "position": 85,
+          "name": "Suc au May",
+          "url": "https://polkadotbike.com/climbs/suc-au-may.html"
+        },
+        {
+          "@type": "ListItem",
+          "position": 86,
+          "name": "Venta de la Cebada",
+          "url": "https://polkadotbike.com/climbs/venta-de-la-cebada.html"
+        },
+        {
+          "@type": "ListItem",
+          "position": 87,
+          "name": "Verrogne",
+          "url": "https://polkadotbike.com/climbs/verrogne.html"
+        }
+      ]
+    },
+    {
+      "@type": "BreadcrumbList",
+      "@id": "https://polkadotbike.com/climbs/#breadcrumb",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Home",
+          "item": "https://polkadotbike.com/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Climbs",
+          "item": "https://polkadotbike.com/climbs/"
+        }
+      ]
+    }
+  ]
+}
+</script>
+</head>
+<body>
+<style>
+  #pdb-consent{position:fixed;left:0;right:0;bottom:0;z-index:999;background:#000;color:#fff;
+    padding:16px 20px;display:flex;flex-wrap:wrap;align-items:center;justify-content:center;
+    gap:12px 20px;font-family:system-ui,sans-serif;box-shadow:0 -2px 12px rgba(0,0,0,.3)}
+  #pdb-consent[hidden]{display:none}
+  #pdb-consent p{margin:0;font-size:14px;line-height:1.5;max-width:560px;color:#e5e9ee}
+  #pdb-consent a{color:#7fb3f0;text-decoration:underline}
+  #pdb-consent .pdb-consent-btns{display:flex;gap:10px;flex-shrink:0}
+  #pdb-consent button{font:inherit;font-weight:600;font-size:14px;padding:9px 18px;border-radius:6px;
+    cursor:pointer;border:1px solid #fff}
+  #pdb-consent .pdb-accept{background:#1a72e0;color:#fff;border-color:#1a72e0}
+  #pdb-consent .pdb-reject{background:transparent;color:#fff}
+  @media (max-width:640px){#pdb-consent{justify-content:flex-start;text-align:left}}
+</style>
+<div id="pdb-consent" role="dialog" aria-label="Cookie consent" hidden>
+  <p>I use Google Analytics cookies to see how the site's used. See the <a href="/privacy.html">privacy policy</a> for details.</p>
+  <div class="pdb-consent-btns">
+    <button type="button" class="pdb-reject" id="pdb-consent-reject">Reject</button>
+    <button type="button" class="pdb-accept" id="pdb-consent-accept">Accept</button>
+  </div>
+</div>
+<script>
+(function(){
+  var KEY = 'pdb_consent';
+  function getChoice(){ try { return localStorage.getItem(KEY); } catch(e) { return null; } }
+  function setChoice(v){ try { localStorage.setItem(KEY, v); } catch(e) {} }
+  var choice = getChoice();
+  if (choice === 'accepted' && window.pdbLoadGA) window.pdbLoadGA();
+  if (choice) return;
+  var el = document.getElementById('pdb-consent');
+  if (!el) return;
+  el.hidden = false;
+  document.getElementById('pdb-consent-accept').addEventListener('click', function(){
+    setChoice('accepted');
+    if (window.pdbLoadGA) window.pdbLoadGA();
+    el.hidden = true;
+  });
+  document.getElementById('pdb-consent-reject').addEventListener('click', function(){
+    setChoice('rejected');
+    el.hidden = true;
+  });
+})();
+</script>
+<noscript><div style="position:relative;z-index:50;background:#ffcd00;color:#000;font-family:system-ui,sans-serif;font-size:14px;font-weight:600;text-align:center;padding:10px 16px">This site&#8217;s interactive calculators need JavaScript to run. The stage and climb listings on the <a href="/tdf.html" style="color:#000">Tour de France 2026</a>, <a href="/giro26.html" style="color:#000">Giro 2026</a> and <a href="/vuelta.html" style="color:#000">Vuelta 2026</a> pages are still readable without it.</div></noscript>
+<div class="bg-scene"><div class="bg-sky"></div><div class="bg-mountains"></div></div>
+<header>
+    <a class="logo" href="/index.html">Polka<svg class="logo-dot-svg" viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg"><defs><mask id="dotm"><rect width="32" height="32" fill="white"/><text x="16" y="21" text-anchor="middle" font-family="Inter,system-ui,sans-serif" font-size="11" font-weight="900" letter-spacing="1.5" fill="black">DOT</text></mask></defs><circle cx="16" cy="16" r="15" fill="#ef4444" mask="url(#dotm)"/></svg><span>Bike</span></a>
+    <nav>
+        <a href="/index.html">Gear<br>Calculator</a>
+        <a href="/climb.html">Climb<br>Planner</a>
+        <a href="/compare.html">Groupset<br>Comparator</a>
+        <a href="/derailleur.html">Derailleur<br>Capacity</a>
+        <a href="/wkg.html">W/KG<br>and FTP</a>
+        <a href="/giro26.html">Giro 2026</a>
+        <a href="/tdf.html">TDF 2026</a>
+        <a href="/vuelta.html">Vuelta 2026</a>
+        <a href="/climbs/">Climbs</a>
+        <a href="/about.html">About</a>
+        <a href="/guide.html">Guide</a>
+        <a href="/glossary.html">Glossary</a>
+        <a href="/contact.html">Contact</a>
+    </nav>
+</header>
+
+<div class="hero">
+    <h1>Every climb of the 2026 Grand Tours</h1>
+    <p class="cl-sub">Tour de France · Giro d'Italia · La Vuelta a España</p>
+</div>
+
+<div class="ci-wrap">
+    <p class="ci-intro">Every categorised climb of the three 2026 Grand Tours, with its length, average gradient and summit altitude. Open any climb for its gradient profile kilometre by kilometre, every stage it appears on, and the gearing you'd need to ride it yourself.</p>
+
+    <div class="ci-tools">
+        <input id="ci-search" type="search" autocomplete="off" placeholder="Search a climb — try Galibier, Tourmalet, Aitana…" aria-label="Search climbs">
+        <button class="ci-chip active" data-race="all">All</button>
+        <button class="ci-chip" data-race="tdf">Tour</button>
+        <button class="ci-chip" data-race="giro">Giro</button>
+        <button class="ci-chip" data-race="vuelta">Vuelta</button>
+    </div>
+
+    <div class="ci-count" id="ci-count">87 climbs</div>
+    <ul class="ci-list" id="ci-list">
+      <li data-h="alpe d'huez alps" data-race="tdf">
+        <a href="/climbs/alpe-dhuez.html">
+          <span class="cc-cat cat-hc">HC</span>
+          <span class="ci-name">Alpe d'Huez</span>
+          <span class="ci-meta">13.7km · 8.1% · 1,850m · Tour de France</span>
+        </a>
+      </li>
+      <li data-h="alto de aitana costa blanca" data-race="vuelta">
+        <a href="/climbs/alto-de-aitana.html">
+          <span class="cc-cat cat-esp">ESP</span>
+          <span class="ci-name">Alto de Aitana</span>
+          <span class="ci-meta">21.5km · 5.8% · 1,545m · La Vuelta</span>
+        </a>
+      </li>
+      <li data-h="alto de velefique almeria" data-race="vuelta">
+        <a href="/climbs/alto-de-velefique.html">
+          <span class="cc-cat cat-cat1">Cat1</span>
+          <span class="ci-name">Alto de Velefique</span>
+          <span class="ci-meta">20.1km · 5.7% · 1,789m · La Vuelta</span>
+        </a>
+      </li>
+      <li data-h="alto del desierto de las palmas castellon" data-race="vuelta">
+        <a href="/climbs/alto-del-desierto-de-las-palmas.html">
+          <span class="cc-cat cat-cat2">Cat2</span>
+          <span class="ci-name">Alto del Desierto de las Palmas</span>
+          <span class="ci-meta">9.5km · 4.3% · 418m · La Vuelta</span>
+        </a>
+      </li>
+      <li data-h="alto del legionario granada" data-race="vuelta">
+        <a href="/climbs/alto-del-legionario.html">
+          <span class="cc-cat cat-cat2">Cat2</span>
+          <span class="ci-name">Alto del Legionario</span>
+          <span class="ci-meta">22km · 2.6% · 1,347m · La Vuelta</span>
+        </a>
+      </li>
+      <li data-h="aramon valdelinares teruel" data-race="vuelta">
+        <a href="/climbs/aramon-valdelinares.html">
+          <span class="cc-cat cat-cat1">Cat1</span>
+          <span class="ci-name">Aramón Valdelinares</span>
+          <span class="ci-meta">9.08km · 4.6% · 1,961m · La Vuelta</span>
+        </a>
+      </li>
+      <li data-h="ballon d'alsace vosges" data-race="tdf">
+        <a href="/climbs/ballon-dalsace.html">
+          <span class="cc-cat cat-cat1">Cat1</span>
+          <span class="ci-name">Ballon d'Alsace</span>
+          <span class="ci-meta">8.9km · 6.9% · 1,173m · Tour de France</span>
+        </a>
+      </li>
+      <li data-h="blockhaus abruzzo" data-race="giro">
+        <a href="/climbs/blockhaus.html">
+          <span class="cc-cat cat-cat1">Cat1</span>
+          <span class="ci-name">Blockhaus</span>
+          <span class="ci-meta">13.6km · 8.4% · 1,665m · Giro d'Italia</span>
+        </a>
+      </li>
+      <li data-h="borovets pass bulgaria" data-race="giro">
+        <a href="/climbs/borovets-pass.html">
+          <span class="cc-cat cat-cat2">Cat2</span>
+          <span class="ci-name">Borovets Pass</span>
+          <span class="ci-meta">9.2km · 5.4% · 1,334m · Giro d'Italia</span>
+        </a>
+      </li>
+      <li data-h="calar alto almeria" data-race="vuelta">
+        <a href="/climbs/calar-alto.html">
+          <span class="cc-cat cat-esp">ESP</span>
+          <span class="ci-name">Calar Alto</span>
+          <span class="ci-meta">18.19km · 5.15% · 2,153m · La Vuelta</span>
+        </a>
+      </li>
+      <li data-h="cari switzerland (ticino)" data-race="giro">
+        <a href="/climbs/cari.html">
+          <span class="cc-cat cat-cat1">Cat1</span>
+          <span class="ci-name">Carì</span>
+          <span class="ci-meta">11.7km · 7.9% · 1,644m · Giro d'Italia</span>
+        </a>
+      </li>
+      <li data-h="clauzetto friuli" data-race="giro">
+        <a href="/climbs/clauzetto.html">
+          <span class="cc-cat cat-cat3">Cat3</span>
+          <span class="ci-name">Clauzetto</span>
+          <span class="ci-meta">6.9km · 5.7% · 558m · Giro d'Italia</span>
+        </a>
+      </li>
+      <li data-h="coi dolomites" data-race="giro">
+        <a href="/climbs/coi.html">
+          <span class="cc-cat cat-cat2">Cat2</span>
+          <span class="ci-name">Coi</span>
+          <span class="ci-meta">5.8km · 9.7% · 1,501m · Giro d'Italia</span>
+        </a>
+      </li>
+      <li data-h="col bayard alps" data-race="tdf">
+        <a href="/climbs/col-bayard.html">
+          <span class="cc-cat cat-cat2">Cat2</span>
+          <span class="ci-name">Col Bayard</span>
+          <span class="ci-meta">4.8km · 7.2% · 1,246m · Tour de France</span>
+        </a>
+      </li>
+      <li data-h="col d'aspin pyrenees" data-race="tdf">
+        <a href="/climbs/col-daspin.html">
+          <span class="cc-cat cat-cat1">Cat1</span>
+          <span class="ci-name">Col d'Aspin</span>
+          <span class="ci-meta">12km · 6.5% · 1,489m · Tour de France</span>
+        </a>
+      </li>
+      <li data-h="col d'ornon alps" data-race="tdf">
+        <a href="/climbs/col-dornon.html">
+          <span class="cc-cat cat-cat2">Cat2</span>
+          <span class="ci-name">Col d'Ornon</span>
+          <span class="ci-meta">5.4km · 6.4% · 1,371m · Tour de France</span>
+        </a>
+      </li>
+      <li data-h="col de coudons pyrenees" data-race="tdf">
+        <a href="/climbs/col-de-coudons.html">
+          <span class="cc-cat cat-cat2">Cat2</span>
+          <span class="ci-name">Col de Coudons</span>
+          <span class="ci-meta">10.8km · 5.5% · 883m · Tour de France</span>
+        </a>
+      </li>
+      <li data-h="col de la croix de fer alps" data-race="tdf">
+        <a href="/climbs/col-de-la-croix-de-fer.html">
+          <span class="cc-cat cat-hc">HC</span>
+          <span class="ci-name">Col de la Croix de Fer</span>
+          <span class="ci-meta">24km · 5.2% · 2,067m · Tour de France</span>
+        </a>
+      </li>
+      <li data-h="col de la griffoul massif central" data-race="tdf">
+        <a href="/climbs/col-de-la-griffoul.html">
+          <span class="cc-cat cat-cat2">Cat2</span>
+          <span class="ci-name">Col de la Griffoul</span>
+          <span class="ci-meta">5.9km · 6.7% · 1,336m · Tour de France</span>
+        </a>
+      </li>
+      <li data-h="col de mont-louis pyrenees orientales" data-race="vuelta">
+        <a href="/climbs/col-de-mont-louis.html">
+          <span class="cc-cat cat-cat1">Cat1</span>
+          <span class="ci-name">Col de Mont-Louis</span>
+          <span class="ci-meta">8.6km · 5.75% · 1,570m · La Vuelta</span>
+        </a>
+      </li>
+      <li data-h="col de montsegur pyrenees" data-race="tdf">
+        <a href="/climbs/col-de-montsegur.html">
+          <span class="cc-cat cat-cat2">Cat2</span>
+          <span class="ci-name">Col de Montségur</span>
+          <span class="ci-meta">6.9km · 6.6% · 1,059m · Tour de France</span>
+        </a>
+      </li>
+      <li data-h="col de pertus massif central" data-race="tdf">
+        <a href="/climbs/col-de-pertus.html">
+          <span class="cc-cat cat-cat1">Cat1</span>
+          <span class="ci-name">Col de Pertus</span>
+          <span class="ci-meta">4.4km · 8.5% · 1,309m · Tour de France</span>
+        </a>
+      </li>
+      <li data-h="col de sarenne alps" data-race="tdf">
+        <a href="/climbs/col-de-sarenne.html">
+          <span class="cc-cat cat-hc">HC</span>
+          <span class="ci-name">Col de Sarenne</span>
+          <span class="ci-meta">12.8km · 7.3% · 1,999m · Tour de France</span>
+        </a>
+      </li>
+      <li data-h="col de toses (collada de toses) pyrenees" data-race="tdf">
+        <a href="/climbs/col-de-toses-collada-de-toses.html">
+          <span class="cc-cat cat-cat1">Cat1</span>
+          <span class="ci-name">Col de Toses (Collada de Toses)</span>
+          <span class="ci-meta">9.3km · 6.5% · 1,778m · Tour de France</span>
+        </a>
+      </li>
+      <li data-h="col du galibier alps" data-race="tdf">
+        <a href="/climbs/col-du-galibier.html">
+          <span class="cc-cat cat-hc">HC</span>
+          <span class="ci-name">Col du Galibier</span>
+          <span class="ci-meta">17.7km · 6.9% · 2,642m · Tour de France</span>
+        </a>
+      </li>
+      <li data-h="col du haag vosges" data-race="tdf">
+        <a href="/climbs/col-du-haag.html">
+          <span class="cc-cat cat-cat1">Cat1</span>
+          <span class="ci-name">Col du Haag</span>
+          <span class="ci-meta">11.2km · 7.3% · 1,233m · Tour de France</span>
+        </a>
+      </li>
+      <li data-h="col du noyer alps" data-race="tdf">
+        <a href="/climbs/col-du-noyer.html">
+          <span class="cc-cat cat-cat1">Cat1</span>
+          <span class="ci-name">Col du Noyer</span>
+          <span class="ci-meta">7.2km · 8.5% · 1,664m · Tour de France</span>
+        </a>
+      </li>
+      <li data-h="col du page vosges" data-race="tdf">
+        <a href="/climbs/col-du-page.html">
+          <span class="cc-cat cat-cat2">Cat2</span>
+          <span class="ci-name">Col du Page</span>
+          <span class="ci-meta">9.8km · 4.7% · 959m · Tour de France</span>
+        </a>
+      </li>
+      <li data-h="col du saint-barthelemy aosta valley" data-race="giro">
+        <a href="/climbs/col-du-saint-barthelemy.html">
+          <span class="cc-cat cat-cat1">Cat1</span>
+          <span class="ci-name">Col du Saint-Barthélemy</span>
+          <span class="ci-meta">15.8km · 6.1% · 1,619m · Giro d'Italia</span>
+        </a>
+      </li>
+      <li data-h="col du telegraphe alps" data-race="tdf">
+        <a href="/climbs/col-du-telegraphe.html">
+          <span class="cc-cat cat-cat1">Cat1</span>
+          <span class="ci-name">Col du Télégraphe</span>
+          <span class="ci-meta">11.9km · 7.1% · 1,566m · Tour de France</span>
+        </a>
+      </li>
+      <li data-h="col du tourmalet pyrenees" data-race="tdf">
+        <a href="/climbs/col-du-tourmalet.html">
+          <span class="cc-cat cat-hc">HC</span>
+          <span class="ci-name">Col du Tourmalet</span>
+          <span class="ci-meta">17.1km · 7.3% · 2,115m · Tour de France</span>
+        </a>
+      </li>
+      <li data-h="coll d'ordino andorra" data-race="vuelta">
+        <a href="/climbs/coll-dordino.html">
+          <span class="cc-cat cat-cat1">Cat1</span>
+          <span class="ci-name">Coll d'Ordino</span>
+          <span class="ci-meta">9.8km · 7.1% · 1,989m · La Vuelta</span>
+        </a>
+      </li>
+      <li data-h="collada de beixalis andorra" data-race="vuelta">
+        <a href="/climbs/collada-de-beixalis.html">
+          <span class="cc-cat cat-cat1">Cat1</span>
+          <span class="ci-name">Collada de Beixalís</span>
+          <span class="ci-meta">6.7km · 8.3% · 1,803m · La Vuelta</span>
+        </a>
+      </li>
+      <li data-h="collado del alguacil sierra nevada" data-race="vuelta">
+        <a href="/climbs/collado-del-alguacil.html">
+          <span class="cc-cat cat-esp">ESP</span>
+          <span class="ci-name">Collado del Alguacil</span>
+          <span class="ci-meta">8.3km · 9.8% · 1,884m · La Vuelta</span>
+        </a>
+      </li>
+      <li data-h="collado garcia almeria" data-race="vuelta">
+        <a href="/climbs/collado-garcia.html">
+          <span class="cc-cat cat-cat2">Cat2</span>
+          <span class="ci-name">Collado García</span>
+          <span class="ci-meta">4.15km · 4.8% · 1,239m · La Vuelta</span>
+        </a>
+      </li>
+      <li data-h="colle di guaitarola liguria" data-race="giro">
+        <a href="/climbs/colle-di-guaitarola.html">
+          <span class="cc-cat cat-cat2">Cat2</span>
+          <span class="ci-name">Colle di Guaitarola</span>
+          <span class="ci-meta">9.9km · 6.2% · 619m · Giro d'Italia</span>
+        </a>
+      </li>
+      <li data-h="corno alle scale apennines" data-race="giro">
+        <a href="/climbs/corno-alle-scale.html">
+          <span class="cc-cat cat-cat1">Cat1</span>
+          <span class="ci-name">Corno alle Scale</span>
+          <span class="ci-meta">10.8km · 6.1% · 1,471m · Giro d'Italia</span>
+        </a>
+      </li>
+      <li data-h="cote d'engins alps" data-race="tdf">
+        <a href="/climbs/cote-dengins.html">
+          <span class="cc-cat cat-cat1">Cat1</span>
+          <span class="ci-name">Côte d'Engins</span>
+          <span class="ci-meta">11.5km · 5.4% · 854m · Tour de France</span>
+        </a>
+      </li>
+      <li data-h="cote de begues catalonia" data-race="tdf">
+        <a href="/climbs/cote-de-begues.html">
+          <span class="cc-cat cat-cat2">Cat2</span>
+          <span class="ci-name">Côte de Bègues</span>
+          <span class="ci-meta">6.1km · 6.5% · 399m · Tour de France</span>
+        </a>
+      </li>
+      <li data-h="cote de la butte montmartre paris" data-race="tdf">
+        <a href="/climbs/cote-de-la-butte-montmartre.html">
+          <span class="cc-cat cat-cat4">Cat4</span>
+          <span class="ci-name">Côte de la Butte Montmartre</span>
+          <span class="ci-meta">1km · 6.5% · 128m · Tour de France</span>
+        </a>
+      </li>
+      <li data-h="cote de larringes alps" data-race="tdf">
+        <a href="/climbs/cote-de-larringes.html">
+          <span class="cc-cat cat-cat2">Cat2</span>
+          <span class="ci-name">Côte de Larringes</span>
+          <span class="ci-meta">9.7km · 4.3% · 799m · Tour de France</span>
+        </a>
+      </li>
+      <li data-h="cote de monteynard alps" data-race="tdf">
+        <a href="/climbs/cote-de-monteynard.html">
+          <span class="cc-cat cat-cat2">Cat2</span>
+          <span class="ci-name">Côte de Monteynard</span>
+          <span class="ci-meta">9.7km · 5% · 844m · Tour de France</span>
+        </a>
+      </li>
+      <li data-h="cote du chateau de montjuic catalonia" data-race="tdf">
+        <a href="/climbs/cote-du-chateau-de-montjuic.html">
+          <span class="cc-cat cat-cat3">Cat3</span>
+          <span class="ci-name">Côte du Château de Montjuïc</span>
+          <span class="ci-meta">1.6km · 9.3% · 163m · Tour de France</span>
+        </a>
+      </li>
+      <li data-h="cote du stade olympique de montjuic barcelona" data-race="tdf">
+        <a href="/climbs/cote-du-stade-olympique-de-montjuic.html">
+          <span class="cc-cat cat-tbc">Uncat</span>
+          <span class="ci-name">Côte du Stade Olympique de Montjuïc</span>
+          <span class="ci-meta">0.8km · 7% · 104m · Tour de France</span>
+        </a>
+      </li>
+      <li data-h="cozzo tunno calabria" data-race="giro">
+        <a href="/climbs/cozzo-tunno.html">
+          <span class="cc-cat cat-cat2">Cat2</span>
+          <span class="ci-name">Cozzo Tunno</span>
+          <span class="ci-meta">14.5km · 5.9% · 921m · Giro d'Italia</span>
+        </a>
+      </li>
+      <li data-h="fermo marche" data-race="giro">
+        <a href="/climbs/fermo.html">
+          <span class="cc-cat cat-cat4">Cat4</span>
+          <span class="ci-name">Fermo</span>
+          <span class="ci-meta">3.5km · 6.2% · 318m · Giro d'Italia</span>
+        </a>
+      </li>
+      <li data-h="font romeu pyrenees orientales" data-race="vuelta">
+        <a href="/climbs/font-romeu.html">
+          <span class="cc-cat cat-cat2">Cat2</span>
+          <span class="ci-name">Font Romeu</span>
+          <span class="ci-meta">9.87km · 4.5% · 1,937m · La Vuelta</span>
+        </a>
+      </li>
+      <li data-h="forcella staulanza dolomites" data-race="giro">
+        <a href="/climbs/forcella-staulanza.html">
+          <span class="cc-cat cat-cat2">Cat2</span>
+          <span class="ci-name">Forcella Staulanza</span>
+          <span class="ci-meta">6.3km · 6.7% · 1,766m · Giro d'Italia</span>
+        </a>
+      </li>
+      <li data-h="gavarnie-gedre pyrenees" data-race="tdf">
+        <a href="/climbs/gavarnie-gedre.html">
+          <span class="cc-cat cat-cat2">Cat2</span>
+          <span class="ci-name">Gavarnie-Gèdre</span>
+          <span class="ci-meta">18.7km · 3.7% · 1,380m · Tour de France</span>
+        </a>
+      </li>
+      <li data-h="grand ballon vosges" data-race="tdf">
+        <a href="/climbs/grand-ballon.html">
+          <span class="cc-cat cat-cat1">Cat1</span>
+          <span class="ci-name">Grand Ballon</span>
+          <span class="ci-meta">21.6km · 4.7% · 1,336m · Tour de France</span>
+        </a>
+      </li>
+      <li data-h="le saleve – col de la croisette alps / jura" data-race="tdf">
+        <a href="/climbs/le-saleve-col-de-la-croisette.html">
+          <span class="cc-cat cat-cat1">Cat1</span>
+          <span class="ci-name">Le Salève – Col de la Croisette</span>
+          <span class="ci-meta">4.7km · 11.2% · 1,175m · Tour de France</span>
+        </a>
+      </li>
+      <li data-h="leontica switzerland (ticino)" data-race="giro">
+        <a href="/climbs/leontica.html">
+          <span class="cc-cat cat-cat2">Cat2</span>
+          <span class="ci-name">Leontica</span>
+          <span class="ci-meta">3km · 8.5% · 874m · Giro d'Italia</span>
+        </a>
+      </li>
+      <li data-h="les angles pyrenees" data-race="tdf">
+        <a href="/climbs/les-angles.html">
+          <span class="cc-cat cat-cat3">Cat3</span>
+          <span class="ci-name">Les Angles</span>
+          <span class="ci-meta">1.8km · 6.5% · 1,794m · Tour de France</span>
+        </a>
+      </li>
+      <li data-h="lin noir aosta valley" data-race="giro">
+        <a href="/climbs/lin-noir.html">
+          <span class="cc-cat cat-cat1">Cat1</span>
+          <span class="ci-name">Lin Noir</span>
+          <span class="ci-meta">7.4km · 7.9% · 1,284m · Giro d'Italia</span>
+        </a>
+      </li>
+      <li data-h="montagna grande di viggiano basilicata" data-race="giro">
+        <a href="/climbs/montagna-grande-di-viggiano.html">
+          <span class="cc-cat cat-cat2">Cat2</span>
+          <span class="ci-name">Montagna Grande di Viggiano</span>
+          <span class="ci-meta">6.6km · 9.1% · 1,405m · Giro d'Italia</span>
+        </a>
+      </li>
+      <li data-h="muro di ca' del poggio veneto" data-race="giro">
+        <a href="/climbs/muro-di-ca-del-poggio.html">
+          <span class="cc-cat cat-cat4">Cat4</span>
+          <span class="ci-name">Muro di Ca' del Poggio</span>
+          <span class="ci-meta">1.1km · 12.3% · 242m · Giro d'Italia</span>
+        </a>
+      </li>
+      <li data-h="orcieres-merlette alps" data-race="tdf">
+        <a href="/climbs/orcieres-merlette.html">
+          <span class="cc-cat cat-cat1">Cat1</span>
+          <span class="ci-name">Orcières-Merlette</span>
+          <span class="ci-meta">7.1km · 6.7% · 1,825m · Tour de France</span>
+        </a>
+      </li>
+      <li data-h="passo duran dolomites" data-race="giro">
+        <a href="/climbs/passo-duran.html">
+          <span class="cc-cat cat-cat1">Cat1</span>
+          <span class="ci-name">Passo Duran</span>
+          <span class="ci-meta">12.1km · 8.2% · 1,601m · Giro d'Italia</span>
+        </a>
+      </li>
+      <li data-h="passo falzarego dolomites" data-race="giro">
+        <a href="/climbs/passo-falzarego.html">
+          <span class="cc-cat cat-cat2">Cat2</span>
+          <span class="ci-name">Passo Falzarego</span>
+          <span class="ci-meta">10.1km · 5.6% · 2,105m · Giro d'Italia</span>
+        </a>
+      </li>
+      <li data-h="passo giau dolomites" data-race="giro">
+        <a href="/climbs/passo-giau.html">
+          <span class="cc-cat cat-hc">HC</span>
+          <span class="ci-name">Passo Giau</span>
+          <span class="ci-meta">9.9km · 9.3% · 2,236m · Giro d'Italia</span>
+        </a>
+      </li>
+      <li data-h="penas blancas costa del sol" data-race="vuelta">
+        <a href="/climbs/penas-blancas.html">
+          <span class="cc-cat cat-cat1">Cat1</span>
+          <span class="ci-name">Peñas Blancas</span>
+          <span class="ci-meta">19km · 6.7% · 1,264m · La Vuelta</span>
+        </a>
+      </li>
+      <li data-h="piancavallo friuli" data-race="giro">
+        <a href="/climbs/piancavallo.html">
+          <span class="cc-cat cat-cat1">Cat1</span>
+          <span class="ci-name">Piancavallo</span>
+          <span class="ci-meta">14.5km · 7.8% · 1,290m · Giro d'Italia</span>
+        </a>
+      </li>
+      <li data-h="piani di pezze dolomites" data-race="giro">
+        <a href="/climbs/piani-di-pezze.html">
+          <span class="cc-cat cat-cat2">Cat2</span>
+          <span class="ci-name">Piani di Pezzè</span>
+          <span class="ci-meta">5km · 9.6% · 1,465m · Giro d'Italia</span>
+        </a>
+      </li>
+      <li data-h="pila aosta valley" data-race="giro">
+        <a href="/climbs/pila.html">
+          <span class="cc-cat cat-cat1">Cat1</span>
+          <span class="ci-name">Pila</span>
+          <span class="ci-meta">16.5km · 7.1% · 1,793m · Giro d'Italia</span>
+        </a>
+      </li>
+      <li data-h="plateau de solaison brison alps / jura" data-race="tdf">
+        <a href="/climbs/plateau-de-solaison-brison.html">
+          <span class="cc-cat cat-hc">HC</span>
+          <span class="ci-name">Plateau de Solaison Brison</span>
+          <span class="ci-meta">11.3km · 9% · 1,508m · Tour de France</span>
+        </a>
+      </li>
+      <li data-h="port d'envalira andorra" data-race="vuelta">
+        <a href="/climbs/port-denvalira.html">
+          <span class="cc-cat cat-cat1">Cat1</span>
+          <span class="ci-name">Port d'Envalira</span>
+          <span class="ci-meta">25.3km · 5.1% · 2,409m · La Vuelta</span>
+        </a>
+      </li>
+      <li data-h="puerto de barx valencia" data-race="vuelta">
+        <a href="/climbs/puerto-de-barx.html">
+          <span class="cc-cat cat-cat2">Cat2</span>
+          <span class="ci-name">Puerto de Barx</span>
+          <span class="ci-meta">7.42km · 4% · 317m · La Vuelta</span>
+        </a>
+      </li>
+      <li data-h="puerto de el duque sierra nevada" data-race="vuelta">
+        <a href="/climbs/puerto-de-el-duque.html">
+          <span class="cc-cat cat-cat1">Cat1</span>
+          <span class="ci-name">Puerto de El Duque</span>
+          <span class="ci-meta">4.8km · 8.2% · 1,670m · La Vuelta</span>
+        </a>
+      </li>
+      <li data-h="puerto de el miserat costa blanca" data-race="vuelta">
+        <a href="/climbs/puerto-de-el-miserat.html">
+          <span class="cc-cat cat-cat1">Cat1</span>
+          <span class="ci-name">Puerto de El Miserat</span>
+          <span class="ci-meta">18km · 2.6% · 634m · La Vuelta</span>
+        </a>
+      </li>
+      <li data-h="puerto de el purche sierra nevada" data-race="vuelta">
+        <a href="/climbs/puerto-de-el-purche.html">
+          <span class="cc-cat cat-cat1">Cat1</span>
+          <span class="ci-name">Puerto de El Purche</span>
+          <span class="ci-meta">6.96km · 9% · 1,483m · La Vuelta</span>
+        </a>
+      </li>
+      <li data-h="puerto de granada granada" data-race="vuelta">
+        <a href="/climbs/puerto-de-granada.html">
+          <span class="cc-cat cat-cat2">Cat2</span>
+          <span class="ci-name">Puerto de Granada</span>
+          <span class="ci-meta">13.5km · 3.3% · 1,034m · La Vuelta</span>
+        </a>
+      </li>
+      <li data-h="puerto de la serratella castellon" data-race="vuelta">
+        <a href="/climbs/puerto-de-la-serratella.html">
+          <span class="cc-cat cat-cat2">Cat2</span>
+          <span class="ci-name">Puerto de la Serratella</span>
+          <span class="ci-meta">19km · 3.3% · 799m · La Vuelta</span>
+        </a>
+      </li>
+      <li data-h="puerto de las abejas serrania de ronda" data-race="vuelta">
+        <a href="/climbs/puerto-de-las-abejas.html">
+          <span class="cc-cat cat-cat2">Cat2</span>
+          <span class="ci-name">Puerto de Las Abejas</span>
+          <span class="ci-meta">10.5km · 4.9% · 887m · La Vuelta</span>
+        </a>
+      </li>
+      <li data-h="puerto de locubin jaen" data-race="vuelta">
+        <a href="/climbs/puerto-de-locubin.html">
+          <span class="cc-cat cat-cat2">Cat2</span>
+          <span class="ci-name">Puerto de Locubín</span>
+          <span class="ci-meta">10.1km · 4.5% · 1,085m · La Vuelta</span>
+        </a>
+      </li>
+      <li data-h="puerto de los villares jaen" data-race="vuelta">
+        <a href="/climbs/puerto-de-los-villares.html">
+          <span class="cc-cat cat-cat2">Cat2</span>
+          <span class="ci-name">Puerto de Los Villares</span>
+          <span class="ci-meta">11.4km · 5.2% · 1,180m · La Vuelta</span>
+        </a>
+      </li>
+      <li data-h="puerto de san rafael teruel" data-race="vuelta">
+        <a href="/climbs/puerto-de-san-rafael.html">
+          <span class="cc-cat cat-cat2">Cat2</span>
+          <span class="ci-name">Puerto de San Rafael</span>
+          <span class="ci-meta">14.2km · 3.7% · 1,558m · La Vuelta</span>
+        </a>
+      </li>
+      <li data-h="puerto de tarbena costa blanca" data-race="vuelta">
+        <a href="/climbs/puerto-de-tarbena.html">
+          <span class="cc-cat cat-cat2">Cat2</span>
+          <span class="ci-name">Puerto de Tárbena</span>
+          <span class="ci-meta">12.1km · 3% · 594m · La Vuelta</span>
+        </a>
+      </li>
+      <li data-h="puerto de tudons costa blanca" data-race="vuelta">
+        <a href="/climbs/puerto-de-tudons.html">
+          <span class="cc-cat cat-cat2">Cat2</span>
+          <span class="ci-name">Puerto de Tudons</span>
+          <span class="ci-meta">4.99km · 6% · 1,027m · La Vuelta</span>
+        </a>
+      </li>
+      <li data-h="puerto del viento serrania de ronda" data-race="vuelta">
+        <a href="/climbs/puerto-del-viento.html">
+          <span class="cc-cat cat-cat2">Cat2</span>
+          <span class="ci-name">Puerto del Viento</span>
+          <span class="ci-meta">13.8km · 3.8% · 1,078m · La Vuelta</span>
+        </a>
+      </li>
+      <li data-h="puerto el bartolo castellon" data-race="vuelta">
+        <a href="/climbs/puerto-el-bartolo.html">
+          <span class="cc-cat cat-cat1">Cat1</span>
+          <span class="ci-name">Puerto El Bartolo</span>
+          <span class="ci-meta">11.7km · 6% · 713m · La Vuelta</span>
+        </a>
+      </li>
+      <li data-h="puerto el remolcador teruel" data-race="vuelta">
+        <a href="/climbs/puerto-el-remolcador.html">
+          <span class="cc-cat cat-cat2">Cat2</span>
+          <span class="ci-name">Puerto El Remolcador</span>
+          <span class="ci-meta">10.3km · 4.2% · 982m · La Vuelta</span>
+        </a>
+      </li>
+      <li data-h="puy mary – pas de peyrol massif central" data-race="tdf">
+        <a href="/climbs/puy-mary-pas-de-peyrol.html">
+          <span class="cc-cat cat-cat1">Cat1</span>
+          <span class="ci-name">Puy Mary – Pas de Peyrol</span>
+          <span class="ci-meta">7.8km · 6% · 1,589m · Tour de France</span>
+        </a>
+      </li>
+      <li data-h="roccaraso abruzzo" data-race="giro">
+        <a href="/climbs/roccaraso.html">
+          <span class="cc-cat cat-cat2">Cat2</span>
+          <span class="ci-name">Roccaraso</span>
+          <span class="ci-meta">6.9km · 6.5% · 1,245m · Giro d'Italia</span>
+        </a>
+      </li>
+      <li data-h="sierra de la pandera jaen" data-race="vuelta">
+        <a href="/climbs/sierra-de-la-pandera.html">
+          <span class="cc-cat cat-esp">ESP</span>
+          <span class="ci-name">Sierra de la Pandera</span>
+          <span class="ci-meta">8.4km · 7.8% · 1,797m · La Vuelta</span>
+        </a>
+      </li>
+      <li data-h="suc au may correze" data-race="tdf">
+        <a href="/climbs/suc-au-may.html">
+          <span class="cc-cat cat-cat2">Cat2</span>
+          <span class="ci-name">Suc au May</span>
+          <span class="ci-meta">3.8km · 7.5% · 903m · Tour de France</span>
+        </a>
+      </li>
+      <li data-h="venta de la cebada granada" data-race="vuelta">
+        <a href="/climbs/venta-de-la-cebada.html">
+          <span class="cc-cat cat-cat1">Cat1</span>
+          <span class="ci-name">Venta de la Cebada</span>
+          <span class="ci-meta">7.4km · 6.7% · 819m · La Vuelta</span>
+        </a>
+      </li>
+      <li data-h="verrogne aosta valley" data-race="giro">
+        <a href="/climbs/verrogne.html">
+          <span class="cc-cat cat-cat2">Cat2</span>
+          <span class="ci-name">Verrogne</span>
+          <span class="ci-meta">5.6km · 6.9% · 1,587m · Giro d'Italia</span>
+        </a>
+      </li>
+    </ul>
+    <div class="ci-none" id="ci-none" hidden>No climb matches that. Try part of the name — "tourmalet", "aitana", "giau".</div>
+</div>
+
+<footer>
+    <p><span class="pdb-brand">Polka<span class="pdb-dot">DOT</span>Bike</span> — Climb profiles, gradients and the gearing you need. Figures are indicative.</p>
+    <p style="margin-top:6px"><a href="/index.html">← Gear Calculator</a> · <a href="/guide.html">Guide</a> · <a href="/about.html">About</a> · <a href="/contact.html">Contact</a> · <a href="/privacy.html">Privacy</a> · <a href="/disclaimer.html">Disclaimer</a></p>
+    <p style="margin-top:8px;font-size:0.85em;opacity:0.65">Also by me: <a href="https://digitalcredityield.com" target="_blank" rel="noopener" class="dcy-brand"><span class="dcy-square"></span>Digital Credit Yield</a> — Bitcoin &amp; Ethereum treasury income, explained.</p>
+    <p style="margin-top:10px"><a href="https://www.instagram.com/polkadotbike.cc/" target="_blank" rel="noopener" aria-label="Instagram" style="display:inline-flex;vertical-align:middle;margin:0 7px"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="2" y="2" width="20" height="20" rx="5.5"/><circle cx="12" cy="12" r="4.3"/><circle cx="17.4" cy="6.6" r="1.05" fill="currentColor" stroke="none"/></svg></a><a href="https://www.facebook.com/profile.php?id=61591463441672" target="_blank" rel="noopener" aria-label="Facebook" style="display:inline-flex;vertical-align:middle;margin:0 7px"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M13.5 21.9v-8.4h2.82l.42-3.27h-3.24V8.03c0-.95.26-1.6 1.63-1.6h1.74V3.55C16.55 3.47 15.6 3.4 14.5 3.4c-2.33 0-3.93 1.42-3.93 4.03v2.8H7.74v3.27h2.83v8.4h2.93z"/></svg></a></p>
+</footer>
+<script>
+(function(){
+  var search = document.getElementById('ci-search');
+  var list   = document.getElementById('ci-list');
+  var items  = Array.prototype.slice.call(list.children);
+  var count  = document.getElementById('ci-count');
+  var none   = document.getElementById('ci-none');
+  var race   = 'all';
+  var fold = function(s){ return s.normalize('NFD').replace(/[̀-ͯ]/g,'').toLowerCase(); };
+  function apply(){
+    var q = fold(search.value.trim());
+    var shown = 0;
+    items.forEach(function(li){
+      var okQ = !q || li.dataset.h.indexOf(q) !== -1;
+      var okR = race === 'all' || li.dataset.race.split(' ').indexOf(race) !== -1;
+      var vis = okQ && okR;
+      li.hidden = !vis;
+      if (vis) shown++;
+    });
+    count.textContent = shown + (shown === 1 ? ' climb' : ' climbs');
+    none.hidden = shown !== 0;
+  }
+  search.addEventListener('input', apply);
+  Array.prototype.forEach.call(document.querySelectorAll('.ci-chip'), function(b){
+    b.addEventListener('click', function(){
+      race = b.dataset.race;
+      Array.prototype.forEach.call(document.querySelectorAll('.ci-chip'), function(x){ x.classList.toggle('active', x === b); });
+      apply();
+    });
+  });
+})();
+</script>
+</body>
+</html>
