@@ -1,16 +1,27 @@
-// Generates a static, crawlable stage & climb index and injects it before <footer>
-// in tdf.html and giro26.html. Idempotent via marker comments.
+// Generates, for each race page:
+//   1. a static, crawlable stage & climb index, injected directly after the map
+//      and BEFORE <div class="container"> so the climb data outranks the
+//      interactive explorer, the affiliate units and the ad in DOM order; and
+//   2. a single consolidated JSON-LD @graph in <head> (CollectionPage +
+//      ItemList + BreadcrumbList), replacing the older pair of unlinked,
+//      name-conflicting WebPage/Article blocks.
+// Both are idempotent via marker comments — re-run after editing STAGES/CLIMBS.
 const fs = require('fs');
 const path = require('path');
 const DIR = '/Users/robingillingham/cycle gears';
+const ORIGIN = 'https://polkadotbike.com';
 
 const RACES = [
   // h2col: race colour for the section title
   // specialCat/specialLabel: this race's top climb category and how to phrase it in the intro line
-  { file: 'tdf.html',    name: 'Tour de France 2026',    slug: 'tdf',    h2col: '#ffe94d', specialCat: 'HC',  specialLabel: 'hors-catégorie' },
-  { file: 'giro26.html', name: "Giro d'Italia 2026",     slug: 'giro',   h2col: '#ec4899', specialCat: 'HC',  specialLabel: 'hors-catégorie' },
-  { file: 'vuelta.html', name: 'La Vuelta a España 2026',slug: 'vuelta', h2col: '#ef4444', specialCat: 'ESP', specialLabel: 'especial-category' },
+  // country: SportsEvent location. datePublished: preserved from the blocks this replaces.
+  // Race start/end dates are derived from STAGES, never hardcoded here.
+  { file: 'tdf.html',    name: 'Tour de France 2026',    slug: 'tdf',    h2col: '#ffe94d', specialCat: 'HC',  specialLabel: 'hors-catégorie',   country: 'France', descName: '2026 Tour de France', datePublished: '2026-07-04', breadcrumb: 'Tour de France 2026 Climbs' },
+  { file: 'giro26.html', name: "Giro d'Italia 2026",     slug: 'giro',   h2col: '#ec4899', specialCat: 'HC',  specialLabel: 'hors-catégorie',   country: 'Italy',  descName: "2026 Giro d'Italia", datePublished: '2026-07-04', breadcrumb: "Giro d'Italia 2026 Climbs" },
+  { file: 'vuelta.html', name: 'La Vuelta a España 2026',slug: 'vuelta', h2col: '#ef4444', specialCat: 'ESP', specialLabel: 'especial-category', country: 'Spain',  descName: '2026 Vuelta a España', datePublished: '2026-07-30', breadcrumb: 'Vuelta a España 2026 Climbs' },
 ];
+
+const BUILD_DATE = new Date().toISOString().slice(0, 10);
 
 const esc = s => String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
 const DAYS = ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
@@ -25,7 +36,14 @@ const CAT_CLS = { HC: 'cat-hc', ESP: 'cat-esp', Cat1: 'cat-cat1', Cat2: 'cat-cat
 const cssFor = race => `
 .static-index { position:relative; z-index:1; max-width:1160px; margin:30px auto 0; padding:0 20px; }
 .static-index h2 { font-size:1.45rem; margin:0 0 6px; color:${race.h2col}; }
-.si-intro { color:var(--muted); font-size:0.95rem; line-height:1.55; margin:0 0 18px; }
+.si-intro { color:var(--muted); font-size:0.95rem; line-height:1.55; margin:0 0 14px; }
+/* The static index sits above the interactive explorer in DOM order (so the climb
+   data leads, ahead of the affiliate units and the ad). This skip link keeps the
+   explorer one click away instead of a full page-scroll down. */
+.si-skip { display:inline-block; margin:0 0 18px; padding:7px 14px; border-radius:9px;
+           background:rgba(255,255,255,0.06); border:1px solid rgba(255,255,255,0.14);
+           color:#3b8ef0; font-size:0.88rem; font-weight:600; text-decoration:none; }
+.si-skip:hover { background:rgba(255,255,255,0.12); color:#fff; }
 .si-stage { border-radius:12px; padding:16px 18px; margin-bottom:12px; }
 .si-stage h3 { margin:0 0 3px; font-size:1.04rem; }
 .si-stage h3 a { color:inherit; text-decoration:none; }
@@ -98,9 +116,92 @@ ${cssFor(race)}
 <section class="static-index" id="all-stages">
   <h2>Every stage and climb of the ${race.name}</h2>
   <p class="si-intro">${intro}</p>
+  <a class="si-skip" href="#stage-explorer">Jump to the interactive stage explorer ↓</a>
 ${stagesHtml}
 </section>
 <!-- STATIC-STAGE-INDEX END -->
+`;
+}
+
+/* ============================================================================
+   JSON-LD @graph
+   One graph per race page, replacing the previous pair of unlinked blocks
+   (a WebPage named "… Climbs & Gearing" and an Article headlined with just the
+   race name — that name conflict is what the GSC "Events: non-critical issues"
+   warning was picking up). Article is dropped entirely: this is a reference
+   collection, not an article. ItemList is the type that actually describes
+   60+ named items carrying numeric attributes.
+============================================================================ */
+function buildGraph(race, STAGES, CLIMBS) {
+  // Mirror exactly what the static index renders as individual named entries:
+  // climbs on a stage whose climbs are ALL uncategorised collapse to a single
+  // summary line there, so they are not list items here either.
+  const byStage = {};
+  for (const c of CLIMBS) (byStage[c.stage] = byStage[c.stage] || []).push(c);
+  const listed = CLIMBS.filter(c => byStage[c.stage].some(x => x.cat !== 'TBC'));
+
+  const pageUrl = `${ORIGIN}/${race.file}`;
+  const startDate = STAGES[0].date;
+  const endDate = STAGES[STAGES.length - 1].date;
+
+  return {
+    '@context': 'https://schema.org',
+    '@graph': [
+      {
+        '@type': 'CollectionPage',
+        '@id': `${pageUrl}#page`,
+        url: pageUrl,
+        name: `${race.name} Climbs`,
+        description: `Every categorised climb of the ${race.descName} — gradient, length, summit altitude and the gearing you'd need to ride it.`,
+        isPartOf: { '@id': `${ORIGIN}/#website` },
+        author: { '@id': `${ORIGIN}/about.html#robin` },
+        datePublished: race.datePublished,
+        dateModified: BUILD_DATE,
+        mainEntity: { '@id': `${pageUrl}#climblist` },
+        breadcrumb: { '@id': `${pageUrl}#breadcrumb` },
+        about: {
+          '@type': 'SportsEvent',
+          name: race.name,
+          startDate,
+          endDate,
+          eventStatus: 'https://schema.org/EventScheduled',
+          location: { '@type': 'Country', name: race.country }
+        }
+      },
+      {
+        '@type': 'ItemList',
+        '@id': `${pageUrl}#climblist`,
+        name: `Climbs of the ${race.descName}`,
+        numberOfItems: listed.length,
+        itemListOrder: 'https://schema.org/ItemListOrderAscending',
+        // Interim: each item points at its stage anchor on this page. Phase 3
+        // repoints these at the individual /climbs/<slug>.html pages.
+        itemListElement: listed.map((c, i) => ({
+          '@type': 'ListItem',
+          position: i + 1,
+          name: c.name,
+          url: `${pageUrl}#stage-${c.stage}`
+        }))
+      },
+      {
+        '@type': 'BreadcrumbList',
+        '@id': `${pageUrl}#breadcrumb`,
+        itemListElement: [
+          { '@type': 'ListItem', position: 1, name: 'Home', item: `${ORIGIN}/` },
+          { '@type': 'ListItem', position: 2, name: race.breadcrumb, item: pageUrl }
+        ]
+      }
+    ]
+  };
+}
+
+function buildJsonLdBlock(race, STAGES, CLIMBS) {
+  const graph = buildGraph(race, STAGES, CLIMBS);
+  return `<!-- RACE-JSONLD START (generated by gen_static_index.js — do not hand-edit; re-run the script) -->
+<script type="application/ld+json">
+${JSON.stringify(graph, null, 2)}
+</script>
+<!-- RACE-JSONLD END -->
 `;
 }
 
@@ -118,12 +219,55 @@ for (const race of RACES) {
 
   const section = buildSection(race, STAGES, CLIMBS);
 
-  const markerRe = /<!-- STATIC-STAGE-INDEX START[\s\S]*?<!-- STATIC-STAGE-INDEX END -->\n?/;
-  if (markerRe.test(html)) {
-    html = html.replace(markerRe, section);
-  } else {
-    html = html.replace(/<footer>/, section + '\n<footer>');
-  }
+  /* ---- 1. static stage index: always strip, then re-insert above .container ----
+     Stripping first and re-anchoring means the block relocates itself even on a
+     file where it is still sitting in the old position below the ad. Because the
+     AADS unit sits between .container and <footer> once the index is lifted out,
+     this single move puts the climb data ahead of BOTH the affiliate units
+     (which live inside #stage-detail, within .container) and the ad. */
+  // Strip, then normalise the seam to exactly one blank line, then insert.
+  // Consuming surrounding newlines on strip and re-establishing them on insert
+  // is what keeps repeated runs byte-identical rather than growing whitespace.
+  html = html.replace(/\n*<!-- STATIC-STAGE-INDEX START[\s\S]*?<!-- STATIC-STAGE-INDEX END -->\n*/, '\n');
+
+  // NB: carries id="stage-explorer" — the skip link inside the generated index
+  // targets it. Keep this string in sync with the markup in the race pages.
+  const CONTAINER = '<div class="container" id="stage-explorer">';
+  if (!html.includes(CONTAINER)) throw new Error(`${race.file}: '${CONTAINER}' anchor not found`);
+  html = html.replace(new RegExp(`\\n*${CONTAINER.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}`), `\n\n${CONTAINER}`);
+  html = html.replace(CONTAINER, `${section}${CONTAINER}`);
+
+  /* ---- 2. JSON-LD: strip our own marker block, then any legacy standalone
+     WebPage / Article / BreadcrumbList blocks, then insert the @graph in <head>. */
+  html = html.replace(/\n*<!-- RACE-JSONLD START[\s\S]*?<!-- RACE-JSONLD END -->\n*/, '\n');
+
+  let dropped = [];
+  html = html.replace(
+    /[ \t]*<script type="application\/ld\+json">\s*([\s\S]*?)\s*<\/script>\n?/g,
+    (whole, body) => {
+      let parsed;
+      try { parsed = JSON.parse(body); } catch { return whole; }   // leave unparseable alone
+      if (parsed['@graph']) return whole;                          // never eat a graph
+      if (['WebPage', 'Article', 'BreadcrumbList'].includes(parsed['@type'])) {
+        dropped.push(parsed['@type']);
+        return '';
+      }
+      return whole;
+    }
+  );
+
+  const jsonLd = buildJsonLdBlock(race, STAGES, CLIMBS);
+  if (!html.includes('</head>')) throw new Error(`${race.file}: no </head>`);
+  html = html.replace(/\n*<\/head>/, '\n</head>');
+  html = html.replace('</head>', `${jsonLd}</head>`);
+
   fs.writeFileSync(fp, html);
-  console.log(`${race.file}: ${STAGES.length} stages, ${CLIMBS.length} climbs injected`);
+
+  const graph = buildGraph(race, STAGES, CLIMBS);
+  const nItems = graph['@graph'][1].numberOfItems;
+  console.log(
+    `${race.file}: ${STAGES.length} stages, ${CLIMBS.length} climbs injected · ` +
+    `ItemList ${nItems} items · dateModified ${BUILD_DATE} · ` +
+    `replaced legacy JSON-LD [${dropped.join(', ') || 'none'}]`
+  );
 }
