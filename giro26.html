@@ -1429,9 +1429,10 @@ const STAY22_LINKS = {
 
 // Kiwi.com flight links by visitor country (via /api/geo, Vercel's x-vercel-ip-country
 // header — only resolves on the live Vercel deployment, not the local dev server).
-// "default" is a placeholder until country-specific Travelpayouts links are generated.
+// "default" is the tracked GB link (primary audience) — a tracked link for the
+// wrong country still pays; the untracked kiwi.com root never does.
 const KIWI_LINKS = {
-    default: 'https://www.kiwi.com',
+    default: 'https://kiwi.tpo.mx/jz2ccunJ',
     GB: 'https://kiwi.tpo.mx/jz2ccunJ',
     US: 'https://kiwi.tpo.mx/YMW30pH9',
     IT: 'https://kiwi.tpo.mx/Gvvfo5KE',
