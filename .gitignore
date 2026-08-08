@@ -8,6 +8,7 @@ nohup.out
 node_modules/
 .next/
 next-env.d.ts
+*.tsbuildinfo
 
 # Phase 0.4 migration baseline — local reference screenshots (~25MB), not
 # meant to live in git history. Kept on disk for the Phase 5 visual diff.
