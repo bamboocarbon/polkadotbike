@@ -1,0 +1,35 @@
+{
+  "stay22": {
+    "lmaID": "6a71bc1bd1d8a6d3f5d2d10a",
+    "script": "https://scripts.stay22.com/letmeallez.js"
+  },
+  "bikesbooking": {
+    "url": "https://bikesbooking.tpo.mx/DgOZPOji",
+    "logo": "/bikesbooking-logo.png"
+  },
+  "kiwi": {
+    "logo": "/kiwi-logo.svg",
+    "links": {
+      "default": "https://kiwi.tpo.mx/jz2ccunJ",
+      "GB": "https://kiwi.tpo.mx/jz2ccunJ",
+      "US": "https://kiwi.tpo.mx/YMW30pH9",
+      "IT": "https://kiwi.tpo.mx/Gvvfo5KE",
+      "DK": "https://kiwi.tpo.mx/cExRgmNn",
+      "DE": "https://kiwi.tpo.mx/cExRgmNn",
+      "FR": "https://kiwi.tpo.mx/cExRgmNn",
+      "ES": "https://kiwi.tpo.mx/hVaYpFno",
+      "BR": "https://kiwi.tpo.mx/vdXSh4q9",
+      "PL": "https://kiwi.tpo.mx/sT1YbqpT",
+      "NL": "https://kiwi.tpo.mx/sT1YbqpT",
+      "CZ": "https://kiwi.tpo.mx/qfqDemwB",
+      "FI": "https://kiwi.tpo.mx/l243fbRT"
+    }
+  },
+  "aads": {
+    "unitId": "2448890",
+    "src": "//acceptable.a-ads.com/2448890/?size=Adaptive&background_color=transparent"
+  },
+  "ga": {
+    "measurementId": "G-24JBH53W09"
+  }
+}
