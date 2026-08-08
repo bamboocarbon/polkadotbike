@@ -1,7 +1,8 @@
 // Generates, for each race page:
-//   1. a static, crawlable stage & climb index, injected directly after the map
-//      and BEFORE <div class="container"> so the climb data outranks the
-//      interactive explorer, the affiliate units and the ad in DOM order; and
+//   1. a static, crawlable stage & climb index, injected directly after
+//      <div class="container"> (the interactive explorer) and BEFORE the AADS
+//      ad unit — the explorer is navigation plus real content and stays above
+//      the fold; the display ad is what gets demoted, not the explorer; and
 //   2. a single consolidated JSON-LD @graph in <head> (CollectionPage +
 //      ItemList + BreadcrumbList), replacing the older pair of unlinked,
 //      name-conflicting WebPage/Article blocks.
@@ -37,13 +38,6 @@ const cssFor = race => `
 .static-index { position:relative; z-index:1; max-width:1160px; margin:30px auto 0; padding:0 20px; }
 .static-index h2 { font-size:1.45rem; margin:0 0 6px; color:${race.h2col}; }
 .si-intro { color:var(--muted); font-size:0.95rem; line-height:1.55; margin:0 0 14px; }
-/* The static index sits above the interactive explorer in DOM order (so the climb
-   data leads, ahead of the affiliate units and the ad). This skip link keeps the
-   explorer one click away instead of a full page-scroll down. */
-.si-skip { display:inline-block; margin:0 0 18px; padding:7px 14px; border-radius:9px;
-           background:rgba(255,255,255,0.06); border:1px solid rgba(255,255,255,0.14);
-           color:#3b8ef0; font-size:0.88rem; font-weight:600; text-decoration:none; }
-.si-skip:hover { background:rgba(255,255,255,0.12); color:#fff; }
 .si-stage { border-radius:12px; padding:16px 18px; margin-bottom:12px; }
 .si-stage h3 { margin:0 0 3px; font-size:1.04rem; }
 .si-stage h3 a { color:inherit; text-decoration:none; }
@@ -116,7 +110,6 @@ ${cssFor(race)}
 <section class="static-index" id="all-stages">
   <h2>Every stage and climb of the ${race.name}</h2>
   <p class="si-intro">${intro}</p>
-  <a class="si-skip" href="#stage-explorer">Jump to the interactive stage explorer ↓</a>
 ${stagesHtml}
 </section>
 <!-- STATIC-STAGE-INDEX END -->
@@ -219,23 +212,21 @@ for (const race of RACES) {
 
   const section = buildSection(race, STAGES, CLIMBS);
 
-  /* ---- 1. static stage index: always strip, then re-insert above .container ----
-     Stripping first and re-anchoring means the block relocates itself even on a
-     file where it is still sitting in the old position below the ad. Because the
-     AADS unit sits between .container and <footer> once the index is lifted out,
-     this single move puts the climb data ahead of BOTH the affiliate units
-     (which live inside #stage-detail, within .container) and the ad. */
+  /* ---- 1. static stage index: always strip, then re-insert directly before
+     the AADS ad unit ---- Stripping first and re-anchoring means the block
+     relocates itself even on a file where it's still sitting in the wrong
+     position. The interactive explorer (.container) is navigation plus real
+     content and stays where it is, above the fold; only the display ad gets
+     demoted, so the index is anchored to the ad, not to the explorer. */
   // Strip, then normalise the seam to exactly one blank line, then insert.
   // Consuming surrounding newlines on strip and re-establishing them on insert
   // is what keeps repeated runs byte-identical rather than growing whitespace.
   html = html.replace(/\n*<!-- STATIC-STAGE-INDEX START[\s\S]*?<!-- STATIC-STAGE-INDEX END -->\n*/, '\n');
 
-  // NB: carries id="stage-explorer" — the skip link inside the generated index
-  // targets it. Keep this string in sync with the markup in the race pages.
-  const CONTAINER = '<div class="container" id="stage-explorer">';
-  if (!html.includes(CONTAINER)) throw new Error(`${race.file}: '${CONTAINER}' anchor not found`);
-  html = html.replace(new RegExp(`\\n*${CONTAINER.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}`), `\n\n${CONTAINER}`);
-  html = html.replace(CONTAINER, `${section}${CONTAINER}`);
+  const AADS = '<!-- BEGIN AADS AD UNIT';
+  if (!html.includes(AADS)) throw new Error(`${race.file}: '${AADS}' anchor not found`);
+  html = html.replace(new RegExp(`\\n*${AADS.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}`), `\n\n${AADS}`);
+  html = html.replace(AADS, `${section}\n${AADS}`);
 
   /* ---- 2. JSON-LD: strip our own marker block, then any legacy standalone
      WebPage / Article / BreadcrumbList blocks, then insert the @graph in <head>. */
