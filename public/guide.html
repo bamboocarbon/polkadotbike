@@ -1,0 +1,587 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Site Guide — How to Use the Calculators · Polka Dot Bike</title>
+    <link rel="canonical" href="https://polkadotbike.com/guide.html">
+    <meta name="robots" content="index, follow">
+    <meta name="theme-color" content="#ef4444">
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="Polka Dot Bike">
+    <meta property="og:title" content="Site Guide — How to Use the Calculators · Polka Dot Bike">
+    <meta property="og:description" content="A quick tour of every Polka Dot Bike tool — gear calculator, climb planner, comparator, W/kg and the Tour, Giro &amp; Vuelta climb browsers — and how they link.">
+    <meta property="og:url" content="https://polkadotbike.com/guide.html">
+    <meta property="og:image" content="https://polkadotbike.com/og-card.png">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Site Guide — How to Use the Calculators · Polka Dot Bike">
+    <meta name="twitter:description" content="A quick tour of every Polka Dot Bike tool — gear calculator, climb planner, comparator, W/kg and the Tour, Giro &amp; Vuelta climb browsers — and how they link.">
+    <meta name="twitter:image" content="https://polkadotbike.com/og-card.png">
+    <meta name="description" content="A quick tour of every Polka Dot Bike tool — gear calculator, climb planner, comparator, W/kg and the Tour, Giro &amp; Vuelta climb browsers — and how they link.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
+    <style>
+        :root {
+            --accent:       #3b82f6;
+            --accent-light: #93c5fd;
+            --glass:   rgba(4, 9, 26, 0.92);
+            --glass2:  rgba(4, 9, 26, 0.95);
+            --border:  rgba(255,255,255,0.08);
+            --text:    #e8edf5;
+            --muted:   #64748b;
+            --sec:     #94a3b8;
+        }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { font-family: 'Inter', system-ui, sans-serif; min-height: 100vh; color: var(--text); overflow-x: hidden; background: #fff; }
+
+        .bg-scene { position: fixed; inset: 0; z-index: 0; pointer-events: none; overflow: hidden; }
+        .bg-sky { position: absolute; inset: 0; background: #fff; }
+        .bg-mountains {
+            position: absolute; inset: 0;
+            background-image:
+                radial-gradient(circle, rgba(239,68,68,0.22) 28%, transparent 28%),
+                radial-gradient(circle, rgba(239,68,68,0.22) 28%, transparent 28%);
+            background-size: 44px 44px; background-position: 0 0, 22px 22px;
+        }
+
+        header {
+            position: sticky; top: 0; z-index: 100;
+            background: rgba(4,9,26,0.85);
+            backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px);
+            border-bottom: 1px solid var(--border);
+            padding: 0 24px; height: 54px;
+            display: flex; align-items: center; justify-content: space-between;
+        }
+        .logo { font-size: 19px; font-weight: 900; letter-spacing: -0.5px; color: #fff; text-decoration: none; display: inline-flex; align-items: center; gap: 3px; }
+        .logo span { color: var(--accent); }
+        .logo-dot-svg { width: 32px; height: 32px; flex-shrink: 0; }
+        nav { display: flex; gap: 2px; align-items: center; }
+        nav a { color: var(--sec); text-decoration: none; font-size: 13px; font-weight: 500; padding: 6px 13px; border-radius: 6px; transition: all 0.15s; text-align: center; line-height: 1.2; }
+        nav a:hover  { color: #fff; background: rgba(255,255,255,0.06); }
+        nav a.active { color: var(--accent); background: rgba(26,114,224,0.12); }
+        @media (max-width: 768px) { header { padding: 0 12px; } nav a { font-size: 11px; padding: 4px 7px; } }
+
+        .hero { position: relative; z-index: 1; text-align: center; padding: 40px 20px 22px; }
+        .hero h1 {
+            font-size: clamp(28px, 5vw, 46px); font-weight: 900; letter-spacing: -1.5px; line-height: 1.1;
+            background: linear-gradient(135deg, #0f172a 0%, #1e3a5f 100%);
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+            filter: drop-shadow(0 1px 4px rgba(255,255,255,0.8));
+        }
+        .hero p { margin-top: 10px; font-size: 15px; color: rgba(15,23,42,0.72); max-width: 540px; margin-left: auto; margin-right: auto; }
+
+        .container { position: relative; z-index: 1; max-width: 880px; margin: 0 auto; padding: 0 20px 60px; }
+        .glass {
+            background: var(--glass);
+            backdrop-filter: blur(24px); -webkit-backdrop-filter: blur(24px);
+            border: 1px solid var(--border); border-radius: 16px;
+        }
+
+        .intro { padding: 22px 24px; margin-bottom: 18px; }
+        .intro p { font-size: 15px; line-height: 1.62; color: var(--text); }
+        .intro p + p { margin-top: 12px; }
+
+        .jump { padding: 16px 18px; margin-bottom: 24px; }
+        .jump h2 { font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; color: var(--muted); margin-bottom: 11px; }
+        .jump-links { display: flex; flex-wrap: wrap; gap: 7px; }
+        .jump-links a {
+            font-size: 12.5px; font-weight: 600; color: var(--accent-light);
+            text-decoration: none; padding: 5px 11px; border-radius: 999px;
+            background: rgba(26,114,224,0.10); border: 1px solid rgba(26,114,224,0.22);
+            transition: all 0.15s;
+        }
+        .jump-links a:hover { background: rgba(26,114,224,0.22); color: #fff; }
+
+        .group-title {
+            position: relative; z-index: 1;
+            font-size: 13px; font-weight: 800; text-transform: uppercase; letter-spacing: 1.5px;
+            color: var(--accent); margin: 30px 4px 12px;
+            display: flex; align-items: center; gap: 10px;
+        }
+        .group-title::after { content: ""; flex: 1; height: 2px; background: var(--accent); }
+
+        .tool { padding: 20px 22px; margin-bottom: 14px; scroll-margin-top: 70px; }
+        .tool h3 { font-size: 19px; font-weight: 800; color: #fff; letter-spacing: -0.3px; margin-bottom: 4px; }
+        .tool .lead { font-size: 13px; color: var(--accent-light); font-weight: 600; margin-bottom: 10px; }
+        .tool p { font-size: 14.5px; line-height: 1.6; color: var(--text); }
+        .tool p + p { margin-top: 9px; }
+        .tool .take { color: var(--sec); font-style: italic; }
+
+        .controls { margin: 11px 0 4px; list-style: none; }
+        .controls li { font-size: 13.5px; line-height: 1.5; color: var(--text); padding: 5px 0 5px 18px; position: relative; }
+        .controls li::before { content: ""; position: absolute; left: 2px; top: 11px; width: 5px; height: 5px; border-radius: 50%; background: var(--accent); }
+        .controls li b { color: #fff; font-weight: 600; }
+
+        .where { margin-top: 13px; font-size: 13px; }
+        .where a { color: var(--accent-light); text-decoration: none; font-weight: 700; }
+        .where a:hover { color: #fff; text-decoration: underline; }
+
+        .author { padding: 20px 24px; margin-top: 26px; border-left: 3px solid var(--accent); }
+        .author p { font-size: 13.5px; line-height: 1.6; color: var(--sec); font-style: italic; }
+        .author strong { color: var(--text); font-style: normal; font-weight: 700; }
+        .author a { color: var(--accent-light); font-style: normal; text-decoration: none; font-weight: 600; }
+        .author a:hover { color: #fff; }
+
+        footer { position: relative; z-index: 1; border-top: 1px solid var(--border); padding: 24px 20px; text-align: center; }
+        footer p { font-size: 12px; color: var(--muted); }
+        footer p + p { margin-top: 4px; }
+        footer a { color: var(--muted); text-decoration: none; }
+        footer a:hover { color: var(--sec); }
+    </style>
+<style id="polka-hero-dots">
+  /* Bright-white bg; red diamond polka-dots band at top of hero; title(left)+subtitle(right) below on white. */
+  .bg-mountains { display: none !important; }
+  .bg-sky { background: #fff !important; }
+  header { background: #000 !important; }
+  .hero {
+    position: relative; z-index: 1; box-sizing: border-box;
+    padding: 164px 24px 8px; margin-bottom: 34px;
+    background-image:
+      radial-gradient(circle, var(--polka-dot-color, #ee1c28) 25px, transparent 26.5px),
+      radial-gradient(circle, var(--polka-dot-color, #ee1c28) 25px, transparent 26.5px);
+    background-size: 124px 124px; background-position: 0 0, 62px 62px; background-repeat: repeat;
+    display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: 6px 24px; text-align: left;
+  }
+  .hero::after { content: ""; position: absolute; left: 0; right: 0; top: 154px; bottom: 0; background: #fff; z-index: -1; }
+  .hero > h1 { margin: 0; color: #000 !important; -webkit-text-fill-color: #000 !important; background: none !important; filter: none !important; }
+  .hero > p  { margin: 0; max-width: 340px; text-align: left; color: #000 !important; font-weight: 700 !important; }
+
+  /* ===== UCI World-Championship bold palette (dots stay red) ===== */
+  :root {
+    --glass: #000; --glass2: #000;
+    --accent: #1a72e0; --accent-light: #7fb3f0;
+    --green: #12b05f; --amber: #ffcd00; --red: #ee1c28;
+  }
+  .glass, .input-panel, .stat-card, .chart-card, .achieve-card, .rail-card, .buy-card { border-color: rgba(255,255,255,0.14); }
+  .logo span { color: #fff !important; }
+  /* groupset / brand tabs: text + lower line only (no box tint). Bold hues. */
+  .brand-tab.active[data-brand="shimano"]    { color:#2b8bff !important; background:transparent !important; border-bottom-color:#1a72e0 !important; }
+  .brand-tab.active[data-brand="sram"]       { color:#ff1f2b !important; background:transparent !important; border-bottom-color:#ee1c28 !important; }
+  .brand-tab.active[data-brand="campagnolo"] { color:#ffcf1a !important; background:transparent !important; border-bottom-color:#ffcd00 !important; }
+  .brand-tab.active[data-brand="custom"]     { color:#17c86c !important; background:transparent !important; border-bottom-color:#12b05f !important; }
+  .cust-mode-btn.active { background:#12b05f; }
+  /* derailleur page: segmented filter buttons — no fill, bold groupset colours + lower line */
+  .filter-btn.active { background:transparent !important; color:#fff !important; border-bottom:2px solid rgba(255,255,255,0.85); }
+  .filter-btn.active[data-fbrand="shimano"]    { color:#2b8bff !important; border-bottom-color:#1a72e0; }
+  .filter-btn.active[data-fbrand="sram"]       { color:#ff1f2b !important; border-bottom-color:#ee1c28; }
+  .filter-btn.active[data-fbrand="campagnolo"] { color:#ffcf1a !important; border-bottom-color:#ffcd00; }
+  /* alert / status colours (bold, not pale) */
+  .stat-green { color:#17c86c !important; }
+  .stat-red   { color:#ff1f2b !important; }
+  .verdict-card.v-yes  { border-color:rgba(18,176,95,0.5) !important; }
+  .verdict-card.v-warn { border-color:rgba(255,205,0,0.55) !important; }
+  .verdict-card.v-no   { border-color:rgba(238,28,40,0.5) !important; }
+  .verdict-card.v-yes  .verdict-main { color:#17c86c; }
+  .verdict-card.v-warn .verdict-main { color:#ffcf1a; }
+  .verdict-card.v-no   .verdict-main { color:#ff1f2b; }
+  .dr-group.ok   .dr-group-label, .dr-group.ok   .dr-status { color:#17c86c !important; }
+  .dr-group.warn .dr-group-label, .dr-group.warn .dr-status { color:#ffcf1a !important; }
+  .dr-group.no   .dr-group-label, .dr-group.no   .dr-status { color:#ff1f2b !important; }
+  /* bottom polka-dot band: white gap after content, then 3 dot rows down to the page bottom */
+  body::after {
+    content: ""; display: block; position: relative; z-index: 1; width: 100%; height: 186px; margin-top: 4px;
+    background-image:
+      radial-gradient(circle, var(--polka-dot-color, #ee1c28) 25px, transparent 26.5px),
+      radial-gradient(circle, var(--polka-dot-color, #ee1c28) 25px, transparent 26.5px);
+    background-size: 124px 124px; background-position: 0px -31px, 62px 31px; background-repeat: repeat;
+  }
+</style>
+<!-- VUELTA-DOT-SWITCH -->
+<script>
+(function(){
+  // La Vuelta a España 2026 runs 22 Aug - 13 Sep. During that window, swap the
+  // site's decorative polka-dot pattern from red to the Vuelta mountains-jersey
+  // blue on every page, then automatically revert to red once the race ends.
+  var now = new Date();
+  var start = new Date('2026-08-22T00:00:00');
+  var end   = new Date('2026-09-13T23:59:59');
+  if (now >= start && now <= end) {
+    document.documentElement.style.setProperty('--polka-dot-color', '#1a72e0');
+  }
+})();
+</script>
+<style id="pdb-inline-brand">
+  /* Inline brand mark: "Polka(DOT)Bike" with DOT knocked into a red circle, as per the header logo */
+  .pdb-brand{font-weight:800;white-space:nowrap;}
+  .pdb-dot{display:inline-block;width:1.35em;height:1.35em;vertical-align:-0.3em;margin:0 0.12em;overflow:hidden;text-indent:-9999px;white-space:nowrap;background:url("data:image/svg+xml;utf8,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 32 32%22%3E%3Ccircle cx=%2216%22 cy=%2216%22 r=%2216%22 fill=%22%23ef4444%22/%3E%3Ctext x=%2216.75%22 y=%2220%22 text-anchor=%22middle%22 font-family=%22Inter,system-ui,sans-serif%22 font-size=%2210.5%22 font-weight=%22900%22 letter-spacing=%221.5%22 fill=%22%23000%22%3EDOT%3C/text%3E%3C/svg%3E") no-repeat center/contain;}
+</style>
+<style id="polka-mobile-nav">
+  /* Mobile: nav scrolls horizontally inside the header bar instead of stretching the page */
+  @media (max-width: 768px) {
+    html, body { overflow-x: hidden; }
+    header { gap: 8px; }
+    .logo { flex-shrink: 0; }
+    nav {
+      min-width: 0;
+      overflow-x: auto; -webkit-overflow-scrolling: touch;
+      flex-wrap: nowrap; max-width: 100%;
+      scrollbar-width: none; -ms-overflow-style: none;
+    }
+    nav::-webkit-scrollbar { display: none; }
+    nav a { white-space: nowrap; flex-shrink: 0; }
+    .hero-bikes { font-size: 16px !important; margin-top: 6px !important; }
+
+    /* Smaller polka dots on mobile: same diamond pattern at ~60% scale, more dots across */
+    .hero {
+      padding-top: 85px;
+      background-image:
+        radial-gradient(circle, var(--polka-dot-color, #ee1c28) 12px, transparent 13.5px),
+        radial-gradient(circle, var(--polka-dot-color, #ee1c28) 12px, transparent 13.5px);
+      background-size: 60px 60px;
+      background-position: 0 0, 30px 30px;
+    }
+    .hero::after { top: 75px; }
+    body::after {
+      height: 90px;
+      background-image:
+        radial-gradient(circle, var(--polka-dot-color, #ee1c28) 12px, transparent 13.5px),
+        radial-gradient(circle, var(--polka-dot-color, #ee1c28) 12px, transparent 13.5px);
+      background-size: 60px 60px;
+      background-position: 0 -15px, 30px 15px;
+    }
+  }
+</style>
+<!-- GA-CONSENT-LOADER START -->
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  window.pdbLoadGA = function(){
+    if (window.pdbGALoaded) return;
+    window.pdbGALoaded = true;
+    var s = document.createElement('script');
+    s.async = true;
+    s.src = 'https://www.googletagmanager.com/gtag/js?id=G-24JBH53W09';
+    document.head.appendChild(s);
+    gtag('js', new Date());
+    gtag('config', 'G-24JBH53W09');
+  };
+</script>
+<!-- GA-CONSENT-LOADER END -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "What does the Gear Calculator do?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "See every gear your bike actually has, lined up in order. Pick your bike, and it lays out the whole range slowest-to-fastest so you can see your spread at a glance."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What does the Climb Planner do?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "It shows how fast — and how long — a climb will take at a given power. Tell it the climb and your numbers, and it solves for your speed using real physics: gravity, rolling resistance and air drag."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What does the Groupset Comparator do?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Put two setups side by side before you buy. Build System A and System B — either one can be a stock groupset or a Custom setup you type in yourself: name it, set the chainrings, list the cassette cogs."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What does the Derailleur Capacity checker do?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Check a chainring and cassette combo will actually shift — before you order it. Every rear derailleur can only take up so much chain; this works out whether yours can cope with the range you want."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What does the W/kg & FTP calculator do?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Turn watts and weight into the number that predicts climbing. Enter your power and your weight and it gives you watts per kilo — the figure that actually decides how you'll go uphill — and shows where you sit against the standard tables."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What are the Giro, TDF & Vuelta climb browsers?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Every stage and climb of the 2026 Giro, Tour and Vuelta, with gradient profiles. Each climb card gives you its length, average gradient, category and an elevation profile, and can send that climb straight into the Climb Planner."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Does my setup carry across the tools?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Choose your groupset and wheels once on the Gear Calculator and they carry across to the Climb Planner, the Comparator and the race climb browsers. You're not re-entering your bike on every page — change it anywhere and the other tools pick it up."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Can I share or save a result?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "The Copy link button packs your exact setup into the page address — send that link and the other person opens the precise gear chart, comparison or climb you were looking at. On the Gear Calculator, Climb Planner and Comparator, the Report button opens a clean, branded summary that you can print or save as a PDF."
+      }
+    }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Home",
+      "item": "https://polkadotbike.com/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "Guide",
+      "item": "https://polkadotbike.com/guide.html"
+    }
+  ]
+}
+</script>
+<style id="dcy-inline-brand">
+  /* Reciprocal DCY brand mark: small orange square + bold wordmark, matching DCY's own header logo */
+  .dcy-brand{font-weight:800;letter-spacing:-0.01em;white-space:nowrap;}
+  .dcy-square{display:inline-block;width:0.62em;height:0.62em;background:#c8893a;border-radius:2px;margin:0 0.25em 0 0;vertical-align:0.02em;}
+</style>
+<script>
+  (function (s, t, a, y, twenty, two) {
+    s.Stay22 = s.Stay22 || {};
+    s.Stay22.params = { lmaID: '6a71bc1bd1d8a6d3f5d2d10a' };
+    twenty = t.createElement(a);
+    two = t.getElementsByTagName(a)[0];
+    twenty.async = 1;
+    twenty.src = y;
+    two.parentNode.insertBefore(twenty, two);
+  })(window, document, 'script', 'https://scripts.stay22.com/letmeallez.js');
+</script>
+</head>
+<body>
+<!-- CONSENT-BANNER START -->
+<style>
+  #pdb-consent{position:fixed;left:0;right:0;bottom:0;z-index:999;background:#000;color:#fff;
+    padding:16px 20px;display:flex;flex-wrap:wrap;align-items:center;justify-content:center;
+    gap:12px 20px;font-family:system-ui,sans-serif;box-shadow:0 -2px 12px rgba(0,0,0,.3)}
+  #pdb-consent[hidden]{display:none}
+  #pdb-consent p{margin:0;font-size:14px;line-height:1.5;max-width:560px;color:#e5e9ee}
+  #pdb-consent a{color:#7fb3f0;text-decoration:underline}
+  #pdb-consent .pdb-consent-btns{display:flex;gap:10px;flex-shrink:0}
+  #pdb-consent button{font:inherit;font-weight:600;font-size:14px;padding:9px 18px;border-radius:6px;
+    cursor:pointer;border:1px solid #fff}
+  #pdb-consent .pdb-accept{background:#1a72e0;color:#fff;border-color:#1a72e0}
+  #pdb-consent .pdb-reject{background:transparent;color:#fff}
+  @media (max-width:640px){#pdb-consent{justify-content:flex-start;text-align:left}}
+</style>
+<div id="pdb-consent" role="dialog" aria-label="Cookie consent" hidden>
+  <p>I use Google Analytics cookies to see how the site's used. See the <a href="privacy.html">privacy policy</a> for details.</p>
+  <div class="pdb-consent-btns">
+    <button type="button" class="pdb-reject" id="pdb-consent-reject">Reject</button>
+    <button type="button" class="pdb-accept" id="pdb-consent-accept">Accept</button>
+  </div>
+</div>
+<script>
+(function(){
+  var KEY = 'pdb_consent';
+  function getChoice(){ try { return localStorage.getItem(KEY); } catch(e) { return null; } }
+  function setChoice(v){ try { localStorage.setItem(KEY, v); } catch(e) {} }
+  var choice = getChoice();
+  if (choice === 'accepted' && window.pdbLoadGA) window.pdbLoadGA();
+  if (choice) return;
+  var el = document.getElementById('pdb-consent');
+  if (!el) return;
+  el.hidden = false;
+  document.getElementById('pdb-consent-accept').addEventListener('click', function(){
+    setChoice('accepted');
+    if (window.pdbLoadGA) window.pdbLoadGA();
+    el.hidden = true;
+  });
+  document.getElementById('pdb-consent-reject').addEventListener('click', function(){
+    setChoice('rejected');
+    el.hidden = true;
+  });
+})();
+</script>
+<!-- CONSENT-BANNER END -->
+<noscript><div style="position:relative;z-index:50;background:#ffcd00;color:#000;font-family:system-ui,sans-serif;font-size:14px;font-weight:600;text-align:center;padding:10px 16px">This site&#8217;s interactive calculators need JavaScript to run. The stage and climb listings on the <a href="tdf.html" style="color:#000">Tour de France 2026</a>, <a href="giro26.html" style="color:#000">Giro 2026</a> and <a href="vuelta.html" style="color:#000">Vuelta 2026</a> pages are still readable without it.</div></noscript>
+
+<!-- ═══════════ MOUNTAIN BACKDROP ═══════════ -->
+<div class="bg-scene">
+    <div class="bg-sky"></div>
+    <div class="bg-mountains"></div>
+</div>
+
+<!-- ═══════════ HEADER ═══════════ -->
+<header>
+    <a class="logo" href="index.html">Polka<svg class="logo-dot-svg" viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg"><defs><mask id="dotm"><rect width="32" height="32" fill="white"/><text x="16" y="21" text-anchor="middle" font-family="Inter,system-ui,sans-serif" font-size="11" font-weight="900" letter-spacing="1.5" fill="black">DOT</text></mask></defs><circle cx="16" cy="16" r="15" fill="#ef4444" mask="url(#dotm)"/></svg><span>Bike</span></a>
+    <nav>
+        <a href="index.html">Gear<br>Calculator</a>
+        <a href="climb.html">Climb<br>Planner</a>
+        <a href="compare.html">Groupset<br>Comparator</a>
+        <a href="derailleur.html">Derailleur<br>Capacity</a>
+        <a href="wkg.html">W/KG<br>and FTP</a>
+        <a href="giro26.html">Giro 2026</a>
+        <a href="tdf.html">TDF 2026</a>
+        <a href="vuelta.html">Vuelta 2026</a>
+        <a href="about.html">About</a>
+        <a href="guide.html" class="active">Guide</a>
+        <a href="glossary.html">Glossary</a>
+        <a href="contact.html">Contact</a>
+    </nav>
+</header>
+
+<!-- ═══════════ HERO ═══════════ -->
+<div class="hero">
+    <h1>How to use the site</h1>
+    <p>A quick tour of each tool — what it's for, what the controls do, and how to read what comes back.</p>
+</div>
+
+<div class="container">
+
+    <!-- INTRO (My Style) -->
+    <div class="glass intro">
+        <p>I built <span class="pdb-brand">Polka<span class="pdb-dot">DOT</span>Bike</span> as a handful of small tools I actually wanted for my own riding: work out a gear, plan a climb, sanity-check a groupset before I spent money on it. None of them needs a manual — but a couple of useful touches are easy to miss, so here's the thirty-second tour of each.</p>
+        <p>Two things are worth knowing up front. Your bike setup <em>follows you</em> from one tool to the next, so you only enter it once. And any result can be turned into a link you can share. More on both at the bottom.</p>
+    </div>
+
+    <!-- JUMP BAR -->
+    <div class="glass jump">
+        <h2>Jump to a tool</h2>
+        <div class="jump-links">
+            <a href="#gear-calculator">Gear Calculator</a>
+            <a href="#climb-planner">Climb Planner</a>
+            <a href="#comparator">Groupset Comparator</a>
+            <a href="#derailleur">Derailleur Capacity</a>
+            <a href="#wkg">W/kg &amp; FTP</a>
+            <a href="#races">Giro, TDF &amp; Vuelta climbs</a>
+            <a href="#everywhere">Sharing, setup &amp; reports</a>
+        </div>
+    </div>
+
+    <!-- ═══════ THE TOOLS ═══════ -->
+    <h2 class="group-title">The tools</h2>
+
+    <div class="glass tool" id="gear-calculator">
+        <h3>Gear Calculator</h3>
+        <div class="lead">See every gear your bike actually has, lined up in order.</div>
+        <p>Pick your bike, and it lays out the whole range slowest-to-fastest so you can see your spread at a glance.</p>
+        <ul class="controls">
+            <li><b>Discipline &amp; brand</b> — Road, Gravel or MTB, then Shimano, SRAM or Campagnolo. Pick <b>Custom</b> to type in any chainring and cassette by hand.</li>
+            <li><b>Drivetrain</b> — 2× (double) or 1× (single); the chainring boxes follow.</li>
+            <li><b>Chainring &amp; cassette</b> — your front rings and the sprocket sizes on the back.</li>
+            <li><b>Wheel &amp; tyre</b> — sets the rollout, which turns a ratio into a real speed.</li>
+            <li><b>Cadence slider</b> — your pedalling speed in rpm.</li>
+        </ul>
+        <p>The chart shows every gear in one of three modes — <b>m/rev</b> (metres rolled per pedal stroke), <b>speed</b> at your chosen cadence, or <b>gear inches</b>. Overlapping gears that cross-chain are flagged so you can see them.</p>
+        <p>It also colour-codes the <b>step</b> — the size of the jump between one gear and the next — shown both as a percentage in the gear list and as shading on the chart: <b style="color:#22c55e">green</b> for a seamless step under 10%, <b style="color:#f59e0b">amber</b> from 10–14%, and <b style="color:#ef4444">red</b> for a wide jump of 14% or more. It's the quickest way to see where your gearing eases between gears and where it makes you lurch.</p>
+        <p class="take">Set your real cadence before you read the speeds — the same gear reads very differently at 80 rpm and 100.</p>
+        <p class="where"><a href="index.html">Open the Gear Calculator →</a></p>
+    </div>
+
+    <div class="glass tool" id="climb-planner">
+        <h3>Climb Planner</h3>
+        <div class="lead">How fast — and how long — a climb will take at a given power.</div>
+        <p>Tell it the climb and your numbers, and it solves for your speed using real physics: gravity, rolling resistance and air drag.</p>
+        <ul class="controls">
+            <li><b>Your power</b> — the watts you expect to hold up the climb.</li>
+            <li><b>System weight</b> — you, the bike and everything on it, in kg or lbs. This is the big lever on a climb.</li>
+            <li><b>Road gradient &amp; climb distance</b> — how steep, and how long.</li>
+            <li><b>Surface (Crr)</b> — Asphalt, Hardpack, Gravel or Rocky. Rolling resistance rises sharply off tarmac, so this adjusts how hard the surface itself fights you, on top of gravity and gradient.</li>
+            <li><b>Riding position (CdA)</b> — how aero you are; matters less the steeper it gets.</li>
+            <li><b>Groupset, crank length &amp; cadence</b> — carried over from the Gear Calculator so your gearing is already set.</li>
+        </ul>
+        <p class="take">If you only know your weight roughly, round up — kit and bottles add more than people expect, and weight is what the gradient charges you for.</p>
+        <p class="where"><a href="climb.html">Open the Climb Planner →</a></p>
+    </div>
+
+    <div class="glass tool" id="comparator">
+        <h3>Groupset Comparator</h3>
+        <div class="lead">Put two setups side by side before you buy.</div>
+        <p>Build System A and System B — either one can be a stock groupset or a Custom setup you type in yourself: name it, set the chainrings, list the cassette cogs. Leave the small ring blank and it's treated as a 1×. Both are drawn on one chart, A in its brand colour, B in dashed white, and you can flip the whole thing between metres of development, speed and gear inches.</p>
+        <p>The clever bit is the heat strips above and below the chart. They don't show the gaps between gears — they score how closely the two <em>systems</em> match at each point of the range, green where they're within 4% of each other through to red where they're 15% or more apart. Two 2× setups get two strips: big rings compared along the top, small rings along the bottom. Put a 1× against a 2× and the single ring is scored against both of the other bike's rings, one strip each. Two 1× bikes need just the one.</p>
+        <p class="take">A strip that runs green end to end is telling you something the price tags won't: you'd be buying the same gears with a different badge. It's the orange and red stretches — usually at the very top or very bottom — that show where one setup genuinely does something the other can't. (If the jargon trips you up, the <a href="glossary.html" style="color:var(--accent-light);text-decoration:none;font-weight:600">glossary</a> explains it.)</p>
+        <p class="where"><a href="compare.html">Open the Groupset Comparator →</a></p>
+    </div>
+
+    <div class="glass tool" id="derailleur">
+        <h3>Derailleur Capacity</h3>
+        <div class="lead">Check a chainring and cassette combo will actually shift — before you order it.</div>
+        <p>Every rear derailleur can only take up so much chain. This works out whether yours can cope with the range you want.</p>
+        <ul class="controls">
+            <li><b>Drivetrain &amp; gears</b> — 2× or 1×, your big and small chainrings, and your smallest and largest sprockets.</li>
+            <li><b>Brand &amp; type filter</b> — narrow the list to pull a specific derailleur's published capacity to check against.</li>
+        </ul>
+        <p>It adds up your <b>total capacity</b> — (big ring − small ring) + (big sprocket − small sprocket) — and tells you whether that's within the derailleur's rating or exceeds it.</p>
+        <p class="take">If it exceeds capacity, the chain goes slack in your easiest gears. Worth checking <em>before</em> the new cassette arrives, not after.</p>
+        <p class="where"><a href="derailleur.html">Open the Derailleur Capacity checker →</a></p>
+    </div>
+
+    <div class="glass tool" id="wkg">
+        <h3>W/kg &amp; FTP</h3>
+        <div class="lead">Turn watts and weight into the number that predicts climbing.</div>
+        <p>Enter your power and your weight and it gives you watts per kilo — the figure that actually decides how you'll go uphill — and shows where you sit against the standard tables.</p>
+        <ul class="controls">
+            <li><b>Sex &amp; weight</b> — used to place you on the right benchmark, in kg or lbs.</li>
+            <li><b>FTP</b> — your roughly one-hour power, in watts.</li>
+        </ul>
+        <p>The result is your <b>W/kg</b> and a category placing, from Cat 5 up to World / Pro level, based on the Coggan power-profile tables.</p>
+        <p class="take">Both halves count: dropping a kilo can move you up the table as surely as finding a few more watts.</p>
+        <p class="where"><a href="wkg.html">Open the W/kg &amp; FTP calculator →</a></p>
+    </div>
+
+    <div class="glass tool" id="races">
+        <h3>Giro, TDF &amp; Vuelta climb browsers</h3>
+        <div class="lead">Every stage and climb of the 2026 Giro, Tour and Vuelta, with gradient profiles.</div>
+        <p>Browse the race stage by stage. During the race itself the list jumps to the day's stage automatically (and handles rest days); the rest of the year it opens on the start.</p>
+        <p>Each climb card gives you its length, average gradient, category and an elevation profile. The <b>Plan this climb →</b> button on a card sends that climb's distance and gradient straight into the Climb Planner — pre-filled with the setup you've already chosen — so you can see what it'll take for <em>you</em>.</p>
+        <p class="where"><a href="tdf.html">Tour de France 2026 →</a> &nbsp;·&nbsp; <a href="giro26.html">Giro d'Italia 2026 →</a> &nbsp;·&nbsp; <a href="vuelta.html">La Vuelta a España 2026 →</a></p>
+    </div>
+
+    <!-- ═══════ WORKS EVERYWHERE ═══════ -->
+    <h2 class="group-title">A few things worth knowing</h2>
+
+    <div class="glass tool" id="everywhere">
+        <h3>Your setup follows you</h3>
+        <p>Choose your groupset and wheels once on the Gear Calculator and they carry across to the Climb Planner, the Comparator and the race climb browsers. You're not re-entering your bike on every page — change it anywhere and the other tools pick it up.</p>
+        <h3 style="margin-top:16px">Share any result</h3>
+        <p>The <b>Copy link</b> button packs your exact setup into the page address. Send that link and the other person opens the precise gear chart, comparison or climb you were looking at — nothing to re-key. Handy for asking "is this enough gear?" without a paragraph of explanation.</p>
+        <h3 style="margin-top:16px">Print or save a report</h3>
+        <p>On the Gear Calculator, Climb Planner and Comparator, the <b>⎙ Report</b> button opens a clean, branded summary of your setup and results that you can print or save as a PDF — handy for taking to the bike shop, or keeping a record of a setup before you change it.</p>
+        <p class="take" style="margin-top:11px">And if any word on the site is new to you — gear inches, CdA, capacity, VAM — it's explained in the <a href="glossary.html" style="color:var(--accent-light);font-style:normal;text-decoration:none;font-weight:600">Glossary</a>.</p>
+    </div>
+
+    <!-- AUTHOR NOTE -->
+    <div class="glass author">
+        <p><strong>One last thing.</strong> These tools give indicative numbers, not promises — real speed and effort depend on the road, the wind and how you're sitting on the bike. If something here isn't clear, or a tool doesn't behave the way you'd expect, <a href="contact.html">tell me</a> and I'll sort it. — Robin</p>
+    </div>
+
+</div>
+
+<!-- ═══════════ FOOTER ═══════════ -->
+<!-- BEGIN AADS AD UNIT 2448890 -->
+<div id="frame" style="width: 100%;margin: auto;position: relative; z-index: 99998;">
+          <iframe data-aa='2448890' src='//acceptable.a-ads.com/2448890/?size=Adaptive&background_color=transparent'
+                            style='border:0; padding:0; width:70%; height:auto; overflow:hidden;display: block;margin: auto'></iframe>
+        </div>
+<!-- END AADS AD UNIT 2448890 -->
+<footer>
+    <p><span class="pdb-brand">Polka<span class="pdb-dot">DOT</span>Bike</span> — A quick guide to the tools. Figures are indicative.</p>
+    <p style="margin-top:6px"><a href="index.html">← Gear Calculator</a> · <a href="glossary.html">Glossary</a> · <a href="about.html">About</a> · <a href="contact.html">Contact</a> · <a href="privacy.html">Privacy</a> · <a href="disclaimer.html">Disclaimer</a></p>
+    <p style="margin-top:8px;font-size:0.85em;opacity:0.65">Also by me: <a href="https://digitalcredityield.com" target="_blank" rel="noopener" class="dcy-brand"><span class="dcy-square"></span>Digital Credit Yield</a> — Bitcoin &amp; Ethereum treasury income, explained.</p>
+    <p style="margin-top:10px"><a href="https://www.instagram.com/polkadotbike.cc/" target="_blank" rel="noopener" aria-label="Instagram" style="display:inline-flex;vertical-align:middle;margin:0 7px"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="2" y="2" width="20" height="20" rx="5.5"/><circle cx="12" cy="12" r="4.3"/><circle cx="17.4" cy="6.6" r="1.05" fill="currentColor" stroke="none"/></svg></a><a href="https://www.facebook.com/profile.php?id=61591463441672" target="_blank" rel="noopener" aria-label="Facebook" style="display:inline-flex;vertical-align:middle;margin:0 7px"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M13.5 21.9v-8.4h2.82l.42-3.27h-3.24V8.03c0-.95.26-1.6 1.63-1.6h1.74V3.55C16.55 3.47 15.6 3.4 14.5 3.4c-2.33 0-3.93 1.42-3.93 4.03v2.8H7.74v3.27h2.83v8.4h2.93z"/></svg></a></p>
+</footer>
+
+</body>
+</html>

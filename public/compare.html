@@ -1,0 +1,1562 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Bike Groupset &amp; Cassette Comparator · Polka Dot Bike</title>
+<meta name="description" content="Compare road-bike groupsets and cassettes side by side — Shimano, SRAM and Campagnolo gear ranges, ratios and gaps — to pick the right setup for your riding.">
+<link rel="canonical" href="https://polkadotbike.com/compare.html">
+<meta name="robots" content="index, follow">
+<meta name="theme-color" content="#ef4444">
+<link rel="icon" type="image/svg+xml" href="/favicon.svg">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Polka Dot Bike">
+<meta property="og:title" content="Bike Groupset &amp; Cassette Comparator · Polka Dot Bike">
+<meta property="og:description" content="Compare road-bike groupsets and cassettes side by side — Shimano, SRAM and Campagnolo gear ranges, ratios and gaps — to pick the right setup for your riding.">
+<meta property="og:url" content="https://polkadotbike.com/compare.html">
+<meta property="og:image" content="https://polkadotbike.com/og-card.png">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Bike Groupset &amp; Cassette Comparator · Polka Dot Bike">
+<meta name="twitter:description" content="Compare road-bike groupsets and cassettes side by side — Shimano, SRAM and Campagnolo gear ranges, ratios and gaps — to pick the right setup for your riding.">
+<meta name="twitter:image" content="https://polkadotbike.com/og-card.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=IBM+Plex+Sans:wght@600;700&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
+<style>
+:root{--accent:#3b82f6;--accent-light:#93c5fd;--glass:rgba(4,9,26,0.97);--border:rgba(255,255,255,0.08);--text:#e8edf5;--muted:#64748b;--sec:#94a3b8}
+*{box-sizing:border-box;margin:0;padding:0}
+html{overflow-x:hidden}body{font-family:'Inter',system-ui,sans-serif;min-height:100vh;color:var(--text);overflow-x:hidden;background:#fff}
+/* backdrop */
+.bg-scene{position:fixed;inset:0;z-index:0;pointer-events:none;overflow:hidden}
+.bg-sky{position:absolute;inset:0;background:#fff}
+.bg-mountains{position:absolute;inset:0;background-image:radial-gradient(circle,rgba(239,68,68,0.22) 28%,transparent 28%),radial-gradient(circle,rgba(239,68,68,0.22) 28%,transparent 28%);background-size:44px 44px;background-position:0 0,22px 22px}
+/* header */
+header{position:sticky;top:0;z-index:100;background:rgba(4,9,26,.85);backdrop-filter:blur(16px);border-bottom:1px solid var(--border);padding:0 24px;height:54px;display:flex;align-items:center;justify-content:space-between}
+.logo{font-size:19px;font-weight:900;letter-spacing:-.5px;color:#fff;text-decoration:none;display:inline-flex;align-items:center;gap:3px}
+.logo span{color:var(--accent)}
+.logo-dot-svg{width:32px;height:32px;flex-shrink:0}
+nav{display:flex;gap:2px;align-items:center}
+nav a{color:var(--sec);text-decoration:none;font-size:13px;font-weight:500;padding:6px 13px;border-radius:6px;transition:all .15s;text-align:center;line-height:1.2}
+nav a:hover{color:#fff;background:rgba(255,255,255,.06)}
+nav a.active{color:var(--accent);background:rgba(59,130,246,.12)}
+/* hero */
+.hero{position:relative;z-index:1;text-align:center;padding:36px 20px 24px}
+.hero h1{font-size:clamp(26px,4.5vw,44px);font-weight:900;letter-spacing:-1.5px;background:linear-gradient(135deg,#0f172a 0%,#1e3a5f 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;filter:drop-shadow(0 1px 4px rgba(255,255,255,0.8))}
+.hero p{margin-top:8px;font-size:14px;color:rgba(15,23,42,0.72);max-width:500px;margin-left:auto;margin-right:auto}
+/* layout */
+.container{position:relative;z-index:1;max-width:1380px;margin:0 auto;padding:0 16px 60px}
+.compare-grid{display:grid;grid-template-columns:260px 1fr 260px;gap:16px;align-items:start}
+.panels-row{display:contents}
+.panel-a{grid-column:1;grid-row:1}
+.chart-col{grid-column:2;grid-row:1}
+.panel-b{grid-column:3;grid-row:1}
+@media(max-width:1080px) and (min-width:769px){.compare-grid{grid-template-columns:1fr 1fr}.chart-col{grid-column:1/-1;grid-row:1}.panel-a{grid-column:1;grid-row:2}.panel-b{grid-column:2;grid-row:2}}
+.panel-tabs{display:none;gap:8px;padding:10px 0 6px}
+.panel-tab-btn{flex:1;padding:10px 0;border:none;border-radius:10px;font-size:13px;font-weight:700;font-family:inherit;cursor:pointer;background:rgba(4,9,26,0.82);color:rgba(255,255,255,0.6);transition:all .2s}
+.panel-tab-btn.active{background:var(--accent);color:#fff}
+@media(max-width:768px){:root{--muted:#94a3b8}header{padding:0 12px}nav a{font-size:11px;padding:4px 7px}.compare-grid{display:block}.panels-row{display:block}.panel-b{display:none}.panel-tabs{display:flex}.chart-col{margin-top:4px}}
+/* glass */
+.glass{background:var(--glass);border:1px solid rgba(255,255,255,0.12);border-radius:16px}
+/* panels */
+.input-panel{position:relative}
+@media(min-width:769px){.input-panel{position:sticky;top:70px}}
+.panel-head{padding:11px 16px;font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);border-bottom:1px solid var(--border);display:flex;align-items:center;gap:8px}
+.sys-badge{display:inline-flex;align-items:center;justify-content:center;width:18px;height:18px;border-radius:50%;font-size:9px;font-weight:800;letter-spacing:0;text-transform:none}
+.badge-a{background:var(--accent);color:#fff}
+.badge-b{background:#e2e8f0;color:#0f172a}
+.disc-tabs{display:grid;grid-template-columns:1fr 1fr 1fr;border-bottom:1px solid var(--border)}
+.disc-tab{padding:9px 4px;text-align:center;cursor:pointer;font-size:10px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);background:transparent;border:none;border-right:1px solid var(--border);border-bottom:2px solid transparent;transition:all .2s;font-family:inherit}
+.disc-tab:last-child{border-right:none}
+.disc-tab.active{color:#e2e8f0;border-bottom-color:rgba(255,255,255,.4);background:rgba(255,255,255,.04)}
+.brand-tabs{display:grid;border-bottom:1px solid var(--border)}
+.brand-tabs-3{grid-template-columns:1fr 1fr 1fr}
+.brand-tabs-4{grid-template-columns:1fr 1fr 1fr 1fr}
+.brand-tab{padding:10px 4px;text-align:center;cursor:pointer;font-size:10px;font-weight:700;letter-spacing:.03em;color:var(--muted);background:transparent;border:none;border-right:1px solid var(--border);border-bottom:2px solid transparent;transition:all .2s;font-family:inherit}
+.brand-tab:last-child{border-right:none}
+.brand-tab.active[data-brand="shimano"]   {color:#60a5fa;background:rgba(59,130,246,.10);border-bottom-color:#3b82f6}
+.brand-tab.active[data-brand="sram"]      {color:#f87171;background:rgba(239,68,68,.10);border-bottom-color:#ef4444}
+.brand-tab.active[data-brand="campagnolo"]{color:#fbbf24;background:rgba(245,158,11,.10);border-bottom-color:#f59e0b}
+.brand-tab.active[data-brand="custom"]    {color:#c084fc;background:rgba(192,132,252,.10);border-bottom-color:#c084fc}
+.form-body{padding:14px 16px;display:flex;flex-direction:column;gap:14px}
+.buy-label{font-size:12px;color:var(--sec);margin-bottom:10px;line-height:1.5}
+.buy-label strong{color:var(--text);display:block;font-size:13px}
+.pb-logo-chip{display:block;width:100%;max-width:220px;height:auto;margin:0 auto 12px}
+.pb-buy-link{display:flex;align-items:center;gap:10px;padding:11px 14px;border-radius:9px;background:rgba(var(--pb-rgb, 226,76,0),0.10);border:1px solid var(--pb-hex, #e24c00);color:var(--pb-text, #ff8a4c);font-size:13px;font-weight:700;text-decoration:none;transition:all .15s}
+.pb-buy-link:hover{background:rgba(var(--pb-rgb, 226,76,0),0.18)}
+.pb-buy-link .pb-text{flex:1;line-height:1.35}
+.pb-buy-link .pb-text small{display:block;font-weight:500;color:var(--sec);font-size:10.5px;margin-top:1px}
+.pb-buy-link .pb-arrow{flex-shrink:0}
+.pb-note{font-size:10.5px;color:var(--muted);margin-top:8px;text-align:center}
+.form-group label{display:block;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);margin-bottom:6px}
+select{width:100%;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.10);border-radius:9px;color:var(--text);padding:8px 28px 8px 10px;font-size:12px;font-family:inherit;appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='10' fill='%2364748b' viewBox='0 0 16 16'%3E%3Cpath d='M7.247 11.14L2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 10px center;cursor:pointer;transition:border-color .15s}
+select:focus{outline:none;border-color:var(--accent)}
+select option{background:#0d1635}
+input[type="text"],input[type="number"]{width:100%;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.10);border-radius:9px;color:var(--text);padding:8px 10px;font-size:12px;font-family:inherit;transition:border-color .15s}
+input[type="text"]:focus,input[type="number"]:focus{outline:none;border-color:var(--accent)}
+.cr-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(56px,1fr));gap:5px}
+.cr-btn{padding:7px 4px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:8px;color:var(--sec);font-size:11px;font-weight:600;font-family:inherit;cursor:pointer;text-align:center;transition:all .15s}
+.cr-btn:hover{border-color:rgba(255,255,255,.25);color:#fff}
+.cr-btn.active{background:rgba(59,130,246,.15);border-color:var(--accent);color:#fff}
+.row-between{display:flex;justify-content:space-between;align-items:center;margin-bottom:7px}
+.big-val{font-size:19px;font-weight:800;color:#fff;line-height:1}
+.big-val span{font-size:10px;font-weight:400;color:var(--muted);margin-left:2px}
+input[type="range"]{width:100%;height:3px;background:rgba(255,255,255,.1);border-radius:2px;appearance:none;cursor:pointer}
+input[type="range"]::-webkit-slider-thumb{appearance:none;width:16px;height:16px;border-radius:50%;background:var(--accent);cursor:pointer}
+.range-labels{display:flex;justify-content:space-between;margin-top:4px;color:var(--muted);font-size:10px}
+.colour-swatches{display:flex;gap:8px;margin-top:4px}
+.swatch{width:28px;height:28px;border-radius:50%;border:2px solid transparent;cursor:pointer;transition:all .15s}
+.swatch.active{border-color:#fff;transform:scale(1.15)}
+/* chart col */
+.chart-col{display:flex;flex-direction:column;gap:14px}
+.chart-card{padding:20px 22px 14px;border-radius:16px;background:var(--glass);border:1px solid rgba(255,255,255,0.12)}
+.chart-header{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:12px;gap:12px;flex-wrap:wrap}
+.chart-title{font-size:13px;font-weight:700;color:#fff}
+.chart-sub{font-size:11px;color:var(--muted);margin-top:2px}
+.chart-legend{display:flex;gap:12px;flex-wrap:wrap}
+.chart-controls{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.share-btn{padding:6px 12px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.12);border-radius:8px;color:var(--muted);font-size:11px;font-weight:600;font-family:inherit;cursor:pointer;transition:all .2s;white-space:nowrap;margin-left:auto}
+.share-btn:hover{background:rgba(255,255,255,.12);color:#e2e8f0}
+.share-btn.copied{background:rgba(34,197,94,.15);border-color:#22c55e;color:#22c55e}
+#print-overlay{display:none;position:fixed;inset:0;z-index:500;background:rgba(0,0,0,0.88);padding:20px;overflow-y:auto;align-items:flex-start;justify-content:center}
+#print-modal{background:#fff;border-radius:14px;padding:28px 32px;max-width:860px;width:100%;margin:auto;color:#1e293b}
+.rpt-header{display:flex;align-items:center;justify-content:space-between;padding-bottom:14px;border-bottom:2px solid #e2e8f0;margin-bottom:14px}
+.rpt-logo{font-size:20px;font-weight:900;letter-spacing:-.5px;color:#1e293b;display:inline-flex;align-items:center;gap:3px}
+.rpt-logo-dot{width:26px;height:26px;flex-shrink:0}
+.rpt-heading{font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:#64748b}
+.rpt-meta{font-size:12px;color:#475569;background:#f8fafc;border:1px solid #e2e8f0;border-radius:8px;padding:9px 14px;margin-bottom:16px;line-height:1.7}
+.rpt-meta strong{color:#1e293b}
+.rpt-sys-label{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;margin:14px 0 6px;color:#334155}
+.rpt-chart-bg{background:#f8fafc;border:1px solid #e2e8f0;border-radius:10px;padding:12px;margin-bottom:18px;overflow:hidden}
+.rpt-chart-bg svg{width:100%;height:auto;display:block}
+.rpt-table{width:100%;border-collapse:collapse;font-size:11px;margin-bottom:4px}
+.rpt-table th{background:#f1f5f9;padding:5px 7px;font-weight:700;color:#334155;text-align:center;border:1px solid #e2e8f0;white-space:nowrap}
+.rpt-table td{padding:5px 7px;text-align:center;border:1px solid #e2e8f0;vertical-align:middle}
+.rpt-table td.cross{opacity:.35}
+.rpt-ring-lbl{text-align:left !important;white-space:nowrap;font-weight:700;font-size:11px}
+.rpt-cog{font-size:12px;font-weight:700;color:#1e293b}
+.rpt-dev{font-size:11px;font-weight:600;color:#3b82f6}
+.rpt-cross-note{font-size:10px;color:#94a3b8;margin-top:6px}
+.print-actions{display:flex;justify-content:flex-end;gap:10px;margin-top:20px;padding-top:16px;border-top:1px solid #e2e8f0}
+.print-close-btn{padding:8px 18px;background:#f1f5f9;border:1px solid #e2e8f0;border-radius:8px;color:#475569;font-size:12px;font-weight:600;font-family:inherit;cursor:pointer}
+.print-print-btn{padding:8px 18px;background:#3b82f6;border:1px solid #2563eb;border-radius:8px;color:#fff;font-size:12px;font-weight:700;font-family:inherit;cursor:pointer}
+@media print{
+    @page{margin:12mm}
+    body>*:not(#print-overlay){display:none !important}
+    #print-overlay{display:block !important;position:static !important;background:none !important;padding:0 !important;overflow:visible !important}
+    #print-modal{box-shadow:none !important;border-radius:0 !important;max-width:100% !important;padding:16px !important}
+    .print-actions{display:none !important}
+}
+.chart-mode-toggle{display:flex;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:8px;overflow:hidden}
+.chart-mode-btn{padding:6px 12px;background:transparent;border:none;color:var(--muted);font-size:11px;font-weight:600;font-family:inherit;cursor:pointer;transition:all .15s;white-space:nowrap}
+.chart-mode-btn.active{background:rgba(255,255,255,.10);color:#e2e8f0}
+.cadence-ctrl{display:flex;align-items:center;gap:6px;font-size:11px;color:var(--muted)}
+.cadence-ctrl input{width:52px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.10);border-radius:7px;color:#e2e8f0;padding:5px 8px;font-size:12px;font-weight:600;font-family:inherit;text-align:center}
+.cadence-ctrl input:focus{outline:none;border-color:rgba(255,255,255,.25)}
+.cl-item{display:flex;align-items:center;gap:5px;font-size:11px;color:var(--muted)}
+.cl-line{width:20px;height:3px;border-radius:2px}
+.cl-line-dash{width:20px;height:0;border-top:2px dashed}
+.chart-wrap{overflow:hidden}.chart-wrap svg{width:100%;height:auto;display:block;overflow:visible}
+/* System B is the white system — its buttons highlight white, matching its chart chains */
+#cr-grid-b .cr-btn.active{background:rgba(255,255,255,.12) !important;border-color:#fff !important;color:#fff !important}
+#brand-tabs-b .brand-tab.active[data-brand] { color:#fff !important; background:rgba(255,255,255,0.10) !important; border-bottom-color:#fff !important; }
+
+/* gap legend */
+.gap-legend{display:flex;gap:6px;align-items:center;padding:10px 14px;background:rgba(255,255,255,.03);border-radius:10px;border:1px solid var(--border);flex-wrap:wrap}
+.gap-legend-label{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:var(--muted);margin-right:4px}
+.gap-swatch{width:40px;height:10px;border-radius:3px}
+.gap-text{font-size:10px;color:var(--muted);margin-right:8px}
+/* stats */
+.stats-row{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.stat-card{padding:14px 16px;border-radius:12px;background:var(--glass);border:1px solid rgba(255,255,255,0.12)}
+.stat-label{font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);margin-bottom:6px}
+.stat-ab{display:flex;gap:10px;align-items:baseline}
+.stat-a{font-family:'IBM Plex Sans',Inter,system-ui,sans-serif; font-size:17px;font-weight: 700;letter-spacing: 0;color:var(--accent)}
+.stat-b{font-family:'IBM Plex Sans',Inter,system-ui,sans-serif; font-size:17px;font-weight: 700;letter-spacing: 0;color:#e2e8f0}
+.stat-u{font-size:10px;font-weight:400;color:var(--muted);margin-left:2px}
+.stat-sep{font-size:13px;color:var(--border)}
+/* tooltip */
+.chart-tooltip{position:fixed;background:rgba(6,12,30,.97);border:1px solid rgba(255,255,255,.14);border-radius:10px;padding:10px 14px;pointer-events:none;white-space:nowrap;z-index:200;opacity:0;transition:opacity .1s;box-shadow:0 10px 30px rgba(0,0,0,.6)}
+.chart-tooltip.show{opacity:1}
+.ct-ring{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;margin-bottom:4px}
+.ct-dev{font-family:'IBM Plex Sans',Inter,system-ui,sans-serif; font-size:20px;font-weight: 700;letter-spacing: 0;line-height:1;margin-bottom:3px}
+.ct-detail{font-size:11px;color:var(--muted)}
+footer{position:relative;z-index:1;border-top:1px solid var(--border);padding:22px 20px;text-align:center}
+footer p{font-size:12px;color:var(--muted)}
+footer a{color:var(--muted);text-decoration:none}
+footer a:hover{color:var(--sec)}
+</style>
+<style id="polka-hero-dots">
+  /* Bright-white bg; red diamond polka-dots band at top of hero; title(left)+subtitle(right) below on white. */
+  .bg-mountains { display: none !important; }
+  .bg-sky { background: #fff !important; }
+  header { background: #000 !important; }
+  .hero {
+    position: relative; z-index: 1; box-sizing: border-box;
+    padding: 164px 24px 8px; margin-bottom: 34px;
+    background-image:
+      radial-gradient(circle, var(--polka-dot-color, #ee1c28) 25px, transparent 26.5px),
+      radial-gradient(circle, var(--polka-dot-color, #ee1c28) 25px, transparent 26.5px);
+    background-size: 124px 124px; background-position: 0 0, 62px 62px; background-repeat: repeat;
+    display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: 6px 24px; text-align: left;
+  }
+  .hero::after { content: ""; position: absolute; left: 0; right: 0; top: 154px; bottom: 0; background: #fff; z-index: -1; }
+  .hero > h1 { margin: 0; color: #000 !important; -webkit-text-fill-color: #000 !important; background: none !important; filter: none !important; }
+  .hero > p  { margin: 0; max-width: 340px; text-align: left; color: #000 !important; font-weight: 700 !important; }
+
+  /* ===== UCI World-Championship bold palette (dots stay red) ===== */
+  :root {
+    --glass: #000; --glass2: #000;
+    --accent: #1a72e0; --accent-light: #7fb3f0;
+    --green: #12b05f; --amber: #ffcd00; --red: #ee1c28;
+  }
+  .glass, .input-panel, .stat-card, .chart-card, .achieve-card, .rail-card, .buy-card { border-color: rgba(255,255,255,0.14); }
+  .logo span { color: #fff !important; }
+  /* groupset / brand tabs: text + lower line only (no box tint). Bold hues. */
+  .brand-tab.active[data-brand="shimano"]    { color:#2b8bff !important; background:transparent !important; border-bottom-color:#1a72e0 !important; }
+  .brand-tab.active[data-brand="sram"]       { color:#ff1f2b !important; background:transparent !important; border-bottom-color:#ee1c28 !important; }
+  .brand-tab.active[data-brand="campagnolo"] { color:#ffcf1a !important; background:transparent !important; border-bottom-color:#ffcd00 !important; }
+  .brand-tab.active[data-brand="custom"]     { color:#17c86c !important; background:transparent !important; border-bottom-color:#12b05f !important; }
+  .cust-mode-btn.active { background:#12b05f; }
+  /* derailleur page: segmented filter buttons — no fill, bold groupset colours + lower line */
+  .filter-btn.active { background:transparent !important; color:#fff !important; border-bottom:2px solid rgba(255,255,255,0.85); }
+  .filter-btn.active[data-fbrand="shimano"]    { color:#2b8bff !important; border-bottom-color:#1a72e0; }
+  .filter-btn.active[data-fbrand="sram"]       { color:#ff1f2b !important; border-bottom-color:#ee1c28; }
+  .filter-btn.active[data-fbrand="campagnolo"] { color:#ffcf1a !important; border-bottom-color:#ffcd00; }
+  /* alert / status colours (bold, not pale) */
+  .stat-green { color:#17c86c !important; }
+  .stat-red   { color:#ff1f2b !important; }
+  .verdict-card.v-yes  { border-color:rgba(18,176,95,0.5) !important; }
+  .verdict-card.v-warn { border-color:rgba(255,205,0,0.55) !important; }
+  .verdict-card.v-no   { border-color:rgba(238,28,40,0.5) !important; }
+  .verdict-card.v-yes  .verdict-main { color:#17c86c; }
+  .verdict-card.v-warn .verdict-main { color:#ffcf1a; }
+  .verdict-card.v-no   .verdict-main { color:#ff1f2b; }
+  .dr-group.ok   .dr-group-label, .dr-group.ok   .dr-status { color:#17c86c !important; }
+  .dr-group.warn .dr-group-label, .dr-group.warn .dr-status { color:#ffcf1a !important; }
+  .dr-group.no   .dr-group-label, .dr-group.no   .dr-status { color:#ff1f2b !important; }
+  /* bottom polka-dot band: white gap after content, then 3 dot rows down to the page bottom */
+  body::after {
+    content: ""; display: block; position: relative; z-index: 1; width: 100%; height: 186px; margin-top: 4px;
+    background-image:
+      radial-gradient(circle, var(--polka-dot-color, #ee1c28) 25px, transparent 26.5px),
+      radial-gradient(circle, var(--polka-dot-color, #ee1c28) 25px, transparent 26.5px);
+    background-size: 124px 124px; background-position: 0px -31px, 62px 31px; background-repeat: repeat;
+  }
+</style>
+<!-- VUELTA-DOT-SWITCH -->
+<script>
+(function(){
+  // La Vuelta a España 2026 runs 22 Aug - 13 Sep. During that window, swap the
+  // site's decorative polka-dot pattern from red to the Vuelta mountains-jersey
+  // blue on every page, then automatically revert to red once the race ends.
+  var now = new Date();
+  var start = new Date('2026-08-22T00:00:00');
+  var end   = new Date('2026-09-13T23:59:59');
+  if (now >= start && now <= end) {
+    document.documentElement.style.setProperty('--polka-dot-color', '#1a72e0');
+  }
+})();
+</script>
+<style id="pdb-inline-brand">
+  /* Inline brand mark: "Polka(DOT)Bike" with DOT knocked into a red circle, as per the header logo */
+  .pdb-brand{font-weight:800;white-space:nowrap;}
+  .pdb-dot{display:inline-block;width:1.35em;height:1.35em;vertical-align:-0.3em;margin:0 0.12em;overflow:hidden;text-indent:-9999px;white-space:nowrap;background:url("data:image/svg+xml;utf8,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 32 32%22%3E%3Ccircle cx=%2216%22 cy=%2216%22 r=%2216%22 fill=%22%23ef4444%22/%3E%3Ctext x=%2216.75%22 y=%2220%22 text-anchor=%22middle%22 font-family=%22Inter,system-ui,sans-serif%22 font-size=%2210.5%22 font-weight=%22900%22 letter-spacing=%221.5%22 fill=%22%23000%22%3EDOT%3C/text%3E%3C/svg%3E") no-repeat center/contain;}
+</style>
+<style id="polka-mobile-nav">
+  /* Mobile: nav scrolls horizontally inside the header bar instead of stretching the page */
+  @media (max-width: 768px) {
+    html, body { overflow-x: hidden; }
+    header { gap: 8px; }
+    .logo { flex-shrink: 0; }
+    nav {
+      min-width: 0;
+      overflow-x: auto; -webkit-overflow-scrolling: touch;
+      flex-wrap: nowrap; max-width: 100%;
+      scrollbar-width: none; -ms-overflow-style: none;
+    }
+    nav::-webkit-scrollbar { display: none; }
+    nav a { white-space: nowrap; flex-shrink: 0; }
+    .hero-bikes { font-size: 16px !important; margin-top: 6px !important; }
+
+    /* Smaller polka dots on mobile: same diamond pattern at ~60% scale, more dots across */
+    .hero {
+      padding-top: 85px;
+      background-image:
+        radial-gradient(circle, var(--polka-dot-color, #ee1c28) 12px, transparent 13.5px),
+        radial-gradient(circle, var(--polka-dot-color, #ee1c28) 12px, transparent 13.5px);
+      background-size: 60px 60px;
+      background-position: 0 0, 30px 30px;
+    }
+    .hero::after { top: 75px; }
+    body::after {
+      height: 90px;
+      background-image:
+        radial-gradient(circle, var(--polka-dot-color, #ee1c28) 12px, transparent 13.5px),
+        radial-gradient(circle, var(--polka-dot-color, #ee1c28) 12px, transparent 13.5px);
+      background-size: 60px 60px;
+      background-position: 0 -15px, 30px 15px;
+    }
+  }
+</style>
+<!-- GA-CONSENT-LOADER START -->
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  window.pdbLoadGA = function(){
+    if (window.pdbGALoaded) return;
+    window.pdbGALoaded = true;
+    var s = document.createElement('script');
+    s.async = true;
+    s.src = 'https://www.googletagmanager.com/gtag/js?id=G-24JBH53W09';
+    document.head.appendChild(s);
+    gtag('js', new Date());
+    gtag('config', 'G-24JBH53W09');
+  };
+</script>
+<!-- GA-CONSENT-LOADER END -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebApplication",
+  "@id": "https://polkadotbike.com/compare.html#app",
+  "name": "Groupset Comparator",
+  "url": "https://polkadotbike.com/compare.html",
+  "applicationCategory": "UtilitiesApplication",
+  "operatingSystem": "Any",
+  "browserRequirements": "Requires JavaScript",
+  "offers": {
+    "@type": "Offer",
+    "price": "0",
+    "priceCurrency": "GBP"
+  },
+  "description": "Compare road-bike groupsets and cassettes side by side — Shimano, SRAM and Campagnolo gear ranges, ratios and gaps — to pick the right setup for your riding.",
+  "author": {
+    "@type": "Person",
+    "name": "Robin Gillingham",
+    "url": "https://polkadotbike.com/about.html"
+  },
+  "isPartOf": {
+    "@id": "https://polkadotbike.com/#website"
+  }
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Home",
+      "item": "https://polkadotbike.com/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "Groupset Comparator",
+      "item": "https://polkadotbike.com/compare.html"
+    }
+  ]
+}
+</script>
+<style id="dcy-inline-brand">
+  /* Reciprocal DCY brand mark: small orange square + bold wordmark, matching DCY's own header logo */
+  .dcy-brand{font-weight:800;letter-spacing:-0.01em;white-space:nowrap;}
+  .dcy-square{display:inline-block;width:0.62em;height:0.62em;background:#c8893a;border-radius:2px;margin:0 0.25em 0 0;vertical-align:0.02em;}
+</style>
+<script>
+  (function (s, t, a, y, twenty, two) {
+    s.Stay22 = s.Stay22 || {};
+    s.Stay22.params = { lmaID: '6a71bc1bd1d8a6d3f5d2d10a' };
+    twenty = t.createElement(a);
+    two = t.getElementsByTagName(a)[0];
+    twenty.async = 1;
+    twenty.src = y;
+    two.parentNode.insertBefore(twenty, two);
+  })(window, document, 'script', 'https://scripts.stay22.com/letmeallez.js');
+</script>
+</head>
+<body>
+<!-- CONSENT-BANNER START -->
+<style>
+  #pdb-consent{position:fixed;left:0;right:0;bottom:0;z-index:999;background:#000;color:#fff;
+    padding:16px 20px;display:flex;flex-wrap:wrap;align-items:center;justify-content:center;
+    gap:12px 20px;font-family:system-ui,sans-serif;box-shadow:0 -2px 12px rgba(0,0,0,.3)}
+  #pdb-consent[hidden]{display:none}
+  #pdb-consent p{margin:0;font-size:14px;line-height:1.5;max-width:560px;color:#e5e9ee}
+  #pdb-consent a{color:#7fb3f0;text-decoration:underline}
+  #pdb-consent .pdb-consent-btns{display:flex;gap:10px;flex-shrink:0}
+  #pdb-consent button{font:inherit;font-weight:600;font-size:14px;padding:9px 18px;border-radius:6px;
+    cursor:pointer;border:1px solid #fff}
+  #pdb-consent .pdb-accept{background:#1a72e0;color:#fff;border-color:#1a72e0}
+  #pdb-consent .pdb-reject{background:transparent;color:#fff}
+  @media (max-width:640px){#pdb-consent{justify-content:flex-start;text-align:left}}
+</style>
+<div id="pdb-consent" role="dialog" aria-label="Cookie consent" hidden>
+  <p>I use Google Analytics cookies to see how the site's used. See the <a href="privacy.html">privacy policy</a> for details.</p>
+  <div class="pdb-consent-btns">
+    <button type="button" class="pdb-reject" id="pdb-consent-reject">Reject</button>
+    <button type="button" class="pdb-accept" id="pdb-consent-accept">Accept</button>
+  </div>
+</div>
+<script>
+(function(){
+  var KEY = 'pdb_consent';
+  function getChoice(){ try { return localStorage.getItem(KEY); } catch(e) { return null; } }
+  function setChoice(v){ try { localStorage.setItem(KEY, v); } catch(e) {} }
+  var choice = getChoice();
+  if (choice === 'accepted' && window.pdbLoadGA) window.pdbLoadGA();
+  if (choice) return;
+  var el = document.getElementById('pdb-consent');
+  if (!el) return;
+  el.hidden = false;
+  document.getElementById('pdb-consent-accept').addEventListener('click', function(){
+    setChoice('accepted');
+    if (window.pdbLoadGA) window.pdbLoadGA();
+    el.hidden = true;
+  });
+  document.getElementById('pdb-consent-reject').addEventListener('click', function(){
+    setChoice('rejected');
+    el.hidden = true;
+  });
+})();
+</script>
+<!-- CONSENT-BANNER END -->
+<noscript><div style="position:relative;z-index:50;background:#ffcd00;color:#000;font-family:system-ui,sans-serif;font-size:14px;font-weight:600;text-align:center;padding:10px 16px">This site&#8217;s interactive calculators need JavaScript to run. The stage and climb listings on the <a href="tdf.html" style="color:#000">Tour de France 2026</a>, <a href="giro26.html" style="color:#000">Giro 2026</a> and <a href="vuelta.html" style="color:#000">Vuelta 2026</a> pages are still readable without it.</div></noscript>
+
+<div class="bg-scene">
+  <div class="bg-sky"></div>
+  <div class="bg-mountains"></div>
+</div>
+
+<header>
+  <a class="logo" href="index.html">Polka<svg class="logo-dot-svg" viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg"><defs><mask id="dotm"><rect width="32" height="32" fill="white"/><text x="16" y="21" text-anchor="middle" font-family="Inter,system-ui,sans-serif" font-size="11" font-weight="900" letter-spacing="1.5" fill="black">DOT</text></mask></defs><circle cx="16" cy="16" r="15" fill="#ef4444" mask="url(#dotm)"/></svg><span>Bike</span></a>
+  <nav>
+    <a href="index.html">Gear<br>Calculator</a>
+    <a href="climb.html">Climb<br>Planner</a>
+    <a href="compare.html" class="active">Groupset<br>Comparator</a>
+    <a href="derailleur.html">Derailleur<br>Capacity</a>
+    <a href="wkg.html">W/KG<br>and FTP</a>
+    <a href="giro26.html">Giro 2026</a>
+    <a href="tdf.html">TDF 2026</a>
+    <a href="vuelta.html">Vuelta 2026</a>
+    <a href="about.html">About</a>
+    <a href="guide.html">Guide</a>
+    <a href="glossary.html">Glossary</a>
+    <a href="contact.html">Contact</a>
+  </nav>
+</header>
+
+<div class="hero">
+  <h1>Groupset Comparator</h1>
+  <p>Plot two drivetrains side by side. The coloured band shows where they match — and where they diverge.</p>
+    <div class="hero-bikes" style="flex-basis:100%;max-width:1120px;margin:12px auto 0;display:flex;justify-content:space-between;align-items:center;font-size:28px;font-weight:900;letter-spacing:-1px;color:#0f172a">
+        <span>Road Bikes</span><span>Mountain Bikes</span><span>Gravel Bikes</span>
+    </div>
+</div>
+
+<div id="js-err" style="display:none;position:relative;z-index:3;background:#ef4444;color:#fff;padding:8px 14px;font-size:13px;font-family:monospace;margin:8px 0;border-radius:6px"></div>
+<div class="container">
+<div class="compare-grid">
+<div class="panels-row" id="panels-row">
+
+  <!-- PANEL A -->
+  <div class="input-panel glass panel-a">
+    <div class="panel-head"><span class="sys-badge badge-a">A</span> System A</div>
+    <div class="disc-tabs" id="disc-tabs-a">
+      <button class="disc-tab active" data-disc="road"   onclick="selectDisciplineA('road')">Road</button>
+      <button class="disc-tab"         data-disc="mtb"    onclick="selectDisciplineA('mtb')">MTB</button>
+      <button class="disc-tab"         data-disc="gravel" onclick="selectDisciplineA('gravel')">Gravel</button>
+    </div>
+    <div class="brand-tabs brand-tabs-4" id="brand-tabs-a">
+      <button class="brand-tab active" data-brand="shimano"    onclick="selectBrandA('shimano')">Shim</button>
+      <button class="brand-tab"        data-brand="sram"       onclick="selectBrandA('sram')">SRAM</button>
+      <button class="brand-tab"        data-brand="campagnolo" onclick="selectBrandA('campagnolo')">Camp</button>
+      <button class="brand-tab"        data-brand="custom"     onclick="selectBrandA('custom')">Custom</button>
+    </div>
+
+    <!-- Groupset panel (shown for shimano/sram/campagnolo) -->
+    <div id="a-groupset-panel">
+      <div class="form-body">
+        <div class="form-group">
+          <label>Groupset</label>
+          <select id="sel-gs-a" onchange="onGroupsetChangeA()"></select>
+        </div>
+        <div class="form-group">
+          <label>Chainring</label>
+          <div class="cr-grid" id="cr-grid-a"></div>
+        </div>
+        <div class="form-group">
+          <label>Cassette</label>
+          <select id="sel-cs-a" onchange="renderAll()"></select>
+        </div>
+        <div class="form-group">
+          <label>Wheel &amp; Tyre</label>
+          <select id="sel-wh-a" onchange="renderAll()"></select>
+        </div>
+      </div>
+    </div>
+
+    <!-- Custom panel -->
+    <div id="a-custom-panel" style="display:none">
+      <div class="form-body">
+        <div class="form-group">
+          <label>Label</label>
+          <input type="text" id="custom-label-a" value="Custom" oninput="renderAll()">
+        </div>
+        <div class="form-group">
+          <label>Big Ring (teeth)</label>
+          <input type="number" id="custom-big-a" value="50" min="20" max="62" oninput="renderAll()">
+        </div>
+        <div class="form-group">
+          <label>Small Ring (blank for 1×)</label>
+          <input type="number" id="custom-small-a" value="34" min="20" max="50" oninput="renderAll()">
+        </div>
+        <div class="form-group">
+          <label>Cassette Cogs (comma-separated)</label>
+          <input type="text" id="custom-cogs-a" value="11,12,13,14,15,17,19,21,24,28" oninput="renderAll()">
+        </div>
+        <div class="form-group">
+          <label>Wheel &amp; Tyre</label>
+          <select id="sel-wh-ac" onchange="renderAll()"></select>
+        </div>
+      </div>
+    </div>
+    <!-- BUY THESE COMPONENTS (System A's selected groupset) -->
+    <div class="glass" id="buy-card" style="display:none;margin-top:16px;border-radius:16px">
+      <div class="panel-head">Buy These Components</div>
+      <div class="form-body">
+          <img class="pb-logo-chip" src="pb-logo.png" alt="Performance Bicycle">
+          <div class="buy-label"><strong id="buy-label">—</strong>Selected configuration</div>
+          <a class="pb-buy-link" id="pb-buy-link" href="#" target="_blank" rel="noopener sponsored">
+              <span class="pb-text" id="pb-buy-text">Shop this groupset<small>Opens in a new tab</small></span>
+              <span class="pb-arrow">→</span>
+          </a>
+          <p class="pb-note">Affiliate link — I may earn a small commission at no extra cost to you.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- PANEL B -->
+  <div class="input-panel glass panel-b">
+    <div class="panel-head"><span class="sys-badge badge-b">B</span> System B</div>
+    <div class="disc-tabs" id="disc-tabs-b">
+      <button class="disc-tab active" data-disc="road"   onclick="selectDisciplineB('road')">Road</button>
+      <button class="disc-tab"         data-disc="mtb"    onclick="selectDisciplineB('mtb')">MTB</button>
+      <button class="disc-tab"         data-disc="gravel" onclick="selectDisciplineB('gravel')">Gravel</button>
+    </div>
+    <div class="brand-tabs brand-tabs-4" id="brand-tabs-b">
+      <button class="brand-tab active" data-brand="shimano"    onclick="selectBrandB('shimano')">Shim</button>
+      <button class="brand-tab"        data-brand="sram"       onclick="selectBrandB('sram')">SRAM</button>
+      <button class="brand-tab"        data-brand="campagnolo" onclick="selectBrandB('campagnolo')">Camp</button>
+      <button class="brand-tab"        data-brand="custom"     onclick="selectBrandB('custom')">Custom</button>
+    </div>
+
+    <!-- Groupset panel (shown for shimano/sram/campagnolo) -->
+    <div id="b-groupset-panel">
+      <div class="form-body">
+        <div class="form-group">
+          <label>Groupset</label>
+          <select id="sel-gs-b" onchange="onGroupsetChangeB()"></select>
+        </div>
+        <div class="form-group">
+          <label>Chainring</label>
+          <div class="cr-grid" id="cr-grid-b"></div>
+        </div>
+        <div class="form-group">
+          <label>Cassette</label>
+          <select id="sel-cs-b" onchange="renderAll()"></select>
+        </div>
+        <div class="form-group">
+          <label>Wheel &amp; Tyre</label>
+          <select id="sel-wh-b" onchange="renderAll()"></select>
+        </div>
+      </div>
+    </div>
+
+    <!-- Custom panel -->
+    <div id="b-custom-panel" style="display:none">
+      <div class="form-body">
+        <div class="form-group">
+          <label>Label</label>
+          <input type="text" id="custom-label" value="Custom" oninput="renderAll()">
+        </div>
+        <div class="form-group">
+          <label>Big Ring (teeth)</label>
+          <input type="number" id="custom-big" value="50" min="20" max="62" oninput="renderAll()">
+        </div>
+        <div class="form-group">
+          <label>Small Ring (blank for 1×)</label>
+          <input type="number" id="custom-small" value="34" min="20" max="50" oninput="renderAll()">
+        </div>
+        <div class="form-group">
+          <label>Cassette Cogs (comma-separated)</label>
+          <input type="text" id="custom-cogs" value="11,12,13,14,15,17,19,21,24,28" oninput="renderAll()">
+        </div>
+        <div class="form-group">
+          <label>Wheel &amp; Tyre</label>
+          <select id="sel-wh-bc" onchange="renderAll()"></select>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div><!-- /panels-row -->
+<div class="panel-tabs" id="panel-tabs">
+  <button class="panel-tab-btn active" id="tab-a" onclick="goToPanel(0)">⬤ System A</button>
+  <button class="panel-tab-btn" id="tab-b" onclick="goToPanel(1)">System B ›</button>
+</div>
+
+  <!-- CHART COL -->
+  <div class="chart-col">
+    <div class="chart-card">
+      <div class="chart-header">
+        <div>
+          <div class="chart-title" id="chart-title">Development Comparison</div>
+          <div class="chart-sub" id="chart-sub">Metres per revolution · hover dots for details</div>
+        </div>
+        <div class="chart-controls">
+          <div class="chart-mode-toggle">
+            <button class="chart-mode-btn active" data-mode="dev" onclick="setChartMode('dev')">m/rev</button>
+            <button class="chart-mode-btn" data-mode="spd" onclick="setChartMode('spd')">Speed</button>
+            <button class="chart-mode-btn" data-mode="in" onclick="setChartMode('in')">Gear in.</button>
+          </div>
+          <div class="cadence-ctrl" id="cadence-ctrl" style="display:none">
+            <label for="chart-cadence">Cadence</label>
+            <input type="number" id="chart-cadence" value="90" min="40" max="140" step="5" oninput="renderAll()">
+            <span>rpm</span>
+          </div>
+          <div class="chart-legend">
+            <div class="cl-item"><div class="cl-line" style="background:#aeb8c2"></div><span id="leg-a-label">System A big</span></div>
+            <div class="cl-item"><div class="cl-line" style="background:#7d8896"></div><span id="leg-a-small">System A small</span></div>
+            <div class="cl-item"><div class="cl-line-dash" style="border-color:#aeb8c2"></div><span id="leg-b-label">System B big</span></div>
+            <div class="cl-item"><div class="cl-line-dash" style="border-color:#7d8896"></div><span id="leg-b-small">System B small</span></div>
+          </div>
+          <button class="share-btn" id="share-btn" onclick="copyLink()">⬡ Copy link</button>
+          <button class="share-btn" onclick="showPrintReport()">⎙ Report</button>
+        </div>
+      </div>
+      <div class="chart-wrap" id="chart-wrap">
+        <div style="padding:60px 20px;text-align:center;color:var(--muted);font-size:14px">Loading…</div>
+      </div>
+    </div>
+
+    <div class="gap-legend">
+      <span class="gap-legend-label">Gap strip</span>
+      <div class="gap-swatch" style="background:#12b05f"></div><span class="gap-text">&lt;4% — close match</span>
+      <div class="gap-swatch" style="background:#ffcd00"></div><span class="gap-text">4–9%</span>
+      <div class="gap-swatch" style="background:#ff7a00"></div><span class="gap-text">9–15%</span>
+      <div class="gap-swatch" style="background:#ee1c28"></div><span class="gap-text">&gt;15% — wide gap</span>
+    </div>
+
+    <div class="stats-row" id="stats-row">
+      <div class="stat-card">
+        <div class="stat-label">Lowest Gear (Big Ring)</div>
+        <div class="stat-ab">
+          <span class="stat-a" id="st-low-a">—</span>
+          <span class="stat-sep">/</span>
+          <span class="stat-b" id="st-low-b">—</span>
+          <span class="stat-u">m/rev</span>
+        </div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-label">Highest Gear (Big Ring)</div>
+        <div class="stat-ab">
+          <span class="stat-a" id="st-hi-a">—</span>
+          <span class="stat-sep">/</span>
+          <span class="stat-b" id="st-hi-b">—</span>
+          <span class="stat-u">m/rev</span>
+        </div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-label">Avg Step (Big Ring)</div>
+        <div class="stat-ab">
+          <span class="stat-a" id="st-step-a">—</span>
+          <span class="stat-sep">/</span>
+          <span class="stat-b" id="st-step-b">—</span>
+          <span class="stat-u">%</span>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+</div>
+</div>
+
+<div class="chart-tooltip" id="chart-tooltip"></div>
+
+<!-- BEGIN AADS AD UNIT 2448890 -->
+<div id="frame" style="width: 100%;margin: auto;position: relative; z-index: 99998;">
+          <iframe data-aa='2448890' src='//acceptable.a-ads.com/2448890/?size=Adaptive&background_color=transparent'
+                            style='border:0; padding:0; width:70%; height:auto; overflow:hidden;display: block;margin: auto'></iframe>
+        </div>
+<!-- END AADS AD UNIT 2448890 -->
+<footer>
+  <p><span class="pdb-brand">Polka<span class="pdb-dot">DOT</span>Bike</span> · development = (chainring ÷ cog) × wheel circumference</p>
+  <p style="margin-top:6px"><a href="index.html">← Gear Calculator</a> · <a href="climb.html">Climb Planner</a> · <a href="guide.html">Guide</a> · <a href="glossary.html">Glossary</a> · <a href="about.html">About</a> · <a href="contact.html">Contact</a> · <a href="privacy.html">Privacy</a> · <a href="disclaimer.html">Disclaimer</a></p>
+    <p style="margin-top:8px;font-size:0.85em;opacity:0.65">Also by me: <a href="https://digitalcredityield.com" target="_blank" rel="noopener" class="dcy-brand"><span class="dcy-square"></span>Digital Credit Yield</a> — Bitcoin &amp; Ethereum treasury income, explained.</p>
+    <p style="margin-top:10px"><a href="https://www.instagram.com/polkadotbike.cc/" target="_blank" rel="noopener" aria-label="Instagram" style="display:inline-flex;vertical-align:middle;margin:0 7px"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="2" y="2" width="20" height="20" rx="5.5"/><circle cx="12" cy="12" r="4.3"/><circle cx="17.4" cy="6.6" r="1.05" fill="currentColor" stroke="none"/></svg></a><a href="https://www.facebook.com/profile.php?id=61591463441672" target="_blank" rel="noopener" aria-label="Facebook" style="display:inline-flex;vertical-align:middle;margin:0 7px"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M13.5 21.9v-8.4h2.82l.42-3.27h-3.24V8.03c0-.95.26-1.6 1.63-1.6h1.74V3.55C16.55 3.47 15.6 3.4 14.5 3.4c-2.33 0-3.93 1.42-3.93 4.03v2.8H7.74v3.27h2.83v8.4h2.93z"/></svg></a></p>
+</footer>
+
+<script src="db.js"></script>
+<script src="pb-links.js"></script>
+<script>
+/* ── JS ERROR DISPLAY (temporary debug) ── */
+window.onerror = function(msg, src, line, col) {
+  const d = document.getElementById('js-err');
+  if (d) { d.textContent = 'JS error: ' + msg + ' (line ' + line + ')'; d.style.display = 'block'; }
+};
+
+/* ── STATE ── */
+const accentMap      = {shimano:'#1a72e0',sram:'#ee1c28',campagnolo:'#ffcd00',custom:'#12b05f'};
+const accentLightMap = {shimano:'#7fb3f0',sram:'#ff7178',campagnolo:'#ffe066',custom:'#5fd39a'};
+const SA = {discipline:'road',brand:'shimano',crIdx:0,mode:'groupset',customColour:'#12b05f'};
+const SB = {discipline:'road',brand:'shimano',crIdx:0,mode:'groupset',customColour:'#ffffff'};
+let chartMode = 'dev';
+
+function copyLink() {
+  navigator.clipboard.writeText(location.href).then(() => {
+    const btn = document.getElementById('share-btn');
+    btn.textContent = '✓ Copied!';
+    btn.classList.add('copied');
+    setTimeout(() => { btn.textContent = '⬡ Copy link'; btn.classList.remove('copied'); }, 2000);
+  });
+}
+
+function setChartMode(mode) {
+  chartMode = mode;
+  document.querySelectorAll('.chart-mode-btn').forEach(b => b.classList.toggle('active', b.dataset.mode === mode));
+  document.getElementById('cadence-ctrl').style.display = mode === 'spd' ? '' : 'none';
+  const titleEl = document.getElementById('chart-title');
+  const subEl   = document.getElementById('chart-sub');
+  if (mode === 'spd') {
+    titleEl.textContent = 'Speed Comparison';
+    subEl.textContent   = 'km/h at selected cadence · hover dots for development';
+  } else if (mode === 'in') {
+    titleEl.textContent = 'Gear Inches Comparison';
+    subEl.textContent   = 'Gear inches per gear · hover dots for details';
+  } else {
+    titleEl.textContent = 'Development Comparison';
+    subEl.textContent   = 'Metres per revolution · hover dots for details';
+  }
+  renderAll();
+}
+
+/* ── DISCIPLINE / BRAND / GROUPSET ── */
+function populateEraGroupsets(selId, disc, brand) {
+  const sel = document.getElementById(selId);
+  sel.innerHTML = '';
+  const brandData = DB[disc][brand];
+  const eras = brandData._eras || [];
+  const groups = {};
+  eras.forEach(e => groups[e] = []);
+  Object.keys(brandData).forEach(name => {
+    if (name === '_eras') return;
+    const gs = brandData[name];
+    if (gs && gs.era && groups[gs.era] !== undefined) groups[gs.era].push(name);
+  });
+  let firstKey = null;
+  eras.forEach(era => {
+    if (!groups[era] || !groups[era].length) return;
+    const grp = document.createElement('optgroup');
+    grp.label = era;
+    groups[era].forEach(name => {
+      if (!firstKey) firstKey = name;
+      const o = document.createElement('option');
+      o.value = name; o.textContent = name;
+      grp.appendChild(o);
+    });
+    sel.appendChild(grp);
+  });
+  // Use selectedIndex loop — more reliable than .value on optgroup selects in Safari
+  if (firstKey) {
+    for (let i = 0; i < sel.options.length; i++) {
+      if (sel.options[i].value === firstKey) { sel.selectedIndex = i; break; }
+    }
+  }
+  return firstKey;
+}
+
+function populateWheels(selId, disc) {
+  const sel = document.getElementById(selId);
+  const prev = sel.value;
+  sel.innerHTML = '';
+  let dfltVal = null;
+  WHEELS[disc].forEach(w => {
+    const o = document.createElement('option');
+    o.value = w.circ; o.textContent = w.label;
+    sel.appendChild(o);
+    if (w.dflt) dfltVal = String(w.circ);
+  });
+  if (prev && [...sel.options].some(o => o.value === prev)) sel.value = prev;
+  else if (dfltVal) sel.value = dfltVal;
+}
+
+function selectDisciplineA(d) {
+  SA.discipline = d; SA.crIdx = 0;
+  document.querySelectorAll('#disc-tabs-a .disc-tab').forEach(t => t.classList.toggle('active', t.dataset.disc === d));
+  populateWheels('sel-wh-a', d);
+  populateWheels('sel-wh-ac', d);
+  if (SA.mode !== 'custom') {
+    const brands = DISC_BRANDS[d];
+    document.querySelectorAll('#brand-tabs-a .brand-tab:not([data-brand="custom"])').forEach(t => {
+      t.style.display = brands.includes(t.dataset.brand) ? '' : 'none';
+    });
+    if (!brands.includes(SA.brand) && SA.brand !== 'custom') selectBrandA(brands[0]);
+    else selectBrandA(SA.brand);
+  }
+}
+
+function selectDisciplineB(d) {
+  SB.discipline = d; SB.crIdx = 0;
+  document.querySelectorAll('#disc-tabs-b .disc-tab').forEach(t => t.classList.toggle('active', t.dataset.disc === d));
+  populateWheels('sel-wh-b', d);
+  populateWheels('sel-wh-bc', d);
+  if (SB.mode !== 'custom') {
+    const brands = DISC_BRANDS[d];
+    document.querySelectorAll('#brand-tabs-b .brand-tab:not([data-brand="custom"])').forEach(t => {
+      t.style.display = brands.includes(t.dataset.brand) ? '' : 'none';
+    });
+    if (!brands.includes(SB.brand) && SB.brand !== 'custom') selectBrandB(brands[0]);
+    else selectBrandB(SB.brand);
+  }
+}
+
+function selectBrandA(brand) {
+  SA.brand = brand; SA.crIdx = 0;
+  document.querySelectorAll('#brand-tabs-a .brand-tab').forEach(t => t.classList.toggle('active', t.dataset.brand === brand));
+  document.documentElement.style.setProperty('--accent',       accentMap[brand]);
+  document.documentElement.style.setProperty('--accent-light', accentLightMap[brand]);
+  if (brand === 'custom') {
+    SA.mode = 'custom';
+    document.documentElement.style.setProperty('--accent',       '#12b05f');
+    document.documentElement.style.setProperty('--accent-light', '#12b05f');
+    document.getElementById('a-groupset-panel').style.display = 'none';
+    document.getElementById('a-custom-panel').style.display = 'block';
+    document.querySelectorAll('#disc-tabs-a').forEach(el => el.style.opacity = '0.4');
+    renderAll();
+    return;
+  }
+  SA.mode = 'groupset';
+  document.getElementById('a-groupset-panel').style.display = 'block';
+  document.getElementById('a-custom-panel').style.display = 'none';
+  document.querySelectorAll('#disc-tabs-a').forEach(el => el.style.opacity = '');
+  populateGroupsetsA();
+}
+
+function setCustomColourA(btn){
+  SA.customColour=btn.dataset.col;
+  if (SA.mode === 'custom') {
+    document.documentElement.style.setProperty('--accent',       '#12b05f');
+    document.documentElement.style.setProperty('--accent-light', '#12b05f');
+  }
+  document.querySelectorAll('#a-custom-panel .swatch').forEach(b=>b.classList.toggle('active',b===btn));
+  renderAll();
+}
+
+function populateGroupsetsA() {
+  const firstKey = populateEraGroupsets('sel-gs-a', SA.discipline, SA.brand);
+  SA.groupset = firstKey;
+  onGroupsetChangeA();
+}
+
+function onGroupsetChangeA() {
+  const selVal = document.getElementById('sel-gs-a').value;
+  if (selVal) SA.groupset = selVal;
+  SA.crIdx = 0;
+  const data = DB[SA.discipline][SA.brand][SA.groupset];
+  buildCrGrid('cr-grid-a', data.chainrings, (i) => {
+    SA.crIdx = i;
+    document.querySelectorAll('#cr-grid-a .cr-btn').forEach((b, j) => b.classList.toggle('active', j === i));
+    renderAll();
+  });
+  const cs = document.getElementById('sel-cs-a');
+  cs.innerHTML = '';
+  data.cassettes.forEach(c => { const o = document.createElement('option'); o.value = c.label; o.textContent = c.label; cs.appendChild(o); });
+  if (cs.options.length) cs.selectedIndex = 0;
+  renderAll();
+}
+
+function selectBrandB(brand) {
+  SB.brand = brand; SB.crIdx = 0;
+  document.querySelectorAll('#brand-tabs-b .brand-tab').forEach(t => t.classList.toggle('active', t.dataset.brand === brand));
+  if (brand === 'custom') {
+    SB.mode = 'custom';
+    document.getElementById('b-groupset-panel').style.display = 'none';
+    document.getElementById('b-custom-panel').style.display = 'block';
+    document.querySelectorAll('#disc-tabs-b').forEach(el => el.style.opacity = '0.4');
+  } else {
+    SB.mode = 'groupset';
+    document.getElementById('b-groupset-panel').style.display = 'block';
+    document.getElementById('b-custom-panel').style.display = 'none';
+    document.querySelectorAll('#disc-tabs-b').forEach(el => el.style.opacity = '');
+    populateGroupsetsB();
+  }
+  renderAll();
+}
+
+function populateGroupsetsB() {
+  const sel = document.getElementById('sel-gs-b');
+  sel.innerHTML = '';
+  const brandData = DB[SB.discipline]?.[SB.brand];
+  if (!brandData) { onGroupsetChangeB(); return; }
+  const eras = brandData._eras || [];
+  let firstKey = null;
+  eras.forEach(era => {
+    Object.keys(brandData).forEach(name => {
+      if (name === '_eras' || brandData[name]?.era !== era) return;
+      if (!firstKey) firstKey = name;
+      const o = document.createElement('option');
+      o.value = name; o.textContent = name;
+      sel.appendChild(o);
+    });
+  });
+  if (firstKey) {
+    SB.groupset = firstKey;
+    sel.value = firstKey;
+  }
+  onGroupsetChangeB();
+}
+
+function onGroupsetChangeB() {
+  const selVal = document.getElementById('sel-gs-b').value;
+  if (selVal) SB.groupset = selVal;
+  // If groupset is still unset or missing from DB, find the first valid one
+  if (!SB.groupset || !DB[SB.discipline]?.[SB.brand]?.[SB.groupset]) {
+    const bd = DB[SB.discipline]?.[SB.brand];
+    if (bd) {
+      const era0 = (bd._eras || [])[0];
+      SB.groupset = Object.keys(bd).find(k => k !== '_eras' && bd[k]?.era === era0) || Object.keys(bd).find(k => k !== '_eras') || '';
+    }
+    if (!SB.groupset) return;
+    const gsEl = document.getElementById('sel-gs-b');
+    if ([...gsEl.options].some(o => o.value === SB.groupset)) gsEl.value = SB.groupset;
+  }
+  SB.crIdx = 0;
+  const data = DB[SB.discipline][SB.brand][SB.groupset];
+  buildCrGrid('cr-grid-b', data.chainrings, (i) => {
+    SB.crIdx = i;
+    document.querySelectorAll('#cr-grid-b .cr-btn').forEach((b, j) => b.classList.toggle('active', j === i));
+    renderAll();
+  });
+  const cs = document.getElementById('sel-cs-b');
+  cs.innerHTML = '';
+  data.cassettes.forEach(c => { const o = document.createElement('option'); o.value = c.label; o.textContent = c.label; cs.appendChild(o); });
+  if (cs.options.length) cs.selectedIndex = 0;
+  renderAll();
+}
+function setCustomColour(btn){
+  SB.customColour=btn.dataset.col;
+  document.querySelectorAll('#b-custom-panel .swatch').forEach(b=>b.classList.toggle('active',b===btn));
+  renderAll();
+}
+
+/* ── HELPERS ── */
+function buildCrGrid(id,chainrings,onSelect){
+  const grid=document.getElementById(id);
+  grid.innerHTML='';
+  chainrings.forEach((cr,i)=>{
+    const btn=document.createElement('button');
+    btn.className='cr-btn'+(i===0?' active':'');
+    btn.textContent=cr.label;
+    btn.onclick=()=>onSelect(i);
+    grid.appendChild(btn);
+  });
+}
+
+function getGearsForSystem(disc, brand, crIdx, gsName, csSelId, wheelSelId) {
+  const data = DB[disc][brand][gsName];
+  const cr = data.chainrings[crIdx];
+  const csLabel = document.getElementById(csSelId).value;
+  const cass = data.cassettes.find(c => c.label === csLabel) || data.cassettes[0];
+  const circRaw = parseInt(document.getElementById(wheelSelId).value);
+  const circ = isNaN(circRaw) ? 2136 : circRaw;
+  const teeth = cass.teeth;
+  const n = teeth.length;
+  const CC = 2;
+  const isSingle = !cr.inner;
+  const dev = (ring, cog) => (ring / cog) * circ / 1000;
+  const bigG   = teeth.map((cog, i) => ({ cog, dev: dev(cr.outer, cog), cross: !isSingle && i >= n - CC }));
+  const smallG = isSingle ? null : teeth.map((cog, i) => ({ cog, dev: dev(cr.inner, cog), cross: i < CC }));
+  return { bigG, smallG, cr, cass, name: gsName, isSingle };
+}
+
+function getGearsA() {
+  if (SA.mode === 'custom') {
+    const circ = parseInt(document.getElementById('sel-wh-ac').value) || 2136;
+    const big = parseInt(document.getElementById('custom-big-a').value) || 50;
+    const smallVal = parseInt(document.getElementById('custom-small-a').value);
+    const small = isNaN(smallVal) ? null : smallVal;
+    const cogsRaw = document.getElementById('custom-cogs-a').value;
+    const cogs = cogsRaw.split(',').map(s => parseInt(s.trim())).filter(n => !isNaN(n) && n > 0).sort((a, b) => a - b);
+    if (!cogs.length || !big) return null;
+    const n = cogs.length; const CC = 2;
+    const isSingle = !small;
+    const dev = (ring, cog) => (ring / cog) * circ / 1000;
+    const bigG   = cogs.map((cog, i) => ({ cog, dev: dev(big, cog), cross: !isSingle && i >= n - CC }));
+    const smallG = small ? cogs.map((cog, i) => ({ cog, dev: dev(small, cog), cross: i < CC })) : null;
+    const label = document.getElementById('custom-label-a').value || 'Custom';
+    return { bigG, smallG, cr: { outer: big, inner: small, label: `${big}${small ? '/' + small : ''}` }, cass: { label: cogsRaw }, name: label, isSingle };
+  }
+  const gsName = SA.groupset || document.getElementById('sel-gs-a').value;
+  if (!gsName || !DB[SA.discipline][SA.brand][gsName]) return null;
+  return getGearsForSystem(SA.discipline, SA.brand, SA.crIdx, gsName, 'sel-cs-a', 'sel-wh-a');
+}
+
+function getGearsB() {
+  if (SB.mode === 'custom') {
+    const circ = parseInt(document.getElementById('sel-wh-bc').value);
+    const big = parseInt(document.getElementById('custom-big').value) || 50;
+    const smallVal = parseInt(document.getElementById('custom-small').value);
+    const small = isNaN(smallVal) ? null : smallVal;
+    const cogsRaw = document.getElementById('custom-cogs').value;
+    const cogs = cogsRaw.split(',').map(s => parseInt(s.trim())).filter(n => !isNaN(n) && n > 0).sort((a, b) => a - b);
+    if (!cogs.length || !big) return null;
+    const n = cogs.length; const CC = 2;
+    const isSingle = !small;
+    const dev = (ring, cog) => (ring / cog) * circ / 1000;
+    const bigG   = cogs.map((cog, i) => ({ cog, dev: dev(big, cog), cross: !isSingle && i >= n - CC }));
+    const smallG = small ? cogs.map((cog, i) => ({ cog, dev: dev(small, cog), cross: i < CC })) : null;
+    const label = document.getElementById('custom-label').value || 'Custom';
+    return { bigG, smallG, cr: { outer: big, inner: small, label: `${big}${small ? '/' + small : ''}` }, cass: { label: cogsRaw }, name: label, isSingle };
+  }
+  let gsName = SB.groupset || document.getElementById('sel-gs-b').value;
+  if (!gsName) {
+    const bd = DB[SB.discipline]?.[SB.brand];
+    if (bd) { const era0 = (bd._eras||[])[0]; gsName = Object.keys(bd).find(k=>k!=='_eras'&&bd[k]?.era===era0)||''; SB.groupset = gsName; }
+  }
+  if (!gsName || !DB[SB.discipline]?.[SB.brand]?.[gsName]) return null;
+  const csEl = document.getElementById('sel-cs-b');
+  if (!csEl) return null;
+  if (!csEl.value && csEl.options.length) csEl.selectedIndex = 0;
+  const whEl = document.getElementById('sel-wh-b');
+  if (whEl && !whEl.value && whEl.options.length) whEl.selectedIndex = 0;
+  return getGearsForSystem(SB.discipline, SB.brand, SB.crIdx, gsName, 'sel-cs-b', 'sel-wh-b');
+}
+
+/* ── PERSIST ── */
+function saveState(){
+  const state={
+    aD:SA.discipline, aB:SA.brand, aM:SA.mode, aG:document.getElementById('sel-gs-a').value, aC:SA.crIdx,
+    aK:document.getElementById('sel-cs-a').value, aW:document.getElementById('sel-wh-a').value,
+    aL:document.getElementById('custom-label-a').value, aBi:document.getElementById('custom-big-a').value,
+    aSm:document.getElementById('custom-small-a').value, aCg:document.getElementById('custom-cogs-a').value,
+    aCl:SA.customColour, aWc:document.getElementById('sel-wh-ac').value,
+    bD:SB.discipline, bB:SB.brand, bM:SB.mode, bG:document.getElementById('sel-gs-b').value, bC:SB.crIdx,
+    bK:document.getElementById('sel-cs-b').value, bW:document.getElementById('sel-wh-b').value,
+    bL:document.getElementById('custom-label').value, bBi:document.getElementById('custom-big').value,
+    bSm:document.getElementById('custom-small').value, bCg:document.getElementById('custom-cogs').value,
+    bCl:SB.customColour, bWc:document.getElementById('sel-wh-bc').value
+  };
+  try{ localStorage.setItem('cg_cmp',JSON.stringify(state)); }catch(e){}
+  try{ history.replaceState(null,'','?'+new URLSearchParams(state).toString()); }catch(e){}
+  try{
+    const sh=JSON.parse(localStorage.getItem('cg_shared')||'{}');
+    Object.assign(sh, { d: SA.discipline, b: SA.brand, g: state.aG, cr: SA.crIdx, cs: state.aK, w: state.aW });
+    const aSmallRaw = parseInt(state.aSm);
+    sh.cust = { ct: isNaN(aSmallRaw)?'1x':'2x', big: parseInt(state.aBi)||50, small: isNaN(aSmallRaw)?34:aSmallRaw, cass: state.aCg };
+    localStorage.setItem('cg_shared', JSON.stringify(sh));
+  }catch(e){}
+}
+
+/* ── RENDER ALL ── */
+function renderAll(){
+  const a=getGearsA();
+  const b=getGearsB();
+  if(!a) return;
+  updateLegend(a,b);
+  renderChart(a,b);
+  renderStats(a,b);
+  updateBuyCard(a);
+  saveState();
+  window.LAST_CMP_CALC = { a, b };
+}
+
+function updateBuyCard(a){
+  if(SA.mode==='custom'){
+    document.getElementById('buy-label').textContent=`${a.cr.label} · ${a.cass.label}`;
+    document.getElementById('buy-card').style.display='block';
+    const pbLinkElCustom=document.getElementById('pb-buy-link');
+    pbLinkElCustom.href=PB_GENERIC_LINK;
+    document.getElementById('pb-buy-text').innerHTML='Shop groupsets<small>Opens in a new tab</small>';
+    pbSetBrandColor(pbLinkElCustom, accentMap.custom, PB_VIVID_TEXT.custom);
+    return;
+  }
+  document.getElementById('buy-label').textContent=
+    `${SA.groupset.replace(/\s*\([^)]+\)\s*/g,'').trim()} · ${a.cr.label} · ${a.cass.label}`;
+  document.getElementById('buy-card').style.display='block';
+  const pb=pbLinkFor(SA.discipline, SA.brand, SA.groupset);
+  const pbLinkEl=document.getElementById('pb-buy-link');
+  pbLinkEl.href=pb.url;
+  document.getElementById('pb-buy-text').innerHTML=pb.exact
+    ? 'Shop this groupset<small>Opens in a new tab</small>'
+    : 'Browse similar groupsets<small>Exact model not stocked — opens in a new tab</small>';
+  pbSetBrandColor(pbLinkEl, accentMap[SA.brand], PB_VIVID_TEXT[SA.brand]);
+}
+
+function updateLegend(a,b){
+  const aBig=SA.mode==='custom'?'#12b05f':accentMap[SA.brand];
+  const aSml=SA.mode==='custom'?'#5fd39a':accentLightMap[SA.brand];
+  const aLines=document.querySelectorAll('.chart-legend .cl-line');
+  if(aLines[0]) aLines[0].style.background=aBig;
+  if(aLines[1]) aLines[1].style.background=aSml;
+  const bCol='#ffffff', sCol='#e5e9ee';
+  document.getElementById('leg-a-label').textContent=a.isSingle?`A · ${a.name} · ${a.cr.outer}T 1×`:`A · ${a.name} · ${a.cr.outer}T big`;
+  document.getElementById('leg-a-small').textContent=a.isSingle?'':(`A · ${a.cr.inner}T small`);
+  document.getElementById('leg-b-label').textContent=b?(b.isSingle?`B · ${b.name} · ${b.cr.outer}T 1×`:`B · ${b.name} · ${b.cr.outer}T big`):'System B';
+  document.getElementById('leg-b-small').textContent=(b&&!b.isSingle)?(`B · ${b.cr.inner}T small`):'';
+  document.querySelectorAll('.cl-line-dash').forEach((el,i)=>{ el.style.borderColor=i===0?bCol:sCol; });
+}
+
+/* ── CHART ── */
+function renderChart(a,b){
+  const wrap=document.getElementById('chart-wrap');
+  // System A chains take the selected groupset's brand colour; System B is white (dashed).
+  const bigColA=SA.mode==='custom'?'#12b05f':accentMap[SA.brand];
+  const smlColA=SA.mode==='custom'?'#5fd39a':accentLightMap[SA.brand];
+  const bigColB='#ffffff', smlColB='#e5e9ee';
+
+  const mob=window.innerWidth<768; const W=mob?420:780,H=mob?540:500,pL=62,pR=22,pT=20,pB=48;
+  const cW=W-pL-pR, cH=H-pT-pB;
+
+  const isSpd = chartMode === 'spd';
+  const isIn  = chartMode === 'in';
+  const cadence = isSpd ? (parseInt(document.getElementById('chart-cadence').value) || 90) : 90;
+  const getVal = g => isSpd ? g.dev * cadence * 60 / 1000 : isIn ? g.dev * 12.527 : g.dev;
+
+  const bigA=[...a.bigG].reverse();
+  const smlA=a.smallG?[...a.smallG].reverse():null;
+  const bigB=b?[...b.bigG].reverse():[];
+  const smlB=b&&b.smallG?[...b.smallG].reverse():null;
+
+  const allVals=[...bigA,...(smlA||[]),...bigB,...(smlB||[])].map(getVal);
+  const rawMax=Math.max(...allVals);
+  let yMax, yStep;
+  if (isSpd) {
+    yStep = rawMax > 60 ? 10 : rawMax > 30 ? 5 : 2;
+    yMax  = Math.ceil(rawMax / yStep + 1) * yStep;
+  } else if (isIn) {
+    yStep = 10;
+    yMax  = Math.ceil(rawMax / 10 + 1) * 10;
+  } else {
+    yStep = 1;
+    yMax  = Math.ceil(rawMax) + 1;
+  }
+
+  const sx=(i,n)=>pL+(n<2?cW/2:i/(n-1)*cW);
+  const sy=v=>pT+cH*(1-v/yMax);
+
+  // grid
+  let grid='',yLbls='';
+  for(let v=0;v<=yMax;v+=yStep){
+    const y=sy(v).toFixed(1);
+    grid +=`<line x1="${pL}" x2="${pL+cW}" y1="${y}" y2="${y}" stroke="rgba(255,255,255,0.05)" stroke-width="1"/>`;
+    yLbls+=`<text x="${pL-9}" y="${(+y+5).toFixed(1)}" text-anchor="end" font-size="16" font-weight="500" fill="#94a3b8">${(isSpd || isIn) ? v.toFixed(0) : v}</text>`;
+  }
+  const midY=((pT+H-pB)/2).toFixed(0);
+  const yAxisLbl=`<text transform="rotate(-90,14,${midY})" x="14" y="${+midY+5}" text-anchor="middle" font-size="15" font-weight="600" fill="#94a3b8">${isSpd ? 'km/h' : isIn ? 'gear in.' : 'm / rev'}</text>`;
+  const xEasiest=`<text x="${pL+6}" y="${H-pB+36}" font-size="14" font-weight="500" fill="#64748b">← Easiest</text>`;
+  const xHardest=`<text x="${pL+cW-6}" y="${H-pB+36}" text-anchor="end" font-size="14" font-weight="500" fill="#64748b">Hardest →</text>`;
+  const xAxisTitle=`<text x="${(pL+cW/2).toFixed(1)}" y="${H-pB+36}" text-anchor="middle" font-size="14" font-weight="600" fill="#64748b">Cassette sprocket size (teeth)</text>`;
+
+  // smooth path
+  function smoothPath(coords){
+    if(coords.length<2) return `M ${coords[0].x},${coords[0].y}`;
+    let d=`M ${coords[0].x.toFixed(1)},${coords[0].y.toFixed(1)}`;
+    for(let i=0;i<coords.length-1;i++){
+      const p0=coords[Math.max(0,i-1)],p1=coords[i],p2=coords[i+1],p3=coords[Math.min(coords.length-1,i+2)];
+      d+=` C ${(p1.x+(p2.x-p0.x)/6).toFixed(1)},${(p1.y+(p2.y-p0.y)/6).toFixed(1)} ${(p2.x-(p3.x-p1.x)/6).toFixed(1)},${(p2.y-(p3.y-p1.y)/6).toFixed(1)} ${p2.x.toFixed(1)},${p2.y.toFixed(1)}`;
+    }
+    return d;
+  }
+
+  const coordsA=bigA.map((g,i)=>({x:sx(i,bigA.length),y:sy(getVal(g))}));
+  const coordsB=bigB.length?bigB.map((g,i)=>({x:sx(i,bigB.length),y:sy(getVal(g))})):null;
+  const coordsSA=smlA?smlA.map((g,i)=>({x:sx(i,smlA.length),y:sy(getVal(g))})):null;
+  const coordsSB=smlB?smlB.map((g,i)=>({x:sx(i,smlB.length),y:sy(getVal(g))})):null;
+
+  // interpolate value at normalized x (0-1)
+  function interpDev(gears,xNorm){
+    const n=gears.length;
+    if(n===1) return getVal(gears[0]);
+    const pos=xNorm*(n-1);
+    const i=Math.min(n-2,Math.floor(pos));
+    const t=pos-i;
+    return getVal(gears[i])*(1-t)+getVal(gears[i+1])*t;
+  }
+
+  // gap shading between big rings (100 segments)
+  function gapColour(ratio){
+    if(ratio<0.04) return '#12b05f';
+    if(ratio<0.09) return '#ffcd00';
+    if(ratio<0.15) return '#ff7a00';
+    return '#ee1c28';
+  }
+  function gapOpacity(ratio){
+    return 1;   // solid UCI bands, no fade
+  }
+  // Neutral ribbon between the two curves — shape only, no colour noise
+  function buildGapRibbon(plotA, plotB){
+    const SEGS=120;
+    let fwd='', back='';
+    for(let k=0;k<=SEGS;k++){
+      const t=k/SEGS;
+      fwd  += `${k?'L':'M'} ${(pL+t*cW).toFixed(1)},${sy(interpDev(plotA,t)).toFixed(1)} `;
+      back  = `L ${(pL+t*cW).toFixed(1)},${sy(interpDev(plotB,t)).toFixed(1)} ` + back;
+    }
+    return `<path d="${fwd}${back}Z" fill="rgba(255,255,255,0.06)"/>`;
+  }
+  // Severity lives in a slim heat strip under the axis instead of flooding the chart
+  function buildHeatStrip(plotA, plotB, y){
+    let out='';
+    const SEGS=120;
+    for(let k=0;k<SEGS;k++){
+      const x0=k/SEGS, x1=(k+1)/SEGS;
+      const gap=Math.abs(interpDev(plotA,x0)-interpDev(plotB,x0))/Math.max(interpDev(plotA,x0),interpDev(plotB,x0),0.01);
+      out+=`<rect x="${(pL+x0*cW).toFixed(1)}" y="${y}" width="${((x1-x0)*cW+0.5).toFixed(1)}" height="22" fill="${gapColour(gap)}"/>`;
+    }
+    return out;
+  }
+  const gapPaths = coordsB ? buildGapRibbon(bigA, bigB) + (smlA && smlB ? buildGapRibbon(smlA, smlB) : '') : '';
+  let heatStrips = '';
+  if (coordsB) {
+    // Strips hug the data: big strip floats just above the big chains' peak (smallest
+    // sprocket, right side); small strip tucks just under the small chains' lowest point
+    // (largest sprocket, left side). Labels: big above its strip, small below its strip.
+    // Mixed 1x-vs-2x: the single ring is scored against BOTH of the other system's rings.
+    const mixed = (!!smlA) !== (!!smlB);
+    const bigMax = Math.max(...bigA.map(getVal), ...bigB.map(getVal));
+    const yBig = Math.max(2, sy(bigMax) - 28);
+    heatStrips += buildHeatStrip(bigA, bigB, yBig)
+      + `<text x="${pL+6}" y="${Math.max(yBig-6, 14)}" font-size="15" font-weight="600" fill="#94a3b8">${mixed?'1x vs big chainring':'big chainring'}</text>`;
+    if (smlA && smlB) {
+      const smlMin = Math.min(...smlA.map(getVal), ...smlB.map(getVal));
+      const ySml = Math.min(sy(smlMin) + 6, pT+cH+5);
+      heatStrips += buildHeatStrip(smlA, smlB, ySml)
+        + `<text x="${pL+6}" y="${ySml+39}" font-size="15" font-weight="600" fill="#94a3b8">small chainring</text>`;
+    } else if (mixed) {
+      const solo = smlA ? bigB : bigA;
+      const sml  = smlA || smlB;
+      const smlMin = Math.min(...sml.map(getVal), ...solo.map(getVal));
+      const ySml = Math.min(sy(smlMin) + 6, pT+cH+5);
+      heatStrips += buildHeatStrip(solo, sml, ySml)
+        + `<text x="${pL+6}" y="${ySml+39}" font-size="15" font-weight="600" fill="#94a3b8">1x vs small chainring</text>`;
+    }
+  }
+
+  // connector dots between nearest-neighbour gears
+  function connectors(plotA,plotB){
+    let out='';
+    const nA=plotA.length, nB=plotB.length;
+    plotA.forEach((gA,i)=>{
+      if(gA.cross) return;
+      const xA=sx(i,nA);
+      const bIdx=Math.round(i/(nA-1)*(nB-1));
+      const gB=plotB[bIdx];
+      if(!gB||gB.cross) return;
+      const xB=sx(bIdx,nB);
+      const gap=Math.abs(gA.dev-gB.dev)/Math.max(gA.dev,gB.dev);
+      const col=gapColour(gap);
+      out+=`<line x1="${xA.toFixed(1)}" y1="${sy(getVal(gA)).toFixed(1)}" x2="${xB.toFixed(1)}" y2="${sy(getVal(gB)).toFixed(1)}" stroke="${col}" stroke-width="1.5" opacity="0.55" stroke-dasharray="3 3"/>`;
+    });
+    return out;
+  }
+
+  // dots
+  function makeDots(plot,col,ring,sys,n){
+    const s=5;
+    return plot.map((g,i)=>{
+      const x=sx(i,n).toFixed(1), y=sy(getVal(g)).toFixed(1);
+      const cross=g.cross;
+      const dot=cross
+        ?`<line x1="${+x-s}" y1="${+y-s}" x2="${+x+s}" y2="${+y+s}" stroke="${col}" stroke-width="3" stroke-linecap="round"/>
+           <line x1="${+x+s}" y1="${+y-s}" x2="${+x-s}" y2="${+y+s}" stroke="${col}" stroke-width="3" stroke-linecap="round"/>`
+        :`<circle cx="${x}" cy="${y}" r="5" fill="${col}"/>`;
+      return dot+`<circle cx="${x}" cy="${y}" r="16" fill="transparent" class="chart-hover-pt"
+        data-sys="${sys}" data-ring="${ring}" data-cog="${g.cog}" data-dev="${g.dev.toFixed(2)}" data-cross="${cross}" style="cursor:pointer"/>`;
+    }).join('');
+  }
+
+  const bot=pT+cH;
+  function areaPath(coords){
+    return `${smoothPath(coords)} L ${coords[coords.length-1].x.toFixed(1)},${bot} L ${coords[0].x.toFixed(1)},${bot} Z`;
+  }
+
+  wrap.innerHTML=`<svg viewBox="0 0 ${W} ${H}" xmlns="http://www.w3.org/2000/svg">
+    <defs>
+      <clipPath id="cc"><rect x="${pL}" y="${pT}" width="${cW}" height="${cH}"/></clipPath>
+    </defs>
+    ${grid}
+    <line x1="${pL}" x2="${pL}" y1="${pT}" y2="${bot}" stroke="rgba(255,255,255,0.09)" stroke-width="1"/>
+    <line x1="${pL}" x2="${pL+cW}" y1="${bot}" y2="${bot}" stroke="rgba(255,255,255,0.09)" stroke-width="1"/>
+    <g clip-path="url(#cc)">${gapPaths}</g>
+    <path d="${smoothPath(coordsA)}" fill="none" stroke="${bigColA}" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+    ${coordsSA?`<path d="${smoothPath(coordsSA)}" fill="none" stroke="${smlColA}" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>`:''}
+    ${coordsB?`<path d="${smoothPath(coordsB)}" fill="none" stroke="${bigColB}" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="8 5"/>`:''}
+    ${coordsSB?`<path d="${smoothPath(coordsSB)}" fill="none" stroke="${smlColB}" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="6 4"/>`:''}
+    ${makeDots(bigA,bigColA,'big','a',bigA.length)}
+    ${smlA?makeDots(smlA,smlColA,'small','a',smlA.length):''}
+    ${coordsB?makeDots(bigB,bigColB,'big','b',bigB.length):''}
+    ${smlB?makeDots(smlB,smlColB,'small','b',smlB.length):''}
+    ${yLbls}${yAxisLbl}${xEasiest}${xHardest}${xAxisTitle}
+    ${heatStrips}
+  </svg>`;
+
+  // tooltips
+  const tip=document.getElementById('chart-tooltip');
+  const aName=SA.mode==='custom'?(document.getElementById('custom-label-a').value||'Custom'):(SA.groupset||'System A');
+  const bName=SB.mode==='custom'?(document.getElementById('custom-label').value||'Custom'):(SB.groupset||'System B');
+  wrap.querySelectorAll('.chart-hover-pt').forEach(el=>{
+    el.addEventListener('mousemove',e=>{
+      const d=el.dataset;
+      const isA=d.sys==='a';
+      const col=isA?bigColA:bigColB;
+      const sysName=isA?aName:bName;
+      const sys=isA?a:b;
+      const ringName=d.ring==='big'?(sys&&sys.isSingle?'Single Ring':'Big Ring'):'Small Ring';
+      const devVal = parseFloat(d.dev);
+      const spdVal = (devVal * cadence * 60 / 1000).toFixed(1);
+      const inVal  = (devVal * 12.527).toFixed(1);
+      const primary   = isSpd ? `${spdVal}<span style="font-size:11px;font-weight:400;color:var(--muted);margin-left:4px">km/h</span>`
+                      : isIn  ? `${inVal}<span style="font-size:11px;font-weight:400;color:var(--muted);margin-left:4px">gear in.</span>`
+                      :         `${d.dev}<span style="font-size:11px;font-weight:400;color:var(--muted);margin-left:4px">m / rev</span>`;
+      const secondary = isSpd ? `${d.dev} m/rev`
+                      : isIn  ? `${d.dev} m/rev`
+                      :         `${spdVal} km/h at ${cadence} rpm`;
+      tip.innerHTML=`<div class="ct-ring" style="color:${col}">${isA?'System A':'System B'} · ${ringName} · ${d.cog}T${d.cross==='true'?' · ×cross-chain':''}</div>
+        <div class="ct-dev">${primary}</div>
+        <div class="ct-detail">${sysName.split('(')[0].trim()} · ${secondary}</div>`;
+      const tx=e.clientX+16;
+      tip.style.left=Math.min(tx,window.innerWidth-240)+'px';
+      tip.style.top=Math.max(10,e.clientY-90)+'px';
+      tip.classList.add('show');
+    });
+    el.addEventListener('mouseleave',()=>tip.classList.remove('show'));
+  });
+}
+
+/* ── STATS ── */
+function renderStats(a,b){
+  const bigA=[...a.bigG].reverse();
+  const bigB=b?[...b.bigG].reverse():[];
+  const activeA=bigA.filter(g=>!g.cross);
+  const activeB=bigB.filter(g=>!g.cross);
+  const lowA=activeA.length?Math.min(...activeA.map(g=>g.dev)).toFixed(2):'—';
+  const hiA =activeA.length?Math.max(...activeA.map(g=>g.dev)).toFixed(2):'—';
+  const lowB=activeB.length?Math.min(...activeB.map(g=>g.dev)).toFixed(2):'—';
+  const hiB =activeB.length?Math.max(...activeB.map(g=>g.dev)).toFixed(2):'—';
+  function avgStep(gears){
+    const g=gears.filter(x=>!x.cross);
+    if(g.length<2) return '—';
+    let tot=0,cnt=0;
+    for(let i=0;i<g.length-1;i++){ tot+=(g[i+1].dev-g[i].dev)/g[i].dev*100; cnt++; }
+    return (tot/cnt).toFixed(1);
+  }
+  document.getElementById('st-low-a').textContent=lowA;
+  document.getElementById('st-low-b').textContent=lowB;
+  document.getElementById('st-hi-a').textContent=hiA;
+  document.getElementById('st-hi-b').textContent=hiB;
+  document.getElementById('st-step-a').textContent=avgStep(bigA);
+  document.getElementById('st-step-b').textContent=avgStep(bigB);
+}
+
+/* ── INIT ── */
+(function init(){
+  let p={};
+  const urlP=new URLSearchParams(location.search);
+  if(urlP.has('aG')||urlP.has('aD')){
+    urlP.forEach((v,k)=>{ p[k]=v; });
+  } else {
+    try{ p=JSON.parse(localStorage.getItem('cg_cmp')||'{}'); }catch(e){}
+    // Always apply cross-page shared state for System A so selections follow across pages
+    try{
+      const sh=JSON.parse(localStorage.getItem('cg_shared')||'{}');
+      if(sh.g || sh.b==='custom'){
+        p.aD=sh.d; p.aB=sh.b; p.aG=sh.g||''; p.aC=sh.cr; p.aK=sh.cs; p.aW=sh.w;
+        if(sh.b==='custom' && sh.cust){
+          p.aM='custom';
+          p.aBi=sh.cust.big;
+          p.aSm=(sh.cust.ct==='1x'?'':sh.cust.small);
+          p.aCg=sh.cust.cass;
+        }
+      }
+    }catch(e){}
+    // If custom mode was saved but no cog data, treat as fresh (fall back to groupset defaults)
+    if(p.bM==='custom' && !p.bCg){ p.bM='groupset'; p.bG=''; }
+    // Default System B to Shimano Dura-Ace when no groupset is saved
+    if(!p.bG && p.bM!=='custom'){ p.bD=p.bD||'road'; p.bB=p.bB||'shimano'; p.bG='Dura-Ace R9200'; }
+  }
+
+  // System A — restore custom inputs before selectBrandA so they're ready
+  if(p.aL) document.getElementById('custom-label-a').value=p.aL;
+  if(p.aBi) document.getElementById('custom-big-a').value=p.aBi;
+  if(p.aSm!==undefined && p.aSm!==null) document.getElementById('custom-small-a').value=p.aSm;
+  if(p.aCg) document.getElementById('custom-cogs-a').value=p.aCg;
+
+  selectDisciplineA(p.aD||'road');
+  const aInitBrand = p.aM==='custom'?'custom':(p.aB&&DISC_BRANDS[SA.discipline].includes(p.aB)?p.aB:'shimano');
+  selectBrandA(aInitBrand);
+  if(p.aWc){ const el=document.getElementById('sel-wh-ac'); if([...el.options].some(o=>o.value===p.aWc)) el.value=p.aWc; }
+  if(p.aM!=='custom'){
+    const gsA=document.getElementById('sel-gs-a');
+    if(p.aG&&[...gsA.options].some(o=>o.value===p.aG)){ gsA.value=p.aG; onGroupsetChangeA(); }
+    if(p.aC){ SA.crIdx=+p.aC; document.querySelectorAll('#cr-grid-a .cr-btn').forEach((b,i)=>b.classList.toggle('active',i===SA.crIdx)); }
+    if(p.aK){ const el=document.getElementById('sel-cs-a'); if([...el.options].some(o=>o.value===p.aK)) el.value=p.aK; }
+    if(p.aW){ const el=document.getElementById('sel-wh-a'); if([...el.options].some(o=>o.value===p.aW)) el.value=p.aW; }
+  }
+
+  // System B — restore custom inputs before selectBrandB so they're ready
+  if(p.bL) document.getElementById('custom-label').value=p.bL;
+  if(p.bBi) document.getElementById('custom-big').value=p.bBi;
+  if(p.bSm) document.getElementById('custom-small').value=p.bSm;
+  if(p.bCg) document.getElementById('custom-cogs').value=p.bCg;
+
+  selectDisciplineB(p.bD||'road');
+  const bInitBrand = p.bM==='custom'?'custom':(p.bB&&DISC_BRANDS[SB.discipline].includes(p.bB)?p.bB:'shimano');
+  selectBrandB(bInitBrand);
+
+  if(p.bWc){ const el=document.getElementById('sel-wh-bc'); if([...el.options].some(o=>o.value===p.bWc)) el.value=p.bWc; }
+
+  if(p.bM!=='custom'){
+    const gsEl=document.getElementById('sel-gs-b');
+    // Pick saved groupset if valid, else first option (Dura-Ace R9200 for shimano)
+    const wantGs = (p.bG && [...gsEl.options].some(o=>o.value===p.bG)) ? p.bG
+                 : (gsEl.options.length ? gsEl.options[0].value : '');
+    if(wantGs){
+      // selectedIndex is reliable on hidden/visible elements; pre-set SB.groupset
+      // so onGroupsetChangeB never sees an empty value
+      for(let i=0;i<gsEl.options.length;i++){ if(gsEl.options[i].value===wantGs){gsEl.selectedIndex=i;break;} }
+      SB.groupset = wantGs;
+      onGroupsetChangeB();
+    }
+    if(p.bC){ SB.crIdx=+p.bC; document.querySelectorAll('#cr-grid-b .cr-btn').forEach((b,i)=>b.classList.toggle('active',i===SB.crIdx)); }
+    if(p.bK){ const el=document.getElementById('sel-cs-b'); if([...el.options].some(o=>o.value===p.bK)) el.value=p.bK; }
+    if(p.bW){ const el=document.getElementById('sel-wh-b'); if([...el.options].some(o=>o.value===p.bW)) el.value=p.bW; }
+  }
+
+  renderAll();
+  requestAnimationFrame(renderAll);
+  // One extra pass after layout: repopulate System B if the select is still empty
+  requestAnimationFrame(function() {
+    if (SB.mode !== 'custom' && !document.getElementById('sel-gs-b').options.length) {
+      populateGroupsetsB();
+    }
+  });
+})();
+
+function goToPanel(idx) {
+  const panelA = document.querySelector('.panel-a');
+  const panelB = document.querySelector('.panel-b');
+  const tabA   = document.getElementById('tab-a');
+  const tabB   = document.getElementById('tab-b');
+  if (idx === 1) {
+    panelA.style.display = 'none';
+    panelB.style.display = 'block';
+    tabA.classList.remove('active');
+    tabB.classList.add('active');
+    const pr = document.getElementById('panels-row');
+    // Repopulate on first show, or any time controls are still empty (init may have failed)
+    const gsEl = document.getElementById('sel-gs-b');
+    const grid = document.getElementById('cr-grid-b');
+    const needsRepopulate = SB.mode !== 'custom' && (!gsEl.options.length || !grid.children.length);
+    if (!pr.dataset.bReady || needsRepopulate) {
+      pr.dataset.bReady = '1';
+      if (SB.mode !== 'custom') {
+        const targetGs = SB.groupset;
+        populateGroupsetsB();
+        if (targetGs && targetGs !== SB.groupset) {
+          if ([...gsEl.options].some(o => o.value === targetGs)) {
+            for (let i = 0; i < gsEl.options.length; i++) { if (gsEl.options[i].value === targetGs) { gsEl.selectedIndex = i; break; } }
+            SB.groupset = targetGs;
+            onGroupsetChangeB();
+          }
+        }
+      } else {
+        renderAll();
+      }
+    }
+  } else {
+    panelA.style.display = '';
+    panelB.style.display = 'none';
+    tabA.classList.add('active');
+    tabB.classList.remove('active');
+  }
+}
+function showPrintReport() {
+  const lc = window.LAST_CMP_CALC;
+  if (!lc) return;
+  const { a, b } = lc;
+
+  const svgEl = document.querySelector('#chart-wrap svg');
+  const svgHTML = svgEl ? svgEl.outerHTML
+    .replace(/rgba\(255,255,255,0\.05\)/g,'rgba(0,0,0,0.09)')
+    .replace(/rgba\(255,255,255,0\.09\)/g,'rgba(0,0,0,0.18)')
+    .replace(/fill="#94a3b8"/g,'fill="#64748b"')
+    .replace(/fill="white"/g,'fill="#334155"') : '';
+
+  const whA = document.getElementById('sel-wh-a');
+  const whB = document.getElementById('sel-wh-b') || document.getElementById('sel-wh-bc');
+  const wheelA = whA ? whA.options[whA.selectedIndex]?.text : '';
+  const wheelB = whB ? whB.options[whB.selectedIndex]?.text : '';
+
+  function sysLabel(sys, wheel) {
+    const cs = sys.cass?.label || '';
+    return `<strong>${sys.name}</strong> &nbsp;·&nbsp; ${sys.cr.label || sys.cr.outer + 'T'} chainring &nbsp;·&nbsp; ${cs} cassette${wheel ? ' &nbsp;·&nbsp; ' + wheel : ''}`;
+  }
+
+  function makeTable(sys, accentColor, label) {
+    const bigRev = [...sys.bigG].reverse();
+    const smlRev = sys.isSingle ? null : [...sys.smallG].reverse();
+    const headers = bigRev.map((_,i) => `<th>G${i+1}</th>`).join('');
+    function makeRow(gears, ringT, rowLabel) {
+      const cells = gears.map(g => `<td class="${g.cross?'cross':''}">
+        <div class="rpt-cog">${g.cog}T</div>
+        <div class="rpt-dev">${g.dev.toFixed(2)}m</div>
+      </td>`).join('');
+      return `<tr><td class="rpt-ring-lbl" style="color:${accentColor}">${rowLabel}<br><span style="font-size:10px;color:#94a3b8;font-weight:400">${ringT}T ring</span></td>${cells}</tr>`;
+    }
+    return `<div class="rpt-sys-label" style="color:${accentColor}">${label}</div>
+    <table class="rpt-table">
+      <thead><tr><th style="text-align:left">Ring</th>${headers}</tr></thead>
+      <tbody>
+        ${makeRow(bigRev, sys.cr.outer, 'Big Ring')}
+        ${smlRev ? makeRow([...smlRev].map((_,i)=>sys.smallG[sys.smallG.length-1-i]), sys.cr.inner, 'Small Ring') : ''}
+      </tbody>
+    </table>`;
+  }
+
+  const logoSVG = `<svg class="rpt-logo-dot" viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg"><defs><mask id="rdotm"><rect width="32" height="32" fill="white"/><text x="16" y="21" text-anchor="middle" font-family="Inter,system-ui,sans-serif" font-size="11" font-weight="900" letter-spacing="1.5" fill="black">DOT</text></mask></defs><circle cx="16" cy="16" r="15" fill="#ef4444" mask="url(#rdotm)"/></svg>`;
+
+  document.getElementById('print-report').innerHTML = `
+    <div class="rpt-header">
+      <div class="rpt-logo">Polka${logoSVG}Bike</div>
+      <div class="rpt-heading">Groupset Comparison Report</div>
+    </div>
+    <div class="rpt-meta">
+      <strong>System A:</strong> ${sysLabel(a, wheelA)}<br>
+      ${b ? `<strong>System B:</strong> ${sysLabel(b, wheelB)}` : '<em>System B not configured</em>'}
+    </div>
+    <div class="rpt-chart-bg">${svgHTML}</div>
+    ${makeTable(a, '#3b82f6', 'System A')}
+    ${b ? makeTable(b, '#e2e8f0', 'System B') : ''}
+    <div class="rpt-cross-note">Development shown in metres per crank revolution. Dimmed gears are cross-chain combinations.</div>
+  `;
+  document.getElementById('print-overlay').style.display = 'flex';
+}
+function closePrintReport() { document.getElementById('print-overlay').style.display = 'none'; }
+</script>
+
+<div id="print-overlay">
+  <div id="print-modal">
+    <div id="print-report"></div>
+    <div class="print-actions">
+      <button class="print-close-btn" onclick="closePrintReport()">✕ Close</button>
+      <button class="print-print-btn" onclick="window.print()">⎙ Print / Save PDF</button>
+    </div>
+  </div>
+</div>
+</body>
+</html>
