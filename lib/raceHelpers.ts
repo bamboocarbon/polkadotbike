@@ -38,6 +38,10 @@ export const TYPE_INFO: Record<string, { badge: string; cls: string; sidebarCls:
   Sprint: { badge: 'Sprint', cls: 'badge-s', sidebarCls: 'type-s' },
   TTT: { badge: 'TTT', cls: 'badge-t', sidebarCls: 'type-t' },
   ITT: { badge: 'ITT', cls: 'badge-t', sidebarCls: 'type-t' },
+  // Vuelta-only stage types (its own TYPE_INFO in the source page carried
+  // these; TDF/Giro never produce them so adding them here is additive).
+  Medium: { badge: 'Medium Mtns', cls: 'badge-mm', sidebarCls: 'type-mm' },
+  Flat: { badge: 'Flat', cls: 'badge-s', sidebarCls: 'type-s' },
 };
 
 export const CAT_CLS: Record<string, string> = {
@@ -47,6 +51,9 @@ export const CAT_CLS: Record<string, string> = {
   Cat3: 'cat-cat3',
   Cat4: 'cat-cat4',
   TBC: 'cat-tbc',
+  // Vuelta's "especial" category — its climb-category ceiling, playing the
+  // same role HC plays for TDF/Giro.
+  ESP: 'cat-esp',
 };
 
 const MONTH_SHORT = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];

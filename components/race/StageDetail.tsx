@@ -31,7 +31,9 @@ export default function StageDetail({ race, climbs, stageNum, stay22Links }: Sta
           ? 'Individual Time Trial — no categorised climbs in the dataset.'
           : stage.type === 'Sprint'
             ? 'Sprint stage — no categorised climbs.'
-            : 'Detailed climb data not yet available for this stage.';
+            : stage.type === 'Flat'
+              ? 'Flat stage — no categorised climbs.'
+              : 'Detailed climb data not yet available for this stage.';
     climbsContent = <div className="no-climbs">{msg}</div>;
   } else {
     climbsContent = (

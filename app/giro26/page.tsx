@@ -13,7 +13,7 @@ import {
   type RaceData,
   type Climb,
 } from '@/lib/raceHelpers';
-import type { MapConfig } from '@/components/race/RacePageClient';
+import type { MapConfig, LegendItem } from '@/components/race/RacePageClient';
 import type { StageCoord, CityLabel } from '@/components/race/RaceMapInner';
 
 const race = climbsData.races.giro as RaceData;
@@ -153,6 +153,15 @@ const mapConfig: MapConfig = {
   zoomDelta: 0.5,
 };
 
+// Giro's legend says "ITT" not TDF's "TTT / ITT" — the Giro only has one
+// ITT stage and no TTT, verified against the source's own map-legend markup.
+const legend: LegendItem[] = [
+  { cls: 'ml-m', label: 'Mountain' },
+  { cls: 'ml-h', label: 'Hilly' },
+  { cls: 'ml-s', label: 'Sprint' },
+  { cls: 'ml-t', label: 'ITT' },
+];
+
 export default function Giro26Page() {
   return (
     <>
@@ -195,6 +204,8 @@ export default function Giro26Page() {
         staticDefaultStage={staticDefaultStage(race, new Date())}
         stay22Links={stay22Links || {}}
         mapConfig={mapConfig}
+        sidebarLabel="Giro Stages"
+        legend={legend}
       />
 
       <StaticIndex race={race} climbs={climbs} intro={intro} h2Color="#ec4899" />

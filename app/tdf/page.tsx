@@ -163,6 +163,7 @@ export default function TdfPage() {
         staticDefaultStage={staticDefaultStage(race, new Date())}
         stay22Links={stay22Links || {}}
         mapConfig={mapConfig}
+        sidebarLabel="Tour Stages"
       />
 
       <StaticIndex race={race} climbs={climbs} intro={intro} h2Color="#ffe94d" />

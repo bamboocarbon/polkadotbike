@@ -8,10 +8,17 @@ interface StageSidebarProps {
   onSelect: (num: number) => void;
 }
 
-export function StageSidebar({ stages, selected, onSelect }: StageSidebarProps) {
+interface StageSidebarWithLabelProps extends StageSidebarProps {
+  /** "Tour Stages" / "Giro Stages" / "Vuelta Stages" — genuinely differs
+   *  per race, no sane shared default, so required rather than guessed at
+   *  (same reasoning as Footer's attribution prop). */
+  label: string;
+}
+
+export function StageSidebar({ stages, selected, onSelect, label }: StageSidebarWithLabelProps) {
   return (
     <div className="stage-sidebar glass" id="stage-sidebar">
-      <div className="sidebar-head">Tour Stages</div>
+      <div className="sidebar-head">{label}</div>
       {stages.map((s) => {
         const ti = TYPE_INFO[s.type] || TYPE_INFO['Sprint'];
         return (
