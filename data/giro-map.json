@@ -1,0 +1,35 @@
+{
+  "STAGE_COORDS": [
+    { "num": 1, "sLat": 42.659, "sLng": 27.916, "fLat": 42.510, "fLng": 27.461 },
+    { "num": 2, "sLat": 42.510, "sLng": 27.461, "fLat": 42.879, "fLng": 25.627 },
+    { "num": 3, "sLat": 42.145, "sLng": 24.750, "fLat": 42.698, "fLng": 23.322 },
+    { "num": 4, "sLat": 38.911, "sLng": 16.595, "fLat": 39.299, "fLng": 16.255 },
+    { "num": 5, "sLat": 39.893, "sLng": 15.779, "fLat": 40.639, "fLng": 15.799 },
+    { "num": 6, "sLat": 40.423, "sLng": 15.007, "fLat": 40.851, "fLng": 14.268 },
+    { "num": 7, "sLat": 41.256, "sLng": 13.609, "fLat": 42.085, "fLng": 14.036 },
+    { "num": 8, "sLat": 42.351, "sLng": 14.168, "fLat": 43.160, "fLng": 13.718 },
+    { "num": 9, "sLat": 44.261, "sLng": 12.357, "fLat": 44.163, "fLng": 11.088 },
+    { "num": 10, "sLat": 43.872, "sLng": 10.255, "fLat": 44.035, "fLng": 10.141 },
+    { "num": 11, "sLat": 43.844, "sLng": 10.616, "fLat": 44.316, "fLng": 9.322 },
+    { "num": 12, "sLat": 43.885, "sLng": 8.017, "fLat": 44.760, "fLng": 8.790 },
+    { "num": 13, "sLat": 44.914, "sLng": 8.615, "fLat": 45.924, "fLng": 8.552 },
+    { "num": 14, "sLat": 45.737, "sLng": 7.315, "fLat": 45.769, "fLng": 7.249 },
+    { "num": 15, "sLat": 44.994, "sLng": 9.011, "fLat": 45.465, "fLng": 9.190 },
+    { "num": 16, "sLat": 46.192, "sLng": 9.022, "fLat": 46.504, "fLng": 8.942 },
+    { "num": 17, "sLat": 45.524, "sLng": 9.522, "fLat": 46.162, "fLng": 11.006 },
+    { "num": 18, "sLat": 46.124, "sLng": 11.026, "fLat": 45.905, "fLng": 12.170 },
+    { "num": 19, "sLat": 46.019, "sLng": 11.905, "fLat": 46.413, "fLng": 12.057, "anchor": [25, 25] },
+    { "num": 20, "sLat": 46.273, "sLng": 13.132, "fLat": 46.108, "fLng": 12.547 },
+    { "num": 21, "sLat": 41.894, "sLng": 12.484, "fLat": 41.894, "fLng": 12.484 }
+  ],
+  "CITY_LABELS": [
+    { "num": 1, "end": "f", "name": "Burgas" },
+    { "num": 3, "end": "f", "name": "Sofia" },
+    { "num": 4, "end": "f", "name": "Cosenza" },
+    { "num": 6, "end": "f", "name": "Napoli" },
+    { "num": 8, "end": "f", "name": "Fermo", "cls": "right" },
+    { "num": 14, "end": "s", "name": "Aosta" },
+    { "num": 15, "end": "f", "name": "Milano" },
+    { "num": 21, "end": "f", "name": "Roma" }
+  ]
+}

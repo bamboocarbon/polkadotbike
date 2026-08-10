@@ -18,6 +18,7 @@ export interface MapConfig {
   fitBoundsPadding: [number, number];
   zoomControl?: RaceMapProps['zoomControl'];
   mobileView?: RaceMapProps['mobileView'];
+  zoomDelta?: RaceMapProps['zoomDelta'];
 }
 
 interface RacePageClientProps {
@@ -63,6 +64,7 @@ function RacePageClientInner({ race, climbs, staticDefaultStage, stay22Links, ma
           fitBoundsPadding={mapConfig.fitBoundsPadding}
           zoomControl={mapConfig.zoomControl}
           mobileView={mapConfig.mobileView}
+          zoomDelta={mapConfig.zoomDelta}
         />
         <div className="map-legend">
           <div className="ml-item"><span className="ml-dot ml-m" /> Mountain</div>

@@ -51,6 +51,10 @@ export interface RaceMapProps {
    *  rather than hardcoding TDF's behaviour as if it were universal. */
   zoomControl?: { position: 'topright' | 'bottomleft'; separate?: boolean };
   mobileView?: { type: 'panBy'; dx: number } | { type: 'setView'; center: [number, number]; zoomOffset: number };
+  /** Giro's source used 0.5 (matches its zoomSnap) so the +/- buttons step
+   *  the same amount as scroll/pinch; TDF/Vuelta never set this, leaving
+   *  Leaflet's default of 1. Omit to keep that default. */
+  zoomDelta?: number;
 }
 
 const TYPE_DOT_CLS: Record<string, string> = {
@@ -74,6 +78,7 @@ export default function RaceMapInner({
   fitBoundsPadding,
   zoomControl = { position: 'topright' },
   mobileView = { type: 'panBy', dx: -16 },
+  zoomDelta,
 }: RaceMapProps) {
   const mapRef = useRef<L.Map | null>(null);
   const markersRef = useRef<Record<number, { marker: L.Marker; stage: Stage; anchor?: [number, number] }>>({});
@@ -89,6 +94,7 @@ export default function RaceMapInner({
       scrollWheelZoom: false,
       zoomControl: zoomControl.position === 'topright' && !zoomControl.separate,
       zoomSnap: 0.5,
+      ...(zoomDelta !== undefined ? { zoomDelta } : {}),
     });
     if (zoomControl.separate) {
       L.control.zoom({ position: zoomControl.position }).addTo(map);

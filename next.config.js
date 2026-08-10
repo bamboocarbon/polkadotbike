@@ -12,8 +12,7 @@ const nextConfig = {
       { source: '/compare', destination: '/compare.html' },
       { source: '/derailleur', destination: '/derailleur.html' },
       { source: '/wkg', destination: '/wkg.html' },
-      // /tdf removed — app/tdf/page.tsx is a real route now (Phase 3).
-      { source: '/giro26', destination: '/giro26.html' },
+      // /tdf, /giro26 removed — their app/ pages are real routes now (Phase 3).
       { source: '/vuelta', destination: '/vuelta.html' },
       { source: '/about', destination: '/about.html' },
       { source: '/guide', destination: '/guide.html' },
