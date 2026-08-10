@@ -7,10 +7,9 @@ const nextConfig = {
   // so links never break mid-migration in either direction.
   async rewrites() {
     return [
-      { source: '/', destination: '/index.html' },
       { source: '/climb', destination: '/climb.html' },
       { source: '/compare', destination: '/compare.html' },
-      // /tdf, /giro26, /vuelta, /about, /guide, /glossary, /contact,
+      // /, /tdf, /giro26, /vuelta, /about, /guide, /glossary, /contact,
       // /derailleur, /wkg removed — their app/ pages are real routes now.
     ];
   },

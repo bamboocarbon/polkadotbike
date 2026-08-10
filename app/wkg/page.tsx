@@ -105,7 +105,12 @@ export default function WkgPage() {
       <AADSUnit />
 
       <Footer
-        attribution="Polka Dot Bike — Category benchmarks based on Coggan power profile tables. FTP-based values for sustained climbing performance."
+        attribution={
+          <>
+            <span className="pdb-brand">Polka<span className="pdb-dot">DOT</span>Bike</span> — Category benchmarks based on Coggan
+            power profile tables. FTP-based values for sustained climbing performance.
+          </>
+        }
         links={[
           { href: '/', label: '← Gear Calculator' },
           { href: '/climb', label: 'Climb Planner' },

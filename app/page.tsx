@@ -1,19 +1,21 @@
 import type { Metadata, Viewport } from 'next';
 import Footer from '@/components/Footer';
 import AADSUnit from '@/components/AADSUnit';
-import DerailleurCalculator from '@/components/derailleur/DerailleurCalculator';
-import '@/components/derailleur/derailleur.css';
+import GearCalculator from '@/components/index/GearCalculator';
+import '@/components/index/index.css';
 
-const PAGE_URL = 'https://polkadotbike.com/derailleur';
-const TITLE = 'Derailleur Capacity Calculator · Polka Dot Bike';
+const PAGE_URL = 'https://polkadotbike.com/';
+const TITLE = 'Bike Gear Ratio & Gear Inches Calculator · Polka Dot Bike';
 const DESCRIPTION =
-  'Check whether a cassette and chainring combo fits your rear derailleur. Enter your ratios and see total capacity versus the maximum your mech can wrap.';
+  'Free road-bike gear ratio and gear-inches calculator. Compare chainrings and cassettes, see gain ratios, speed at cadence, and find your ideal climbing gear.';
 
 export const metadata: Metadata = {
   title: { absolute: TITLE },
   description: DESCRIPTION,
   alternates: { canonical: PAGE_URL },
   robots: { index: true, follow: true },
+  // Impact affiliate-network domain verification tag — index.html only.
+  other: { 'impact-site-verification': '9d449fd5-72cb-4b4c-9ac1-d832e995bdd8' },
   openGraph: {
     type: 'website',
     siteName: 'Polka Dot Bike',
@@ -40,51 +42,48 @@ function buildJsonLd() {
       '@context': 'https://schema.org',
       '@type': 'WebApplication',
       '@id': `${PAGE_URL}#app`,
-      name: 'Derailleur Capacity Checker',
+      name: 'Polka Dot Bike',
       url: PAGE_URL,
-      applicationCategory: 'UtilitiesApplication',
-      operatingSystem: 'Any',
+      applicationCategory: 'SportsApplication',
+      operatingSystem: 'Web',
       browserRequirements: 'Requires JavaScript',
+      description:
+        'Free road-cycling calculators: gear ratios and gear inches, a climb planner, groupset and cassette comparator, derailleur capacity checker, W/kg power profile, and Tour de France and Giro d’Italia 2026 climb browsers.',
       offers: { '@type': 'Offer', price: '0', priceCurrency: 'GBP' },
-      description: DESCRIPTION,
       author: { '@type': 'Person', name: 'Robin Gillingham', url: 'https://polkadotbike.com/about' },
-      isPartOf: { '@id': 'https://polkadotbike.com/#website' },
     },
     {
       '@context': 'https://schema.org',
-      '@type': 'BreadcrumbList',
-      itemListElement: [
-        { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://polkadotbike.com/' },
-        { '@type': 'ListItem', position: 2, name: 'Derailleur Capacity', item: PAGE_URL },
-      ],
+      '@type': 'WebSite',
+      '@id': `${PAGE_URL}#website`,
+      url: PAGE_URL,
+      name: 'Polka Dot Bike',
+      description:
+        'Free cycling gearing tools: gear ratio calculator, climb planner, groupset comparator, derailleur capacity checker and W/kg calculator.',
+      publisher: { '@type': 'Person', name: 'Robin Gillingham', url: 'https://polkadotbike.com/about' },
     },
   ];
 }
 
-export default function DerailleurPage() {
+export default function HomePage() {
   return (
     <>
       {buildJsonLd().map((block, i) => (
-        <script
-          key={i}
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(block) }}
-        />
+        <script key={i} type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(block) }} />
       ))}
 
-      {/* This page's own "bold UCI palette" theme is unconditional in the
-          source (not a per-page accent choice like Giro/Vuelta's race
-          pages) — its .filter-btn[data-fbrand] rules are genuinely load-
-          bearing UI here, unlike the same block being dead weight on the
-          content/race pages. Ported as the page's real, active styling. */}
+      {/* Same nav-active/logo override as the other calculator pages —
+          the "bold UCI palette" block's own brand-tab rules are baked
+          directly into index.css since they're genuinely load-bearing
+          here (this page has real brand-tab elements). */}
       <style>{`
         nav a.active { color: #1a72e0; }
         .logo span { color: #fff; }
       `}</style>
 
       <div className="hero">
-        <h1>Derailleur Capacity</h1>
-        <p>Enter your chainring and cassette sizes — see instantly which derailleurs can handle your setup.</p>
+        <h1>Gear Ratio Calculator</h1>
+        <p>Select your groupset and instantly see every gear, speed, development and steps.</p>
         <div
           className="hero-bikes"
           style={{
@@ -98,7 +97,7 @@ export default function DerailleurPage() {
       </div>
 
       <div className="container">
-        <DerailleurCalculator />
+        <GearCalculator />
       </div>
 
       <AADSUnit />
@@ -106,19 +105,17 @@ export default function DerailleurPage() {
       <Footer
         attribution={
           <>
-            <span className="pdb-brand">Polka<span className="pdb-dot">DOT</span>Bike</span> — Capacity figures from published
-            manufacturer specifications. Always verify with your derailleur&apos;s manual.
+            <span className="pdb-brand">Polka<span className="pdb-dot">DOT</span>Bike</span> — Calculations are indicative. Actual
+            performance depends on conditions and rider position.
           </>
         }
         links={[
-          { href: '/', label: '← Gear Calculator' },
-          { href: '/climb', label: 'Climb Planner' },
+          { href: '/about', label: 'About' },
           { href: '/guide', label: 'Guide' },
           { href: '/glossary', label: 'Glossary' },
-          { href: '/about', label: 'About' },
-          { href: '/contact', label: 'Contact' },
           { href: '/privacy.html', label: 'Privacy' },
           { href: '/disclaimer.html', label: 'Disclaimer' },
+          { href: '/contact', label: 'Contact' },
         ]}
       />
     </>
