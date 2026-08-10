@@ -1,6 +1,6 @@
 'use client';
 
-import { Suspense, useEffect, useMemo, useState } from 'react';
+import { Suspense, useEffect, useMemo, useRef, useState } from 'react';
 import { useSearchParams } from 'next/navigation';
 import { DB, DISC_BRANDS, WHEELS, Discipline, Brand } from '@/lib/gearDb';
 import {
@@ -97,7 +97,21 @@ function GearCalculatorInner() {
   const [S, setS] = useState<GearCalcState>(defaultCalcState);
   const [copied, setCopied] = useState(false);
   const [showReport, setShowReport] = useState(false);
+  const [reportSvgHtml, setReportSvgHtml] = useState('');
   const [initDone, setInitDone] = useState(false);
+  const chartWrapRef = useRef<HTMLDivElement>(null);
+
+  function openReport() {
+    const svgEl = chartWrapRef.current?.querySelector('svg');
+    const html = svgEl
+      ? svgEl.outerHTML
+          .replace(/rgba\(255,255,255,0\.05\)/g, 'rgba(0,0,0,0.09)')
+          .replace(/rgba\(255,255,255,0\.09\)/g, 'rgba(0,0,0,0.18)')
+          .replace(/fill="#94a3b8"/g, 'fill="#64748b"')
+      : '';
+    setReportSvgHtml(html);
+    setShowReport(true);
+  }
 
   // ── INIT: cg_shared + URL params, run once on mount (client only) ──
   useEffect(() => {
@@ -342,6 +356,7 @@ function GearCalculatorInner() {
           ul,
           cadence: S.cadence,
           wheelLabel: WHEELS[S.discipline].find((w) => w.circ === S.wheelCirc)?.label || '',
+          svgHtml: reportSvgHtml,
         }
       : null;
 
@@ -564,26 +579,28 @@ function GearCalculatorInner() {
               <button className={`share-btn${copied ? ' copied' : ''}`} onClick={copyLink}>
                 {copied ? '✓ Copied!' : '⬡ Copy link'}
               </button>
-              <button className="share-btn" onClick={() => setShowReport(true)}>
+              <button className="share-btn" onClick={openReport}>
                 ⎙ Report
               </button>
             </div>
           </div>
-          {calc ? (
-            <GearChart
-              bigGears={calc.bigGears}
-              smallGears={calc.smallGears}
-              ul={ul}
-              cadence={S.cadence}
-              chartMode={S.chartMode}
-              bigColor={ACCENT_MAP[S.brand]}
-              smallColor={ACCENT_LIGHT_MAP[S.brand]}
-            />
-          ) : (
-            <div className="chart-wrap">
-              <div className="chart-empty">Select a groupset to see your gear chart</div>
-            </div>
-          )}
+          <div ref={chartWrapRef}>
+            {calc ? (
+              <GearChart
+                bigGears={calc.bigGears}
+                smallGears={calc.smallGears}
+                ul={ul}
+                cadence={S.cadence}
+                chartMode={S.chartMode}
+                bigColor={ACCENT_MAP[S.brand]}
+                smallColor={ACCENT_LIGHT_MAP[S.brand]}
+              />
+            ) : (
+              <div className="chart-wrap">
+                <div className="chart-empty">Select a groupset to see your gear chart</div>
+              </div>
+            )}
+          </div>
         </div>
 
         <div className="cards-card">

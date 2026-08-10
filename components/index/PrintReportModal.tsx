@@ -14,6 +14,7 @@ export interface PrintReportData {
   ul: string;
   cadence: number;
   wheelLabel: string;
+  svgHtml: string;
 }
 
 function ReportRow({ gears, ringT, label, color, ul }: { gears: GearPoint[]; ringT: number; label: string; color: string; ul: string }) {
@@ -77,6 +78,7 @@ export default function PrintReportModal({ data, onClose }: { data: PrintReportD
             <strong>{data.groupset}</strong> &nbsp;&middot;&nbsp; {data.crLabel} chainring &nbsp;&middot;&nbsp; {data.csLabel} cassette
             &nbsp;&middot;&nbsp; {data.wheelLabel} &nbsp;&middot;&nbsp; {data.cadence} rpm
           </div>
+          <div className="rpt-chart-bg" dangerouslySetInnerHTML={{ __html: data.svgHtml }} />
           <table className="rpt-table">
             <thead>
               <tr>
