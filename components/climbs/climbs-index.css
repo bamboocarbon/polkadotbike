@@ -1,0 +1,47 @@
+/* ============================================================================
+   /climbs — the browsable index of the 87 categorised climbs across the 3
+   2026 Grand Tours. Ported from the seo-phase-3-climb-pages branch's
+   climbs/index.html, which was never merged/deployed (that branch also
+   built the 87 individual climb detail pages this index links to — those
+   aren't converted yet, so its links currently 404, by design).
+
+   .cc-cat/.cat-* (category badges) are NOT redefined here — reused as-is
+   from components/race/race.css, which already has the exact same rules
+   for the race pages' climb cards.
+============================================================================ */
+
+.cl-sub { margin-top: 8px; font-size: 14px; color: rgba(15, 23, 42, 0.72); font-weight: 600; }
+
+.ci-wrap { position: relative; z-index: 1; max-width: 1000px; margin: 0 auto; padding: 0 20px 60px; }
+.ci-intro { color: var(--muted); font-size: 0.95rem; line-height: 1.55; margin: 0 0 16px; max-width: 70ch; }
+
+.ci-tools { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; margin-bottom: 14px; }
+#ci-search {
+  flex: 1; min-width: 240px; background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(255, 255, 255, 0.14);
+  border-radius: 10px; color: var(--text); padding: 11px 14px; font-size: 14px; font-family: inherit;
+}
+#ci-search:focus { outline: none; border-color: #1a72e0; }
+#ci-search::placeholder { color: var(--muted); }
+
+.ci-chip {
+  padding: 8px 14px; border-radius: 9px; background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.12); color: var(--sec); font-size: 12.5px; font-weight: 600;
+  font-family: inherit; cursor: pointer;
+}
+.ci-chip.active { background: #1a72e0; border-color: #1a72e0; color: #fff; }
+
+.ci-count { font-size: 12px; color: var(--muted); margin-bottom: 10px; }
+
+.ci-list { list-style: none; margin: 0; padding: 0; display: grid; gap: 8px; }
+.ci-list a {
+  display: flex; align-items: center; gap: 11px; flex-wrap: wrap; padding: 12px 15px; border-radius: 12px;
+  background: var(--glass); border: 1px solid rgba(255, 255, 255, 0.12); text-decoration: none;
+}
+.ci-list a:hover { border-color: rgba(255, 255, 255, 0.3); }
+.ci-name { font-size: 1rem; font-weight: 700; color: #fff; }
+.ci-meta { font-size: 0.84rem; color: var(--muted); margin-left: auto; text-align: right; }
+.ci-none { padding: 22px; text-align: center; color: var(--muted); font-size: 14px; }
+
+@media (max-width: 560px) {
+  .ci-meta { margin-left: 0; width: 100%; text-align: left; }
+}
