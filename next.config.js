@@ -12,8 +12,7 @@ const nextConfig = {
       { source: '/compare', destination: '/compare.html' },
       { source: '/derailleur', destination: '/derailleur.html' },
       { source: '/wkg', destination: '/wkg.html' },
-      // /tdf, /giro26 removed — their app/ pages are real routes now (Phase 3).
-      { source: '/vuelta', destination: '/vuelta.html' },
+      // /tdf, /giro26, /vuelta removed — their app/ pages are real routes now (Phase 3, complete).
       { source: '/about', destination: '/about.html' },
       { source: '/guide', destination: '/guide.html' },
       { source: '/glossary', destination: '/glossary.html' },

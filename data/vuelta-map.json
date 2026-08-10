@@ -1,0 +1,35 @@
+{
+  "STAGE_COORDS": [
+    { "num": 1, "sLat": 43.7384, "sLng": 7.4246, "fLat": 43.7384, "fLng": 7.4246, "anchor": [25, 25] },
+    { "num": 2, "sLat": 43.7384, "sLng": 7.4246, "fLat": 43.8290, "fLng": 5.7863 },
+    { "num": 3, "sLat": 43.1090, "sLng": 3.0876, "fLat": 42.5019, "fLng": 2.0331 },
+    { "num": 4, "sLat": 42.5063, "sLng": 1.5218, "fLat": 42.5063, "fLng": 1.5218, "anchor": [25, 25] },
+    { "num": 5, "sLat": 41.1462, "sLng": 0.8206, "fLat": 40.8137, "fLng": 0.4986 },
+    { "num": 6, "sLat": 40.2306, "sLng": 0.2497, "fLat": 39.9864, "fLng": -0.0513 },
+    { "num": 7, "sLat": 40.1160, "sLng": -0.0520, "fLat": 40.3350, "fLng": -0.7160 },
+    { "num": 8, "sLat": 39.6167, "sLng": -0.3167, "fLat": 39.0333, "fLng": -0.3167 },
+    { "num": 9, "sLat": 38.5075, "sLng": -0.2331, "fLat": 38.6467, "fLng": -0.2611 },
+    { "num": 10, "sLat": 38.6333, "sLng": -2.4667, "fLat": 38.4667, "fLng": -2.0500 },
+    { "num": 11, "sLat": 37.6050, "sLng": -0.9861, "fLat": 37.6717, "fLng": -1.7011 },
+    { "num": 12, "sLat": 37.2489, "sLng": -1.8514, "fLat": 37.2233, "fLng": -2.5464 },
+    { "num": 13, "sLat": 36.7333, "sLng": -3.6833, "fLat": 37.1667, "fLng": -4.1500 },
+    { "num": 14, "sLat": 37.7667, "sLng": -3.7833, "fLat": 37.6167, "fLng": -3.7333 },
+    { "num": 15, "sLat": 37.7136, "sLng": -5.2822, "fLat": 37.8882, "fLng": -4.7794 },
+    { "num": 16, "sLat": 37.9139, "sLng": -6.8258, "fLat": 37.2144, "fLng": -6.8908 },
+    { "num": 17, "sLat": 37.2833, "sLng": -5.9167, "fLat": 37.3891, "fLng": -5.9845 },
+    { "num": 18, "sLat": 36.5928, "sLng": -6.2331, "fLat": 36.6850, "fLng": -6.1261 },
+    { "num": 19, "sLat": 36.7833, "sLng": -4.1000, "fLat": 36.4283, "fLng": -5.1467 },
+    { "num": 20, "sLat": 37.1833, "sLng": -3.0667, "fLat": 37.1000, "fLng": -3.4000 },
+    { "num": 21, "sLat": 37.1773, "sLng": -3.5986, "fLat": 37.1773, "fLng": -3.5986, "anchor": [25, 25] }
+  ],
+  "CITY_LABELS": [
+    { "num": 1, "end": "f", "name": "Monaco", "pref": "left" },
+    { "num": 4, "end": "f", "name": "Andorra", "pref": "left" },
+    { "num": 6, "end": "f", "name": "Castelló", "pref": "right" },
+    { "num": 9, "end": "f", "name": "Alicante", "pref": "right" },
+    { "num": 12, "end": "f", "name": "Almería", "pref": "right", "dense": true },
+    { "num": 15, "end": "f", "name": "Córdoba", "pref": "top", "dense": true },
+    { "num": 17, "end": "f", "name": "Sevilla", "pref": "left", "dense": true },
+    { "num": 20, "end": "f", "name": "Granada", "pref": "bottom", "dense": true }
+  ]
+}

@@ -53,10 +53,16 @@ export interface RaceMapProps {
   activeStage: number;
   onStageClick: (num: number) => void;
   fitBoundsPadding: [number, number];
-  /** TDF/Vuelta: default topright zoom control, mobile view just pans left
-   *  by 16px. Giro differs on both (bottomleft control, mobile re-centres
-   *  and zooms in on Italy) — pass that config here when Giro is built,
-   *  rather than hardcoding TDF's behaviour as if it were universal. */
+  /** TDF/Vuelta: `zoomControl: true`, no `separate`, mobile view just pans
+   *  left by 16px. Giro differs on both (its own `L.control.zoom` at
+   *  bottomleft, mobile re-centres and zooms in on Italy).
+   *  Note `position: 'topright'` here is really just "not separate" —
+   *  Leaflet's built-in `zoomControl: true` option always renders
+   *  top-left regardless of this field; `position` only takes effect when
+   *  `separate` is true and a real `L.control.zoom({position})` gets
+   *  constructed (Giro's path). TDF's and Vuelta's own sources both just
+   *  use the plain boolean too, so both genuinely render top-left — this
+   *  isn't a gap, just a label that doesn't mean what it sounds like. */
   zoomControl?: { position: 'topright' | 'bottomleft'; separate?: boolean };
   mobileView?: { type: 'panBy'; dx: number } | { type: 'setView'; center: [number, number]; zoomOffset: number };
   /** Giro's source used 0.5 (matches its zoomSnap) so the +/- buttons step
