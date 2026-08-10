@@ -10,9 +10,8 @@ const nextConfig = {
       { source: '/', destination: '/index.html' },
       { source: '/climb', destination: '/climb.html' },
       { source: '/compare', destination: '/compare.html' },
-      { source: '/wkg', destination: '/wkg.html' },
-      // /tdf, /giro26, /vuelta, /about, /guide, /glossary, /contact, /derailleur
-      // removed — their app/ pages are real routes now.
+      // /tdf, /giro26, /vuelta, /about, /guide, /glossary, /contact,
+      // /derailleur, /wkg removed — their app/ pages are real routes now.
     ];
   },
 };
