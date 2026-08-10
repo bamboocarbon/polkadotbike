@@ -41,3 +41,27 @@ export function writeSharedSetup(partial: SharedSetup): void {
     // still works, it just won't carry the setup to the other tools.
   }
 }
+
+// compare.html's own private localStorage key, holding BOTH System A and
+// System B in full — never shared with the other tools. Unlike cg_shared,
+// this is a straight overwrite on every save (source's saveState() builds
+// one fresh `state` object each time), not a merge.
+export type CmpState = Record<string, unknown>;
+
+export function readCmpState(): CmpState {
+  if (typeof window === 'undefined') return {};
+  try {
+    return JSON.parse(localStorage.getItem('cg_cmp') || '{}');
+  } catch {
+    return {};
+  }
+}
+
+export function writeCmpState(state: CmpState): void {
+  if (typeof window === 'undefined') return;
+  try {
+    localStorage.setItem('cg_cmp', JSON.stringify(state));
+  } catch {
+    // ignore
+  }
+}
