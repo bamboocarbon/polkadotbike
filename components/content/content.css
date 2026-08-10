@@ -1,0 +1,132 @@
+/* ============================================================================
+   Shared styling for the 4 static content pages (about/guide/glossary/
+   contact) — consolidated out of the four copies of it that lived inline in
+   each page's <head>. Header/nav/footer/hero-dots chrome is already in
+   app/globals.css; this file is only the page-body classes.
+
+   .intro below uses guide/glossary's values (2 of the 3 pages that have an
+   intro card already match); about's page differs slightly (24px/26px
+   padding, 15.5px/1.64 type vs 22px/24px, 15px/1.62) — small enough that
+   it's overridden with an inline style on that one page rather than adding
+   a second class for a few px of difference.
+============================================================================ */
+
+/* Content pages' own .container/.glass — not the race pages' race.css
+   versions (no backdrop-filter there, and a different border opacity).
+   .container's max-width differs per page (720/880/880/680px) — set via
+   inline style per page rather than a fifth near-duplicate class. */
+.container { position: relative; z-index: 1; margin: 0 auto; padding: 0 20px 60px; }
+.glass {
+  background: var(--glass);
+  backdrop-filter: blur(24px); -webkit-backdrop-filter: blur(24px);
+  border: 1px solid var(--border); border-radius: 16px;
+}
+
+.intro { padding: 22px 24px; margin-bottom: 18px; }
+.intro p { font-size: 15px; line-height: 1.62; color: var(--text); }
+.intro p + p { margin-top: 12px; }
+
+.sec { padding: 21px 26px; margin-bottom: 12px; }
+.sec h2 { font-size: 18px; font-weight: 800; color: #fff; letter-spacing: -0.3px; margin-bottom: 10px; }
+.sec p { font-size: 14.5px; line-height: 1.64; color: var(--text); }
+.sec p + p { margin-top: 10px; }
+.sec a { color: var(--accent-light); text-decoration: none; font-weight: 600; }
+.sec a:hover { color: #fff; text-decoration: underline; }
+
+/* jump bar — guide.html's own literal pill colour is a slightly different
+   blue (rgba(26,114,224,...)) than glossary's (rgba(59,130,246,...)); a
+   real, pre-existing per-page inconsistency in the source, not something
+   this port introduces. Ported faithfully via .page-guide/.page-glossary
+   scoping rather than picking one and calling it "close enough". */
+.jump { padding: 16px 18px; margin-bottom: 24px; }
+.jump h2 { font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; color: var(--muted); margin-bottom: 11px; }
+.jump-links { display: flex; flex-wrap: wrap; gap: 7px; }
+.jump-links a {
+  font-size: 12.5px; font-weight: 600; color: var(--accent-light);
+  text-decoration: none; padding: 5px 11px; border-radius: 999px;
+  background: rgba(59, 130, 246, 0.10); border: 1px solid rgba(59, 130, 246, 0.22);
+  transition: all 0.15s;
+}
+.jump-links a:hover { background: rgba(59, 130, 246, 0.22); color: #fff; }
+/* guide.html's own page-specific override for these two (a slightly
+   different blue) is applied via a scoped <style> tag in app/guide/page.tsx
+   itself, not here — nav lives in the root layout as a sibling of page
+   content, not a descendant, so a class-scoped rule here couldn't reach it. */
+
+.group-title {
+  position: relative; z-index: 1;
+  font-size: 13px; font-weight: 800; text-transform: uppercase; letter-spacing: 1.5px;
+  color: var(--accent); margin: 30px 4px 12px;
+  display: flex; align-items: center; gap: 10px;
+}
+.group-title::after { content: ''; flex: 1; height: 2px; background: var(--accent); }
+
+/* guide's "tool" cards and glossary's "term" cards share the same shape */
+.tool, .term { padding: 20px 22px; margin-bottom: 14px; scroll-margin-top: 70px; }
+.tool h3, .term h3 { font-size: 19px; font-weight: 800; color: #fff; letter-spacing: -0.3px; margin-bottom: 4px; }
+.term h3 { font-size: 18px; margin-bottom: 8px; }
+.term h3 .alt { font-size: 13px; font-weight: 500; color: var(--muted); margin-left: 6px; }
+.tool .lead { font-size: 13px; color: var(--accent-light); font-weight: 600; margin-bottom: 10px; }
+.tool p, .term p { font-size: 14.5px; line-height: 1.6; color: var(--text); }
+.tool p + p, .term p + p { margin-top: 9px; }
+.tool .take, .term .take { color: var(--sec); font-style: italic; }
+
+.controls { margin: 11px 0 4px; list-style: none; }
+.controls li { font-size: 13.5px; line-height: 1.5; color: var(--text); padding: 5px 0 5px 18px; position: relative; }
+.controls li::before { content: ''; position: absolute; left: 2px; top: 11px; width: 5px; height: 5px; border-radius: 50%; background: var(--accent); }
+.controls li b { color: #fff; font-weight: 600; }
+
+/* guide's .where (inside .tool) is a plain link line; glossary's .where
+   (inside .term) adds a top divider + muted label — genuinely different
+   treatments, not a shared rule, so scoped by parent class. */
+.tool .where { margin-top: 13px; font-size: 13px; }
+.tool .where a { color: var(--accent-light); text-decoration: none; font-weight: 700; }
+.tool .where a:hover { color: #fff; text-decoration: underline; }
+.term .where { margin-top: 11px; font-size: 12.5px; color: var(--muted); border-top: 1px solid var(--border); padding-top: 10px; }
+.term .where strong { color: var(--sec); font-weight: 600; }
+.term .where a { color: var(--accent-light); text-decoration: none; font-weight: 600; }
+.term .where a:hover { color: #fff; text-decoration: underline; }
+
+.author { padding: 20px 24px; margin-top: 26px; border-left: 3px solid var(--accent); }
+.author p { font-size: 13.5px; line-height: 1.6; color: var(--sec); font-style: italic; }
+.author strong { color: var(--text); font-style: normal; font-weight: 700; }
+.author a { color: var(--accent-light); font-style: normal; text-decoration: none; font-weight: 600; }
+.author a:hover { color: #fff; }
+
+/* contact page */
+.card { padding: 24px 26px; margin-bottom: 16px; }
+.card p { font-size: 15px; line-height: 1.62; color: var(--text); }
+.card p + p { margin-top: 12px; }
+
+.mail-wrap { text-align: center; padding: 26px 26px 28px; }
+.mail-wrap .lead { font-size: 13px; text-transform: uppercase; letter-spacing: 1.2px; color: var(--muted); font-weight: 700; margin-bottom: 14px; }
+.mail-btn {
+  display: inline-flex; align-items: center; gap: 9px;
+  font-size: 17px; font-weight: 700; color: #fff; text-decoration: none;
+  padding: 13px 24px; border-radius: 11px;
+  background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
+  border: 1px solid rgba(147, 197, 253, 0.4);
+  box-shadow: 0 10px 26px rgba(37, 99, 235, 0.4);
+  transition: transform 0.15s, box-shadow 0.15s;
+}
+.mail-btn:hover { transform: translateY(-1px); box-shadow: 0 14px 32px rgba(37, 99, 235, 0.5); }
+.mail-btn svg { width: 19px; height: 19px; }
+
+.social-wrap { text-align: center; padding: 22px 26px 26px; margin-top: 16px; }
+.social-row { display: flex; align-items: center; justify-content: center; gap: 12px; flex-wrap: wrap; }
+.social-btn {
+  display: inline-flex; align-items: center; gap: 9px;
+  font-size: 15px; font-weight: 700; color: #fff; text-decoration: none;
+  padding: 11px 20px; border-radius: 11px;
+  transition: transform 0.15s, box-shadow 0.15s;
+}
+.social-btn:hover { transform: translateY(-1px); }
+.social-btn svg { width: 18px; height: 18px; flex-shrink: 0; }
+.social-btn.instagram {
+  background: linear-gradient(135deg, #f58529 0%, #dd2a7b 50%, #8134af 100%);
+  box-shadow: 0 10px 26px rgba(221, 42, 123, 0.35);
+}
+.social-btn.facebook {
+  background: #1877f2;
+  box-shadow: 0 10px 26px rgba(24, 119, 242, 0.35);
+}
