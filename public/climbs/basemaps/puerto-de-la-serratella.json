@@ -1,0 +1,13 @@
+{
+  "slug": "puerto-de-la-serratella",
+  "source": "IGN MTN",
+  "attribution": "Map: IGN España, CC-BY 4.0",
+  "zoom": 15,
+  "imageWidthPx": 2048,
+  "bounds": {
+    "xMin": -10777.67737496749,
+    "xMax": 3211.893357897654,
+    "zMin": -2462.360708826545,
+    "zMax": 7728.363660019681
+  }
+}

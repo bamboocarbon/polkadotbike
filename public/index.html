@@ -1,0 +1,1919 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bike Gear Ratio &amp; Gear Inches Calculator · Polka Dot Bike</title>
+    <meta name="description" content="Free road-bike gear ratio and gear-inches calculator. Compare chainrings and cassettes, see gain ratios, speed at cadence, and find your ideal climbing gear.">
+    <link rel="canonical" href="https://polkadotbike.com/">
+    <meta name="robots" content="index, follow">
+    <meta name="theme-color" content="#ef4444">
+    <meta name='impact-site-verification' value='9d449fd5-72cb-4b4c-9ac1-d832e995bdd8'>
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="Polka Dot Bike">
+    <meta property="og:title" content="Bike Gear Ratio &amp; Gear Inches Calculator · Polka Dot Bike">
+    <meta property="og:description" content="Free road-bike gear ratio and gear-inches calculator. Compare chainrings and cassettes, see gain ratios, speed at cadence, and find your ideal climbing gear.">
+    <meta property="og:url" content="https://polkadotbike.com/">
+    <meta property="og:image" content="https://polkadotbike.com/og-card.png">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Bike Gear Ratio &amp; Gear Inches Calculator · Polka Dot Bike">
+    <meta name="twitter:description" content="Free road-bike gear ratio and gear-inches calculator. Compare chainrings and cassettes, see gain ratios, speed at cadence, and find your ideal climbing gear.">
+    <meta name="twitter:image" content="https://polkadotbike.com/og-card.png">
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebApplication",
+      "name": "Polka Dot Bike",
+      "url": "https://polkadotbike.com/",
+      "applicationCategory": "SportsApplication",
+      "operatingSystem": "Web",
+      "browserRequirements": "Requires JavaScript",
+      "description": "Free road-cycling calculators: gear ratios and gear inches, a climb planner, groupset and cassette comparator, derailleur capacity checker, W/kg power profile, and Tour de France and Giro d'Italia 2026 climb browsers.",
+      "offers": { "@type": "Offer", "price": "0", "priceCurrency": "GBP" },
+      "author": { "@type": "Person", "name": "Robin Gillingham" }
+    }
+    </script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=IBM+Plex+Sans:wght@600;700&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
+    <style>
+        :root {
+            --accent:       #3b82f6;
+            --accent-light: #93c5fd;
+            --glass:   rgba(4, 9, 26, 0.92);
+            --glass2:  rgba(4, 9, 26, 0.95);
+            --border:  rgba(255,255,255,0.08);
+            --text:    #e8edf5;
+            --muted:   #64748b;
+            --sec:     #94a3b8;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+
+        body {
+            font-family: 'Inter', system-ui, sans-serif;
+            min-height: 100vh;
+            color: var(--text);
+            overflow-x: hidden;
+            background: #fff;
+        }
+
+        /* ═══════════════════════════════════════════════
+           MOUNTAIN BACKDROP
+        ═══════════════════════════════════════════════ */
+        .bg-scene {
+            position: fixed;
+            inset: 0;
+            z-index: 0;
+            pointer-events: none;
+            overflow: hidden;
+        }
+
+        .bg-sky {
+            position: absolute;
+            inset: 0;
+            background: #fff;
+        }
+
+        .bg-mountains {
+            position: absolute;
+            inset: 0;
+            background-image:
+                radial-gradient(circle, rgba(239,68,68,0.22) 28%, transparent 28%),
+                radial-gradient(circle, rgba(239,68,68,0.22) 28%, transparent 28%);
+            background-size: 44px 44px;
+            background-position: 0 0, 22px 22px;
+        }
+
+        /* ═══════════════════════════════════════════════
+           AD ZONES
+        ═══════════════════════════════════════════════ */
+
+
+        /* ═══════════════════════════════════════════════
+           HEADER
+        ═══════════════════════════════════════════════ */
+        header {
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            background: rgba(4,9,26,0.85);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border-bottom: 1px solid var(--border);
+            padding: 0 24px;
+            height: 54px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .logo {
+            font-size: 19px;
+            font-weight: 900;
+            letter-spacing: -0.5px;
+            color: #fff;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 3px;
+        }
+        .logo span { color: var(--accent); }
+        .logo-dot-svg { width: 32px; height: 32px; flex-shrink: 0; }
+
+        nav { display: flex; gap: 2px; align-items: center; }
+        nav a {
+            color: var(--sec);
+            text-decoration: none;
+            font-size: 13px;
+            font-weight: 500;
+            padding: 6px 13px;
+            border-radius: 6px;
+            transition: all 0.15s;
+            text-align: center;
+            line-height: 1.2;
+        }
+        nav a:hover  { color: #fff; background: rgba(255,255,255,0.06); }
+        nav a.active { color: var(--accent); background: rgba(59,130,246,0.12); }
+
+        @media (max-width: 768px) { header { padding: 0 12px; } nav a { font-size: 11px; padding: 4px 7px; } }
+
+        /* ═══════════════════════════════════════════════
+           HERO STRIP
+        ═══════════════════════════════════════════════ */
+        .hero {
+            position: relative;
+            z-index: 1;
+            text-align: center;
+            padding: 40px 20px 28px;
+        }
+        .hero h1 {
+            font-size: clamp(28px, 5vw, 48px);
+            font-weight: 900;
+            letter-spacing: -1.5px;
+            line-height: 1.1;
+            background: #0f172a;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            filter: drop-shadow(0 1px 4px rgba(255,255,255,0.8));
+        }
+        .hero p {
+            margin-top: 10px;
+            font-size: 15px;
+            color: rgba(15,23,42,0.72);
+            max-width: 480px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        /* ═══════════════════════════════════════════════
+           MAIN LAYOUT
+        ═══════════════════════════════════════════════ */
+        .container {
+            position: relative;
+            z-index: 1;
+            max-width: 1320px;
+            margin: 0 auto;
+            padding: 0 20px 60px;
+        }
+
+        .calc-grid {
+            display: grid;
+            grid-template-columns: 290px 1fr 270px;
+            gap: 18px;
+            align-items: start;
+        }
+        @media (max-width: 1100px) {
+            .calc-grid { grid-template-columns: 280px 1fr; }
+            .rail { display: none; }
+        }
+        @media (max-width: 720px) {
+            .calc-grid { grid-template-columns: 1fr; }
+            .input-panel { position: static; }
+            :root { --muted: #94a3b8; }
+        }
+
+        /* ═══════════════════════════════════════════════
+           GLASS PANELS
+        ═══════════════════════════════════════════════ */
+        .glass {
+            background: var(--glass);
+            backdrop-filter: blur(24px);
+            -webkit-backdrop-filter: blur(24px);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+        }
+
+        /* ═══════════════════════════════════════════════
+           INPUT PANEL
+        ═══════════════════════════════════════════════ */
+        .input-panel {
+            overflow: hidden;
+        }
+        @media (min-width: 721px) { .input-panel { position: sticky; top: 70px; } }
+
+        .panel-head {
+            padding: 13px 18px;
+            font-size: 10px;
+            font-weight: 700;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: var(--muted);
+            border-bottom: 1px solid var(--border);
+        }
+
+        .brand-tabs {
+            display: flex;
+            border-bottom: 1px solid var(--border);
+        }
+        .brand-tab {
+            flex: 1;
+            padding: 12px 6px;
+            text-align: center;
+            cursor: pointer;
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 0.04em;
+            color: var(--muted);
+            background: transparent;
+            border: none;
+            border-right: 1px solid var(--border);
+            border-bottom: 2px solid transparent;
+            transition: all 0.2s;
+            font-family: inherit;
+        }
+        .brand-tab:last-child { border-right: none; }
+        .brand-tab:hover { color: var(--text); }
+        .brand-tab.active[data-brand="shimano"]    { color: #60a5fa; background: rgba(59,130,246,0.1);  border-bottom-color: #3b82f6; }
+        .brand-tab.active[data-brand="sram"]       { color: #f87171; background: rgba(239,68,68,0.1);   border-bottom-color: #ef4444; }
+        .brand-tab.active[data-brand="campagnolo"] { color: #fbbf24; background: rgba(245,158,11,0.1);  border-bottom-color: #f59e0b; }
+        .brand-tab.active[data-brand="custom"]     { color: #c4b5fd; background: rgba(139,92,246,0.12); border-bottom-color: #8b5cf6; }
+        .brand-tab[data-brand="custom"]            { font-size: 11px; }
+
+        /* Custom gearing form */
+        .cust-section { display:none; flex-direction:column; gap:16px; }
+        .cust-mode-toggle { display:grid; grid-template-columns:1fr 1fr; background:rgba(255,255,255,0.04); border:1px solid rgba(255,255,255,0.08); border-radius:9px; overflow:hidden; }
+        .cust-mode-btn { padding:9px; background:transparent; border:none; color:var(--muted); font-size:12px; font-weight:700; font-family:inherit; cursor:pointer; text-align:center; transition:all 0.15s; }
+        .cust-mode-btn.active { background:#8b5cf6; color:#fff; }
+        .cust-ring-row { display:grid; grid-template-columns:1fr 16px 1fr; gap:4px; align-items:end; }
+        .cust-sep { font-size:15px; color:var(--muted); text-align:center; padding-bottom:9px; }
+        .cust-ring-cell { display:flex; flex-direction:column; gap:4px; }
+        .cust-ring-cell label { font-size:10px; font-weight:600; color:var(--sec); letter-spacing:.06em; text-transform:uppercase; text-align:center; }
+        .cust-spinner { display:flex; align-items:center; background:rgba(255,255,255,0.05); border:1px solid rgba(255,255,255,0.1); border-radius:9px; overflow:hidden; }
+        .cust-spin-btn { width:30px; height:40px; background:transparent; border:none; color:var(--muted); font-size:18px; cursor:pointer; font-family:inherit; transition:all 0.1s; line-height:1; }
+        .cust-spin-btn:hover { background:rgba(255,255,255,0.08); color:#fff; }
+        .cust-spin-val { flex:1; text-align:center; font-size:19px; font-weight:800; color:#fff; line-height:1; }
+        .cust-spin-unit { font-size:9px; color:var(--muted); font-weight:400; }
+        input.cust-cass-input { width:100%; background:rgba(255,255,255,0.05); border:1px solid rgba(255,255,255,0.1); border-radius:9px; color:var(--text); padding:9px 12px; font-size:13px; font-family:'Inter',monospace,system-ui; transition:border-color 0.15s; }
+        input.cust-cass-input:focus { outline:none; border-color:#8b5cf6; }
+        .cust-hint { margin-top:5px; font-size:11px; color:var(--muted); min-height:14px; }
+        .cust-hint.ok  { color:#22c55e; }
+        .cust-hint.err { color:#ef4444; }
+
+        /* Discipline tabs */
+        .disc-tabs {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            border-bottom: 1px solid var(--border);
+            background: rgba(255,255,255,0.02);
+        }
+        .disc-tab {
+            padding: 9px 4px;
+            text-align: center;
+            cursor: pointer;
+            font-size: 11px;
+            font-weight: 800;
+            letter-spacing: 0.07em;
+            text-transform: uppercase;
+            color: var(--muted);
+            background: transparent;
+            border: none;
+            border-bottom: 2px solid transparent;
+            transition: all 0.2s;
+            font-family: inherit;
+        }
+        .disc-tab:hover  { color: #fff; background: rgba(255,255,255,0.04); }
+        .disc-tab.active { color: #fff; border-bottom-color: rgba(255,255,255,0.55); background: rgba(255,255,255,0.05); }
+
+        .form-body { padding: 18px; display: flex; flex-direction: column; gap: 16px; }
+
+        .form-group label {
+            display: block;
+            font-size: 10px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            color: var(--muted);
+            margin-bottom: 7px;
+        }
+
+        select {
+            width: 100%;
+            background: rgba(255,255,255,0.05);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 9px;
+            color: var(--text);
+            padding: 9px 32px 9px 12px;
+            font-size: 13px;
+            font-family: inherit;
+            appearance: none;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='10' fill='%2364748b' viewBox='0 0 16 16'%3E%3Cpath d='M7.247 11.14L2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z'/%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right 12px center;
+            cursor: pointer;
+            transition: border-color 0.15s;
+        }
+        select:focus { outline: none; border-color: var(--accent); }
+        select option { background: #0d1635; }
+
+        .cr-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(62px, 1fr));
+            gap: 6px;
+        }
+        .cr-btn {
+            padding: 8px 4px;
+            background: rgba(255,255,255,0.04);
+            border: 1px solid rgba(255,255,255,0.08);
+            border-radius: 8px;
+            color: var(--sec);
+            font-size: 12px;
+            font-weight: 600;
+            font-family: inherit;
+            cursor: pointer;
+            text-align: center;
+            transition: all 0.15s;
+        }
+        .cr-btn:hover  { border-color: rgba(255,255,255,0.25); color: #fff; }
+        .cr-btn.active { background: rgba(59,130,246,0.15); border-color: var(--accent); color: #fff; }
+
+        .cadence-row { display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; }
+        .cadence-row label { margin-bottom: 0; }
+        .cadence-val { font-size: 22px; font-weight: 800; color: #fff; line-height: 1; }
+        .cadence-val span { font-size: 11px; font-weight: 400; color: var(--muted); margin-left: 2px; }
+
+        input[type="range"] {
+            width: 100%;
+            height: 3px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 2px;
+            appearance: none;
+            cursor: pointer;
+        }
+        input[type="range"]::-webkit-slider-thumb {
+            appearance: none;
+            width: 18px;
+            height: 18px;
+            border-radius: 50%;
+            background: var(--accent);
+            cursor: pointer;
+        }
+        .range-labels { display: flex; justify-content: space-between; margin-top: 5px; color: var(--muted); font-size: 10px; }
+
+        .unit-toggle { display: flex; background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.08); border-radius: 9px; overflow: hidden; }
+        .unit-btn { flex: 1; padding: 8px; background: transparent; border: none; color: var(--muted); font-size: 12px; font-weight: 600; font-family: inherit; cursor: pointer; transition: all 0.15s; }
+        .unit-btn.active { background: var(--accent); color: #fff; }
+        .chart-controls { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+        .chart-mode-toggle { display: flex; background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.08); border-radius: 8px; overflow: hidden; }
+        .chart-mode-btn { padding: 6px 12px; background: transparent; border: none; color: var(--muted); font-size: 11px; font-weight: 600; font-family: inherit; cursor: pointer; transition: all 0.15s; white-space: nowrap; }
+        .chart-mode-btn.active { background: rgba(255,255,255,0.1); color: #e2e8f0; }
+        .share-btn { padding: 6px 12px; background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.12); border-radius: 8px; color: var(--muted); font-size: 11px; font-weight: 600; font-family: inherit; cursor: pointer; transition: all 0.2s; white-space: nowrap; margin-left: auto; }
+        .share-btn:hover { background: rgba(255,255,255,0.12); color: #e2e8f0; }
+        .share-btn.copied { background: rgba(34,197,94,0.15); border-color: #22c55e; color: #22c55e; }
+
+        /* ═══════════════════════════════════════════════
+           PRINT REPORT MODAL
+        ═══════════════════════════════════════════════ */
+        #print-overlay { display:none; position:fixed; inset:0; z-index:500; background:rgba(0,0,0,0.88); padding:20px; overflow-y:auto; align-items:flex-start; justify-content:center; }
+        #print-modal { background:#fff; border-radius:14px; padding:28px 32px; max-width:860px; width:100%; margin:auto; color:#1e293b; position:relative; }
+        .rpt-header { display:flex; align-items:center; justify-content:space-between; padding-bottom:14px; border-bottom:2px solid #e2e8f0; margin-bottom:14px; }
+        .rpt-logo { font-size:20px; font-weight:900; letter-spacing:-.5px; color:#1e293b; display:inline-flex; align-items:center; gap:3px; }
+        .rpt-logo-dot { width:26px; height:26px; flex-shrink:0; }
+        .rpt-heading { font-size:12px; font-weight:700; text-transform:uppercase; letter-spacing:.1em; color:#64748b; }
+        .rpt-meta { font-size:12px; color:#475569; background:#f8fafc; border:1px solid #e2e8f0; border-radius:8px; padding:9px 14px; margin-bottom:16px; line-height:1.7; }
+        .rpt-meta strong { color:#1e293b; }
+        .rpt-chart-bg { background:#f8fafc; border:1px solid #e2e8f0; border-radius:10px; padding:12px; margin-bottom:18px; overflow:hidden; }
+        .rpt-chart-bg svg { width:100%; height:auto; display:block; }
+        .rpt-table { width:100%; border-collapse:collapse; font-size:11px; margin-bottom:4px; }
+        .rpt-table th { background:#f1f5f9; padding:5px 7px; font-weight:700; color:#334155; text-align:center; border:1px solid #e2e8f0; white-space:nowrap; }
+        .rpt-table td { padding:5px 7px; text-align:center; border:1px solid #e2e8f0; vertical-align:middle; }
+        .rpt-table td.cross { opacity:.35; }
+        .rpt-ring-lbl { text-align:left !important; white-space:nowrap; font-weight:700; font-size:11px; }
+        .rpt-cog { font-size:12px; font-weight:700; color:#1e293b; }
+        .rpt-spd { font-size:11px; font-weight:600; color:#3b82f6; }
+        .rpt-dev { font-size:10px; color:#64748b; }
+        .rpt-gin { font-size:10px; color:#94a3b8; }
+        .rpt-cross-note { font-size:10px; color:#94a3b8; margin-top:6px; }
+        .print-actions { display:flex; justify-content:flex-end; gap:10px; margin-top:20px; padding-top:16px; border-top:1px solid #e2e8f0; }
+        .print-close-btn { padding:8px 18px; background:#f1f5f9; border:1px solid #e2e8f0; border-radius:8px; color:#475569; font-size:12px; font-weight:600; font-family:inherit; cursor:pointer; }
+        .print-close-btn:hover { background:#e2e8f0; }
+        .print-print-btn { padding:8px 18px; background:#3b82f6; border:1px solid #2563eb; border-radius:8px; color:#fff; font-size:12px; font-weight:700; font-family:inherit; cursor:pointer; }
+        .print-print-btn:hover { background:#2563eb; }
+
+        @media print {
+            @page { margin: 12mm; }
+            body > *:not(#print-overlay) { display:none !important; }
+            #print-overlay { display:block !important; position:static !important; background:none !important; padding:0 !important; overflow:visible !important; }
+            #print-modal { box-shadow:none !important; border-radius:0 !important; max-width:100% !important; padding:16px !important; }
+            .print-actions { display:none !important; }
+        }
+
+        /* ═══════════════════════════════════════════════
+           RESULTS PANEL
+        ═══════════════════════════════════════════════ */
+        .results { display: flex; flex-direction: column; gap: 16px; }
+
+        /* Stats row */
+        .stats-row { display: grid; grid-template-columns: repeat(3,1fr); gap: 12px; }
+        .stat-card {
+            padding: 16px 18px;
+            border-radius: 14px;
+            background: var(--glass);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid var(--border);
+        }
+        .stat-label { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: var(--muted); margin-bottom: 6px; }
+        .stat-val {font-family:'IBM Plex Sans',Inter,system-ui,sans-serif; font-size: 28px; font-weight: 700; letter-spacing: 0; line-height: 1; }
+        .stat-val .u { font-size: 13px; font-weight: 400; color: var(--sec); letter-spacing: 0; margin-left: 3px; }
+        @media (max-width: 480px) { .stat-val { font-size: 20px; } .stat-card { padding: 12px; } }
+
+        /* ═══════════════════════════════════════════════
+           GEAR SPEED CHART
+        ═══════════════════════════════════════════════ */
+        .chart-card {
+            padding: 22px 24px 16px;
+            border-radius: 16px;
+            background: var(--glass);
+            backdrop-filter: blur(24px);
+            -webkit-backdrop-filter: blur(24px);
+            border: 1px solid var(--border);
+        }
+
+        .chart-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 14px;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        .chart-title    { font-size: 13px; font-weight: 700; color: #fff; }
+        .chart-subtitle { font-size: 11px; color: var(--muted); margin-top: 2px; }
+
+        .chart-legend { display: flex; gap: 14px; }
+        .cl-item { display: flex; align-items: center; gap: 6px; font-size: 11px; color: var(--muted); }
+        .cl-line { width: 20px; height: 3px; border-radius: 2px; }
+        .cl-big   { background: var(--accent); }
+        .cl-small { background: var(--accent-light); }
+
+        .chart-wrap {
+            position: relative;
+            width: 100%;
+        }
+        .chart-wrap svg { width: 100%; height: auto; display: block; overflow: visible; }
+
+        /* Tooltip — fixed so it never clips inside the SVG */
+        .chart-tooltip {
+            position: fixed;
+            background: rgba(6, 12, 30, 0.97);
+            border: 1px solid rgba(255,255,255,0.14);
+            border-radius: 10px;
+            padding: 10px 14px;
+            pointer-events: none;
+            white-space: nowrap;
+            z-index: 200;
+            opacity: 0;
+            transition: opacity 0.1s;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.6);
+        }
+        .chart-tooltip.show { opacity: 1; }
+        .ct-ring  { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 4px; }
+        .ct-speed {font-family:'IBM Plex Sans',Inter,system-ui,sans-serif; font-size: 20px; font-weight: 700; letter-spacing: 0; line-height: 1; margin-bottom: 3px; }
+        .ct-detail { font-size: 11px; color: var(--muted); }
+
+        .chart-empty {
+            text-align: center;
+            padding: 60px 20px;
+            color: var(--muted);
+            font-size: 14px;
+        }
+
+        /* ═══════════════════════════════════════════════
+           GEAR CARDS
+        ═══════════════════════════════════════════════ */
+        .cards-card {
+            border-radius: 16px;
+            background: var(--glass);
+            backdrop-filter: blur(24px);
+            -webkit-backdrop-filter: blur(24px);
+            border: 1px solid var(--border);
+            overflow: hidden;
+        }
+        .cards-head {
+            padding: 14px 20px;
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+        .cards-title { font-size: 13px; font-weight: 700; }
+        .cards-sub { font-size: 11px; color: var(--muted); margin-top: 1px; }
+
+        .cards-grid-wrap {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            divide-columns: 1px solid var(--border);
+        }
+
+        .ring-col { padding: 16px; }
+        .ring-col + .ring-col { border-left: 1px solid var(--border); }
+
+        .ring-col-head {
+            font-size: 10px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            margin-bottom: 12px;
+            padding-bottom: 8px;
+            border-bottom: 1px solid var(--border);
+        }
+        .ring-col-head.big   { color: var(--accent); }
+        .ring-col-head.small { color: var(--accent-light); }
+
+        .gear-cards { display: flex; flex-direction: column; gap: 6px; }
+
+        .gear-card {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 12px;
+            border-radius: 10px;
+            background: rgba(255,255,255,0.03);
+            border: 1px solid rgba(255,255,255,0.06);
+            transition: all 0.15s;
+            animation: cardIn 0.25s ease both;
+        }
+        .gear-card:hover { background: rgba(255,255,255,0.06); }
+        .gear-card.cross { opacity: 0.28; }
+
+        @keyframes cardIn {
+            from { opacity: 0; transform: translateY(4px); }
+            to   { opacity: 1; transform: translateY(0); }
+        }
+
+        .gc-left { display: flex; align-items: center; gap: 10px; }
+
+        .gc-cog {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 11px;
+            font-weight: 800;
+            flex-shrink: 0;
+            border: 2px solid;
+        }
+        .big-card  .gc-cog { color: var(--accent);       border-color: color-mix(in srgb, var(--accent)       40%, transparent); background: color-mix(in srgb, var(--accent)       8%, transparent); }
+        .small-card .gc-cog { color: var(--accent-light); border-color: color-mix(in srgb, var(--accent-light) 40%, transparent); background: color-mix(in srgb, var(--accent-light) 8%, transparent); }
+        .cross      .gc-cog { color: var(--muted);   border-color: rgba(255,255,255,0.1); background: transparent; }
+
+        .gc-info { line-height: 1.3; }
+        .gc-dev  { font-size: 10px; color: var(--muted); }
+
+        .gc-right { text-align: right; }
+        .gc-speed { font-size: 17px; font-weight: 800; letter-spacing: -0.5px; line-height: 1; }
+        .big-card   .gc-speed { color: var(--accent); }
+        .small-card .gc-speed { color: var(--accent-light); }
+        .cross      .gc-speed { color: var(--muted); }
+        .gc-unit { font-size: 10px; color: var(--muted); }
+
+        .cross-label {
+            font-size: 9px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.06em;
+            color: rgba(255,255,255,0.2);
+            margin-top: 2px;
+        }
+
+        /* Step indicator between cards */
+        .step-row {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            padding: 2px 12px;
+            color: var(--muted);
+            font-size: 9px;
+            font-weight: 600;
+        }
+        .step-row::before,
+        .step-row::after {
+            content: '';
+            flex: 1;
+            height: 1px;
+            background: rgba(255,255,255,0.06);
+        }
+        .step-row.jump { color: #f59e0b; }
+
+        @media (max-width: 520px) {
+            .cards-grid-wrap { grid-template-columns: 1fr; }
+            .ring-col + .ring-col { border-left: none; border-top: 1px solid var(--border); }
+        }
+
+        /* ═══════════════════════════════════════════════
+           RIGHT RAIL
+        ═══════════════════════════════════════════════ */
+        .rail { display: flex; flex-direction: column; gap: 16px; position: sticky; top: 70px; }
+
+        .rail-card {
+            border-radius: 14px;
+            background: var(--glass);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid var(--border);
+            overflow: hidden;
+        }
+        .rail-head { padding: 12px 16px; font-size: 10px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); border-bottom: 1px solid var(--border); }
+        .rail-body { padding: 14px 16px; }
+
+        .buy-label { font-size: 12px; color: var(--sec); margin-bottom: 10px; line-height: 1.5; }
+        .buy-label strong { color: var(--text); display: block; font-size: 13px; }
+
+        .buy-link {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 9px 13px;
+            border-radius: 9px;
+            background: rgba(59,130,246,0.08);
+            border: 1px solid rgba(59,130,246,0.2);
+            color: #93c5fd;
+            font-size: 12px;
+            font-weight: 600;
+            text-decoration: none;
+            margin-bottom: 6px;
+            transition: all 0.15s;
+        }
+        .buy-link:hover { background: rgba(59,130,246,0.16); }
+        .buy-link:last-child { margin-bottom: 0; }
+
+        .pb-logo-chip { display: block; width: 100%; max-width: 220px; height: auto; margin: 0 auto 12px; }
+        .pb-buy-link {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 11px 14px;
+            border-radius: 9px;
+            background: rgba(var(--pb-rgb, 226,76,0), 0.10);
+            border: 1px solid var(--pb-hex, #e24c00);
+            color: var(--pb-text, #ff8a4c);
+            font-size: 13px;
+            font-weight: 700;
+            text-decoration: none;
+            transition: all 0.15s;
+        }
+        .pb-buy-link:hover { background: rgba(var(--pb-rgb, 226,76,0), 0.18); }
+        .pb-buy-link .pb-text { flex: 1; line-height: 1.35; }
+        .pb-buy-link .pb-text small { display: block; font-weight: 500; color: var(--sec); font-size: 10.5px; margin-top: 1px; }
+        .pb-buy-link .pb-arrow { flex-shrink: 0; }
+        .pb-note { font-size: 10.5px; color: var(--muted); margin-top: 8px; text-align: center; }
+
+        .tip-text { font-size: 12px; color: var(--sec); line-height: 1.65; }
+        .tip-text p + p { margin-top: 10px; }
+        .tip-text strong { color: var(--text); }
+        .band-key { margin-top: 6px; display: flex; flex-direction: column; gap: 5px; }
+        .band-key-row { display: flex; align-items: center; gap: 8px; }
+        .band-key-swatch { width: 22px; height: 8px; border-radius: 2px; flex-shrink: 0; }
+
+        /* ═══════════════════════════════════════════════
+           FOOTER
+        ═══════════════════════════════════════════════ */
+        footer {
+            position: relative;
+            z-index: 1;
+            border-top: 1px solid var(--border);
+            padding: 24px 20px;
+            text-align: center;
+        }
+        footer p { font-size: 12px; color: var(--muted); }
+        footer p + p { margin-top: 4px; }
+        footer a { color: var(--muted); text-decoration: none; }
+        footer a:hover { color: var(--sec); }
+    </style>
+<style id="polka-hero-dots">
+  /* Bright-white bg; red diamond polka-dots band at top of hero; title(left)+subtitle(right) below on white. */
+  .bg-mountains { display: none !important; }
+  .bg-sky { background: #fff !important; }
+  header { background: #000 !important; }
+  .hero {
+    position: relative; z-index: 1; box-sizing: border-box;
+    padding: 164px 24px 8px; margin-bottom: 34px;
+    background-image:
+      radial-gradient(circle, var(--polka-dot-color, #ee1c28) 25px, transparent 26.5px),
+      radial-gradient(circle, var(--polka-dot-color, #ee1c28) 25px, transparent 26.5px);
+    background-size: 124px 124px; background-position: 0 0, 62px 62px; background-repeat: repeat;
+    display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: 6px 24px; text-align: left;
+  }
+  .hero::after { content: ""; position: absolute; left: 0; right: 0; top: 154px; bottom: 0; background: #fff; z-index: -1; }
+  .hero > h1 { margin: 0; color: #000 !important; -webkit-text-fill-color: #000 !important; background: none !important; filter: none !important; }
+  .hero > p  { margin: 0; max-width: 340px; text-align: left; color: #000 !important; font-weight: 700 !important; }
+
+  /* ===== UCI World-Championship bold palette (dots stay red) ===== */
+  :root {
+    --glass: #000; --glass2: #000;
+    --accent: #1a72e0; --accent-light: #7fb3f0;
+    --green: #12b05f; --amber: #ffcd00; --red: #ee1c28;
+  }
+  .glass, .input-panel, .stat-card, .chart-card, .achieve-card, .rail-card, .buy-card { border-color: rgba(255,255,255,0.14); }
+  .logo span { color: #fff !important; }
+  /* groupset / brand tabs: text + lower line only (no box tint). Bold hues. */
+  .brand-tab.active[data-brand="shimano"]    { color:#2b8bff !important; background:transparent !important; border-bottom-color:#1a72e0 !important; }
+  .brand-tab.active[data-brand="sram"]       { color:#ff1f2b !important; background:transparent !important; border-bottom-color:#ee1c28 !important; }
+  .brand-tab.active[data-brand="campagnolo"] { color:#ffcf1a !important; background:transparent !important; border-bottom-color:#ffcd00 !important; }
+  .brand-tab.active[data-brand="custom"]     { color:#17c86c !important; background:transparent !important; border-bottom-color:#12b05f !important; }
+  .cust-mode-btn.active { background:#12b05f; }
+  /* derailleur page: segmented filter buttons — no fill, bold groupset colours + lower line */
+  .filter-btn.active { background:transparent !important; color:#fff !important; border-bottom:2px solid rgba(255,255,255,0.85); }
+  .filter-btn.active[data-fbrand="shimano"]    { color:#2b8bff !important; border-bottom-color:#1a72e0; }
+  .filter-btn.active[data-fbrand="sram"]       { color:#ff1f2b !important; border-bottom-color:#ee1c28; }
+  .filter-btn.active[data-fbrand="campagnolo"] { color:#ffcf1a !important; border-bottom-color:#ffcd00; }
+  /* alert / status colours (bold, not pale) */
+  .stat-green { color:#17c86c !important; }
+  .stat-red   { color:#ff1f2b !important; }
+  .verdict-card.v-yes  { border-color:rgba(18,176,95,0.5) !important; }
+  .verdict-card.v-warn { border-color:rgba(255,205,0,0.55) !important; }
+  .verdict-card.v-no   { border-color:rgba(238,28,40,0.5) !important; }
+  .verdict-card.v-yes  .verdict-main { color:#17c86c; }
+  .verdict-card.v-warn .verdict-main { color:#ffcf1a; }
+  .verdict-card.v-no   .verdict-main { color:#ff1f2b; }
+  .dr-group.ok   .dr-group-label, .dr-group.ok   .dr-status { color:#17c86c !important; }
+  .dr-group.warn .dr-group-label, .dr-group.warn .dr-status { color:#ffcf1a !important; }
+  .dr-group.no   .dr-group-label, .dr-group.no   .dr-status { color:#ff1f2b !important; }
+  /* bottom polka-dot band: white gap after content, then 3 dot rows down to the page bottom */
+  body::after {
+    content: ""; display: block; position: relative; z-index: 1; width: 100%; height: 186px; margin-top: 4px;
+    background-image:
+      radial-gradient(circle, var(--polka-dot-color, #ee1c28) 25px, transparent 26.5px),
+      radial-gradient(circle, var(--polka-dot-color, #ee1c28) 25px, transparent 26.5px);
+    background-size: 124px 124px; background-position: 0px -31px, 62px 31px; background-repeat: repeat;
+  }
+</style>
+<!-- VUELTA-DOT-SWITCH -->
+<script>
+(function(){
+  // La Vuelta a España 2026 runs 22 Aug - 13 Sep. During that window, swap the
+  // site's decorative polka-dot pattern from red to the Vuelta mountains-jersey
+  // blue on every page, then automatically revert to red once the race ends.
+  var now = new Date();
+  var start = new Date('2026-08-22T00:00:00');
+  var end   = new Date('2026-09-13T23:59:59');
+  if (now >= start && now <= end) {
+    document.documentElement.style.setProperty('--polka-dot-color', '#1a72e0');
+  }
+})();
+</script>
+<style id="pdb-inline-brand">
+  /* Inline brand mark: "Polka(DOT)Bike" with DOT knocked into a red circle, as per the header logo */
+  .pdb-brand{font-weight:800;white-space:nowrap;}
+  .pdb-dot{display:inline-block;width:1.35em;height:1.35em;vertical-align:-0.3em;margin:0 0.12em;overflow:hidden;text-indent:-9999px;white-space:nowrap;background:url("data:image/svg+xml;utf8,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 32 32%22%3E%3Ccircle cx=%2216%22 cy=%2216%22 r=%2216%22 fill=%22%23ef4444%22/%3E%3Ctext x=%2216.75%22 y=%2220%22 text-anchor=%22middle%22 font-family=%22Inter,system-ui,sans-serif%22 font-size=%2210.5%22 font-weight=%22900%22 letter-spacing=%221.5%22 fill=%22%23000%22%3EDOT%3C/text%3E%3C/svg%3E") no-repeat center/contain;}
+</style>
+<style id="polka-mobile-nav">
+  /* Mobile: nav scrolls horizontally inside the header bar instead of stretching the page */
+  @media (max-width: 768px) {
+    html, body { overflow-x: hidden; }
+    header { gap: 8px; }
+    .logo { flex-shrink: 0; }
+    nav {
+      min-width: 0;
+      overflow-x: auto; -webkit-overflow-scrolling: touch;
+      flex-wrap: nowrap; max-width: 100%;
+      scrollbar-width: none; -ms-overflow-style: none;
+    }
+    nav::-webkit-scrollbar { display: none; }
+    nav a { white-space: nowrap; flex-shrink: 0; }
+    .hero-bikes { font-size: 16px !important; margin-top: 6px !important; }
+
+    /* Smaller polka dots on mobile: same diamond pattern at ~60% scale, more dots across */
+    .hero {
+      padding-top: 85px;
+      background-image:
+        radial-gradient(circle, var(--polka-dot-color, #ee1c28) 12px, transparent 13.5px),
+        radial-gradient(circle, var(--polka-dot-color, #ee1c28) 12px, transparent 13.5px);
+      background-size: 60px 60px;
+      background-position: 0 0, 30px 30px;
+    }
+    .hero::after { top: 75px; }
+    body::after {
+      height: 90px;
+      background-image:
+        radial-gradient(circle, var(--polka-dot-color, #ee1c28) 12px, transparent 13.5px),
+        radial-gradient(circle, var(--polka-dot-color, #ee1c28) 12px, transparent 13.5px);
+      background-size: 60px 60px;
+      background-position: 0 -15px, 30px 15px;
+    }
+  }
+</style>
+<!-- GA-CONSENT-LOADER START -->
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  window.pdbLoadGA = function(){
+    if (window.pdbGALoaded) return;
+    window.pdbGALoaded = true;
+    var s = document.createElement('script');
+    s.async = true;
+    s.src = 'https://www.googletagmanager.com/gtag/js?id=G-24JBH53W09';
+    document.head.appendChild(s);
+    gtag('js', new Date());
+    gtag('config', 'G-24JBH53W09');
+  };
+</script>
+<!-- GA-CONSENT-LOADER END -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  "@id": "https://polkadotbike.com/#website",
+  "url": "https://polkadotbike.com/",
+  "name": "Polka Dot Bike",
+  "description": "Free cycling gearing tools: gear ratio calculator, climb planner, groupset comparator, derailleur capacity checker and W/kg calculator.",
+  "publisher": {
+    "@type": "Person",
+    "name": "Robin Gillingham",
+    "url": "https://polkadotbike.com/about.html"
+  }
+}
+</script>
+<style id="dcy-inline-brand">
+  /* Reciprocal DCY brand mark: small orange square + bold wordmark, matching DCY's own header logo */
+  .dcy-brand{font-weight:800;letter-spacing:-0.01em;white-space:nowrap;}
+  .dcy-square{display:inline-block;width:0.62em;height:0.62em;background:#c8893a;border-radius:2px;margin:0 0.25em 0 0;vertical-align:0.02em;}
+</style>
+<script>
+  (function (s, t, a, y, twenty, two) {
+    s.Stay22 = s.Stay22 || {};
+    s.Stay22.params = { lmaID: '6a71bc1bd1d8a6d3f5d2d10a' };
+    twenty = t.createElement(a);
+    two = t.getElementsByTagName(a)[0];
+    twenty.async = 1;
+    twenty.src = y;
+    two.parentNode.insertBefore(twenty, two);
+  })(window, document, 'script', 'https://scripts.stay22.com/letmeallez.js');
+</script>
+</head>
+<body>
+<!-- CONSENT-BANNER START -->
+<style>
+  #pdb-consent{position:fixed;left:0;right:0;bottom:0;z-index:999;background:#000;color:#fff;
+    padding:16px 20px;display:flex;flex-wrap:wrap;align-items:center;justify-content:center;
+    gap:12px 20px;font-family:system-ui,sans-serif;box-shadow:0 -2px 12px rgba(0,0,0,.3)}
+  #pdb-consent[hidden]{display:none}
+  #pdb-consent p{margin:0;font-size:14px;line-height:1.5;max-width:560px;color:#e5e9ee}
+  #pdb-consent a{color:#7fb3f0;text-decoration:underline}
+  #pdb-consent .pdb-consent-btns{display:flex;gap:10px;flex-shrink:0}
+  #pdb-consent button{font:inherit;font-weight:600;font-size:14px;padding:9px 18px;border-radius:6px;
+    cursor:pointer;border:1px solid #fff}
+  #pdb-consent .pdb-accept{background:#1a72e0;color:#fff;border-color:#1a72e0}
+  #pdb-consent .pdb-reject{background:transparent;color:#fff}
+  @media (max-width:640px){#pdb-consent{justify-content:flex-start;text-align:left}}
+</style>
+<div id="pdb-consent" role="dialog" aria-label="Cookie consent" hidden>
+  <p>I use Google Analytics cookies to see how the site's used. See the <a href="privacy.html">privacy policy</a> for details.</p>
+  <div class="pdb-consent-btns">
+    <button type="button" class="pdb-reject" id="pdb-consent-reject">Reject</button>
+    <button type="button" class="pdb-accept" id="pdb-consent-accept">Accept</button>
+  </div>
+</div>
+<script>
+(function(){
+  var KEY = 'pdb_consent';
+  function getChoice(){ try { return localStorage.getItem(KEY); } catch(e) { return null; } }
+  function setChoice(v){ try { localStorage.setItem(KEY, v); } catch(e) {} }
+  var choice = getChoice();
+  if (choice === 'accepted' && window.pdbLoadGA) window.pdbLoadGA();
+  if (choice) return;
+  var el = document.getElementById('pdb-consent');
+  if (!el) return;
+  el.hidden = false;
+  document.getElementById('pdb-consent-accept').addEventListener('click', function(){
+    setChoice('accepted');
+    if (window.pdbLoadGA) window.pdbLoadGA();
+    el.hidden = true;
+  });
+  document.getElementById('pdb-consent-reject').addEventListener('click', function(){
+    setChoice('rejected');
+    el.hidden = true;
+  });
+})();
+</script>
+<!-- CONSENT-BANNER END -->
+<noscript><div style="position:relative;z-index:50;background:#ffcd00;color:#000;font-family:system-ui,sans-serif;font-size:14px;font-weight:600;text-align:center;padding:10px 16px">This site&#8217;s interactive calculators need JavaScript to run. The stage and climb listings on the <a href="tdf.html" style="color:#000">Tour de France 2026</a>, <a href="giro26.html" style="color:#000">Giro 2026</a> and <a href="vuelta.html" style="color:#000">Vuelta 2026</a> pages are still readable without it.</div></noscript>
+
+<!-- ═══════════ MOUNTAIN BACKDROP ═══════════ -->
+<div class="bg-scene">
+    <div class="bg-sky"></div>
+    <div class="bg-mountains"></div>
+</div>
+
+
+<!-- ═══════════ HEADER ═══════════ -->
+<header>
+    <a class="logo" href="#">Polka<svg class="logo-dot-svg" viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg"><defs><mask id="dotm"><rect width="32" height="32" fill="white"/><text x="16" y="21" text-anchor="middle" font-family="Inter,system-ui,sans-serif" font-size="11" font-weight="900" letter-spacing="1.5" fill="black">DOT</text></mask></defs><circle cx="16" cy="16" r="15" fill="#ef4444" mask="url(#dotm)"/></svg><span>Bike</span></a>
+    <nav>
+        <a href="index.html" class="active">Gear<br>Calculator</a>
+        <a href="climb.html">Climb<br>Planner</a>
+        <a href="compare.html">Groupset<br>Comparator</a>
+        <a href="derailleur.html">Derailleur<br>Capacity</a>
+        <a href="wkg.html">W/KG<br>and FTP</a>
+        <a href="giro26.html">Giro 2026</a>
+        <a href="tdf.html">TDF 2026</a>
+        <a href="vuelta.html">Vuelta 2026</a>
+        <a href="about.html">About</a>
+        <a href="guide.html">Guide</a>
+        <a href="glossary.html">Glossary</a>
+        <a href="contact.html">Contact</a><a href="https://www.instagram.com/polkadotbike.cc/" target="_blank" rel="noopener" aria-label="Instagram" style="display:inline-flex;align-items:center;padding:6px 10px;color:var(--sec)"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="2" y="2" width="20" height="20" rx="5.5"/><circle cx="12" cy="12" r="4.3"/><circle cx="17.4" cy="6.6" r="1.05" fill="currentColor" stroke="none"/></svg></a><a href="https://www.facebook.com/profile.php?id=61591463441672" target="_blank" rel="noopener" aria-label="Facebook" style="display:inline-flex;align-items:center;padding:6px 10px;color:var(--sec)"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M13.5 21.9v-8.4h2.82l.42-3.27h-3.24V8.03c0-.95.26-1.6 1.63-1.6h1.74V3.55C16.55 3.47 15.6 3.4 14.5 3.4c-2.33 0-3.93 1.42-3.93 4.03v2.8H7.74v3.27h2.83v8.4h2.93z"/></svg></a>
+    </nav>
+</header>
+
+<!-- ═══════════ HERO ═══════════ -->
+<div class="hero">
+    <h1>Gear Ratio Calculator</h1>
+    <p>Select your groupset and instantly see every gear, speed, development and steps.</p>
+    <div class="hero-bikes" style="flex-basis:100%;max-width:1120px;margin:12px auto 0;display:flex;justify-content:space-between;align-items:center;font-size:28px;font-weight:900;letter-spacing:-1px;color:#0f172a">
+        <span>Road Bikes</span><span>Mountain Bikes</span><span>Gravel Bikes</span>
+    </div>
+</div>
+
+<!-- ═══════════ MAIN ═══════════ -->
+<div class="container">
+<div class="calc-grid">
+
+    <!-- ── INPUT PANEL ── -->
+    <div class="input-panel glass">
+        <div class="panel-head">Configure Groupset</div>
+        <div class="disc-tabs">
+            <button class="disc-tab active" data-disc="road"   onclick="selectDiscipline('road')">Road</button>
+            <button class="disc-tab"         data-disc="mtb"    onclick="selectDiscipline('mtb')">MTB</button>
+            <button class="disc-tab"         data-disc="gravel" onclick="selectDiscipline('gravel')">Gravel</button>
+        </div>
+        <div class="brand-tabs" id="brand-tabs">
+            <button class="brand-tab active" data-brand="shimano"    onclick="selectBrand('shimano')">Shimano</button>
+            <button class="brand-tab"         data-brand="sram"       onclick="selectBrand('sram')">SRAM</button>
+            <button class="brand-tab"         data-brand="campagnolo" onclick="selectBrand('campagnolo')">Campagnolo</button>
+            <button class="brand-tab"         data-brand="custom"     onclick="selectBrand('custom')">Custom</button>
+        </div>
+        <div class="form-body">
+            <div class="form-group" id="fg-groupset">
+                <label>Groupset</label>
+                <select id="sel-groupset" onchange="onGroupsetChange()"></select>
+            </div>
+            <div class="form-group" id="fg-chainring">
+                <label>Chainring Combination</label>
+                <div class="cr-grid" id="cr-grid"></div>
+            </div>
+            <div class="form-group" id="fg-cassette">
+                <label>Cassette</label>
+                <select id="sel-cassette" onchange="calculate()"></select>
+            </div>
+
+            <!-- CUSTOM GEARING SECTION -->
+            <div class="cust-section" id="cust-section">
+                <div class="form-group">
+                    <label>Drivetrain Type</label>
+                    <div class="cust-mode-toggle">
+                        <button class="cust-mode-btn active" data-crank="2x" onclick="setCrankMode('2x')">2× Double</button>
+                        <button class="cust-mode-btn"        data-crank="1x" onclick="setCrankMode('1x')">1× Single</button>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>Chainrings</label>
+                    <div class="cust-ring-row">
+                        <div class="cust-ring-cell">
+                            <label>Big Ring</label>
+                            <div class="cust-spinner">
+                                <button class="cust-spin-btn" onclick="adjCust('big',-1)">−</button>
+                                <div class="cust-spin-val"><span id="cust-big-val">50</span><span class="cust-spin-unit">T</span></div>
+                                <button class="cust-spin-btn" onclick="adjCust('big',+1)">+</button>
+                            </div>
+                        </div>
+                        <div class="cust-sep" id="cust-sep">−</div>
+                        <div class="cust-ring-cell" id="cust-small-cell">
+                            <label>Small Ring</label>
+                            <div class="cust-spinner">
+                                <button class="cust-spin-btn" onclick="adjCust('small',-1)">−</button>
+                                <div class="cust-spin-val"><span id="cust-small-val">34</span><span class="cust-spin-unit">T</span></div>
+                                <button class="cust-spin-btn" onclick="adjCust('small',+1)">+</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>Cassette Cog Sizes</label>
+                    <input type="text" class="cust-cass-input" id="cust-cassette"
+                           placeholder="e.g. 11,13,15,17,19,22,25,28"
+                           value="11,13,15,17,19,22,25,28"
+                           oninput="calculateCustom()">
+                    <div class="cust-hint" id="cust-hint"></div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label>Wheel &amp; Tyre</label>
+                <select id="sel-wheel" onchange="recalc()"></select>
+            </div>
+            <div class="form-group">
+                <div class="cadence-row">
+                    <label>Cadence</label>
+                    <div class="cadence-val" id="cadence-display">90<span>rpm</span></div>
+                </div>
+                <input type="range" id="cadence-slider" min="60" max="130" value="90"
+                    oninput="document.getElementById('cadence-display').innerHTML=this.value+'<span>rpm</span>'; recalc()">
+                <div class="range-labels"><span>60 rpm</span><span>130 rpm</span></div>
+            </div>
+            <div class="form-group">
+                <label>Speed Units</label>
+                <div class="unit-toggle">
+                    <button class="unit-btn active" id="btn-kmh" onclick="setUnit('kmh')">km/h</button>
+                    <button class="unit-btn"         id="btn-mph" onclick="setUnit('mph')">mph</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ── RESULTS ── -->
+    <div class="results">
+
+        <!-- Stats -->
+        <div class="stats-row">
+            <div class="stat-card">
+                <div class="stat-label">Top Speed</div>
+                <div class="stat-val" id="stat-top">—</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-label">Lowest Speed</div>
+                <div class="stat-val" id="stat-low">—</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-label">Speed Range</div>
+                <div class="stat-val" id="stat-range">—</div>
+            </div>
+        </div>
+
+        <!-- GEAR SPEED CHART -->
+        <div class="chart-card">
+            <div class="chart-header">
+                <div>
+                    <div class="chart-title" id="chart-title">Gear Development</div>
+                    <div class="chart-subtitle" id="chart-subtitle">Metres per crank revolution · slowest left, fastest right · hover for speed at <span id="chart-cadence">90</span> rpm</div>
+                </div>
+                <div class="chart-controls">
+                    <div class="chart-mode-toggle">
+                        <button class="chart-mode-btn active" data-mode="dev" onclick="setChartMode('dev')">m/rev</button>
+                        <button class="chart-mode-btn" data-mode="spd" onclick="setChartMode('spd')">Speed</button>
+                        <button class="chart-mode-btn" data-mode="in" onclick="setChartMode('in')">Gear in.</button>
+                    </div>
+                    <div class="chart-legend">
+                        <div class="cl-item"><div class="cl-line cl-big"></div>Big ring</div>
+                        <div class="cl-item"><div class="cl-line cl-small"></div>Small ring</div>
+                    </div>
+                    <button class="share-btn" id="share-btn" onclick="copyLink()">⬡ Copy link</button>
+                    <button class="share-btn" onclick="showPrintReport()">⎙ Report</button>
+                </div>
+            </div>
+            <div class="chart-wrap" id="chart-wrap">
+                <div class="chart-empty">Select a groupset to see your gear chart</div>
+            </div>
+        </div>
+        <div class="chart-tooltip" id="chart-tooltip"></div>
+
+        <!-- GEAR CARDS -->
+        <div class="cards-card">
+            <div class="cards-head">
+                <div>
+                    <div class="cards-title" id="cards-title">Gear Breakdown</div>
+                    <div class="cards-sub">Dimmed gears are cross-chain — avoid for drivetrain longevity</div>
+                </div>
+            </div>
+            <div class="cards-grid-wrap" id="cards-grid">
+                <!-- populated by JS -->
+            </div>
+        </div>
+
+    </div>
+
+    <!-- ── RIGHT RAIL ── -->
+    <div class="rail">
+
+        <div class="rail-card" id="buy-card" style="display:none">
+            <div class="rail-head">Buy These Components</div>
+            <div class="rail-body">
+                <img class="pb-logo-chip" src="pb-logo.png" alt="Performance Bicycle">
+                <div class="buy-label"><strong id="buy-label">—</strong>Selected configuration</div>
+                <a class="pb-buy-link" id="pb-buy-link" href="#" target="_blank" rel="noopener sponsored">
+                    <span class="pb-text" id="pb-buy-text">Shop this groupset<small>Opens in a new tab</small></span>
+                    <span class="pb-arrow">→</span>
+                </a>
+                <p class="pb-note">Affiliate link — I may earn a small commission at no extra cost to you.</p>
+            </div>
+        </div>
+
+        <div class="rail-card">
+            <div class="rail-head">Reading the Chart</div>
+            <div class="rail-body">
+                <div class="tip-text">
+                    <p><strong>Coloured bands</strong> — the band below each curve grades the size of the jump between one gear and the next. The same step % appears between the gear cards below.</p>
+                    <div class="band-key">
+                        <div class="band-key-row"><div class="band-key-swatch" style="background:#12b05f"></div><span>under 10% — smooth, barely felt shift</span></div>
+                        <div class="band-key-row"><div class="band-key-swatch" style="background:#ffcd00"></div><span>10–14% — noticeable step</span></div>
+                        <div class="band-key-row"><div class="band-key-swatch" style="background:#ee1c28"></div><span>14% or more — big jump in cadence</span></div>
+                    </div>
+                    <p style="margin-top:10px"><strong>Development curve</strong> — each dot is one gear, plotted by how far the bike travels per crank revolution. The curve rises left to right: slowest gear on the left, fastest on the right.</p>
+                    <p><strong>Two lines</strong> — the upper curve is your big ring, the lower is your small ring. Where they overlap in height is the speed range covered by both rings.</p>
+                    <p><strong>× marks</strong> — cross-chain gears to avoid. Big ring with the two largest cogs, or small ring with the two smallest, angles the chain across the cassette and accelerates wear.</p>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+</div>
+</div>
+
+<!-- FOOTER -->
+<!-- BEGIN AADS AD UNIT 2448890 -->
+<div id="frame" style="width: 100%;margin: auto;position: relative; z-index: 99998;">
+          <iframe data-aa='2448890' src='//acceptable.a-ads.com/2448890/?size=Adaptive&background_color=transparent'
+                            style='border:0; padding:0; width:70%; height:auto; overflow:hidden;display: block;margin: auto'></iframe>
+        </div>
+<!-- END AADS AD UNIT 2448890 -->
+<footer>
+    <p><span class="pdb-brand">Polka<span class="pdb-dot">DOT</span>Bike</span> — Calculations are indicative. Actual performance depends on conditions and rider position.</p>
+    <p style="margin-top:6px"><a href="about.html">About</a> · <a href="guide.html">Guide</a> · <a href="glossary.html">Glossary</a> · <a href="privacy.html">Privacy</a> · <a href="disclaimer.html">Disclaimer</a> · <a href="contact.html">Contact</a></p>
+    <p style="margin-top:8px;font-size:0.85em;opacity:0.65">Also by me: <a href="https://digitalcredityield.com" target="_blank" rel="noopener" class="dcy-brand"><span class="dcy-square"></span>Digital Credit Yield</a> — Bitcoin &amp; Ethereum treasury income, explained.</p>
+    <p style="margin-top:10px"><a href="https://www.instagram.com/polkadotbike.cc/" target="_blank" rel="noopener" aria-label="Instagram" style="display:inline-flex;vertical-align:middle;margin:0 7px"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="2" y="2" width="20" height="20" rx="5.5"/><circle cx="12" cy="12" r="4.3"/><circle cx="17.4" cy="6.6" r="1.05" fill="currentColor" stroke="none"/></svg></a><a href="https://www.facebook.com/profile.php?id=61591463441672" target="_blank" rel="noopener" aria-label="Facebook" style="display:inline-flex;vertical-align:middle;margin:0 7px"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M13.5 21.9v-8.4h2.82l.42-3.27h-3.24V8.03c0-.95.26-1.6 1.63-1.6h1.74V3.55C16.55 3.47 15.6 3.4 14.5 3.4c-2.33 0-3.93 1.42-3.93 4.03v2.8H7.74v3.27h2.83v8.4h2.93z"/></svg></a></p>
+</footer>
+
+<script src="db.js"></script>
+<script src="pb-links.js"></script>
+<script>
+/* ============================================================
+   NOTE: DB, DISC_BRANDS, WHEELS loaded from db.js
+   ============================================================ */
+
+/* ============================================================
+   STATE
+   ============================================================ */
+const S = { discipline:'road', brand:'shimano', groupset:null, crIdx:0, unit:'kmh', chartMode:'dev' };
+
+const accentMap      = { shimano:'#1a72e0', sram:'#ee1c28', campagnolo:'#ffcd00', custom:'#12b05f' };
+const accentLightMap = { shimano:'#7fb3f0', sram:'#ff7178', campagnolo:'#ffe066', custom:'#5fd39a' };
+
+/* ============================================================
+   DISCIPLINE
+   ============================================================ */
+function selectDiscipline(d) {
+    S.discipline = d; S.crIdx = 0;
+    document.querySelectorAll('.disc-tab').forEach(t => t.classList.toggle('active', t.dataset.disc === d));
+    const brands = DISC_BRANDS[d];
+    document.querySelectorAll('.brand-tab').forEach(t => {
+        // Custom tab is always visible regardless of discipline
+        t.style.display = (t.dataset.brand === 'custom' || brands.includes(t.dataset.brand)) ? '' : 'none';
+    });
+    updateWheels();
+    if (S.brand !== 'custom' && !brands.includes(S.brand)) selectBrand(brands[0]);
+    else selectBrand(S.brand);
+}
+
+function updateWheels() {
+    const sel = document.getElementById('sel-wheel');
+    const prev = sel.value;
+    sel.innerHTML = WHEELS[S.discipline].map(w =>
+        `<option value="${w.circ}"${(w.dflt || w.circ == prev) ? ' selected' : ''}>${w.label}</option>`
+    ).join('');
+}
+
+/* ============================================================
+   BRAND
+   ============================================================ */
+function selectBrand(brand) {
+    S.brand = brand; S.crIdx = 0;
+    document.querySelectorAll('.brand-tab').forEach(t => t.classList.toggle('active', t.dataset.brand===brand));
+    document.documentElement.style.setProperty('--accent',       accentMap[brand]);
+    document.documentElement.style.setProperty('--accent-light', accentLightMap[brand]);
+    const isCustom = brand === 'custom';
+    document.getElementById('fg-groupset').style.display  = isCustom ? 'none' : '';
+    document.getElementById('fg-chainring').style.display = isCustom ? 'none' : '';
+    document.getElementById('fg-cassette').style.display  = isCustom ? 'none' : '';
+    document.getElementById('cust-section').style.display = isCustom ? 'flex' : 'none';
+    if (isCustom) { calculateCustom(); return; }
+    populateGroupsets();
+}
+
+/* ============================================================
+   GROUPSETS
+   ============================================================ */
+function populateGroupsets() {
+    const sel = document.getElementById('sel-groupset');
+    sel.innerHTML = '';
+    const brandData = DB[S.discipline][S.brand];
+    const eras = brandData._eras || [];
+    const groups = {};
+    eras.forEach(e => groups[e] = []);
+    Object.keys(brandData).forEach(name => {
+        if (name === '_eras') return;
+        const gs = brandData[name];
+        if (gs && gs.era && groups[gs.era] !== undefined) groups[gs.era].push(name);
+    });
+    let firstKey = null;
+    eras.forEach(era => {
+        if (!groups[era] || !groups[era].length) return;
+        const grp = document.createElement('optgroup');
+        grp.label = era;
+        groups[era].forEach(name => {
+            if (!firstKey) firstKey = name;
+            const o = document.createElement('option');
+            o.value = name; o.textContent = name;
+            grp.appendChild(o);
+        });
+        sel.appendChild(grp);
+    });
+    S.groupset = firstKey;
+    onGroupsetChange();
+}
+
+function onGroupsetChange() {
+    S.groupset = document.getElementById('sel-groupset').value;
+    S.crIdx = 0;
+    const data = DB[S.discipline][S.brand][S.groupset];
+
+    const grid = document.getElementById('cr-grid');
+    grid.innerHTML = '';
+    data.chainrings.forEach((cr,i) => {
+        const btn = document.createElement('button');
+        btn.className = 'cr-btn' + (i===0?' active':'');
+        btn.textContent = cr.label;
+        btn.onclick = () => selectCR(i);
+        grid.appendChild(btn);
+    });
+
+    const cs = document.getElementById('sel-cassette');
+    cs.innerHTML = '';
+    data.cassettes.forEach(c => {
+        const o = document.createElement('option');
+        o.value = c.label; o.textContent = c.label; cs.appendChild(o);
+    });
+    calculate();
+}
+
+function selectCR(i) {
+    S.crIdx = i;
+    document.querySelectorAll('.cr-btn').forEach((b,j) => b.classList.toggle('active', j===i));
+    calculate();
+}
+
+function setUnit(u) {
+    S.unit = u;
+    document.getElementById('btn-kmh').classList.toggle('active', u==='kmh');
+    document.getElementById('btn-mph').classList.toggle('active', u==='mph');
+    if (S.brand === 'custom') { calculateCustom(); return; }
+    calculate();
+}
+
+function setChartMode(mode) {
+    S.chartMode = mode;
+    document.querySelectorAll('.chart-mode-btn').forEach(b => b.classList.toggle('active', b.dataset.mode === mode));
+    if (S.brand === 'custom') { calculateCustom(); return; }
+    calculate();
+}
+
+function updateURL() {
+    const p = new URLSearchParams({
+        d: S.discipline, b: S.brand, g: S.groupset||'',
+        cr: S.crIdx, cs: document.getElementById('sel-cassette').value||'',
+        w:  document.getElementById('sel-wheel').value||'',
+        cad:document.getElementById('cadence-slider').value,
+        u:  S.unit, cm: S.chartMode
+    });
+    if (S.brand === 'custom') {
+        p.set('xk', CUST.crankType); p.set('xb', CUST.big); p.set('xs', CUST.small);
+        p.set('xc', document.getElementById('cust-cassette').value);
+    }
+    try{ history.replaceState(null, '', '?' + p.toString()); }catch(e){}
+}
+
+function copyLink() {
+    navigator.clipboard.writeText(location.href).then(() => {
+        const btn = document.getElementById('share-btn');
+        btn.textContent = '✓ Copied!';
+        btn.classList.add('copied');
+        setTimeout(() => { btn.textContent = '⬡ Copy link'; btn.classList.remove('copied'); }, 2000);
+    });
+}
+
+/* ============================================================
+   CALCULATE
+   ============================================================ */
+function recalc() {
+    if (S.brand === 'custom') calculateCustom(); else calculate();
+}
+
+function calculate() {
+    if (S.brand === 'custom') return;
+    const data    = DB[S.discipline][S.brand][S.groupset];
+    const cr      = data.chainrings[S.crIdx];
+    const csLabel = document.getElementById('sel-cassette').value;
+    const cass    = data.cassettes.find(c=>c.label===csLabel);
+    const circ    = parseInt(document.getElementById('sel-wheel').value);
+    const cadence = parseInt(document.getElementById('cadence-slider').value);
+    const isKmh   = S.unit==='kmh';
+    const ul      = isKmh ? 'km/h' : 'mph';
+    if (!cr||!cass) return;
+
+    const { outer, inner } = cr;
+    const isSingle = !inner;   // 1× drivetrain
+    const teeth = cass.teeth;
+    const n     = teeth.length;
+    const CC    = 2;
+
+    function isCross(ring, i) {
+        if (isSingle) return false;
+        return (ring==='outer'&&i>=n-CC) || (ring==='inner'&&i<CC);
+    }
+    function spd(ring,cog) {
+        const kmh = ((ring/cog)*circ/1000)*cadence*60/1000;
+        return isKmh ? kmh : kmh*0.621371;
+    }
+    function devM(ring,cog) { return (ring/cog)*circ/1000; }
+
+    // Build gear arrays
+    const bigGears   = teeth.map((cog,i)=>({ cog, spd:spd(outer,cog), dev:devM(outer,cog), cross:isCross('outer',i) }));
+    const smallGears = isSingle ? null : teeth.map((cog,i)=>({ cog, spd:spd(inner,cog), dev:devM(inner,cog), cross:isCross('inner',i) }));
+
+    // Stats (exclude cross)
+    const bigValid   = bigGears.filter(g=>!g.cross);
+    const smallValid = isSingle ? bigValid : smallGears.filter(g=>!g.cross);
+    const maxSpd = Math.max(...bigValid.map(g=>g.spd));
+    const minSpd = Math.min(...smallValid.map(g=>g.spd));
+
+    function fmtStat(v) {
+        return `${v.toFixed(1)}<span class="u">${ul}</span>`;
+    }
+    document.getElementById('stat-top').innerHTML   = fmtStat(maxSpd);
+    document.getElementById('stat-low').innerHTML   = fmtStat(minSpd);
+    document.getElementById('stat-range').innerHTML = fmtStat(maxSpd - minSpd);
+
+    // Render chart
+    renderChart(bigGears, smallGears, ul, cadence);
+
+    // Render gear cards
+    document.getElementById('cards-title').textContent =
+        `${cr.label} Chainring · ${csLabel} Cassette`;
+
+    renderCards(bigGears, smallGears, outer, inner, ul, isSingle);
+
+    // Buy card
+    document.getElementById('buy-label').textContent =
+        `${S.groupset.replace(/\s*\([^)]+\)\s*/g,'').trim()} · ${cr.label} · ${csLabel}`;
+    document.getElementById('buy-card').style.display = 'block';
+
+    const pb = pbLinkFor(S.discipline, S.brand, S.groupset);
+    const pbLinkEl = document.getElementById('pb-buy-link');
+    pbLinkEl.href = pb.url;
+    document.getElementById('pb-buy-text').innerHTML = pb.exact
+        ? 'Shop this groupset<small>Opens in a new tab</small>'
+        : 'Browse similar groupsets<small>Exact model not stocked — opens in a new tab</small>';
+    pbSetBrandColor(pbLinkEl, accentMap[S.brand], PB_VIVID_TEXT[S.brand]);
+
+    window.LAST_CALC = { groupset: S.groupset, brand: S.brand, crLabel: cr.label, csLabel, outer, inner, isSingle, bigGears, smallGears, ul, cadence: cadence, unit: S.unit };
+
+    updateURL();
+    saveSharedState();
+}
+
+function saveSharedState() {
+    try {
+        const sh = JSON.parse(localStorage.getItem('cg_shared') || '{}');
+        Object.assign(sh, {
+            d:   S.discipline,
+            b:   S.brand,
+            g:   S.groupset || '',
+            cr:  S.crIdx,
+            cs:  document.getElementById('sel-cassette').value || '',
+            w:   document.getElementById('sel-wheel').value    || '',
+            cad: document.getElementById('cadence-slider').value,
+            u:   S.unit,
+            cm:  S.chartMode
+        });
+        sh.cust = { ct: CUST.crankType, big: CUST.big, small: CUST.small, cass: document.getElementById('cust-cassette').value };
+        localStorage.setItem('cg_shared', JSON.stringify(sh));
+    } catch(e) {}
+}
+
+/* ============================================================
+   RENDER GEAR SPEED CHART
+   ============================================================ */
+function renderChart(bigG, smallG, ul, cadence) {
+    const wrap = document.getElementById('chart-wrap');
+
+    if (!bigG.length) {
+        wrap.innerHTML = '<div class="chart-empty">Select a groupset to see your gear chart</div>';
+        return;
+    }
+
+    // Reverse arrays so left = slowest (large cog), right = fastest (small cog)
+    const hasSmall  = smallG !== null;
+    const bigPlot   = [...bigG].reverse();
+    const smallPlot = hasSmall ? [...smallG].reverse() : [];
+    const n = bigPlot.length;
+
+    const mob=window.innerWidth<720; const W=mob?420:760, H=mob?520:520, pL=62, pR=22, pT=18, pB=54;
+    const cW=W-pL-pR, cH=H-pT-pB;
+
+    const isSpd  = S.chartMode === 'spd';
+    const isIn   = S.chartMode === 'in';
+    const getVal = g => isSpd ? g.spd : isIn ? g.dev * 12.527 : g.dev;
+
+    const allVals = [...bigG, ...(hasSmall ? smallG : [])].map(getVal);
+    const rawMax  = Math.max(...allVals);
+    let yStep, yMax;
+    if (isSpd) {
+        yStep = rawMax > 60 ? 10 : rawMax > 30 ? 5 : 2;
+        yMax  = Math.ceil(rawMax / yStep + 1) * yStep;
+    } else if (isIn) {
+        yStep = 10;
+        yMax  = Math.ceil(rawMax / 10 + 1) * 10;
+    } else {
+        yStep = 1;
+        yMax  = Math.ceil(rawMax) + 1;
+    }
+
+    const yLabel  = isSpd ? ul : isIn ? 'gear inches' : 'metres / rev';
+    const titleEl = document.getElementById('chart-title');
+    const subEl   = document.getElementById('chart-subtitle');
+    if (isSpd) {
+        titleEl.textContent = `Gear Speed at ${cadence} rpm`;
+        subEl.innerHTML = `${ul} per gear · slowest left, fastest right · hover for development`;
+    } else if (isIn) {
+        titleEl.textContent = 'Gear Inches';
+        subEl.innerHTML = `Gear inches per gear · slowest left, fastest right · hover for development`;
+    } else {
+        titleEl.textContent = 'Gear Development';
+        subEl.innerHTML = `Metres per crank revolution · slowest left, fastest right · hover for speed at <span id="chart-cadence">${cadence}</span> rpm`;
+    }
+    const sx = i => pL + (n<2 ? cW/2 : i/(n-1)*cW);
+    const sy = v => pT + cH*(1 - v/yMax);
+
+    // Grid lines + Y axis labels
+    let grid='', yLbls='';
+    for (let v=0; v<=yMax; v+=yStep) {
+        const y = sy(v).toFixed(1);
+        grid  += `<line x1="${pL}" x2="${pL+cW}" y1="${y}" y2="${y}" stroke="rgba(255,255,255,0.05)" stroke-width="1"/>`;
+        yLbls += `<text x="${pL-9}" y="${(+y+5).toFixed(1)}" text-anchor="end" font-size="14" fill="#94a3b8">${(isSpd || isIn) ? v.toFixed(0) : v}</text>`;
+    }
+
+    // X axis cog labels
+    const xLbls = bigPlot.map((g,i)=>
+        `<text x="${sx(i).toFixed(1)}" y="${(pT+cH+20).toFixed(1)}" text-anchor="middle" font-size="${n>12?12:14}" fill="#94a3b8">${g.cog}T</text>`
+    ).join('') +
+        `<text x="${(pL+cW/2).toFixed(1)}" y="${(pT+cH+44).toFixed(1)}" text-anchor="middle" font-size="14" font-weight="600" fill="#64748b">Cassette sprocket size (teeth)</text>`;
+
+    // Catmull-Rom → Cubic Bézier smooth curve
+    function smoothPath(coords) {
+        if (coords.length < 2) return `M ${coords[0].x},${coords[0].y}`;
+        let d = `M ${coords[0].x.toFixed(1)},${coords[0].y.toFixed(1)}`;
+        for (let i=0; i<coords.length-1; i++) {
+            const p0 = coords[Math.max(0,i-1)];
+            const p1 = coords[i];
+            const p2 = coords[i+1];
+            const p3 = coords[Math.min(coords.length-1,i+2)];
+            const cp1x = (p1.x+(p2.x-p0.x)/6).toFixed(1);
+            const cp1y = (p1.y+(p2.y-p0.y)/6).toFixed(1);
+            const cp2x = (p2.x-(p3.x-p1.x)/6).toFixed(1);
+            const cp2y = (p2.y-(p3.y-p1.y)/6).toFixed(1);
+            d += ` C ${cp1x},${cp1y} ${cp2x},${cp2y} ${p2.x.toFixed(1)},${p2.y.toFixed(1)}`;
+        }
+        return d;
+    }
+
+    const bigCoords   = bigPlot.map((g,i)  => ({x:sx(i), y:sy(getVal(g))}));
+    const smallCoords = hasSmall ? smallPlot.map((g,i) => ({x:sx(i), y:sy(getVal(g))})) : null;
+    const bigLine     = smoothPath(bigCoords);
+    const smallLine   = hasSmall ? smoothPath(smallCoords) : null;
+    const bot         = pT+cH;
+
+    // Area fills (close curve down to baseline)
+    const bigArea   = `${bigLine}   L ${bigCoords[n-1].x.toFixed(1)},${bot} L ${bigCoords[0].x.toFixed(1)},${bot} Z`;
+    const smallArea = hasSmall ? `${smallLine} L ${smallCoords[n-1].x.toFixed(1)},${bot} L ${smallCoords[0].x.toFixed(1)},${bot} Z` : null;
+
+    const bigCol   = accentMap[S.brand]      || '#aeb8c2';
+    const smallCol = accentLightMap[S.brand] || '#7d8896';
+
+    // Dots + invisible hover targets
+    function makeDots(plot, color, ring) {
+        return plot.map((g,i) => {
+            const x = sx(i).toFixed(1);
+            const y = sy(getVal(g)).toFixed(1);
+            const cross = g.cross;
+            const s = 6;
+            return (cross
+                ? `<line x1="${+x-s}" y1="${+y-s}" x2="${+x+s}" y2="${+y+s}" stroke="${color}" stroke-width="3.5" stroke-linecap="round"/>
+                   <line x1="${+x+s}" y1="${+y-s}" x2="${+x-s}" y2="${+y+s}" stroke="${color}" stroke-width="3.5" stroke-linecap="round"/>`
+                : `<circle cx="${x}" cy="${y}" r="12" fill="${color}" opacity="0.12"/>
+                   <circle cx="${x}" cy="${y}" r="5.5" fill="${color}"/>`
+            ) + `<circle cx="${x}" cy="${y}" r="18" fill="transparent" class="chart-hover-pt"
+                    data-ring="${ring}" data-cog="${g.cog}"
+                    data-spd="${g.spd.toFixed(2)}" data-dev="${g.dev.toFixed(2)}"
+                    data-cross="${cross}" style="cursor:pointer"/>`;
+        }).join('');
+    }
+
+    // Rotated Y-axis unit label
+    const midY = (pT + cH/2).toFixed(0);
+    const yAxisLbl = `<text transform="rotate(-90,14,${midY})" x="14" y="${+midY+5}" text-anchor="middle" font-size="13" fill="#94a3b8">${yLabel}</text>`;
+
+    // Coloured step bands — parallelogram following the curve, fading to brand colour
+    function makeBands(plot, brandCol, prefix) {
+        let defs = '', paths = '';
+        const bandH = 22;
+        const GAP = 14;   // clear air between the gear line/dots and the band top
+        for (let i = 0; i < plot.length - 1; i++) {
+            if (plot[i].cross || plot[i+1].cross) continue;
+            const v0 = getVal(plot[i]), v1 = getVal(plot[i+1]);
+            const stepPct = (v1 - v0) / v0 * 100;
+            const x1 = sx(i),     y1 = sy(v0);
+            const x2 = sx(i + 1), y2 = sy(v1);
+            // Gradient perpendicular to the slanted top edge
+            const dx  = x2 - x1, dy = y2 - y1;
+            const len = Math.sqrt(dx*dx + dy*dy) || 1;
+            const mx  = (x1 + x2) / 2, my = (y1 + y2) / 2;
+            // Rotate top-edge vector 90° CCW → perpendicular pointing into the band
+            const gx2 = (mx + (-dy / len) * bandH).toFixed(1);
+            const gy2 = (my + ( dx / len) * bandH).toFixed(1);
+            let sc;
+            if      (stepPct >= 14) sc = '#ee1c28';
+            else if (stepPct >= 10) sc = '#ffcd00';
+            else                    sc = '#12b05f';
+            paths += `<path d="M ${x1.toFixed(1)},${(y1+GAP).toFixed(1)} L ${x2.toFixed(1)},${(y2+GAP).toFixed(1)} L ${x2.toFixed(1)},${(y2+GAP+bandH).toFixed(1)} L ${x1.toFixed(1)},${(y1+GAP+bandH).toFixed(1)} Z" fill="${sc}"/>`;
+        }
+        return { defs, paths };
+    }
+    const bigBands   = makeBands(bigPlot,   bigCol,   'bb');
+    const smallBands = hasSmall ? makeBands(smallPlot, smallCol, 'bs') : { defs: '', paths: '' };
+
+    wrap.innerHTML = `
+        <svg viewBox="0 0 ${W} ${H}" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+                <clipPath id="chart-clip">
+                    <rect x="${pL}" y="${pT}" width="${cW}" height="${cH}"/>
+                </clipPath>
+                ${bigBands.defs}
+                ${smallBands.defs}
+            </defs>
+            ${grid}
+            <line x1="${pL}" x2="${pL}"    y1="${pT}" y2="${bot}" stroke="rgba(255,255,255,0.09)" stroke-width="1"/>
+            <line x1="${pL}" x2="${pL+cW}" y1="${bot}" y2="${bot}" stroke="rgba(255,255,255,0.09)" stroke-width="1"/>
+            <g clip-path="url(#chart-clip)">
+                ${bigBands.paths}
+                ${smallBands.paths}
+            </g>
+            <path d="${bigLine}"   fill="none" stroke="${bigCol}"   stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round"/>
+            ${hasSmall ? `<path d="${smallLine}" fill="none" stroke="${smallCol}" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round"/>` : ''}
+            ${makeDots(bigPlot,   bigCol,   'big')}
+            ${hasSmall ? makeDots(smallPlot, smallCol, 'small') : ''}
+            ${yLbls}
+            ${xLbls}
+            ${yAxisLbl}
+        </svg>`;
+
+    // Wire up tooltips
+    const tip = document.getElementById('chart-tooltip');
+    wrap.querySelectorAll('.chart-hover-pt').forEach(el => {
+        el.addEventListener('mousemove', e => {
+            const d     = el.dataset;
+            const isBig = d.ring==='big';
+            const col   = isBig ? bigCol : smallCol;
+            const cross = d.cross==='true';
+            const inVal = (parseFloat(d.dev) * 12.527).toFixed(1);
+            const primary   = isSpd ? `${parseFloat(d.spd).toFixed(1)} <span style="font-size:11px;font-weight:500;color:var(--sec);margin-left:4px">${ul}</span>`
+                            : isIn  ? `${inVal} <span style="font-size:11px;font-weight:500;color:var(--sec);margin-left:4px">gear in.</span>`
+                            :         `${d.dev} <span style="font-size:11px;font-weight:500;color:var(--sec);margin-left:4px">m / rev</span>`;
+            const secondary = isSpd ? `${d.dev} m/rev`
+                            : isIn  ? `${d.dev} m/rev`
+                            :         `${parseFloat(d.spd).toFixed(1)} ${ul} at ${cadence} rpm`;
+            tip.innerHTML = `
+                <div class="ct-ring" style="color:${col}">${isBig?'Big Ring':'Small Ring'}${cross?' &middot; avoid cross-chain':''}</div>
+                <div class="ct-speed" style="color:${col}">${primary}</div>
+                <div class="ct-detail">${d.cog}T cog &middot; ${secondary}</div>`;
+            const tx = e.clientX+16, maxX = window.innerWidth-210;
+            tip.style.left = Math.min(tx, maxX)+'px';
+            tip.style.top  = Math.max(10, e.clientY-80)+'px';
+            tip.classList.add('show');
+        });
+        el.addEventListener('mouseleave', () => tip.classList.remove('show'));
+    });
+}
+
+/* ============================================================
+   RENDER GEAR CARDS
+   ============================================================ */
+function renderCards(bigG, smallG, outer, inner, ul, isSingle) {
+    function makeCol(gears, cls, ringLabel, ringColor) {
+        let html = `
+            <div class="ring-col">
+                <div class="ring-col-head ${cls}">${ringLabel}</div>
+                <div class="gear-cards">`;
+
+        gears.forEach((g,i) => {
+            const crossCls = g.cross ? 'cross' : '';
+            const crossLbl = g.cross ? '<div class="cross-label">Cross-chain</div>' : '';
+
+            html += `<div class="gear-card ${cls}-card ${crossCls}">
+                <div class="gc-left">
+                    <div class="gc-cog">${g.cog}T</div>
+                    <div class="gc-info">
+                        <div class="gc-dev">${g.dev.toFixed(2)}m / rev</div>
+                        ${crossLbl}
+                    </div>
+                </div>
+                <div class="gc-right">
+                    <div class="gc-speed">${g.spd.toFixed(1)}</div>
+                    <div class="gc-unit">${ul}</div>
+                </div>
+            </div>`;
+
+            // Step between cards
+            if (i < gears.length-1 && !g.cross && !gears[i+1].cross) {
+                const nextSpd = gears[i+1].spd;
+                const stepPct = Math.abs((nextSpd - g.spd)/g.spd*100);
+                const jump    = stepPct > 14;
+                html += `<div class="step-row${jump?' jump':''}">▼ ${stepPct.toFixed(0)}% step${jump?' — wide gap':''}</div>`;
+            }
+        });
+
+        html += `</div></div>`;
+        return html;
+    }
+
+    const bigLabel = isSingle ? `${outer}T Single Ring` : `${outer}T Big Ring`;
+    document.getElementById('cards-grid').innerHTML =
+        makeCol(bigG, 'big', bigLabel, accentMap[S.brand]) +
+        (isSingle ? '' : makeCol(smallG, 'small', `${inner}T Small Ring`, accentLightMap[S.brand]));
+}
+
+/* ============================================================
+   CUSTOM GEARING
+   ============================================================ */
+const CUST = { crankType:'2x', big:50, small:34 };
+const CUST_LIMITS = { big:[32,70], small:[22,52] };
+
+function setCrankMode(mode) {
+    CUST.crankType = mode;
+    document.querySelectorAll('.cust-mode-btn').forEach(b => b.classList.toggle('active', b.dataset.crank === mode));
+    const show = mode === '2x';
+    document.getElementById('cust-small-cell').style.visibility = show ? '' : 'hidden';
+    document.getElementById('cust-sep').style.visibility        = show ? '' : 'hidden';
+    calculateCustom();
+}
+
+function adjCust(key, delta) {
+    const [mn, mx] = CUST_LIMITS[key];
+    CUST[key] = Math.min(mx, Math.max(mn, CUST[key] + delta));
+    if (key === 'big'   && CUST.big   <= CUST.small) CUST.small = Math.max(CUST_LIMITS.small[0], CUST.big - 1);
+    if (key === 'small' && CUST.small >= CUST.big)   CUST.big   = Math.min(CUST_LIMITS.big[1],   CUST.small + 1);
+    document.getElementById('cust-big-val').textContent   = CUST.big;
+    document.getElementById('cust-small-val').textContent = CUST.small;
+    calculateCustom();
+}
+
+function parseCustomCassette() {
+    const raw = document.getElementById('cust-cassette').value.trim();
+    const nums = raw.split(/[\s,;]+/).map(s => parseInt(s)).filter(n => !isNaN(n) && n >= 8 && n <= 56);
+    if (nums.length < 2) return null;
+    const unique = [...new Set(nums)];
+    unique.sort((a, b) => a - b);
+    return unique;
+}
+
+function calculateCustom() {
+    if (S.brand !== 'custom') return;
+    const teeth  = parseCustomCassette();
+    const hint   = document.getElementById('cust-hint');
+    if (!teeth) {
+        hint.className = 'cust-hint err';
+        hint.textContent = 'Enter at least 2 cog sizes, e.g. 11,13,15,17,19,22,25,28';
+        return;
+    }
+    hint.className   = 'cust-hint ok';
+    hint.textContent = `${teeth.length} sprocket${teeth.length > 1 ? 's' : ''} · ${teeth[0]}–${teeth[teeth.length-1]}T`;
+
+    const outer    = CUST.big;
+    const inner    = CUST.crankType === '2x' ? CUST.small : null;
+    const isSingle = !inner;
+    const circ     = parseInt(document.getElementById('sel-wheel').value);
+    const cadence  = parseInt(document.getElementById('cadence-slider').value);
+    const isKmh    = S.unit === 'kmh';
+    const ul       = isKmh ? 'km/h' : 'mph';
+    const n        = teeth.length;
+    const CC       = 2;
+
+    function isCross(ring, i) {
+        if (isSingle) return false;
+        return (ring === 'outer' && i >= n - CC) || (ring === 'inner' && i < CC);
+    }
+    function spd(ring, cog) {
+        const kmh = ((ring / cog) * circ / 1000) * cadence * 60 / 1000;
+        return isKmh ? kmh : kmh * 0.621371;
+    }
+    function devM(ring, cog) { return (ring / cog) * circ / 1000; }
+
+    const bigGears   = teeth.map((cog, i) => ({ cog, spd:spd(outer,cog), dev:devM(outer,cog), cross:isCross('outer',i) }));
+    const smallGears = isSingle ? null : teeth.map((cog, i) => ({ cog, spd:spd(inner,cog), dev:devM(inner,cog), cross:isCross('inner',i) }));
+
+    const bigValid   = bigGears.filter(g => !g.cross);
+    const smallValid = isSingle ? bigValid : smallGears.filter(g => !g.cross);
+    const maxSpd     = Math.max(...bigValid.map(g => g.spd));
+    const minSpd     = Math.min(...smallValid.map(g => g.spd));
+
+    document.getElementById('stat-top').innerHTML   = `${maxSpd.toFixed(1)}<span class="u">${ul}</span>`;
+    document.getElementById('stat-low').innerHTML   = `${minSpd.toFixed(1)}<span class="u">${ul}</span>`;
+    document.getElementById('stat-range').innerHTML = `${(maxSpd - minSpd).toFixed(1)}<span class="u">${ul}</span>`;
+
+    renderChart(bigGears, smallGears, ul, cadence);
+
+    const ringLabel = isSingle ? `${outer}T Single Ring` : `${outer}/${inner}`;
+    const cassLabel = `${teeth[0]}-${teeth[teeth.length-1]}T Custom`;
+    document.getElementById('cards-title').textContent = `${ringLabel} · ${cassLabel}`;
+    renderCards(bigGears, smallGears, outer, inner, ul, isSingle);
+
+    document.getElementById('buy-label').textContent = `${ringLabel} · ${cassLabel}`;
+    document.getElementById('buy-card').style.display = 'block';
+    const pbLinkElCustom = document.getElementById('pb-buy-link');
+    pbLinkElCustom.href = PB_GENERIC_LINK;
+    document.getElementById('pb-buy-text').innerHTML = 'Shop groupsets<small>Opens in a new tab</small>';
+    pbSetBrandColor(pbLinkElCustom, accentMap.custom, PB_VIVID_TEXT.custom);
+
+    window.LAST_CALC = { groupset:'Custom', brand:'custom', crLabel:ringLabel, csLabel:cassLabel, outer, inner, isSingle, bigGears, smallGears, ul, cadence };
+
+    updateURL();
+    saveSharedState();
+}
+
+/* ============================================================
+   INIT
+   ============================================================ */
+(function() {
+    const urlP = new URLSearchParams(location.search);
+    let sh = {};
+    if (!urlP.get('d') && !urlP.get('g')) {
+        try { sh = JSON.parse(localStorage.getItem('cg_shared') || '{}'); } catch(e) {}
+    }
+    const disc = (['road','mtb','gravel'].includes(urlP.get('d') || sh.d)) ? (urlP.get('d') || sh.d) : 'road';
+    selectDiscipline(disc);
+    const brand = urlP.get('b') || sh.b;
+    if (brand === 'custom') {
+        const sc = sh.cust || {};
+        const cBig = urlP.get('xb') || sc.big, cSmall = urlP.get('xs') || sc.small;
+        const cKind = urlP.get('xk') || sc.ct, cCass = urlP.get('xc') || sc.cass;
+        if (cBig)   CUST.big   = parseInt(cBig)   || CUST.big;
+        if (cSmall) CUST.small = parseInt(cSmall) || CUST.small;
+        CUST.crankType = cKind === '1x' ? '1x' : '2x';
+        if (cCass) document.getElementById('cust-cassette').value = cCass;
+        document.getElementById('cust-big-val').textContent   = CUST.big;
+        document.getElementById('cust-small-val').textContent = CUST.small;
+        selectBrand('custom');
+        setCrankMode(CUST.crankType);
+    } else if (brand && DISC_BRANDS[S.discipline].includes(brand)) {
+        selectBrand(brand);
+    }
+    const gsEl = document.getElementById('sel-groupset');
+    const gsName = urlP.get('g') || sh.g;
+    if (gsName && [...gsEl.options].some(o => o.value === gsName)) { gsEl.value = gsName; onGroupsetChange(); }
+    const crVal = urlP.get('cr') ?? sh.cr;
+    if (crVal) selectCR(parseInt(crVal) || 0);
+    const csEl = document.getElementById('sel-cassette');
+    const csVal = urlP.get('cs') || sh.cs;
+    if (csVal && [...csEl.options].some(o => o.value === csVal)) csEl.value = csVal;
+    const wEl = document.getElementById('sel-wheel');
+    const wVal = urlP.get('w') || sh.w;
+    if (wVal && [...wEl.options].some(o => o.value === wVal)) wEl.value = wVal;
+    const cadVal = urlP.get('cad') || sh.cad;
+    if (cadVal) { const s = document.getElementById('cadence-slider'); s.value = cadVal; document.getElementById('cadence-display').innerHTML = cadVal + '<span>rpm</span>'; }
+    const uVal = urlP.get('u') || sh.u;
+    if (['kmh','mph'].includes(uVal)) { S.unit = uVal; document.getElementById('btn-kmh').classList.toggle('active',uVal==='kmh'); document.getElementById('btn-mph').classList.toggle('active',uVal==='mph'); }
+    const cmVal = urlP.get('cm') || sh.cm;
+    if (['dev','spd','in'].includes(cmVal)) { S.chartMode = cmVal; document.querySelectorAll('.chart-mode-btn').forEach(b => b.classList.toggle('active', b.dataset.mode === cmVal)); }
+    calculate();
+})();
+
+window.addEventListener('pageshow', () => {
+  document.documentElement.scrollTop = 0;
+  document.body.scrollTop = 0;
+});
+/* ============================================================
+   PRINT REPORT
+   ============================================================ */
+function showPrintReport() {
+    const lc = window.LAST_CALC;
+    if (!lc) return;
+
+    const wEl = document.getElementById('sel-wheel');
+    const wheelLabel = wEl.options[wEl.selectedIndex]?.text || '';
+
+    const svgEl = document.querySelector('#chart-wrap svg');
+    const svgHTML = svgEl ? svgEl.outerHTML
+        .replace(/rgba\(255,255,255,0\.05\)/g, 'rgba(0,0,0,0.09)')
+        .replace(/rgba\(255,255,255,0\.09\)/g, 'rgba(0,0,0,0.18)')
+        .replace(/fill="#94a3b8"/g, 'fill="#64748b"') : '';
+
+    // slow → fast
+    const bigRev = [...lc.bigGears].reverse();
+    const smlRev = lc.isSingle ? null : [...lc.smallGears].reverse();
+
+    const bigAccent = '#3b82f6';
+    const smlAccent = '#6366f1';
+
+    function makeRow(gears, ringT, label, color) {
+        const cells = gears.map(g => {
+            const gin = (g.dev * 12.527).toFixed(1);
+            return `<td class="${g.cross ? 'cross' : ''}">
+                <div class="rpt-cog">${g.cog}T</div>
+                <div class="rpt-spd">${g.spd.toFixed(1)}&thinsp;${lc.ul}</div>
+                <div class="rpt-dev">${g.dev.toFixed(2)}m</div>
+                <div class="rpt-gin">${gin}"</div>
+            </td>`;
+        }).join('');
+        return `<tr>
+            <td class="rpt-ring-lbl" style="color:${color}">${label}<br><span style="font-size:10px;color:#94a3b8;font-weight:400">${ringT}T ring</span></td>
+            ${cells}
+        </tr>`;
+    }
+
+    const gearHeaders = bigRev.map((_, i) => `<th>G${i + 1}</th>`).join('');
+
+    const logoSVG = `<svg class="rpt-logo-dot" viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg"><defs><mask id="rdotm"><rect width="32" height="32" fill="white"/><text x="16" y="21" text-anchor="middle" font-family="Inter,system-ui,sans-serif" font-size="11" font-weight="900" letter-spacing="1.5" fill="black">DOT</text></mask></defs><circle cx="16" cy="16" r="15" fill="#ef4444" mask="url(#rdotm)"/></svg>`;
+
+    document.getElementById('print-report').innerHTML = `
+        <div class="rpt-header">
+            <div class="rpt-logo">Polka${logoSVG}Bike</div>
+            <div class="rpt-heading">Gear Report</div>
+        </div>
+        <div class="rpt-meta">
+            <strong>${lc.groupset}</strong> &nbsp;·&nbsp; ${lc.crLabel} chainring &nbsp;·&nbsp;
+            ${lc.csLabel} cassette &nbsp;·&nbsp; ${wheelLabel} &nbsp;·&nbsp; ${lc.cadence} rpm
+        </div>
+        <div class="rpt-chart-bg">${svgHTML}</div>
+        <table class="rpt-table">
+            <thead><tr><th style="text-align:left">Ring</th>${gearHeaders}</tr></thead>
+            <tbody>
+                ${makeRow(bigRev, lc.outer, 'Big Ring', bigAccent)}
+                ${smlRev ? makeRow(smlRev, lc.inner, 'Small Ring', smlAccent) : ''}
+            </tbody>
+        </table>
+        <div class="rpt-cross-note">Dimmed gears are cross-chain combinations — avoid for drivetrain longevity.</div>
+    `;
+
+    document.getElementById('print-overlay').style.display = 'flex';
+}
+
+function closePrintReport() {
+    document.getElementById('print-overlay').style.display = 'none';
+}
+
+/* On mobile, move the buy-card up to sit right after the gear
+   development chart instead of at the bottom of the stacked rail. */
+function positionBuyCard() {
+    const buyCard = document.getElementById('buy-card');
+    const cardsCard = document.querySelector('.cards-card');
+    const rail = document.querySelector('.rail');
+    if (!buyCard || !cardsCard || !rail) return;
+    if (window.innerWidth <= 720) {
+        if (buyCard.nextElementSibling !== cardsCard) {
+            cardsCard.parentNode.insertBefore(buyCard, cardsCard);
+        }
+    } else if (buyCard.parentElement !== rail) {
+        rail.insertBefore(buyCard, rail.firstChild);
+    }
+}
+positionBuyCard();
+window.addEventListener('resize', positionBuyCard);
+</script>
+
+<div id="print-overlay">
+    <div id="print-modal">
+        <div id="print-report"></div>
+        <div class="print-actions">
+            <button class="print-close-btn" onclick="closePrintReport()">✕ Close</button>
+            <button class="print-print-btn" onclick="window.print()">⎙ Print / Save PDF</button>
+        </div>
+    </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,13 @@
+{
+  "slug": "puerto-de-tudons",
+  "source": "IGN MTN",
+  "attribution": "Map: IGN España, CC-BY 4.0",
+  "zoom": 15,
+  "imageWidthPx": 2560,
+  "bounds": {
+    "xMin": -3550.8148427731794,
+    "xMax": 5992.518271375251,
+    "zMin": -2994.535859826516,
+    "zMax": 9329.80016508053
+  }
+}

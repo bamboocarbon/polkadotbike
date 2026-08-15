@@ -1,0 +1,13 @@
+{
+  "slug": "collado-del-alguacil",
+  "source": "IGN MTN",
+  "attribution": "Map: IGN España, CC-BY 4.0",
+  "zoom": 15,
+  "imageWidthPx": 2816,
+  "bounds": {
+    "xMin": -2181.200547761543,
+    "xMax": 8540.515175196762,
+    "zMin": -3203.0728388054604,
+    "zMax": 1635.8324115405876
+  }
+}

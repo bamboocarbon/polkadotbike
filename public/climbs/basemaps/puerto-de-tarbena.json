@@ -1,0 +1,13 @@
+{
+  "slug": "puerto-de-tarbena",
+  "source": "IGN MTN",
+  "attribution": "Map: IGN España, CC-BY 4.0",
+  "zoom": 16,
+  "imageWidthPx": 2048,
+  "bounds": {
+    "xMin": -1029.208357378424,
+    "xMax": 2789.956951585129,
+    "zMin": -3946.3375757807585,
+    "zMax": 1267.33617329348
+  }
+}

@@ -1,0 +1,13 @@
+{
+  "slug": "font-romeu",
+  "source": "OpenTopoMap",
+  "attribution": "Map: OpenTopoMap, CC-BY-SA",
+  "zoom": 16,
+  "imageWidthPx": 1792,
+  "bounds": {
+    "xMin": -2032.2398157556797,
+    "xMax": 1124.2480761130391,
+    "zMin": -5342.509610299011,
+    "zMax": 1372.0699840655018
+  }
+}

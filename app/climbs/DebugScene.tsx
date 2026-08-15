@@ -1,0 +1,928 @@
+'use client';
+
+/**
+ * SCRATCH debug scene for Phase 3 geometry verification — not part of the
+ * shipped site. Delete once the ribbon shape is confirmed clean, or once
+ * the real ClimbMorph3D component (Phase 5) supersedes it.
+ *
+ * Parameterized by `slug` (2026-08-13) so additional climbs can be pointed
+ * at without code changes, once their GPX/roadbook-anchors/basemap/terrain
+ * pipeline has been run — see project_cyclegear_climb_3d.md memory. Route
+ * data is fetched at runtime from public/climbs/routes/{slug}.json (a
+ * public/ copy build-climb-routes.ts now writes alongside its data/ output)
+ * rather than a static import, since a static import can't be keyed by a
+ * value only known at request time.
+ */
+import { Canvas, useThree, useLoader, useFrame } from '@react-three/fiber';
+import { OrbitControls, Line, Text, Billboard } from '@react-three/drei';
+import { useMemo, useRef, useEffect, useState, forwardRef, useImperativeHandle } from 'react';
+import * as THREE from 'three';
+import { buildMorphGeometry, buildRibbonColors, smoothGradients, computeExaggeration, type RoutePoint } from '@/lib/climbs/morphGeometry';
+
+export type SceneState = 'A' | 'B' | 'C';
+export type MapStyle = 'flat' | 'terrain';
+
+interface RouteData {
+  route: RoutePoint[];
+  lengthM: number;
+  totalAscentM: number;
+  exaggeration: number;
+}
+
+// Per-climb landmark labels (name + distance-along-route) — found by
+// matching the map's own place-name marker to where the route's elevation
+// curve crosses that point's known altitude (e.g. Velefique's 925m). Add an
+// entry here as each new climb gets this same research done; climbs
+// without one still get the start/summit km markers, just no town names.
+const LANDMARKS: Record<string, { distanceM: number; label: string }[]> = {
+  'alto-de-velefique': [
+    { distanceM: 0, label: 'Tabernas' },
+    { distanceM: 16460, label: 'Velefique' },
+  ],
+  'alto-de-aitana': [
+    { distanceM: 12073, label: 'Port de Tudons' }, // from the GPX's own embedded waypoint, 7m off the route
+  ],
+};
+
+function useRouteData(slug: string): RouteData | null {
+  const [data, setData] = useState<RouteData | null>(null);
+  useEffect(() => {
+    setData(null);
+    let cancelled = false;
+    fetch(`/climbs/routes/${slug}.json`)
+      .then((r) => r.json())
+      .then((raw: { points: RoutePoint[] }) => {
+        if (cancelled) return;
+        const route = raw.points;
+        const lengthM = route[route.length - 1].distanceM;
+        const totalAscentM = route.reduce((sum, p, i) => (i === 0 ? 0 : sum + Math.max(0, p.elevationM - route[i - 1].elevationM)), 0);
+        const exaggeration = computeExaggeration(lengthM, totalAscentM);
+        setData({ route, lengthM, totalAscentM, exaggeration });
+      });
+    return () => {
+      cancelled = true;
+    };
+  }, [slug]);
+  return data;
+}
+
+// True absolute (sea-level) elevation is only required where the geometry
+// has to align with something *else* built from that same absolute value --
+// the real terrain mesh, in Route (3D terrain). Everywhere else (Wedge and
+// Route flat map, plus all the bounds/markers/camera math that follows
+// them) is baseline-anchored to the climb's own start instead, matching
+// centreForState's 'wedge'/'route' handling in morphGeometry.ts -- a climb
+// starting high up (e.g. Mont-Louis at 744m) used to render as a tall blank
+// wall down to sea level before the profile even began. Plan is its own
+// case: always flat, no elevation shown at all.
+function elevationY(state: SceneState, mapStyle: MapStyle | undefined, elevM: number, startElevM: number, exaggeration: number): number {
+  if (state === 'A') return 0;
+  if (state === 'B' && mapStyle === 'terrain') return elevM * exaggeration;
+  return (elevM - startElevM) * exaggeration;
+}
+
+// Each state's geometry lives in a totally different part of 3D space (C in
+// particular: x=distance along [0, lengthM], z~0 — nowhere near A/B's x/z
+// footprint) — the camera has to be reframed per state, not just once on
+// mount, or switching state leaves the camera pointed at empty space where
+// the old state used to be.
+function stateBounds(rd: RouteData, state: SceneState, mapStyle?: MapStyle) {
+  let xMin = Infinity, xMax = -Infinity, yMin = Infinity, yMax = -Infinity, zMin = Infinity, zMax = -Infinity;
+  const startElev = rd.route[0].elevationM;
+  for (const p of rd.route) {
+    const x = state === 'C' ? p.distanceM : p.x;
+    const y = elevationY(state, mapStyle, p.elevationM, startElev, rd.exaggeration);
+    const z = state === 'C' ? 0 : p.z;
+    xMin = Math.min(xMin, x); xMax = Math.max(xMax, x);
+    yMin = Math.min(yMin, y); yMax = Math.max(yMax, y);
+    zMin = Math.min(zMin, z); zMax = Math.max(zMax, z);
+  }
+  const cx = (xMin + xMax) / 2, cy = (yMin + yMax) / 2, cz = (zMin + zMax) / 2;
+  let diag = Math.hypot(xMax - xMin, yMax - yMin, zMax - zMin) || 1000;
+  // Plan/Route show the basemap or terrain, which is padded ~35% wider than
+  // the route's own bounding box (scripts/build-climb-basemaps.ts's
+  // PAD_PCT) — frame for that wider extent, not just the tight route
+  // corridor, or the default view reads as zoomed in relative to the map.
+  if (state === 'A' || state === 'B') diag *= 1.7;
+  return { cx, cy, cz, diag };
+}
+
+function RibbonMesh({ rd, influences, smoothWindowM, visible }: { rd: RouteData; influences: [number, number]; smoothWindowM: number; visible: boolean }) {
+  const { geometry, exaggeration, slots } = useMemo(() => buildMorphGeometry(rd.route, { widthM: 40 }), [rd]);
+
+  useEffect(() => {
+    console.log('exaggeration:', exaggeration);
+  }, [exaggeration]);
+
+  // Only the colour attribute is rebuilt here — positions/normals/morph
+  // targets (the expensive part) stay untouched, so dragging the smoothing
+  // slider is cheap regardless of how often it fires.
+  useEffect(() => {
+    const gradients = smoothGradients(rd.route, smoothWindowM);
+    const colors = buildRibbonColors(rd.route, slots, gradients);
+    const attr = geometry.getAttribute('color') as THREE.BufferAttribute;
+    (attr.array as Float32Array).set(colors);
+    attr.needsUpdate = true;
+  }, [rd, slots, geometry, smoothWindowM]);
+
+  return (
+    // morphTargetInfluences set as a direct prop (not ref+useEffect): R3F
+    // applies primitive props synchronously during commit, same phase as
+    // `geometry`, so three.js's renderer never sees the mesh with morph
+    // attributes but a still-undefined influences array — that gap is what
+    // threw "objectInfluences.length" (three.js's WebGLMorphtargets reading
+    // object.morphTargetInfluences before the old effect-based set ran).
+    <mesh geometry={geometry} morphTargetInfluences={influences} visible={visible}>
+      {/* Basic (unlit) so the bold green/yellow/red vertex colours render at
+          their true, undimmed hex values — matching the flat Gear Calculator
+          chart bars exactly — rather than being shaded by the scene's
+          ambient/directional lights. Side-wall depth shading still comes
+          through via the WALL_DARKEN multiplier already baked into the
+          vertex colours themselves (buildRibbonColors), so it isn't lost. */}
+      <meshBasicMaterial vertexColors side={THREE.DoubleSide} />
+    </mesh>
+  );
+}
+
+// Basemap ground plane (Phase 2.2) — only meaningful in Plan view; the
+// tasksheet fades it out through the A->B morph, but this debug tool only
+// has discrete states, so it's a hard show/hide tied to `visible`.
+function BasemapPlane({ slug, visible }: { slug: string; visible: boolean }) {
+  const [bounds, setBounds] = useState<{ xMin: number; xMax: number; zMin: number; zMax: number } | null>(null);
+  useEffect(() => {
+    setBounds(null);
+    fetch(`/climbs/basemaps/${slug}.json`)
+      .then((r) => r.json())
+      .then((d) => setBounds(d.bounds));
+  }, [slug]);
+  const texture = useLoader(THREE.TextureLoader, `/climbs/basemaps/${slug}.webp`);
+
+  useEffect(() => {
+    texture.colorSpace = THREE.SRGBColorSpace;
+    texture.anisotropy = 16; // three.js clamps to the hardware max automatically
+  }, [texture]);
+
+  if (!bounds) return null;
+  const w = bounds.xMax - bounds.xMin;
+  const h = bounds.zMax - bounds.zMin;
+  const cx = (bounds.xMin + bounds.xMax) / 2;
+  const cz = (bounds.zMin + bounds.zMax) / 2;
+
+  return (
+    <mesh position={[cx, -0.02, cz]} rotation={[-Math.PI / 2, 0, 0]} visible={visible}>
+      <planeGeometry args={[w, h]} />
+      <meshBasicMaterial map={texture} />
+    </mesh>
+  );
+}
+
+interface TerrainData {
+  gridN: number;
+  bounds: { xMin: number; xMax: number; zMin: number; zMax: number };
+  elevations: number[][];
+}
+
+// Shared per-slug so every consumer (TerrainMesh, RouteHighlight,
+// SceneControls) reads the exact same data — one fetch each, cached by
+// slug, rather than risking independently-loaded copies drifting apart.
+const terrainPromises = new Map<string, Promise<TerrainData>>();
+function useTerrainData(slug: string): TerrainData | null {
+  const [terrain, setTerrain] = useState<TerrainData | null>(null);
+  useEffect(() => {
+    setTerrain(null);
+    if (!terrainPromises.has(slug)) {
+      terrainPromises.set(slug, fetch(`/climbs/basemaps/${slug}.terrain.json`).then((r) => r.json()));
+    }
+    terrainPromises.get(slug)!.then(setTerrain);
+  }, [slug]);
+  return terrain;
+}
+
+// Bilinear sample of the terrain heightmap at world (x,z) — this is what
+// lets the highlight line sit exactly on the rendered terrain surface
+// rather than at the GPX's own (independently-sourced) elevation, which
+// doesn't precisely agree with the DEM at every point.
+function terrainElevationAt(terrain: TerrainData, x: number, z: number): number {
+  const { gridN, bounds, elevations } = terrain;
+  const fx = ((x - bounds.xMin) / (bounds.xMax - bounds.xMin)) * (gridN - 1);
+  const fz = ((z - bounds.zMin) / (bounds.zMax - bounds.zMin)) * (gridN - 1);
+  const col0 = Math.max(0, Math.min(gridN - 2, Math.floor(fx)));
+  const row0 = Math.max(0, Math.min(gridN - 2, Math.floor(fz)));
+  const tx = Math.min(1, Math.max(0, fx - col0));
+  const tz = Math.min(1, Math.max(0, fz - row0));
+  const e00 = elevations[row0][col0];
+  const e10 = elevations[row0][col0 + 1];
+  const e01 = elevations[row0 + 1][col0];
+  const e11 = elevations[row0 + 1][col0 + 1];
+  return e00 * (1 - tx) * (1 - tz) + e10 * tx * (1 - tz) + e01 * (1 - tx) * tz + e11 * tx * tz;
+}
+
+// PROOF OF CONCEPT terrain relief (2026-08-12) — not a tasksheet phase, see
+// project_cyclegear_climb_3d.md memory. Displaces a plane grid by real
+// elevation sampled from free Terrarium DEM tiles (scripts/build-climb-
+// terrain.ts), draped with the same basemap texture. Only shown in Route
+// (state B) — Plan stays conceptually flat per the original design.
+function TerrainMesh({ slug, rd, visible }: { slug: string; rd: RouteData; visible: boolean }) {
+  const terrain = useTerrainData(slug);
+  const texture = useLoader(THREE.TextureLoader, `/climbs/basemaps/${slug}.webp`);
+
+  useEffect(() => {
+    texture.colorSpace = THREE.SRGBColorSpace;
+    texture.anisotropy = 16; // three.js clamps to the hardware max automatically
+  }, [texture]);
+
+  const geometry = useMemo(() => {
+    if (!terrain) return null;
+    const { gridN, bounds, elevations } = terrain;
+    const geo = new THREE.PlaneGeometry(bounds.xMax - bounds.xMin, bounds.zMax - bounds.zMin, gridN - 1, gridN - 1);
+    geo.rotateX(-Math.PI / 2);
+    const pos = geo.attributes.position;
+    for (let row = 0; row < gridN; row++) {
+      for (let col = 0; col < gridN; col++) {
+        const idx = row * gridN + col;
+        pos.setY(idx, elevations[row][col] * rd.exaggeration);
+      }
+    }
+    pos.needsUpdate = true;
+    geo.computeVertexNormals();
+    return geo;
+  }, [terrain, rd]);
+
+  if (!terrain || !geometry) return null;
+  const cx = (terrain.bounds.xMin + terrain.bounds.xMax) / 2;
+  const cz = (terrain.bounds.zMin + terrain.bounds.zMax) / 2;
+
+  return (
+    <mesh geometry={geometry} position={[cx, 0, cz]} visible={visible}>
+      <meshLambertMaterial map={texture} side={THREE.DoubleSide} />
+    </mesh>
+  );
+}
+
+// Solid grey walls around the terrain's perimeter (plus a bottom cap) —
+// the terrain itself is a single displaced plane with no thickness, so from
+// a low/side camera angle you could previously look straight past its edge
+// and see the flat basemap plane, contour lines, and route markers floating
+// underneath in empty space. This closes it into a "terrain in a box" —
+// walls drop from each boundary vertex's actual (elevation-displaced)
+// height down to a shared flat base well below the lowest point.
+function TerrainSkirt({ slug, rd, visible }: { slug: string; rd: RouteData; visible: boolean }) {
+  const terrain = useTerrainData(slug);
+  const geometry = useMemo(() => {
+    if (!terrain) return null;
+    const { gridN, bounds, elevations } = terrain;
+    let minY = Infinity;
+    for (const row of elevations) for (const e of row) minY = Math.min(minY, e * rd.exaggeration);
+    const baseY = minY - 600;
+
+    const xAt = (col: number) => bounds.xMin + (col / (gridN - 1)) * (bounds.xMax - bounds.xMin);
+    const zAt = (row: number) => bounds.zMin + (row / (gridN - 1)) * (bounds.zMax - bounds.zMin);
+    const yAt = (row: number, col: number) => elevations[row][col] * rd.exaggeration;
+
+    // Perimeter walked in order (top edge, right edge, bottom edge, left
+    // edge) so consecutive points are always adjacent — each pair becomes
+    // one wall quad, wrapping back to point 0 at the end to close the loop.
+    const perim: { x: number; z: number; y: number }[] = [];
+    for (let col = 0; col < gridN; col++) perim.push({ x: xAt(col), z: zAt(0), y: yAt(0, col) });
+    for (let row = 1; row < gridN; row++) perim.push({ x: xAt(gridN - 1), z: zAt(row), y: yAt(row, gridN - 1) });
+    for (let col = gridN - 2; col >= 0; col--) perim.push({ x: xAt(col), z: zAt(gridN - 1), y: yAt(gridN - 1, col) });
+    for (let row = gridN - 2; row >= 1; row--) perim.push({ x: xAt(0), z: zAt(row), y: yAt(row, 0) });
+
+    const positions: number[] = [];
+    const n = perim.length;
+    for (let i = 0; i < n; i++) {
+      const a = perim[i];
+      const b = perim[(i + 1) % n];
+      positions.push(a.x, a.y, a.z, b.x, b.y, b.z, b.x, baseY, b.z);
+      positions.push(a.x, a.y, a.z, b.x, baseY, b.z, a.x, baseY, a.z);
+    }
+
+    // Bottom cap, so looking up from below (or a very low grazing angle)
+    // still finds a solid floor rather than the open underside.
+    positions.push(bounds.xMin, baseY, bounds.zMin, bounds.xMax, baseY, bounds.zMin, bounds.xMax, baseY, bounds.zMax);
+    positions.push(bounds.xMin, baseY, bounds.zMin, bounds.xMax, baseY, bounds.zMax, bounds.xMin, baseY, bounds.zMax);
+
+    const geo = new THREE.BufferGeometry();
+    geo.setAttribute('position', new THREE.Float32BufferAttribute(positions, 3));
+    return geo;
+  }, [terrain, rd]);
+
+  if (!geometry) return null;
+  return (
+    <mesh geometry={geometry} visible={visible}>
+      <meshBasicMaterial color="#3c3c3c" side={THREE.DoubleSide} />
+    </mesh>
+  );
+}
+
+// A thick red stroke along the centreline, sitting just above the surface
+// underneath it — makes the route legible against the pale basemap in Plan
+// and against the terrain now shown in Route too, without fighting the
+// green/amber/red gradient fill for attention. In Route mode this follows
+// the *terrain's* own elevation, not the GPX's — the two are independent
+// data sources that don't precisely agree at every point, so anchoring to
+// the GPX left the line intermittently buried under the rendered terrain
+// surface.
+// The route line doubles as the "you are here" indicator: white from the
+// start up to the current travel position, red from there to the summit —
+// replaces an earlier separate floating arrow marker (removed) with a
+// simpler progress-along-the-climb read. `travelM` splits the line at an
+// exact interpolated point (not just the nearest sampled route vertex) so
+// the white/red seam tracks the travel slider smoothly rather than jumping
+// vertex-to-vertex.
+function RouteHighlight({ rd, slug, state, mapStyle, travelM }: { rd: RouteData; slug: string; state: SceneState; mapStyle: MapStyle; travelM: number }) {
+  const terrain = useTerrainData(slug);
+  const points = useMemo(() => {
+    if (state === 'C') return null;
+    // Route (flat map) uses the yellow cone marker (RouteFlatTravelMarker,
+    // matching the wedge's own marker) instead of this two-tone line.
+    if (state === 'B' && mapStyle === 'flat') return null;
+    if (state === 'B') {
+      if (mapStyle === 'terrain') {
+        if (!terrain) return null;
+        return rd.route.map((p) => new THREE.Vector3(p.x, terrainElevationAt(terrain, p.x, p.z) * rd.exaggeration + 15, p.z));
+      }
+      return rd.route.map((p) => new THREE.Vector3(p.x, p.elevationM * rd.exaggeration + 15, p.z));
+    }
+    return rd.route.map((p) => new THREE.Vector3(p.x, 15, p.z));
+  }, [rd, state, mapStyle, terrain]);
+  if (!points) return null;
+
+  const route = rd.route;
+  let lo = 0;
+  while (lo < route.length - 2 && route[lo + 1].distanceM < travelM) lo++;
+  const hi = Math.min(points.length - 1, lo + 1);
+  const d0 = route[lo].distanceM;
+  const d1 = route[hi].distanceM;
+  const frac = Math.max(0, Math.min(1, d1 > d0 ? (travelM - d0) / (d1 - d0) : 0));
+  const splitPoint = points[lo].clone().lerp(points[hi], frac);
+
+  const before = [...points.slice(0, lo + 1), splitPoint];
+  const after = [splitPoint, ...points.slice(hi)];
+
+  return (
+    <>
+      {before.length > 1 && <Line points={before} color="#ffcd00" lineWidth={8} transparent opacity={0.95} />}
+      {after.length > 1 && <Line points={after} color="#ee1c28" lineWidth={8} transparent opacity={0.95} />}
+    </>
+  );
+}
+
+// Horizontal reference lines at start and summit altitude, offset to the
+// side of the ribbon (not through it) so the total rise between them reads
+// clearly at a glance.
+function WedgeAltitudeLines({ rd, state }: { rd: RouteData; state: SceneState }) {
+  const startElev = rd.route[0].elevationM;
+  const endElev = rd.route[rd.route.length - 1].elevationM;
+  // Relative to the wedge's own baseline-anchored geometry (see
+  // centreForState) -- startY is always 0 by construction; the true
+  // altitude is still shown in the label text, just not the line height.
+  const startY = 0;
+  const endY = (endElev - startElev) * rd.exaggeration;
+  const zOffset = -80;
+  const labelX = -600;
+
+  if (state !== 'C') return null;
+
+  return (
+    <>
+      <Line points={[[0, startY, zOffset], [rd.lengthM, startY, zOffset]]} color="#999" lineWidth={1.2} dashed dashSize={200} gapSize={150} />
+      <Line points={[[0, endY, zOffset], [rd.lengthM, endY, zOffset]]} color="#999" lineWidth={1.2} dashed dashSize={200} gapSize={150} />
+      <Billboard position={[labelX, startY, zOffset]}>
+        <Text fontSize={180} color="#fff" anchorX="right" anchorY="middle" outlineWidth={3} outlineColor="#000">
+          {`${Math.round(startElev)}m start`}
+        </Text>
+      </Billboard>
+      <Billboard position={[labelX, endY, zOffset]}>
+        <Text fontSize={180} color="#fff" anchorX="right" anchorY="middle" outlineWidth={3} outlineColor="#000">
+          {`${Math.round(endElev)}m summit`}
+        </Text>
+      </Billboard>
+    </>
+  );
+}
+
+// Wedge-only "you are here" marker — RouteHighlight's white/red split line
+// doesn't apply to the wedge (it's a straightened distance profile, not the
+// turning route), so this is the only travel-position indicator there. A
+// plain opaque cone rather than the Plan/Route views' billboarded arrow
+// texture: the wedge is generally viewed from one fairly consistent angle,
+// so it doesn't need to face the camera, and an opaque mesh sidesteps the
+// whole alphaTest/transparent-queue class of bugs that texture ran into.
+function WedgeTravelMarker({ rd, state, travelM }: { rd: RouteData; state: SceneState; travelM: number }) {
+  if (state !== 'C') return null;
+  const y = (smoothedElevationAt(rd, travelM, FOLLOW_SMOOTH_M) - rd.route[0].elevationM) * rd.exaggeration;
+  return (
+    <mesh position={[travelM, y + 160, 0]} rotation={[Math.PI, 0, 0]}>
+      <coneGeometry args={[110, 320, 16]} />
+      <meshBasicMaterial color="#ffcd00" />
+    </mesh>
+  );
+}
+
+// Same yellow cone as WedgeTravelMarker, but for the Route (flat map) view —
+// replaces the old two-tone highlight line there (RouteHighlight skips
+// rendering for this exact state/mapStyle combo). Uses positionAtDistance
+// rather than the wedge's simple x=distanceM mapping, since the flat-map
+// route still turns/winds in plan (x,z), unlike the straightened wedge.
+function RouteFlatTravelMarker({ rd, state, mapStyle, travelM }: { rd: RouteData; state: SceneState; mapStyle: MapStyle; travelM: number }) {
+  if (state !== 'B' || mapStyle !== 'flat') return null;
+  const p = positionAtDistance(rd, travelM, state, mapStyle);
+  return (
+    <mesh position={[p.x, p.y + 160, p.z]} rotation={[Math.PI, 0, 0]}>
+      <coneGeometry args={[110, 320, 16]} />
+      <meshBasicMaterial color="#ffcd00" />
+    </mesh>
+  );
+}
+
+interface WedgeMarker {
+  distanceM: number;
+  label: string;
+  kind: 'km' | 'town';
+}
+
+function elevationAtDistance(rd: RouteData, distanceM: number): number {
+  const { route } = rd;
+  let lo = 0;
+  while (lo < route.length - 2 && route[lo + 1].distanceM < distanceM) lo++;
+  const p0 = route[lo];
+  const p1 = route[Math.min(route.length - 1, lo + 1)];
+  const f = p1.distanceM > p0.distanceM ? (distanceM - p0.distanceM) / (p1.distanceM - p0.distanceM) : 0;
+  return p0.elevationM + (p1.elevationM - p0.elevationM) * f;
+}
+
+// Interpolates the route's own per-point gradientPct (Phase 1's centred
+// finite-difference, same figure used everywhere else in the pipeline) —
+// not re-derived here, just sampled at the slider's current position.
+function gradientAtDistance(rd: RouteData, distanceM: number): number {
+  const { route } = rd;
+  let lo = 0;
+  while (lo < route.length - 2 && route[lo + 1].distanceM < distanceM) lo++;
+  const p0 = route[lo];
+  const p1 = route[Math.min(route.length - 1, lo + 1)];
+  const f = p1.distanceM > p0.distanceM ? (distanceM - p0.distanceM) / (p1.distanceM - p0.distanceM) : 0;
+  return p0.gradientPct + (p1.gradientPct - p0.gradientPct) * f;
+}
+
+// How far to average over when "following the track" (camera flyTo target
+// + the yellow travel markers) or reading the live gradient for the gear
+// panel — the raw route is real GPX/DEM data resampled every ~15-30m with
+// genuine small curvature/elevation noise, which read as jumpy camera
+// motion and flickering gear badges when sampled point-by-point at travel
+// speed. Doesn't touch the route LINE itself (RouteHighlight/ribbon still
+// render full detail) — only these "where are we right now" queries.
+const FOLLOW_SMOOTH_M = 200;
+
+// Trapezoidal average of elevation over [distanceM-half, distanceM+half],
+// not just an interpolated point sample — same reasoning as
+// lib/climbs/morphGeometry.ts's smoothGradients, but averaging elevation
+// itself rather than deriving a slope, since this feeds a Y position that
+// needs to move smoothly, not a colour band.
+function smoothedElevationAt(rd: RouteData, distanceM: number, windowM: number): number {
+  if (windowM <= 0) return elevationAtDistance(rd, distanceM);
+  const { route } = rd;
+  const total = route[route.length - 1].distanceM;
+  const d0 = Math.max(0, distanceM - windowM / 2);
+  const d1 = Math.min(total, distanceM + windowM / 2);
+  if (d1 <= d0) return elevationAtDistance(rd, distanceM);
+
+  let lo = 0;
+  while (lo < route.length - 2 && route[lo + 1].distanceM < d0) lo++;
+  let sum = 0;
+  let span = 0;
+  let prevD = d0;
+  let prevE = elevationAtDistance(rd, d0);
+  for (let i = lo; i < route.length && route[i].distanceM < d1; i++) {
+    if (route[i].distanceM > prevD) {
+      sum += ((prevE + route[i].elevationM) / 2) * (route[i].distanceM - prevD);
+      span += route[i].distanceM - prevD;
+      prevD = route[i].distanceM;
+      prevE = route[i].elevationM;
+    }
+  }
+  const endE = elevationAtDistance(rd, d1);
+  if (d1 > prevD) {
+    sum += ((prevE + endE) / 2) * (d1 - prevD);
+    span += d1 - prevD;
+  }
+  return span > 0 ? sum / span : elevationAtDistance(rd, distanceM);
+}
+
+// Same window, but as a slope (endpoint elevation difference / span) rather
+// than an average — this is what should feed the gear-achievability panel,
+// same technique as smoothGradients just as a single-point query.
+function smoothedGradientAt(rd: RouteData, distanceM: number, windowM: number): number {
+  if (windowM <= 0) return gradientAtDistance(rd, distanceM);
+  const total = rd.route[rd.route.length - 1].distanceM;
+  const d0 = Math.max(0, distanceM - windowM / 2);
+  const d1 = Math.min(total, distanceM + windowM / 2);
+  const span = d1 - d0;
+  if (span < 1e-6) return gradientAtDistance(rd, distanceM);
+  return ((elevationAtDistance(rd, d1) - elevationAtDistance(rd, d0)) / span) * 100;
+}
+
+// Position at a given distance-along-route, per state: Wedge is a straight
+// line along x (its whole point); Plan/Route follow the road's real (x,z),
+// only differing in y (flat vs raised). y uses the smoothed elevation (see
+// FOLLOW_SMOOTH_M above) so the camera/markers don't bob with every small
+// real elevation bump; x/z stay exact so the tracked point never drifts
+// off the visible route line.
+function positionAtDistance(rd: RouteData, distanceM: number, state: SceneState, mapStyle?: MapStyle): { x: number; y: number; z: number } {
+  const { route } = rd;
+  const elev = smoothedElevationAt(rd, distanceM, FOLLOW_SMOOTH_M);
+  const startElev = route[0].elevationM;
+  if (state === 'C') return { x: distanceM, y: elevationY(state, mapStyle, elev, startElev, rd.exaggeration), z: 0 };
+  let lo = 0;
+  while (lo < route.length - 2 && route[lo + 1].distanceM < distanceM) lo++;
+  const p0 = route[lo];
+  const p1 = route[Math.min(route.length - 1, lo + 1)];
+  const f = p1.distanceM > p0.distanceM ? (distanceM - p0.distanceM) / (p1.distanceM - p0.distanceM) : 0;
+  return { x: p0.x + (p1.x - p0.x) * f, y: elevationY(state, mapStyle, elev, startElev, rd.exaggeration), z: p0.z + (p1.z - p0.z) * f };
+}
+
+// Kilometre ticks (each carrying both distance and altitude) + any curated
+// town landmarks for this slug (LANDMARKS table above — climbs without an
+// entry still get start/summit km markers, just no town names). Shown in
+// all three states — Plan included, even though it has the basemap's own
+// place-name labels too, since the km/altitude figures aren't on the map.
+function RouteMarkers({ rd, slug, state, mapStyle }: { rd: RouteData; slug: string; state: SceneState; mapStyle: MapStyle }) {
+  const markers: WedgeMarker[] = useMemo(() => {
+    const towns = LANDMARKS[slug] ?? [];
+    const ms: WedgeMarker[] = towns.map((t) => ({ distanceM: t.distanceM, label: t.label, kind: 'town' as const }));
+    for (let km = 5; km < rd.lengthM / 1000; km += 5) {
+      ms.push({ distanceM: km * 1000, label: `${km}km · ${Math.round(elevationAtDistance(rd, km * 1000))}m`, kind: 'km' });
+    }
+    const endElev = rd.route[rd.route.length - 1].elevationM;
+    ms.push({ distanceM: rd.lengthM, label: `${(rd.lengthM / 1000).toFixed(1)}km · ${Math.round(endElev)}m · Summit`, kind: 'km' });
+    return ms;
+  }, [rd, slug]);
+
+  return (
+    <>
+      {markers.map((m, i) => {
+        const { x, y, z } = positionAtDistance(rd, m.distanceM, state, mapStyle);
+        const isTown = m.kind === 'town';
+        const tickTop = y + (isTown ? 900 : 500);
+        return (
+          <group key={i}>
+            <Line points={[[x, y, z], [x, tickTop, z]]} color={isTown ? '#ee1c28' : '#999'} lineWidth={isTown ? 3 : 1.5} />
+            <Billboard position={[x, tickTop + 150, z]}>
+              <Text
+                fontSize={isTown ? 220 : 170}
+                color={isTown ? '#ee1c28' : '#fff'}
+                anchorX="center"
+                anchorY="bottom"
+                outlineWidth={isTown ? 0 : 3}
+                outlineColor="#000"
+              >
+                {m.label}
+              </Text>
+            </Billboard>
+          </group>
+        );
+      })}
+    </>
+  );
+}
+
+interface ControlsHandle {
+  resetView: () => void;
+  flyTo: (distanceM: number) => void;
+}
+
+// Rotates the HTML compass badge (rendered outside the Canvas, off the map
+// itself) to track camera yaw every frame — a plain DOM ref write, not React
+// state, same reasoning as the bobbing marker: this changes every frame
+// during an orbit-drag and would be wasteful to push through re-renders.
+// Axis convention (from scripts/build-climb-routes.ts's project()): +X is
+// east, -Z is north — so a camera-forward vector's heading is
+// atan2(dirX, -dirZ), 0° = looking north, 90° = looking east. Rotating the
+// rose by the *negative* of that keeps its "N" pointing at true north on
+// screen as the camera orbits.
+function CompassUpdater({ compassRef }: { compassRef: React.RefObject<HTMLDivElement> }) {
+  const { camera } = useThree();
+  const dir = useMemo(() => new THREE.Vector3(), []);
+  useFrame(() => {
+    if (!compassRef.current) return;
+    camera.getWorldDirection(dir);
+    const headingDeg = Math.atan2(dir.x, -dir.z) * (180 / Math.PI);
+    compassRef.current.style.transform = `rotate(${-headingDeg}deg)`;
+  });
+  return null;
+}
+
+// Real terrain-mesh extent (not just the route's own bounding box) — the
+// terrain is both wider (basemap padding) and taller (its DEM elevation
+// range runs beyond the route's own min/max) than the route alone, so
+// framing off route bounds under-frames it.
+function terrainAwareBounds(rd: RouteData, base: ReturnType<typeof stateBounds>, terrain: TerrainData | null): ReturnType<typeof stateBounds> {
+  if (!terrain) return base;
+  let yMin = Infinity, yMax = -Infinity;
+  for (const row of terrain.elevations) for (const e of row) {
+    yMin = Math.min(yMin, e * rd.exaggeration);
+    yMax = Math.max(yMax, e * rd.exaggeration);
+  }
+  const { xMin, xMax, zMin, zMax } = terrain.bounds;
+  return {
+    cx: (xMin + xMax) / 2,
+    cy: (yMin + yMax) / 2,
+    cz: (zMin + zMax) / 2,
+    diag: Math.hypot(xMax - xMin, yMax - yMin, zMax - zMin),
+  };
+}
+
+const SceneControls = forwardRef<ControlsHandle, { rd: RouteData; slug: string; state: SceneState; mapStyle: MapStyle }>(
+  function SceneControls({ rd, slug, state, mapStyle }, ref) {
+    const { camera } = useThree();
+    const controlsRef = useRef<any>(null);
+    const terrain = useTerrainData(slug);
+    const isTerrain = state === 'B' && mapStyle === 'terrain';
+    const bounds = useMemo(() => {
+      const base = stateBounds(rd, state, mapStyle);
+      return isTerrain ? terrainAwareBounds(rd, base, terrain) : base;
+    }, [rd, state, mapStyle, isTerrain, terrain]);
+
+    // The user's actual desired camera-to-target offset (angle + distance) —
+    // updated only by genuine user interaction (handleControlsChange, wired
+    // to OrbitControls' own onChange) or a fresh resetView. Deliberately NOT
+    // updated by flyTo's terrain-safety clamp below: that clamp corrects
+    // *this render's* position only. Writing the clamped result back in here
+    // would let it compound — terrain rises overall along this climb, so
+    // each clamp nudge would ratchet the effective distance down a little
+    // more on every subsequent slider move, reading as progressive zoom-in.
+    const desiredOffsetRef = useRef<THREE.Vector3 | null>(null);
+    // On terrain, the camera's height is governed by this — its vertical
+    // clearance above the actual DEM surface directly beneath it — not by
+    // desiredOffsetRef's y-component. Terrain rises and falls a lot along
+    // this climb; holding a fixed clearance means the camera rises and falls
+    // with the ground (what was asked for), rather than either holding a
+    // fixed absolute offset (which could bury it underground on a rise) or
+    // the old hard 300-unit clamp (which discarded whatever height the user
+    // had actually set).
+    const desiredClearanceRef = useRef<number | null>(null);
+    // OrbitControls' onChange fires on ANY change .update() produces —
+    // including our own programmatic repositioning below, not just real user
+    // drags/scrolls. Without this guard, flyTo's own position would get
+    // captured straight back into these refs by its own update() call,
+    // silently reintroducing the compounding-zoom bug.
+    const isProgrammaticRef = useRef(false);
+
+    const handleControlsChange = () => {
+      if (isProgrammaticRef.current) return;
+      if (controlsRef.current) {
+        desiredOffsetRef.current = new THREE.Vector3().subVectors(camera.position, controlsRef.current.target);
+        if (isTerrain && terrain) {
+          const camTerrainY = terrainElevationAt(terrain, camera.position.x, camera.position.z) * rd.exaggeration;
+          desiredClearanceRef.current = camera.position.y - camTerrainY;
+        }
+      }
+    };
+
+    const resetView = () => {
+      // A generic elevated 3/4 view — frames any of the three quite different
+      // shapes (spread-out plan, raised route, long flat wedge) reasonably
+      // well without needing a bespoke angle per state.
+      const offset = new THREE.Vector3(0.6, 0.5, 0.6).normalize().multiplyScalar(bounds.diag * 0.8);
+      desiredOffsetRef.current = offset.clone();
+      const camPos = new THREE.Vector3(bounds.cx + offset.x, bounds.cy + offset.y, bounds.cz + offset.z);
+      if (isTerrain && terrain) {
+        const camTerrainY = terrainElevationAt(terrain, camPos.x, camPos.z) * rd.exaggeration;
+        desiredClearanceRef.current = camPos.y - camTerrainY;
+      }
+      isProgrammaticRef.current = true;
+      camera.position.copy(camPos);
+      if (controlsRef.current) {
+        controlsRef.current.target.set(bounds.cx, bounds.cy, bounds.cz);
+        controlsRef.current.update();
+      }
+      isProgrammaticRef.current = false;
+    };
+
+    // Travel along the route to a specific distance — a close-up view
+    // (much nearer than resetView's whole-route framing), so this is the
+    // control for actually moving along the climb rather than just orbiting
+    // around a fixed point.
+    const flyTo = (distanceM: number) => {
+      const p = positionAtDistance(rd, distanceM, state, mapStyle);
+
+      let offset = desiredOffsetRef.current;
+      if (!offset || offset.lengthSq() < 1) {
+        // Degenerate only if flyTo is somehow called before any view has
+        // ever been set — fall back to a sensible preset per state. Plan
+        // goes straight overhead, further back, since an oblique close-up
+        // just magnifies the basemap texture past its native resolution and
+        // reads as blurry; flat-map Route needs more room than terrain,
+        // since the ribbon towers up as a tall thin wall over a flat plane
+        // with nothing around it to give it scale.
+        const dir = state === 'A' ? new THREE.Vector3(0, 1, 0.0001).normalize() : new THREE.Vector3(0.5, 0.4, 0.8).normalize();
+        const flyDist =
+          state === 'A' ? bounds.diag * 0.16 : state === 'B' ? bounds.diag * (isTerrain ? 0.14 : 0.22) : bounds.diag * 0.06;
+        offset = dir.multiplyScalar(flyDist);
+        desiredOffsetRef.current = offset.clone();
+      }
+
+      const camX = p.x + offset.x;
+      const camZ = p.z + offset.z;
+      let camY = p.y + offset.y;
+      let targetY = p.y;
+
+      if (isTerrain && terrain) {
+        const targetTerrainY = terrainElevationAt(terrain, p.x, p.z) * rd.exaggeration;
+        targetY = Math.max(targetY, targetTerrainY + 20);
+        const camTerrainY = terrainElevationAt(terrain, camX, camZ) * rd.exaggeration;
+        const clearance = desiredClearanceRef.current ?? 300;
+        camY = camTerrainY + clearance;
+      }
+
+      isProgrammaticRef.current = true;
+      camera.position.set(camX, camY, camZ);
+      if (controlsRef.current) {
+        controlsRef.current.target.set(p.x, targetY, p.z);
+        controlsRef.current.update();
+      }
+      isProgrammaticRef.current = false;
+    };
+
+    useImperativeHandle(ref, () => ({ resetView, flyTo }));
+    useEffect(resetView, [state, isTerrain, terrain]); // eslint-disable-line react-hooks/exhaustive-deps
+
+    return (
+      <OrbitControls
+        ref={controlsRef}
+        enablePan={false}
+        enableDamping
+        dampingFactor={0.08}
+        minPolarAngle={0.02}
+        maxPolarAngle={1.5}
+        minDistance={bounds.diag * 0.03}
+        maxDistance={bounds.diag * 4}
+        onChange={handleControlsChange}
+        makeDefault
+      />
+    );
+  }
+);
+
+export interface TravelInfo {
+  distanceM: number;
+  gradientPct: number;
+  elevationM: number;
+}
+
+export default function DebugScene({
+  slug,
+  influences,
+  state,
+  mapStyle,
+  onTravelChange,
+}: {
+  slug: string;
+  influences: [number, number];
+  state: SceneState;
+  mapStyle: MapStyle;
+  /** Fires on mount (once route data loads) and on every slider move — lets
+   *  a parent page (e.g. a gear-achievability panel) react to where the
+   *  user currently is on the climb without re-fetching route data itself. */
+  onTravelChange?: (info: TravelInfo) => void;
+}) {
+  const controlsRef = useRef<ControlsHandle>(null);
+  const compassRef = useRef<HTMLDivElement>(null);
+  const [travelKm, setTravelKm] = useState(0);
+  const [smoothWindowM, setSmoothWindowM] = useState(0);
+  const [isPlaying, setIsPlaying] = useState(false);
+  const rd = useRouteData(slug);
+
+  useEffect(() => {
+    setTravelKm(0);
+    setIsPlaying(false);
+  }, [slug]);
+
+  // Play/pause: animates travelKm from wherever it currently sits up to the
+  // route's end, whole climb in PLAY_DURATION_S regardless of route length,
+  // via requestAnimationFrame (not setInterval) so speed doesn't drift with
+  // frame rate — each tick advances by real elapsed time, not a fixed step.
+  useEffect(() => {
+    if (!isPlaying || !rd) return;
+    const PLAY_DURATION_S = 25;
+    const ratePerMs = rd.lengthM / (PLAY_DURATION_S * 1000);
+    let raf = 0;
+    let last = performance.now();
+    const tick = (now: number) => {
+      const dt = now - last;
+      last = now;
+      setTravelKm((prev) => {
+        const next = Math.min(rd.lengthM, prev + dt * ratePerMs);
+        controlsRef.current?.flyTo(next);
+        if (next >= rd.lengthM) setIsPlaying(false);
+        return next;
+      });
+      raf = requestAnimationFrame(tick);
+    };
+    raf = requestAnimationFrame(tick);
+    return () => cancelAnimationFrame(raf);
+  }, [isPlaying, rd]);
+
+  useEffect(() => {
+    if (!rd || !onTravelChange) return;
+    onTravelChange({ distanceM: travelKm, gradientPct: smoothedGradientAt(rd, travelKm, FOLLOW_SMOOTH_M), elevationM: elevationAtDistance(rd, travelKm) });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [rd, travelKm]);
+
+  if (!rd) {
+    return (
+      <div style={{ width: '100%', height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#888', fontFamily: 'sans-serif' }}>
+        Loading {slug}…
+      </div>
+    );
+  }
+
+  // Smoothing only does anything to the gradient-colour ribbon, which is
+  // itself only visible on Route (flat map) and Wedge — no point showing
+  // the control on Plan or Route (3D terrain), where it has no effect.
+  const ribbonVisible = state === 'C' || (state === 'B' && mapStyle === 'flat');
+
+  return (
+    <div style={{ width: '100%', height: '100%', position: 'relative' }}>
+      <button
+        onClick={() => controlsRef.current?.resetView()}
+        style={{ position: 'absolute', top: 10, right: 10, zIndex: 10, padding: '8px 16px', background: '#555', color: '#fff', border: 'none', borderRadius: 6, cursor: 'pointer' }}
+      >
+        Reset view
+      </button>
+      <div className="map-overlay-compass">
+        <div ref={compassRef} style={{ position: 'relative', width: '100%', height: '100%' }}>
+          <span style={{ position: 'absolute', top: 3, left: '50%', transform: 'translateX(-50%)', color: '#ee1c28', fontWeight: 700, fontSize: 13, fontFamily: 'sans-serif' }}>N</span>
+          <span style={{ position: 'absolute', bottom: 3, left: '50%', transform: 'translateX(-50%)', color: '#ccc', fontSize: 11, fontFamily: 'sans-serif' }}>S</span>
+          <span style={{ position: 'absolute', left: 4, top: '50%', transform: 'translateY(-50%)', color: '#ccc', fontSize: 11, fontFamily: 'sans-serif' }}>W</span>
+          <span style={{ position: 'absolute', right: 4, top: '50%', transform: 'translateY(-50%)', color: '#ccc', fontSize: 11, fontFamily: 'sans-serif' }}>E</span>
+          <div style={{ position: 'absolute', left: '50%', top: '50%', width: 2, height: 22, background: '#ee1c28', transform: 'translate(-50%, -100%)', transformOrigin: 'bottom' }} />
+        </div>
+      </div>
+      <div className="map-overlay-stack">
+        <div className="map-overlay">
+          <span>Travel along route</span>
+          <input
+            type="range"
+            min={0}
+            max={rd.lengthM}
+            step={50}
+            value={travelKm}
+            onChange={(e) => {
+              const d = Number(e.target.value);
+              setIsPlaying(false);
+              setTravelKm(d);
+              controlsRef.current?.flyTo(d);
+            }}
+            className="map-overlay-slider"
+          />
+          <span style={{ minWidth: 60, textAlign: 'right' }}>{(travelKm / 1000).toFixed(1)}km</span>
+          <button
+            onClick={() => setIsPlaying((p) => !p)}
+            style={{
+              padding: '4px 12px', background: isPlaying ? '#555' : '#12b05f', color: '#fff', border: 'none',
+              borderRadius: 6, cursor: 'pointer', fontFamily: 'sans-serif', fontSize: 13, fontWeight: 600, flexShrink: 0,
+            }}
+          >
+            {isPlaying ? 'Pause' : 'Play'}
+          </button>
+        </div>
+        {ribbonVisible && (
+          <div className="map-overlay">
+            <span>Smoothing</span>
+            <input
+              type="range"
+              min={0}
+              max={1000}
+              step={10}
+              value={smoothWindowM}
+              onChange={(e) => setSmoothWindowM(Number(e.target.value))}
+              className="map-overlay-slider"
+            />
+            <span style={{ minWidth: 46, textAlign: 'right' }}>{smoothWindowM === 0 ? 'off' : `${smoothWindowM}m`}</span>
+          </div>
+        )}
+      </div>
+      <Canvas
+        key={slug}
+        camera={{ fov: 45, near: 1, far: 500000 }}
+        gl={{ antialias: true, preserveDrawingBuffer: true, logarithmicDepthBuffer: true }}
+      >
+        <color attach="background" args={['#1a1a1a']} />
+        <ambientLight intensity={0.75} />
+        <directionalLight position={[-4000, 8000, 5000]} intensity={0.6} />
+        <RibbonMesh rd={rd} influences={influences} smoothWindowM={smoothWindowM} visible={ribbonVisible} />
+        <BasemapPlane slug={slug} visible={state === 'A' || (state === 'B' && mapStyle === 'flat')} />
+        <TerrainMesh slug={slug} rd={rd} visible={state === 'B' && mapStyle === 'terrain'} />
+        <TerrainSkirt slug={slug} rd={rd} visible={state === 'B' && mapStyle === 'terrain'} />
+        <RouteHighlight rd={rd} slug={slug} state={state} mapStyle={mapStyle} travelM={travelKm} />
+        <RouteFlatTravelMarker rd={rd} state={state} mapStyle={mapStyle} travelM={travelKm} />
+        <RouteMarkers rd={rd} slug={slug} state={state} mapStyle={mapStyle} />
+        <WedgeAltitudeLines rd={rd} state={state} />
+        <WedgeTravelMarker rd={rd} state={state} travelM={travelKm} />
+        <SceneControls rd={rd} slug={slug} state={state} mapStyle={mapStyle} ref={controlsRef} />
+        <CompassUpdater compassRef={compassRef} />
+      </Canvas>
+    </div>
+  );
+}

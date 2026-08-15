@@ -1,0 +1,13 @@
+{
+  "slug": "puerto-del-viento",
+  "source": "IGN MTN",
+  "attribution": "Map: IGN España, CC-BY 4.0",
+  "zoom": 15,
+  "imageWidthPx": 4096,
+  "bounds": {
+    "xMin": -12228.536732725024,
+    "xMax": 3442.382846476469,
+    "zMin": -2233.0961456440236,
+    "zMax": 2629.8663019709747
+  }
+}

@@ -1,0 +1,13 @@
+{
+  "slug": "puerto-de-el-purche",
+  "source": "IGN MTN",
+  "attribution": "Map: IGN España, CC-BY 4.0",
+  "zoom": 15,
+  "imageWidthPx": 3072,
+  "bounds": {
+    "xMin": -2544.3360327660607,
+    "xMax": 9156.076644012055,
+    "zMin": -2187.7526572408797,
+    "zMax": 716.5993197700107
+  }
+}

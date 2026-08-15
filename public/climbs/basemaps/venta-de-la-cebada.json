@@ -1,0 +1,13 @@
+{
+  "slug": "venta-de-la-cebada",
+  "source": "IGN MTN",
+  "attribution": "Map: IGN España, CC-BY 4.0",
+  "zoom": 16,
+  "imageWidthPx": 2048,
+  "bounds": {
+    "xMin": -1663.610601808784,
+    "xMax": 5187.760123420545,
+    "zMin": -4744.758217911647,
+    "zMax": 1571.4650623437765
+  }
+}

@@ -1,0 +1,77 @@
+/* ============================================================================
+   /climbs — the browsable index of the 87 categorised climbs across the 3
+   2026 Grand Tours. Ported from the seo-phase-3-climb-pages branch's
+   climbs/index.html, which was never merged/deployed. Individual climb
+   detail pages now live at app/climbs/[slug] (moved from the 3D climb
+   debug tool 2026-08-15) — "ready" (Vuelta) climbs link there, Giro/Tour
+   rows stay greyed out and non-clickable until their pages land.
+
+   .cc-cat/.cat-* (category badges) are NOT redefined here — reused as-is
+   from components/race/race.css, which already has the exact same rules
+   for the race pages' climb cards.
+============================================================================ */
+
+/* This page's h1 is two lines (title + race names) rather than the
+   sitewide title-left/subtitle-right layout, so it needs its own centred
+   text-align — globals.css's shared .hero sets text-align: left, which
+   left-justifies line 2 under line 1 instead of centring it. */
+.hero h1 { text-align: center; }
+
+/* Hero's second line — the race names, set smaller/lighter than the h1's
+   own bold black styling (globals.css's .hero > h1) so it reads as a
+   subtitle rather than a second full-size headline. */
+.hero h1 .cl-sub { display: inline-block; font-size: 20px; font-weight: 700; color: rgba(15, 23, 42, 0.65); letter-spacing: -0.2px; }
+@media (max-width: 768px) { .hero h1 .cl-sub { font-size: 16px; } }
+
+
+.ci-wrap { position: relative; z-index: 1; max-width: 1000px; margin: 0 auto; padding: 0 20px 60px; }
+.ci-intro { color: var(--muted); font-size: 0.95rem; line-height: 1.55; margin: 0 auto 16px; max-width: 70ch; text-align: center; }
+
+.ci-tools { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; margin-bottom: 14px; }
+#ci-search {
+  flex: 1; min-width: 240px; background: rgba(255, 255, 255, 0.05); border: 1px solid #1a72e0;
+  border-radius: 10px; color: var(--text); padding: 11px 14px; font-size: 14px; font-family: inherit;
+}
+#ci-search:focus { outline: none; }
+#ci-search::placeholder { color: var(--muted); }
+
+.ci-chip {
+  padding: 8px 14px; border-radius: 9px; background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.12); color: var(--sec); font-size: 12.5px; font-weight: 600;
+  font-family: inherit; cursor: pointer;
+}
+.ci-chip.active { background: #1a72e0; border-color: #1a72e0; color: #fff; }
+/* Per-race active colour, matching each race's own established colour
+   elsewhere in the app: Giro's h2Color (lib/raceConfigs.tsx), Tour's
+   h2Color, Vuelta's ESP/ceiling-category red (race.css's .cat-esp).
+   Giro/Tour aren't clickable yet (see ci-chip-disabled below) — set now
+   so the right colour is already in place once their pages land. */
+.ci-chip[data-race="giro"].active { background: #ec4899; border-color: #ec4899; }
+.ci-chip[data-race="tdf"].active { background: #ffe94d; border-color: #ffe94d; color: #000; }
+.ci-chip[data-race="vuelta"].active { background: #ee1c28; border-color: #ee1c28; }
+.ci-chip-disabled { opacity: 0.4; cursor: not-allowed; }
+.ci-chip-disabled.active { background: rgba(255, 255, 255, 0.05); border-color: rgba(255, 255, 255, 0.12); color: var(--sec); }
+
+.ci-count { font-size: 12px; color: var(--muted); margin-bottom: 10px; }
+
+.ci-list { list-style: none; margin: 0; padding: 0; display: grid; gap: 8px; }
+.ci-list a {
+  display: flex; align-items: center; gap: 11px; flex-wrap: wrap; padding: 12px 15px; border-radius: 12px;
+  background: var(--glass); border: 1px solid rgba(255, 255, 255, 0.12); text-decoration: none;
+}
+.ci-list a:hover { border-color: rgba(255, 255, 255, 0.3); }
+.ci-row-disabled {
+  display: flex; align-items: center; gap: 11px; flex-wrap: wrap; padding: 12px 15px; border-radius: 12px;
+  background: var(--glass); border: 1px solid rgba(255, 255, 255, 0.12); opacity: 0.4;
+}
+.ci-name { font-size: 1rem; font-weight: 700; color: #fff; }
+.ci-meta { font-size: 0.84rem; color: var(--muted); margin-left: auto; text-align: right; }
+.ci-none { padding: 22px; text-align: center; color: var(--muted); font-size: 14px; }
+
+@media (max-width: 560px) {
+  .ci-meta { margin-left: 0; width: 100%; text-align: left; }
+  /* Search box gets its own row so all 4 chips (All/Giro/Tour/Vuelta) wrap
+     together onto the next line as one group, instead of "All" clinging
+     to the end of the search row and splitting off from the rest. */
+  #ci-search { flex-basis: 100%; }
+}

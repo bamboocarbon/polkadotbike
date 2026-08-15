@@ -1,0 +1,13 @@
+{
+  "slug": "alto-de-aitana",
+  "source": "IGN MTN",
+  "attribution": "Map: IGN España, CC-BY 4.0",
+  "zoom": 16,
+  "imageWidthPx": 2048,
+  "bounds": {
+    "xMin": -6538.0375554239,
+    "xMax": 2541.0174591561818,
+    "zMin": -6659.604061474995,
+    "zMax": 1878.7625846618166
+  }
+}

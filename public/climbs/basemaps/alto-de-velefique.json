@@ -1,0 +1,13 @@
+{
+  "slug": "alto-de-velefique",
+  "source": "IGN MTN",
+  "attribution": "Map: IGN España, CC-BY 4.0",
+  "zoom": 14,
+  "imageWidthPx": 1280,
+  "bounds": {
+    "xMin": -6764.452458670481,
+    "xMax": 2993.682785185016,
+    "zMin": -25315.459739801325,
+    "zMax": 7594.797479482809
+  }
+}

@@ -1,0 +1,13 @@
+{
+  "slug": "puerto-el-remolcador",
+  "source": "IGN MTN",
+  "attribution": "Map: IGN España, CC-BY 4.0",
+  "zoom": 15,
+  "imageWidthPx": 4608,
+  "bounds": {
+    "xMin": -13118.92558653992,
+    "xMax": 3714.968613796873,
+    "zMin": -3675.5498205513186,
+    "zMax": 1895.7706242316272
+  }
+}

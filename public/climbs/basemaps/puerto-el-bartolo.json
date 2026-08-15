@@ -1,0 +1,13 @@
+{
+  "slug": "puerto-el-bartolo",
+  "source": "IGN MTN",
+  "attribution": "Map: IGN España, CC-BY 4.0",
+  "zoom": 16,
+  "imageWidthPx": 1638,
+  "bounds": {
+    "xMin": -4387.4485920238785,
+    "xMax": 1229.1296533855298,
+    "zMin": -5181.2212557685225,
+    "zMax": 1788.73761957655
+  }
+}

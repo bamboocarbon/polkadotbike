@@ -1,0 +1,13 @@
+{
+  "slug": "sierra-de-la-pandera",
+  "source": "IGN MTN",
+  "attribution": "Map: IGN España, CC-BY 4.0",
+  "zoom": 16,
+  "imageWidthPx": 2048,
+  "bounds": {
+    "xMin": -2950.6271351889545,
+    "xMax": 5285.571606422993,
+    "zMin": -6346.668059294231,
+    "zMax": 1829.5732752339175
+  }
+}

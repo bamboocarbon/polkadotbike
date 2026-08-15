@@ -1,0 +1,13 @@
+{
+  "slug": "collado-garcia",
+  "source": "IGN MTN",
+  "attribution": "Map: IGN España, CC-BY 4.0",
+  "zoom": 17,
+  "imageWidthPx": 2816,
+  "bounds": {
+    "xMin": -915.4695064687344,
+    "xMax": 1762.3099595679637,
+    "zMin": -994.5142368301517,
+    "zMax": 3357.220539101888
+  }
+}

@@ -1,0 +1,224 @@
+/* ============================================================================
+   Shared site chrome — the CSS that's identical across pages, ported out of
+   the twelve copies of it that used to live inline in each page's <head>.
+
+   Page-specific layout (.hero, .container, .climb-card, the race-page grid,
+   the map, etc.) is NOT here — that stays with whatever migrates each page,
+   because it genuinely differs page to page. This file is only the parts
+   that were actually the same everywhere: reset, body, header/nav/logo,
+   footer, the decorative polka-dot chrome, and the consent banner.
+============================================================================ */
+
+:root {
+  --border: rgba(255, 255, 255, 0.08);
+  --text: #e8edf5;
+  --muted: #64748b;
+  --sec: #94a3b8;
+  /* Every source page declares --glass as a bluish rgba(4,9,26,...) up top,
+     then unconditionally overrides it to solid #000 later on in its own
+     "UCI World-Championship bold palette" block — #000 is what actually
+     renders everywhere, so that's the value kept here directly. */
+  --glass: #000;
+
+  /* --accent / --accent-light are per-race theme colours (TDF blue #3b82f6,
+     Giro pink #ec4899, Vuelta amber #f59e0b in the source pages) — NOT a
+     site-wide constant. Whatever migrates a race page in Phase 3 must set
+     these itself (same pattern as --polka-dot-color below). The default
+     here is just a safe fallback so nothing renders unstyled before that
+     happens. */
+  --accent: #3b82f6;
+  --accent-light: #93c5fd;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: 'Inter', system-ui, sans-serif;
+  min-height: 100vh;
+  color: var(--text);
+  overflow-x: hidden;
+  background: #fff;
+}
+
+.bg-scene { position: fixed; inset: 0; z-index: 0; pointer-events: none; overflow: hidden; }
+.bg-sky { position: absolute; inset: 0; background: #fff; }
+.bg-mountains {
+  position: absolute; inset: 0;
+  background-image: radial-gradient(circle, rgba(239, 68, 68, 0.22) 28%, transparent 28%),
+    radial-gradient(circle, rgba(239, 68, 68, 0.22) 28%, transparent 28%);
+  background-size: 44px 44px;
+  background-position: 0 0, 22px 22px;
+}
+
+header {
+  position: sticky; top: 0; z-index: 100;
+  background: rgba(4, 9, 26, 0.85);
+  backdrop-filter: blur(16px);
+  border-bottom: 1px solid var(--border);
+  padding: 0 24px; height: 54px;
+  display: flex; align-items: center; justify-content: space-between;
+}
+.logo {
+  font-size: 19px; font-weight: 900; letter-spacing: -0.5px;
+  color: #fff; text-decoration: none;
+  display: inline-flex; align-items: center; gap: 3px;
+}
+/* Fixed white/blue, not var(--accent) — the calculator pages set --accent
+   dynamically from the user's in-tool brand selection and deliberately
+   override both of these back to their own values (see e.g. climb/page.tsx);
+   every other page should show the same white logo and blue active tab
+   regardless of that page's own theme colour (used elsewhere on race pages
+   for charts/borders, just not here). */
+.logo span { color: #fff; }
+.logo-dot-svg { width: 32px; height: 32px; flex-shrink: 0; }
+
+nav { display: flex; gap: 2px; align-items: center; }
+nav a {
+  color: var(--sec); text-decoration: none;
+  font-size: 13px; font-weight: 500;
+  padding: 6px 13px; border-radius: 6px;
+  transition: all 0.15s; text-align: center; line-height: 1.2;
+}
+nav a:hover { color: #fff; background: rgba(255, 255, 255, 0.06); }
+nav a.active { color: #3b82f6; background: rgba(59, 130, 246, 0.12); }
+
+@media (max-width: 768px) {
+  header { padding: 0 12px; }
+  nav a { font-size: 11px; padding: 4px 6px; }
+}
+
+footer {
+  position: relative; z-index: 1;
+  border-top: 1px solid var(--border);
+  padding: 24px 20px; text-align: center;
+}
+footer p { font-size: 12px; color: var(--muted); }
+footer a { color: var(--muted); text-decoration: none; }
+footer a:hover { color: var(--sec); }
+
+/* ============================================================================
+   polka-hero-dots — the part common to all three race pages (bright hero
+   band, red diamond polka-dot pattern, bottom polka-dot band).
+
+   NOT ported here: TDF and Giro's copies of this block also carry a UCI
+   colour-override chunk (`:root{--accent:#1a72e0 ...}` plus .brand-tab /
+   .filter-btn / .verdict-card overrides) that Vuelta's copy does NOT have.
+   That's a real, pre-existing difference between the three pages today —
+   Giro's active nav link currently renders blue (#1a72e0) rather than its
+   own pink theme colour because of it, while Vuelta's renders its own
+   amber. Porting that chunk into shared CSS would either impose it on
+   Vuelta (a visible change) or silently drop it from TDF/Giro (also a
+   visible change) — a judgement call, not a straight port. Left for
+   whoever builds each race page in Phase 3 to carry over deliberately,
+   page by page, rather than guessed at here. */
+.bg-mountains { display: none !important; }
+.bg-sky { background: #fff !important; }
+header { background: #000 !important; }
+.hero {
+  position: relative; z-index: 1; box-sizing: border-box;
+  padding: 164px 24px 8px; margin-bottom: 34px;
+  background-image:
+    radial-gradient(circle, var(--polka-dot-color, #ee1c28) 25px, transparent 26.5px),
+    radial-gradient(circle, var(--polka-dot-color, #ee1c28) 25px, transparent 26.5px);
+  background-size: 124px 124px; background-position: 0 0, 62px 62px; background-repeat: repeat;
+  display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: 6px 24px; text-align: left;
+}
+.hero::after { content: ""; position: absolute; left: 0; right: 0; top: 154px; bottom: 0; background: #fff; z-index: -1; }
+/* clamp() max varies by page in the source — 48px on the 4 calculator
+   pages (index/climb/derailleur/wkg), 46px on the plain content pages
+   (about/contact/guide/glossary) and race pages (also a 26px vs 28px min),
+   44px on compare — this 46px default matches the content pages; the
+   calculator pages and compare override it back to their own value in
+   their own <style> block, and the race template does the same for its
+   26px min. Previously a single unscoped 48px here inflated every other
+   page's hero title. */
+.hero > h1 { margin: 0; font-size: clamp(28px, 5vw, 46px); font-weight: 900; letter-spacing: -1.5px; line-height: 1.1; color: #000 !important; -webkit-text-fill-color: #000 !important; background: none !important; filter: none !important; }
+.hero > p { margin: 0; font-size: 15px; max-width: 340px; text-align: left; color: #000 !important; font-weight: 700 !important; }
+body::after {
+  content: ""; display: block; position: relative; z-index: 1; width: 100%; height: 186px; margin-top: 4px;
+  background-image:
+    radial-gradient(circle, var(--polka-dot-color, #ee1c28) 25px, transparent 26.5px),
+    radial-gradient(circle, var(--polka-dot-color, #ee1c28) 25px, transparent 26.5px);
+  background-size: 124px 124px; background-position: 0px -31px, 62px 31px; background-repeat: repeat;
+}
+
+/* Mobile (polka-mobile-nav, ported verbatim as one block, matching the
+   source): nav scrolls horizontally inside the header bar instead of
+   stretching the page, and the polka-dot pattern shrinks to a denser
+   ~60% scale with more dots across. */
+@media (max-width: 768px) {
+  html, body { overflow-x: hidden; }
+  header { gap: 8px; }
+  .logo { flex-shrink: 0; }
+  nav {
+    min-width: 0;
+    overflow-x: auto; -webkit-overflow-scrolling: touch;
+    flex-wrap: nowrap; max-width: 100%;
+    scrollbar-width: none; -ms-overflow-style: none;
+  }
+  nav::-webkit-scrollbar { display: none; }
+  nav a { white-space: nowrap; flex-shrink: 0; }
+
+  .hero {
+    padding-top: 85px;
+    background-image:
+      radial-gradient(circle, var(--polka-dot-color, #ee1c28) 12px, transparent 13.5px),
+      radial-gradient(circle, var(--polka-dot-color, #ee1c28) 12px, transparent 13.5px);
+    background-size: 60px 60px;
+    background-position: 0 0, 30px 30px;
+  }
+  .hero::after { top: 75px; }
+  body::after {
+    height: 90px;
+    background-image:
+      radial-gradient(circle, var(--polka-dot-color, #ee1c28) 12px, transparent 13.5px),
+      radial-gradient(circle, var(--polka-dot-color, #ee1c28) 12px, transparent 13.5px);
+    background-size: 60px 60px;
+    background-position: 0 -15px, 30px 15px;
+  }
+}
+
+/* Reciprocal DCY brand mark: small orange square + bold wordmark, matching
+   DCY's own header logo. */
+.dcy-brand { font-weight: 800; letter-spacing: -0.01em; white-space: nowrap; }
+.dcy-square {
+  display: inline-block; width: 0.62em; height: 0.62em;
+  background: #c8893a; border-radius: 2px;
+  margin: 0 0.25em 0 0; vertical-align: 0.02em;
+}
+
+/* Inline brand mark: "Polka(DOT)Bike" with DOT knocked into a red circle,
+   as per the header logo. */
+.pdb-brand { font-weight: 800; white-space: nowrap; }
+.pdb-dot {
+  display: inline-block; width: 1.35em; height: 1.35em;
+  vertical-align: -0.3em; margin: 0 0.12em;
+  overflow: hidden; text-indent: -9999px; white-space: nowrap;
+  background: url("data:image/svg+xml;utf8,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 32 32%22%3E%3Ccircle cx=%2216%22 cy=%2216%22 r=%2216%22 fill=%22%23ef4444%22/%3E%3Ctext x=%2216.75%22 y=%2220%22 text-anchor=%22middle%22 font-family=%22Inter,system-ui,sans-serif%22 font-size=%2210.5%22 font-weight=%22900%22 letter-spacing=%221.5%22 fill=%22%23000%22%3EDOT%3C/text%3E%3C/svg%3E") no-repeat center/contain;
+}
+
+/* ============================================================================
+   Consent banner
+============================================================================ */
+#pdb-consent {
+  position: fixed; left: 0; right: 0; bottom: 0; z-index: 999;
+  background: #000; color: #fff;
+  padding: 16px 20px;
+  display: flex; flex-wrap: wrap; align-items: center; justify-content: center;
+  gap: 12px 20px;
+  font-family: system-ui, sans-serif;
+  box-shadow: 0 -2px 12px rgba(0, 0, 0, .3);
+}
+#pdb-consent p { margin: 0; font-size: 14px; line-height: 1.5; max-width: 560px; color: #e5e9ee; }
+#pdb-consent a { color: #7fb3f0; text-decoration: underline; }
+#pdb-consent .pdb-consent-btns { display: flex; gap: 10px; flex-shrink: 0; }
+#pdb-consent button {
+  font: inherit; font-weight: 600; font-size: 14px;
+  padding: 9px 18px; border-radius: 6px;
+  cursor: pointer; border: 1px solid #fff;
+}
+#pdb-consent .pdb-accept { background: #1a72e0; color: #fff; border-color: #1a72e0; }
+#pdb-consent .pdb-reject { background: transparent; color: #fff; }
+@media (max-width: 640px) {
+  #pdb-consent { justify-content: flex-start; text-align: left; }
+}

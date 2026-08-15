@@ -1,0 +1,103 @@
+/* ============================================================================
+   /derailleur — Derailleur Capacity calculator. All classes here are unique
+   to this page (not shared with the race pages or content pages).
+
+   .filter-btn[data-fbrand] and the dr-group status colours below are the
+   POST-override values from the source's own "bold UCI palette" block
+   (#polka-hero-dots), not the pre-override base values that block replaces
+   — that override is unconditional on this page (no media query gates it),
+   so its colours are what the live page actually shows. Written directly
+   rather than reproducing the two-layer base+!important-override cascade.
+============================================================================ */
+
+.container { position: relative; z-index: 1; max-width: 1320px; margin: 0 auto; padding: 0 20px 60px; }
+.calc-grid { display: grid; grid-template-columns: 290px 1fr 270px; gap: 18px; align-items: start; }
+@media (max-width: 1100px) { .calc-grid { grid-template-columns: 280px 1fr; } .rail { display: none; } }
+@media (max-width: 720px) { .calc-grid { grid-template-columns: 1fr; } }
+
+.glass { background: var(--glass); border: 1px solid rgba(255, 255, 255, 0.14); border-radius: 16px; }
+.input-panel { overflow: hidden; }
+@media (min-width: 721px) { .input-panel { position: sticky; top: 70px; } }
+.panel-head { padding: 13px 18px; font-size: 10px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); border-bottom: 1px solid var(--border); }
+.form-body { padding: 18px; display: flex; flex-direction: column; gap: 20px; }
+.form-label { display: block; font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: var(--muted); margin-bottom: 8px; }
+
+.mode-toggle { display: grid; grid-template-columns: 1fr 1fr; background: rgba(255, 255, 255, 0.04); border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 9px; overflow: hidden; }
+.mode-btn { padding: 9px 6px; background: transparent; border: none; color: var(--muted); font-size: 12px; font-weight: 700; font-family: inherit; cursor: pointer; transition: all 0.15s; text-align: center; }
+.mode-btn.active { background: #12b05f; color: #fff; }
+
+.teeth-row { display: grid; grid-template-columns: 1fr 20px 1fr; gap: 4px; align-items: end; }
+.teeth-sep { font-size: 18px; font-weight: 400; color: var(--muted); text-align: center; padding-bottom: 10px; }
+.teeth-cell { display: flex; flex-direction: column; }
+.teeth-cell .form-label { text-align: center; }
+.teeth-spinner { display: flex; align-items: center; background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 9px; overflow: hidden; }
+.teeth-btn { width: 32px; height: 44px; background: transparent; border: none; color: var(--muted); font-size: 18px; cursor: pointer; flex-shrink: 0; transition: all 0.1s; font-family: inherit; }
+.teeth-btn:hover { background: rgba(255, 255, 255, 0.08); color: #fff; }
+.teeth-val { flex: 1; text-align: center; font-size: 20px; font-weight: 800; color: #fff; line-height: 1; }
+.teeth-unit { font-size: 10px; color: var(--muted); font-weight: 500; }
+
+.cap-box { background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 12px; padding: 14px 16px; }
+.cap-formula { display: flex; align-items: center; justify-content: center; gap: 8px; flex-wrap: wrap; margin-bottom: 12px; min-height: 52px; }
+.cap-term { text-align: center; }
+.cap-num { font-family: 'IBM Plex Sans', Inter, system-ui, sans-serif; font-size: 22px; font-weight: 700; color: #fff; line-height: 1; }
+.cap-sub { font-size: 9px; color: var(--muted); margin-top: 2px; }
+.cap-op { font-size: 16px; color: var(--muted); padding-top: 2px; }
+.cap-total { text-align: center; border-top: 1px solid var(--border); padding-top: 12px; }
+.cap-total-num { font-family: 'IBM Plex Sans', Inter, system-ui, sans-serif; font-size: 34px; font-weight: 700; color: #12b05f; letter-spacing: 0; line-height: 1; }
+.cap-total-lbl { font-size: 10px; color: var(--muted); text-transform: uppercase; letter-spacing: 0.08em; margin-top: 3px; }
+
+.results { display: flex; flex-direction: column; gap: 12px; }
+.filter-bar { display: flex; gap: 8px; flex-wrap: wrap; }
+.filter-group { display: flex; background: rgba(4, 9, 26, 0.88); border: 1px solid rgba(255, 255, 255, 0.14); border-radius: 8px; overflow: hidden; }
+.filter-btn { padding: 7px 13px; background: transparent; border: none; color: #94a3b8; font-size: 11px; font-weight: 600; font-family: inherit; cursor: pointer; transition: all 0.12s; white-space: nowrap; }
+.filter-btn:not(:last-child) { border-right: 1px solid rgba(255, 255, 255, 0.08); }
+.filter-btn:hover { background: rgba(255, 255, 255, 0.06); color: #e2e8f0; }
+.filter-btn.active { background: transparent; color: #fff; border-bottom: 2px solid rgba(255, 255, 255, 0.85); }
+.filter-btn.active[data-fbrand="shimano"] { color: #2b8bff; border-bottom-color: #1a72e0; }
+.filter-btn.active[data-fbrand="sram"] { color: #ff1f2b; border-bottom-color: #ee1c28; }
+.filter-btn.active[data-fbrand="campagnolo"] { color: #ffcf1a; border-bottom-color: #ffcd00; }
+
+.result-summary { font-size: 12px; color: #94a3b8; background: rgba(4, 9, 26, 0.92); border: 1px solid rgba(255, 255, 255, 0.12); border-radius: 8px; padding: 8px 14px; }
+.result-summary strong { color: #fff; }
+
+.dr-group { border-radius: 14px; background: var(--glass); border: 1px solid rgba(255, 255, 255, 0.14); overflow: hidden; margin-bottom: 12px; }
+.dr-group-head { padding: 10px 16px; border-bottom: 1px solid var(--border); display: flex; align-items: center; gap: 10px; }
+.dr-group-icon { font-size: 13px; }
+.dr-group-label { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; }
+.dr-group.ok .dr-group-label { color: #17c86c; }
+.dr-group.warn .dr-group-label { color: #ffcf1a; }
+.dr-group.no .dr-group-label { color: #ff1f2b; }
+.dr-group-count { font-size: 11px; color: var(--muted); margin-left: auto; }
+.dr-card { display: flex; align-items: center; gap: 12px; padding: 11px 16px; border-bottom: 1px solid rgba(255, 255, 255, 0.05); }
+.dr-card:last-child { border-bottom: none; }
+.dr-card:hover { background: rgba(255, 255, 255, 0.02); }
+.dr-dot { width: 7px; height: 7px; border-radius: 50%; flex-shrink: 0; }
+.dr-info { flex: 1; min-width: 0; }
+.dr-name { font-size: 13px; font-weight: 600; color: #fff; }
+.dr-detail { font-size: 11px; color: var(--muted); margin-top: 2px; }
+.dr-tags { display: flex; gap: 4px; flex-shrink: 0; }
+.dr-tag { padding: 2px 6px; background: rgba(255, 255, 255, 0.06); border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 4px; font-size: 10px; font-weight: 700; color: var(--muted); white-space: nowrap; }
+.dr-status { flex-shrink: 0; font-size: 13px; font-weight: 700; min-width: 28px; text-align: right; }
+.dr-group.ok .dr-status { color: #17c86c; }
+.dr-group.warn .dr-status { color: #ffcf1a; }
+.dr-group.no .dr-status { color: #ff1f2b; }
+
+.rail { display: flex; flex-direction: column; gap: 16px; position: sticky; top: 70px; }
+.rail-card { border-radius: 14px; background: var(--glass); border: 1px solid rgba(255, 255, 255, 0.14); overflow: hidden; }
+.rail-head { padding: 12px 16px; font-size: 10px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); border-bottom: 1px solid var(--border); }
+.rail-body { padding: 14px 16px; }
+.tip-text { font-size: 12px; color: var(--sec); line-height: 1.65; }
+.tip-text p + p { margin-top: 10px; }
+.tip-text strong { color: var(--text); }
+
+.pb-logo-chip { display: block; width: 100%; max-width: 220px; height: auto; margin: 0 auto 12px; }
+.pb-buy-link {
+  display: flex; align-items: center; gap: 10px; padding: 11px 14px; border-radius: 9px;
+  background: rgba(var(--pb-rgb, 226, 76, 0), 0.10); border: 1px solid var(--pb-hex, #e24c00); color: var(--pb-text, #ff8a4c);
+  font-size: 13px; font-weight: 700; text-decoration: none; transition: all 0.15s;
+}
+.pb-buy-link:hover { background: rgba(var(--pb-rgb, 226, 76, 0), 0.18); }
+.pb-buy-link .pb-text { flex: 1; line-height: 1.35; }
+.pb-buy-link .pb-text small { display: block; font-weight: 500; color: var(--sec); font-size: 10.5px; margin-top: 1px; }
+.pb-buy-link .pb-arrow { flex-shrink: 0; }
+.pb-note { font-size: 10.5px; color: var(--muted); margin-top: 8px; text-align: center; }

@@ -1,0 +1,13 @@
+{
+  "slug": "puerto-de-los-villares",
+  "source": "IGN MTN",
+  "attribution": "Map: IGN España, CC-BY 4.0",
+  "zoom": 16,
+  "imageWidthPx": 1293,
+  "bounds": {
+    "xMin": -2819.734121304845,
+    "xMax": 2986.5901611408412,
+    "zMin": -2047.8604639492692,
+    "zMax": 7083.872353156007
+  }
+}

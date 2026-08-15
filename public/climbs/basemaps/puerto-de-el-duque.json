@@ -1,0 +1,13 @@
+{
+  "slug": "puerto-de-el-duque",
+  "source": "IGN MTN",
+  "attribution": "Map: IGN España, CC-BY 4.0",
+  "zoom": 16,
+  "imageWidthPx": 3072,
+  "bounds": {
+    "xMin": -3047.555997128482,
+    "xMax": 2801.237731808175,
+    "zMin": -1136.3010962815993,
+    "zMax": 3220.100762847389
+  }
+}

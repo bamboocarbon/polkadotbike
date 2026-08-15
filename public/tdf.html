@@ -1,0 +1,1743 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tour de France 2026 Climbs &amp; Gearing · Polka Dot Bike</title>
+    <meta name="description" content="Every major climb of the 2026 Tour de France — gradient, length and category. Pick a col and plan the exact gearing you'll need with the Climb Planner.">
+    <link rel="canonical" href="https://polkadotbike.com/tdf.html">
+    <meta name="robots" content="index, follow">
+    <meta name="theme-color" content="#ef4444">
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="Polka Dot Bike">
+    <meta property="og:title" content="Tour de France 2026 Climbs &amp; Gearing · Polka Dot Bike">
+    <meta property="og:description" content="Every major climb of the 2026 Tour de France — gradient, length and category. Pick a col and plan the exact gearing you'll need with the Climb Planner.">
+    <meta property="og:url" content="https://polkadotbike.com/tdf.html">
+    <meta property="og:image" content="https://polkadotbike.com/og-card.png">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Tour de France 2026 Climbs &amp; Gearing · Polka Dot Bike">
+    <meta name="twitter:description" content="Every major climb of the 2026 Tour de France — gradient, length and category. Pick a col and plan the exact gearing you'll need with the Climb Planner.">
+    <meta name="twitter:image" content="https://polkadotbike.com/og-card.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=IBM+Plex+Sans:wght@600;700&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css"/>
+    <style>
+        :root {
+            --accent:       #3b82f6;
+            --accent-light: #93c5fd;
+            --glass:        rgba(4,9,26,0.97);
+            --border:       rgba(255,255,255,0.08);
+            --text:         #e8edf5;
+            --muted:        #64748b;
+            --sec:          #94a3b8;
+        }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { font-family: 'Inter', system-ui, sans-serif; min-height: 100vh; color: var(--text); overflow-x: hidden; background: #fff; }
+        .bg-scene { position: fixed; inset: 0; z-index: 0; pointer-events: none; overflow: hidden; }
+        .bg-sky { position: absolute; inset: 0; background: #fff; }
+        .bg-mountains { position: absolute; inset: 0; background-image: radial-gradient(circle,rgba(239,68,68,0.22) 28%,transparent 28%), radial-gradient(circle,rgba(239,68,68,0.22) 28%,transparent 28%); background-size: 44px 44px; background-position: 0 0, 22px 22px; }
+        header { position: sticky; top: 0; z-index: 100; background: rgba(4,9,26,0.85); backdrop-filter: blur(16px); border-bottom: 1px solid var(--border); padding: 0 24px; height: 54px; display: flex; align-items: center; justify-content: space-between; }
+        .logo { font-size: 19px; font-weight: 900; letter-spacing: -0.5px; color: #fff; text-decoration: none; display: inline-flex; align-items: center; gap: 3px; }
+        .logo span { color: var(--accent); }
+        .logo-dot-svg { width: 32px; height: 32px; flex-shrink: 0; }
+        nav { display: flex; gap: 2px; align-items: center; }
+        nav a { color: var(--sec); text-decoration: none; font-size: 13px; font-weight: 500; padding: 6px 13px; border-radius: 6px; transition: all 0.15s; text-align: center; line-height: 1.2; }
+        nav a:hover { color: #fff; background: rgba(255,255,255,0.06); }
+        nav a.active { color: var(--accent); background: rgba(59,130,246,0.12); }
+        @media (max-width: 768px) { header { padding: 0 12px; } nav a { font-size: 11px; padding: 4px 6px; } }
+        .hero { position: relative; z-index: 1; text-align: center; padding: 40px 20px 24px; }
+        .hero h1 { font-size: clamp(26px,5vw,46px); font-weight: 900; letter-spacing: -1.5px; line-height: 1.1; background: linear-gradient(135deg,#0f172a 0%,#1e3a5f 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; filter: drop-shadow(0 1px 4px rgba(255,255,255,0.8)); }
+        .hero p { margin-top: 10px; font-size: 15px; color: rgba(15,23,42,0.72); max-width: 520px; margin-left: auto; margin-right: auto; }
+        .hero-stats { display: flex; flex-basis: 100%; justify-content: center; gap: 24px; flex-wrap: wrap; margin-top: 16px; }
+        .hs-item { text-align: center; }
+        .hs-val {font-family:'IBM Plex Sans',Inter,system-ui,sans-serif; font-size: 22px; font-weight: 700; letter-spacing: 0; color: #1e293b; }
+        .hs-lbl { font-size: 10px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.08em; color: rgba(15,23,42,0.5); margin-top: 1px; }
+        .container { position: relative; z-index: 1; max-width: 1160px; margin: 0 auto; padding: 0 20px 60px; }
+        .tdf-grid { display: grid; grid-template-columns: 270px 1fr; gap: 18px; align-items: start; }
+        @media (max-width: 740px) { .tdf-grid { grid-template-columns: 1fr; } }
+        .glass { background: var(--glass); border: 1px solid rgba(255,255,255,0.12); border-radius: 16px; }
+        .stage-sidebar { position: sticky; top: 70px; max-height: calc(100vh - 86px); overflow-y: auto; overflow-x: hidden; scrollbar-width: none; border-radius: 14px; }
+        .stage-sidebar::-webkit-scrollbar { display: none; }
+        .sidebar-head { padding: 11px 14px; font-size: 10px; font-weight: 800; letter-spacing: 0.1em; text-transform: uppercase; color: #ffcd00; border-bottom: 1px solid var(--border); }
+        .stage-btn { width: 100%; padding: 9px 12px; background: transparent; border: none; border-bottom: 1px solid var(--border); cursor: pointer; text-align: left; font-family: inherit; display: flex; align-items: flex-start; gap: 9px; transition: background 0.15s; }
+        .stage-btn:last-child { border-bottom: none; }
+        .stage-btn:hover { background: rgba(255,255,255,0.04); }
+        .stage-btn.active { background: rgba(26,114,224,0.14); }
+        .s-badge { width: 28px; height: 28px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 11px; font-weight: 800; flex-shrink: 0; border: none; }
+        .s-info { flex: 1; min-width: 0; }
+        .s-finish { font-size: 13px; font-weight: 600; color: var(--text); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; line-height: 1.2; }
+        .stage-btn.active .s-finish { color: #fff; }
+        .s-meta { font-size: 11px; color: var(--muted); margin-top: 3px; }
+        .s-stats { font-size: 11px; color: var(--sec); margin-top: 3px; }
+        .s-badge.type-m { background: #ee1c28; color: #fff; }
+        .s-badge.type-h { background: #000; color: #fff; box-shadow: inset 0 0 0 1.5px #fff; }
+        .s-badge.type-s { background: #12b05f; color: #fff; }
+        .s-badge.type-t { background: #1a72e0; color: #fff; }
+        .stage-mobile-select { display: none; width: 100%; background: var(--glass); border: 1px solid rgba(255,255,255,0.12); border-radius: 12px; color: var(--text); padding: 12px 16px; font-size: 14px; font-family: inherit; appearance: none; cursor: pointer; margin-bottom: 14px; }
+        .stage-mobile-select option { background: #0d1635; }
+        @media (max-width: 740px) { .stage-sidebar { display: none; } .stage-mobile-select { display: block; } }
+        .stage-header { padding: 16px 20px 18px; margin-bottom: 12px; }
+        .sh-top { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; margin-bottom: 8px; }
+        .type-badge { font-size: 8px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.07em; padding: 2px 7px; border-radius: 4px; }
+        .badge-m { background: #ee1c28; color: #fff; }
+        .badge-h { background: #000; color: #fff; box-shadow: inset 0 0 0 1px rgba(255,255,255,0.25); }
+        .badge-s { background: #12b05f; color: #fff; }
+        .badge-t { background: #1a72e0; color: #fff; }
+        .badge-queen { background: rgba(220,38,38,0.3); color: #fca5a5; border: 1px solid rgba(220,38,38,0.4); }
+        .sh-route { font-size: 18px; font-weight: 800; color: #fff; letter-spacing: -0.3px; margin-bottom: 6px; line-height: 1.2; }
+        .sh-stats { display: flex; gap: 20px; flex-wrap: wrap; font-size: 12px; color: var(--sec); }
+        .sh-stats strong { color: var(--text); }
+        .sh-notes { font-size: 12px; color: var(--sec); margin-top: 9px; line-height: 1.55; }
+        .sh-date { font-size: 11px; color: var(--muted); }
+        .climbs-list { display: flex; flex-direction: column; gap: 10px; }
+        .no-climbs { padding: 28px 20px; text-align: center; font-size: 13px; color: var(--muted); background: var(--glass); border: 1px solid rgba(255,255,255,0.08); border-radius: 14px; line-height: 1.6; }
+        .stay-card { margin-top: 14px; padding: 15px 17px; }
+        .stay-card-title { font-size: 13px; font-weight: 700; color: var(--text); margin-bottom: 10px; }
+        .title-icon-bright { filter: brightness(2.1) saturate(2.4) contrast(1.15); }
+        .bb-logo-chip { display: block; width: 100%; max-width: 180px; height: auto; margin: 0 auto 12px; filter: brightness(1.35) saturate(1.5) contrast(1.1); }
+        .kiwi-logo-chip { display: block; width: 100%; max-width: 110px; height: auto; margin: 0 auto 12px; filter: brightness(1.35) saturate(1.5) contrast(1.1); }
+        .stay-row { display: grid; grid-template-columns: 1fr 260px; gap: 18px; align-items: stretch; }
+        @media (max-width: 900px) { .stay-row { grid-template-columns: 1fr; } }
+        .stay-row .stay-card { margin-top: 0; display: flex; flex-direction: column; flex: 1; }
+        .stay-col { display: flex; flex-direction: column; gap: 14px; height: 100%; }
+        .bike-hire-card { display: flex; flex-direction: column; gap: 14px; }
+        .climb-card { padding: 15px 17px; background: var(--glass); border: 1px solid rgba(255,255,255,0.09); border-radius: 13px; }
+        .climb-card.is-finish { border-color: rgba(239,68,68,0.28); }
+        .cc-top { display: flex; align-items: flex-start; gap: 8px; margin-bottom: 10px; flex-wrap: wrap; }
+        .cc-cat { font-size: 9px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.07em; padding: 3px 8px; border-radius: 5px; white-space: nowrap; flex-shrink: 0; margin-top: 2px; border: none; }
+        .cat-hc   { background: #ee1c28; color: #fff; }
+        .cat-cat1 { background: #ffcd00; color: #000; }
+        .cat-cat2 { background: #12b05f; color: #fff; }
+        .cat-cat3 { background: #1a72e0; color: #fff; }
+        .cat-cat4 { background: #000; color: #fff; box-shadow: inset 0 0 0 1px rgba(255,255,255,0.25); }
+        .cat-tbc  { background: #475569; color: #fff; }
+        .cc-name-block { flex: 1; min-width: 0; }
+        .cc-name { font-size: 14px; font-weight: 700; color: #fff; line-height: 1.25; }
+        .cc-range { font-size: 10px; color: var(--muted); margin-top: 2px; }
+        .finish-tag { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; color: #ffcf1a; background: rgba(255,205,0,0.10); border: 1px solid rgba(255,205,0,0.4); padding: 4px 9px; border-radius: 5px; white-space: nowrap; flex-shrink: 0; margin-top: 3px; }
+        .cc-stats { display: flex; gap: 20px; flex-wrap: wrap; margin-bottom: 9px; align-items: flex-end; }
+        .cs-item { display: flex; flex-direction: column; }
+        .cs-val {font-family:'IBM Plex Sans',Inter,system-ui,sans-serif; font-size: 22px; font-weight: 700; letter-spacing: 0; color: #fff; line-height: 1; }
+        .cs-label { font-size: 9px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.08em; color: var(--muted); margin-top: 3px; }
+        .cs-val.sm { font-size: 15px; letter-spacing: 0; }
+        .cc-notes { font-size: 11px; color: var(--sec); line-height: 1.55; margin-bottom: 10px; }
+        .tbc-note { font-size: 11px; color: var(--muted); font-style: italic; margin-top: 4px; }
+        .plan-btn { display: inline-flex; align-self: flex-start; align-items: center; gap: 6px; padding: 7px 14px; background: #1a72e0; border: none; border-radius: 9px; color: #fff; font-size: 12px; font-weight: 700; text-decoration: none; transition: all 0.15s; cursor: pointer; }
+        .plan-btn:hover { background: #3b8ef0; color: #fff; }
+        .cc-body { display: flex; gap: 16px; align-items: flex-start; margin-top: 10px; }
+        .cc-body .cc-profile { flex-shrink: 0; margin: 0; }
+        .cc-body-right { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 10px; }
+        .cc-body-right .cc-stats { margin-bottom: 0; gap: 6px 18px; }
+        .cc-profile { margin: 8px 0 10px; }
+        .cc-profile svg { display: block; }
+        .profile-meta { display: flex; justify-content: space-between; margin-top: 3px; font-size: 9px; color: var(--muted); }
+        footer { position: relative; z-index: 1; border-top: 1px solid var(--border); padding: 24px 20px; text-align: center; }
+        footer p { font-size: 12px; color: var(--muted); }
+        footer a { color: var(--muted); text-decoration: none; }
+        footer a:hover { color: var(--sec); }
+        /* Route map */
+        .map-outer { position: relative; z-index: 1; max-width: 780px; margin: 0 auto 22px; padding: 0 20px; }
+        #tdf-map { height: 400px; border-radius: 14px; border: 1px solid rgba(100,130,150,0.3); background: #cfe8f7; }
+        .map-city { display: inline-block; transform: translate(-50%, 10px); white-space: nowrap; font-family: 'Inter', system-ui, sans-serif; font-size: 10.5px; font-weight: 600; color: #1e293b; pointer-events: none; }
+        .map-city.right { transform: translate(14px, -50%); }
+        .map-city.left { transform: translate(calc(-100% - 14px), -50%); }
+        .map-country { display: inline-block; transform: translate(-50%, -50%); white-space: nowrap; font-family: 'Inter', system-ui, sans-serif; font-size: 15px; font-weight: 800; letter-spacing: 0.35em; pointer-events: none; }
+        .map-legend { display: flex; gap: 18px; align-items: center; justify-content: center; flex-wrap: wrap; margin-top: 9px; font-size: 11px; color: var(--sec); }
+        .ml-item { display: flex; align-items: center; gap: 5px; }
+        .ml-dot { width: 9px; height: 9px; border-radius: 50%; display: inline-block; flex-shrink: 0; }
+        .ml-m { background: #ee1c28; } .ml-h { background: #000; } .ml-s { background: #12b05f; } .ml-t { background: #1a72e0; }
+        .map-dot { width: 22px; height: 22px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 9px; font-weight: 800; color: #fff; border: none; cursor: pointer; font-family: 'Inter', system-ui, sans-serif; transition: transform 0.12s, box-shadow 0.12s; line-height: 1; }
+        .map-dot:hover { box-shadow: 0 0 0 3px rgba(255,255,255,0.2); transform: scale(1.3); }
+        .map-dot.active { box-shadow: 0 0 0 3px rgba(255,255,255,0.3); transform: scale(1.35); }
+        .map-dot.md-m { background: #ee1c28; } .map-dot.md-h { background: #000; } .map-dot.md-s { background: #12b05f; } .map-dot.md-t { background: #1a72e0; }
+        .leaflet-tooltip.map-tip { background: rgba(4,9,26,0.96); border: 1px solid rgba(255,255,255,0.12); color: #e8edf5; font-family: 'Inter', system-ui, sans-serif; font-size: 12px; border-radius: 8px; padding: 6px 10px; white-space: nowrap; box-shadow: 0 4px 16px rgba(0,0,0,0.5); }
+        .leaflet-tooltip.map-tip::before { border-top-color: rgba(255,255,255,0.12); }
+        .leaflet-control-attribution { font-size: 10px !important; background: rgba(255,255,255,0.75) !important; color: #475569 !important; border-radius: 6px 0 0 0 !important; }
+        .leaflet-control-attribution a { color: #1e40af !important; }
+    </style>
+<style id="polka-hero-dots">
+  /* Bright-white bg; red diamond polka-dots band at top of hero; title(left)+subtitle(right) below on white. */
+  .bg-mountains { display: none !important; }
+  .bg-sky { background: #fff !important; }
+  header { background: #000 !important; }
+  .hero {
+    position: relative; z-index: 1; box-sizing: border-box;
+    padding: 164px 24px 8px; margin-bottom: 34px;
+    background-image:
+      radial-gradient(circle, var(--polka-dot-color, #ee1c28) 25px, transparent 26.5px),
+      radial-gradient(circle, var(--polka-dot-color, #ee1c28) 25px, transparent 26.5px);
+    background-size: 124px 124px; background-position: 0 0, 62px 62px; background-repeat: repeat;
+    display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: 6px 24px; text-align: left;
+  }
+  .hero::after { content: ""; position: absolute; left: 0; right: 0; top: 154px; bottom: 0; background: #fff; z-index: -1; }
+  .hero > h1 { margin: 0; color: #000 !important; -webkit-text-fill-color: #000 !important; background: none !important; filter: none !important; }
+  .hero > p  { margin: 0; max-width: 340px; text-align: left; color: #000 !important; font-weight: 700 !important; }
+
+  /* ===== UCI World-Championship bold palette (dots stay red) ===== */
+  :root {
+    --glass: #000; --glass2: #000;
+    --accent: #1a72e0; --accent-light: #7fb3f0;
+    --green: #12b05f; --amber: #ffcd00; --red: #ee1c28;
+  }
+  .glass, .input-panel, .stat-card, .chart-card, .achieve-card, .rail-card, .buy-card { border-color: rgba(255,255,255,0.14); }
+  .logo span { color: #fff !important; }
+  /* groupset / brand tabs: text + lower line only (no box tint). Bold hues. */
+  .brand-tab.active[data-brand="shimano"]    { color:#2b8bff !important; background:transparent !important; border-bottom-color:#1a72e0 !important; }
+  .brand-tab.active[data-brand="sram"]       { color:#ff1f2b !important; background:transparent !important; border-bottom-color:#ee1c28 !important; }
+  .brand-tab.active[data-brand="campagnolo"] { color:#ffcf1a !important; background:transparent !important; border-bottom-color:#ffcd00 !important; }
+  .brand-tab.active[data-brand="custom"]     { color:#17c86c !important; background:transparent !important; border-bottom-color:#12b05f !important; }
+  .cust-mode-btn.active { background:#12b05f; }
+  /* derailleur page: segmented filter buttons — no fill, bold groupset colours + lower line */
+  .filter-btn.active { background:transparent !important; color:#fff !important; border-bottom:2px solid rgba(255,255,255,0.85); }
+  .filter-btn.active[data-fbrand="shimano"]    { color:#2b8bff !important; border-bottom-color:#1a72e0; }
+  .filter-btn.active[data-fbrand="sram"]       { color:#ff1f2b !important; border-bottom-color:#ee1c28; }
+  .filter-btn.active[data-fbrand="campagnolo"] { color:#ffcf1a !important; border-bottom-color:#ffcd00; }
+  /* alert / status colours (bold, not pale) */
+  .stat-green { color:#17c86c !important; }
+  .stat-red   { color:#ff1f2b !important; }
+  .verdict-card.v-yes  { border-color:rgba(18,176,95,0.5) !important; }
+  .verdict-card.v-warn { border-color:rgba(255,205,0,0.55) !important; }
+  .verdict-card.v-no   { border-color:rgba(238,28,40,0.5) !important; }
+  .verdict-card.v-yes  .verdict-main { color:#17c86c; }
+  .verdict-card.v-warn .verdict-main { color:#ffcf1a; }
+  .verdict-card.v-no   .verdict-main { color:#ff1f2b; }
+  .dr-group.ok   .dr-group-label, .dr-group.ok   .dr-status { color:#17c86c !important; }
+  .dr-group.warn .dr-group-label, .dr-group.warn .dr-status { color:#ffcf1a !important; }
+  .dr-group.no   .dr-group-label, .dr-group.no   .dr-status { color:#ff1f2b !important; }
+  /* bottom polka-dot band: white gap after content, then 3 dot rows down to the page bottom */
+  body::after {
+    content: ""; display: block; position: relative; z-index: 1; width: 100%; height: 186px; margin-top: 4px;
+    background-image:
+      radial-gradient(circle, var(--polka-dot-color, #ee1c28) 25px, transparent 26.5px),
+      radial-gradient(circle, var(--polka-dot-color, #ee1c28) 25px, transparent 26.5px);
+    background-size: 124px 124px; background-position: 0px -31px, 62px 31px; background-repeat: repeat;
+  }
+</style>
+<!-- VUELTA-DOT-SWITCH -->
+<script>
+(function(){
+  // La Vuelta a España 2026 runs 22 Aug - 13 Sep. During that window, swap the
+  // site's decorative polka-dot pattern from red to the Vuelta mountains-jersey
+  // blue on every page, then automatically revert to red once the race ends.
+  var now = new Date();
+  var start = new Date('2026-08-22T00:00:00');
+  var end   = new Date('2026-09-13T23:59:59');
+  if (now >= start && now <= end) {
+    document.documentElement.style.setProperty('--polka-dot-color', '#1a72e0');
+  }
+})();
+</script>
+<style id="pdb-inline-brand">
+  /* Inline brand mark: "Polka(DOT)Bike" with DOT knocked into a red circle, as per the header logo */
+  .pdb-brand{font-weight:800;white-space:nowrap;}
+  .pdb-dot{display:inline-block;width:1.35em;height:1.35em;vertical-align:-0.3em;margin:0 0.12em;overflow:hidden;text-indent:-9999px;white-space:nowrap;background:url("data:image/svg+xml;utf8,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 32 32%22%3E%3Ccircle cx=%2216%22 cy=%2216%22 r=%2216%22 fill=%22%23ef4444%22/%3E%3Ctext x=%2216.75%22 y=%2220%22 text-anchor=%22middle%22 font-family=%22Inter,system-ui,sans-serif%22 font-size=%2210.5%22 font-weight=%22900%22 letter-spacing=%221.5%22 fill=%22%23000%22%3EDOT%3C/text%3E%3C/svg%3E") no-repeat center/contain;}
+</style>
+<style id="polka-mobile-nav">
+  /* Mobile: nav scrolls horizontally inside the header bar instead of stretching the page */
+  @media (max-width: 768px) {
+    html, body { overflow-x: hidden; }
+    header { gap: 8px; }
+    .logo { flex-shrink: 0; }
+    nav {
+      min-width: 0;
+      overflow-x: auto; -webkit-overflow-scrolling: touch;
+      flex-wrap: nowrap; max-width: 100%;
+      scrollbar-width: none; -ms-overflow-style: none;
+    }
+    nav::-webkit-scrollbar { display: none; }
+    nav a { white-space: nowrap; flex-shrink: 0; }
+    .hero-bikes { font-size: 16px !important; margin-top: 6px !important; }
+
+    /* Smaller polka dots on mobile: same diamond pattern at ~60% scale, more dots across */
+    .hero {
+      padding-top: 85px;
+      background-image:
+        radial-gradient(circle, var(--polka-dot-color, #ee1c28) 12px, transparent 13.5px),
+        radial-gradient(circle, var(--polka-dot-color, #ee1c28) 12px, transparent 13.5px);
+      background-size: 60px 60px;
+      background-position: 0 0, 30px 30px;
+    }
+    .hero::after { top: 75px; }
+    body::after {
+      height: 90px;
+      background-image:
+        radial-gradient(circle, var(--polka-dot-color, #ee1c28) 12px, transparent 13.5px),
+        radial-gradient(circle, var(--polka-dot-color, #ee1c28) 12px, transparent 13.5px);
+      background-size: 60px 60px;
+      background-position: 0 -15px, 30px 15px;
+    }
+  }
+</style>
+<!-- GA-CONSENT-LOADER START -->
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  window.pdbLoadGA = function(){
+    if (window.pdbGALoaded) return;
+    window.pdbGALoaded = true;
+    var s = document.createElement('script');
+    s.async = true;
+    s.src = 'https://www.googletagmanager.com/gtag/js?id=G-24JBH53W09';
+    document.head.appendChild(s);
+    gtag('js', new Date());
+    gtag('config', 'G-24JBH53W09');
+  };
+</script>
+<!-- GA-CONSENT-LOADER END -->
+<style id="dcy-inline-brand">
+  /* Reciprocal DCY brand mark: small orange square + bold wordmark, matching DCY's own header logo */
+  .dcy-brand{font-weight:800;letter-spacing:-0.01em;white-space:nowrap;}
+  .dcy-square{display:inline-block;width:0.62em;height:0.62em;background:#c8893a;border-radius:2px;margin:0 0.25em 0 0;vertical-align:0.02em;}
+</style>
+<script>
+  (function (s, t, a, y, twenty, two) {
+    s.Stay22 = s.Stay22 || {};
+    s.Stay22.params = { lmaID: '6a71bc1bd1d8a6d3f5d2d10a' };
+    twenty = t.createElement(a);
+    two = t.getElementsByTagName(a)[0];
+    twenty.async = 1;
+    twenty.src = y;
+    two.parentNode.insertBefore(twenty, two);
+  })(window, document, 'script', 'https://scripts.stay22.com/letmeallez.js');
+</script>
+<!-- RACE-JSONLD START (generated by gen_static_index.js — do not hand-edit; re-run the script) -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "CollectionPage",
+      "@id": "https://polkadotbike.com/tdf.html#page",
+      "url": "https://polkadotbike.com/tdf.html",
+      "name": "Tour de France 2026 Climbs",
+      "description": "Every categorised climb of the 2026 Tour de France — gradient, length, summit altitude and the gearing you'd need to ride it.",
+      "isPartOf": {
+        "@id": "https://polkadotbike.com/#website"
+      },
+      "author": {
+        "@id": "https://polkadotbike.com/about.html#robin"
+      },
+      "datePublished": "2026-07-04",
+      "dateModified": "2026-08-08",
+      "mainEntity": {
+        "@id": "https://polkadotbike.com/tdf.html#climblist"
+      },
+      "breadcrumb": {
+        "@id": "https://polkadotbike.com/tdf.html#breadcrumb"
+      },
+      "about": {
+        "@type": "SportsEvent",
+        "name": "Tour de France 2026",
+        "startDate": "2026-07-04",
+        "endDate": "2026-07-26",
+        "eventStatus": "https://schema.org/EventScheduled",
+        "location": {
+          "@type": "Country",
+          "name": "France"
+        }
+      }
+    },
+    {
+      "@type": "ItemList",
+      "@id": "https://polkadotbike.com/tdf.html#climblist",
+      "name": "Climbs of the 2026 Tour de France",
+      "numberOfItems": 66,
+      "itemListOrder": "https://schema.org/ItemListOrderAscending",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Côte du Stade Olympique de Montjuïc",
+          "url": "https://polkadotbike.com/tdf.html#stage-1"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Côte de Bègues",
+          "url": "https://polkadotbike.com/tdf.html#stage-2"
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": "Côte du Château de Montjuïc",
+          "url": "https://polkadotbike.com/tdf.html#stage-2"
+        },
+        {
+          "@type": "ListItem",
+          "position": 4,
+          "name": "Côte de Sant Feliu de Codines",
+          "url": "https://polkadotbike.com/tdf.html#stage-3"
+        },
+        {
+          "@type": "ListItem",
+          "position": 5,
+          "name": "Col de Toses (Collada de Toses)",
+          "url": "https://polkadotbike.com/tdf.html#stage-3"
+        },
+        {
+          "@type": "ListItem",
+          "position": 6,
+          "name": "Col du Calvaire",
+          "url": "https://polkadotbike.com/tdf.html#stage-3"
+        },
+        {
+          "@type": "ListItem",
+          "position": 7,
+          "name": "Les Angles",
+          "url": "https://polkadotbike.com/tdf.html#stage-3"
+        },
+        {
+          "@type": "ListItem",
+          "position": 8,
+          "name": "Col de Bedos",
+          "url": "https://polkadotbike.com/tdf.html#stage-4"
+        },
+        {
+          "@type": "ListItem",
+          "position": 9,
+          "name": "Col du Paradis",
+          "url": "https://polkadotbike.com/tdf.html#stage-4"
+        },
+        {
+          "@type": "ListItem",
+          "position": 10,
+          "name": "Col de Coudons",
+          "url": "https://polkadotbike.com/tdf.html#stage-4"
+        },
+        {
+          "@type": "ListItem",
+          "position": 11,
+          "name": "Col de Montségur",
+          "url": "https://polkadotbike.com/tdf.html#stage-4"
+        },
+        {
+          "@type": "ListItem",
+          "position": 12,
+          "name": "Côte de Baleix",
+          "url": "https://polkadotbike.com/tdf.html#stage-5"
+        },
+        {
+          "@type": "ListItem",
+          "position": 13,
+          "name": "Côte de Loucrup",
+          "url": "https://polkadotbike.com/tdf.html#stage-6"
+        },
+        {
+          "@type": "ListItem",
+          "position": 14,
+          "name": "Côte de Mauvezin",
+          "url": "https://polkadotbike.com/tdf.html#stage-6"
+        },
+        {
+          "@type": "ListItem",
+          "position": 15,
+          "name": "Col d'Aspin",
+          "url": "https://polkadotbike.com/tdf.html#stage-6"
+        },
+        {
+          "@type": "ListItem",
+          "position": 16,
+          "name": "Col du Tourmalet",
+          "url": "https://polkadotbike.com/tdf.html#stage-6"
+        },
+        {
+          "@type": "ListItem",
+          "position": 17,
+          "name": "Gavarnie-Gèdre",
+          "url": "https://polkadotbike.com/tdf.html#stage-6"
+        },
+        {
+          "@type": "ListItem",
+          "position": 18,
+          "name": "Côte de Béguey",
+          "url": "https://polkadotbike.com/tdf.html#stage-7"
+        },
+        {
+          "@type": "ListItem",
+          "position": 19,
+          "name": "Côte de Domme",
+          "url": "https://polkadotbike.com/tdf.html#stage-8"
+        },
+        {
+          "@type": "ListItem",
+          "position": 20,
+          "name": "Côte du Buisson-de-Cadouin",
+          "url": "https://polkadotbike.com/tdf.html#stage-8"
+        },
+        {
+          "@type": "ListItem",
+          "position": 21,
+          "name": "Côte de Naves",
+          "url": "https://polkadotbike.com/tdf.html#stage-9"
+        },
+        {
+          "@type": "ListItem",
+          "position": 22,
+          "name": "Suc au May",
+          "url": "https://polkadotbike.com/tdf.html#stage-9"
+        },
+        {
+          "@type": "ListItem",
+          "position": 23,
+          "name": "Côte de la Croix du Pey",
+          "url": "https://polkadotbike.com/tdf.html#stage-9"
+        },
+        {
+          "@type": "ListItem",
+          "position": 24,
+          "name": "Mont Bessou",
+          "url": "https://polkadotbike.com/tdf.html#stage-9"
+        },
+        {
+          "@type": "ListItem",
+          "position": 25,
+          "name": "Côte de Pailherols",
+          "url": "https://polkadotbike.com/tdf.html#stage-10"
+        },
+        {
+          "@type": "ListItem",
+          "position": 26,
+          "name": "Col de la Griffoul",
+          "url": "https://polkadotbike.com/tdf.html#stage-10"
+        },
+        {
+          "@type": "ListItem",
+          "position": 27,
+          "name": "Col de Prat de Bouc",
+          "url": "https://polkadotbike.com/tdf.html#stage-10"
+        },
+        {
+          "@type": "ListItem",
+          "position": 28,
+          "name": "Côte de Murat",
+          "url": "https://polkadotbike.com/tdf.html#stage-10"
+        },
+        {
+          "@type": "ListItem",
+          "position": 29,
+          "name": "Puy Mary – Pas de Peyrol",
+          "url": "https://polkadotbike.com/tdf.html#stage-10"
+        },
+        {
+          "@type": "ListItem",
+          "position": 30,
+          "name": "Col de Pertus",
+          "url": "https://polkadotbike.com/tdf.html#stage-10"
+        },
+        {
+          "@type": "ListItem",
+          "position": 31,
+          "name": "Col de Font de Cère",
+          "url": "https://polkadotbike.com/tdf.html#stage-10"
+        },
+        {
+          "@type": "ListItem",
+          "position": 32,
+          "name": "Côte de Billonnière",
+          "url": "https://polkadotbike.com/tdf.html#stage-11"
+        },
+        {
+          "@type": "ListItem",
+          "position": 33,
+          "name": "Côte de Billy-Chevannes",
+          "url": "https://polkadotbike.com/tdf.html#stage-11"
+        },
+        {
+          "@type": "ListItem",
+          "position": 34,
+          "name": "Côte de Lanty",
+          "url": "https://polkadotbike.com/tdf.html#stage-12"
+        },
+        {
+          "@type": "ListItem",
+          "position": 35,
+          "name": "Côte de Cuzy",
+          "url": "https://polkadotbike.com/tdf.html#stage-12"
+        },
+        {
+          "@type": "ListItem",
+          "position": 36,
+          "name": "Côte de Montagny-lès-Buxy",
+          "url": "https://polkadotbike.com/tdf.html#stage-12"
+        },
+        {
+          "@type": "ListItem",
+          "position": 37,
+          "name": "Col des Croix",
+          "url": "https://polkadotbike.com/tdf.html#stage-13"
+        },
+        {
+          "@type": "ListItem",
+          "position": 38,
+          "name": "Ballon d'Alsace",
+          "url": "https://polkadotbike.com/tdf.html#stage-13"
+        },
+        {
+          "@type": "ListItem",
+          "position": 39,
+          "name": "Grand Ballon",
+          "url": "https://polkadotbike.com/tdf.html#stage-14"
+        },
+        {
+          "@type": "ListItem",
+          "position": 40,
+          "name": "Col du Page",
+          "url": "https://polkadotbike.com/tdf.html#stage-14"
+        },
+        {
+          "@type": "ListItem",
+          "position": 41,
+          "name": "Ballon d'Alsace",
+          "url": "https://polkadotbike.com/tdf.html#stage-14"
+        },
+        {
+          "@type": "ListItem",
+          "position": 42,
+          "name": "Col du Haag",
+          "url": "https://polkadotbike.com/tdf.html#stage-14"
+        },
+        {
+          "@type": "ListItem",
+          "position": 43,
+          "name": "Côte des Rousses",
+          "url": "https://polkadotbike.com/tdf.html#stage-15"
+        },
+        {
+          "@type": "ListItem",
+          "position": 44,
+          "name": "Le Salève – Col de la Croisette",
+          "url": "https://polkadotbike.com/tdf.html#stage-15"
+        },
+        {
+          "@type": "ListItem",
+          "position": 45,
+          "name": "Côte du Mont",
+          "url": "https://polkadotbike.com/tdf.html#stage-15"
+        },
+        {
+          "@type": "ListItem",
+          "position": 46,
+          "name": "Plateau de Solaison Brison",
+          "url": "https://polkadotbike.com/tdf.html#stage-15"
+        },
+        {
+          "@type": "ListItem",
+          "position": 47,
+          "name": "Côte de Larringes",
+          "url": "https://polkadotbike.com/tdf.html#stage-16"
+        },
+        {
+          "@type": "ListItem",
+          "position": 48,
+          "name": "Côte de Bassa",
+          "url": "https://polkadotbike.com/tdf.html#stage-17"
+        },
+        {
+          "@type": "ListItem",
+          "position": 49,
+          "name": "Côte de Rossillon",
+          "url": "https://polkadotbike.com/tdf.html#stage-17"
+        },
+        {
+          "@type": "ListItem",
+          "position": 50,
+          "name": "Col des Prés",
+          "url": "https://polkadotbike.com/tdf.html#stage-17"
+        },
+        {
+          "@type": "ListItem",
+          "position": 51,
+          "name": "Côte de Saint-Jean-d'Arvey",
+          "url": "https://polkadotbike.com/tdf.html#stage-17"
+        },
+        {
+          "@type": "ListItem",
+          "position": 52,
+          "name": "Côte d'Engins",
+          "url": "https://polkadotbike.com/tdf.html#stage-18"
+        },
+        {
+          "@type": "ListItem",
+          "position": 53,
+          "name": "Côte de Monteynard",
+          "url": "https://polkadotbike.com/tdf.html#stage-18"
+        },
+        {
+          "@type": "ListItem",
+          "position": 54,
+          "name": "Côte des Terrasses",
+          "url": "https://polkadotbike.com/tdf.html#stage-18"
+        },
+        {
+          "@type": "ListItem",
+          "position": 55,
+          "name": "Côte de Saint-Léger-lès-Mélèzes",
+          "url": "https://polkadotbike.com/tdf.html#stage-18"
+        },
+        {
+          "@type": "ListItem",
+          "position": 56,
+          "name": "Orcières-Merlette",
+          "url": "https://polkadotbike.com/tdf.html#stage-18"
+        },
+        {
+          "@type": "ListItem",
+          "position": 57,
+          "name": "Col Bayard",
+          "url": "https://polkadotbike.com/tdf.html#stage-19"
+        },
+        {
+          "@type": "ListItem",
+          "position": 58,
+          "name": "Col du Noyer",
+          "url": "https://polkadotbike.com/tdf.html#stage-19"
+        },
+        {
+          "@type": "ListItem",
+          "position": 59,
+          "name": "Col d'Ornon",
+          "url": "https://polkadotbike.com/tdf.html#stage-19"
+        },
+        {
+          "@type": "ListItem",
+          "position": 60,
+          "name": "Alpe d'Huez",
+          "url": "https://polkadotbike.com/tdf.html#stage-19"
+        },
+        {
+          "@type": "ListItem",
+          "position": 61,
+          "name": "Col de la Croix de Fer",
+          "url": "https://polkadotbike.com/tdf.html#stage-20"
+        },
+        {
+          "@type": "ListItem",
+          "position": 62,
+          "name": "Col du Télégraphe",
+          "url": "https://polkadotbike.com/tdf.html#stage-20"
+        },
+        {
+          "@type": "ListItem",
+          "position": 63,
+          "name": "Col du Galibier",
+          "url": "https://polkadotbike.com/tdf.html#stage-20"
+        },
+        {
+          "@type": "ListItem",
+          "position": 64,
+          "name": "Col de Sarenne",
+          "url": "https://polkadotbike.com/tdf.html#stage-20"
+        },
+        {
+          "@type": "ListItem",
+          "position": 65,
+          "name": "Côte du Pavé des Gardes",
+          "url": "https://polkadotbike.com/tdf.html#stage-21"
+        },
+        {
+          "@type": "ListItem",
+          "position": 66,
+          "name": "Côte de la Butte Montmartre",
+          "url": "https://polkadotbike.com/tdf.html#stage-21"
+        }
+      ]
+    },
+    {
+      "@type": "BreadcrumbList",
+      "@id": "https://polkadotbike.com/tdf.html#breadcrumb",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Home",
+          "item": "https://polkadotbike.com/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Tour de France 2026 Climbs",
+          "item": "https://polkadotbike.com/tdf.html"
+        }
+      ]
+    }
+  ]
+}
+</script>
+<!-- RACE-JSONLD END -->
+</head>
+<body>
+<!-- CONSENT-BANNER START -->
+<style>
+  #pdb-consent{position:fixed;left:0;right:0;bottom:0;z-index:999;background:#000;color:#fff;
+    padding:16px 20px;display:flex;flex-wrap:wrap;align-items:center;justify-content:center;
+    gap:12px 20px;font-family:system-ui,sans-serif;box-shadow:0 -2px 12px rgba(0,0,0,.3)}
+  #pdb-consent[hidden]{display:none}
+  #pdb-consent p{margin:0;font-size:14px;line-height:1.5;max-width:560px;color:#e5e9ee}
+  #pdb-consent a{color:#7fb3f0;text-decoration:underline}
+  #pdb-consent .pdb-consent-btns{display:flex;gap:10px;flex-shrink:0}
+  #pdb-consent button{font:inherit;font-weight:600;font-size:14px;padding:9px 18px;border-radius:6px;
+    cursor:pointer;border:1px solid #fff}
+  #pdb-consent .pdb-accept{background:#1a72e0;color:#fff;border-color:#1a72e0}
+  #pdb-consent .pdb-reject{background:transparent;color:#fff}
+  @media (max-width:640px){#pdb-consent{justify-content:flex-start;text-align:left}}
+</style>
+<div id="pdb-consent" role="dialog" aria-label="Cookie consent" hidden>
+  <p>I use Google Analytics cookies to see how the site's used. See the <a href="privacy.html">privacy policy</a> for details.</p>
+  <div class="pdb-consent-btns">
+    <button type="button" class="pdb-reject" id="pdb-consent-reject">Reject</button>
+    <button type="button" class="pdb-accept" id="pdb-consent-accept">Accept</button>
+  </div>
+</div>
+<script>
+(function(){
+  var KEY = 'pdb_consent';
+  function getChoice(){ try { return localStorage.getItem(KEY); } catch(e) { return null; } }
+  function setChoice(v){ try { localStorage.setItem(KEY, v); } catch(e) {} }
+  var choice = getChoice();
+  if (choice === 'accepted' && window.pdbLoadGA) window.pdbLoadGA();
+  if (choice) return;
+  var el = document.getElementById('pdb-consent');
+  if (!el) return;
+  el.hidden = false;
+  document.getElementById('pdb-consent-accept').addEventListener('click', function(){
+    setChoice('accepted');
+    if (window.pdbLoadGA) window.pdbLoadGA();
+    el.hidden = true;
+  });
+  document.getElementById('pdb-consent-reject').addEventListener('click', function(){
+    setChoice('rejected');
+    el.hidden = true;
+  });
+})();
+</script>
+<!-- CONSENT-BANNER END -->
+<noscript><div style="position:relative;z-index:50;background:#ffcd00;color:#000;font-family:system-ui,sans-serif;font-size:14px;font-weight:600;text-align:center;padding:10px 16px">This site&#8217;s interactive calculators need JavaScript to run. The stage and climb listings on the <a href="tdf.html" style="color:#000">Tour de France 2026</a>, <a href="giro26.html" style="color:#000">Giro 2026</a> and <a href="vuelta.html" style="color:#000">Vuelta 2026</a> pages are still readable without it.</div></noscript>
+
+<div class="bg-scene"><div class="bg-sky"></div><div class="bg-mountains"></div></div>
+<header>
+    <a class="logo" href="index.html">Polka<svg class="logo-dot-svg" viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg"><defs><mask id="dotm"><rect width="32" height="32" fill="white"/><text x="16" y="21" text-anchor="middle" font-family="Inter,system-ui,sans-serif" font-size="11" font-weight="900" letter-spacing="1.5" fill="black">DOT</text></mask></defs><circle cx="16" cy="16" r="15" fill="#ef4444" mask="url(#dotm)"/></svg><span>Bike</span></a>
+    <nav>
+        <a href="index.html">Gear<br>Calculator</a>
+        <a href="climb.html">Climb<br>Planner</a>
+        <a href="compare.html">Groupset<br>Comparator</a>
+        <a href="derailleur.html">Derailleur<br>Capacity</a>
+        <a href="wkg.html">W/KG<br>and FTP</a>
+        <a href="giro26.html">Giro 2026</a>
+        <a href="tdf.html" class="active">TDF 2026</a>
+        <a href="vuelta.html">Vuelta 2026</a>
+        <a href="about.html">About</a>
+        <a href="guide.html">Guide</a>
+        <a href="glossary.html">Glossary</a>
+        <a href="contact.html">Contact</a>
+    </nav>
+</header>
+
+<div class="hero">
+    <h1>Tour de France 2026 Climbs</h1>
+    <p>Pick a climb — see the gradient, length, and category, then send it straight to the Climb Planner with your setup.</p>
+    <div class="hero-stats">
+        <div class="hs-item"><div class="hs-val">21</div><div class="hs-lbl">Stages</div></div>
+        <div class="hs-item"><div class="hs-val">8</div><div class="hs-lbl">Mountain stages</div></div>
+        <div class="hs-item"><div class="hs-val">6</div><div class="hs-lbl">HC passes</div></div>
+        <div class="hs-item"><div class="hs-val">2</div><div class="hs-lbl">HC summit finishes</div></div>
+        <div class="hs-item"><div class="hs-val">4 Jul</div><div class="hs-lbl">Race start</div></div>
+        <div class="hs-item"><div class="hs-val">26 Jul</div><div class="hs-lbl">Paris</div></div>
+    </div>
+</div>
+
+<div class="map-outer">
+    <div id="tdf-map"></div>
+    <div class="map-legend">
+        <div class="ml-item"><span class="ml-dot ml-m"></span> Mountain</div>
+        <div class="ml-item"><span class="ml-dot ml-h"></span> Hilly</div>
+        <div class="ml-item"><span class="ml-dot ml-s"></span> Sprint</div>
+        <div class="ml-item"><span class="ml-dot ml-t"></span> TTT / ITT</div>
+        <span style="color:var(--muted)">— click any marker to open that stage</span>
+    </div>
+</div>
+<div class="container" id="stage-explorer">
+
+    <select class="stage-mobile-select" id="stage-select-mobile" onchange="renderStage(parseInt(this.value))"></select>
+
+    <div class="tdf-grid">
+
+        <div class="stage-sidebar glass" id="stage-sidebar"></div>
+
+        <div id="stage-detail"></div>
+
+    </div>
+</div>
+
+<!-- STATIC-STAGE-INDEX START (generated by gen_static_index.js — do not hand-edit; re-run the script) -->
+<style>
+.static-index { position:relative; z-index:1; max-width:1160px; margin:30px auto 0; padding:0 20px; }
+.static-index h2 { font-size:1.45rem; margin:0 0 6px; color:#ffe94d; }
+.si-intro { color:var(--muted); font-size:0.95rem; line-height:1.55; margin:0 0 14px; }
+.si-stage { border-radius:12px; padding:16px 18px; margin-bottom:12px; }
+.si-stage h3 { margin:0 0 3px; font-size:1.04rem; }
+.si-stage h3 a { color:inherit; text-decoration:none; }
+.si-stage h3 a:hover { text-decoration:underline; }
+.si-meta { color:var(--muted); font-size:0.84rem; margin:0 0 8px; }
+.si-notes { font-size:0.9rem; line-height:1.5; margin:0; }
+.si-climbs { list-style:none; margin:8px 0 0; padding:0; }
+.si-climbs li { padding:7px 0 0; margin-top:7px; border-top:1px solid rgba(255,255,255,0.08); font-size:0.9rem; line-height:1.55; }
+.si-climbs a { color:#3b8ef0; text-decoration:none; }
+.si-climbs a:hover { text-decoration:underline; }
+.si-climbs .cc-cat { margin-right:6px; }
+</style>
+<section class="static-index" id="all-stages">
+  <h2>Every stage and climb of the Tour de France 2026</h2>
+  <p class="si-intro">The Tour de France 2026 runs from Sat 4 July (Barcelona) to Sun 26 July (Paris) — 21 stages, 8 of them mountain stages, with 66 categorised climbs including 6 hors-catégorie ascents. The highest point of the race is Col du Galibier at 2,642&#8202;m. Every stage and climb is listed below with its length, average gradient and summit altitude — follow any climb's link to open it in the <a href="climb.html" style="color:#3b8ef0">Climb Planner</a> and work out the gearing you'd need to ride it yourself.</p>
+  <article class="si-stage glass" id="stage-1">
+    <h3><a href="tdf.html?s=1">Stage 1 · Sat 4 July · Barcelona → Barcelona</a></h3>
+    <p class="si-meta">Team time trial · 19.7&#8202;km · 231&#8202;m of climbing</p>
+    <p class="si-notes">Team time trial with individual times. Uphill finish past Montjuïc Castle — the finish climb is uncategorised in a TTT, no KOM points awarded.</p>
+    <ul class="si-climbs">
+      <li><span class="cc-cat cat-tbc">Uncat</span><a href="climb.html?gr=7&amp;dst=0.8"><strong>Côte du Stade Olympique de Montjuïc</strong></a> — 0.8&#8202;km at 7%, summit 104&#8202;m, stage finish. TTT finish climb — officially uncategorised (no KOM points are awarded in a team time trial). Short ramp to the Olympic stadium.</li>
+    </ul>
+  </article>
+  <article class="si-stage glass" id="stage-2">
+    <h3><a href="tdf.html?s=2">Stage 2 · Sun 5 July · Tarragona → Barcelona</a></h3>
+    <p class="si-meta">Hilly stage · 169.2&#8202;km · 2,049&#8202;m of climbing</p>
+    <p class="si-notes">Côte de Bègues (Cat2) mid-stage; Montjuïc Castle (Cat3) climbed three times in the circuit finale.</p>
+    <ul class="si-climbs">
+      <li><span class="cc-cat cat-cat2">Cat2</span><a href="climb.html?gr=7&amp;dst=6.1"><strong>Côte de Bègues</strong></a> — 6.1&#8202;km at 6.5%, summit 399&#8202;m, 75&#8202;km from the finish.</li>
+      <li><span class="cc-cat cat-cat3">Cat3</span><a href="climb.html?gr=9&amp;dst=1.6"><strong>Côte du Château de Montjuïc</strong></a> — 1.6&#8202;km at 9.3%, summit 163&#8202;m, stage finish. Climbed three times in the finale — first at km 141.6, then km 153.8, then km 166 at the finish.</li>
+    </ul>
+  </article>
+  <article class="si-stage glass" id="stage-3">
+    <h3><a href="tdf.html?s=3">Stage 3 · Mon 6 July · Granollers → Les Angles</a></h3>
+    <p class="si-meta">Mountain stage · 196.2&#8202;km · 3,940&#8202;m of climbing</p>
+    <p class="si-notes">Four categorised climbs. Col de Toses is the main difficulty before the Col du Calvaire crosses the Spain–France border; short uphill summit finish at Les Angles.</p>
+    <ul class="si-climbs">
+      <li><span class="cc-cat cat-cat3">Cat3</span><a href="climb.html?gr=5&amp;dst=7.6"><strong>Côte de Sant Feliu de Codines</strong></a> — 7.6&#8202;km at 4.5%, summit 622&#8202;m, 179&#8202;km from the finish. Early stage climb before the Pyrenees proper.</li>
+      <li><span class="cc-cat cat-cat1">Cat1</span><a href="climb.html?gr=7&amp;dst=9.3"><strong>Col de Toses (Collada de Toses)</strong></a> — 9.3&#8202;km at 6.5%, summit 1,778&#8202;m, 68.5&#8202;km from the finish. Main difficulty of Stage 3.</li>
+      <li><span class="cc-cat cat-cat3">Cat3</span><a href="climb.html?gr=4&amp;dst=11.4"><strong>Col du Calvaire</strong></a> — 11.4&#8202;km at 4.1%, summit 1,836&#8202;m, 23.9&#8202;km from the finish. Crosses the Spain–France border on the approach to Les Angles.</li>
+      <li><span class="cc-cat cat-cat3">Cat3</span><a href="climb.html?gr=7&amp;dst=1.8"><strong>Les Angles</strong></a> — 1.8&#8202;km at 6.5%, summit 1,794&#8202;m, stage finish. Short summit finish.</li>
+    </ul>
+  </article>
+  <article class="si-stage glass" id="stage-4">
+    <h3><a href="tdf.html?s=4">Stage 4 · Tue 7 July · Carcassonne → Foix</a></h3>
+    <p class="si-meta">Hilly stage · 182.4&#8202;km · 3,259&#8202;m of climbing</p>
+    <p class="si-notes">Four categorised climbs through the Pyrenean foothills. Col de Montségur is the key difficulty, 36km from the finish in Foix.</p>
+    <ul class="si-climbs">
+      <li><span class="cc-cat cat-cat4">Cat4</span><a href="climb.html?gr=4&amp;dst=3.4"><strong>Col de Bedos</strong></a> — 3.4&#8202;km at 4.4%, summit 485&#8202;m, 134.2&#8202;km from the finish.</li>
+      <li><span class="cc-cat cat-cat3">Cat3</span><a href="climb.html?gr=4&amp;dst=5.9"><strong>Col du Paradis</strong></a> — 5.9&#8202;km at 4.1%, summit 622&#8202;m, 117.5&#8202;km from the finish.</li>
+      <li><span class="cc-cat cat-cat2">Cat2</span><a href="climb.html?gr=6&amp;dst=10.8"><strong>Col de Coudons</strong></a> — 10.8&#8202;km at 5.5%, summit 883&#8202;m, 77.5&#8202;km from the finish.</li>
+      <li><span class="cc-cat cat-cat2">Cat2</span><a href="climb.html?gr=7&amp;dst=6.9"><strong>Col de Montségur</strong></a> — 6.9&#8202;km at 6.6%, summit 1,059&#8202;m, 35.7&#8202;km from the finish. Key difficulty of the day, 36km from Foix.</li>
+    </ul>
+  </article>
+  <article class="si-stage glass" id="stage-5">
+    <h3><a href="tdf.html?s=5">Stage 5 · Wed 8 July · Lannemezan → Pau</a></h3>
+    <p class="si-meta">Sprint stage · 158.3&#8202;km · 1,883&#8202;m of climbing</p>
+    <p class="si-notes">Côte de Baleix (1km, 8.8%) with 26km to the line; sprint finish in Pau.</p>
+    <ul class="si-climbs">
+      <li><span class="cc-cat cat-cat3">Cat3</span><a href="climb.html?gr=9&amp;dst=1"><strong>Côte de Baleix</strong></a> — 1&#8202;km at 8.8%, summit 348&#8202;m, 25.6&#8202;km from the finish. Short, punchy climb 26km from the sprint finish in Pau.</li>
+    </ul>
+  </article>
+  <article class="si-stage glass" id="stage-6">
+    <h3><a href="tdf.html?s=6">Stage 6 · Thu 9 July · Pau → Gavarnie-Gèdre</a></h3>
+    <p class="si-meta">Mountain stage · 186.2&#8202;km · 3,978&#8202;m of climbing</p>
+    <p class="si-notes">Classic Pyrenean day. Aspin then Tourmalet (Souvenir Jacques Goddet), followed by the new Gavarnie-Gèdre summit finish — a long valley climb whose low average hides the fatigue from the Tourmalet.</p>
+    <ul class="si-climbs">
+      <li><span class="cc-cat cat-cat4">Cat4</span><a href="climb.html?gr=7&amp;dst=2"><strong>Côte de Loucrup</strong></a> — 2&#8202;km at 7.1%, summit 528&#8202;m, 135.3&#8202;km from the finish.</li>
+      <li><span class="cc-cat cat-cat3">Cat3</span><a href="climb.html?gr=7&amp;dst=3"><strong>Côte de Mauvezin</strong></a> — 3&#8202;km at 6.8%, summit 518&#8202;m, 108.9&#8202;km from the finish.</li>
+      <li><span class="cc-cat cat-cat1">Cat1</span><a href="climb.html?gr=7&amp;dst=12"><strong>Col d'Aspin</strong></a> — 12&#8202;km at 6.5%, summit 1,489&#8202;m, 68.1&#8202;km from the finish. Climbed from the Arreau side.</li>
+      <li><span class="cc-cat cat-hc">HC</span><a href="climb.html?gr=7&amp;dst=17.1"><strong>Col du Tourmalet</strong></a> — 17.1&#8202;km at 7.3%, summit 2,115&#8202;m, 38.4&#8202;km from the finish. Via Sainte-Marie-de-Campan / La Mongie. Souvenir Jacques Goddet at the summit. Final 10km averages near 9%.</li>
+      <li><span class="cc-cat cat-cat2">Cat2</span><a href="climb.html?gr=4&amp;dst=18.7"><strong>Gavarnie-Gèdre</strong></a> — 18.7&#8202;km at 3.7%, summit 1,380&#8202;m, stage finish. New summit finish for 2026. Long valley climb — low average gradient hides the fatigue accumulated from the Tourmalet.</li>
+    </ul>
+  </article>
+  <article class="si-stage glass" id="stage-7">
+    <h3><a href="tdf.html?s=7">Stage 7 · Fri 10 July · Hagetmau → Bordeaux</a></h3>
+    <p class="si-meta">Sprint stage · 175.1&#8202;km · 2,053&#8202;m of climbing</p>
+    <p class="si-notes">Côte de Béguey (Cat4) ~38km from the line; sprint finish into Bordeaux.</p>
+    <ul class="si-climbs">
+      <li><span class="cc-cat cat-cat4">Cat4</span><a href="climb.html?gr=4&amp;dst=1.2"><strong>Côte de Béguey</strong></a> — 1.2&#8202;km at 4.4%, summit 86&#8202;m, 37.8&#8202;km from the finish. Sole categorised climb on the sprint stage to Bordeaux.</li>
+    </ul>
+  </article>
+  <article class="si-stage glass" id="stage-8">
+    <h3><a href="tdf.html?s=8">Stage 8 · Sat 11 July · Périgueux → Bergerac</a></h3>
+    <p class="si-meta">Sprint stage · 180.4&#8202;km · 1,346&#8202;m of climbing</p>
+    <p class="si-notes">Côte de Domme and Côte du Buisson-de-Cadouin (both Cat4) mid-stage; flat run-in to the sprint finish.</p>
+    <ul class="si-climbs">
+      <li><span class="cc-cat cat-cat4">Cat4</span><a href="climb.html?gr=3&amp;dst=3.7"><strong>Côte de Domme</strong></a> — 3.7&#8202;km at 3.3%, summit 216&#8202;m, 77.8&#8202;km from the finish.</li>
+      <li><span class="cc-cat cat-cat4">Cat4</span><a href="climb.html?gr=5&amp;dst=2.2"><strong>Côte du Buisson-de-Cadouin</strong></a> — 2.2&#8202;km at 5.3%, summit 191&#8202;m, 40&#8202;km from the finish.</li>
+    </ul>
+  </article>
+  <article class="si-stage glass" id="stage-9">
+    <h3><a href="tdf.html?s=9">Stage 9 · Sun 12 July · Malemort → Ussel</a></h3>
+    <p class="si-meta">Hilly stage · 185.5&#8202;km · 2,427&#8202;m of climbing</p>
+    <p class="si-notes">Four categorised climbs across the Corrèze plateau. Suc au May (Cat2) is the key test before Rest Day 1.</p>
+    <ul class="si-climbs">
+      <li><span class="cc-cat cat-cat3">Cat3</span><a href="climb.html?gr=7&amp;dst=2.3"><strong>Côte de Naves</strong></a> — 2.3&#8202;km at 7.4%, summit 410&#8202;m, 108.5&#8202;km from the finish.</li>
+      <li><span class="cc-cat cat-cat2">Cat2</span><a href="climb.html?gr=8&amp;dst=3.8"><strong>Suc au May</strong></a> — 3.8&#8202;km at 7.5%, summit 903&#8202;m, 80.5&#8202;km from the finish. Key climb of the day.</li>
+      <li><span class="cc-cat cat-cat3">Cat3</span><a href="climb.html?gr=6&amp;dst=4.8"><strong>Côte de la Croix du Pey</strong></a> — 4.8&#8202;km at 6%, summit 825&#8202;m, 56.1&#8202;km from the finish.</li>
+      <li><span class="cc-cat cat-cat4">Cat4</span><a href="climb.html?gr=1&amp;dst=0.9"><strong>Mont Bessou</strong></a> — 0.9&#8202;km at 1.2%, summit 977&#8202;m, 24.5&#8202;km from the finish. Summit of the Millevaches plateau — very gentle ramp.</li>
+    </ul>
+  </article>
+  <article class="si-stage glass" id="stage-10">
+    <h3><a href="tdf.html?s=10">Stage 10 · Tue 14 July · Aurillac → Le Lioran</a></h3>
+    <p class="si-meta">Mountain stage · 166.6&#8202;km · 2,990&#8202;m of climbing</p>
+    <p class="si-notes">Bastille Day in the Massif Central. Seven categorised climbs including Puy Mary – Pas de Peyrol (Cat1) and Col de Pertus (Cat1) before the Col de Font de Cère finale into Le Lioran.</p>
+    <ul class="si-climbs">
+      <li><span class="cc-cat cat-cat3">Cat3</span><a href="climb.html?gr=7&amp;dst=3"><strong>Côte de Pailherols</strong></a> — 3&#8202;km at 7.2%, summit 1,043&#8202;m, 98.6&#8202;km from the finish.</li>
+      <li><span class="cc-cat cat-cat2">Cat2</span><a href="climb.html?gr=7&amp;dst=5.9"><strong>Col de la Griffoul</strong></a> — 5.9&#8202;km at 6.7%, summit 1,336&#8202;m, 69.3&#8202;km from the finish.</li>
+      <li><span class="cc-cat cat-cat3">Cat3</span><a href="climb.html?gr=7&amp;dst=3.1"><strong>Col de Prat de Bouc</strong></a> — 3.1&#8202;km at 6.5%, summit 1,392&#8202;m, 62.8&#8202;km from the finish.</li>
+      <li><span class="cc-cat cat-cat3">Cat3</span><a href="climb.html?gr=5&amp;dst=5.2"><strong>Côte de Murat</strong></a> — 5.2&#8202;km at 5.3%, summit 1,193&#8202;m, 47.8&#8202;km from the finish.</li>
+      <li><span class="cc-cat cat-cat1">Cat1</span><a href="climb.html?gr=6&amp;dst=7.8"><strong>Puy Mary – Pas de Peyrol</strong></a> — 7.8&#8202;km at 6%, summit 1,589&#8202;m, 30.9&#8202;km from the finish. Via D680-D17. Final 2km ramp near 9%.</li>
+      <li><span class="cc-cat cat-cat1">Cat1</span><a href="climb.html?gr=9&amp;dst=4.4"><strong>Col de Pertus</strong></a> — 4.4&#8202;km at 8.5%, summit 1,309&#8202;m, 14.5&#8202;km from the finish. Steepest climb of the day.</li>
+      <li><span class="cc-cat cat-cat3">Cat3</span><a href="climb.html?gr=6&amp;dst=3.1"><strong>Col de Font de Cère</strong></a> — 3.1&#8202;km at 5.8%, summit 1,294&#8202;m, 2.7&#8202;km from the finish. Leads directly into the Le Lioran finish.</li>
+    </ul>
+  </article>
+  <article class="si-stage glass" id="stage-11">
+    <h3><a href="tdf.html?s=11">Stage 11 · Wed 15 July · Vichy → Nevers</a></h3>
+    <p class="si-meta">Sprint stage · 161&#8202;km · 653&#8202;m of climbing</p>
+    <p class="si-notes">Two Cat4 climbs (Billonnière early on, Billy-Chevannes ~38km out); sprint expected in Nevers.</p>
+    <ul class="si-climbs">
+      <li><span class="cc-cat cat-cat4">Cat4</span><a href="climb.html?gr=6&amp;dst=1.1"><strong>Côte de Billonnière</strong></a> — 1.1&#8202;km at 5.8%, summit 300&#8202;m, 128.1&#8202;km from the finish.</li>
+      <li><span class="cc-cat cat-cat4">Cat4</span><a href="climb.html?gr=5&amp;dst=1.5"><strong>Côte de Billy-Chevannes</strong></a> — 1.5&#8202;km at 5%, summit 360&#8202;m, 37.6&#8202;km from the finish.</li>
+    </ul>
+  </article>
+  <article class="si-stage glass" id="stage-12">
+    <h3><a href="tdf.html?s=12">Stage 12 · Thu 16 July · Magny-Cours → Chalon-sur-Saône</a></h3>
+    <p class="si-meta">Sprint stage · 181&#8202;km · 1,555&#8202;m of climbing</p>
+    <p class="si-notes">Three Cat4 climbs on the Burgundy plateau (Lanty, Cuzy, Montagny-lès-Buxy); sprint in Chalon. Starts at the former F1 circuit.</p>
+    <ul class="si-climbs">
+      <li><span class="cc-cat cat-cat4">Cat4</span><a href="climb.html?gr=4&amp;dst=2.1"><strong>Côte de Lanty</strong></a> — 2.1&#8202;km at 4%, summit 308&#8202;m, 104.5&#8202;km from the finish.</li>
+      <li><span class="cc-cat cat-cat4">Cat4</span><a href="climb.html?gr=5&amp;dst=2.5"><strong>Côte de Cuzy</strong></a> — 2.5&#8202;km at 4.5%, summit 398&#8202;m, 83.2&#8202;km from the finish.</li>
+      <li><span class="cc-cat cat-cat4">Cat4</span><a href="climb.html?gr=4&amp;dst=2.7"><strong>Côte de Montagny-lès-Buxy</strong></a> — 2.7&#8202;km at 4.3%, summit 391&#8202;m, 21.6&#8202;km from the finish.</li>
+    </ul>
+  </article>
+  <article class="si-stage glass" id="stage-13">
+    <h3><a href="tdf.html?s=13">Stage 13 · Fri 17 July · Dole → Belfort</a></h3>
+    <p class="si-meta">Hilly stage · 205.7&#8202;km · 2,373&#8202;m of climbing</p>
+    <p class="si-notes">Longest stage of the race. Ballon d'Alsace — the Tour's very first mountain (1904) — crests ~30km from the finish in Belfort. First of two ascents in 2026.</p>
+    <ul class="si-climbs">
+      <li><span class="cc-cat cat-cat3">Cat3</span><a href="climb.html?gr=5&amp;dst=5.2"><strong>Col des Croix</strong></a> — 5.2&#8202;km at 4.8%, summit 678&#8202;m, 48.3&#8202;km from the finish.</li>
+      <li><span class="cc-cat cat-cat1">Cat1</span><a href="climb.html?gr=7&amp;dst=8.8"><strong>Ballon d'Alsace</strong></a> — 8.8&#8202;km at 6.9%, summit 1,173&#8202;m, 29.8&#8202;km from the finish. First of two ascents in 2026 (also Stage 14). The Tour's very first mountain, used in the 1904 edition.</li>
+    </ul>
+  </article>
+  <article class="si-stage glass" id="stage-14">
+    <h3><a href="tdf.html?s=14">Stage 14 · Sat 18 July · Mulhouse → Le Markstein</a></h3>
+    <p class="si-meta">Mountain stage · 155.3&#8202;km · 4,602&#8202;m of climbing</p>
+    <p class="si-notes">Four Vosges climbs: Grand Ballon (highest point in the range), Col du Page (new to the Tour), Ballon d'Alsace (second ascent in 2026), and Col du Haag (new to the Tour). Finish descends 5.9km from Col du Haag to Le Markstein.</p>
+    <ul class="si-climbs">
+      <li><span class="cc-cat cat-cat1">Cat1</span><a href="climb.html?gr=5&amp;dst=21.6"><strong>Grand Ballon</strong></a> — 21.6&#8202;km at 4.7%, summit 1,336&#8202;m, 118.7&#8202;km from the finish. Highest point in the Vosges. Uneven profile — last 6km near 8%.</li>
+      <li><span class="cc-cat cat-cat2">Cat2</span><a href="climb.html?gr=5&amp;dst=9.8"><strong>Col du Page</strong></a> — 9.8&#8202;km at 4.7%, summit 959&#8202;m, 84&#8202;km from the finish. New to the Tour in 2026.</li>
+      <li><span class="cc-cat cat-cat1">Cat1</span><a href="climb.html?gr=7&amp;dst=8.9"><strong>Ballon d'Alsace</strong></a> — 8.9&#8202;km at 6.9%, summit 1,173&#8202;m, 60.9&#8202;km from the finish. Second ascent in 2026 (also Stage 13). The Tour's very first mountain, 1904.</li>
+      <li><span class="cc-cat cat-cat1">Cat1</span><a href="climb.html?gr=7&amp;dst=11.2"><strong>Col du Haag</strong></a> — 11.2&#8202;km at 7.3%, summit 1,233&#8202;m, 5.9&#8202;km from the finish. New to the Tour in 2026. Via VC-D431. Uneven gradient with sections to 15%.</li>
+    </ul>
+  </article>
+  <article class="si-stage glass" id="stage-15">
+    <h3><a href="tdf.html?s=15">Stage 15 · Sun 19 July · Champagnole → Plateau de Solaison</a></h3>
+    <p class="si-meta">Mountain stage · 183.9&#8202;km · 4,701&#8202;m of climbing</p>
+    <p class="si-notes">New HC summit finish on the Plateau de Solaison Brison — the steepest average gradient of any 2026 summit finish. Le Salève – Col de la Croisette (11.2%) is the steepest categorised climb on the entire route.</p>
+    <ul class="si-climbs">
+      <li><span class="cc-cat cat-cat3">Cat3</span><a href="climb.html?gr=5&amp;dst=6.6"><strong>Côte des Rousses</strong></a> — 6.6&#8202;km at 5.1%, summit 1,097&#8202;m, 147.1&#8202;km from the finish.</li>
+      <li><span class="cc-cat cat-cat1">Cat1</span><a href="climb.html?gr=11&amp;dst=4.7"><strong>Le Salève – Col de la Croisette</strong></a> — 4.7&#8202;km at 11.2%, summit 1,175&#8202;m, 47.9&#8202;km from the finish. Steepest categorised climb on the entire 2026 route.</li>
+      <li><span class="cc-cat cat-cat3">Cat3</span><a href="climb.html?gr=8&amp;dst=2.1"><strong>Côte du Mont</strong></a> — 2.1&#8202;km at 8.3%, summit 823&#8202;m, 37.9&#8202;km from the finish.</li>
+      <li><span class="cc-cat cat-hc">HC</span><a href="climb.html?gr=9&amp;dst=11.3"><strong>Plateau de Solaison Brison</strong></a> — 11.3&#8202;km at 9%, summit 1,508&#8202;m, stage finish. New HC summit finish — steepest summit-finish average of the 2026 race. Max gradient ~12%. One of two HC summit finishes.</li>
+    </ul>
+  </article>
+  <article class="si-stage glass" id="stage-16">
+    <h3><a href="tdf.html?s=16">Stage 16 · Tue 21 July · Évian-les-Bains → Thonon-les-Bains</a></h3>
+    <p class="si-meta">Individual time trial · 26.4&#8202;km · 465&#8202;m of climbing</p>
+    <p class="si-notes">Individual Time Trial along Lake Geneva. Côte de Larringes (Cat2) is the sole categorised climb and also acts as an intermediate time check.</p>
+    <ul class="si-climbs">
+      <li><span class="cc-cat cat-cat2">Cat2</span><a href="climb.html?gr=4&amp;dst=9.7"><strong>Côte de Larringes</strong></a> — 9.7&#8202;km at 4.3%, summit 799&#8202;m, 16.7&#8202;km from the finish. Sole categorised climb of the ITT; also acts as intermediate time check point 2.</li>
+    </ul>
+  </article>
+  <article class="si-stage glass" id="stage-17">
+    <h3><a href="tdf.html?s=17">Stage 17 · Wed 22 July · Chambéry → Voiron</a></h3>
+    <p class="si-meta">Hilly stage · 175.4&#8202;km · 2,361&#8202;m of climbing</p>
+    <p class="si-notes">Four short climbs through the Savoie and Chartreuse (Bassa, Rossillon, Col des Prés, Saint-Jean-d'Arvey) before the descent into Voiron to open the final Alpine block.</p>
+    <ul class="si-climbs">
+      <li><span class="cc-cat cat-cat4">Cat4</span><a href="climb.html?gr=6&amp;dst=1.6"><strong>Côte de Bassa</strong></a> — 1.6&#8202;km at 5.5%, summit 481&#8202;m, 156.2&#8202;km from the finish.</li>
+      <li><span class="cc-cat cat-cat4">Cat4</span><a href="climb.html?gr=5&amp;dst=1.7"><strong>Côte de Rossillon</strong></a> — 1.7&#8202;km at 4.6%, summit 686&#8202;m, 139.9&#8202;km from the finish.</li>
+      <li><span class="cc-cat cat-cat3">Cat3</span><a href="climb.html?gr=7&amp;dst=3.6"><strong>Col des Prés</strong></a> — 3.6&#8202;km at 6.8%, summit 1,142&#8202;m, 125.8&#8202;km from the finish.</li>
+      <li><span class="cc-cat cat-cat4">Cat4</span><a href="climb.html?gr=6&amp;dst=1.2"><strong>Côte de Saint-Jean-d'Arvey</strong></a> — 1.2&#8202;km at 5.7%, summit 611&#8202;m, 115.9&#8202;km from the finish.</li>
+    </ul>
+  </article>
+  <article class="si-stage glass" id="stage-18">
+    <h3><a href="tdf.html?s=18">Stage 18 · Thu 23 July · Voiron → Orcières-Merlette</a></h3>
+    <p class="si-meta">Mountain stage · 185.2&#8202;km · 3,950&#8202;m of climbing</p>
+    <p class="si-notes">Opens the final Alpine block. Côte d'Engins (Cat1) and three further climbs build to the steady summit finish at Orcières-Merlette (~10 hairpins, even gradient).</p>
+    <ul class="si-climbs">
+      <li><span class="cc-cat cat-cat1">Cat1</span><a href="climb.html?gr=5&amp;dst=11.5"><strong>Côte d'Engins</strong></a> — 11.5&#8202;km at 5.4%, summit 854&#8202;m, 148.5&#8202;km from the finish. First categorised climb of the day; long and steady.</li>
+      <li><span class="cc-cat cat-cat2">Cat2</span><a href="climb.html?gr=5&amp;dst=9.7"><strong>Côte de Monteynard</strong></a> — 9.7&#8202;km at 5%, summit 844&#8202;m, 93&#8202;km from the finish.</li>
+      <li><span class="cc-cat cat-cat3">Cat3</span><a href="climb.html?gr=7&amp;dst=3.4"><strong>Côte des Terrasses</strong></a> — 3.4&#8202;km at 6.6%, summit 836&#8202;m, 72.4&#8202;km from the finish.</li>
+      <li><span class="cc-cat cat-cat3">Cat3</span><a href="climb.html?gr=7&amp;dst=2.5"><strong>Côte de Saint-Léger-lès-Mélèzes</strong></a> — 2.5&#8202;km at 6.9%, summit 1,237&#8202;m, 19&#8202;km from the finish.</li>
+      <li><span class="cc-cat cat-cat1">Cat1</span><a href="climb.html?gr=7&amp;dst=7.1"><strong>Orcières-Merlette</strong></a> — 7.1&#8202;km at 6.7%, summit 1,825&#8202;m, stage finish. Steady, even gradient with approximately 10 hairpins.</li>
+    </ul>
+  </article>
+  <article class="si-stage glass" id="stage-19">
+    <h3><a href="tdf.html?s=19">Stage 19 · Fri 24 July · Gap → Alpe d'Huez</a></h3>
+    <p class="si-meta">Mountain stage · 128&#8202;km · 3,605&#8202;m of climbing</p>
+    <p class="si-notes">Col Bayard (Cat2), Col du Noyer (Cat1), Col d'Ornon (Cat2), then the full 21-hairpin ascent of Alpe d'Huez.</p>
+    <ul class="si-climbs">
+      <li><span class="cc-cat cat-cat2">Cat2</span><a href="climb.html?gr=7&amp;dst=4.8"><strong>Col Bayard</strong></a> — 4.8&#8202;km at 7.2%, summit 1,246&#8202;m, 123.2&#8202;km from the finish. First climb of the day from Gap.</li>
+      <li><span class="cc-cat cat-cat1">Cat1</span><a href="climb.html?gr=9&amp;dst=7.2"><strong>Col du Noyer</strong></a> — 7.2&#8202;km at 8.5%, summit 1,664&#8202;m, 102.8&#8202;km from the finish. Sharpest regular pass of the 2026 race.</li>
+      <li><span class="cc-cat cat-cat2">Cat2</span><a href="climb.html?gr=6&amp;dst=5.4"><strong>Col d'Ornon</strong></a> — 5.4&#8202;km at 6.4%, summit 1,371&#8202;m, 28.8&#8202;km from the finish.</li>
+      <li><span class="cc-cat cat-hc">HC</span><a href="climb.html?gr=8&amp;dst=13.7"><strong>Alpe d'Huez</strong></a> — 13.7&#8202;km at 8.1%, summit 1,850&#8202;m, stage finish. Classic 21-hairpin ascent via Le Bourg-d'Oisans. First 2km near 10%; hairpins 10–11 hit double digits.</li>
+    </ul>
+  </article>
+  <article class="si-stage glass" id="stage-20">
+    <h3><a href="tdf.html?s=20">Stage 20 · Sat 25 July · Le Bourg d'Oisans → Alpe d'Huez</a></h3>
+    <p class="si-meta">Mountain stage · 170.9&#8202;km · 5,601&#8202;m of climbing</p>
+    <p class="si-notes">Queen stage. Croix de Fer – Télégraphe – Galibier (Souvenir Henri Desgrange; highest point of the 2026 Tour at 2642m) – Sarenne, then the non-categorised final approach to Alpe d'Huez via the Sarenne road.</p>
+    <ul class="si-climbs">
+      <li><span class="cc-cat cat-hc">HC</span><a href="climb.html?gr=5&amp;dst=24"><strong>Col de la Croix de Fer</strong></a> — 24&#8202;km at 5.2%, summit 2,067&#8202;m, 137.2&#8202;km from the finish. Long and irregular — the length matters more than the gradient.</li>
+      <li><span class="cc-cat cat-cat1">Cat1</span><a href="climb.html?gr=7&amp;dst=11.9"><strong>Col du Télégraphe</strong></a> — 11.9&#8202;km at 7.1%, summit 1,566&#8202;m, 83.3&#8202;km from the finish. Runs almost straight into the Galibier.</li>
+      <li><span class="cc-cat cat-hc">HC</span><a href="climb.html?gr=7&amp;dst=17.7"><strong>Col du Galibier</strong></a> — 17.7&#8202;km at 6.9%, summit 2,642&#8202;m, 60.4&#8202;km from the finish. Highest point of the 2026 Tour at 2642m. Souvenir Henri Desgrange awarded at the summit.</li>
+      <li><span class="cc-cat cat-hc">HC</span><a href="climb.html?gr=7&amp;dst=12.8"><strong>Col de Sarenne</strong></a> — 12.8&#8202;km at 7.3%, summit 1,999&#8202;m, 14.4&#8202;km from the finish. Previously only used as a descent (2013) — first time climbed in competition. Leads into the non-categorised final approach to Alpe d'Huez.</li>
+    </ul>
+  </article>
+  <article class="si-stage glass" id="stage-21">
+    <h3><a href="tdf.html?s=21">Stage 21 · Sun 26 July · Thoiry → Paris</a></h3>
+    <p class="si-meta">Sprint stage · 130&#8202;km · 1,978&#8202;m of climbing</p>
+    <p class="si-notes">Côte du Pavé des Gardes early on; Butte Montmartre climbed three times in the circuit finale before the Champs-Élysées finish.</p>
+    <ul class="si-climbs">
+      <li><span class="cc-cat cat-cat4">Cat4</span><a href="climb.html?gr=10&amp;dst=0.7"><strong>Côte du Pavé des Gardes</strong></a> — 0.7&#8202;km at 9.7%, summit 180&#8202;m, 86.9&#8202;km from the finish.</li>
+      <li><span class="cc-cat cat-cat4">Cat4</span><a href="climb.html?gr=7&amp;dst=1"><strong>Côte de la Butte Montmartre</strong></a> — 1&#8202;km at 6.5%, summit 128&#8202;m, stage finish. Climbed three times in the finale — at km 90.8, km 106.7, and km 122.7 at the finish.</li>
+    </ul>
+  </article>
+</section>
+<!-- STATIC-STAGE-INDEX END -->
+
+<!-- BEGIN AADS AD UNIT 2448890 -->
+<div id="frame" style="width: 100%;margin: auto;position: relative; z-index: 99998;">
+          <iframe data-aa='2448890' src='//acceptable.a-ads.com/2448890/?size=Adaptive&background_color=transparent'
+                            style='border:0; padding:0; width:70%; height:auto; overflow:hidden;display: block;margin: auto'></iframe>
+        </div>
+<!-- END AADS AD UNIT 2448890 -->
+
+<footer>
+    <p><span class="pdb-brand">Polka<span class="pdb-dot">DOT</span>Bike</span> · Tour de France 2026 · Stage and climb data from the official Tour de France roadbook; gradients are average values.</p>
+    <p style="margin-top:6px"><a href="index.html">← Gear Calculator</a> · <a href="wkg.html">W/KG and FTP</a> · <a href="guide.html">Guide</a> · <a href="glossary.html">Glossary</a> · <a href="about.html">About</a> · <a href="contact.html">Contact</a> · <a href="privacy.html">Privacy</a> · <a href="disclaimer.html">Disclaimer</a></p>
+    <p style="margin-top:8px;font-size:0.85em;opacity:0.65">Also by me: <a href="https://digitalcredityield.com" target="_blank" rel="noopener" class="dcy-brand"><span class="dcy-square"></span>Digital Credit Yield</a> — Bitcoin &amp; Ethereum treasury income, explained.</p>
+    <p style="margin-top:10px"><a href="https://www.instagram.com/polkadotbike.cc/" target="_blank" rel="noopener" aria-label="Instagram" style="display:inline-flex;vertical-align:middle;margin:0 7px"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="2" y="2" width="20" height="20" rx="5.5"/><circle cx="12" cy="12" r="4.3"/><circle cx="17.4" cy="6.6" r="1.05" fill="currentColor" stroke="none"/></svg></a><a href="https://www.facebook.com/profile.php?id=61591463441672" target="_blank" rel="noopener" aria-label="Facebook" style="display:inline-flex;vertical-align:middle;margin:0 7px"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M13.5 21.9v-8.4h2.82l.42-3.27h-3.24V8.03c0-.95.26-1.6 1.63-1.6h1.74V3.55C16.55 3.47 15.6 3.4 14.5 3.4c-2.33 0-3.93 1.42-3.93 4.03v2.8H7.74v3.27h2.83v8.4h2.93z"/></svg></a></p>
+</footer>
+
+<script src="https://unpkg.com/topojson-client@3.1.0/dist/topojson-client.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
+<script>
+// Queen stage — the hardest day, and the strongest content on this page.
+// Verified as the highest-vgain stage of the Tour de France 2026 route.
+const QUEEN_STAGE = 20;
+const STAGES = [
+    {num:1,  date:'2026-07-04', start:'Barcelona',           finish:'Barcelona',           dist:19.7,  type:'TTT',      vgain:231,  notes:'Team time trial with individual times. Uphill finish past Montjuïc Castle — the finish climb is uncategorised in a TTT, no KOM points awarded.'},
+    {num:2,  date:'2026-07-05', start:'Tarragona',           finish:'Barcelona',           dist:169.2, type:'Hilly',    vgain:2049, notes:'Côte de Bègues (Cat2) mid-stage; Montjuïc Castle (Cat3) climbed three times in the circuit finale.'},
+    {num:3,  date:'2026-07-06', start:'Granollers',          finish:'Les Angles',          dist:196.2, type:'Mountain', vgain:3940, notes:'Four categorised climbs. Col de Toses is the main difficulty before the Col du Calvaire crosses the Spain–France border; short uphill summit finish at Les Angles.'},
+    {num:4,  date:'2026-07-07', start:'Carcassonne',         finish:'Foix',                dist:182.4, type:'Hilly',    vgain:3259, notes:'Four categorised climbs through the Pyrenean foothills. Col de Montségur is the key difficulty, 36km from the finish in Foix.'},
+    {num:5,  date:'2026-07-08', start:'Lannemezan',          finish:'Pau',                 dist:158.3, type:'Sprint',   vgain:1883, notes:'Côte de Baleix (1km, 8.8%) with 26km to the line; sprint finish in Pau.'},
+    {num:6,  date:'2026-07-09', start:'Pau',                 finish:'Gavarnie-Gèdre',      dist:186.2, type:'Mountain', vgain:3978, notes:'Classic Pyrenean day. Aspin then Tourmalet (Souvenir Jacques Goddet), followed by the new Gavarnie-Gèdre summit finish — a long valley climb whose low average hides the fatigue from the Tourmalet.'},
+    {num:7,  date:'2026-07-10', start:'Hagetmau',            finish:'Bordeaux',            dist:175.1, type:'Sprint',   vgain:2053, notes:'Côte de Béguey (Cat4) ~38km from the line; sprint finish into Bordeaux.'},
+    {num:8,  date:'2026-07-11', start:'Périgueux',           finish:'Bergerac',            dist:180.4, type:'Sprint',   vgain:1346, notes:'Côte de Domme and Côte du Buisson-de-Cadouin (both Cat4) mid-stage; flat run-in to the sprint finish.'},
+    {num:9,  date:'2026-07-12', start:'Malemort',            finish:'Ussel',               dist:185.5, type:'Hilly',    vgain:2427, notes:'Four categorised climbs across the Corrèze plateau. Suc au May (Cat2) is the key test before Rest Day 1.'},
+    {num:10, date:'2026-07-14', start:'Aurillac',            finish:'Le Lioran',           dist:166.6, type:'Mountain', vgain:2990, notes:'Bastille Day in the Massif Central. Seven categorised climbs including Puy Mary – Pas de Peyrol (Cat1) and Col de Pertus (Cat1) before the Col de Font de Cère finale into Le Lioran.'},
+    {num:11, date:'2026-07-15', start:'Vichy',               finish:'Nevers',              dist:161,   type:'Sprint',   vgain:653,  notes:'Two Cat4 climbs (Billonnière early on, Billy-Chevannes ~38km out); sprint expected in Nevers.'},
+    {num:12, date:'2026-07-16', start:'Magny-Cours',         finish:'Chalon-sur-Saône',    dist:181,   type:'Sprint',   vgain:1555, notes:'Three Cat4 climbs on the Burgundy plateau (Lanty, Cuzy, Montagny-lès-Buxy); sprint in Chalon. Starts at the former F1 circuit.'},
+    {num:13, date:'2026-07-17', start:'Dole',                finish:'Belfort',             dist:205.7, type:'Hilly',    vgain:2373, notes:'Longest stage of the race. Ballon d\'Alsace — the Tour\'s very first mountain (1904) — crests ~30km from the finish in Belfort. First of two ascents in 2026.'},
+    {num:14, date:'2026-07-18', start:'Mulhouse',            finish:'Le Markstein',        dist:155.3, type:'Mountain', vgain:4602, notes:'Four Vosges climbs: Grand Ballon (highest point in the range), Col du Page (new to the Tour), Ballon d\'Alsace (second ascent in 2026), and Col du Haag (new to the Tour). Finish descends 5.9km from Col du Haag to Le Markstein.'},
+    {num:15, date:'2026-07-19', start:'Champagnole',         finish:'Plateau de Solaison', dist:183.9, type:'Mountain', vgain:4701, notes:'New HC summit finish on the Plateau de Solaison Brison — the steepest average gradient of any 2026 summit finish. Le Salève – Col de la Croisette (11.2%) is the steepest categorised climb on the entire route.'},
+    {num:16, date:'2026-07-21', start:'Évian-les-Bains',     finish:'Thonon-les-Bains',    dist:26.4,  type:'ITT',      vgain:465,  notes:'Individual Time Trial along Lake Geneva. Côte de Larringes (Cat2) is the sole categorised climb and also acts as an intermediate time check.'},
+    {num:17, date:'2026-07-22', start:'Chambéry',            finish:'Voiron',              dist:175.4, type:'Hilly',    vgain:2361, notes:'Four short climbs through the Savoie and Chartreuse (Bassa, Rossillon, Col des Prés, Saint-Jean-d\'Arvey) before the descent into Voiron to open the final Alpine block.'},
+    {num:18, date:'2026-07-23', start:'Voiron',              finish:'Orcières-Merlette',   dist:185.2, type:'Mountain', vgain:3950, notes:'Opens the final Alpine block. Côte d\'Engins (Cat1) and three further climbs build to the steady summit finish at Orcières-Merlette (~10 hairpins, even gradient).'},
+    {num:19, date:'2026-07-24', start:'Gap',                 finish:'Alpe d\'Huez',        dist:128,   type:'Mountain', vgain:3605, notes:'Col Bayard (Cat2), Col du Noyer (Cat1), Col d\'Ornon (Cat2), then the full 21-hairpin ascent of Alpe d\'Huez.'},
+    {num:20, date:'2026-07-25', start:'Le Bourg d\'Oisans',  finish:'Alpe d\'Huez',        dist:170.9, type:'Mountain', vgain:5601, notes:'Queen stage. Croix de Fer – Télégraphe – Galibier (Souvenir Henri Desgrange; highest point of the 2026 Tour at 2642m) – Sarenne, then the non-categorised final approach to Alpe d\'Huez via the Sarenne road.'},
+    {num:21, date:'2026-07-26', start:'Thoiry',              finish:'Paris',               dist:130,   type:'Sprint',   vgain:1978, notes:'Côte du Pavé des Gardes early on; Butte Montmartre climbed three times in the circuit finale before the Champs-Élysées finish.'},
+];
+
+const CLIMBS = [
+    // Stage 1 (TTT)
+    {stage:1,  name:'Côte du Stade Olympique de Montjuïc', range:'Barcelona',      len:0.8,  grad:7.0,  elev:104,  cat:'Uncat', kbf:0,     notes:'TTT finish climb — officially uncategorised (no KOM points are awarded in a team time trial). Short ramp to the Olympic stadium.'},
+    // Stage 2
+    {stage:2,  name:'Côte de Bègues',                       range:'Catalonia',      len:6.1,  grad:6.5,  elev:399,  cat:'Cat2', kbf:75.0,  notes:''},
+    {stage:2,  name:'Côte du Château de Montjuïc',          range:'Catalonia',      len:1.6,  grad:9.3,  elev:163,  cat:'Cat3', kbf:0,     notes:'Climbed three times in the finale — first at km 141.6, then km 153.8, then km 166 at the finish.'},
+    // Stage 3
+    {stage:3,  name:'Côte de Sant Feliu de Codines',        range:'Pyrenees',       len:7.6,  grad:4.5,  elev:622,  cat:'Cat3', kbf:179.0, notes:'Early stage climb before the Pyrenees proper.'},
+    {stage:3,  name:'Col de Toses (Collada de Toses)',       range:'Pyrenees',       len:9.3,  grad:6.5,  elev:1778, cat:'Cat1', kbf:68.5,  notes:'Main difficulty of Stage 3.'},
+    {stage:3,  name:'Col du Calvaire',                       range:'Pyrenees',       len:11.4, grad:4.1,  elev:1836, cat:'Cat3', kbf:23.9,  notes:'Crosses the Spain–France border on the approach to Les Angles.'},
+    {stage:3,  name:'Les Angles',                            range:'Pyrenees',       len:1.8,  grad:6.5,  elev:1794, cat:'Cat3', kbf:0,     notes:'Short summit finish.'},
+    // Stage 4
+    {stage:4,  name:'Col de Bedos',                          range:'Pyrenees',       len:3.4,  grad:4.4,  elev:485,  cat:'Cat4', kbf:134.2, notes:''},
+    {stage:4,  name:'Col du Paradis',                        range:'Pyrenees',       len:5.9,  grad:4.1,  elev:622,  cat:'Cat3', kbf:117.5, notes:''},
+    {stage:4,  name:'Col de Coudons',                        range:'Pyrenees',       len:10.8, grad:5.5,  elev:883,  cat:'Cat2', kbf:77.5,  notes:''},
+    {stage:4,  name:'Col de Montségur',                      range:'Pyrenees',       len:6.9,  grad:6.6,  elev:1059, cat:'Cat2', kbf:35.7,  notes:'Key difficulty of the day, 36km from Foix.'},
+    // Stage 5
+    {stage:5,  name:'Côte de Baleix',                        range:'Pyrenees',       len:1.0,  grad:8.8,  elev:348,  cat:'Cat3', kbf:25.6,  notes:'Short, punchy climb 26km from the sprint finish in Pau.'},
+    // Stage 6
+    {stage:6,  name:'Côte de Loucrup',                       range:'Pyrenees',       len:2.0,  grad:7.1,  elev:528,  cat:'Cat4', kbf:135.3, notes:''},
+    {stage:6,  name:'Côte de Mauvezin',                      range:'Pyrenees',       len:3.0,  grad:6.8,  elev:518,  cat:'Cat3', kbf:108.9, notes:''},
+    {stage:6,  name:'Col d\'Aspin',                          range:'Pyrenees',       len:12.0, grad:6.5,  elev:1489, cat:'Cat1', kbf:68.1,  profile:[4.5,5.5,6.0,7.0,7.5,7.5,7.0,6.5,6.5,6.5,6.0,6.0], notes:'Climbed from the Arreau side.'},
+    {stage:6,  name:'Col du Tourmalet',                      range:'Pyrenees',       len:17.1, grad:7.3,  elev:2115, cat:'HC',   kbf:38.4,  profile:[4.0,4.5,5.0,5.5,6.0,6.5,7.0,8.0,8.5,9.0,9.0,9.0,9.5,9.0,8.5,9.0,9.0], notes:'Via Sainte-Marie-de-Campan / La Mongie. Souvenir Jacques Goddet at the summit. Final 10km averages near 9%.'},
+    {stage:6,  name:'Gavarnie-Gèdre',                        range:'Pyrenees',       len:18.7, grad:3.7,  elev:1380, cat:'Cat2', kbf:0,     notes:'New summit finish for 2026. Long valley climb — low average gradient hides the fatigue accumulated from the Tourmalet.'},
+    // Stage 7
+    {stage:7,  name:'Côte de Béguey',                        range:'Gironde',        len:1.2,  grad:4.4,  elev:86,   cat:'Cat4', kbf:37.8,  notes:'Sole categorised climb on the sprint stage to Bordeaux.'},
+    // Stage 8
+    {stage:8,  name:'Côte de Domme',                         range:'Dordogne',       len:3.7,  grad:3.3,  elev:216,  cat:'Cat4', kbf:77.8,  notes:''},
+    {stage:8,  name:'Côte du Buisson-de-Cadouin',            range:'Dordogne',       len:2.2,  grad:5.3,  elev:191,  cat:'Cat4', kbf:40.0,  notes:''},
+    // Stage 9
+    {stage:9,  name:'Côte de Naves',                         range:'Corrèze',        len:2.3,  grad:7.4,  elev:410,  cat:'Cat3', kbf:108.5, notes:''},
+    {stage:9,  name:'Suc au May',                            range:'Corrèze',        len:3.8,  grad:7.5,  elev:903,  cat:'Cat2', kbf:80.5,  notes:'Key climb of the day.'},
+    {stage:9,  name:'Côte de la Croix du Pey',               range:'Corrèze',        len:4.8,  grad:6.0,  elev:825,  cat:'Cat3', kbf:56.1,  notes:''},
+    {stage:9,  name:'Mont Bessou',                           range:'Corrèze',        len:0.9,  grad:1.2,  elev:977,  cat:'Cat4', kbf:24.5,  notes:'Summit of the Millevaches plateau — very gentle ramp.'},
+    // Stage 10
+    {stage:10, name:'Côte de Pailherols',                    range:'Massif Central', len:3.0,  grad:7.2,  elev:1043, cat:'Cat3', kbf:98.6,  notes:''},
+    {stage:10, name:'Col de la Griffoul',                    range:'Massif Central', len:5.9,  grad:6.7,  elev:1336, cat:'Cat2', kbf:69.3,  notes:''},
+    {stage:10, name:'Col de Prat de Bouc',                   range:'Massif Central', len:3.1,  grad:6.5,  elev:1392, cat:'Cat3', kbf:62.8,  notes:''},
+    {stage:10, name:'Côte de Murat',                         range:'Massif Central', len:5.2,  grad:5.3,  elev:1193, cat:'Cat3', kbf:47.8,  notes:''},
+    {stage:10, name:'Puy Mary – Pas de Peyrol',              range:'Massif Central', len:7.8,  grad:6.0,  elev:1589, cat:'Cat1', kbf:30.9,  profile:[3.5,4.0,5.0,6.0,6.5,6.5,7.0,9.0], notes:'Via D680-D17. Final 2km ramp near 9%.'},
+    {stage:10, name:'Col de Pertus',                         range:'Massif Central', len:4.4,  grad:8.5,  elev:1309, cat:'Cat1', kbf:14.5,  notes:'Steepest climb of the day.'},
+    {stage:10, name:'Col de Font de Cère',                   range:'Massif Central', len:3.1,  grad:5.8,  elev:1294, cat:'Cat3', kbf:2.7,   notes:'Leads directly into the Le Lioran finish.'},
+    // Stage 11
+    {stage:11, name:'Côte de Billonnière',                   range:'Allier',         len:1.1,  grad:5.8,  elev:300,  cat:'Cat4', kbf:128.1, notes:''},
+    {stage:11, name:'Côte de Billy-Chevannes',               range:'Burgundy',       len:1.5,  grad:5.0,  elev:360,  cat:'Cat4', kbf:37.6,  notes:''},
+    // Stage 12
+    {stage:12, name:'Côte de Lanty',                         range:'Burgundy',       len:2.1,  grad:4.0,  elev:308,  cat:'Cat4', kbf:104.5, notes:''},
+    {stage:12, name:'Côte de Cuzy',                          range:'Burgundy',       len:2.5,  grad:4.5,  elev:398,  cat:'Cat4', kbf:83.2,  notes:''},
+    {stage:12, name:'Côte de Montagny-lès-Buxy',             range:'Burgundy',       len:2.7,  grad:4.3,  elev:391,  cat:'Cat4', kbf:21.6,  notes:''},
+    // Stage 13
+    {stage:13, name:'Col des Croix',                         range:'Franche-Comté',  len:5.2,  grad:4.8,  elev:678,  cat:'Cat3', kbf:48.3,  notes:''},
+    {stage:13, name:'Ballon d\'Alsace',                      range:'Vosges',         len:8.8,  grad:6.9,  elev:1173, cat:'Cat1', kbf:29.8,  notes:'First of two ascents in 2026 (also Stage 14). The Tour\'s very first mountain, used in the 1904 edition.'},
+    // Stage 14
+    {stage:14, name:'Grand Ballon',                          range:'Vosges',         len:21.6, grad:4.7,  elev:1336, cat:'Cat1', kbf:118.7, profile:[1.5,2.0,2.5,3.0,3.5,4.0,4.0,3.5,3.0,3.0,3.5,4.0,4.5,4.5,5.0,7.5,8.0,8.5,8.5,7.5,7.0,7.0], notes:'Highest point in the Vosges. Uneven profile — last 6km near 8%.'},
+    {stage:14, name:'Col du Page',                           range:'Vosges',         len:9.8,  grad:4.7,  elev:959,  cat:'Cat2', kbf:84.0,  notes:'New to the Tour in 2026.'},
+    {stage:14, name:'Ballon d\'Alsace',                      range:'Vosges',         len:8.9,  grad:6.9,  elev:1173, cat:'Cat1', kbf:60.9,  profile:[5.0,6.0,7.0,7.5,7.5,7.5,7.5,7.0,7.0], notes:'Second ascent in 2026 (also Stage 13). The Tour\'s very first mountain, 1904.'},
+    {stage:14, name:'Col du Haag',                           range:'Vosges',         len:11.2, grad:7.3,  elev:1233, cat:'Cat1', kbf:5.9,   notes:'New to the Tour in 2026. Via VC-D431. Uneven gradient with sections to 15%.'},
+    // Stage 15
+    {stage:15, name:'Côte des Rousses',                      range:'Jura',           len:6.6,  grad:5.1,  elev:1097, cat:'Cat3', kbf:147.1, notes:''},
+    {stage:15, name:'Le Salève – Col de la Croisette',       range:'Alps / Jura',    len:4.7,  grad:11.2, elev:1175, cat:'Cat1', kbf:47.9,  notes:'Steepest categorised climb on the entire 2026 route.'},
+    {stage:15, name:'Côte du Mont',                          range:'Alps / Jura',    len:2.1,  grad:8.3,  elev:823,  cat:'Cat3', kbf:37.9,  notes:''},
+    {stage:15, name:'Plateau de Solaison Brison',            range:'Alps / Jura',    len:11.3, grad:9.0,  elev:1508, cat:'HC',   kbf:0,     profile:[8.0,8.5,9.0,9.0,9.5,9.5,9.0,10.0,10.0,9.5,8.5], notes:'New HC summit finish — steepest summit-finish average of the 2026 race. Max gradient ~12%. One of two HC summit finishes.'},
+    // Stage 16 (ITT)
+    {stage:16, name:'Côte de Larringes',                     range:'Alps',           len:9.7,  grad:4.3,  elev:799,  cat:'Cat2', kbf:16.7,  notes:'Sole categorised climb of the ITT; also acts as intermediate time check point 2.'},
+    // Stage 17
+    {stage:17, name:'Côte de Bassa',                         range:'Savoie',         len:1.6,  grad:5.5,  elev:481,  cat:'Cat4', kbf:156.2, notes:''},
+    {stage:17, name:'Côte de Rossillon',                     range:'Savoie',         len:1.7,  grad:4.6,  elev:686,  cat:'Cat4', kbf:139.9, notes:''},
+    {stage:17, name:'Col des Prés',                          range:'Chartreuse',     len:3.6,  grad:6.8,  elev:1142, cat:'Cat3', kbf:125.8, notes:''},
+    {stage:17, name:'Côte de Saint-Jean-d\'Arvey',           range:'Savoie',         len:1.2,  grad:5.7,  elev:611,  cat:'Cat4', kbf:115.9, notes:''},
+    // Stage 18
+    {stage:18, name:'Côte d\'Engins',                        range:'Alps',           len:11.5, grad:5.4,  elev:854,  cat:'Cat1', kbf:148.5, notes:'First categorised climb of the day; long and steady.'},
+    {stage:18, name:'Côte de Monteynard',                    range:'Alps',           len:9.7,  grad:5.0,  elev:844,  cat:'Cat2', kbf:93.0,  notes:''},
+    {stage:18, name:'Côte des Terrasses',                    range:'Alps',           len:3.4,  grad:6.6,  elev:836,  cat:'Cat3', kbf:72.4,  notes:''},
+    {stage:18, name:'Côte de Saint-Léger-lès-Mélèzes',      range:'Alps',           len:2.5,  grad:6.9,  elev:1237, cat:'Cat3', kbf:19.0,  notes:''},
+    {stage:18, name:'Orcières-Merlette',                     range:'Alps',           len:7.1,  grad:6.7,  elev:1825, cat:'Cat1', kbf:0,     profile:[6.0,6.5,7.0,7.0,7.0,7.0,6.5], notes:'Steady, even gradient with approximately 10 hairpins.'},
+    // Stage 19
+    {stage:19, name:'Col Bayard',                            range:'Alps',           len:4.8,  grad:7.2,  elev:1246, cat:'Cat2', kbf:123.2, notes:'First climb of the day from Gap.'},
+    {stage:19, name:'Col du Noyer',                          range:'Alps',           len:7.2,  grad:8.5,  elev:1664, cat:'Cat1', kbf:102.8, notes:'Sharpest regular pass of the 2026 race.'},
+    {stage:19, name:'Col d\'Ornon',                          range:'Alps',           len:5.4,  grad:6.4,  elev:1371, cat:'Cat2', kbf:28.8,  notes:''},
+    {stage:19, name:'Alpe d\'Huez',                          range:'Alps',           len:13.7, grad:8.1,  elev:1850, cat:'HC',   kbf:0,     profile:[10.4,8.9,9.6,8.4,8.6,8.3,7.3,8.6,9.4,9.2,8.6,8.0,5.0,5.5], notes:'Classic 21-hairpin ascent via Le Bourg-d\'Oisans. First 2km near 10%; hairpins 10–11 hit double digits.'},
+    // Stage 20
+    {stage:20, name:'Col de la Croix de Fer',                range:'Alps',           len:24.0, grad:5.2,  elev:2067, cat:'HC',   kbf:137.2, profile:[2.0,3.0,4.0,5.0,5.5,5.5,6.0,5.5,5.0,4.5,4.0,3.0,4.5,5.0,5.5,6.0,6.5,7.0,6.5,6.0,5.5,5.0,5.0,5.0], notes:'Long and irregular — the length matters more than the gradient.'},
+    {stage:20, name:'Col du Télégraphe',                     range:'Alps',           len:11.9, grad:7.1,  elev:1566, cat:'Cat1', kbf:83.3,  profile:[5.5,6.5,7.0,7.5,7.5,7.5,7.5,7.5,7.5,7.0,7.5,7.0], notes:'Runs almost straight into the Galibier.'},
+    {stage:20, name:'Col du Galibier',                       range:'Alps',           len:17.7, grad:6.9,  elev:2642, cat:'HC',   kbf:60.4,  profile:[3.0,3.5,4.5,5.0,5.5,6.0,6.5,7.0,7.0,7.5,7.5,7.5,8.0,8.5,9.0,9.5,8.0,7.0], notes:'Highest point of the 2026 Tour at 2642m. Souvenir Henri Desgrange awarded at the summit.'},
+    {stage:20, name:'Col de Sarenne',                        range:'Alps',           len:12.8, grad:7.3,  elev:1999, cat:'HC',   kbf:14.4,  profile:[4.5,5.5,6.5,7.0,7.5,7.5,7.0,7.5,7.5,8.0,8.5,9.0,10.0], notes:'Previously only used as a descent (2013) — first time climbed in competition. Leads into the non-categorised final approach to Alpe d\'Huez.'},
+    // Stage 21
+    {stage:21, name:'Côte du Pavé des Gardes',               range:'Paris',          len:0.7,  grad:9.7,  elev:180,  cat:'Cat4', kbf:86.9,  notes:''},
+    {stage:21, name:'Côte de la Butte Montmartre',           range:'Paris',          len:1.0,  grad:6.5,  elev:128,  cat:'Cat4', kbf:0,     notes:'Climbed three times in the finale — at km 90.8, km 106.7, and km 122.7 at the finish.'},
+];
+
+const TYPE_INFO = {
+    'Mountain': { badge: 'Mountain', cls: 'badge-m', sidebarCls: 'type-m' },
+    'Hilly':    { badge: 'Hilly',    cls: 'badge-h', sidebarCls: 'type-h' },
+    'Sprint':   { badge: 'Sprint',   cls: 'badge-s', sidebarCls: 'type-s' },
+    'TTT':      { badge: 'TTT',      cls: 'badge-t', sidebarCls: 'type-t' },
+    'ITT':      { badge: 'ITT',      cls: 'badge-t', sidebarCls: 'type-t' },
+};
+const CAT_CLS = { HC:'cat-hc', Cat1:'cat-cat1', Cat2:'cat-cat2', Cat3:'cat-cat3', Cat4:'cat-cat4', TBC:'cat-tbc' };
+const MONTH_SHORT = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+
+function fmtDate(iso) {
+    const [y,m,d] = iso.split('-').map(Number);
+    const days = ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
+    const dow = days[new Date(y, m-1, d).getDay()];
+    return `${dow} ${d} ${MONTH_SHORT[m-1]}`;
+}
+
+function gradColor(g) {
+    if (g < 5)  return '#12b05f';
+    if (g < 7)  return '#ffcd00';
+    if (g < 9)  return '#ff6600';
+    return '#ee1c28';
+}
+
+function buildPlanUrl(climb) {
+    const p = {};
+    try {
+        const sh = JSON.parse(localStorage.getItem('cg_shared') || '{}');
+        ['d','b','g','cr','cs','w','cad','pw','wt','cda','ck'].forEach(k => {
+            if (sh[k] !== undefined && sh[k] !== '') p[k] = sh[k];
+        });
+    } catch(e) {}
+    p.gr  = Math.round(climb.grad);
+    p.dst = climb.len;
+    return 'climb.html?' + new URLSearchParams(p).toString();
+}
+
+function stageClimbs(num) {
+    const list = CLIMBS.filter(c => c.stage === num);
+    return list.sort((a, b) => {
+        if (a.kbf === null && b.kbf === null) return 0;
+        if (a.kbf === null) return -1;
+        if (b.kbf === null) return 1;
+        return b.kbf - a.kbf;
+    });
+}
+
+function renderProfile(c) {
+    if (!c.profile || !c.profile.length) return '';
+    const p = c.profile;
+
+    // Cumulative elevation: 1km at g% = g*10m
+    let cum = 0;
+    const elev = [0, ...p.map(g => (cum += g * 10, cum))];
+    const totalElev = elev[elev.length - 1];
+
+    const KM_PX      = 12;                      // fixed display pixels per km
+    const PX_PER_100M = 6;                      // fixed display pixels per 100m elevation gain
+    const H = 90, pad = 4;
+    const W = p.length * KM_PX + pad * 2;       // total width scales with climb length
+    const iH = H - pad * 2;                     // = 82px — fits all TDF profiled climbs at 6px/100m
+    const yb = H - pad;
+
+    // Standardised vertical scale: every 100m gain = PX_PER_100M pixels
+    const useH = Math.min(iH, totalElev / 100 * PX_PER_100M);
+
+    // Gradient-coloured trapezoids filling the elevation shape
+    const fills = p.map((g, i) => {
+        const col = g < 5 ? '#12b05f' : g < 7 ? '#ffcd00' : g < 9 ? '#ff6600' : '#ee1c28';
+        const x1 = (pad + i * KM_PX).toFixed(1);
+        const x2 = (pad + (i + 1) * KM_PX).toFixed(1);
+        const y1 = (pad + iH - elev[i]     / totalElev * useH).toFixed(1);
+        const y2 = (pad + iH - elev[i + 1] / totalElev * useH).toFixed(1);
+        return `<polygon points="${x1},${yb} ${x1},${y1} ${x2},${y2} ${x2},${yb}" fill="${col}"/>`;
+    }).join('');
+
+    // White outline along the ridge
+    const outline = elev.map((e, i) =>
+        `${(pad + i * KM_PX).toFixed(1)},${(pad + iH - e / totalElev * useH).toFixed(1)}`
+    ).join(' ');
+
+    return `<div class="cc-profile"><svg viewBox="0 0 ${W} ${H}" style="display:block;width:${W}px;height:${H}px;border-radius:4px;overflow:hidden"><rect width="${W}" height="${H}" fill="rgba(0,0,0,0.28)" rx="4"/>${fills}<polyline points="${outline}" fill="none" stroke="rgba(255,255,255,0.72)" stroke-width="1.5" stroke-linejoin="round"/></svg><div class="profile-meta" style="width:${W}px"><span>▲ ${Math.round(totalElev)}m gain</span><span>${c.len}km</span></div></div>`;
+}
+
+function renderClimbCard(c) {
+    const isFinish = c.kbf === 0;
+    const hasData  = c.len !== null && c.grad !== null;
+    const catCls   = CAT_CLS[c.cat] || 'cat-tbc';
+    const gCol     = c.grad !== null ? gradColor(c.grad) : '';
+
+    let statsHtml = '';
+    if (hasData) {
+        const lenStr  = c.len % 1 === 0 ? c.len : c.len.toFixed(2).replace(/\.?0+$/, '');
+        const gradStr = c.grad % 1 === 0 ? c.grad : parseFloat(c.grad.toFixed(2));
+        statsHtml = `<div class="cc-stats">
+            <div class="cs-item">
+                <div class="cs-val">${lenStr}</div>
+                <div class="cs-label">km</div>
+            </div>
+            <div class="cs-item">
+                <div class="cs-val" style="color:${gCol}">${gradStr}%</div>
+                <div class="cs-label">avg gradient</div>
+            </div>
+            ${c.elev ? `<div class="cs-item"><div class="cs-val sm">▲ ${c.elev.toLocaleString()}m</div><div class="cs-label">summit</div></div>` : ''}
+            ${c.kbf > 0 ? `<div class="cs-item"><div class="cs-val sm">${c.kbf}km</div><div class="cs-label">to finish</div></div>` : ''}
+        </div>`;
+    }
+
+    const planBtn = hasData
+        ? `<a class="plan-btn" href="${buildPlanUrl(c)}">Plan this climb →</a>`
+        : `<div class="tbc-note">Length and gradient not yet confirmed — check back closer to race day.</div>`;
+
+    const ccTop = `<div class="cc-top">
+            <span class="cc-cat ${catCls}">${c.cat}</span>
+            <div class="cc-name-block">
+                <div style="display:flex;align-items:center;gap:7px;flex-wrap:wrap">
+                    <span class="cc-name">${c.name}</span>
+                    ${isFinish ? '<span class="finish-tag">Stage Finish</span>' : ''}
+                </div>
+                <div class="cc-range">${c.range}</div>
+            </div>
+        </div>`;
+
+    const profileHtml = renderProfile(c);
+    if (profileHtml) {
+        return `<div class="climb-card${isFinish ? ' is-finish' : ''}">
+            ${ccTop}
+            <div class="cc-body">
+                ${profileHtml}
+                <div class="cc-body-right">
+                    ${statsHtml}
+                    ${c.notes ? `<div class="cc-notes">${c.notes}</div>` : ''}
+                    ${planBtn}
+                </div>
+            </div>
+        </div>`;
+    }
+
+    return `<div class="climb-card${isFinish ? ' is-finish' : ''}">
+        ${ccTop}
+        ${statsHtml}
+        ${c.notes ? `<div class="cc-notes">${c.notes}</div>` : ''}
+        ${planBtn}
+    </div>`;
+}
+
+const STAGE_COORDS = [
+    {num:1,  sLat:41.385, sLng: 2.173, fLat:41.385, fLng: 2.173, anchor:[25,25]},  // Barcelona TTT — offset to not overlap S2
+    {num:2,  sLat:41.119, sLng: 1.245, fLat:41.385, fLng: 2.173},  // Tarragona → Barcelona
+    {num:3,  sLat:41.608, sLng: 2.286, fLat:42.575, fLng: 2.019},  // Granollers → Les Angles
+    {num:4,  sLat:43.213, sLng: 2.353, fLat:42.965, fLng: 1.606},  // Carcassonne → Foix
+    {num:5,  sLat:43.126, sLng: 0.385, fLat:43.295, fLng:-0.371},  // Lannemezan → Pau
+    {num:6,  sLat:43.295, sLng:-0.371, fLat:42.756, fLng:-0.018},  // Pau → Gavarnie-Gèdre
+    {num:7,  sLat:43.657, sLng:-0.602, fLat:44.838, fLng:-0.579},  // Hagetmau → Bordeaux
+    {num:8,  sLat:45.185, sLng: 0.721, fLat:44.852, fLng: 0.483},  // Périgueux → Bergerac
+    {num:9,  sLat:45.182, sLng: 1.558, fLat:45.547, fLng: 2.309},  // Malemort → Ussel
+    {num:10, sLat:44.929, sLng: 2.442, fLat:45.108, fLng: 2.754},  // Aurillac → Le Lioran
+    {num:11, sLat:46.127, sLng: 3.426, fLat:46.988, fLng: 3.159},  // Vichy → Nevers
+    {num:12, sLat:46.864, sLng: 3.166, fLat:46.780, fLng: 4.853},  // Magny-Cours → Chalon-sur-Saône
+    {num:13, sLat:47.093, sLng: 5.491, fLat:47.638, fLng: 6.863},  // Dole → Belfort
+    {num:14, sLat:47.750, sLng: 7.335, fLat:47.908, fLng: 7.002},  // Mulhouse → Le Markstein
+    {num:15, sLat:46.744, sLng: 5.914, fLat:45.889, fLng: 6.303},  // Champagnole → Plateau de Solaison
+    {num:16, sLat:46.401, sLng: 6.589, fLat:46.371, fLng: 6.477},  // Évian → Thonon (ITT)
+    {num:17, sLat:45.564, sLng: 5.918, fLat:45.362, fLng: 5.591, anchor:[30,22]},  // Chambéry → Voiron — offset out from under S19's offset icon
+    {num:18, sLat:45.362, sLng: 5.591, fLat:44.692, fLng: 6.327},  // Voiron → Orcières-Merlette
+    {num:19, sLat:44.559, sLng: 6.084, fLat:45.092, fLng: 6.068, anchor:[25,25]},  // Gap → Alpe d'Huez — offset to not overlap S20
+    {num:20, sLat:45.055, sLng: 6.024, fLat:45.092, fLng: 6.068},  // Le Bourg-d'Oisans → Alpe d'Huez
+    {num:21, sLat:48.666, sLng: 1.686, fLat:48.870, fLng: 2.308},  // Thoiry → Paris
+];
+
+async function initMap() {
+    if (typeof L === 'undefined') { console.warn('Leaflet not loaded'); return; }
+
+    const map = L.map('tdf-map', { scrollWheelZoom: false, zoomControl: true, zoomSnap: 0.5 });
+
+    // Flat vector map — no tile layer. France + Spain drawn below; pale-blue sea from #tdf-map CSS.
+    map.attributionControl.addAttribution('Map data: Natural Earth');
+
+    // Country fills pane: below route lines (z=400)
+    map.createPane('countries');
+    map.getPane('countries').style.zIndex = 300;
+    map.getPane('countries').style.pointerEvents = 'none';
+
+    // Labels pane: above route lines (400), below markers (600)
+    map.createPane('maplabels');
+    map.getPane('maplabels').style.zIndex = 450;
+    map.getPane('maplabels').style.pointerEvents = 'none';
+
+    const typeColor   = { Mountain:'#ee1c28', Hilly:'#000000', Sprint:'#12b05f', TTT:'#1a72e0', ITT:'#1a72e0' };
+    const typeDotCls  = { Mountain:'md-m', Hilly:'md-h', Sprint:'md-s', TTT:'md-t', ITT:'md-t' };
+
+    function makeIcon(num, type, active, anchor) {
+        const a = anchor || [11, 11];
+        return L.divIcon({
+            className: '',
+            html: `<div class="map-dot ${typeDotCls[type]||'md-s'}${active?' active':''}">${num}</div>`,
+            iconSize: [22, 22], iconAnchor: a, tooltipAnchor: [0, -14],
+        });
+    }
+
+    const markers = {};
+    let activeNum = null;
+
+    STAGE_COORDS.forEach((sc, i) => {
+        const stage = STAGES.find(s => s.num === sc.num);
+        const col = typeColor[stage.type] || '#94a3b8';
+
+        // Stage route line
+        L.polyline([[sc.sLat, sc.sLng], [sc.fLat, sc.fLng]], {
+            color: col, weight: 3.5, opacity: 0.85,
+        }).addTo(map);
+
+        // Transfer to next stage start (dashed)
+        if (i < STAGE_COORDS.length - 1) {
+            const nx = STAGE_COORDS[i + 1];
+            if (Math.hypot(sc.fLat - nx.sLat, sc.fLng - nx.sLng) > 0.02) {
+                L.polyline([[sc.fLat, sc.fLng], [nx.sLat, nx.sLng]], {
+                    color: '#000000', weight: 2, opacity: 0.85, dashArray: '4 6',
+                }).addTo(map);
+            }
+        }
+
+        // Finish marker
+        const m = L.marker([sc.fLat, sc.fLng], {
+            icon: makeIcon(sc.num, stage.type, false, sc.anchor),
+            zIndexOffset: sc.num * 10,
+        }).addTo(map);
+
+        m.bindTooltip(
+            `<b>Stage ${sc.num}</b> · ${stage.start} → ${stage.finish}<br>${stage.dist} km · ${stage.type}`,
+            { className: 'map-tip', direction: 'top', offset: [0, -12] }
+        );
+
+        m.on('click', () => renderStage(sc.num));
+        markers[sc.num] = { m, stage, anchor: sc.anchor };
+    });
+
+    window._mapUpdate = function(num) {
+        if (activeNum !== null && markers[activeNum]) {
+            const { m, stage, anchor } = markers[activeNum];
+            m.setIcon(makeIcon(activeNum, stage.type, false, anchor));
+        }
+        if (markers[num]) {
+            const { m, stage, anchor } = markers[num];
+            m.setIcon(makeIcon(num, stage.type, true, anchor));
+        }
+        activeNum = num;
+    };
+
+    const pts = STAGE_COORDS.flatMap(sc => [[sc.sLat, sc.sLng], [sc.fLat, sc.fLng]]);
+    map.fitBounds(pts, { padding: [28, 28] });
+    if (window.innerWidth <= 768) {
+        map.panBy([-16, 0], { animate: false });   // shift content right so the SPAIN label clears the left edge
+    } else {
+        map.zoomIn(0.5, { animate: false });
+    }
+    map.setMinZoom(map.getZoom());   // initial view is as far out as you can go
+
+    // City labels (no tile layer, so we draw our own)
+    const CITY_LABELS = [
+        {num:1,  end:'f', name:'Barcelona'},
+        {num:4,  end:'s', name:'Carcassonne', cls:'right'},
+        {num:5,  end:'f', name:'Pau', cls:'left'},
+        {num:7,  end:'f', name:'Bordeaux'},
+        {num:10, end:'s', name:'Aurillac'},
+        {num:11, end:'f', name:'Nevers'},
+        {num:13, end:'f', name:'Belfort'},
+        {num:19, end:'f', name:"Alpe d'Huez", cls:'right'},
+        {num:21, end:'f', name:'Paris'},
+    ];
+    CITY_LABELS.forEach(c => {
+        const sc = STAGE_COORDS.find(x => x.num === c.num); if (!sc) return;
+        const lat = c.end === 's' ? sc.sLat : sc.fLat;
+        const lng = c.end === 's' ? sc.sLng : sc.fLng;
+        L.marker([lat, lng], {
+            pane: 'maplabels', interactive: false, keyboard: false,
+            icon: L.divIcon({ className: '', html: `<div class="map-city ${c.cls || ''}">${c.name}</div>`, iconSize: [0, 0] }),
+        }).addTo(map);
+    });
+
+    // Country name labels
+    [
+        { lat: 47.5, lng: 0.9,  name: 'FRANCE', color: 'rgba(122,94,10,0.5)' },
+        { lat: 42.0, lng: -3.0, name: 'SPAIN',  color: 'rgba(122,94,10,0.5)' },
+    ].forEach(c => {
+        L.marker([c.lat, c.lng], {
+            pane: 'maplabels', interactive: false, keyboard: false,
+            icon: L.divIcon({ className: '', html: `<div class="map-country" style="color:${c.color}">${c.name}</div>`, iconSize: [0, 0] }),
+        }).addTo(map);
+    });
+
+    // Load country fills asynchronously into the back pane (50m = crisper coastline than 110m)
+    try {
+        const world = await fetch('https://cdn.jsdelivr.net/npm/world-atlas@2/countries-50m.json').then(r => r.json());
+        const topo = typeof topojson !== 'undefined' ? topojson : window.topojson;
+        if (!topo) throw new Error('topojson not loaded');
+        L.geoJSON(topo.feature(world, world.objects.countries), {
+            pane: 'countries',
+            filter: f => +f.id === 250 || +f.id === 724 || +f.id === 20,
+            style: f => {
+                if (+f.id === 250) return { fillColor: '#ffe94d', fillOpacity: 1, weight: 0 }; // France — lemon
+                if (+f.id === 724) return { fillColor: '#fff3b8', fillOpacity: 1, weight: 0 }; // Spain — pale lemon (paler than France, per Giro style)
+                return { fillColor: '#fff3b8', fillOpacity: 1, weight: 0 };                      // Andorra — pale lemon like Spain
+            }
+        }).addTo(map);
+    } catch(e) {
+        console.warn('TDF map country layer unavailable:', e.message);
+    }
+
+    // Constrain panning only after the fills are in — calling this earlier can nudge the
+    // view while the geoJSON is being projected, skewing the polygons against the markers.
+    map.setMaxBounds(L.latLngBounds(pts).pad(0.6));
+}
+
+// Stay22 "where to stay" embed per stage finish town. Empty until per-stage
+// embed links are added (same pattern as vuelta.html's STAY22_LINKS).
+const STAY22_LINKS = {
+    1: 'https://stay22.com/embed/6a7638fe4bd7bcee46c87033',
+    2: 'https://stay22.com/embed/6a7638fe4bd7bcee46c87033',
+    3: 'https://stay22.com/embed/6a76397f4bd7bcee46c872b5',
+    4: 'https://stay22.com/embed/6a7639aa4bd7bcee46c87396',
+    5: 'https://stay22.com/embed/6a7639d84bd7bcee46c8743e',
+    6: 'https://stay22.com/embed/6a763a084bd7bcee46c87552',
+    7: 'https://stay22.com/embed/6a763a374bd7bcee46c87639',
+    8: 'https://stay22.com/embed/6a763a654bd7bcee46c87732',
+    9: 'https://stay22.com/embed/6a763ad84bd7bcee46c878f1',
+    10: 'https://stay22.com/embed/6a763b154bd7bcee46c879a8',
+    11: 'https://stay22.com/embed/6a763b4b4bd7bcee46c87a72',
+    12: 'https://stay22.com/embed/6a763b824bd7bcee46c87af9',
+    13: 'https://stay22.com/embed/6a763bc14bd7bcee46c87c53',
+    14: 'https://stay22.com/embed/6a763c084bd7bcee46c87d6a',
+    15: 'https://stay22.com/embed/6a763c344bd7bcee46c87e50',
+    16: 'https://stay22.com/embed/6a763c744bd7bcee46c87f55',
+    17: 'https://stay22.com/embed/6a763ca44bd7bcee46c88082',
+    18: 'https://stay22.com/embed/6a763cd04bd7bcee46c88152',
+    19: 'https://stay22.com/embed/6a763d064bd7bcee46c882bc',
+    20: 'https://stay22.com/embed/6a763d064bd7bcee46c882bc',
+    21: 'https://stay22.com/embed/6a763d414bd7bcee46c88441'
+};
+
+// Kiwi.com flight links by visitor country (via /api/geo, Vercel's x-vercel-ip-country
+// header — only resolves on the live Vercel deployment, not the local dev server).
+// "default" is a placeholder until country-specific Travelpayouts links are generated.
+const KIWI_LINKS = {
+    default: 'https://www.kiwi.com',
+    GB: 'https://kiwi.tpo.mx/jz2ccunJ',
+    US: 'https://kiwi.tpo.mx/YMW30pH9',
+    IT: 'https://kiwi.tpo.mx/Gvvfo5KE',
+    DK: 'https://kiwi.tpo.mx/cExRgmNn',
+    DE: 'https://kiwi.tpo.mx/cExRgmNn',
+    FR: 'https://kiwi.tpo.mx/cExRgmNn',
+    ES: 'https://kiwi.tpo.mx/hVaYpFno',
+    BR: 'https://kiwi.tpo.mx/vdXSh4q9',
+    PL: 'https://kiwi.tpo.mx/sT1YbqpT',
+    NL: 'https://kiwi.tpo.mx/sT1YbqpT',
+    CZ: 'https://kiwi.tpo.mx/qfqDemwB',
+    FI: 'https://kiwi.tpo.mx/l243fbRT'
+};
+let visitorCountry = null;
+function applyKiwiLink() {
+    const url = (visitorCountry && KIWI_LINKS[visitorCountry]) || KIWI_LINKS.default;
+    document.querySelectorAll('.kiwi-flight-link').forEach(a => { a.href = url; });
+}
+fetch('/api/geo').then(r => r.json()).then(d => { visitorCountry = d.country; applyKiwiLink(); }).catch(() => {});
+
+function renderStage(num) {
+    const stage = STAGES.find(s => s.num === num);
+    if (!stage) return;
+
+    if (window._mapUpdate) window._mapUpdate(num);
+
+    document.querySelectorAll('.stage-btn').forEach(b =>
+        b.classList.toggle('active', parseInt(b.dataset.num) === num));
+    const mob = document.getElementById('stage-select-mobile');
+    if (mob) mob.value = num;
+
+    const ti   = TYPE_INFO[stage.type] || TYPE_INFO['Sprint'];
+    const date = fmtDate(stage.date);
+    const isQueen = num === QUEEN_STAGE;
+
+    const climbs = stageClimbs(num);
+    let climbsHtml;
+    if (climbs.length === 0) {
+        const msg = stage.type === 'TTT' ? 'Team Time Trial — no categorised climbs in the dataset.' :
+                    stage.type === 'ITT' ? 'Individual Time Trial — no categorised climbs in the dataset.' :
+                    stage.type === 'Sprint' ? 'Sprint stage — no categorised climbs.' :
+                    'Detailed climb data not yet available for this stage.';
+        climbsHtml = `<div class="no-climbs">${msg}</div>`;
+    } else {
+        climbsHtml = `<div class="climbs-list">${climbs.map(renderClimbCard).join('')}</div>`;
+    }
+
+    document.getElementById('stage-detail').innerHTML = `
+        <div class="stage-header glass">
+            <div class="sh-top">
+                <span class="type-badge ${ti.cls}">${ti.badge}</span>
+                ${isQueen ? '<span class="type-badge badge-queen">Queen Stage</span>' : ''}
+                <span class="sh-date">${date} 2026</span>
+            </div>
+            <div class="sh-route">Stage ${num}: ${stage.start} → ${stage.finish}</div>
+            <div class="sh-stats">
+                <span><strong>${stage.dist}</strong> km</span>
+                <span><strong>${stage.vgain.toLocaleString()}</strong> m elevation gain</span>
+                ${climbs.length ? `<span><strong>${climbs.length}</strong> categorised climb${climbs.length !== 1 ? 's' : ''}</span>` : ''}
+            </div>
+            ${stage.notes ? `<div class="sh-notes">${stage.notes}</div>` : ''}
+        </div>
+        ${STAY22_LINKS[num] ? `
+        <div class="stay-row">
+            <div class="stay-col">
+                <div class="stage-header glass stay-card">
+                    <div class="stay-card-title">🏨 Where to stay in ${stage.finish}</div>
+                    <iframe src="${STAY22_LINKS[num]}" width="100%" frameborder="0" loading="lazy" style="border-radius:12px;display:block;flex:1;"></iframe>
+                </div>
+            </div>
+            <div class="bike-hire-card">
+                <div class="stage-header glass stay-card">
+                    <div class="stay-card-title"><span class="title-icon-bright">🚲</span> Rent a bike</div>
+                    <img class="bb-logo-chip" src="bikesbooking-logo.png" alt="BikesBooking.com">
+                    <p style="font-size:13px;color:var(--muted);margin:0 0 12px;line-height:1.5;">Riding the route yourself, or just want wheels while following the race? Compare rental rates worldwide.</p>
+                    <a class="plan-btn" href="https://bikesbooking.tpo.mx/DgOZPOji" target="_blank" rel="noopener sponsored">Compare bike rentals →</a>
+                    <p style="font-size:11px;color:var(--muted);margin:10px 0 0;">Affiliate link — I may earn a small commission at no extra cost to you.</p>
+                </div>
+                <div class="stage-header glass stay-card">
+                    <div class="stay-card-title">✈️ Fly to the race</div>
+                    <img class="kiwi-logo-chip" src="kiwi-logo.svg" alt="Kiwi.com">
+                    <p style="font-size:13px;color:var(--muted);margin:0 0 12px;line-height:1.5;">Following the race from further afield? Compare flights to the nearest stage town.</p>
+                    <a class="plan-btn kiwi-flight-link" href="https://www.kiwi.com" target="_blank" rel="noopener sponsored">Compare flights →</a>
+                    <p style="font-size:11px;color:var(--muted);margin:10px 0 0;">Affiliate link — I may earn a small commission at no extra cost to you.</p>
+                </div>
+            </div>
+        </div>` : `
+        <div class="stage-header glass stay-card">
+            <div class="stay-card-title"><span class="title-icon-bright">🚲</span> Rent a bike for race day</div>
+            <img class="bb-logo-chip" src="bikesbooking-logo.png" alt="BikesBooking.com">
+            <p style="font-size:13px;color:var(--muted);margin:0 0 12px;line-height:1.5;">Riding the route yourself or just want wheels while you're following the race? Compare rental rates worldwide.</p>
+            <a class="plan-btn" href="https://bikesbooking.tpo.mx/DgOZPOji" target="_blank" rel="noopener sponsored">Compare bike rentals →</a>
+            <p style="font-size:11px;color:var(--muted);margin:10px 0 0;">Affiliate link — I may earn a small commission at no extra cost to you.</p>
+        </div>
+        <div class="stage-header glass stay-card">
+            <div class="stay-card-title">✈️ Fly to the race</div>
+            <img class="kiwi-logo-chip" src="kiwi-logo.svg" alt="Kiwi.com">
+            <p style="font-size:13px;color:var(--muted);margin:0 0 12px;line-height:1.5;">Following the race from further afield? Compare flights to the nearest stage town.</p>
+            <a class="plan-btn kiwi-flight-link" href="https://www.kiwi.com" target="_blank" rel="noopener sponsored">Compare flights →</a>
+            <p style="font-size:11px;color:var(--muted);margin:10px 0 0;">Affiliate link — I may earn a small commission at no extra cost to you.</p>
+        </div>`}
+        ${climbsHtml}`;
+    applyKiwiLink();
+}
+
+function buildSidebar() {
+    const sidebar = document.getElementById('stage-sidebar');
+    const mobSel  = document.getElementById('stage-select-mobile');
+    sidebar.innerHTML = '<div class="sidebar-head">Tour Stages</div>';
+    STAGES.forEach(s => {
+        const ti  = TYPE_INFO[s.type] || TYPE_INFO['Sprint'];
+        const btn = document.createElement('button');
+        btn.className    = 'stage-btn';
+        btn.dataset.num  = s.num;
+        btn.onclick      = () => renderStage(s.num);
+        btn.innerHTML    = `<div class="s-badge ${ti.sidebarCls}" style="margin-top:2px">${s.num}</div>
+            <div class="s-info">
+                <div class="s-finish">${s.start} → ${s.finish}</div>
+                <div class="s-meta">${fmtDate(s.date).slice(4)}</div>
+                <div class="s-stats">${s.dist} km &nbsp;·&nbsp; ▲ ${s.vgain.toLocaleString()} m</div>
+            </div>`;
+        sidebar.appendChild(btn);
+
+        const opt = document.createElement('option');
+        opt.value       = s.num;
+        opt.textContent = `Stage ${s.num} — ${s.start} → ${s.finish}`;
+        mobSel.appendChild(opt);
+    });
+}
+
+function defaultStage() {
+    const t = new Date();
+    const today = `${t.getFullYear()}-${String(t.getMonth()+1).padStart(2,'0')}-${String(t.getDate()).padStart(2,'0')}`;
+    const first = STAGES[0].date;
+    const last  = STAGES[STAGES.length - 1].date;
+
+    // Before the race — show Stage 1, the next thing to happen
+    if (today < first) return 1;
+
+    // After the race — show the queen stage, the strongest content on the page
+    if (today > last) return QUEEN_STAGE;
+
+    // During the race — today's stage, or the most recent one on a rest day
+    const match = STAGES.find(s => s.date === today);
+    if (match) return match.num;
+    const past = STAGES.filter(s => s.date <= today);
+    return past.length ? past[past.length - 1].num : 1;
+}
+
+buildSidebar();
+renderStage(parseInt(new URLSearchParams(location.search).get('s')) || defaultStage());
+initMap();
+</script>
+</body>
+</html>

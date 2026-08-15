@@ -1,0 +1,213 @@
+{
+  "STAGE_COORDS": [
+    {
+      "num": 1,
+      "sLat": 41.385,
+      "sLng": 2.173,
+      "fLat": 41.385,
+      "fLng": 2.173,
+      "anchor": [
+        25,
+        25
+      ]
+    },
+    {
+      "num": 2,
+      "sLat": 41.119,
+      "sLng": 1.245,
+      "fLat": 41.385,
+      "fLng": 2.173
+    },
+    {
+      "num": 3,
+      "sLat": 41.608,
+      "sLng": 2.286,
+      "fLat": 42.575,
+      "fLng": 2.019
+    },
+    {
+      "num": 4,
+      "sLat": 43.213,
+      "sLng": 2.353,
+      "fLat": 42.965,
+      "fLng": 1.606
+    },
+    {
+      "num": 5,
+      "sLat": 43.126,
+      "sLng": 0.385,
+      "fLat": 43.295,
+      "fLng": -0.371
+    },
+    {
+      "num": 6,
+      "sLat": 43.295,
+      "sLng": -0.371,
+      "fLat": 42.756,
+      "fLng": -0.018
+    },
+    {
+      "num": 7,
+      "sLat": 43.657,
+      "sLng": -0.602,
+      "fLat": 44.838,
+      "fLng": -0.579
+    },
+    {
+      "num": 8,
+      "sLat": 45.185,
+      "sLng": 0.721,
+      "fLat": 44.852,
+      "fLng": 0.483
+    },
+    {
+      "num": 9,
+      "sLat": 45.182,
+      "sLng": 1.558,
+      "fLat": 45.547,
+      "fLng": 2.309
+    },
+    {
+      "num": 10,
+      "sLat": 44.929,
+      "sLng": 2.442,
+      "fLat": 45.108,
+      "fLng": 2.754
+    },
+    {
+      "num": 11,
+      "sLat": 46.127,
+      "sLng": 3.426,
+      "fLat": 46.988,
+      "fLng": 3.159
+    },
+    {
+      "num": 12,
+      "sLat": 46.864,
+      "sLng": 3.166,
+      "fLat": 46.78,
+      "fLng": 4.853
+    },
+    {
+      "num": 13,
+      "sLat": 47.093,
+      "sLng": 5.491,
+      "fLat": 47.638,
+      "fLng": 6.863
+    },
+    {
+      "num": 14,
+      "sLat": 47.75,
+      "sLng": 7.335,
+      "fLat": 47.908,
+      "fLng": 7.002
+    },
+    {
+      "num": 15,
+      "sLat": 46.744,
+      "sLng": 5.914,
+      "fLat": 45.889,
+      "fLng": 6.303
+    },
+    {
+      "num": 16,
+      "sLat": 46.401,
+      "sLng": 6.589,
+      "fLat": 46.371,
+      "fLng": 6.477
+    },
+    {
+      "num": 17,
+      "sLat": 45.564,
+      "sLng": 5.918,
+      "fLat": 45.362,
+      "fLng": 5.591,
+      "anchor": [
+        30,
+        22
+      ]
+    },
+    {
+      "num": 18,
+      "sLat": 45.362,
+      "sLng": 5.591,
+      "fLat": 44.692,
+      "fLng": 6.327
+    },
+    {
+      "num": 19,
+      "sLat": 44.559,
+      "sLng": 6.084,
+      "fLat": 45.092,
+      "fLng": 6.068,
+      "anchor": [
+        25,
+        25
+      ]
+    },
+    {
+      "num": 20,
+      "sLat": 45.055,
+      "sLng": 6.024,
+      "fLat": 45.092,
+      "fLng": 6.068
+    },
+    {
+      "num": 21,
+      "sLat": 48.666,
+      "sLng": 1.686,
+      "fLat": 48.87,
+      "fLng": 2.308
+    }
+  ],
+  "CITY_LABELS": [
+    {
+      "num": 1,
+      "end": "f",
+      "name": "Barcelona"
+    },
+    {
+      "num": 4,
+      "end": "s",
+      "name": "Carcassonne",
+      "cls": "right"
+    },
+    {
+      "num": 5,
+      "end": "f",
+      "name": "Pau",
+      "cls": "left"
+    },
+    {
+      "num": 7,
+      "end": "f",
+      "name": "Bordeaux"
+    },
+    {
+      "num": 10,
+      "end": "s",
+      "name": "Aurillac"
+    },
+    {
+      "num": 11,
+      "end": "f",
+      "name": "Nevers"
+    },
+    {
+      "num": 13,
+      "end": "f",
+      "name": "Belfort"
+    },
+    {
+      "num": 19,
+      "end": "f",
+      "name": "Alpe d'Huez",
+      "cls": "right"
+    },
+    {
+      "num": 21,
+      "end": "f",
+      "name": "Paris"
+    }
+  ]
+}

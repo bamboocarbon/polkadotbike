@@ -1,0 +1,13 @@
+{
+  "slug": "alto-del-desierto-de-las-palmas",
+  "source": "IGN MTN",
+  "attribution": "Map: IGN España, CC-BY 4.0",
+  "zoom": 16,
+  "imageWidthPx": 2816,
+  "bounds": {
+    "xMin": -4014.555693599891,
+    "xMax": 1134.1322636557704,
+    "zMin": -4018.7743103109196,
+    "zMax": 1092.8443573692102
+  }
+}

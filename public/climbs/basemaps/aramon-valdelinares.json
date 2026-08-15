@@ -1,0 +1,13 @@
+{
+  "slug": "aramon-valdelinares",
+  "source": "IGN MTN",
+  "attribution": "Map: IGN España, CC-BY 4.0",
+  "zoom": 15,
+  "imageWidthPx": 3328,
+  "bounds": {
+    "xMin": -2535.287972763723,
+    "xMax": 9578.584482530005,
+    "zMin": -2525.9355990929685,
+    "zMax": 1174.9572076080092
+  }
+}

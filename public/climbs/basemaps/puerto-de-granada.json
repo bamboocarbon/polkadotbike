@@ -1,0 +1,13 @@
+{
+  "slug": "puerto-de-granada",
+  "source": "IGN MTN",
+  "attribution": "Map: IGN España, CC-BY 4.0",
+  "zoom": 15,
+  "imageWidthPx": 1536,
+  "bounds": {
+    "xMin": -4126.586446197277,
+    "xMax": 1715.8407048040226,
+    "zMin": -11380.022177726354,
+    "zMax": 3116.503310978673
+  }
+}
