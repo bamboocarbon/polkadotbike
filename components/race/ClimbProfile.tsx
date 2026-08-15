@@ -39,12 +39,12 @@ export default function ClimbProfile({ climb }: { climb: Climb }) {
     <div className="cc-profile">
       <svg
         viewBox={`0 0 ${W} ${H}`}
-        style={{ display: 'block', width: W, height: H, borderRadius: 4, overflow: 'hidden' }}
+        style={{ display: 'block', width: W, maxWidth: '100%', height: 'auto', borderRadius: 4, overflow: 'hidden' }}
       >
         <rect width={W} height={H} fill="rgba(0,0,0,0.28)" rx={4} />
         {fills}
       </svg>
-      <div className="profile-meta" style={{ width: W }}>
+      <div className="profile-meta" style={{ width: W, maxWidth: '100%' }}>
         <span>▲ {Math.round(totalElev)}m gain</span>
         <span>{climb.len}km</span>
       </div>

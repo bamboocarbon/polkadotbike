@@ -117,12 +117,23 @@
 .tbc-note { font-size: 11px; color: var(--muted); font-style: italic; margin-top: 4px; }
 .plan-btn { display: inline-flex; align-self: flex-start; align-items: center; gap: 6px; padding: 7px 14px; background: #1a72e0; border: none; border-radius: 9px; color: #fff; font-size: 12px; font-weight: 700; text-decoration: none; transition: all 0.15s; cursor: pointer; }
 .plan-btn:hover { background: #3b8ef0; color: #fff; }
-.cc-body { display: flex; gap: 16px; align-items: flex-start; margin-top: 10px; }
-.cc-body .cc-profile { flex-shrink: 0; margin: 0; }
-.cc-body-right { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 10px; }
+.cc-body { display: flex; flex-wrap: wrap; gap: 16px; align-items: flex-start; margin-top: 10px; }
+/* The profile SVG's own width scales with climb length (12px/km,
+   ClimbProfile.tsx) — genuinely too wide on mobile for the longer climbs
+   (Alto de Velefique 368px, Port d'Envalira 320px, etc). flex-shrink:0
+   used to pin it at that fixed width regardless of viewport, forcing the
+   whole card off-screen. A 180px min-width (below which the chart isn't
+   usefully readable anyway) means flex-wrap actually triggers — once it
+   and .cc-body-right's own 200px min-width no longer both fit the row,
+   the profile drops to its own full-width row instead of the two
+   fighting over space; the SVG's max-width:100%/height:auto (inline
+   style) then scales it to fit that row exactly, aspect ratio preserved
+   via viewBox, rather than overflowing or getting clipped. */
+.cc-body .cc-profile { flex-shrink: 1; flex-basis: auto; min-width: 180px; max-width: 100%; margin: 0; }
+.cc-body-right { flex: 1; min-width: 200px; display: flex; flex-direction: column; gap: 10px; }
 .cc-body-right .cc-stats { margin-bottom: 0; gap: 6px 18px; }
 .cc-profile { margin: 8px 0 10px; }
-.cc-profile svg { display: block; }
+.cc-profile svg { display: block; max-width: 100%; height: auto; }
 .profile-meta { display: flex; justify-content: space-between; margin-top: 3px; font-size: 11px; color: var(--sec); }
 
 /* Route map */
