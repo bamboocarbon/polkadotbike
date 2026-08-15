@@ -37,6 +37,27 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=IBM+Plex+Sans:wght@600;700&display=swap"
           rel="stylesheet"
         />
+        {/* Ported from the live static site's VUELTA-DOT-SWITCH inline
+            script (every source page had this in <head>). Deliberately a
+            plain blocking inline script, not a 'use client' component —
+            it has to run before first paint to avoid a flash of red
+            switching to blue once the Vuelta window opens; a useEffect-
+            based version would run after hydration instead. globals.css's
+            .hero and body::after gradients already read this variable
+            (var(--polka-dot-color, #ee1c28)); this is just the piece that
+            actually sets it during the race window. */}
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `(function(){
+  var now = new Date();
+  var start = new Date('2026-08-22T00:00:00');
+  var end = new Date('2026-09-13T23:59:59');
+  if (now >= start && now <= end) {
+    document.documentElement.style.setProperty('--polka-dot-color', '#1a72e0');
+  }
+})();`,
+          }}
+        />
       </head>
       <body>
         <ConsentProvider>
