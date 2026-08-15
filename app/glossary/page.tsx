@@ -274,8 +274,8 @@ export default function GlossaryPage() {
           { href: '/guide', label: 'Guide' },
           { href: '/about', label: 'About' },
           { href: '/contact', label: 'Contact' },
-          { href: '/privacy.html', label: 'Privacy' },
-          { href: '/disclaimer.html', label: 'Disclaimer' },
+          { href: '/privacy', label: 'Privacy' },
+          { href: '/disclaimer', label: 'Disclaimer' },
         ]}
       />
     </>

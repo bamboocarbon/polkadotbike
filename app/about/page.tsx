@@ -74,7 +74,7 @@ export default function AboutPage() {
         <p>The project behind the calculators.</p>
       </div>
 
-      <div className="container" style={{ maxWidth: 720 }}>
+      <div className="container" style={{ maxWidth: 880 }}>
         <div className="glass intro" style={{ padding: '24px 26px', marginBottom: 14 }}>
           <p style={{ fontSize: '15.5px', lineHeight: 1.64 }}>
             Hello, I&apos;m Robin and I created <span className="pdb-brand">Polka<span className="pdb-dot">DOT</span>Bike</span> — I built it, ride with it and maintain it. I&apos;ve been on road bikes a long time: long enough to remember when a 53/39 chainset and an 11–23 block was simply what you got, and when fitting a triple was how you found a climbing gear that wouldn&apos;t break you. I ran a 52/42/32 for exactly that reason.
@@ -115,8 +115,8 @@ export default function AboutPage() {
           { href: '/guide', label: 'Guide' },
           { href: '/glossary', label: 'Glossary' },
           { href: '/contact', label: 'Contact' },
-          { href: '/privacy.html', label: 'Privacy' },
-          { href: '/disclaimer.html', label: 'Disclaimer' },
+          { href: '/privacy', label: 'Privacy' },
+          { href: '/disclaimer', label: 'Disclaimer' },
         ]}
       />
     </>

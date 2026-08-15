@@ -3,6 +3,45 @@
 import ClimbProfile from './ClimbProfile';
 import { CAT_CLS, buildPlanUrl, gradColor, type Climb } from '@/lib/raceHelpers';
 
+// Climbs with real, built 3D route data (data/climbs/), keyed by name —
+// gates the extra "Plan this climb in 3D" button, since /climbs/<slug>
+// exists for every climb but only these have actual terrain to show.
+// Extend as more climbs get their pipeline run.
+const CLIMB_3D_SLUGS: Record<string, string> = {
+  'Alto de Velefique': 'alto-de-velefique',
+  'Alto de Aitana': 'alto-de-aitana',
+  'Alto del Desierto de las Palmas': 'alto-del-desierto-de-las-palmas',
+  'Alto del Legionario': 'alto-del-legionario',
+  'Aramón Valdelinares': 'aramon-valdelinares',
+  'Calar Alto': 'calar-alto',
+  'Col de Mont-Louis': 'col-de-mont-louis',
+  "Coll d'Ordino": 'coll-dordino',
+  'Collada de Beixalís': 'collada-de-beixalis',
+  'Collado del Alguacil': 'collado-del-alguacil',
+  'Font Romeu': 'font-romeu',
+  'Collado García': 'collado-garcia',
+  "Port d'Envalira": 'port-denvalira',
+  'Peñas Blancas': 'penas-blancas',
+  'Puerto de El Miserat': 'puerto-de-el-miserat',
+  'Puerto de El Duque': 'puerto-de-el-duque',
+  'Puerto de Barx': 'puerto-de-barx',
+  'Puerto de El Purche (1st ascent)': 'puerto-de-el-purche',
+  'Puerto de El Purche (2nd ascent)': 'puerto-de-el-purche',
+  'Puerto de la Serratella': 'puerto-de-la-serratella',
+  'Puerto de Granada': 'puerto-de-granada',
+  'Puerto de Locubín': 'puerto-de-locubin',
+  'Puerto de Las Abejas': 'puerto-de-las-abejas',
+  'Puerto del Viento': 'puerto-del-viento',
+  'Puerto de Tudons': 'puerto-de-tudons',
+  'Puerto de Tárbena': 'puerto-de-tarbena',
+  'Puerto de San Rafael': 'puerto-de-san-rafael',
+  'Puerto de Los Villares': 'puerto-de-los-villares',
+  'Puerto El Bartolo': 'puerto-el-bartolo',
+  'Puerto El Remolcador': 'puerto-el-remolcador',
+  'Sierra de la Pandera': 'sierra-de-la-pandera',
+  'Venta de la Cebada': 'venta-de-la-cebada',
+};
+
 export default function ClimbCard({ climb: c }: { climb: Climb }) {
   const isFinish = c.kbf === 0;
   const hasData = c.len !== null && c.grad !== null;
@@ -50,8 +89,17 @@ export default function ClimbCard({ climb: c }: { climb: Climb }) {
     </div>
   );
 
+  const climb3dSlug = CLIMB_3D_SLUGS[c.name];
+
   const planBtn = hasData ? (
-    <a className="plan-btn" href={buildPlanUrl(c)}>Plan this climb →</a>
+    <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap' }}>
+      <a className="plan-btn" href={buildPlanUrl(c)}>Plan this climb →</a>
+      {climb3dSlug && (
+        <a className="plan-btn" href={`/climbs/${climb3dSlug}`} style={{ background: '#12b05f' }}>
+          Plan this climb in 3D →
+        </a>
+      )}
+    </div>
   ) : (
     <div className="tbc-note">Length and gradient not yet confirmed — check back closer to race day.</div>
   );

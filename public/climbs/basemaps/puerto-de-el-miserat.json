@@ -1,0 +1,13 @@
+{
+  "slug": "puerto-de-el-miserat",
+  "source": "IGN MTN",
+  "attribution": "Map: IGN España, CC-BY 4.0",
+  "zoom": 15,
+  "imageWidthPx": 2560,
+  "bounds": {
+    "xMin": -7333.189374493016,
+    "xMax": 2193.2282654631335,
+    "zMin": -1311.4895268019138,
+    "zMax": 1526.4494933811388
+  }
+}

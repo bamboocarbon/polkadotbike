@@ -113,8 +113,8 @@ export default function ContactPage() {
           { href: '/guide', label: 'Guide' },
           { href: '/glossary', label: 'Glossary' },
           { href: '/about', label: 'About' },
-          { href: '/privacy.html', label: 'Privacy' },
-          { href: '/disclaimer.html', label: 'Disclaimer' },
+          { href: '/privacy', label: 'Privacy' },
+          { href: '/disclaimer', label: 'Disclaimer' },
         ]}
       />
     </>

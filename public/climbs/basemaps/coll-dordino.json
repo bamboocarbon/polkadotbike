@@ -1,0 +1,13 @@
+{
+  "slug": "coll-dordino",
+  "source": "IGN MTN",
+  "attribution": "Map: IGN España, CC-BY 4.0",
+  "zoom": 16,
+  "imageWidthPx": 3840,
+  "bounds": {
+    "xMin": -1517.1100933948321,
+    "xMax": 5239.649620467497,
+    "zMin": -729.1058468615746,
+    "zMax": 1060.1147319487106
+  }
+}

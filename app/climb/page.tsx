@@ -68,10 +68,15 @@ export default function ClimbPage() {
         <script key={i} type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(block) }} />
       ))}
 
-      <style>{`
-        nav a.active { color: #1a72e0; }
+      <style
+        dangerouslySetInnerHTML={{
+          __html: `
+        nav a.active { color: var(--accent); }
         .logo span { color: #fff; }
-      `}</style>
+        .hero > h1 { font-size: clamp(28px, 5vw, 48px); }
+      `,
+        }}
+      />
 
       <div className="hero">
         <h1>Climb Planner</h1>
@@ -107,8 +112,8 @@ export default function ClimbPage() {
           { href: '/glossary', label: 'Glossary' },
           { href: '/about', label: 'About' },
           { href: '/contact', label: 'Contact' },
-          { href: '/privacy.html', label: 'Privacy' },
-          { href: '/disclaimer.html', label: 'Disclaimer' },
+          { href: '/privacy', label: 'Privacy' },
+          { href: '/disclaimer', label: 'Disclaimer' },
         ]}
       />
     </>

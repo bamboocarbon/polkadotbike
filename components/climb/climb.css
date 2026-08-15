@@ -10,6 +10,57 @@
 :root { --green: #12b05f; --amber: #ffcd00; --red: #ee1c28; }
 
 .container { position: relative; z-index: 1; max-width: 1320px; margin: 0 auto; padding: 0 20px 60px; }
+
+/* /climbs/[slug] only — the eyebrow line inside the climb-name h1 (see
+   globals.css's .hero > h1, which forces a big clamp() size/black colour
+   onto the whole h1 — this span overrides both for just the eyebrow), and
+   the static descriptive paragraph above the interactive scene. Not used
+   by /climb (Climb Planner), which shares this stylesheet otherwise. */
+.climb-detail-hero h1 { text-align: center; }
+.climb-kicker { display: inline-block; font-size: 20px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; color: rgba(15, 23, 42, 0.55); }
+.climb-summary { max-width: 900px; margin: 0 auto 18px; font-size: 15px; line-height: 1.6; color: var(--muted); text-align: center; }
+
+/* Shared by the map+Setup/Gears grid and the guide-box grid below it — the
+   right column was a fixed 460px, which doesn't shrink and pushed the
+   Setup & Gears panel off-screen on mobile. Stacks to one column instead. */
+.climb-detail-grid { display: grid; grid-template-columns: minmax(0, 1fr) 460px; gap: 20px; align-items: start; }
+@media (max-width: 900px) {
+  /* Plain 1fr has an implicit min-width of auto, so a wide child (the map,
+     the Setup/Gears panel) can still force the track past the viewport —
+     minmax(0, 1fr) is what actually lets it shrink. */
+  .climb-detail-grid { grid-template-columns: minmax(0, 1fr); }
+}
+.climb-guide-box { background: #000; border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 16px; padding: 20px 24px; margin-top: 20px; }
+
+/* 3D map overlay controls (app/climbs/DebugScene.tsx). Previously
+   Smoothing and Travel-along-route were two independently absolutely-
+   positioned boxes side by side, sized with fixed pixel math tuned for a
+   ~940px+ desktop map box (calc(100% - 500px), 200px/140px sliders). That
+   broke on any narrower map — not just phones but iPad-width boxes too,
+   where the travel box's available width shrank to almost nothing: its
+   fixed-width slider and Play button had nowhere to go and ended up
+   overlapping the Smoothing box instead of fitting inside their own box.
+   A single flex-column stack sidesteps the whole class of bug — no width
+   math, no breakpoint, both rows always full-width and always correctly
+   spaced by flex gap regardless of map box size or how many lines a row
+   wraps to. */
+.map-overlay-stack {
+  position: absolute; z-index: 10; left: 90px; right: 10px; bottom: 14px;
+  display: flex; flex-direction: column-reverse; gap: 8px;
+}
+.map-overlay {
+  display: flex; align-items: center; gap: 10px; flex-wrap: wrap;
+  background: rgba(30, 30, 30, 0.85); padding: 8px 14px; border-radius: 8px;
+  color: #fff; font-family: sans-serif; font-size: 13px;
+}
+.map-overlay-slider { flex: 1 1 80px; min-width: 0; }
+.map-overlay-compass {
+  position: absolute; z-index: 10; bottom: 14px; left: 10px;
+  width: 64px; height: 64px; border-radius: 50%;
+  background: rgba(30, 30, 30, 0.85); border: 2px solid #999;
+  display: flex; align-items: center; justify-content: center;
+}
+
 .calc-grid { display: grid; grid-template-columns: 290px 1fr 270px; gap: 18px; align-items: start; }
 @media (max-width: 1100px) { .calc-grid { grid-template-columns: 280px 1fr; } .rail { display: none; } }
 @media (max-width: 720px) { .calc-grid { grid-template-columns: 1fr; } .input-panel { position: static; } :root { --muted: #94a3b8; } }

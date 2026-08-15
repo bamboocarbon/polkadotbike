@@ -11,15 +11,19 @@ export interface ClimbIndexItem {
   elev: number;
   race: 'tdf' | 'giro' | 'vuelta';
   raceLabel: string;
+  /** True once this climb has real, verified route data and its own detail
+   *  page. Only Vuelta climbs qualify so far — Giro/Tour rows render
+   *  greyed out and non-clickable until their pages land. */
+  ready: boolean;
   /** Pre-folded "name + range", lowercase, accents stripped — matches the
    *  source's own data-h attribute, computed once rather than per keystroke. */
   haystack: string;
 }
 
-const RACE_CHIPS: { key: 'all' | 'tdf' | 'giro' | 'vuelta'; label: string }[] = [
+const RACE_CHIPS: { key: 'all' | 'tdf' | 'giro' | 'vuelta'; label: string; disabled?: boolean }[] = [
   { key: 'all', label: 'All' },
-  { key: 'tdf', label: 'Tour' },
-  { key: 'giro', label: 'Giro' },
+  { key: 'giro', label: 'Giro', disabled: true },
+  { key: 'tdf', label: 'Tour', disabled: true },
   { key: 'vuelta', label: 'Vuelta' },
 ];
 
@@ -59,7 +63,10 @@ export default function ClimbIndexClient({ climbs }: { climbs: ClimbIndexItem[] 
           <button
             key={chip.key}
             type="button"
-            className={`ci-chip${race === chip.key ? ' active' : ''}`}
+            disabled={chip.disabled}
+            title={chip.disabled ? 'Climb pages for this race are still being built' : undefined}
+            data-race={chip.key}
+            className={`ci-chip${race === chip.key ? ' active' : ''}${chip.disabled ? ' ci-chip-disabled' : ''}`}
             onClick={() => setRace(chip.key)}
           >
             {chip.label}
@@ -70,17 +77,29 @@ export default function ClimbIndexClient({ climbs }: { climbs: ClimbIndexItem[] 
       <div className="ci-count">{filtered.length} {filtered.length === 1 ? 'climb' : 'climbs'}</div>
 
       <ul className="ci-list">
-        {filtered.map((c) => (
-          <li key={c.slug}>
-            <a href={`/climbs/${c.slug}`}>
+        {filtered.map((c) => {
+          const inner = (
+            <>
               <span className={`cc-cat cat-${c.cat.toLowerCase()}`}>{c.cat}</span>
               <span className="ci-name">{c.name}</span>
               <span className="ci-meta">
                 {c.len}km · {c.grad}% · {c.elev.toLocaleString()}m · {c.raceLabel}
+                {!c.ready && ' · coming soon'}
               </span>
-            </a>
-          </li>
-        ))}
+            </>
+          );
+          return (
+            <li key={c.slug}>
+              {c.ready ? (
+                <a href={`/climbs/${c.slug}`}>{inner}</a>
+              ) : (
+                <div className="ci-row-disabled" aria-disabled="true">
+                  {inner}
+                </div>
+              )}
+            </li>
+          );
+        })}
       </ul>
 
       {filtered.length === 0 && (

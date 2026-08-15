@@ -1,0 +1,13 @@
+{
+  "slug": "col-de-mont-louis",
+  "source": "OpenTopoMap",
+  "attribution": "Map: OpenTopoMap, CC-BY-SA",
+  "zoom": 14,
+  "imageWidthPx": 3072,
+  "bounds": {
+    "xMin": -17293.286227056586,
+    "xMax": 4334.962360781848,
+    "zMin": -1946.3097211735053,
+    "zMax": 5214.284594766279
+  }
+}

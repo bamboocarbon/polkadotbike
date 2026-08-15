@@ -77,10 +77,15 @@ export default function DerailleurPage() {
           pages) — its .filter-btn[data-fbrand] rules are genuinely load-
           bearing UI here, unlike the same block being dead weight on the
           content/race pages. Ported as the page's real, active styling. */}
-      <style>{`
-        nav a.active { color: #1a72e0; }
+      <style
+        dangerouslySetInnerHTML={{
+          __html: `
+        nav a.active { color: var(--accent); }
         .logo span { color: #fff; }
-      `}</style>
+        .hero > h1 { font-size: clamp(28px, 5vw, 48px); }
+      `,
+        }}
+      />
 
       <div className="hero">
         <h1>Derailleur Capacity</h1>
@@ -117,8 +122,8 @@ export default function DerailleurPage() {
           { href: '/glossary', label: 'Glossary' },
           { href: '/about', label: 'About' },
           { href: '/contact', label: 'Contact' },
-          { href: '/privacy.html', label: 'Privacy' },
-          { href: '/disclaimer.html', label: 'Disclaimer' },
+          { href: '/privacy', label: 'Privacy' },
+          { href: '/disclaimer', label: 'Disclaimer' },
         ]}
       />
     </>

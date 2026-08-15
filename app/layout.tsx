@@ -22,6 +22,22 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en">
+      <head>
+        {/* Every source page loads these two families the same way. The
+            source used a media="print"/onload swap to make this non-render-
+            blocking, but that needs a 'use client' component for the onload
+            handler (this is a Server Component, so it can't hold one) — a
+            plain blocking stylesheet link is the correct trade for a root
+            layout. Without this link at all, every font-family declaration
+            sitewide (body's Inter, the big stat numbers' IBM Plex Sans)
+            silently falls through to the system font instead. */}
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
+        <link
+          href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=IBM+Plex+Sans:wght@600;700&display=swap"
+          rel="stylesheet"
+        />
+      </head>
       <body>
         <ConsentProvider>
           <div className="bg-scene">

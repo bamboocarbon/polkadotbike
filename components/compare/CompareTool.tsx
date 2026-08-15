@@ -157,31 +157,38 @@ function CompareToolInner() {
   const gearsB = useMemo(() => computeSystemGears(sysB), [sysB]);
 
   // ── Save-back to cg_cmp + cg_shared (System A subset) + URL ──
+  // Debounced: Next's own App Router does its own history.replaceState() housekeeping
+  // on the same page, sharing WebKit's per-document rate limit on that API with ours.
+  // Firing on every single slider tick during a fast drag can exhaust that shared
+  // budget and crash the app when Next's (unguarded) call is the one that trips it.
   useEffect(() => {
     if (!initDone) return;
-    const state = {
-      aD: sysA.discipline, aB: sysA.brand, aM: sysA.mode, aG: sysA.groupset || '', aC: sysA.crIdx,
-      aK: sysA.cassetteLabel, aW: String(sysA.wheelCirc),
-      aL: sysA.customLabel, aBi: sysA.customBig, aSm: sysA.customSmall, aCg: sysA.customCogs,
-      aCl: sysA.customColour, aWc: String(sysA.customWheelCirc),
-      bD: sysB.discipline, bB: sysB.brand, bM: sysB.mode, bG: sysB.groupset || '', bC: sysB.crIdx,
-      bK: sysB.cassetteLabel, bW: String(sysB.wheelCirc),
-      bL: sysB.customLabel, bBi: sysB.customBig, bSm: sysB.customSmall, bCg: sysB.customCogs,
-      bCl: sysB.customColour, bWc: String(sysB.customWheelCirc),
-    };
-    writeCmpState(state);
-    try {
-      window.history.replaceState(null, '', '?' + new URLSearchParams(toParamString(state)).toString());
-    } catch {
-      // ignore
-    }
-    try {
-      const sh = readSharedSetup();
-      const aSmallRaw = parseInt(sysA.customSmall, 10);
-      writeCmpStateBridge(sh, sysA, aSmallRaw);
-    } catch {
-      // ignore
-    }
+    const t = setTimeout(() => {
+      const state = {
+        aD: sysA.discipline, aB: sysA.brand, aM: sysA.mode, aG: sysA.groupset || '', aC: sysA.crIdx,
+        aK: sysA.cassetteLabel, aW: String(sysA.wheelCirc),
+        aL: sysA.customLabel, aBi: sysA.customBig, aSm: sysA.customSmall, aCg: sysA.customCogs,
+        aCl: sysA.customColour, aWc: String(sysA.customWheelCirc),
+        bD: sysB.discipline, bB: sysB.brand, bM: sysB.mode, bG: sysB.groupset || '', bC: sysB.crIdx,
+        bK: sysB.cassetteLabel, bW: String(sysB.wheelCirc),
+        bL: sysB.customLabel, bBi: sysB.customBig, bSm: sysB.customSmall, bCg: sysB.customCogs,
+        bCl: sysB.customColour, bWc: String(sysB.customWheelCirc),
+      };
+      writeCmpState(state);
+      try {
+        window.history.replaceState(null, '', '?' + new URLSearchParams(toParamString(state)).toString());
+      } catch {
+        // ignore
+      }
+      try {
+        const sh = readSharedSetup();
+        const aSmallRaw = parseInt(sysA.customSmall, 10);
+        writeCmpStateBridge(sh, sysA, aSmallRaw);
+      } catch {
+        // ignore
+      }
+    }, 200);
+    return () => clearTimeout(t);
   }, [sysA, sysB, initDone]);
 
   function updateSysA(updater: (s: SystemState) => SystemState) {

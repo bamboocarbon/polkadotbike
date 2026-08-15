@@ -101,14 +101,15 @@ export default function GuidePage() {
         />
       ))}
 
-      {/* guide.html's own jump-links/nav-active pills use a literal blue
-          (#1a72e0) slightly different from the other 3 content pages'
-          default (#3b82f6) — a real, pre-existing per-page inconsistency in
-          the source, not introduced by this port. */}
+      {/* guide.html's own jump-links pills use a literal blue (#1a72e0)
+          slightly different from the other content pages' default
+          (#3b82f6) — a real, pre-existing inconsistency in the source, not
+          introduced by this port. The nav a.active override that used to
+          sit alongside it has been dropped so this page's active tab
+          matches every other page's fixed blue from globals.css. */}
       <style>{`
         .jump-links a { background: rgba(26,114,224,0.10); border-color: rgba(26,114,224,0.22); }
         .jump-links a:hover { background: rgba(26,114,224,0.22); }
-        nav a.active { background: rgba(26,114,224,0.12); }
       `}</style>
 
       <div className="hero">
@@ -210,7 +211,7 @@ export default function GuidePage() {
           <div className="lead">Every stage and climb of the 2026 Giro, Tour and Vuelta, with gradient profiles.</div>
           <p>Browse the race stage by stage. During the race itself the list jumps to the day&apos;s stage automatically (and handles rest days); the rest of the year it opens on the start.</p>
           <p>Each climb card gives you its length, average gradient, category and an elevation profile. The <b>Plan this climb →</b> button on a card sends that climb&apos;s distance and gradient straight into the Climb Planner — pre-filled with the setup you&apos;ve already chosen — so you can see what it&apos;ll take for <em>you</em>.</p>
-          <p className="where"><a href="/tdf">Tour de France 2026 →</a> &nbsp;·&nbsp; <a href="/giro26">Giro d&apos;Italia 2026 →</a> &nbsp;·&nbsp; <a href="/vuelta">La Vuelta a España 2026 →</a></p>
+          <p className="where"><a href="/giro26">Giro d&apos;Italia 2026 →</a> &nbsp;·&nbsp; <a href="/tdf">Tour de France 2026 →</a> &nbsp;·&nbsp; <a href="/vuelta">La Vuelta a España 2026 →</a></p>
         </div>
 
         <h2 className="group-title">A few things worth knowing</h2>
@@ -239,8 +240,8 @@ export default function GuidePage() {
           { href: '/glossary', label: 'Glossary' },
           { href: '/about', label: 'About' },
           { href: '/contact', label: 'Contact' },
-          { href: '/privacy.html', label: 'Privacy' },
-          { href: '/disclaimer.html', label: 'Disclaimer' },
+          { href: '/privacy', label: 'Privacy' },
+          { href: '/disclaimer', label: 'Disclaimer' },
         ]}
       />
     </>

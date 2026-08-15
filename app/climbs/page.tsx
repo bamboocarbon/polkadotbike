@@ -6,14 +6,19 @@ import '@/components/climbs/climbs-index.css';
 import climbIndexData from '@/data/climb-index.json';
 
 const PAGE_URL = 'https://polkadotbike.com/climbs';
-const TITLE = 'Every Climb of the 2026 Grand Tours · Polka Dot Bike';
+// "Major" (not "Every") deliberately, since Cat3 climbs are filtered out
+// below — Robin's call 2026-08-15: revisit this wording once Giro/Tour are
+// mapped and the minor (Cat3) climbs get added back in.
+const TITLE = 'Every Major Climb of the 2026 Grand Tours · Polka Dot Bike';
 const DESCRIPTION =
-  "All 87 categorised climbs of the 2026 Tour de France, Giro d'Italia and Vuelta a España — gradient, length, summit altitude and the gearing you'd need for each.";
+  "All 80 major, categorised climbs of the 2026 Tour de France, Giro d'Italia and Vuelta a España — gradient, length, summit altitude and the gearing you'd need for each.";
 
-// Hidden deliberately (Robin, 2026-08-10): the individual climb detail
-// pages this index links to (/climbs/<slug>) aren't converted yet — until
-// they exist, this page stays unlinked from the nav and out of search
-// results, but fully built so it's ready to switch on the moment they land.
+// Added to the nav 2026-08-13 (Robin) so it's reachable while developing.
+// Individual climb detail pages now exist at /climbs/<slug> (moved from
+// app/climb-debug-3d 2026-08-15) for every "ready" (Vuelta) climb, though
+// not all of those yet have real 3D terrain data built (data/climbs/) — see
+// ClimbCard.tsx's CLIMB_3D_SLUGS gate. Still kept out of search results via
+// robots below until the whole site actually goes live.
 export const metadata: Metadata = {
   title: { absolute: TITLE },
   description: DESCRIPTION,
@@ -61,8 +66,14 @@ function fold(s: string): string {
   return s.normalize('NFD').replace(/[̀-ͯ]/g, '').toLowerCase();
 }
 
+// "Major" categories only — HC, Cat1, Cat2 (Tour/Giro) and ESP (La
+// Vuelta's own top tier, e.g. Sierra de la Pandera). Excludes Cat3, Cat4
+// and Uncat, same "revisit once Giro/Tour are mapped" call as the page
+// title above.
+const MAJOR_CATS = new Set(['HC', 'Cat1', 'Cat2', 'ESP']);
+
 const climbs: ClimbIndexItem[] = (climbIndexData.climbs as RawClimb[])
-  .filter((c) => c.hasPage)
+  .filter((c) => c.hasPage && MAJOR_CATS.has(c.cat))
   .map((c) => {
     const race = c.races[0] as 'tdf' | 'giro' | 'vuelta';
     return {
@@ -74,6 +85,11 @@ const climbs: ClimbIndexItem[] = (climbIndexData.climbs as RawClimb[])
       elev: c.elev,
       race,
       raceLabel: RACE_LABELS[race] || race,
+      // Only Vuelta climbs have real, verified route data/detail pages so
+      // far (Giro/Tour climb pages still 404 by design, see
+      // climbs-index.css's header comment) -- greyed out and non-clickable
+      // in the index until their own pages land.
+      ready: race === 'vuelta',
       haystack: fold(`${c.name} ${c.range}`),
     };
   });
@@ -86,7 +102,7 @@ function buildJsonLd() {
         '@type': 'CollectionPage',
         '@id': `${PAGE_URL}#page`,
         url: PAGE_URL,
-        name: 'Every Climb of the 2026 Grand Tours',
+        name: 'Every Major Climb of the 2026 Grand Tours',
         description: DESCRIPTION,
         isPartOf: { '@id': 'https://polkadotbike.com/#website' },
         author: { '@id': 'https://polkadotbike.com/about#robin' },
@@ -128,12 +144,15 @@ export default function ClimbsIndexPage() {
       />
 
       <div className="hero">
-        <h1>Every climb of the 2026 Grand Tours</h1>
-        <p className="cl-sub">Tour de France · Giro d&apos;Italia · La Vuelta a España</p>
+        <h1>
+          Every major climb of the 2026 Grand Tours
+          <br />
+          <span className="cl-sub">Giro d&apos;Italia · Tour de France · Vuelta a España</span>
+        </h1>
       </div>
 
       <div className="ci-wrap">
-        <p className="ci-intro">Every categorised climb of the three 2026 Grand Tours, with its length, average gradient and summit altitude. Open any climb for its gradient profile kilometre by kilometre, every stage it appears on, and the gearing you&apos;d need to ride it yourself.</p>
+        <p className="ci-intro">Every major categorised climb of the three 2026 Grand Tours, with its length, average gradient and summit altitude. Open any climb for its gradient profile kilometre by kilometre, every stage it appears on, and the gearing you&apos;d need to ride it yourself.</p>
 
         <ClimbIndexClient climbs={climbs} />
       </div>
@@ -145,8 +164,8 @@ export default function ClimbsIndexPage() {
           { href: '/guide', label: 'Guide' },
           { href: '/about', label: 'About' },
           { href: '/contact', label: 'Contact' },
-          { href: '/privacy.html', label: 'Privacy' },
-          { href: '/disclaimer.html', label: 'Disclaimer' },
+          { href: '/privacy', label: 'Privacy' },
+          { href: '/disclaimer', label: 'Disclaimer' },
         ]}
       />
     </>

@@ -214,42 +214,49 @@ function GearCalculatorInner() {
   }, [S, custTeeth, isKmh]);
 
   // ── Save-back to cg_shared + URL, after every recalculation (post-init only) ──
+  // Debounced: Next's own App Router does its own history.replaceState() housekeeping
+  // on the same page, sharing WebKit's per-document rate limit on that API with ours.
+  // Firing on every single slider tick during a fast drag can exhaust that shared
+  // budget and crash the app when Next's (unguarded) call is the one that trips it.
   useEffect(() => {
     if (!initDone) return;
-    writeSharedSetup({
-      d: S.discipline,
-      b: S.brand,
-      g: S.groupset || '',
-      cr: S.crIdx,
-      cs: S.cassetteLabel || '',
-      w: String(S.wheelCirc),
-      cad: String(S.cadence),
-      u: S.unit,
-      cm: S.chartMode,
-      cust: { ct: S.cust.crankType, big: S.cust.big, small: S.cust.small, cass: S.cust.cassetteText },
-    });
-    const p = new URLSearchParams({
-      d: S.discipline,
-      b: S.brand,
-      g: S.groupset || '',
-      cr: String(S.crIdx),
-      cs: S.cassetteLabel || '',
-      w: String(S.wheelCirc),
-      cad: String(S.cadence),
-      u: S.unit,
-      cm: S.chartMode,
-    });
-    if (S.brand === 'custom') {
-      p.set('xk', S.cust.crankType);
-      p.set('xb', String(S.cust.big));
-      p.set('xs', String(S.cust.small));
-      p.set('xc', S.cust.cassetteText);
-    }
-    try {
-      window.history.replaceState(null, '', '?' + p.toString());
-    } catch {
-      // ignore
-    }
+    const t = setTimeout(() => {
+      writeSharedSetup({
+        d: S.discipline,
+        b: S.brand,
+        g: S.groupset || '',
+        cr: S.crIdx,
+        cs: S.cassetteLabel || '',
+        w: String(S.wheelCirc),
+        cad: String(S.cadence),
+        u: S.unit,
+        cm: S.chartMode,
+        cust: { ct: S.cust.crankType, big: S.cust.big, small: S.cust.small, cass: S.cust.cassetteText },
+      });
+      const p = new URLSearchParams({
+        d: S.discipline,
+        b: S.brand,
+        g: S.groupset || '',
+        cr: String(S.crIdx),
+        cs: S.cassetteLabel || '',
+        w: String(S.wheelCirc),
+        cad: String(S.cadence),
+        u: S.unit,
+        cm: S.chartMode,
+      });
+      if (S.brand === 'custom') {
+        p.set('xk', S.cust.crankType);
+        p.set('xb', String(S.cust.big));
+        p.set('xs', String(S.cust.small));
+        p.set('xc', S.cust.cassetteText);
+      }
+      try {
+        window.history.replaceState(null, '', '?' + p.toString());
+      } catch {
+        // ignore
+      }
+    }, 200);
+    return () => clearTimeout(t);
   }, [S, initDone]);
 
   const groupsetGroups = useMemo(

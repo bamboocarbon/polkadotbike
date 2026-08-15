@@ -1,0 +1,13 @@
+{
+  "slug": "calar-alto",
+  "source": "IGN MTN",
+  "attribution": "Map: IGN España, CC-BY 4.0",
+  "zoom": 15,
+  "imageWidthPx": 2048,
+  "bounds": {
+    "xMin": -11516.114818288792,
+    "xMax": 3084.2224940638935,
+    "zMin": -3281.8743373902535,
+    "zMax": 8320.058921194688
+  }
+}

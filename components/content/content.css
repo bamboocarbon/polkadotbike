@@ -32,6 +32,10 @@
 .sec p + p { margin-top: 10px; }
 .sec a { color: var(--accent-light); text-decoration: none; font-weight: 600; }
 .sec a:hover { color: #fff; text-decoration: underline; }
+.sec b { color: #fff; font-weight: 600; }
+.sec ul { list-style: none; margin: 9px 0 2px; }
+.sec li { font-size: 13.5px; line-height: 1.55; color: var(--text); padding: 6px 0 6px 18px; position: relative; }
+.sec li::before { content: ""; position: absolute; left: 2px; top: 12px; width: 5px; height: 5px; border-radius: 50%; background: var(--accent); }
 
 /* jump bar — guide.html's own literal pill colour is a slightly different
    blue (rgba(26,114,224,...)) than glossary's (rgba(59,130,246,...)); a
@@ -61,8 +65,14 @@
 }
 .group-title::after { content: ''; flex: 1; height: 2px; background: var(--accent); }
 
-/* guide's "tool" cards and glossary's "term" cards share the same shape */
-.tool, .term { padding: 20px 22px; margin-bottom: 14px; scroll-margin-top: 70px; }
+/* guide's "tool" cards and glossary's "term" cards share the same shape,
+   but not the same padding/margin — the source's guide.html used 20px/14px
+   for .tool, glossary.html used 18px/12px for .term (a real, pre-existing
+   difference between the two pages, not a shared value); merging them into
+   one rule had silently inflated glossary's boxes to guide's numbers. */
+.tool, .term { scroll-margin-top: 70px; }
+.tool { padding: 20px 22px; margin-bottom: 14px; }
+.term { padding: 18px 22px; margin-bottom: 12px; }
 .tool h3, .term h3 { font-size: 19px; font-weight: 800; color: #fff; letter-spacing: -0.3px; margin-bottom: 4px; }
 .term h3 { font-size: 18px; margin-bottom: 8px; }
 .term h3 .alt { font-size: 13px; font-weight: 500; color: var(--muted); margin-left: 6px; }
@@ -78,11 +88,19 @@
 
 /* guide's .where (inside .tool) is a plain link line; glossary's .where
    (inside .term) adds a top divider + muted label — genuinely different
-   treatments, not a shared rule, so scoped by parent class. */
-.tool .where { margin-top: 13px; font-size: 13px; }
+   treatments, not a shared rule, so scoped by parent class.
+   No font-size here deliberately: the source's own `.where` (13px/12.5px)
+   was a bare single class, always losing the cascade to `.tool p`/`.term p`
+   (14.5px, a class + a type selector beats a lone class on specificity) —
+   so on the live site this line has always actually rendered at 14.5px
+   despite what its own rule claims. Scoping this as `.tool .where`/
+   `.term .where` below (two classes) would flip that specificity fight and
+   make the declared, never-actually-seen 13px/12.5px win instead — so the
+   size is left to inherit from `.tool p`/`.term p` to match live behaviour. */
+.tool .where { margin-top: 13px; }
 .tool .where a { color: var(--accent-light); text-decoration: none; font-weight: 700; }
 .tool .where a:hover { color: #fff; text-decoration: underline; }
-.term .where { margin-top: 11px; font-size: 12.5px; color: var(--muted); border-top: 1px solid var(--border); padding-top: 10px; }
+.term .where { margin-top: 11px; color: var(--muted); border-top: 1px solid var(--border); padding-top: 10px; }
 .term .where strong { color: var(--sec); font-weight: 600; }
 .term .where a { color: var(--accent-light); text-decoration: none; font-weight: 600; }
 .term .where a:hover { color: #fff; text-decoration: underline; }
@@ -97,6 +115,15 @@
 .card { padding: 24px 26px; margin-bottom: 16px; }
 .card p { font-size: 15px; line-height: 1.62; color: var(--text); }
 .card p + p { margin-top: 12px; }
+
+/* 404 page's "try one of these" list */
+.list { padding: 22px 26px; }
+.list h2 { font-size: 13px; font-weight: 800; text-transform: uppercase; letter-spacing: 1.2px; color: var(--accent); margin-bottom: 13px; }
+.list ul { list-style: none; }
+.list li { font-size: 14px; line-height: 1.5; color: var(--text); padding: 8px 0 8px 26px; position: relative; border-top: 1px solid var(--border); }
+.list li:first-child { border-top: none; }
+.list li::before { content: ""; position: absolute; left: 4px; top: 14px; width: 7px; height: 7px; border-radius: 50%; background: var(--accent); }
+.list li span { color: var(--muted); }
 
 .mail-wrap { text-align: center; padding: 26px 26px 28px; }
 .mail-wrap .lead { font-size: 13px; text-transform: uppercase; letter-spacing: 1.2px; color: var(--muted); font-weight: 700; margin-bottom: 14px; }

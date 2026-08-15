@@ -2,50 +2,18 @@
 
 import { Suspense, useEffect, useMemo, useRef, useState } from 'react';
 import { useSearchParams } from 'next/navigation';
-import { DB, DISC_BRANDS, WHEELS, Discipline, Brand } from '@/lib/gearDb';
-import {
-  ClimbCalcState,
-  WeightUnit,
-  DistUnit,
-  defaultClimbState,
-  applyDiscipline,
-  applyBrand,
-  applyGroupset,
-  applyCrIdx,
-  applyCassette,
-  applyWheel,
-  applyCrankLen,
-  applyCadence,
-  applyPower,
-  applyCda,
-  applyCrr,
-  applyGradient,
-  applyCrankMode,
-  applyCustAdjust,
-  applyCustCassetteText,
-  parseCustomCassette,
-  groupsetOptionsFor,
-  CUST_LIMITS,
-  ACCENT_MAP,
-} from '@/lib/climbCalcState';
-import { calcPower } from '@/lib/climbPhysics';
+import { WHEELS } from '@/lib/gearDb';
+import { ClimbCalcState, defaultClimbState, initClimbStateFromShared, ACCENT_MAP, ACCENT_LIGHT_MAP } from '@/lib/climbCalcState';
+import { computeClimbGears, computeBuyInfo } from '@/lib/climbGearCalc';
 import { kgToLbs, lbsToKg, kmToMi, miToKm } from '@/lib/units';
 import { readSharedSetup, writeSharedSetup } from '@/lib/sharedSetup';
-import { pbLinkFor, pbBrandColorStyle, PB_VIVID_TEXT, PB_GENERIC_LINK } from '@/lib/pbLinks';
+import { pbBrandColorStyle } from '@/lib/pbLinks';
 import ClimbChart, { ClimbGearPoint } from './ClimbChart';
 import AchievabilityCards from './AchievabilityCards';
+import ClimbConfigPanel from './ClimbConfigPanel';
 import PrintReportModal, { ClimbPrintReportData } from './PrintReportModal';
 
-const DISCIPLINES: Discipline[] = ['road', 'mtb', 'gravel'];
-const BRANDS: Brand[] = ['shimano', 'sram', 'campagnolo', 'custom'];
-const CRANK_LENGTHS = [155, 157.5, 160, 162.5, 165, 167.5, 170, 172.5, 175];
 const REF_CRANK = 172.5;
-const POSITIONS = [
-  { cda: 0.45, label: 'Upright' },
-  { cda: 0.36, label: 'Hoods' },
-  { cda: 0.32, label: 'Drops' },
-  { cda: 0.22, label: 'TT' },
-];
 const SURFACES = [
   { crr: 0.004, label: 'Asphalt' },
   { crr: 0.007, label: 'Hardpack' },
@@ -57,37 +25,6 @@ function fmtTime(t: number | null): string | null {
   if (t === null) return null;
   if (t >= 60) return `${Math.floor(t / 60)}h ${Math.round(t % 60)}m`;
   return `${Math.round(t)} min`;
-}
-
-function NumberField({
-  value,
-  unit,
-  onCommit,
-  step = 1,
-}: {
-  value: string;
-  unit: string;
-  onCommit: (raw: string) => void;
-  step?: number;
-}) {
-  const [local, setLocal] = useState(value);
-  useEffect(() => setLocal(value), [value]);
-  return (
-    <div className="big-val-wrap">
-      <input
-        className="big-val-input"
-        type="number"
-        step={step}
-        value={local}
-        onChange={(e) => setLocal(e.target.value)}
-        onBlur={() => onCommit(local)}
-        onKeyDown={(e) => {
-          if (e.key === 'Enter') (e.target as HTMLInputElement).blur();
-        }}
-      />
-      <span className="big-val-unit">{unit}</span>
-    </div>
-  );
 }
 
 function ClimbPlannerInner() {
@@ -102,100 +39,14 @@ function ClimbPlannerInner() {
   // ── INIT: cg_shared (always loaded as a fallback base — unlike index.html,
   // climb.html never skips it) + URL params, run once on mount ──
   useEffect(() => {
-    const urlP = searchParams;
-    const sh = readSharedSetup();
-    let next = defaultClimbState();
-
-    const disc = (['road', 'mtb', 'gravel'].includes((urlP.get('d') || (sh.d as string)) as string)
-      ? (urlP.get('d') || (sh.d as string))
-      : 'road') as Discipline;
-    next = applyDiscipline(next, disc);
-
-    const brandRaw = (urlP.get('b') || (sh.b as string)) as Brand | undefined;
-    if (brandRaw === 'custom') {
-      const sc = (sh.cust as { big?: number; small?: number; ct?: string; cass?: string }) || {};
-      const cBig = urlP.get('xb') || (sc.big != null ? String(sc.big) : undefined);
-      const cSmall = urlP.get('xs') || (sc.small != null ? String(sc.small) : undefined);
-      const cKind = urlP.get('xk') || sc.ct;
-      const cCass = urlP.get('xc') || sc.cass;
-      next = applyBrand(next, 'custom');
-      next = {
-        ...next,
-        cust: {
-          crankType: cKind === '1x' ? '1x' : '2x',
-          big: cBig ? parseInt(cBig, 10) || next.cust.big : next.cust.big,
-          small: cSmall ? parseInt(cSmall, 10) || next.cust.small : next.cust.small,
-          cassetteText: cCass || next.cust.cassetteText,
-        },
-      };
-    } else if (brandRaw && DISC_BRANDS[disc].includes(brandRaw as Exclude<Brand, 'custom'>)) {
-      next = applyBrand(next, brandRaw);
-    }
-
-    if (next.brand !== 'custom') {
-      const gsName = urlP.get('g') || (sh.g as string);
-      const brandData = DB[disc][next.brand as Exclude<Brand, 'custom'>];
-      if (gsName && brandData && Object.prototype.hasOwnProperty.call(brandData, gsName)) {
-        next = applyGroupset(next, gsName);
-      }
-      const crValRaw = urlP.get('cr') ?? (sh.cr as string | number | undefined);
-      const crVal = crValRaw != null ? parseInt(String(crValRaw), 10) : 0;
-      if (crVal) next = applyCrIdx(next, crVal);
-      const csVal = urlP.get('cs') || (sh.cs as string);
-      const data = next.groupset ? (brandData as Record<string, { cassettes: { label: string }[] }>)[next.groupset] : null;
-      if (csVal && data && data.cassettes.some((c) => c.label === csVal)) next = applyCassette(next, csVal);
-    }
-
-    const wVal = urlP.get('w') || (sh.w as string);
-    if (wVal && WHEELS[disc].some((w) => String(w.circ) === String(wVal))) next = applyWheel(next, parseInt(wVal, 10));
-
-    const cadVal = urlP.get('cad') || (sh.cad as string);
-    if (cadVal) next = applyCadence(next, parseInt(cadVal, 10) || next.cadence);
-
-    const pwVal = urlP.get('pw') || (sh.pw as string);
-    if (pwVal) next = applyPower(next, parseInt(pwVal, 10) || next.power);
-
-    const savedWUnit = (urlP.get('wunit') || (sh.wunit as string)) as WeightUnit | undefined;
-    const weightUnit: WeightUnit = savedWUnit === 'kg' || savedWUnit === 'lbs' ? savedWUnit : next.weightUnit;
-
-    const rawBody = urlP.get('bwt') || (sh.bwt as string) || (sh.wt as string);
-    const rawBike = urlP.get('bkw') || (sh.bkw as string);
-    let bodyK = 70, bikeK = 8;
-    if (rawBody) bodyK = Math.min(130, Math.max(40, parseFloat(rawBody)));
-    if (rawBike) bikeK = Math.min(16, Math.max(4, parseFloat(rawBike)));
-    next = {
-      ...next,
-      weightUnit,
-      bodyRaw: weightUnit === 'lbs' ? +kgToLbs(bodyK).toFixed(1) : +bodyK.toFixed(1),
-      bikeRaw: weightUnit === 'lbs' ? +kgToLbs(bikeK).toFixed(1) : +bikeK.toFixed(1),
-    };
-
-    const grVal = urlP.get('gr') || (sh.gr as string);
-    if (grVal) next = applyGradient(next, parseFloat(grVal));
-
-    const cdaVal = urlP.get('cda') || (sh.cda as string);
-    if (cdaVal) next = applyCda(next, parseFloat(cdaVal));
-
-    const crrVal = urlP.get('crr') || (sh.crr as string);
-    if (crrVal) next = applyCrr(next, parseFloat(crrVal));
-
-    const ckVal = urlP.get('ck') || (sh.ck as string);
-    if (ckVal) next = applyCrankLen(next, parseFloat(ckVal));
-
-    const dstVal = urlP.get('dst') || (sh.dst as string);
-    if (dstVal) {
-      const km = Math.min(30, Math.max(1, parseFloat(dstVal)));
-      next = { ...next, distUnit: 'km', distRaw: km };
-    }
-
-    setS(next);
+    setS(initClimbStateFromShared(searchParams, readSharedSetup()));
     setInitDone(true);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   useEffect(() => {
     document.documentElement.style.setProperty('--accent', ACCENT_MAP[S.brand]);
-    document.documentElement.style.setProperty('--accent-light', ACCENT_MAP[S.brand]);
+    document.documentElement.style.setProperty('--accent-light', ACCENT_LIGHT_MAP[S.brand]);
   }, [S.brand]);
 
   const bodyKgVal = S.weightUnit === 'lbs' ? lbsToKg(S.bodyRaw) : S.bodyRaw;
@@ -203,64 +54,7 @@ function ClimbPlannerInner() {
   const mass = bodyKgVal + bikeKgVal;
   const climbDistKm = S.distUnit === 'mi' ? miToKm(S.distRaw) : S.distRaw;
 
-  const custTeeth = useMemo(() => (S.brand === 'custom' ? parseCustomCassette(S.cust.cassetteText) : null), [S.brand, S.cust.cassetteText]);
-
-  const currentGroupsetData = useMemo(() => {
-    if (S.brand === 'custom' || !S.groupset) return null;
-    const brandData = DB[S.discipline][S.brand as Exclude<Brand, 'custom'>];
-    return brandData
-      ? (brandData as Record<string, { chainrings: { label: string; outer: number; inner: number | null }[]; cassettes: { label: string; teeth: number[] }[] }>)[S.groupset]
-      : null;
-  }, [S.discipline, S.brand, S.groupset]);
-
-  const calc = useMemo(() => {
-    let outer: number, inner: number | null, teeth: number[], crLabelText: string, csLabelText: string;
-    if (S.brand === 'custom') {
-      if (!custTeeth) return null;
-      outer = S.cust.big;
-      inner = S.cust.crankType === '2x' ? S.cust.small : null;
-      teeth = custTeeth;
-      crLabelText = inner ? `${outer}/${inner}` : `${outer}T Single Ring`;
-      csLabelText = `${teeth[0]}-${teeth[teeth.length - 1]}T`;
-    } else {
-      if (!S.groupset || !currentGroupsetData) return null;
-      const cr = currentGroupsetData.chainrings[S.crIdx];
-      const cass = currentGroupsetData.cassettes.find((c) => c.label === S.cassetteLabel);
-      if (!cr || !cass) return null;
-      outer = cr.outer;
-      inner = cr.inner;
-      teeth = cass.teeth;
-      crLabelText = cr.label;
-      csLabelText = cass.label;
-    }
-
-    const isSingle = !inner;
-    const n = teeth.length;
-    const CC = 2;
-    function isCross(ring: 'outer' | 'inner', i: number) {
-      if (isSingle) return false;
-      return (ring === 'outer' && i >= n - CC) || (ring === 'inner' && i < CC);
-    }
-    function spd(ring: number, cog: number) {
-      return (ring / cog) * (S.wheelCirc / 1000) * S.cadence * 60 / 1000;
-    }
-    function pwr(speedKmh: number) {
-      return calcPower(speedKmh, mass, S.gradient, S.cda, S.crr);
-    }
-
-    const bigGears: ClimbGearPoint[] = teeth.map((cog, i) => {
-      const s = spd(outer, cog);
-      return { cog, spd: s, pwr: pwr(s), cross: isCross('outer', i) };
-    });
-    const smallGears: ClimbGearPoint[] | null = isSingle
-      ? null
-      : teeth.map((cog, i) => {
-          const s = spd(inner as number, cog);
-          return { cog, spd: s, pwr: pwr(s), cross: isCross('inner', i) };
-        });
-
-    return { bigGears, smallGears, outer, inner, isSingle, crLabelText, csLabelText };
-  }, [S, custTeeth, currentGroupsetData, mass]);
+  const calc = useMemo(() => computeClimbGears(S), [S]);
 
   const results = useMemo(() => {
     if (!calc) return null;
@@ -276,139 +70,66 @@ function ClimbPlannerInner() {
   }, [calc, S.power, S.gradient, climbDistKm, S.crankLen]);
 
   // ── Save-back to cg_shared + URL, after every recalculation (post-init only) ──
+  // Debounced: Next's own App Router does its own history.replaceState() housekeeping
+  // on the same page, sharing WebKit's per-document rate limit on that API with ours.
+  // Firing on every single slider tick during a fast drag can exhaust that shared
+  // budget and crash the app when Next's (unguarded) call is the one that trips it.
   useEffect(() => {
     if (!initDone) return;
-    writeSharedSetup({
-      d: S.discipline,
-      b: S.brand,
-      g: S.groupset || '',
-      cr: S.crIdx,
-      cs: S.cassetteLabel || '',
-      w: String(S.wheelCirc),
-      cad: String(S.cadence),
-      pw: String(S.power),
-      wt: mass.toFixed(2),
-      bwt: bodyKgVal.toFixed(2),
-      bkw: bikeKgVal.toFixed(2),
-      wunit: S.weightUnit,
-      gr: String(S.gradient),
-      cda: S.cda,
-      crr: S.crr,
-      ck: String(S.crankLen),
-      dst: climbDistKm.toFixed(1),
-      cust: { ct: S.cust.crankType, big: S.cust.big, small: S.cust.small, cass: S.cust.cassetteText },
-    });
-    const p = new URLSearchParams({
-      d: S.discipline,
-      b: S.brand,
-      g: S.groupset || '',
-      cr: String(S.crIdx),
-      cs: S.cassetteLabel || '',
-      w: String(S.wheelCirc),
-      cad: String(S.cadence),
-      pw: String(S.power),
-      wt: mass.toFixed(2),
-      bwt: bodyKgVal.toFixed(1),
-      bkw: bikeKgVal.toFixed(1),
-      wunit: S.weightUnit,
-      gr: String(S.gradient),
-      cda: String(S.cda),
-      crr: String(S.crr),
-      ck: String(S.crankLen),
-      dst: climbDistKm.toFixed(1),
-    });
-    if (S.brand === 'custom') {
-      p.set('xk', S.cust.crankType);
-      p.set('xb', String(S.cust.big));
-      p.set('xs', String(S.cust.small));
-      p.set('xc', S.cust.cassetteText);
-    }
-    try {
-      window.history.replaceState(null, '', '?' + p.toString());
-    } catch {
-      // ignore
-    }
-  }, [S, initDone, mass, bodyKgVal, bikeKgVal, climbDistKm]);
-
-  const groupsetGroups = useMemo(
-    () => (S.brand === 'custom' ? [] : groupsetOptionsFor(S.discipline, S.brand as Exclude<Brand, 'custom'>)),
-    [S.discipline, S.brand]
-  );
-
-  function selectDiscipline(d: Discipline) {
-    setS((prev) => applyDiscipline(prev, d));
-  }
-  function selectBrand(b: Brand) {
-    setS((prev) => applyBrand(prev, b));
-  }
-  function onGroupsetChange(name: string) {
-    setS((prev) => applyGroupset(prev, name));
-  }
-  function selectCR(i: number) {
-    setS((prev) => applyCrIdx(prev, i));
-  }
-  function onCassetteChange(label: string) {
-    setS((prev) => applyCassette(prev, label));
-  }
-  function onWheelChange(circ: number) {
-    setS((prev) => applyWheel(prev, circ));
-  }
-  function setCrankMode(mode: '1x' | '2x') {
-    setS((prev) => applyCrankMode(prev, mode));
-  }
-  function adjCust(key: 'big' | 'small', delta: number) {
-    setS((prev) => applyCustAdjust(prev, key, delta));
-  }
-
-  function commitWeight(which: 'body' | 'bike', raw: string) {
-    let v = parseFloat(raw);
-    const [min, max] = which === 'body' ? (S.weightUnit === 'lbs' ? [88, 287] : [40, 130]) : S.weightUnit === 'lbs' ? [8.8, 35] : [4, 16];
-    const step = S.weightUnit === 'lbs' ? 0.2 : 0.1;
-    if (isNaN(v)) return;
-    v = Math.min(max, Math.max(min, v));
-    v = Math.round(v / step) * step;
-    setS((prev) => (which === 'body' ? { ...prev, bodyRaw: v } : { ...prev, bikeRaw: v }));
-  }
-
-  function setWeightUnit(u: WeightUnit) {
-    setS((prev) => {
-      const bKg = prev.weightUnit === 'lbs' ? lbsToKg(prev.bodyRaw) : prev.bodyRaw;
-      const kKg = prev.weightUnit === 'lbs' ? lbsToKg(prev.bikeRaw) : prev.bikeRaw;
-      return {
-        ...prev,
-        weightUnit: u,
-        bodyRaw: +(u === 'lbs' ? kgToLbs(bKg) : bKg).toFixed(1),
-        bikeRaw: +(u === 'lbs' ? kgToLbs(kKg) : kKg).toFixed(1),
-      };
-    });
-  }
-
-  function commitGradient(raw: string) {
-    let v = parseFloat(raw);
-    if (isNaN(v)) return;
-    v = Math.min(20, Math.max(-5, v));
-    v = Math.round(v / 0.1) * 0.1;
-    setS((prev) => applyGradient(prev, +v.toFixed(1)));
-  }
-
-  function commitDist(raw: string) {
-    let v = parseFloat(raw);
-    if (isNaN(v)) return;
-    const [min, max] = S.distUnit === 'mi' ? [0.5, 19] : [1, 30];
-    v = Math.min(max, Math.max(min, v));
-    v = Math.round(v / 0.1) * 0.1;
-    setS((prev) => ({ ...prev, distRaw: +v.toFixed(1) }));
-  }
-
-  function setDistUnit(u: DistUnit) {
-    setS((prev) => {
-      const km = prev.distUnit === 'mi' ? miToKm(prev.distRaw) : prev.distRaw;
-      if (u === 'mi') {
-        return { ...prev, distUnit: u, distRaw: Math.min(19, Math.max(0.5, +kmToMi(km).toFixed(1))) };
+    const t = setTimeout(() => {
+      writeSharedSetup({
+        d: S.discipline,
+        b: S.brand,
+        g: S.groupset || '',
+        cr: S.crIdx,
+        cs: S.cassetteLabel || '',
+        w: String(S.wheelCirc),
+        cad: String(S.cadence),
+        pw: String(S.power),
+        wt: mass.toFixed(2),
+        bwt: bodyKgVal.toFixed(2),
+        bkw: bikeKgVal.toFixed(2),
+        wunit: S.weightUnit,
+        gr: String(S.gradient),
+        cda: S.cda,
+        crr: S.crr,
+        ck: String(S.crankLen),
+        dst: climbDistKm.toFixed(1),
+        cust: { ct: S.cust.crankType, big: S.cust.big, small: S.cust.small, cass: S.cust.cassetteText },
+      });
+      const p = new URLSearchParams({
+        d: S.discipline,
+        b: S.brand,
+        g: S.groupset || '',
+        cr: String(S.crIdx),
+        cs: S.cassetteLabel || '',
+        w: String(S.wheelCirc),
+        cad: String(S.cadence),
+        pw: String(S.power),
+        wt: mass.toFixed(2),
+        bwt: bodyKgVal.toFixed(1),
+        bkw: bikeKgVal.toFixed(1),
+        wunit: S.weightUnit,
+        gr: String(S.gradient),
+        cda: String(S.cda),
+        crr: String(S.crr),
+        ck: String(S.crankLen),
+        dst: climbDistKm.toFixed(1),
+      });
+      if (S.brand === 'custom') {
+        p.set('xk', S.cust.crankType);
+        p.set('xb', String(S.cust.big));
+        p.set('xs', String(S.cust.small));
+        p.set('xc', S.cust.cassetteText);
       }
-      return { ...prev, distUnit: u, distRaw: Math.min(30, Math.max(1, +km.toFixed(1))) };
-    });
-  }
+      try {
+        window.history.replaceState(null, '', '?' + p.toString());
+      } catch {
+        // ignore
+      }
+    }, 200);
+    return () => clearTimeout(t);
+  }, [S, initDone, mass, bodyKgVal, bikeKgVal, climbDistKm]);
 
   function copyLink() {
     navigator.clipboard.writeText(window.location.href).then(() => {
@@ -429,22 +150,7 @@ function ClimbPlannerInner() {
     setShowReport(true);
   }
 
-  const custHint = useMemo(() => {
-    if (S.brand !== 'custom') return null;
-    if (!custTeeth) return { cls: 'err', text: 'Enter at least 2 cog sizes, e.g. 11,13,15,17,19,22,25,28' };
-    return { cls: 'ok', text: `${custTeeth.length} sprocket${custTeeth.length > 1 ? 's' : ''} · ${custTeeth[0]}–${custTeeth[custTeeth.length - 1]}T` };
-  }, [S.brand, custTeeth]);
-
-  const buyInfo = useMemo(() => {
-    if (!calc) return null;
-    if (S.brand === 'custom') {
-      return { label: `${calc.crLabelText} · ${calc.csLabelText}`, url: PB_GENERIC_LINK, exact: false, color: ACCENT_MAP.custom, text: PB_VIVID_TEXT.custom };
-    }
-    if (!S.groupset) return null;
-    const cleanGroupset = S.groupset.replace(/\s*\([^)]+\)\s*/g, '').trim();
-    const pb = pbLinkFor(S.discipline, S.brand, S.groupset);
-    return { label: `${cleanGroupset} · ${calc.crLabelText} · ${calc.csLabelText}`, url: pb.url, exact: pb.exact, color: ACCENT_MAP[S.brand], text: PB_VIVID_TEXT[S.brand] };
-  }, [calc, S.brand, S.discipline, S.groupset]);
+  const buyInfo = useMemo(() => computeBuyInfo(S, calc), [S, calc]);
 
   const verdict = useMemo(() => {
     if (!results) return null;
@@ -521,300 +227,7 @@ function ClimbPlannerInner() {
   return (
     <div className="calc-grid">
       {/* ── INPUT PANEL ── */}
-      <div className="input-panel glass">
-        <div className="panel-head">Configure</div>
-        <div className="disc-tabs">
-          {DISCIPLINES.map((d) => (
-            <button key={d} className={`disc-tab${S.discipline === d ? ' active' : ''}`} onClick={() => selectDiscipline(d)}>
-              {d === 'road' ? 'Road' : d === 'mtb' ? 'MTB' : 'Gravel'}
-            </button>
-          ))}
-        </div>
-        <div className="brand-tabs">
-          {BRANDS.map((b) => {
-            const visible = b === 'custom' || DISC_BRANDS[S.discipline].includes(b as Exclude<Brand, 'custom'>);
-            return (
-              <button key={b} className={`brand-tab${S.brand === b ? ' active' : ''}`} data-brand={b} style={{ display: visible ? '' : 'none' }} onClick={() => selectBrand(b)}>
-                {b === 'shimano' ? 'Shimano' : b === 'sram' ? 'SRAM' : b === 'campagnolo' ? 'Campagnolo' : 'Custom'}
-              </button>
-            );
-          })}
-        </div>
-        <div className="form-body">
-          {S.brand !== 'custom' && (
-            <>
-              <div className="form-group">
-                <label>Groupset</label>
-                <select value={S.groupset || ''} onChange={(e) => onGroupsetChange(e.target.value)}>
-                  {groupsetGroups.map((g) => (
-                    <optgroup key={g.era} label={g.era}>
-                      {g.names.map((name) => (
-                        <option key={name} value={name}>
-                          {name}
-                        </option>
-                      ))}
-                    </optgroup>
-                  ))}
-                </select>
-              </div>
-              <div className="form-group">
-                <label>Chainring</label>
-                <div className="cr-grid">
-                  {currentGroupsetData?.chainrings.map((cr, i) => (
-                    <button key={i} className={`cr-btn${S.crIdx === i ? ' active' : ''}`} onClick={() => selectCR(i)}>
-                      {cr.label}
-                    </button>
-                  ))}
-                </div>
-              </div>
-              <div className="form-group">
-                <label>Cassette</label>
-                <select value={S.cassetteLabel} onChange={(e) => onCassetteChange(e.target.value)}>
-                  {currentGroupsetData?.cassettes.map((c) => (
-                    <option key={c.label} value={c.label}>
-                      {c.label}
-                    </option>
-                  ))}
-                </select>
-              </div>
-            </>
-          )}
-
-          {S.brand === 'custom' && (
-            <div className="cust-section" style={{ display: 'flex' }}>
-              <div className="form-group">
-                <label>Drivetrain Type</label>
-                <div className="cust-mode-toggle">
-                  <button className={`cust-mode-btn${S.cust.crankType === '2x' ? ' active' : ''}`} onClick={() => setCrankMode('2x')}>
-                    2× Double
-                  </button>
-                  <button className={`cust-mode-btn${S.cust.crankType === '1x' ? ' active' : ''}`} onClick={() => setCrankMode('1x')}>
-                    1× Single
-                  </button>
-                </div>
-              </div>
-              <div className="form-group">
-                <label>Chainrings</label>
-                <div className="cust-ring-row">
-                  <div className="cust-ring-cell">
-                    <label>Big Ring</label>
-                    <div className="cust-spinner">
-                      <button className="cust-spin-btn" onClick={() => adjCust('big', -1)} disabled={S.cust.big <= CUST_LIMITS.big[0]}>
-                        −
-                      </button>
-                      <div className="cust-spin-val">
-                        <span>{S.cust.big}</span>
-                        <span className="cust-spin-unit">T</span>
-                      </div>
-                      <button className="cust-spin-btn" onClick={() => adjCust('big', 1)} disabled={S.cust.big >= CUST_LIMITS.big[1]}>
-                        +
-                      </button>
-                    </div>
-                  </div>
-                  <div className="cust-sep" style={{ visibility: S.cust.crankType === '2x' ? 'visible' : 'hidden' }}>
-                    −
-                  </div>
-                  <div className="cust-ring-cell" style={{ visibility: S.cust.crankType === '2x' ? 'visible' : 'hidden' }}>
-                    <label>Small Ring</label>
-                    <div className="cust-spinner">
-                      <button className="cust-spin-btn" onClick={() => adjCust('small', -1)} disabled={S.cust.small <= CUST_LIMITS.small[0]}>
-                        −
-                      </button>
-                      <div className="cust-spin-val">
-                        <span>{S.cust.small}</span>
-                        <span className="cust-spin-unit">T</span>
-                      </div>
-                      <button className="cust-spin-btn" onClick={() => adjCust('small', 1)} disabled={S.cust.small >= CUST_LIMITS.small[1]}>
-                        +
-                      </button>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div className="form-group">
-                <label>Cassette Cog Sizes</label>
-                <input
-                  type="text"
-                  className="cust-cass-input"
-                  placeholder="e.g. 11,13,15,17,19,22,25,28"
-                  value={S.cust.cassetteText}
-                  onChange={(e) => setS((prev) => applyCustCassetteText(prev, e.target.value))}
-                />
-                <div className={`cust-hint${custHint ? ' ' + custHint.cls : ''}`}>{custHint?.text}</div>
-              </div>
-            </div>
-          )}
-
-          <div className="form-group">
-            <label>Wheel &amp; Tyre</label>
-            <select value={S.wheelCirc} onChange={(e) => onWheelChange(parseInt(e.target.value, 10))}>
-              {WHEELS[S.discipline].map((w) => (
-                <option key={w.circ} value={w.circ}>
-                  {w.label}
-                </option>
-              ))}
-            </select>
-          </div>
-
-          <div className="form-group">
-            <label>Crank Length</label>
-            <select value={S.crankLen} onChange={(e) => setS((prev) => applyCrankLen(prev, parseFloat(e.target.value)))}>
-              {CRANK_LENGTHS.map((c) => (
-                <option key={c} value={c}>
-                  {c} mm
-                </option>
-              ))}
-            </select>
-          </div>
-
-          <div className="form-group">
-            <div className="row-between">
-              <label>Cadence</label>
-              <div className="big-val">
-                {S.cadence}
-                <span>rpm</span>
-              </div>
-            </div>
-            <input type="range" min={60} max={120} value={S.cadence} onChange={(e) => setS((prev) => applyCadence(prev, parseInt(e.target.value, 10)))} />
-            <div className="range-labels">
-              <span>60</span>
-              <span>120 rpm</span>
-            </div>
-          </div>
-
-          <div className="form-group">
-            <div className="row-between">
-              <label>Your Power</label>
-              <div className="big-val">
-                {S.power}
-                <span>W</span>
-              </div>
-            </div>
-            <input type="range" min={60} max={600} step={5} value={S.power} onChange={(e) => setS((prev) => applyPower(prev, parseInt(e.target.value, 10)))} />
-            <div className="range-labels">
-              <span>60 W</span>
-              <span>600 W</span>
-            </div>
-          </div>
-
-          <div className="form-group">
-            <div className="row-between">
-              <label>Weight Units</label>
-              <div className="wt-unit-toggle">
-                <button className={`wt-unit-btn${S.weightUnit === 'kg' ? ' active' : ''}`} onClick={() => setWeightUnit('kg')}>
-                  kg
-                </button>
-                <button className={`wt-unit-btn${S.weightUnit === 'lbs' ? ' active' : ''}`} onClick={() => setWeightUnit('lbs')}>
-                  lbs
-                </button>
-              </div>
-            </div>
-          </div>
-
-          <div className="form-group">
-            <div className="row-between">
-              <label>Body Weight</label>
-              <NumberField value={S.bodyRaw.toFixed(1)} unit={S.weightUnit} onCommit={(raw) => commitWeight('body', raw)} step={S.weightUnit === 'lbs' ? 0.2 : 0.1} />
-            </div>
-            <input
-              type="range"
-              min={S.weightUnit === 'lbs' ? 88 : 40}
-              max={S.weightUnit === 'lbs' ? 287 : 130}
-              step={S.weightUnit === 'lbs' ? 0.2 : 0.1}
-              value={S.bodyRaw}
-              onChange={(e) => setS((prev) => ({ ...prev, bodyRaw: parseFloat(e.target.value) }))}
-            />
-            <div className="range-labels">
-              <span>{S.weightUnit === 'lbs' ? '88 lbs' : '40 kg'}</span>
-              <span>{S.weightUnit === 'lbs' ? '287 lbs' : '130 kg'}</span>
-            </div>
-          </div>
-
-          <div className="form-group">
-            <div className="row-between">
-              <label>Bike Weight</label>
-              <NumberField value={S.bikeRaw.toFixed(1)} unit={S.weightUnit} onCommit={(raw) => commitWeight('bike', raw)} step={S.weightUnit === 'lbs' ? 0.2 : 0.1} />
-            </div>
-            <input
-              type="range"
-              min={S.weightUnit === 'lbs' ? 8.8 : 4}
-              max={S.weightUnit === 'lbs' ? 35 : 16}
-              step={S.weightUnit === 'lbs' ? 0.2 : 0.1}
-              value={S.bikeRaw}
-              onChange={(e) => setS((prev) => ({ ...prev, bikeRaw: parseFloat(e.target.value) }))}
-            />
-            <div className="range-labels">
-              <span>{S.weightUnit === 'lbs' ? '9 lbs' : '4 kg'}</span>
-              <span>{S.weightUnit === 'lbs' ? '35 lbs' : '16 kg'}</span>
-            </div>
-          </div>
-
-          <div className="form-group">
-            <div className="row-between">
-              <label>Road Gradient</label>
-              <NumberField value={S.gradient.toFixed(1)} unit="%" onCommit={commitGradient} step={0.1} />
-            </div>
-            <input type="range" min={-5} max={20} step={0.1} value={S.gradient} onChange={(e) => setS((prev) => applyGradient(prev, parseFloat(e.target.value)))} />
-            <div className="range-labels">
-              <span>-5%</span>
-              <span>+20%</span>
-            </div>
-          </div>
-
-          <div className="form-group">
-            <div className="row-between">
-              <label>Climb Distance</label>
-              <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
-                <div className="dst-unit-toggle">
-                  <button className={`dst-unit-btn${S.distUnit === 'km' ? ' active' : ''}`} onClick={() => setDistUnit('km')}>
-                    km
-                  </button>
-                  <button className={`dst-unit-btn${S.distUnit === 'mi' ? ' active' : ''}`} onClick={() => setDistUnit('mi')}>
-                    mi
-                  </button>
-                </div>
-                <NumberField value={S.distRaw.toFixed(1)} unit={S.distUnit} onCommit={commitDist} step={0.1} />
-              </div>
-            </div>
-            <input
-              type="range"
-              min={S.distUnit === 'mi' ? 0.5 : 1}
-              max={S.distUnit === 'mi' ? 19 : 30}
-              step={0.1}
-              value={S.distRaw}
-              onChange={(e) => setS((prev) => ({ ...prev, distRaw: parseFloat(e.target.value) }))}
-            />
-            <div className="range-labels">
-              <span>{S.distUnit === 'mi' ? '0.5 mi' : '1 km'}</span>
-              <span>{S.distUnit === 'mi' ? '19 mi' : '30 km'}</span>
-            </div>
-          </div>
-
-          <div className="form-group">
-            <label>Riding Position (CdA)</label>
-            <div className="pos-tabs">
-              {POSITIONS.map((p) => (
-                <button key={p.cda} className={`pos-btn${S.cda === p.cda ? ' active' : ''}`} onClick={() => setS((prev) => applyCda(prev, p.cda))}>
-                  {p.label}
-                  <span className="pos-cda">{p.cda}</span>
-                </button>
-              ))}
-            </div>
-          </div>
-
-          <div className="form-group">
-            <label>Surface (Crr)</label>
-            <div className="pos-tabs">
-              {SURFACES.map((s) => (
-                <button key={s.crr} className={`pos-btn${S.crr === s.crr ? ' active' : ''}`} onClick={() => setS((prev) => applyCrr(prev, s.crr))}>
-                  {s.label}
-                  <span className="pos-cda">{s.crr}</span>
-                </button>
-              ))}
-            </div>
-          </div>
-        </div>
-      </div>
+      <ClimbConfigPanel S={S} setS={setS} />
 
       {/* ── RESULTS ── */}
       <div className="results">

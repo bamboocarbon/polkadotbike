@@ -7,7 +7,8 @@ export default function Stay22Embed({ src }: { src: string }) {
       width="100%"
       frameBorder="0"
       loading="lazy"
-      style={{ borderRadius: 12, display: 'block', flex: 1 }}
+      className="stay22-frame"
+      style={{ borderRadius: 12, display: 'block' }}
     />
   );
 }

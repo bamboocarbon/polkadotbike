@@ -76,10 +76,15 @@ export default function HomePage() {
           the "bold UCI palette" block's own brand-tab rules are baked
           directly into index.css since they're genuinely load-bearing
           here (this page has real brand-tab elements). */}
-      <style>{`
-        nav a.active { color: #1a72e0; }
+      <style
+        dangerouslySetInnerHTML={{
+          __html: `
+        nav a.active { color: var(--accent); }
         .logo span { color: #fff; }
-      `}</style>
+        .hero > h1 { font-size: clamp(28px, 5vw, 48px); }
+      `,
+        }}
+      />
 
       <div className="hero">
         <h1>Gear Ratio Calculator</h1>
@@ -113,8 +118,8 @@ export default function HomePage() {
           { href: '/about', label: 'About' },
           { href: '/guide', label: 'Guide' },
           { href: '/glossary', label: 'Glossary' },
-          { href: '/privacy.html', label: 'Privacy' },
-          { href: '/disclaimer.html', label: 'Disclaimer' },
+          { href: '/privacy', label: 'Privacy' },
+          { href: '/disclaimer', label: 'Disclaimer' },
           { href: '/contact', label: 'Contact' },
         ]}
       />

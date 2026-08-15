@@ -16,7 +16,7 @@ export default function StaticIndex({ race, climbs, intro, h2Color }: StaticInde
       <h2>Every stage and climb of the {race.name}</h2>
       <p className="si-intro">
         {intro.before}
-        <a href="/climb.html" style={{ color: '#3b8ef0' }}>Climb Planner</a>
+        <a href="/climb" style={{ color: '#3b8ef0' }}>Climb Planner</a>
         {intro.after}
       </p>
       {race.stages.map((s) => {

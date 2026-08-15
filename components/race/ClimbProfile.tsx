@@ -21,7 +21,7 @@ export default function ClimbProfile({ climb }: { climb: Climb }) {
   const useH = Math.min(iH, (totalElev / 100) * PX_PER_100M);
 
   const fills = p.map((g, i) => {
-    const col = g < 5 ? '#12b05f' : g < 7 ? '#ffcd00' : g < 9 ? '#ff6600' : '#ee1c28';
+    const col = g < 5 ? '#12b05f' : g < 7 ? '#ffcd00' : g < 9 ? '#ff8800' : '#ee1c28';
     const x1 = (pad + i * KM_PX).toFixed(1);
     const x2 = (pad + (i + 1) * KM_PX).toFixed(1);
     const y1 = (pad + iH - (elev[i] / totalElev) * useH).toFixed(1);
@@ -35,10 +35,6 @@ export default function ClimbProfile({ climb }: { climb: Climb }) {
     );
   });
 
-  const outline = elev
-    .map((e, i) => `${(pad + i * KM_PX).toFixed(1)},${(pad + iH - (e / totalElev) * useH).toFixed(1)}`)
-    .join(' ');
-
   return (
     <div className="cc-profile">
       <svg
@@ -47,7 +43,6 @@ export default function ClimbProfile({ climb }: { climb: Climb }) {
       >
         <rect width={W} height={H} fill="rgba(0,0,0,0.28)" rx={4} />
         {fills}
-        <polyline points={outline} fill="none" stroke="rgba(255,255,255,0.72)" strokeWidth={1.5} strokeLinejoin="round" />
       </svg>
       <div className="profile-meta" style={{ width: W }}>
         <span>▲ {Math.round(totalElev)}m gain</span>

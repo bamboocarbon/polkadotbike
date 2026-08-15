@@ -1,0 +1,13 @@
+{
+  "slug": "alto-del-legionario",
+  "source": "IGN MTN",
+  "attribution": "Map: IGN España, CC-BY 4.0",
+  "zoom": 14,
+  "imageWidthPx": 2048,
+  "bounds": {
+    "xMin": -20221.203162871137,
+    "xMax": 5174.445889114561,
+    "zMin": -14073.431600229851,
+    "zMax": 9197.669838810756
+  }
+}

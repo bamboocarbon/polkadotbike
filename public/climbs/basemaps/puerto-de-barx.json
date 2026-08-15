@@ -1,0 +1,13 @@
+{
+  "slug": "puerto-de-barx",
+  "source": "IGN MTN",
+  "attribution": "Map: IGN España, CC-BY 4.0",
+  "zoom": 16,
+  "imageWidthPx": 1252,
+  "bounds": {
+    "xMin": -1351.4772223664406,
+    "xMax": 3872.7052604923533,
+    "zMin": -1929.4905445858128,
+    "zMax": 6561.788489543593
+  }
+}

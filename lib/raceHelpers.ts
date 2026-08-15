@@ -105,7 +105,7 @@ export function buildPlanUrl(climb: Climb): string {
 // Matches gen_static_index.js's original (now-deleted) version exactly:
 // just gradient + distance, no carried-over Climb Planner setup.
 export function buildStaticPlanUrl(climb: Climb): string {
-  return `/climb.html?gr=${Math.round(climb.grad as number)}&dst=${climb.len}`;
+  return `/climb?gr=${Math.round(climb.grad as number)}&dst=${climb.len}`;
 }
 
 // The tri-state default-stage picker (3.3). Deliberately takes `today` as a

@@ -189,7 +189,12 @@ export default function RaceMapInner({
         html: `<div class="map-dot ${typeDotCls[type] || 'md-s'}${active ? ' active' : ''}">${num}</div>`,
         iconSize: [22, 22],
         iconAnchor: a,
-        tooltipAnchor: [0, -14],
+        // Zeroed deliberately: a fixed [0,-14] here would double up with
+        // updateTooltipPlacements()'s own dynamic offset below (which owns
+        // the gap for whichever direction it picks), under-counting the
+        // space needed above the dot for 'top' and cancelling the gap
+        // entirely for 'bottom'.
+        tooltipAnchor: [0, 0],
       });
     }
 
@@ -198,6 +203,13 @@ export default function RaceMapInner({
     // unconditionally rather than duplicate this loop.
     const obstacleSegments: [L.LatLngExpression, L.LatLngExpression][] = [];
     const obstaclePoints: L.LatLngExpression[] = [];
+
+    // Stage tooltips: edge-avoidance below needs each one's real rendered
+    // size — city names vary a lot in length, and a guessed box (canvas
+    // text metrics, CSS line-height assumptions) undershot the actual
+    // height, leaving some stages still clipped. Measured properly below,
+    // once each tooltip has been opened onto the DOM.
+    const tooltipEntries: { marker: L.Marker; w: number; h: number }[] = [];
 
     stageCoords.forEach((sc, i) => {
       const stage = stages.find((s) => s.num === sc.num);
@@ -229,6 +241,7 @@ export default function RaceMapInner({
       );
       marker.on('click', () => onStageClick(sc.num));
       markers[sc.num] = { marker, stage, anchor: sc.anchor };
+      tooltipEntries.push({ marker, w: 0, h: 0 });
     });
     markersRef.current = markers;
 
@@ -246,6 +259,65 @@ export default function RaceMapInner({
     }
     map.setMinZoom(map.getZoom());
     const initialZoom = map.getZoom();
+
+    // Force each tooltip onto the DOM once, synchronously open+close before
+    // the browser paints, to read its real offsetWidth/offsetHeight — must
+    // run after the map has a defined view (fitBounds above), since opening
+    // a tooltip needs a center/zoom to project against.
+    tooltipEntries.forEach((entry) => {
+      entry.marker.openTooltip();
+      const el = entry.marker.getTooltip()?.getElement();
+      if (el) {
+        entry.w = el.offsetWidth;
+        entry.h = el.offsetHeight;
+      }
+      entry.marker.closeTooltip();
+    });
+
+    // Stage tooltips: Leaflet has no built-in edge-avoidance for tooltips
+    // (unlike popups, which auto-pan) — a tooltip pinned to a fixed
+    // direction can render partly or fully outside the visible map area
+    // when its dot sits near an edge. Recomputed on every zoom/pan since
+    // panning changes which dots are near an edge.
+    const GAP = 14;
+    function updateTooltipPlacements() {
+      const size = map.getSize();
+      tooltipEntries.forEach(({ marker, w, h }) => {
+        const tooltip = marker.getTooltip();
+        if (!tooltip) return;
+        const pt = map.latLngToContainerPoint(marker.getLatLng());
+        let direction: 'top' | 'bottom' | 'left' | 'right';
+
+        if (tooltipDirection === 'auto') {
+          const spaceLeft = pt.x, spaceRight = size.x - pt.x;
+          direction = spaceRight >= spaceLeft ? 'right' : 'left';
+          if (direction === 'right' && spaceRight < w + GAP && spaceLeft > spaceRight) direction = 'left';
+          if (direction === 'left' && spaceLeft < w + GAP && spaceRight > spaceLeft) direction = 'right';
+        } else {
+          const spaceAbove = pt.y, spaceBelow = size.y - pt.y;
+          direction = spaceAbove < h + GAP && spaceBelow > spaceAbove ? 'bottom' : 'top';
+        }
+
+        let offsetX = 0;
+        let offsetY = direction === 'top' ? -GAP : direction === 'bottom' ? GAP : 0;
+        if (direction === 'top' || direction === 'bottom') {
+          const overflowRight = pt.x + w / 2 - size.x;
+          const overflowLeft = w / 2 - pt.x;
+          if (overflowRight > 0) offsetX = -overflowRight - 6;
+          else if (overflowLeft > 0) offsetX = overflowLeft + 6;
+        } else {
+          const overflowBottom = pt.y + h / 2 - size.y;
+          const overflowTop = h / 2 - pt.y;
+          if (overflowBottom > 0) offsetY = -overflowBottom - 6;
+          else if (overflowTop > 0) offsetY = overflowTop + 6;
+        }
+
+        tooltip.options.direction = direction;
+        tooltip.options.offset = L.point([offsetX, offsetY]);
+      });
+    }
+    updateTooltipPlacements();
+    map.on('zoomend moveend', updateTooltipPlacements);
 
     if (labelPlacement === 'dynamic') {
       const cityLabelMarkers: { marker: L.Marker; name: string; pref: 'left' | 'right' | 'top' | 'bottom'; dense: boolean }[] = [];
@@ -383,7 +455,7 @@ export default function RaceMapInner({
           L.divIcon({
             className: '',
             html: `<div class="map-dot ${typeDotCls[stage.type] || 'md-s'}">${prev}</div>`,
-            iconSize: [22, 22], iconAnchor: anchor || [11, 11], tooltipAnchor: [0, -14],
+            iconSize: [22, 22], iconAnchor: anchor || [11, 11], tooltipAnchor: [0, 0],
           })
         );
       }
@@ -393,7 +465,7 @@ export default function RaceMapInner({
           L.divIcon({
             className: '',
             html: `<div class="map-dot ${typeDotCls[stage.type] || 'md-s'} active">${activeStage}</div>`,
-            iconSize: [22, 22], iconAnchor: anchor || [11, 11], tooltipAnchor: [0, -14],
+            iconSize: [22, 22], iconAnchor: anchor || [11, 11], tooltipAnchor: [0, 0],
           })
         );
       }

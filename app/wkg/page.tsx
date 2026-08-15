@@ -78,10 +78,15 @@ export default function WkgPage() {
           (.filter-btn/.brand-tab/.dr-group/.stat-green etc.) are ever
           referenced in this page's body, confirmed by grep — genuinely
           dead here, so only the two load-bearing rules are ported. */}
-      <style>{`
-        nav a.active { color: #1a72e0; }
+      <style
+        dangerouslySetInnerHTML={{
+          __html: `
+        nav a.active { color: var(--accent); }
         .logo span { color: #fff; }
-      `}</style>
+        .hero > h1 { font-size: clamp(28px, 5vw, 48px); }
+      `,
+        }}
+      />
 
       <div className="hero">
         <h1>W/kg Power Profile</h1>
@@ -118,8 +123,8 @@ export default function WkgPage() {
           { href: '/glossary', label: 'Glossary' },
           { href: '/about', label: 'About' },
           { href: '/contact', label: 'Contact' },
-          { href: '/privacy.html', label: 'Privacy' },
-          { href: '/disclaimer.html', label: 'Disclaimer' },
+          { href: '/privacy', label: 'Privacy' },
+          { href: '/disclaimer', label: 'Disclaimer' },
         ]}
       />
     </>

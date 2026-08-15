@@ -1,0 +1,13 @@
+{
+  "slug": "puerto-de-san-rafael",
+  "source": "IGN MTN",
+  "attribution": "Map: IGN España, CC-BY 4.0",
+  "zoom": 14,
+  "imageWidthPx": 1280,
+  "bounds": {
+    "xMin": -3141.1932414043804,
+    "xMax": 6193.040689103381,
+    "zMin": -14305.799673656533,
+    "zMax": 4219.342940613985
+  }
+}

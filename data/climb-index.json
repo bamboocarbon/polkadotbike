@@ -169,32 +169,29 @@
       "name": "Alto de Aitana",
       "range": "Costa Blanca",
       "cat": "ESP",
-      "len": 21.5,
-      "grad": 5.8,
+      "len": 18.9,
+      "grad": 6.0,
       "elev": 1545,
       "profile": [
-        3,
         3.5,
-        4,
-        4.5,
-        5,
-        5,
-        5.5,
-        6,
-        5,
-        4.5,
-        4,
-        4.5,
-        5,
-        5.5,
-        6,
-        6.5,
-        7,
-        7.5,
-        8,
-        8.5,
-        9,
-        9.2
+        5.4,
+        5.2,
+        3.2,
+        3.4,
+        6.1,
+        4.3,
+        6.8,
+        6.9,
+        6.3,
+        5.2,
+        6.7,
+        7.6,
+        9.4,
+        7.4,
+        7.3,
+        8.1,
+        7.1,
+        4.4
       ],
       "isSummitFinish": true,
       "ascentsVary": false,
@@ -206,7 +203,7 @@
         "category"
       ],
       "notes": [
-        "One of Spain's hardest summit finishes, used by La Vuelta in 2015, 2019 and 2021. Long, irregular grind with a max gradient around 9.2%."
+        "One of Spain's hardest summit finishes, used by La Vuelta in 2015, 2019 and 2021. Long, irregular grind with a short, brutal ramp near the top — max gradient 17%."
       ],
       "ascents": [
         {
@@ -220,36 +217,33 @@
           "stageDate": "2026-08-30",
           "ordinal": null,
           "route": null,
-          "len": 21.5,
-          "grad": 5.8,
+          "len": 18.9,
+          "grad": 6.0,
           "elev": 1545,
           "cat": "ESP",
           "kbf": 0,
           "profile": [
-            3,
             3.5,
-            4,
-            4.5,
-            5,
-            5,
-            5.5,
-            6,
-            5,
-            4.5,
-            4,
-            4.5,
-            5,
-            5.5,
-            6,
-            6.5,
-            7,
-            7.5,
-            8,
-            8.5,
-            9,
-            9.2
+            5.4,
+            5.2,
+            3.2,
+            3.4,
+            6.1,
+            4.3,
+            6.8,
+            6.9,
+            6.3,
+            5.2,
+            6.7,
+            7.6,
+            9.4,
+            7.4,
+            7.3,
+            8.1,
+            7.1,
+            4.4
           ],
-          "notes": "One of Spain's hardest summit finishes, used by La Vuelta in 2015, 2019 and 2021. Long, irregular grind with a max gradient around 9.2%.",
+          "notes": "One of Spain's hardest summit finishes, used by La Vuelta in 2015, 2019 and 2021. Long, irregular grind with a short, brutal ramp near the top — max gradient 17%.",
           "rawName": "Alto de Aitana"
         }
       ]
@@ -343,8 +337,8 @@
       "name": "Alto de Velefique",
       "range": "Almería",
       "cat": "Cat1",
-      "len": 20.1,
-      "grad": 5.7,
+      "len": 29.9,
+      "grad": 4.5,
       "elev": 1789,
       "profile": null,
       "isSummitFinish": false,
@@ -357,7 +351,7 @@
         "category"
       ],
       "notes": [
-        "Climbed from Velefique town, cresting before a descent toward Bacares and the final push to Calar Alto. Length/gradient from CyclingCols' \"South, from Velefique\" profile — an exact match for this stage's approach town. Max gradient 11.0%."
+        "Climbed from just outside Tabernas, on the Tabernas–desert side of the pass, cresting before a descent toward Bacares and the final push to Calar Alto. Max gradient 12.3%."
       ],
       "ascents": [
         {
@@ -371,13 +365,13 @@
           "stageDate": "2026-09-03",
           "ordinal": null,
           "route": null,
-          "len": 20.1,
-          "grad": 5.7,
+          "len": 29.9,
+          "grad": 4.5,
           "elev": 1789,
           "cat": "Cat1",
           "kbf": 30.4,
           "profile": null,
-          "notes": "Climbed from Velefique town, cresting before a descent toward Bacares and the final push to Calar Alto. Length/gradient from CyclingCols' \"South, from Velefique\" profile — an exact match for this stage's approach town. Max gradient 11.0%.",
+          "notes": "Climbed from just outside Tabernas, on the Tabernas–desert side of the pass, cresting before a descent toward Bacares and the final push to Calar Alto. Max gradient 12.3%.",
           "rawName": "Alto de Velefique"
         }
       ]
@@ -513,10 +507,19 @@
       "name": "Alto del Desierto de las Palmas",
       "range": "Castellón",
       "cat": "Cat2",
-      "len": 9.5,
-      "grad": 4.3,
+      "len": 7.9,
+      "grad": 5.0,
       "elev": 418,
-      "profile": null,
+      "profile": [
+        3.5,
+        4.8,
+        7.6,
+        6.4,
+        5.9,
+        6.5,
+        0.4,
+        4.1
+      ],
       "isSummitFinish": false,
       "ascentsVary": false,
       "races": [
@@ -541,12 +544,21 @@
           "stageDate": "2026-08-27",
           "ordinal": null,
           "route": null,
-          "len": 9.5,
-          "grad": 4.3,
+          "len": 7.9,
+          "grad": 5.0,
           "elev": 418,
           "cat": "Cat2",
           "kbf": 47.5,
-          "profile": null,
+          "profile": [
+            3.5,
+            4.8,
+            7.6,
+            6.4,
+            5.9,
+            6.5,
+            0.4,
+            4.1
+          ],
           "notes": "Climbed from Benicàssim on the coast.",
           "rawName": "Alto del Desierto de las Palmas"
         }
@@ -557,10 +569,39 @@
       "name": "Alto del Legionario",
       "range": "Granada",
       "cat": "Cat2",
-      "len": 22,
-      "grad": 2.6,
+      "len": 28.16,
+      "grad": 2.1,
       "elev": 1347,
-      "profile": null,
+      "profile": [
+        1.9,
+        -1.6,
+        -1.8,
+        -0.8,
+        0.8,
+        3.1,
+        3.4,
+        1.5,
+        1.0,
+        1.6,
+        -0.3,
+        -0.6,
+        -2.1,
+        1.9,
+        2.5,
+        3.1,
+        5.9,
+        4.2,
+        3.5,
+        -0.3,
+        0.9,
+        3.3,
+        5.0,
+        5.6,
+        2.9,
+        6.0,
+        5.2,
+        3.2
+      ],
       "isSummitFinish": false,
       "ascentsVary": false,
       "races": [
@@ -571,7 +612,7 @@
         "category"
       ],
       "notes": [
-        "Long, gradual ascent via Padul."
+        "Long, rolling ascent from Dúrcal via Padul, with a steeper ramp near the top — max gradient 10.1%."
       ],
       "ascents": [
         {
@@ -585,13 +626,42 @@
           "stageDate": "2026-09-04",
           "ordinal": null,
           "route": null,
-          "len": 22,
-          "grad": 2.6,
+          "len": 28.16,
+          "grad": 2.1,
           "elev": 1347,
           "cat": "Cat2",
           "kbf": 109,
-          "profile": null,
-          "notes": "Long, gradual ascent via Padul.",
+          "profile": [
+            1.9,
+            -1.6,
+            -1.8,
+            -0.8,
+            0.8,
+            3.1,
+            3.4,
+            1.5,
+            1.0,
+            1.6,
+            -0.3,
+            -0.6,
+            -2.1,
+            1.9,
+            2.5,
+            3.1,
+            5.9,
+            4.2,
+            3.5,
+            -0.3,
+            0.9,
+            3.3,
+            5.0,
+            5.6,
+            2.9,
+            6.0,
+            5.2,
+            3.2
+          ],
+          "notes": "Long, rolling ascent from Dúrcal via Padul, with a steeper ramp near the top — max gradient 10.1%.",
           "rawName": "Alto del Legionario"
         }
       ]
@@ -685,10 +755,10 @@
       "name": "Aramón Valdelinares",
       "range": "Teruel",
       "cat": "Cat1",
-      "len": 9.08,
-      "grad": 4.6,
+      "len": 10.05,
+      "grad": 5.8,
       "elev": 1961,
-      "profile": null,
+      "profile": [3.0, 4.8, 8.0, 6.9, 7.9, 5.2, 6.2, 7.5, 7.7, 0.7],
       "isSummitFinish": true,
       "ascentsVary": false,
       "races": [
@@ -699,7 +769,7 @@
         "category"
       ],
       "notes": [
-        "Summit finish at the Sierra de Gúdar ski station, climbed via Puerto de San Rafael from Mora de Rubielos. Length/gradient from Komoot's GPS route data — the last (and only major) climb on this stage, so a confident match for the actual finish ascent, replacing an earlier figure that was mistakenly for the Alcalá de la Selva side."
+        "Summit finish at the Sierra de Gúdar ski station, climbed via Puerto de San Rafael from Mora de Rubielos. Length/gradient from our own GPX route data (previously Komoot's GPS estimate, 9.08km/4.6%) — the last (and only major) climb on this stage, so a confident match for the actual finish ascent, replacing an earlier figure that was mistakenly for the Alcalá de la Selva side."
       ],
       "ascents": [
         {
@@ -713,13 +783,13 @@
           "stageDate": "2026-08-28",
           "ordinal": null,
           "route": null,
-          "len": 9.08,
-          "grad": 4.6,
+          "len": 10.05,
+          "grad": 5.8,
           "elev": 1961,
           "cat": "Cat1",
           "kbf": 0,
-          "profile": null,
-          "notes": "Summit finish at the Sierra de Gúdar ski station, climbed via Puerto de San Rafael from Mora de Rubielos. Length/gradient from Komoot's GPS route data — the last (and only major) climb on this stage, so a confident match for the actual finish ascent, replacing an earlier figure that was mistakenly for the Alcalá de la Selva side.",
+          "profile": [3.0, 4.8, 8.0, 6.9, 7.9, 5.2, 6.2, 7.5, 7.7, 0.7],
+          "notes": "Summit finish at the Sierra de Gúdar ski station, climbed via Puerto de San Rafael from Mora de Rubielos. Length/gradient from our own GPX route data (previously Komoot's GPS estimate, 9.08km/4.6%) — the last (and only major) climb on this stage, so a confident match for the actual finish ascent, replacing an earlier figure that was mistakenly for the Alcalá de la Selva side.",
           "rawName": "Aramón Valdelinares"
         }
       ]
@@ -1058,10 +1128,10 @@
       "name": "Calar Alto",
       "range": "Almería",
       "cat": "ESP",
-      "len": 18.19,
-      "grad": 5.15,
+      "len": 17.99,
+      "grad": 5.4,
       "elev": 2153,
-      "profile": null,
+      "profile": [1.5, 8.8, 9.2, 11.5, 8.1, 9.5, 7.9, 7.1, 4.2, 3.0, -1.5, 2.7, 4.3, -0.3, 4.7, 10.4, 2.3, 3.9],
       "isSummitFinish": true,
       "ascentsVary": false,
       "races": [
@@ -1072,7 +1142,7 @@
         "category"
       ],
       "notes": [
-        "Summit finish at Europe's largest astronomical observatory, over 2,100m — one of the hardest climbs in the south of Spain. Length/gradient calculated from Komoot's elevation chart between the Bacares altitude/distance markers (1,196m to the 2,134m summit) — a strong match to the roadbook's own Bacares altitude of 1,197m."
+        "Summit finish at Europe's largest astronomical observatory, over 2,100m — one of the hardest climbs in the south of Spain. Length/gradient from our own GPX route data (previously Komoot's elevation-chart estimate, 18.19km/5.15%), the climb starting at the Bacares valley floor (~1,180m) and matching the roadbook's own Bacares altitude of 1,197m closely."
       ],
       "ascents": [
         {
@@ -1086,13 +1156,13 @@
           "stageDate": "2026-09-03",
           "ordinal": null,
           "route": null,
-          "len": 18.19,
-          "grad": 5.15,
+          "len": 17.99,
+          "grad": 5.4,
           "elev": 2153,
           "cat": "ESP",
           "kbf": 0,
-          "profile": null,
-          "notes": "Summit finish at Europe's largest astronomical observatory, over 2,100m — one of the hardest climbs in the south of Spain. Length/gradient calculated from Komoot's elevation chart between the Bacares altitude/distance markers (1,196m to the 2,134m summit) — a strong match to the roadbook's own Bacares altitude of 1,197m.",
+          "profile": [1.5, 8.8, 9.2, 11.5, 8.1, 9.5, 7.9, 7.1, 4.2, 3.0, -1.5, 2.7, 4.3, -0.3, 4.7, 10.4, 2.3, 3.9],
+          "notes": "Summit finish at Europe's largest astronomical observatory, over 2,100m — one of the hardest climbs in the south of Spain. Length/gradient from our own GPX route data (previously Komoot's elevation-chart estimate, 18.19km/5.15%), the climb starting at the Bacares valley floor (~1,180m) and matching the roadbook's own Bacares altitude of 1,197m closely.",
           "rawName": "Calar Alto"
         }
       ]
@@ -1893,19 +1963,28 @@
       "name": "Col de Mont-Louis",
       "range": "Pyrénées Orientales",
       "cat": "Cat1",
-      "len": 8.6,
-      "grad": 5.75,
+      "len": 18.32,
+      "grad": 4.5,
       "elev": 1570,
       "profile": [
-        4,
-        4.5,
-        5,
-        5.5,
-        5.5,
-        6,
-        6.5,
-        7,
-        7.8
+        -0.2,
+        3.1,
+        3.1,
+        4.4,
+        6.0,
+        6.0,
+        5.7,
+        4.8,
+        6.8,
+        7.7,
+        4.8,
+        5.9,
+        7.2,
+        6.7,
+        4.0,
+        3.4,
+        2.5,
+        0.5
       ],
       "isSummitFinish": false,
       "ascentsVary": false,
@@ -1917,7 +1996,7 @@
         "category"
       ],
       "notes": [
-        "Steady mid-mountain grind via Fontpédrouse; sets up the descent into Font Romeu."
+        "Long, steady grind starting near Canaveilles via Fontpédrouse; sets up the descent into Font Romeu. Length from our own GPX route data, measured back from the summit by Komoot's own categorised-climb distance (12.2mi) — a real correction from the site's old estimate (8.6km/5.75%), which only covered the final, steepest section."
       ],
       "ascents": [
         {
@@ -1931,23 +2010,32 @@
           "stageDate": "2026-08-24",
           "ordinal": null,
           "route": null,
-          "len": 8.6,
-          "grad": 5.75,
+          "len": 18.32,
+          "grad": 4.5,
           "elev": 1570,
           "cat": "Cat1",
           "kbf": 15.3,
           "profile": [
-            4,
-            4.5,
-            5,
-            5.5,
-            5.5,
-            6,
-            6.5,
-            7,
-            7.8
+            -0.2,
+            3.1,
+            3.1,
+            4.4,
+            6.0,
+            6.0,
+            5.7,
+            4.8,
+            6.8,
+            7.7,
+            4.8,
+            5.9,
+            7.2,
+            6.7,
+            4.0,
+            3.4,
+            2.5,
+            0.5
           ],
-          "notes": "Steady mid-mountain grind via Fontpédrouse; sets up the descent into Font Romeu.",
+          "notes": "Long, steady grind starting near Canaveilles via Fontpédrouse; sets up the descent into Font Romeu. Length from our own GPX route data, measured back from the summit by Komoot's own categorised-climb distance (12.2mi) — a real correction from the site's old estimate (8.6km/5.75%), which only covered the final, steepest section.",
           "rawName": "Col de Mont-Louis"
         }
       ]
@@ -2845,20 +2933,20 @@
       "name": "Coll d'Ordino",
       "range": "Andorra",
       "cat": "Cat1",
-      "len": 9.8,
-      "grad": 7.1,
+      "len": 10.3,
+      "grad": 6.9,
       "elev": 1989,
       "profile": [
-        5,
-        5.5,
-        6,
-        6.5,
-        7,
+        5.1,
+        7.7,
+        6.9,
+        8.2,
         7.5,
-        8,
-        8.5,
-        9,
-        10.7
+        7.3,
+        6.8,
+        7.1,
+        7.1,
+        7.3
       ],
       "isSummitFinish": false,
       "ascentsVary": false,
@@ -2870,7 +2958,7 @@
         "category"
       ],
       "notes": [
-        "Steady lower slopes via Ordino, harder in the closing kilometres. Steepest section 10.7%."
+        "Steady lower slopes via Ordino, harder in the closing kilometres. Length/gradient from our own GPX route data (previously estimated 9.8km/7.1%). Steepest section 12.9%."
       ],
       "ascents": [
         {
@@ -2884,24 +2972,24 @@
           "stageDate": "2026-08-25",
           "ordinal": null,
           "route": null,
-          "len": 9.8,
-          "grad": 7.1,
+          "len": 10.3,
+          "grad": 6.9,
           "elev": 1989,
           "cat": "Cat1",
           "kbf": 25.2,
           "profile": [
-            5,
-            5.5,
-            6,
-            6.5,
-            7,
+            5.1,
+            7.7,
+            6.9,
+            8.2,
             7.5,
-            8,
-            8.5,
-            9,
-            10.7
+            7.3,
+            6.8,
+            7.1,
+            7.1,
+            7.3
           ],
-          "notes": "Steady lower slopes via Ordino, harder in the closing kilometres. Steepest section 10.7%.",
+          "notes": "Steady lower slopes via Ordino, harder in the closing kilometres. Length/gradient from our own GPX route data (previously estimated 9.8km/7.1%). Steepest section 12.9%.",
           "rawName": "Coll d'Ordino"
         }
       ]
@@ -2995,17 +3083,17 @@
       "name": "Collada de Beixalís",
       "range": "Andorra",
       "cat": "Cat1",
-      "len": 6.7,
-      "grad": 8.3,
+      "len": 7.1,
+      "grad": 8.2,
       "elev": 1803,
       "profile": [
-        6,
-        7,
-        7,
-        8,
-        9,
-        10,
-        12
+        4.4,
+        9.7,
+        12.7,
+        9.7,
+        7.1,
+        6.2,
+        8.1
       ],
       "isSummitFinish": false,
       "ascentsVary": false,
@@ -3017,7 +3105,7 @@
         "category"
       ],
       "notes": [
-        "Irregular, narrow road via Encamp with hairpins and ramps over 20% — the toughest climb of the day pound for pound."
+        "Irregular, narrow road via Encamp with hairpins — the toughest climb of the day pound for pound. Length/gradient from our own GPX route data (previously estimated 6.7km/8.3%). Max gradient 16.4%."
       ],
       "ascents": [
         {
@@ -3031,21 +3119,21 @@
           "stageDate": "2026-08-25",
           "ordinal": null,
           "route": null,
-          "len": 6.7,
-          "grad": 8.3,
+          "len": 7.1,
+          "grad": 8.2,
           "elev": 1803,
           "cat": "Cat1",
           "kbf": 44.6,
           "profile": [
-            6,
-            7,
-            7,
-            8,
-            9,
-            10,
-            12
+            4.4,
+            9.7,
+            12.7,
+            9.7,
+            7.1,
+            6.2,
+            8.1
           ],
-          "notes": "Irregular, narrow road via Encamp with hairpins and ramps over 20% — the toughest climb of the day pound for pound.",
+          "notes": "Irregular, narrow road via Encamp with hairpins — the toughest climb of the day pound for pound. Length/gradient from our own GPX route data (previously estimated 6.7km/8.3%). Max gradient 16.4%.",
           "rawName": "Collada de Beixalís"
         }
       ]
@@ -3059,14 +3147,14 @@
       "grad": 9.8,
       "elev": 1884,
       "profile": [
-        6,
-        7,
-        8,
-        9,
-        10,
-        11,
-        12,
-        15.4
+        7.3,
+        9.8,
+        8.7,
+        10.6,
+        10.2,
+        10.2,
+        10.9,
+        10.8
       ],
       "isSummitFinish": true,
       "ascentsVary": false,
@@ -3078,7 +3166,7 @@
         "category"
       ],
       "notes": [
-        "Unprecedented summit finish and La Vuelta 26's last great challenge — 8.3km at an official average of 9.8%."
+        "Unprecedented summit finish and La Vuelta 26's last great challenge — 8.3km at an official average of 9.8%, now confirmed against our own GPX route data (measured back from the summit by the official categorised distance)."
       ],
       "ascents": [
         {
@@ -3098,16 +3186,16 @@
           "cat": "ESP",
           "kbf": 0,
           "profile": [
-            6,
-            7,
-            8,
-            9,
-            10,
-            11,
-            12,
-            15.4
+            7.3,
+            9.8,
+            8.7,
+            10.6,
+            10.2,
+            10.2,
+            10.9,
+            10.8
           ],
-          "notes": "Unprecedented summit finish and La Vuelta 26's last great challenge — 8.3km at an official average of 9.8%.",
+          "notes": "Unprecedented summit finish and La Vuelta 26's last great challenge — 8.3km at an official average of 9.8%, now confirmed against our own GPX route data (measured back from the summit by the official categorised distance).",
           "rawName": "Collado del Alguacil"
         }
       ]
@@ -3117,10 +3205,10 @@
       "name": "Collado García",
       "range": "Almería",
       "cat": "Cat2",
-      "len": 4.15,
-      "grad": 4.8,
+      "len": 4.84,
+      "grad": 4.0,
       "elev": 1239,
-      "profile": null,
+      "profile": [3.5, 3.5, 3.7, 5.2, 3.8],
       "isSummitFinish": false,
       "ascentsVary": false,
       "races": [
@@ -3131,7 +3219,7 @@
         "category"
       ],
       "notes": [
-        "Length/gradient from Komoot, combining two consecutive detected segments (1.53km + 2.62km, both ~5%) into one continuous climb."
+        "Length/gradient from our own GPX route data (previously Komoot's synthetic estimate, 4.15km/4.8%, combining two separately-detected segments into one guessed climb)."
       ],
       "ascents": [
         {
@@ -3145,13 +3233,13 @@
           "stageDate": "2026-09-03",
           "ordinal": null,
           "route": null,
-          "len": 4.15,
-          "grad": 4.8,
+          "len": 4.84,
+          "grad": 4.0,
           "elev": 1239,
           "cat": "Cat2",
           "kbf": 79.3,
-          "profile": null,
-          "notes": "Length/gradient from Komoot, combining two consecutive detected segments (1.53km + 2.62km, both ~5%) into one continuous climb.",
+          "profile": [3.5, 3.5, 3.7, 5.2, 3.8],
+          "notes": "Length/gradient from our own GPX route data (previously Komoot's synthetic estimate, 4.15km/4.8%, combining two separately-detected segments into one guessed climb).",
           "rawName": "Collado García"
         }
       ]
@@ -4761,10 +4849,10 @@
       "name": "Font Romeu",
       "range": "Pyrénées Orientales",
       "cat": "Cat2",
-      "len": 9.87,
-      "grad": 4.5,
+      "len": 8.65,
+      "grad": 5.1,
       "elev": 1937,
-      "profile": null,
+      "profile": [3.9, 5.6, 5.8, 4.8, 5.4, 5.6, 5.1, 5.2, 2.9],
       "isSummitFinish": true,
       "ascentsVary": false,
       "races": [
@@ -4775,7 +4863,7 @@
         "category"
       ],
       "notes": [
-        "First summit finish of the race. Short final rise off the Mont-Louis descent — matches organisers' own description of the last km easing to around 4.5%. Length/gradient from Komoot's GPS route data (best-guess match by position — not independently cross-checked against another source)."
+        "First summit finish of the race, off the Mont-Louis descent — the final km does ease off, matching the organisers' own description. Length/gradient from our own GPX route data (previously Komoot's best-guess estimate, 9.87km/4.5%, flagged as never independently cross-checked)."
       ],
       "ascents": [
         {
@@ -4789,13 +4877,13 @@
           "stageDate": "2026-08-24",
           "ordinal": null,
           "route": null,
-          "len": 9.87,
-          "grad": 4.5,
+          "len": 8.65,
+          "grad": 5.1,
           "elev": 1937,
           "cat": "Cat2",
           "kbf": 0,
-          "profile": null,
-          "notes": "First summit finish of the race. Short final rise off the Mont-Louis descent — matches organisers' own description of the last km easing to around 4.5%. Length/gradient from Komoot's GPS route data (best-guess match by position — not independently cross-checked against another source).",
+          "profile": [3.9, 5.6, 5.8, 4.8, 5.4, 5.6, 5.1, 5.2, 2.9],
+          "notes": "First summit finish of the race, off the Mont-Louis descent — the final km does ease off, matching the organisers' own description. Length/gradient from our own GPX route data (previously Komoot's best-guess estimate, 9.87km/4.5%, flagged as never independently cross-checked).",
           "rawName": "Font Romeu"
         }
       ]
@@ -5814,29 +5902,29 @@
       "name": "Peñas Blancas",
       "range": "Costa del Sol",
       "cat": "Cat1",
-      "len": 19,
-      "grad": 6.7,
-      "elev": 1264,
+      "len": 18.5,
+      "grad": 5.2,
+      "elev": 973,
       "profile": [
-        2,
-        3,
-        4,
-        5,
+        0.5,
+        2.0,
+        -1.7,
+        3.4,
+        7.8,
+        8.2,
+        7.0,
+        2.1,
+        4.0,
         5.5,
-        6,
-        6,
-        6.5,
-        7,
-        7,
-        6.5,
-        7,
-        7.5,
-        8,
-        8.5,
-        9,
-        13,
-        13,
-        8.8
+        7.9,
+        7.9,
+        7.0,
+        6.8,
+        5.9,
+        7.1,
+        6.4,
+        5.9,
+        3.1
       ],
       "isSummitFinish": true,
       "ascentsVary": false,
@@ -5848,7 +5936,7 @@
         "category"
       ],
       "notes": [
-        "Scene of Richard Carapaz's stage win in 2022, extended a few km longer than the 2013 version. Starts almost at sea level in Estepona; several ramps over 14%."
+        "Scene of Richard Carapaz's stage win in 2022, extended a few km longer than the 2013 version. Starts almost at sea level in Estepona; several ramps over 14%. Length/gradient/elevation from our own GPX route data — the site's old summit figure (1264m) was simply wrong; real-world sources put it at ~1003m, and our GPX's own measured summit (973m) corroborates that closely, not the old figure."
       ],
       "ascents": [
         {
@@ -5862,33 +5950,33 @@
           "stageDate": "2026-09-11",
           "ordinal": null,
           "route": null,
-          "len": 19,
-          "grad": 6.7,
-          "elev": 1264,
+          "len": 18.5,
+          "grad": 5.2,
+          "elev": 973,
           "cat": "Cat1",
           "kbf": 0,
           "profile": [
-            2,
-            3,
-            4,
-            5,
+            0.5,
+            2.0,
+            -1.7,
+            3.4,
+            7.8,
+            8.2,
+            7.0,
+            2.1,
+            4.0,
             5.5,
-            6,
-            6,
-            6.5,
-            7,
-            7,
-            6.5,
-            7,
-            7.5,
-            8,
-            8.5,
-            9,
-            13,
-            13,
-            8.8
+            7.9,
+            7.9,
+            7.0,
+            6.8,
+            5.9,
+            7.1,
+            6.4,
+            5.9,
+            3.1
           ],
-          "notes": "Scene of Richard Carapaz's stage win in 2022, extended a few km longer than the 2013 version. Starts almost at sea level in Estepona; several ramps over 14%.",
+          "notes": "Scene of Richard Carapaz's stage win in 2022, extended a few km longer than the 2013 version. Starts almost at sea level in Estepona; several ramps over 14%. Length/gradient/elevation from our own GPX route data — the site's old summit figure (1264m) was simply wrong; real-world sources put it at ~1003m, and our GPX's own measured summit (973m) corroborates that closely, not the old figure.",
           "rawName": "Peñas Blancas"
         }
       ]
@@ -6210,35 +6298,36 @@
       "name": "Port d'Envalira",
       "range": "Andorra",
       "cat": "Cat1",
-      "len": 25.3,
-      "grad": 5.1,
+      "len": 25.78,
+      "grad": 5.0,
       "elev": 2409,
       "profile": [
-        3,
-        4,
-        4,
+        3.9,
+        2.9,
+        6.3,
+        4.8,
+        6.8,
+        4.4,
+        0.6,
+        8.6,
+        3.2,
+        1.9,
+        2.1,
         4.5,
-        5,
-        5,
-        5,
-        5,
-        5.5,
-        5.5,
-        5,
-        5,
-        4.5,
-        4,
-        4,
-        4.5,
-        5,
-        5.5,
-        6,
-        6.5,
-        7,
-        7,
-        6.5,
-        6,
-        5.5
+        3.3,
+        4.8,
+        4.7,
+        5.6,
+        5.6,
+        6.3,
+        7.1,
+        3.8,
+        6.7,
+        6.6,
+        7.0,
+        6.6,
+        6.4,
+        5.3
       ],
       "isSummitFinish": false,
       "ascentsVary": false,
@@ -6250,7 +6339,7 @@
         "category"
       ],
       "notes": [
-        "The highest paved pass in the Pyrenees. Long and steady from Andorra la Vella via El Tarter — altitude is the real difficulty, not the gradient."
+        "The highest paved pass in the Pyrenees, from the true valley floor after Andorra la Vella via El Tarter — altitude is the real difficulty, not the gradient. Length/gradient from our own GPX route data (previously an estimate of 25.3km/5.1%, now confirmed closely after cleaning up several real routing-detour artifacts in the raw GPX)."
       ],
       "ascents": [
         {
@@ -6264,39 +6353,40 @@
           "stageDate": "2026-08-25",
           "ordinal": null,
           "route": null,
-          "len": 25.3,
-          "grad": 5.1,
+          "len": 25.78,
+          "grad": 5.0,
           "elev": 2409,
           "cat": "Cat1",
           "kbf": 78.7,
           "profile": [
-            3,
-            4,
-            4,
+            3.9,
+            2.9,
+            6.3,
+            4.8,
+            6.8,
+            4.4,
+            0.6,
+            8.6,
+            3.2,
+            1.9,
+            2.1,
             4.5,
-            5,
-            5,
-            5,
-            5,
-            5.5,
-            5.5,
-            5,
-            5,
-            4.5,
-            4,
-            4,
-            4.5,
-            5,
-            5.5,
-            6,
-            6.5,
-            7,
-            7,
-            6.5,
-            6,
-            5.5
+            3.3,
+            4.8,
+            4.7,
+            5.6,
+            5.6,
+            6.3,
+            7.1,
+            3.8,
+            6.7,
+            6.6,
+            7.0,
+            6.6,
+            6.4,
+            5.3
           ],
-          "notes": "The highest paved pass in the Pyrenees. Long and steady from Andorra la Vella via El Tarter — altitude is the real difficulty, not the gradient.",
+          "notes": "The highest paved pass in the Pyrenees, from the true valley floor after Andorra la Vella via El Tarter — altitude is the real difficulty, not the gradient. Length/gradient from our own GPX route data (previously an estimate of 25.3km/5.1%, now confirmed closely after cleaning up several real routing-detour artifacts in the raw GPX).",
           "rawName": "Port d'Envalira"
         }
       ]
@@ -6430,10 +6520,10 @@
       "name": "Puerto de Barx",
       "range": "Valencia",
       "cat": "Cat2",
-      "len": 7.42,
-      "grad": 4,
-      "elev": 317,
-      "profile": null,
+      "len": 9.66,
+      "grad": 3.6,
+      "elev": 386,
+      "profile": [2.3, 5.9, 6.0, 5.6, 5.8, 2.4, 2.7, 1.3, 1.8, 0.5],
       "isSummitFinish": false,
       "ascentsVary": false,
       "races": [
@@ -6444,7 +6534,7 @@
         "category"
       ],
       "notes": [
-        "Crests just before the finish in Xeraco. Length/gradient from Komoot."
+        "Crests just before the finish in Xeraco. Length/gradient/elevation from our own GPX route data (previously a Komoot estimate of 7.42km/4%/317m — undershooting on all counts)."
       ],
       "ascents": [
         {
@@ -6458,13 +6548,13 @@
           "stageDate": "2026-08-29",
           "ordinal": null,
           "route": null,
-          "len": 7.42,
-          "grad": 4,
-          "elev": 317,
+          "len": 9.66,
+          "grad": 3.6,
+          "elev": 386,
           "cat": "Cat2",
           "kbf": 22.2,
-          "profile": null,
-          "notes": "Crests just before the finish in Xeraco. Length/gradient from Komoot.",
+          "profile": [2.3, 5.9, 6.0, 5.6, 5.8, 2.4, 2.7, 1.3, 1.8, 0.5],
+          "notes": "Crests just before the finish in Xeraco. Length/gradient/elevation from our own GPX route data (previously a Komoot estimate of 7.42km/4%/317m — undershooting on all counts).",
           "rawName": "Puerto de Barx"
         }
       ]
@@ -6516,10 +6606,10 @@
       "name": "Puerto de El Duque",
       "range": "Sierra Nevada",
       "cat": "Cat1",
-      "len": 4.8,
-      "grad": 8.2,
+      "len": 8.28,
+      "grad": 7.8,
       "elev": 1670,
-      "profile": null,
+      "profile": [3.6, 9.8, 11.7, 9.0, 7.9, 7.3, 6.5, 7.0],
       "isSummitFinish": false,
       "ascentsVary": false,
       "races": [
@@ -6530,7 +6620,7 @@
         "category"
       ],
       "notes": [
-        "Never before climbed in Vuelta history. Ascends the same Genil River valley as Alto de Hazallanas, with an identical final 2km finishing on the same road to the Sierra Nevada ski resort — but shorter and slightly easier, and without the 18-19% ramps that mark Hazallanas' opening kilometres after the technical descent from Güéjar Sierra."
+        "Never before climbed in Vuelta history. Ascends the same Genil River valley as Alto de Hazallanas, with an identical final 2km finishing on the same road to the Sierra Nevada ski resort — but shorter and slightly easier, and without the 18-19% ramps that mark Hazallanas' opening kilometres after the technical descent from Güéjar Sierra. Length/gradient from our own GPX route data (previously an estimate of 4.8km/8.2% — the real climb is closer to twice that length, following on from Puerto de El Purche in the stage's own sequencing)."
       ],
       "ascents": [
         {
@@ -6544,13 +6634,13 @@
           "stageDate": "2026-09-12",
           "ordinal": null,
           "route": null,
-          "len": 4.8,
-          "grad": 8.2,
+          "len": 8.28,
+          "grad": 7.8,
           "elev": 1670,
           "cat": "Cat1",
           "kbf": 31.4,
-          "profile": null,
-          "notes": "Never before climbed in Vuelta history. Ascends the same Genil River valley as Alto de Hazallanas, with an identical final 2km finishing on the same road to the Sierra Nevada ski resort — but shorter and slightly easier, and without the 18-19% ramps that mark Hazallanas' opening kilometres after the technical descent from Güéjar Sierra.",
+          "profile": [3.6, 9.8, 11.7, 9.0, 7.9, 7.3, 6.5, 7.0],
+          "notes": "Never before climbed in Vuelta history. Ascends the same Genil River valley as Alto de Hazallanas, with an identical final 2km finishing on the same road to the Sierra Nevada ski resort — but shorter and slightly easier, and without the 18-19% ramps that mark Hazallanas' opening kilometres after the technical descent from Güéjar Sierra. Length/gradient from our own GPX route data (previously an estimate of 4.8km/8.2% — the real climb is closer to twice that length, following on from Puerto de El Purche in the stage's own sequencing).",
           "rawName": "Puerto de El Duque"
         }
       ]
@@ -6560,10 +6650,10 @@
       "name": "Puerto de El Miserat",
       "range": "Costa Blanca",
       "cat": "Cat1",
-      "len": 18,
-      "grad": 2.6,
+      "len": 7.22,
+      "grad": 7.8,
       "elev": 634,
-      "profile": null,
+      "profile": [1.7, 2.2, 10.5, 14.3, 8.4, 5.0, 11.6],
       "isSummitFinish": false,
       "ascentsVary": false,
       "races": [
@@ -6574,7 +6664,7 @@
         "category"
       ],
       "notes": [
-        "Long and gradual rather than steep — the Cat1 reflects length and cumulative altitude gain."
+        "A genuinely steep climb, not the gentle grind the old figure suggested — checked against the official stage profile chart, which places the categorised col right after Pego. Confirmed geographically: the true start (matching the site's own GPX data) reverse-geocodes exactly to Pego. Length/gradient from our own GPX route data (previously a mistaken 18km/2.6% — Cat1 here really does reflect steepness, with ramps over 20%)."
       ],
       "ascents": [
         {
@@ -6588,13 +6678,13 @@
           "stageDate": "2026-08-30",
           "ordinal": null,
           "route": null,
-          "len": 18,
-          "grad": 2.6,
+          "len": 7.22,
+          "grad": 7.8,
           "elev": 634,
           "cat": "Cat1",
           "kbf": 113,
-          "profile": null,
-          "notes": "Long and gradual rather than steep — the Cat1 reflects length and cumulative altitude gain.",
+          "profile": [1.7, 2.2, 10.5, 14.3, 8.4, 5.0, 11.6],
+          "notes": "A genuinely steep climb, not the gentle grind the old figure suggested — checked against the official stage profile chart, which places the categorised col right after Pego. Confirmed geographically: the true start (matching the site's own GPX data) reverse-geocodes exactly to Pego. Length/gradient from our own GPX route data (previously a mistaken 18km/2.6% — Cat1 here really does reflect steepness, with ramps over 20%).",
           "rawName": "Puerto de El Miserat"
         }
       ]
@@ -6604,10 +6694,10 @@
       "name": "Puerto de El Purche",
       "range": "Sierra Nevada",
       "cat": "Cat1",
-      "len": 6.96,
-      "grad": 9,
+      "len": 8.83,
+      "grad": 7.7,
       "elev": 1483,
-      "profile": null,
+      "profile": [5.5, 12.2, 9.5, 9.7, 7.7, 7.7, 10.3, -2.8, 8.7],
       "isSummitFinish": false,
       "ascentsVary": false,
       "races": [
@@ -6618,7 +6708,7 @@
         "category"
       ],
       "notes": [
-        "Climbed via Huétor Vega. Length/gradient from Komoot's GPS route data.",
+        "Climbed via Huétor Vega. Length/gradient from our own GPX route data (previously a Komoot estimate of 6.96km/9% — real-world sources put it closer to our figure, at 8.4km/8%).",
         "Second ascent of the day, same climb as earlier."
       ],
       "ascents": [
@@ -6633,13 +6723,13 @@
           "stageDate": "2026-09-12",
           "ordinal": "1st",
           "route": null,
-          "len": 6.96,
-          "grad": 9,
+          "len": 8.83,
+          "grad": 7.7,
           "elev": 1483,
           "cat": "Cat1",
           "kbf": 92.5,
-          "profile": null,
-          "notes": "Climbed via Huétor Vega. Length/gradient from Komoot's GPS route data.",
+          "profile": [5.5, 12.2, 9.5, 9.7, 7.7, 7.7, 10.3, -2.8, 8.7],
+          "notes": "Climbed via Huétor Vega. Length/gradient from our own GPX route data (previously a Komoot estimate of 6.96km/9% — real-world sources put it closer to our figure, at 8.4km/8%).",
           "rawName": "Puerto de El Purche (1st ascent)"
         },
         {
@@ -6653,12 +6743,12 @@
           "stageDate": "2026-09-12",
           "ordinal": "2nd",
           "route": null,
-          "len": 6.96,
-          "grad": 9,
+          "len": 8.83,
+          "grad": 7.7,
           "elev": 1483,
           "cat": "Cat1",
           "kbf": 61.3,
-          "profile": null,
+          "profile": [5.5, 12.2, 9.5, 9.7, 7.7, 7.7, 10.3, -2.8, 8.7],
           "notes": "Second ascent of the day, same climb as earlier.",
           "rawName": "Puerto de El Purche (2nd ascent)"
         }
@@ -6669,10 +6759,10 @@
       "name": "Puerto de Granada",
       "range": "Granada",
       "cat": "Cat2",
-      "len": 13.5,
-      "grad": 3.3,
+      "len": 12.08,
+      "grad": 4.0,
       "elev": 1034,
-      "profile": null,
+      "profile": [0.1, 2.6, 0.7, 3.0, 4.9, 5.9, 5.8, 6.4, 6.3, 5.8, 4.8, 1.6],
       "isSummitFinish": false,
       "ascentsVary": false,
       "races": [
@@ -6682,7 +6772,9 @@
       "gateReasons": [
         "category"
       ],
-      "notes": [],
+      "notes": [
+        "Length/gradient from our own GPX route data (previously an estimate of 13.5km/3.3%)."
+      ],
       "ascents": [
         {
           "race": "vuelta",
@@ -6695,13 +6787,13 @@
           "stageDate": "2026-09-04",
           "ordinal": null,
           "route": null,
-          "len": 13.5,
-          "grad": 3.3,
+          "len": 12.08,
+          "grad": 4.0,
           "elev": 1034,
           "cat": "Cat2",
           "kbf": 37,
-          "profile": null,
-          "notes": null,
+          "profile": [0.1, 2.6, 0.7, 3.0, 4.9, 5.9, 5.8, 6.4, 6.3, 5.8, 4.8, 1.6],
+          "notes": "Length/gradient from our own GPX route data (previously an estimate of 13.5km/3.3%).",
           "rawName": "Puerto de Granada"
         }
       ]
@@ -6753,10 +6845,10 @@
       "name": "Puerto de la Serratella",
       "range": "Castellón",
       "cat": "Cat2",
-      "len": 19,
+      "len": 18.61,
       "grad": 3.3,
       "elev": 799,
-      "profile": null,
+      "profile": [1.4, 2.7, 0.4, 1.6, 0.3, 0.9, 2.7, 2.9, 3.5, 4.1, 3.6, 5.6, 6.2, 4.4, 5.6, 7.1, 4.2, 4.6, 0.3],
       "isSummitFinish": false,
       "ascentsVary": false,
       "races": [
@@ -6767,7 +6859,7 @@
         "category"
       ],
       "notes": [
-        "Long, gradual ascent — categorised more for cumulative altitude gain than steepness."
+        "Long, gradual ascent — categorised more for cumulative altitude gain than steepness. Confirmed against our own GPX route data, closely matching the existing figure."
       ],
       "ascents": [
         {
@@ -6781,13 +6873,13 @@
           "stageDate": "2026-08-27",
           "ordinal": null,
           "route": null,
-          "len": 19,
+          "len": 18.61,
           "grad": 3.3,
           "elev": 799,
           "cat": "Cat2",
           "kbf": 135.4,
-          "profile": null,
-          "notes": "Long, gradual ascent — categorised more for cumulative altitude gain than steepness.",
+          "profile": [1.4, 2.7, 0.4, 1.6, 0.3, 0.9, 2.7, 2.9, 3.5, 4.1, 3.6, 5.6, 6.2, 4.4, 5.6, 7.1, 4.2, 4.6, 0.3],
+          "notes": "Long, gradual ascent — categorised more for cumulative altitude gain than steepness. Confirmed against our own GPX route data, closely matching the existing figure.",
           "rawName": "Puerto de la Serratella"
         }
       ]
@@ -6797,10 +6889,10 @@
       "name": "Puerto de Las Abejas",
       "range": "Serranía de Ronda",
       "cat": "Cat2",
-      "len": 10.5,
-      "grad": 4.9,
-      "elev": 887,
-      "profile": null,
+      "len": 10.4,
+      "grad": 4.3,
+      "elev": 823,
+      "profile": [5.9, 5.3, 6.4, 0.6, 0.6, 3.6, 3.3, 5.4, 5.2, 5.8],
       "isSummitFinish": false,
       "ascentsVary": false,
       "races": [
@@ -6810,7 +6902,9 @@
       "gateReasons": [
         "category"
       ],
-      "notes": [],
+      "notes": [
+        "There are several distinct named approaches to this pass (El Burgo, Alozaina, Tolox); this GPX matches the Alozaina side closely against real-world sources. Length/gradient/elevation from our own GPX route data — the old summit figure (887m) didn't match any of the known approaches and was simply wrong."
+      ],
       "ascents": [
         {
           "race": "vuelta",
@@ -6823,13 +6917,13 @@
           "stageDate": "2026-09-11",
           "ordinal": null,
           "route": null,
-          "len": 10.5,
-          "grad": 4.9,
-          "elev": 887,
+          "len": 10.4,
+          "grad": 4.3,
+          "elev": 823,
           "cat": "Cat2",
           "kbf": 115.8,
-          "profile": null,
-          "notes": null,
+          "profile": [5.9, 5.3, 6.4, 0.6, 0.6, 3.6, 3.3, 5.4, 5.2, 5.8],
+          "notes": "There are several distinct named approaches to this pass (El Burgo, Alozaina, Tolox); this GPX matches the Alozaina side closely against real-world sources. Length/gradient/elevation from our own GPX route data — the old summit figure (887m) didn't match any of the known approaches and was simply wrong.",
           "rawName": "Puerto de Las Abejas"
         }
       ]
@@ -6839,10 +6933,10 @@
       "name": "Puerto de Locubín",
       "range": "Jaén",
       "cat": "Cat2",
-      "len": 10.1,
-      "grad": 4.5,
+      "len": 10.48,
+      "grad": 4.4,
       "elev": 1085,
-      "profile": null,
+      "profile": [3.0, 0.7, 6.7, 6.0, 2.6, 1.8, 6.5, 7.0, 5.8, 4.2],
       "isSummitFinish": false,
       "ascentsVary": false,
       "races": [
@@ -6853,7 +6947,7 @@
         "category"
       ],
       "notes": [
-        "Leads into the final push to Sierra de la Pandera."
+        "Leads into the final push to Sierra de la Pandera. Confirmed against our own GPX route data, closely matching the existing figure."
       ],
       "ascents": [
         {
@@ -6867,13 +6961,13 @@
           "stageDate": "2026-09-05",
           "ordinal": null,
           "route": null,
-          "len": 10.1,
-          "grad": 4.5,
+          "len": 10.48,
+          "grad": 4.4,
           "elev": 1085,
           "cat": "Cat2",
           "kbf": 20.4,
-          "profile": null,
-          "notes": "Leads into the final push to Sierra de la Pandera.",
+          "profile": [3.0, 0.7, 6.7, 6.0, 2.6, 1.8, 6.5, 7.0, 5.8, 4.2],
+          "notes": "Leads into the final push to Sierra de la Pandera. Confirmed against our own GPX route data, closely matching the existing figure.",
           "rawName": "Puerto de Locubín"
         }
       ]
@@ -6925,8 +7019,8 @@
       "name": "Puerto de Los Villares",
       "range": "Jaén",
       "cat": "Cat2",
-      "len": 11.4,
-      "grad": 5.2,
+      "len": 11.17,
+      "grad": 5.3,
       "elev": 1180,
       "profile": null,
       "isSummitFinish": false,
@@ -6938,7 +7032,9 @@
       "gateReasons": [
         "category"
       ],
-      "notes": [],
+      "notes": [
+        "Length/gradient confirmed against our own GPX route data, closely matching the existing figure."
+      ],
       "ascents": [
         {
           "race": "vuelta",
@@ -6951,13 +7047,13 @@
           "stageDate": "2026-09-05",
           "ordinal": null,
           "route": null,
-          "len": 11.4,
-          "grad": 5.2,
+          "len": 11.17,
+          "grad": 5.3,
           "elev": 1180,
           "cat": "Cat2",
           "kbf": 60.6,
           "profile": null,
-          "notes": null,
+          "notes": "Length/gradient confirmed against our own GPX route data, closely matching the existing figure.",
           "rawName": "Puerto de Los Villares"
         }
       ]
@@ -6967,8 +7063,8 @@
       "name": "Puerto de San Rafael",
       "range": "Teruel",
       "cat": "Cat2",
-      "len": 14.2,
-      "grad": 3.7,
+      "len": 13.73,
+      "grad": 3.9,
       "elev": 1558,
       "profile": null,
       "isSummitFinish": false,
@@ -6981,7 +7077,7 @@
         "category"
       ],
       "notes": [
-        "Long false-flat approach before the road continues on to the Valdelinares finish."
+        "Long false-flat approach before the road continues on to the Valdelinares finish. Length/gradient confirmed against our own GPX route data, closely matching the existing figure."
       ],
       "ascents": [
         {
@@ -6995,13 +7091,13 @@
           "stageDate": "2026-08-28",
           "ordinal": null,
           "route": null,
-          "len": 14.2,
-          "grad": 3.7,
+          "len": 13.73,
+          "grad": 3.9,
           "elev": 1558,
           "cat": "Cat2",
           "kbf": 12.3,
           "profile": null,
-          "notes": "Long false-flat approach before the road continues on to the Valdelinares finish.",
+          "notes": "Long false-flat approach before the road continues on to the Valdelinares finish. Length/gradient confirmed against our own GPX route data, closely matching the existing figure.",
           "rawName": "Puerto de San Rafael"
         }
       ]
@@ -7053,8 +7149,8 @@
       "name": "Puerto de Tárbena",
       "range": "Costa Blanca",
       "cat": "Cat2",
-      "len": 12.1,
-      "grad": 3,
+      "len": 6.92,
+      "grad": 5.8,
       "elev": 594,
       "profile": null,
       "isSummitFinish": false,
@@ -7067,7 +7163,7 @@
         "category"
       ],
       "notes": [
-        "Gradual, early climb of the day."
+        "Climbed from the village of Bolulla -- the road before that is a gentle rolling lead-in from the coast, not part of the real climb. Length/gradient from our own GPX route data, closely matching the official categorised climb."
       ],
       "ascents": [
         {
@@ -7081,13 +7177,13 @@
           "stageDate": "2026-08-30",
           "ordinal": null,
           "route": null,
-          "len": 12.1,
-          "grad": 3,
+          "len": 6.92,
+          "grad": 5.8,
           "elev": 594,
           "cat": "Cat2",
           "kbf": 150.3,
           "profile": null,
-          "notes": "Gradual, early climb of the day.",
+          "notes": "Climbed from the village of Bolulla -- the road before that is a gentle rolling lead-in from the coast, not part of the real climb. Length/gradient from our own GPX route data, closely matching the official categorised climb.",
           "rawName": "Puerto de Tárbena"
         }
       ]
@@ -7139,9 +7235,9 @@
       "name": "Puerto de Tudons",
       "range": "Costa Blanca",
       "cat": "Cat2",
-      "len": 4.99,
-      "grad": 6,
-      "elev": 1027,
+      "len": 13.29,
+      "grad": 4.1,
+      "elev": 1026,
       "profile": null,
       "isSummitFinish": false,
       "ascentsVary": false,
@@ -7153,7 +7249,7 @@
         "category"
       ],
       "notes": [
-        "Length/gradient from Komoot, the specific final segment up to the summit (not the much longer climb-from-the-stage-start figure CyclingCols lists)."
+        "Length/gradient now from our own GPX route data covering the full bottom-to-top climb -- previously this used just Komoot's final segment (4.99km/6%), not the much longer climb-from-the-stage-start figure CyclingCols lists. Summit still matches almost exactly."
       ],
       "ascents": [
         {
@@ -7167,13 +7263,13 @@
           "stageDate": "2026-08-30",
           "ordinal": null,
           "route": null,
-          "len": 4.99,
-          "grad": 6,
-          "elev": 1027,
+          "len": 13.29,
+          "grad": 4.1,
+          "elev": 1026,
           "cat": "Cat2",
           "kbf": 65.1,
           "profile": null,
-          "notes": "Length/gradient from Komoot, the specific final segment up to the summit (not the much longer climb-from-the-stage-start figure CyclingCols lists).",
+          "notes": "Length/gradient now from our own GPX route data covering the full bottom-to-top climb -- previously this used just Komoot's final segment (4.99km/6%), not the much longer climb-from-the-stage-start figure CyclingCols lists. Summit still matches almost exactly.",
           "rawName": "Puerto de Tudons"
         }
       ]
@@ -7225,7 +7321,7 @@
       "name": "Puerto del Viento",
       "range": "Serranía de Ronda",
       "cat": "Cat2",
-      "len": 13.8,
+      "len": 13.77,
       "grad": 3.8,
       "elev": 1078,
       "profile": null,
@@ -7239,7 +7335,7 @@
         "category"
       ],
       "notes": [
-        "Climbed from the east, from El Burgo. Length/gradient from CyclingCols. Max gradient 9.6%."
+        "Climbed from the east, from El Burgo. Length/gradient confirmed against our own GPX route data, closely matching the existing figure (previously from CyclingCols). Max gradient 9.6%."
       ],
       "ascents": [
         {
@@ -7253,13 +7349,13 @@
           "stageDate": "2026-09-11",
           "ordinal": null,
           "route": null,
-          "len": 13.8,
+          "len": 13.77,
           "grad": 3.8,
           "elev": 1078,
           "cat": "Cat2",
           "kbf": 101.5,
           "profile": null,
-          "notes": "Climbed from the east, from El Burgo. Length/gradient from CyclingCols. Max gradient 9.6%.",
+          "notes": "Climbed from the east, from El Burgo. Length/gradient confirmed against our own GPX route data, closely matching the existing figure (previously from CyclingCols). Max gradient 9.6%.",
           "rawName": "Puerto del Viento"
         }
       ]
@@ -7269,8 +7365,8 @@
       "name": "Puerto El Bartolo",
       "range": "Castellón",
       "cat": "Cat1",
-      "len": 11.7,
-      "grad": 6,
+      "len": 10.88,
+      "grad": 6.5,
       "elev": 713,
       "profile": [
         2,
@@ -7296,7 +7392,7 @@
         "category"
       ],
       "notes": [
-        "First-ever dirt-road finale for La Vuelta — the final ~3.5km run on gravel/sterrato before a fast paved descent into Castelló. Steepest ramp 17.2%."
+        "First-ever dirt-road finale for La Vuelta — the final ~3.5km run on gravel/sterrato before a fast paved descent into Castelló. Steepest ramp 17.2%. Length/gradient confirmed against our own GPX route data, closely matching the existing figure."
       ],
       "ascents": [
         {
@@ -7310,8 +7406,8 @@
           "stageDate": "2026-08-27",
           "ordinal": null,
           "route": null,
-          "len": 11.7,
-          "grad": 6,
+          "len": 10.88,
+          "grad": 6.5,
           "elev": 713,
           "cat": "Cat1",
           "kbf": 19.1,
@@ -7329,7 +7425,7 @@
             8,
             17
           ],
-          "notes": "First-ever dirt-road finale for La Vuelta — the final ~3.5km run on gravel/sterrato before a fast paved descent into Castelló. Steepest ramp 17.2%.",
+          "notes": "First-ever dirt-road finale for La Vuelta — the final ~3.5km run on gravel/sterrato before a fast paved descent into Castelló. Steepest ramp 17.2%. Length/gradient confirmed against our own GPX route data, closely matching the existing figure.",
           "rawName": "Puerto El Bartolo"
         }
       ]
@@ -7339,8 +7435,8 @@
       "name": "Puerto El Remolcador",
       "range": "Teruel",
       "cat": "Cat2",
-      "len": 10.3,
-      "grad": 4.2,
+      "len": 15.03,
+      "grad": 4.3,
       "elev": 982,
       "profile": null,
       "isSummitFinish": false,
@@ -7352,7 +7448,9 @@
       "gateReasons": [
         "category"
       ],
-      "notes": [],
+      "notes": [
+        "Length/gradient now from our own GPX route data covering the full bottom-to-top climb from its lower starting town -- previously a shorter estimate."
+      ],
       "ascents": [
         {
           "race": "vuelta",
@@ -7365,13 +7463,13 @@
           "stageDate": "2026-08-28",
           "ordinal": null,
           "route": null,
-          "len": 10.3,
-          "grad": 4.2,
+          "len": 15.03,
+          "grad": 4.3,
           "elev": 982,
           "cat": "Cat2",
           "kbf": 96.4,
           "profile": null,
-          "notes": null,
+          "notes": "Length/gradient now from our own GPX route data covering the full bottom-to-top climb from its lower starting town -- previously a shorter estimate.",
           "rawName": "Puerto El Remolcador"
         }
       ]
@@ -7871,18 +7969,23 @@
       "name": "Sierra de la Pandera",
       "range": "Jaén",
       "cat": "ESP",
-      "len": 8.4,
-      "grad": 7.8,
-      "elev": 1797,
+      "len": 12.52,
+      "grad": 7.3,
+      "elev": 1818,
       "profile": [
-        4,
-        5,
-        6,
-        7,
-        7.5,
-        8,
-        8.5,
-        16.4
+        5.4,
+        8.1,
+        8.8,
+        3.7,
+        7.4,
+        8.6,
+        5.7,
+        6.3,
+        12.4,
+        12.6,
+        7.1,
+        2.7,
+        5.5
       ],
       "isSummitFinish": true,
       "ascentsVary": false,
@@ -7894,7 +7997,7 @@
         "category"
       ],
       "notes": [
-        "One of La Vuelta's classic brutal summit finishes since 2002, with several sectors over 15% — including inside the final kilometre, where it touches 18%."
+        "One of La Vuelta's classic brutal summit finishes since 2002. Length/gradient now from our own GPX route data, routed to the exact finish line -- the real bottom-to-top climb runs longer than previously listed, with the steepest sectors (over 12%, peaking near 19%) around two-thirds of the way up, easing off in the final kilometre."
       ],
       "ascents": [
         {
@@ -7908,22 +8011,27 @@
           "stageDate": "2026-09-05",
           "ordinal": null,
           "route": null,
-          "len": 8.4,
-          "grad": 7.8,
-          "elev": 1797,
+          "len": 12.52,
+          "grad": 7.3,
+          "elev": 1818,
           "cat": "ESP",
           "kbf": 0,
           "profile": [
-            4,
-            5,
-            6,
-            7,
-            7.5,
-            8,
-            8.5,
-            16.4
+            5.4,
+            8.1,
+            8.8,
+            3.7,
+            7.4,
+            8.6,
+            5.7,
+            6.3,
+            12.4,
+            12.6,
+            7.1,
+            2.7,
+            5.5
           ],
-          "notes": "One of La Vuelta's classic brutal summit finishes since 2002, with several sectors over 15% — including inside the final kilometre, where it touches 18%.",
+          "notes": "One of La Vuelta's classic brutal summit finishes since 2002. Length/gradient now from our own GPX route data, routed to the exact finish line -- the real bottom-to-top climb runs longer than previously listed, with the steepest sectors (over 12%, peaking near 19%) around two-thirds of the way up, easing off in the final kilometre.",
           "rawName": "Sierra de la Pandera"
         }
       ]
@@ -8082,8 +8190,8 @@
       "name": "Venta de la Cebada",
       "range": "Granada",
       "cat": "Cat1",
-      "len": 7.4,
-      "grad": 6.7,
+      "len": 7.76,
+      "grad": 6.5,
       "elev": 819,
       "profile": null,
       "isSummitFinish": false,
@@ -8095,7 +8203,9 @@
       "gateReasons": [
         "category"
       ],
-      "notes": [],
+      "notes": [
+        "Length/gradient confirmed against our own GPX route data, closely matching the existing figure."
+      ],
       "ascents": [
         {
           "race": "vuelta",
@@ -8108,13 +8218,13 @@
           "stageDate": "2026-09-04",
           "ordinal": null,
           "route": null,
-          "len": 7.4,
-          "grad": 6.7,
+          "len": 7.76,
+          "grad": 6.5,
           "elev": 819,
           "cat": "Cat1",
           "kbf": 165,
           "profile": null,
-          "notes": null,
+          "notes": "Length/gradient confirmed against our own GPX route data, closely matching the existing figure.",
           "rawName": "Venta de la Cebada"
         }
       ]

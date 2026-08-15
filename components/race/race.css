@@ -75,10 +75,23 @@
 .bb-logo-chip { display: block; width: 100%; max-width: 180px; height: auto; margin: 0 auto 12px; filter: brightness(1.35) saturate(1.5) contrast(1.1); }
 .kiwi-logo-chip { display: block; width: 100%; max-width: 110px; height: auto; margin: 0 auto 12px; filter: brightness(1.35) saturate(1.5) contrast(1.1); }
 .stay-row { display: grid; grid-template-columns: 1fr 260px; gap: 18px; align-items: stretch; }
-@media (max-width: 900px) { .stay-row { grid-template-columns: 1fr; } }
 .stay-row .stay-card { margin-top: 0; display: flex; flex-direction: column; flex: 1; }
 .stay-col { display: flex; flex-direction: column; gap: 14px; height: 100%; }
 .bike-hire-card { display: flex; flex-direction: column; gap: 14px; }
+/* Desktop: the iframe fills .stay-card via flex:1, which itself is
+   stretched to match .bike-hire-card's height by .stay-row's grid
+   align-items: stretch. Below 900px, .stay-row drops to one column, so
+   .stay-col/.bike-hire-card are no longer sharing a grid row to stretch
+   against — every flex:1/height:100% in that chain collapses to its
+   content height instead (just the title line), and the map iframe falls
+   back to the browser's ~150px default. Give it an explicit height
+   instead of relying on a stretch context that no longer exists. */
+.stay22-frame { flex: 1; }
+@media (max-width: 900px) {
+  .stay-row { grid-template-columns: 1fr; }
+  .stay-row .stay-card { flex: none; }
+  .stay22-frame { flex: none; height: 340px; }
+}
 
 .climb-card { padding: 15px 17px; background: var(--glass); border: 1px solid rgba(255, 255, 255, 0.09); border-radius: 13px; }
 .climb-card.is-finish { border-color: rgba(239, 68, 68, 0.28); }
@@ -100,7 +113,7 @@
 .cs-val { font-family: 'IBM Plex Sans', Inter, system-ui, sans-serif; font-size: 22px; font-weight: 700; letter-spacing: 0; color: #fff; line-height: 1; }
 .cs-label { font-size: 9px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.08em; color: var(--muted); margin-top: 3px; }
 .cs-val.sm { font-size: 15px; letter-spacing: 0; }
-.cc-notes { font-size: 11px; color: var(--sec); line-height: 1.55; margin-bottom: 10px; }
+.cc-notes { font-size: 13px; color: var(--text); line-height: 1.55; margin-bottom: 10px; }
 .tbc-note { font-size: 11px; color: var(--muted); font-style: italic; margin-top: 4px; }
 .plan-btn { display: inline-flex; align-self: flex-start; align-items: center; gap: 6px; padding: 7px 14px; background: #1a72e0; border: none; border-radius: 9px; color: #fff; font-size: 12px; font-weight: 700; text-decoration: none; transition: all 0.15s; cursor: pointer; }
 .plan-btn:hover { background: #3b8ef0; color: #fff; }
@@ -110,7 +123,7 @@
 .cc-body-right .cc-stats { margin-bottom: 0; gap: 6px 18px; }
 .cc-profile { margin: 8px 0 10px; }
 .cc-profile svg { display: block; }
-.profile-meta { display: flex; justify-content: space-between; margin-top: 3px; font-size: 9px; color: var(--muted); }
+.profile-meta { display: flex; justify-content: space-between; margin-top: 3px; font-size: 11px; color: var(--sec); }
 
 /* Route map */
 .map-outer { position: relative; z-index: 1; max-width: 780px; margin: 0 auto 22px; padding: 0 20px; }

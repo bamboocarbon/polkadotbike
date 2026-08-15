@@ -68,10 +68,15 @@ export default function ComparePage() {
         <script key={i} type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(block) }} />
       ))}
 
-      <style>{`
-        nav a.active { color: #1a72e0; }
+      <style
+        dangerouslySetInnerHTML={{
+          __html: `
+        nav a.active { color: var(--accent); }
         .logo span { color: #fff; }
-      `}</style>
+        .hero > h1 { font-size: clamp(26px, 4.5vw, 44px); }
+      `,
+        }}
+      />
 
       <div className="hero">
         <h1>Groupset Comparator</h1>
@@ -108,8 +113,8 @@ export default function ComparePage() {
           { href: '/glossary', label: 'Glossary' },
           { href: '/about', label: 'About' },
           { href: '/contact', label: 'Contact' },
-          { href: '/privacy.html', label: 'Privacy' },
-          { href: '/disclaimer.html', label: 'Disclaimer' },
+          { href: '/privacy', label: 'Privacy' },
+          { href: '/disclaimer', label: 'Disclaimer' },
         ]}
       />
     </>

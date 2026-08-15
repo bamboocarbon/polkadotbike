@@ -30,7 +30,6 @@ export interface RaceConfig {
   themeColor: string;
   accent: string;
   accentLight: string;
-  accentActiveBg: string;
   h1: string;
   heroSub: string;
   heroStats: HeroStat[];
@@ -78,7 +77,6 @@ const tdfConfig: RaceConfig = {
   themeColor: '#ef4444',
   accent: '#3b82f6',
   accentLight: '#93c5fd',
-  accentActiveBg: 'rgba(59,130,246,0.12)',
   h1: 'Tour de France 2026 Climbs',
   heroSub: 'Pick a climb — see the gradient, length, and category, then send it straight to the Climb Planner with your setup.',
   heroStats: [
@@ -121,8 +119,8 @@ const tdfConfig: RaceConfig = {
     { href: '/glossary', label: 'Glossary' },
     { href: '/about', label: 'About' },
     { href: '/contact', label: 'Contact' },
-    { href: '/privacy.html', label: 'Privacy' },
-    { href: '/disclaimer.html', label: 'Disclaimer' },
+    { href: '/privacy', label: 'Privacy' },
+    { href: '/disclaimer', label: 'Disclaimer' },
   ],
 };
 
@@ -155,7 +153,6 @@ const giro26Config: RaceConfig = {
   themeColor: '#ef4444',
   accent: '#ec4899',
   accentLight: '#f9a8d4',
-  accentActiveBg: 'rgba(236,72,153,0.12)',
   h1: "Giro d'Italia 2026 Climbs",
   heroSub: 'Every stage and climb from the 2026 Giro — Grande Partenza in Bulgaria, then 18 stages through Italy. Send any ascent to the Climb Planner with your setup.',
   heroStats: [
@@ -214,8 +211,8 @@ const giro26Config: RaceConfig = {
     { href: '/glossary', label: 'Glossary' },
     { href: '/about', label: 'About' },
     { href: '/contact', label: 'Contact' },
-    { href: '/privacy.html', label: 'Privacy' },
-    { href: '/disclaimer.html', label: 'Disclaimer' },
+    { href: '/privacy', label: 'Privacy' },
+    { href: '/disclaimer', label: 'Disclaimer' },
   ],
 };
 
@@ -247,7 +244,6 @@ const vueltaConfig: RaceConfig = {
   themeColor: '#ef4444',
   accent: '#f59e0b',
   accentLight: '#fcd34d',
-  accentActiveBg: 'rgba(245,158,11,0.12)',
   h1: 'La Vuelta a España 2026 Climbs',
   heroSub: 'Pick a puerto — see the gradient, length, and category, then send it straight to the Climb Planner with your setup.',
   heroStats: [
@@ -308,8 +304,8 @@ const vueltaConfig: RaceConfig = {
     { href: '/glossary', label: 'Glossary' },
     { href: '/about', label: 'About' },
     { href: '/contact', label: 'Contact' },
-    { href: '/privacy.html', label: 'Privacy' },
-    { href: '/disclaimer.html', label: 'Disclaimer' },
+    { href: '/privacy', label: 'Privacy' },
+    { href: '/disclaimer', label: 'Disclaimer' },
   ],
 };
 

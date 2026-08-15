@@ -1,0 +1,13 @@
+{
+  "slug": "puerto-de-locubin",
+  "source": "IGN MTN",
+  "attribution": "Map: IGN España, CC-BY 4.0",
+  "zoom": 15,
+  "imageWidthPx": 3328,
+  "bounds": {
+    "xMin": -2864.1385975664734,
+    "xMax": 9743.440810571698,
+    "zMin": -4902.505755479449,
+    "zMax": 1837.369474361067
+  }
+}

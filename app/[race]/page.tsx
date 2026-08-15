@@ -125,19 +125,26 @@ export default function RacePage({ params }: PageProps) {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(buildJsonLd(config)) }}
       />
 
-      {/* Each race's own theme colour. globals.css defaults --accent to
-          TDF's blue as a safe fallback rather than guessing at a value for
-          pages that aren't migrated yet (see the comment there) — every
-          real race route sets its own explicitly. Giro's source page also
-          carried a stray `--accent:#1a72e0` override further down that
-          clobbered its own pink with blue on the live site; that override
-          is deliberately not ported here, since it reads as an
-          unintentional cascade collision (leftover Climb-Planner CSS
-          pasted wholesale into the page) rather than a design choice. */}
-      <style>{`
+      {/* Each race's own theme colour, used for its on-page charts/borders.
+          globals.css defaults --accent to TDF's blue as a safe fallback
+          rather than guessing at a value for pages that aren't migrated yet
+          (see the comment there) — every real race route sets its own
+          explicitly. Giro's source page also carried a stray
+          `--accent:#1a72e0` override further down that clobbered its own
+          pink with blue on the live site; that override is deliberately not
+          ported here, since it reads as an unintentional cascade collision
+          (leftover Climb-Planner CSS pasted wholesale into the page) rather
+          than a design choice. The nav active-tab colour intentionally does
+          NOT follow this — it stays the fixed blue from globals.css so
+          Giro/TDF/Vuelta read as one consistent nav, not three. */}
+      <style
+        dangerouslySetInnerHTML={{
+          __html: `
         :root { --accent: ${config.accent}; --accent-light: ${config.accentLight}; }
-        nav a.active { background: ${config.accentActiveBg}; }
-      `}</style>
+        .hero > h1 { font-size: clamp(26px, 5vw, 46px); }
+      `,
+        }}
+      />
 
       <div className="hero">
         <h1>{config.h1}</h1>

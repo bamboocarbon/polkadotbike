@@ -14,7 +14,7 @@ export default function ConsentBanner() {
     <div id="pdb-consent" role="dialog" aria-label="Cookie consent">
       <p>
         I use Google Analytics cookies to see how the site&#8217;s used. See the{' '}
-        <a href="/privacy.html">privacy policy</a> for details.
+        <a href="/privacy">privacy policy</a> for details.
       </p>
       <div className="pdb-consent-btns">
         <button type="button" className="pdb-reject" onClick={reject}>

@@ -13,6 +13,7 @@ const NAV: { href: string; label: ReactNode }[] = [
   { href: '/giro26', label: 'Giro 2026' },
   { href: '/tdf', label: 'TDF 2026' },
   { href: '/vuelta', label: 'Vuelta 2026' },
+  { href: '/climbs', label: 'Climbs' },
   { href: '/about', label: 'About' },
   { href: '/guide', label: 'Guide' },
   { href: '/glossary', label: 'Glossary' },

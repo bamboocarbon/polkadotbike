@@ -1,0 +1,13 @@
+{
+  "slug": "penas-blancas",
+  "source": "IGN MTN",
+  "attribution": "Map: IGN España, CC-BY 4.0",
+  "zoom": 15,
+  "imageWidthPx": 1792,
+  "bounds": {
+    "xMin": -5365.561541427609,
+    "xMax": 1523.104202801989,
+    "zMin": -13506.268161555194,
+    "zMax": 4073.6451862305244
+  }
+}

@@ -1,0 +1,13 @@
+{
+  "slug": "puerto-de-las-abejas",
+  "source": "IGN MTN",
+  "attribution": "Map: IGN España, CC-BY 4.0",
+  "zoom": 15,
+  "imageWidthPx": 2816,
+  "bounds": {
+    "xMin": -7984.925867230404,
+    "xMax": 2797.2829265296386,
+    "zMin": -3045.8555835001303,
+    "zMax": 846.9707398257481
+  }
+}

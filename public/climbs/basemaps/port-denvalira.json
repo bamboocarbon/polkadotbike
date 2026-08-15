@@ -1,0 +1,13 @@
+{
+  "slug": "port-denvalira",
+  "source": "IGN MTN",
+  "attribution": "Map: IGN España, CC-BY 4.0",
+  "zoom": 14,
+  "imageWidthPx": 2048,
+  "bounds": {
+    "xMin": -6407.832555270938,
+    "xMax": 18834.629760758682,
+    "zMin": -11700.596304305445,
+    "zMax": 4404.476337822943
+  }
+}

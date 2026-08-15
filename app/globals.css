@@ -14,7 +14,11 @@
   --text: #e8edf5;
   --muted: #64748b;
   --sec: #94a3b8;
-  --glass: rgba(4, 9, 26, 0.97);
+  /* Every source page declares --glass as a bluish rgba(4,9,26,...) up top,
+     then unconditionally overrides it to solid #000 later on in its own
+     "UCI World-Championship bold palette" block — #000 is what actually
+     renders everywhere, so that's the value kept here directly. */
+  --glass: #000;
 
   /* --accent / --accent-light are per-race theme colours (TDF blue #3b82f6,
      Giro pink #ec4899, Vuelta amber #f59e0b in the source pages) — NOT a
@@ -59,7 +63,13 @@ header {
   color: #fff; text-decoration: none;
   display: inline-flex; align-items: center; gap: 3px;
 }
-.logo span { color: var(--accent); }
+/* Fixed white/blue, not var(--accent) — the calculator pages set --accent
+   dynamically from the user's in-tool brand selection and deliberately
+   override both of these back to their own values (see e.g. climb/page.tsx);
+   every other page should show the same white logo and blue active tab
+   regardless of that page's own theme colour (used elsewhere on race pages
+   for charts/borders, just not here). */
+.logo span { color: #fff; }
 .logo-dot-svg { width: 32px; height: 32px; flex-shrink: 0; }
 
 nav { display: flex; gap: 2px; align-items: center; }
@@ -70,7 +80,7 @@ nav a {
   transition: all 0.15s; text-align: center; line-height: 1.2;
 }
 nav a:hover { color: #fff; background: rgba(255, 255, 255, 0.06); }
-nav a.active { color: var(--accent); background: rgba(59, 130, 246, 0.12); }
+nav a.active { color: #3b82f6; background: rgba(59, 130, 246, 0.12); }
 
 @media (max-width: 768px) {
   header { padding: 0 12px; }
@@ -114,8 +124,16 @@ header { background: #000 !important; }
   display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: 6px 24px; text-align: left;
 }
 .hero::after { content: ""; position: absolute; left: 0; right: 0; top: 154px; bottom: 0; background: #fff; z-index: -1; }
-.hero > h1 { margin: 0; color: #000 !important; -webkit-text-fill-color: #000 !important; background: none !important; filter: none !important; }
-.hero > p { margin: 0; max-width: 340px; text-align: left; color: #000 !important; font-weight: 700 !important; }
+/* clamp() max varies by page in the source — 48px on the 4 calculator
+   pages (index/climb/derailleur/wkg), 46px on the plain content pages
+   (about/contact/guide/glossary) and race pages (also a 26px vs 28px min),
+   44px on compare — this 46px default matches the content pages; the
+   calculator pages and compare override it back to their own value in
+   their own <style> block, and the race template does the same for its
+   26px min. Previously a single unscoped 48px here inflated every other
+   page's hero title. */
+.hero > h1 { margin: 0; font-size: clamp(28px, 5vw, 46px); font-weight: 900; letter-spacing: -1.5px; line-height: 1.1; color: #000 !important; -webkit-text-fill-color: #000 !important; background: none !important; filter: none !important; }
+.hero > p { margin: 0; font-size: 15px; max-width: 340px; text-align: left; color: #000 !important; font-weight: 700 !important; }
 body::after {
   content: ""; display: block; position: relative; z-index: 1; width: 100%; height: 186px; margin-top: 4px;
   background-image:
