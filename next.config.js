@@ -26,6 +26,19 @@ const nextConfig = {
       'wkg',
     ];
     return [
+      // Migrated from vercel.json (deleted) — Vercel's own guidance is that
+      // a Next.js app should define redirects here, not there; vercel.json
+      // silently stopped taking effect once the project's Framework Preset
+      // was correctly set to Next.js (was `null`, a leftover from the old
+      // static site — see the 2026-08-15 launch).
+      {
+        source: '/:path*',
+        has: [{ type: 'host', value: 'www.polkadotbike.com' }],
+        destination: 'https://polkadotbike.com/:path*',
+        permanent: true,
+      },
+      { source: '/gear-ratio-calculator', destination: '/', permanent: true },
+      { source: '/gear-ratio-calculator.html', destination: '/', permanent: true },
       { source: '/index.html', destination: '/', permanent: true },
       ...pages.map((page) => ({
         source: `/${page}.html`,
