@@ -17,13 +17,13 @@ const DESCRIPTION =
 // Individual climb detail pages now exist at /climbs/<slug> (moved from
 // app/climb-debug-3d 2026-08-15) for every "ready" (Vuelta) climb, though
 // not all of those yet have real 3D terrain data built (data/climbs/) — see
-// ClimbCard.tsx's CLIMB_3D_SLUGS gate. Still kept out of search results via
-// robots below until the whole site actually goes live.
+// ClimbCard.tsx's CLIMB_3D_SLUGS gate. Indexable since the site went live
+// 2026-08-15 (was noindex until then).
 export const metadata: Metadata = {
   title: { absolute: TITLE },
   description: DESCRIPTION,
   alternates: { canonical: PAGE_URL },
-  robots: { index: false, follow: false },
+  robots: { index: true, follow: true },
   openGraph: {
     type: 'website',
     siteName: 'Polka Dot Bike',

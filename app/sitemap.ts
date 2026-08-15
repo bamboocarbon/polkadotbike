@@ -5,8 +5,8 @@ import { hasRouteData } from '@/lib/climbRouteData';
 const BASE = 'https://polkadotbike.com';
 
 // Every static page that's actually index:true (see each page's own
-// `metadata.robots`) — /climbs itself is deliberately excluded, it's
-// noindex until the whole site goes live (see app/climbs/page.tsx).
+// `metadata.robots`) — /climbs was noindex until the site went live
+// 2026-08-15, now included too (see app/climbs/page.tsx).
 const STATIC_PATHS = [
   '/',
   '/climb',
@@ -16,6 +16,7 @@ const STATIC_PATHS = [
   '/tdf',
   '/giro26',
   '/vuelta',
+  '/climbs',
   '/about',
   '/guide',
   '/glossary',
