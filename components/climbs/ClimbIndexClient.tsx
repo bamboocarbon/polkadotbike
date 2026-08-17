@@ -36,7 +36,7 @@ function fold(s: string): string {
 
 export default function ClimbIndexClient({ climbs }: { climbs: ClimbIndexItem[] }) {
   const [query, setQuery] = useState('');
-  const [race, setRace] = useState<'all' | 'tdf' | 'giro' | 'vuelta'>('all');
+  const [race, setRace] = useState<'all' | 'tdf' | 'giro' | 'vuelta'>('vuelta');
 
   const filtered = useMemo(() => {
     const q = fold(query.trim());
