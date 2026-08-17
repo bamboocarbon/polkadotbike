@@ -23,7 +23,7 @@ const PB_LINKS = {
     'road|campagnolo|Super Record Wireless 13 (2022–)': 'https://performancebicycle.avln.me/c/sryymYrYyFln',
     'mtb|shimano|XTR M9100 (2018–)': 'https://performancebicycle.avln.me/c/QrAdxfMtxkle',
     'mtb|shimano|Deore XT M8100 (2020–)': 'https://performancebicycle.avln.me/c/NwRmppstoUEg',
-    'mtb|shimano|Deore M6100 (2019–)': 'https://performancebicycle.avln.me/c/iTGEbftjIIso',
+    'mtb|shimano|Deore M6100 (2019–)': 'https://performancebicycle.avln.me/c/faOLGJyosADu',
     'mtb|sram|XX SL Eagle Transmission AXS (2023–)': 'https://performancebicycle.avln.me/c/yhzxjkCyNpQk',
     'mtb|sram|XX Eagle Transmission AXS (2023–)': 'https://performancebicycle.avln.me/c/DndxMAiaOcKv',
     'mtb|sram|X0 Eagle Transmission AXS (2023–)': 'https://performancebicycle.avln.me/c/gkEyUEMyFRhn',
