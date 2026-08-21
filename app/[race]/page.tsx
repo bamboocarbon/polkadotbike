@@ -73,7 +73,7 @@ function buildJsonLd(config: RaceConfig) {
         name: `${race.name} Climbs`,
         description: config.jsonLdDescription,
         isPartOf: { '@id': 'https://polkadotbike.com/#website' },
-        author: { '@id': 'https://polkadotbike.com/about.html#robin' },
+        author: { '@id': 'https://polkadotbike.com/about#robin' },
         datePublished: config.jsonLdDatePublished,
         dateModified: BUILD_DATE,
         mainEntity: { '@id': `${pageUrl}#climblist` },
