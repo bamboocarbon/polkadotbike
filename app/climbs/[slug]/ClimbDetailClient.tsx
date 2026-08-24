@@ -48,11 +48,16 @@ const DebugScene = dynamic(() => import('../DebugScene'), { ssr: false });
 const GRADIENT_SMOOTH_TAU_MS = 600;
 
 // Eases a number toward `target` over `tauMs` (exponential, frame-rate
-// independent) instead of snapping to it on every update.
-function useSmoothedValue(target: number, tauMs: number): number {
+// independent) instead of snapping to it on every update. `snap`, when
+// true on a given render, jumps straight to `target` instead of easing —
+// used for the very first real gradient (travel arrives as null until the
+// route loads, so without this the panel would visibly ease up from 0 to
+// the climb's actual starting gradient on every page load).
+function useSmoothedValue(target: number, tauMs: number, snap = false): number {
   const [value, setValue] = useState(target);
   const stateRef = useRef({ value: target, target, last: performance.now() });
   stateRef.current.target = target;
+  if (snap) stateRef.current.value = target;
   useEffect(() => {
     let raf = 0;
     const tick = (now: number) => {
@@ -67,7 +72,7 @@ function useSmoothedValue(target: number, tauMs: number): number {
     raf = requestAnimationFrame(tick);
     return () => cancelAnimationFrame(raf);
   }, [tauMs]);
-  return value;
+  return snap ? target : value;
 }
 
 const BRAND_LABELS: Record<string, string> = { shimano: 'Shimano', sram: 'SRAM', campagnolo: 'Campagnolo', custom: 'Custom' };
@@ -127,7 +132,17 @@ export default function ClimbDetailClient({ name, summary }: ClimbDetailClientPr
   const stop = STOPS.find((s) => s.key === stopKey)!;
   const influences: [number, number] = stop.state === 'A' ? [0, 0] : stop.state === 'B' ? [1, 0] : [0, 1];
   const rawGradientPct = travel?.gradientPct ?? 0;
-  const gradientPct = useSmoothedValue(rawGradientPct, GRADIENT_SMOOTH_TAU_MS);
+  // travel is null until the route loads, so its first-ever non-null value
+  // is the climb's real starting gradient, not a change to ease toward —
+  // snap straight to it. Reset per slug so navigating client-side between
+  // climbs doesn't inherit the previous one's "already had travel" state.
+  const hadTravelRef = useRef(false);
+  const isFirstTravel = !hadTravelRef.current && travel !== null;
+  if (travel !== null) hadTravelRef.current = true;
+  useEffect(() => {
+    hadTravelRef.current = false;
+  }, [slug]);
+  const gradientPct = useSmoothedValue(rawGradientPct, GRADIENT_SMOOTH_TAU_MS, isFirstTravel);
   const gears = useMemo(() => computeClimbGears(S, gradientPct), [S, gradientPct]);
   const buyInfo = useMemo(() => computeBuyInfo(S, gears), [S, gears]);
 
