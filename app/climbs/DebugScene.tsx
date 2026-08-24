@@ -474,6 +474,17 @@ function gradientAtDistance(rd: RouteData, distanceM: number): number {
 // render full detail) — only these "where are we right now" queries.
 const FOLLOW_SMOOTH_M = 200;
 
+// Time constant (ms) for easing the camera toward flyTo's target during
+// autoplay — FOLLOW_SMOOTH_M smooths *where* that target sits along the
+// route, but says nothing about how the camera gets there frame to frame.
+// Without this, flyTo teleports straight to the newly computed position on
+// every RAF tick, so any residual noise (notably the terrain-clearance
+// lookup, a raw single-point DEM sample under the camera's own x/z, not
+// averaged the way the route target's elevation is) reads as visible
+// jolting rather than smooth travel. Manual slider drags still call the
+// unsmoothed flyTo directly — instant response is what you want there.
+const FLY_SMOOTH_TAU_MS = 220;
+
 // Trapezoidal average of elevation over [distanceM-half, distanceM+half],
 // not just an interpolated point sample — same reasoning as
 // lib/climbs/morphGeometry.ts's smoothGradients, but averaging elevation
@@ -589,6 +600,7 @@ function RouteMarkers({ rd, slug, state, mapStyle }: { rd: RouteData; slug: stri
 interface ControlsHandle {
   resetView: () => void;
   flyTo: (distanceM: number) => void;
+  flyToSmooth: (distanceM: number, dt: number) => void;
 }
 
 // Rotates the HTML compass badge (rendered outside the Canvas, off the map
@@ -699,11 +711,11 @@ const SceneControls = forwardRef<ControlsHandle, { rd: RouteData; slug: string; 
       isProgrammaticRef.current = false;
     };
 
-    // Travel along the route to a specific distance — a close-up view
-    // (much nearer than resetView's whole-route framing), so this is the
-    // control for actually moving along the climb rather than just orbiting
-    // around a fixed point.
-    const flyTo = (distanceM: number) => {
+    // Shared math for flyTo/flyToSmooth below — where the camera and its
+    // look-at target *should* be for a given travel distance. Doesn't move
+    // anything itself; callers decide whether to snap there instantly or
+    // ease toward it.
+    const computeFlyTarget = (distanceM: number) => {
       const p = positionAtDistance(rd, distanceM, state, mapStyle);
 
       let offset = desiredOffsetRef.current;
@@ -735,16 +747,45 @@ const SceneControls = forwardRef<ControlsHandle, { rd: RouteData; slug: string; 
         camY = camTerrainY + clearance;
       }
 
+      return {
+        camPos: new THREE.Vector3(camX, camY, camZ),
+        targetPos: new THREE.Vector3(p.x, targetY, p.z),
+      };
+    };
+
+    // Travel along the route to a specific distance — a close-up view
+    // (much nearer than resetView's whole-route framing), so this is the
+    // control for actually moving along the climb rather than just orbiting
+    // around a fixed point. Snaps instantly; used for direct manipulation
+    // (the travel slider) where immediate response is what's wanted.
+    const flyTo = (distanceM: number) => {
+      const { camPos, targetPos } = computeFlyTarget(distanceM);
       isProgrammaticRef.current = true;
-      camera.position.set(camX, camY, camZ);
+      camera.position.copy(camPos);
       if (controlsRef.current) {
-        controlsRef.current.target.set(p.x, targetY, p.z);
+        controlsRef.current.target.copy(targetPos);
         controlsRef.current.update();
       }
       isProgrammaticRef.current = false;
     };
 
-    useImperativeHandle(ref, () => ({ resetView, flyTo }));
+    // Same as flyTo but eases toward the target over FLY_SMOOTH_TAU_MS
+    // instead of snapping — see FLY_SMOOTH_TAU_MS for why. `dt` is the real
+    // elapsed ms since the last call (the autoplay loop already tracks this
+    // for its distance step), so the ease rate stays frame-rate independent.
+    const flyToSmooth = (distanceM: number, dt: number) => {
+      const { camPos, targetPos } = computeFlyTarget(distanceM);
+      const alpha = 1 - Math.exp(-dt / FLY_SMOOTH_TAU_MS);
+      isProgrammaticRef.current = true;
+      camera.position.lerp(camPos, alpha);
+      if (controlsRef.current) {
+        controlsRef.current.target.lerp(targetPos, alpha);
+        controlsRef.current.update();
+      }
+      isProgrammaticRef.current = false;
+    };
+
+    useImperativeHandle(ref, () => ({ resetView, flyTo, flyToSmooth }));
     useEffect(resetView, [state, isTerrain, terrain]); // eslint-disable-line react-hooks/exhaustive-deps
 
     return (
@@ -813,7 +854,7 @@ export default function DebugScene({
       last = now;
       setTravelKm((prev) => {
         const next = Math.min(rd.lengthM, prev + dt * ratePerMs);
-        controlsRef.current?.flyTo(next);
+        controlsRef.current?.flyToSmooth(next, dt);
         if (next >= rd.lengthM) setIsPlaying(false);
         return next;
       });

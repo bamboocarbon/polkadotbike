@@ -20,7 +20,7 @@
  * scrubbing the route).
  */
 import dynamic from 'next/dynamic';
-import { useEffect, useMemo, useState } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 import { useParams } from 'next/navigation';
 import type { TravelInfo } from '../DebugScene';
 import AADSUnit from '@/components/AADSUnit';
@@ -35,6 +35,40 @@ import { lbsToKg } from '@/lib/units';
 import '@/components/climb/climb.css';
 
 const DebugScene = dynamic(() => import('../DebugScene'), { ssr: false });
+
+// Time constant (ms) for easing the displayed gradient toward its true
+// live value — same reasoning as DebugScene's FLY_SMOOTH_TAU_MS. During
+// autoplay, travel.gradientPct arrives fresh every animation frame (~60/s),
+// and the Gears panel derives every sprocket's watts/speed/badge from it
+// directly, so without this the whole panel flickers/reorders in lockstep
+// with each frame's tiny gradient change instead of gliding. The manual
+// slider still feeds this same ease (a brief, barely-noticeable lag on a
+// discrete drag), which is preferable to two different gradient sources
+// for the same readout.
+const GRADIENT_SMOOTH_TAU_MS = 600;
+
+// Eases a number toward `target` over `tauMs` (exponential, frame-rate
+// independent) instead of snapping to it on every update.
+function useSmoothedValue(target: number, tauMs: number): number {
+  const [value, setValue] = useState(target);
+  const stateRef = useRef({ value: target, target, last: performance.now() });
+  stateRef.current.target = target;
+  useEffect(() => {
+    let raf = 0;
+    const tick = (now: number) => {
+      const s = stateRef.current;
+      const dt = now - s.last;
+      s.last = now;
+      const alpha = 1 - Math.exp(-dt / tauMs);
+      s.value += (s.target - s.value) * alpha;
+      setValue(s.value);
+      raf = requestAnimationFrame(tick);
+    };
+    raf = requestAnimationFrame(tick);
+    return () => cancelAnimationFrame(raf);
+  }, [tauMs]);
+  return value;
+}
 
 const BRAND_LABELS: Record<string, string> = { shimano: 'Shimano', sram: 'SRAM', campagnolo: 'Campagnolo', custom: 'Custom' };
 
@@ -92,7 +126,8 @@ export default function ClimbDetailClient({ name, summary }: ClimbDetailClientPr
   const [panelTab, setPanelTab] = useState<'setup' | 'gears'>('gears');
   const stop = STOPS.find((s) => s.key === stopKey)!;
   const influences: [number, number] = stop.state === 'A' ? [0, 0] : stop.state === 'B' ? [1, 0] : [0, 1];
-  const gradientPct = travel?.gradientPct ?? 0;
+  const rawGradientPct = travel?.gradientPct ?? 0;
+  const gradientPct = useSmoothedValue(rawGradientPct, GRADIENT_SMOOTH_TAU_MS);
   const gears = useMemo(() => computeClimbGears(S, gradientPct), [S, gradientPct]);
   const buyInfo = useMemo(() => computeBuyInfo(S, gears), [S, gears]);
 

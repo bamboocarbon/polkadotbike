@@ -225,7 +225,7 @@ input[type='range']::-webkit-slider-thumb { appearance: none; width: 18px; heigh
 .achieve-col { padding: 14px; }
 .achieve-col + .achieve-col { border-left: 1px solid var(--border); }
 .achieve-col-head { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 10px; padding-bottom: 8px; border-bottom: 1px solid var(--border); }
-.gcard { display: flex; justify-content: space-between; align-items: center; padding: 9px 11px; border-radius: 9px; border: 1px solid; margin-bottom: 6px; transition: all 0.15s; }
+.gcard { display: flex; justify-content: space-between; align-items: center; height: 56px; padding: 0 11px; border-radius: 9px; border: 1px solid; margin-bottom: 6px; transition: background-color 0.15s, border-color 0.15s; box-sizing: border-box; overflow: hidden; }
 /* Bold-palette achievability colours — load-bearing (this page's own real
    gcard state colours, not a copy-pasted override block). */
 .gcard.ok { background: rgba(18,176,95,0.10); border-color: rgba(18,176,95,0.45); }
@@ -237,13 +237,13 @@ input[type='range']::-webkit-slider-thumb { appearance: none; width: 18px; heigh
 .warn .gc-cog { color: #ffcf1a; border-color: rgba(255,205,0,0.7); background: transparent; }
 .hard .gc-cog { color: #ff1f2b; border-color: rgba(238,28,40,0.7); background: transparent; }
 .cross .gc-cog { color: var(--muted); border-color: rgba(255,255,255,0.1); background: transparent; }
-.gc-mid { flex: 1; padding: 0 10px; }
-.gc-watts { font-size: 13px; font-weight: 700; }
+.gc-mid { flex: 1; min-width: 0; padding: 0 10px; }
+.gc-watts { white-space: nowrap; font-size: 13px; font-weight: 700; }
 .ok .gc-watts { color: #17c86c; }
 .warn .gc-watts { color: #ffcf1a; }
 .hard .gc-watts { color: #ff1f2b; }
-.gc-spd { font-size: 10px; color: #94a3b8; margin-top: 1px; }
-.gc-badge { font-size: 9px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; padding: 3px 7px; border-radius: 4px; }
+.gc-spd { white-space: nowrap; font-size: 10px; color: #94a3b8; margin-top: 1px; }
+.gc-badge { flex-shrink: 0; white-space: nowrap; font-size: 9px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; padding: 3px 7px; border-radius: 4px; }
 .ok .gc-badge { background: transparent; border: 1px solid rgba(18,176,95,0.6); color: #17c86c; }
 .warn .gc-badge { background: transparent; border: 1px solid rgba(255,205,0,0.6); color: #ffcf1a; }
 .hard .gc-badge { background: transparent; border: 1px solid rgba(238,28,40,0.6); color: #ff1f2b; }
