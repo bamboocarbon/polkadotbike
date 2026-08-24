@@ -44,6 +44,16 @@ const LANDMARKS: Record<string, { distanceM: number; label: string }[]> = {
   ],
 };
 
+// Wider horizontal "footprint" than the raw GPX-projected x/z — validated
+// on the two Stage 3 climbs (col-de-mont-louis, font-romeu) before rolling
+// out here to every climb. Stretches x/z only, applied once here at the
+// source so every consumer (ribbon geometry, terrain mesh/skirt, camera,
+// markers) inherits the same wider layout automatically without needing its
+// own scaling logic. Elevation (both the route's own exaggeration and the
+// terrain heightmap) is untouched — this is the horizontal counterpart to
+// computeExaggeration's vertical-only scale, not a general zoom.
+const FOOTPRINT_SCALE = 2;
+
 function useRouteData(slug: string): RouteData | null {
   const [data, setData] = useState<RouteData | null>(null);
   useEffect(() => {
@@ -53,7 +63,7 @@ function useRouteData(slug: string): RouteData | null {
       .then((r) => r.json())
       .then((raw: { points: RoutePoint[] }) => {
         if (cancelled) return;
-        const route = raw.points;
+        const route = raw.points.map((p) => ({ ...p, x: p.x * FOOTPRINT_SCALE, z: p.z * FOOTPRINT_SCALE }));
         const lengthM = route[route.length - 1].distanceM;
         const totalAscentM = route.reduce((sum, p, i) => (i === 0 ? 0 : sum + Math.max(0, p.elevationM - route[i - 1].elevationM)), 0);
         const exaggeration = computeExaggeration(lengthM, totalAscentM);
@@ -153,7 +163,13 @@ function BasemapPlane({ slug, visible }: { slug: string; visible: boolean }) {
     setBounds(null);
     fetch(`/climbs/basemaps/${slug}.json`)
       .then((r) => r.json())
-      .then((d) => setBounds(d.bounds));
+      .then((d) => {
+        // Same FOOTPRINT_SCALE as useRouteData/useTerrainData — this plane
+        // is the *flat*-map basemap, a separate bounds source from the
+        // terrain one, so it needs its own copy of the scale.
+        const b = d.bounds;
+        setBounds({ xMin: b.xMin * FOOTPRINT_SCALE, xMax: b.xMax * FOOTPRINT_SCALE, zMin: b.zMin * FOOTPRINT_SCALE, zMax: b.zMax * FOOTPRINT_SCALE });
+      });
   }, [slug]);
   const texture = useLoader(THREE.TextureLoader, `/climbs/basemaps/${slug}.webp`);
 
@@ -193,7 +209,26 @@ function useTerrainData(slug: string): TerrainData | null {
     if (!terrainPromises.has(slug)) {
       terrainPromises.set(slug, fetch(`/climbs/basemaps/${slug}.terrain.json`).then((r) => r.json()));
     }
-    terrainPromises.get(slug)!.then(setTerrain);
+    terrainPromises.get(slug)!.then((t) => {
+      // Same FOOTPRINT_SCALE as useRouteData — bounds only, so the terrain
+      // mesh/skirt grow in step with the route's now-wider x/z. Grid
+      // elevations (the height data) are untouched. Scaled about the
+      // coordinate origin (0,0) — the same pivot useRouteData scales route
+      // x/z about — not the bounds' own center, since those two centers
+      // aren't generally the same point (the terrain is padded asymmetrically
+      // around the route) and scaling about different pivots would shift the
+      // route relative to the terrain instead of keeping them aligned.
+      const { xMin, xMax, zMin, zMax } = t.bounds;
+      setTerrain({
+        ...t,
+        bounds: {
+          xMin: xMin * FOOTPRINT_SCALE,
+          xMax: xMax * FOOTPRINT_SCALE,
+          zMin: zMin * FOOTPRINT_SCALE,
+          zMax: zMax * FOOTPRINT_SCALE,
+        },
+      });
+    });
   }, [slug]);
   return terrain;
 }
@@ -569,18 +604,24 @@ function RouteMarkers({ rd, slug, state, mapStyle }: { rd: RouteData; slug: stri
     return ms;
   }, [rd, slug]);
 
+  // Same FOOTPRINT_SCALE as the route/terrain/basemap data — tick height,
+  // label offset and font size are fixed world-space sizes, so with the
+  // wider footprint the camera pulls back further to frame the bigger scene
+  // and these would otherwise read as too small at that distance. Scaling
+  // them by the same factor keeps them legible.
+
   return (
     <>
       {markers.map((m, i) => {
         const { x, y, z } = positionAtDistance(rd, m.distanceM, state, mapStyle);
         const isTown = m.kind === 'town';
-        const tickTop = y + (isTown ? 900 : 500);
+        const tickTop = y + (isTown ? 900 : 500) * FOOTPRINT_SCALE;
         return (
           <group key={i}>
             <Line points={[[x, y, z], [x, tickTop, z]]} color={isTown ? '#ee1c28' : '#999'} lineWidth={isTown ? 3 : 1.5} />
-            <Billboard position={[x, tickTop + 150, z]}>
+            <Billboard position={[x, tickTop + 150 * FOOTPRINT_SCALE, z]}>
               <Text
-                fontSize={isTown ? 220 : 170}
+                fontSize={(isTown ? 220 : 170) * FOOTPRINT_SCALE}
                 color={isTown ? '#ee1c28' : '#fff'}
                 anchorX="center"
                 anchorY="bottom"
