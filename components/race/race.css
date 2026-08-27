@@ -123,8 +123,11 @@
    already flex-wrap, so on a phone this just drops to its own line rather
    than needing to be hidden (tried mobile-hidden first, 2026-08-28 —
    Robin: "try it on the stage cards" once the wrap was confirmed safe). */
-.gpx-btn { display: inline-flex; align-self: flex-start; align-items: center; gap: 6px; padding: 7px 14px; background: transparent; border: 1px solid var(--border); border-radius: 9px; color: var(--sec); font-size: 12px; font-weight: 700; text-decoration: none; transition: all 0.15s; cursor: pointer; }
-.gpx-btn:hover { border-color: var(--muted); color: #fff; }
+/* Border deliberately brighter than the site's usual var(--border) token
+   (8% white) — that read as barely-there on a phone screen. Matches the
+   climb detail page's own .map-gpx-btn border exactly (30% white). */
+.gpx-btn { display: inline-flex; align-self: flex-start; align-items: center; gap: 6px; padding: 7px 14px; background: transparent; border: 1px solid rgba(255, 255, 255, 0.3); border-radius: 9px; color: var(--sec); font-size: 12px; font-weight: 700; text-decoration: none; transition: all 0.15s; cursor: pointer; }
+.gpx-btn:hover { border-color: #fff; color: #fff; }
 .cc-body { display: flex; flex-wrap: wrap; gap: 16px; align-items: flex-start; margin-top: 10px; }
 /* The profile SVG's own width scales with climb length (12px/km,
    ClimbProfile.tsx) — genuinely too wide on mobile for the longer climbs
