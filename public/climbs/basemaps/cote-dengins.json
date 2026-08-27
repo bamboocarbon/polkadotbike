@@ -1,0 +1,13 @@
+{
+  "slug": "cote-dengins",
+  "source": "OpenTopoMap",
+  "attribution": "Map: OpenTopoMap, CC-BY-SA",
+  "zoom": 16,
+  "imageWidthPx": 1593,
+  "bounds": {
+    "xMin": -4601.658699062824,
+    "xMax": 1428.7652609328757,
+    "zMin": -1981.2676546296202,
+    "zMax": 5720.095930596035
+  }
+}

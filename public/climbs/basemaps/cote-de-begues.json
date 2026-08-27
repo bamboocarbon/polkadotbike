@@ -1,0 +1,13 @@
+{
+  "slug": "cote-de-begues",
+  "source": "IGN MTN",
+  "attribution": "Map: IGN España, CC-BY 4.0",
+  "zoom": 15,
+  "imageWidthPx": 3584,
+  "bounds": {
+    "xMin": -9671.752997820884,
+    "xMax": 3189.8604402005462,
+    "zMin": -3086.0527491157204,
+    "zMax": 1474.685051114382
+  }
+}

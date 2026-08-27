@@ -1,0 +1,13 @@
+{
+  "slug": "col-bayard",
+  "source": "OpenTopoMap",
+  "attribution": "Map: OpenTopoMap, CC-BY-SA",
+  "zoom": 16,
+  "imageWidthPx": 512,
+  "bounds": {
+    "xMin": -532.3992131267929,
+    "xMax": 338.71131120068856,
+    "zMin": -5511.98777826613,
+    "zMax": 1405.8547313959396
+  }
+}

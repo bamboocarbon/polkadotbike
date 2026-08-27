@@ -1,0 +1,13 @@
+{
+  "slug": "plateau-de-solaison-brison",
+  "source": "OpenTopoMap",
+  "attribution": "Map: OpenTopoMap, CC-BY-SA",
+  "zoom": 16,
+  "imageWidthPx": 2304,
+  "bounds": {
+    "xMin": -1982.1196346029542,
+    "xMax": 1836.1294012449782,
+    "zMin": -1688.3766727776094,
+    "zMax": 5897.227384539988
+  }
+}

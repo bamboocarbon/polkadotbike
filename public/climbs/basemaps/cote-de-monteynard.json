@@ -1,0 +1,13 @@
+{
+  "slug": "cote-de-monteynard",
+  "source": "OpenTopoMap",
+  "attribution": "Map: OpenTopoMap, CC-BY-SA",
+  "zoom": 15,
+  "imageWidthPx": 512,
+  "bounds": {
+    "xMin": -1130.4355947559015,
+    "xMax": 597.9492583726031,
+    "zMin": -3750.46818568874,
+    "zMax": 11705.700763149032
+  }
+}

@@ -1,0 +1,13 @@
+{
+  "slug": "col-de-la-croix-de-fer",
+  "source": "OpenTopoMap",
+  "attribution": "Map: OpenTopoMap, CC-BY-SA",
+  "zoom": 14,
+  "imageWidthPx": 2048,
+  "bounds": {
+    "xMin": -7127.323391933516,
+    "xMax": 18746.269368959318,
+    "zMin": -13292.59385138853,
+    "zMax": 3822.7117972135316
+  }
+}

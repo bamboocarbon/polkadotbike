@@ -1,0 +1,13 @@
+{
+  "slug": "col-de-pertus",
+  "source": "OpenTopoMap",
+  "attribution": "Map: OpenTopoMap, CC-BY-SA",
+  "zoom": 17,
+  "imageWidthPx": 3328,
+  "bounds": {
+    "xMin": -758.7459056007594,
+    "xMax": 2048.390310896493,
+    "zMin": -612.3039289112529,
+    "zMax": 1961.0171899764987
+  }
+}

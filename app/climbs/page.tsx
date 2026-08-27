@@ -4,6 +4,7 @@ import ClimbIndexClient, { type ClimbIndexItem } from '@/components/climbs/Climb
 import '@/components/race/race.css';
 import '@/components/climbs/climbs-index.css';
 import climbIndexData from '@/data/climb-index.json';
+import { hasRouteData } from '@/lib/climbRouteData';
 
 const PAGE_URL = 'https://polkadotbike.com/climbs';
 // "Major" (not "Every") deliberately, since Cat3 climbs are filtered out
@@ -85,11 +86,13 @@ const climbs: ClimbIndexItem[] = (climbIndexData.climbs as RawClimb[])
       elev: c.elev,
       race,
       raceLabel: RACE_LABELS[race] || race,
-      // Only Vuelta climbs have real, verified route data/detail pages so
-      // far (Giro/Tour climb pages still 404 by design, see
-      // climbs-index.css's header comment) -- greyed out and non-clickable
-      // in the index until their own pages land.
-      ready: race === 'vuelta',
+      // Vuelta climbs are all ready; Giro climb pages still 404 by design
+      // (see climbs-index.css's header comment) so stay greyed out
+      // wholesale. TDF is now per-climb (2026-08-26, localhost-only TDF
+      // batch in progress): only the ones with a real GPX-processed route
+      // (data/climbs/routes/<slug>.json) are clickable, the rest still
+      // show "coming soon" same as before.
+      ready: race === 'vuelta' || (race === 'tdf' && hasRouteData(c.slug)),
       haystack: fold(`${c.name} ${c.range}`),
     };
   });

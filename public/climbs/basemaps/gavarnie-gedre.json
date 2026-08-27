@@ -1,0 +1,13 @@
+{
+  "slug": "gavarnie-gedre",
+  "source": "OpenTopoMap",
+  "attribution": "Map: OpenTopoMap, CC-BY-SA",
+  "zoom": 14,
+  "imageWidthPx": 1024,
+  "bounds": {
+    "xMin": -3173.525279393634,
+    "xMax": 3996.8616075007326,
+    "zMin": -5723.291832866416,
+    "zMax": 21007.088102387326
+  }
+}

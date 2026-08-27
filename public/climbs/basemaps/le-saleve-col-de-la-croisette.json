@@ -1,0 +1,13 @@
+{
+  "slug": "le-saleve-col-de-la-croisette",
+  "source": "OpenTopoMap",
+  "attribution": "Map: OpenTopoMap, CC-BY-SA",
+  "zoom": 16,
+  "imageWidthPx": 3072,
+  "bounds": {
+    "xMin": -1084.6168519147511,
+    "xMax": 4000.3438851099304,
+    "zMin": -770.2137134549607,
+    "zMax": 2596.5119422861226
+  }
+}

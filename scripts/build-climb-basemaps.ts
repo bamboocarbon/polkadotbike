@@ -124,7 +124,17 @@ async function fetchTile(source: TileSource, z: number, x: number, y: number): P
 // (one 256x256 decode per basemap), never on the ~50-350 tiles in the
 // mosaic loop itself, so a real sparse tile deep in a genuinely-covered
 // mosaic is never wrongly rejected.
-const IGN_PROBE_MIN_STDDEV = 12;
+// 2026-08-26: found a THIRD placeholder sample (col-de-la-griffoul, deep
+// in the Massif Central — nowhere near Spain) with mean stddev 12.96,
+// just above the original threshold of 12 — a real false-negative that
+// let a visibly flat two-tone checkerboard placeholder through as "real
+// cartography" (confirmed both by eye and by the resulting mosaic coming
+// out a near-solid 18KB instead of the usual 900KB-2MB). Raised the
+// threshold to 16 — comfortably above this new placeholder sample (12.96)
+// and still comfortably below the lowest known real-tile sample (19, the
+// sparse Andorra one), so this shouldn't reintroduce the byte-size floor's
+// false-rejection problem.
+const IGN_PROBE_MIN_STDDEV = 16;
 
 async function looksLikeRealCartography(buf: Buffer): Promise<boolean> {
   const stats = await sharp(buf).stats();
@@ -169,50 +179,107 @@ async function buildBasemap(slug: string): Promise<void> {
 
   console.log(`${slug}: zoom ${z}, ${cols}x${rows} tiles (${cols * rows} total)`);
 
+  // Climbs straddling the France/Spain border where IGN's real high-detail
+  // coverage only reaches part of the route — found on gavarnie-gedre
+  // (2026-08-27, Robin: "a lot of poor graphics at the beginning"): the
+  // route runs from deep in France (Luz-Saint-Sauveur) down to right at
+  // the Spanish border (Gavarnie). The probe tile (northwest corner of the
+  // padded bbox, i.e. the French end) genuinely passed looksLikeRealCartography
+  // — it isn't IGN's flat out-of-coverage placeholder, it's real but
+  // visibly blurry/low-detail imagery (no roads, contours or labels,
+  // confirmed by eye), so the existing stdev-based placeholder guard can't
+  // catch it. The southern, in-Spain end of the SAME mosaic is genuinely
+  // excellent IGN detail — a single probe tile can't tell "good everywhere"
+  // from "good near the border, degraded further into France" apart, so
+  // this is a manual override rather than a general fix. Add a slug here
+  // if the same north/south quality split turns up on another
+  // border-straddling climb.
+  const FORCE_OPENTOPO_SLUGS = new Set(['gavarnie-gedre']);
+
   // Probe the first tile against the preferred source; fall back to the next
   // source for the whole mosaic rather than mixing cartography styles
   // within one image.
   let source = SOURCES[0];
-  let probe = await fetchTile(source, z, xMinTile, yMinTile);
+  let probe = FORCE_OPENTOPO_SLUGS.has(slug) ? null : await fetchTile(source, z, xMinTile, yMinTile);
   if (probe && source.name === 'IGN MTN' && !(await looksLikeRealCartography(probe))) {
     probe = null; // valid HTTP response, but a flat out-of-coverage placeholder
   }
   if (!probe) {
-    console.log(`  ${source.name} unavailable for this area, falling back to ${SOURCES[1].name}`);
+    console.log(
+      FORCE_OPENTOPO_SLUGS.has(slug)
+        ? `  ${source.name} forced off for this slug (border-straddling quality split), using ${SOURCES[1].name}`
+        : `  ${source.name} unavailable for this area, falling back to ${SOURCES[1].name}`
+    );
     source = SOURCES[1];
     probe = await fetchTile(source, z, xMinTile, yMinTile);
     if (!probe) throw new Error(`${slug}: neither tile source responded for tile ${z}/${xMinTile}/${yMinTile}`);
   }
   console.log(`  using ${source.name}`);
 
-  const composites: { input: Buffer; left: number; top: number }[] = [
-    { input: probe, left: 0, top: 0 },
-  ];
-  for (let row = 0; row < rows; row++) {
-    for (let col = 0; col < cols; col++) {
-      if (row === 0 && col === 0) continue; // already fetched as the probe
-      const x = xMinTile + col;
-      const y = yMinTile + row;
-      await sleep(REQUEST_DELAY_MS);
-      const buf = await fetchTile(source, z, x, y);
-      if (!buf) {
-        console.warn(`  WARNING ${slug}: tile ${z}/${x}/${y} failed, leaving gap`);
-        continue;
-      }
-      composites.push({ input: buf, left: col * TILE_PX, top: row * TILE_PX });
-    }
-  }
-
   const mosaicW = cols * TILE_PX;
   const mosaicH = rows * TILE_PX;
-  const attrBar = attributionSvg(source.attribution, mosaicW);
 
-  let image = sharp({
-    create: { width: mosaicW, height: mosaicH, channels: 3, background: { r: 235, g: 230, b: 220 } },
-  })
-    .composite([...composites, { input: attrBar, left: 0, top: mosaicH - 22 }]);
+  // Fetches every tile for a given source and composites the mosaic. Pulled
+  // into a function because the probe-tile check below isn't sufficient on
+  // its own (see MIN_REAL_MOSAIC_BYTES) — a bad IGN fetch needs the whole
+  // mosaic rebuilt against OpenTopoMap instead, not just the one tile.
+  async function buildMosaic(src: TileSource, firstTile: Buffer): Promise<Buffer> {
+    const composites: { input: Buffer; left: number; top: number }[] = [
+      { input: firstTile, left: 0, top: 0 },
+    ];
+    for (let row = 0; row < rows; row++) {
+      for (let col = 0; col < cols; col++) {
+        if (row === 0 && col === 0) continue; // already fetched as the probe
+        const x = xMinTile + col;
+        const y = yMinTile + row;
+        await sleep(REQUEST_DELAY_MS);
+        const buf = await fetchTile(src, z, x, y);
+        if (!buf) {
+          console.warn(`  WARNING ${slug}: tile ${z}/${x}/${y} failed, leaving gap`);
+          continue;
+        }
+        composites.push({ input: buf, left: col * TILE_PX, top: row * TILE_PX });
+      }
+    }
+    const attrBar = attributionSvg(src.attribution, mosaicW);
+    const image = sharp({
+      create: { width: mosaicW, height: mosaicH, channels: 3, background: { r: 235, g: 230, b: 220 } },
+    }).composite([...composites, { input: attrBar, left: 0, top: mosaicH - 22 }]);
+    return image.webp({ quality: 82 }).toBuffer();
+  }
 
-  let webp = await image.webp({ quality: 82 }).toBuffer();
+  let webp = await buildMosaic(source, probe);
+
+  // The single-tile probe check above (looksLikeRealCartography) has a real
+  // blind spot: IGN's out-of-coverage placeholder isn't always a flat
+  // two-tone checkerboard (that's what the stdev threshold was tuned
+  // against) — found on puy-mary-pas-de-peyrol a placeholder made of ~4
+  // distinct flat colour blocks within one 256x256 tile, whose stdev (17.15)
+  // read as "textured" against the threshold (16) despite being entirely
+  // fake, and the resulting 91-tile mosaic came out at 18KB, ~20x smaller
+  // than the smallest known-real mosaic (col-bayard, 340KB). A per-tile
+  // edge-detail check was tried as a fix and rejected: gavarnie-gedre's own
+  // probe corner (a real, healthy 597KB fetch) happens to land on genuinely
+  // flat terrain with even less edge detail than this placeholder, so a
+  // per-tile signal can't distinguish "flat corner in a real fetch" from
+  // "flat placeholder" reliably in either direction. The whole-mosaic byte
+  // size doesn't have that problem — a real fetch only has one locally-flat
+  // corner among 60-350 tiles, so a placeholder-flooded mosaic (every tile
+  // fake, only the map source is wrong) reads unambiguously smaller than
+  // any genuine multi-tile fetch, comfortably below the observed floor.
+  const MIN_REAL_MOSAIC_BYTES = 100 * 1024;
+  if (source.name === 'IGN MTN' && webp.length < MIN_REAL_MOSAIC_BYTES) {
+    console.log(
+      `  WARNING ${slug}: IGN MTN mosaic came out ${(webp.length / 1024).toFixed(0)}KB (< ${(MIN_REAL_MOSAIC_BYTES / 1024).toFixed(0)}KB floor) — ` +
+        `probe tile passed the stdev check but the whole mosaic looks like an out-of-coverage placeholder. Rebuilding with ${SOURCES[1].name}.`
+    );
+    source = SOURCES[1];
+    const fallbackProbe = await fetchTile(source, z, xMinTile, yMinTile);
+    if (!fallbackProbe) throw new Error(`${slug}: ${source.name} probe tile ${z}/${xMinTile}/${yMinTile} failed on placeholder-recovery retry`);
+    webp = await buildMosaic(source, fallbackProbe);
+    console.log(`  using ${source.name} (recovered from placeholder mosaic)`);
+  }
+
   let outW = mosaicW;
   if (webp.length > MAX_BYTES) {
     // Fit within a FALLBACK_PX square, shrinking by whichever dimension is

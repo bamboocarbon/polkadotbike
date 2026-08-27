@@ -27,8 +27,9 @@ import AADSUnit from '@/components/AADSUnit';
 import Footer from '@/components/Footer';
 import AchievabilityCards from '@/components/climb/AchievabilityCards';
 import ClimbConfigPanel from '@/components/climb/ClimbConfigPanel';
+import PersonalisedClimbReport from '@/components/climb/PersonalisedClimbReport';
 import { computeClimbGears, computeBuyInfo, type ClimbBuyInfo } from '@/lib/climbGearCalc';
-import { ClimbCalcState, defaultClimbState, initClimbStateFromShared } from '@/lib/climbCalcState';
+import { ClimbCalcState, defaultClimbState, initClimbStateFromShared, BRAND_LABELS } from '@/lib/climbCalcState';
 import { readSharedSetup, writeSharedSetup } from '@/lib/sharedSetup';
 import { pbBrandColorStyle } from '@/lib/pbLinks';
 import { lbsToKg } from '@/lib/units';
@@ -75,8 +76,6 @@ function useSmoothedValue(target: number, tauMs: number, snap = false): number {
   return snap ? target : value;
 }
 
-const BRAND_LABELS: Record<string, string> = { shimano: 'Shimano', sram: 'SRAM', campagnolo: 'Campagnolo', custom: 'Custom' };
-
 function BuyCard({ buyInfo }: { buyInfo: ClimbBuyInfo }) {
   return (
     <div className="rail-card" id="buy-card">
@@ -109,10 +108,12 @@ function BuyCard({ buyInfo }: { buyInfo: ClimbBuyInfo }) {
   );
 }
 
+// "Route (flat map)" was dropped sitewide (2026-08-27) — the gradient-line
+// redesign (trialled on col-de-sarenne, see DebugScene.tsx) superseded its
+// old job everywhere, not just on that one climb.
 const STOPS = [
   { key: 'A', label: 'Plan', state: 'A' as const, mapStyle: 'flat' as const },
-  { key: 'B-flat', label: 'Route (flat map)', state: 'B' as const, mapStyle: 'flat' as const },
-  { key: 'B-3d', label: 'Route (3D terrain)', state: 'B' as const, mapStyle: 'terrain' as const },
+  { key: 'B-3d', label: '3D View', state: 'B' as const, mapStyle: 'terrain' as const },
   { key: 'C', label: 'Wedge', state: 'C' as const, mapStyle: 'flat' as const },
 ];
 
@@ -202,6 +203,7 @@ export default function ClimbDetailClient({ name, summary }: ClimbDetailClientPr
 
       <div className="container" style={{ maxWidth: 1400, paddingBottom: 0 }}>
         <p className="climb-summary">{summary}</p>
+        <PersonalisedClimbReport slug={slug} S={S} gears={gears} />
       </div>
 
       <div className="container" style={{ maxWidth: 1400 }}>
@@ -306,8 +308,7 @@ export default function ClimbDetailClient({ name, summary }: ClimbDetailClientPr
               How to use the map
             </div>
             <ul className="controls" style={{ margin: 0 }}>
-              <li><b>Plan</b> — the climb before any route or terrain is loaded.</li>
-              <li><b>Route (flat map)</b> — the climb laid out on a 2D map, drag the slider under the map to travel along it.</li>
+              <li><b>Plan</b> — the climb laid out on a 2D map, drag the slider under the map to travel along it.</li>
               <li><b>Route (3D terrain)</b> — the same route over real 3D elevation data.</li>
               <li><b>Wedge</b> — a side-on profile of the climb, showing gradient as a rising wedge.</li>
               <li>Whichever view is open, dragging the slider moves you along the climb — the gradient, distance and elevation readouts on the right update live as you go.</li>

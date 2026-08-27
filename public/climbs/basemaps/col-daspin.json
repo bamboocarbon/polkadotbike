@@ -1,0 +1,13 @@
+{
+  "slug": "col-daspin",
+  "source": "OpenTopoMap",
+  "attribution": "Map: OpenTopoMap, CC-BY-SA",
+  "zoom": 16,
+  "imageWidthPx": 2816,
+  "bounds": {
+    "xMin": -3817.165960308429,
+    "xMax": 1109.5324538108316,
+    "zMin": -5208.590754046268,
+    "zMax": 1460.7249745801728
+  }
+}

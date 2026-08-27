@@ -1,0 +1,13 @@
+{
+  "slug": "alpe-dhuez",
+  "source": "OpenTopoMap",
+  "attribution": "Map: OpenTopoMap, CC-BY-SA",
+  "zoom": 16,
+  "imageWidthPx": 2816,
+  "bounds": {
+    "xMin": -1106.888363859837,
+    "xMax": 3644.0280907140154,
+    "zMin": -4759.115948706283,
+    "zMax": 1243.4662000282922
+  }
+}

@@ -1,0 +1,13 @@
+{
+  "slug": "puy-mary-pas-de-peyrol",
+  "source": "OpenTopoMap",
+  "attribution": "Map: OpenTopoMap, CC-BY-SA",
+  "zoom": 15,
+  "imageWidthPx": 3328,
+  "bounds": {
+    "xMin": -8786.683952448053,
+    "xMax": 2428.0730245869318,
+    "zMin": -1214.9744953764098,
+    "zMax": 4783.125055257866
+  }
+}

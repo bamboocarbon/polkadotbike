@@ -1,0 +1,13 @@
+{
+  "slug": "ballon-dalsace",
+  "source": "OpenTopoMap",
+  "attribution": "Map: OpenTopoMap, CC-BY-SA",
+  "zoom": 16,
+  "imageWidthPx": 1792,
+  "bounds": {
+    "xMin": -596.5666007259542,
+    "xMax": 2275.6662884511684,
+    "zMin": -1860.716380802156,
+    "zMax": 5475.585705051334
+  }
+}

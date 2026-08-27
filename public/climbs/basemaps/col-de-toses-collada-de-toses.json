@@ -1,0 +1,13 @@
+{
+  "slug": "col-de-toses-collada-de-toses",
+  "source": "IGN MTN",
+  "attribution": "Map: IGN España, CC-BY 4.0",
+  "zoom": 15,
+  "imageWidthPx": 4864,
+  "bounds": {
+    "xMin": -13325.054691640571,
+    "xMax": 3856.537293538117,
+    "zMin": -3473.180333918722,
+    "zMax": 1015.816649996609
+  }
+}

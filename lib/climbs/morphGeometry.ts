@@ -266,7 +266,15 @@ function buildStateArrays(
 // for the two end caps) so this can be regenerated on its own — independent
 // of the (expensive, topology-rebuilding) position arrays — whenever the
 // smoothing window changes. `gradients` is parallel to `route`.
-export function buildRibbonColors(route: RoutePoint[], slots: Slot[], gradients: number[]): Float32Array {
+// `colourFn` defaults to the site-wide bands (colourForGradient) — every
+// existing caller is unaffected; DebugScene.tsx passes a muted variant for
+// its col-de-sarenne experiment only.
+export function buildRibbonColors(
+  route: RoutePoint[],
+  slots: Slot[],
+  gradients: number[],
+  colourFn: (pct: number) => THREE.Color = colourForGradient
+): Float32Array {
   const n = slots.length;
   const colors: number[] = [];
 
@@ -279,7 +287,7 @@ export function buildRibbonColors(route: RoutePoint[], slots: Slot[], gradients:
 
   function segColor(j: number, j1: number): THREE.Color {
     const g = (gradients[slots[j].routeIndex] + gradients[slots[j1].routeIndex]) / 2;
-    return colourForGradient(g);
+    return colourFn(g);
   }
 
   for (let j = 0; j < n - 1; j++) {

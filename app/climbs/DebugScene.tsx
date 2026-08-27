@@ -18,6 +18,37 @@ import { OrbitControls, Line, Text, Billboard } from '@react-three/drei';
 import { useMemo, useRef, useEffect, useState, forwardRef, useImperativeHandle } from 'react';
 import * as THREE from 'three';
 import { buildMorphGeometry, buildRibbonColors, smoothGradients, computeExaggeration, type RoutePoint } from '@/lib/climbs/morphGeometry';
+import { colourForGradient } from '@/lib/climbs/gradientColour';
+
+// Gradient-coloured ahead-line + white terrain-following marker on every
+// view, replacing the old flat yellow/red split — trialled on col-de-sarenne
+// only (2026-08-26), rolled out to every climb (2026-08-27) once confirmed.
+
+// The shared green/yellow/red bands (gradientColour.ts) are tuned for the
+// Wedge/Route-flat ribbon and used site-wide — deliberately NOT edited here,
+// so this stays scoped to the experiment. Robin: the same colours read as
+// "glary" as a thin line over the terrain's own bright basemap (different
+// context from the wide, unlit ribbon mesh they were tuned for). Desaturate
+// toward grey and darken slightly, same hue, softer punch — tune
+// MUTE_DESATURATE/MUTE_DARKEN further if still too strong.
+const MUTE_DESATURATE = 0.15; // 0 = original colour, 1 = flat grey — was 0.35, eased off (Robin: "too much")
+const MUTE_DARKEN = 0.92; // overall brightness multiplier after desaturating — was 0.82
+function mutedGradientColour(pct: number): THREE.Color {
+  const c = colourForGradient(pct);
+  const grey = (c.r + c.g + c.b) / 3;
+  return new THREE.Color(
+    (c.r + (grey - c.r) * MUTE_DESATURATE) * MUTE_DARKEN,
+    (c.g + (grey - c.g) * MUTE_DESATURATE) * MUTE_DARKEN,
+    (c.b + (grey - c.b) * MUTE_DESATURATE) * MUTE_DARKEN
+  );
+}
+
+// Same knock-back as mutedGradientColour, applied to the white marker
+// (Robin: "knock back the white marker the same amount as the red, green,
+// yellow") — desaturating white toward its own grey is a no-op (white IS
+// already r=g=b), so only MUTE_DARKEN actually does anything here, same
+// factor as the gradient colours.
+const MUTED_WHITE = new THREE.Color(MUTE_DARKEN, MUTE_DARKEN, MUTE_DARKEN);
 
 export type SceneState = 'A' | 'B' | 'C';
 export type MapStyle = 'flat' | 'terrain';
@@ -114,11 +145,29 @@ function stateBounds(rd: RouteData, state: SceneState, mapStyle?: MapStyle) {
   // PAD_PCT) — frame for that wider extent, not just the tight route
   // corridor, or the default view reads as zoomed in relative to the map.
   if (state === 'A' || state === 'B') diag *= 1.7;
-  return { cx, cy, cz, diag };
+  return { cx, cy, cz, diag, yMin, yMax };
 }
 
-function RibbonMesh({ rd, influences, smoothWindowM, visible }: { rd: RouteData; influences: [number, number]; smoothWindowM: number; visible: boolean }) {
-  const { geometry, exaggeration, slots } = useMemo(() => buildMorphGeometry(rd.route, { widthM: 40 }), [rd]);
+function RibbonMesh({
+  rd,
+  influences,
+  smoothWindowM,
+  visible,
+}: {
+  rd: RouteData;
+  influences: [number, number];
+  smoothWindowM: number;
+  visible: boolean;
+}) {
+  // widthM feeds the ribbon MESH, which now only ever renders for Wedge
+  // (Route-flat-map's button is gone everywhere, and Plan uses
+  // RouteHighlight's thin gradient LINE, not this ribbon) — so unlike the
+  // last time this was widened (30->40, 2026-08-13, which also affected
+  // Plan/Route's road), this is cleanly scoped to just the Wedge chart
+  // bands. Robin: "can we thicken the width of the wedge" (trialled on
+  // col-de-sarenne 2026-08-26, rolled out everywhere 2026-08-27).
+  const widthM = 500;
+  const { geometry, exaggeration, slots } = useMemo(() => buildMorphGeometry(rd.route, { widthM }), [rd, widthM]);
 
   useEffect(() => {
     console.log('exaggeration:', exaggeration);
@@ -129,7 +178,10 @@ function RibbonMesh({ rd, influences, smoothWindowM, visible }: { rd: RouteData;
   // slider is cheap regardless of how often it fires.
   useEffect(() => {
     const gradients = smoothGradients(rd.route, smoothWindowM);
-    const colors = buildRibbonColors(rd.route, slots, gradients);
+    // Muted colours to match the Plan/Route(terrain) gradient line, per
+    // Robin: "copy the colours... to the wedge" (col-de-sarenne 2026-08-26,
+    // rolled out everywhere 2026-08-27).
+    const colors = buildRibbonColors(rd.route, slots, gradients, mutedGradientColour);
     const attr = geometry.getAttribute('color') as THREE.BufferAttribute;
     (attr.array as Float32Array).set(colors);
     attr.needsUpdate = true;
@@ -365,12 +417,25 @@ function TerrainSkirt({ slug, rd, visible }: { slug: string; rd: RouteData; visi
 // exact interpolated point (not just the nearest sampled route vertex) so
 // the white/red seam tracks the travel slider smoothly rather than jumping
 // vertex-to-vertex.
-function RouteHighlight({ rd, slug, state, mapStyle, travelM }: { rd: RouteData; slug: string; state: SceneState; mapStyle: MapStyle; travelM: number }) {
+function RouteHighlight({
+  rd,
+  slug,
+  state,
+  mapStyle,
+  smoothWindowM,
+}: {
+  rd: RouteData;
+  slug: string;
+  state: SceneState;
+  mapStyle: MapStyle;
+  smoothWindowM: number;
+}) {
   const terrain = useTerrainData(slug);
   const points = useMemo(() => {
     if (state === 'C') return null;
-    // Route (flat map) uses the yellow cone marker (RouteFlatTravelMarker,
-    // matching the wedge's own marker) instead of this two-tone line.
+    // Route (flat map) is no longer reachable via the UI (its button was
+    // removed sitewide — see STOPS in ClimbDetailClient.tsx), but this
+    // component's props aren't statically guaranteed to exclude it.
     if (state === 'B' && mapStyle === 'flat') return null;
     if (state === 'B') {
       if (mapStyle === 'terrain') {
@@ -381,26 +446,27 @@ function RouteHighlight({ rd, slug, state, mapStyle, travelM }: { rd: RouteData;
     }
     return rd.route.map((p) => new THREE.Vector3(p.x, 15, p.z));
   }, [rd, state, mapStyle, terrain]);
+
+  // One flat colour per route point via the same colourForGradient bands
+  // the Wedge/Route-flat ribbon uses. Smoothing window is the same live
+  // `smoothWindowM` slider value the ribbon uses (Robin: "we will need the
+  // smoothing slider on this screen too") rather than a fixed
+  // FOLLOW_SMOOTH_M — see the smoothingSliderVisible gate below, which
+  // shows that control on this view too.
+  const gradColors = useMemo(() => {
+    return smoothGradients(rd.route, smoothWindowM).map((g) => mutedGradientColour(g));
+  }, [rd, smoothWindowM]);
+
   if (!points) return null;
 
-  const route = rd.route;
-  let lo = 0;
-  while (lo < route.length - 2 && route[lo + 1].distanceM < travelM) lo++;
-  const hi = Math.min(points.length - 1, lo + 1);
-  const d0 = route[lo].distanceM;
-  const d1 = route[hi].distanceM;
-  const frac = Math.max(0, Math.min(1, d1 > d0 ? (travelM - d0) / (d1 - d0) : 0));
-  const splitPoint = points[lo].clone().lerp(points[hi], frac);
-
-  const before = [...points.slice(0, lo + 1), splitPoint];
-  const after = [splitPoint, ...points.slice(hi)];
-
-  return (
-    <>
-      {before.length > 1 && <Line points={before} color="#ffcd00" lineWidth={8} transparent opacity={0.95} />}
-      {after.length > 1 && <Line points={after} color="#ee1c28" lineWidth={8} transparent opacity={0.95} />}
-    </>
-  );
+  // Whole-route gradient line, no travelled/not-travelled split — Robin:
+  // "can we not paint the route in yellow after we have passed through it,
+  // stays the same gradient colours". Covers Plan too (Robin: "copy the
+  // route colours, and white marker over to the plan view"), not just
+  // Route (3D terrain) — the only two states `points` is ever non-null for.
+  // A dedicated white marker (PlanTravelMarker/TerrainTravelMarker) is the
+  // position indicator on these views instead of a colour split.
+  return points.length > 1 ? <Line points={points} vertexColors={gradColors} lineWidth={6.4} transparent opacity={0.95} /> : null;
 }
 
 // Horizontal reference lines at start and summit altitude, offset to the
@@ -447,26 +513,62 @@ function WedgeAltitudeLines({ rd, state }: { rd: RouteData; state: SceneState })
 function WedgeTravelMarker({ rd, state, travelM }: { rd: RouteData; state: SceneState; travelM: number }) {
   if (state !== 'C') return null;
   const y = (smoothedElevationAt(rd, travelM, FOLLOW_SMOOTH_M) - rd.route[0].elevationM) * rd.exaggeration;
+  // Knocked-back white to match the muted gradient ribbon (per Robin: "copy
+  // the colours and marker to the wedge").
   return (
     <mesh position={[travelM, y + 160, 0]} rotation={[Math.PI, 0, 0]}>
       <coneGeometry args={[110, 320, 16]} />
-      <meshBasicMaterial color="#ffcd00" />
+      <meshBasicMaterial color={MUTED_WHITE} />
     </mesh>
   );
 }
 
-// Same yellow cone as WedgeTravelMarker, but for the Route (flat map) view —
-// replaces the old two-tone highlight line there (RouteHighlight skips
-// rendering for this exact state/mapStyle combo). Uses positionAtDistance
-// rather than the wedge's simple x=distanceM mapping, since the flat-map
-// route still turns/winds in plan (x,z), unlike the straightened wedge.
-function RouteFlatTravelMarker({ rd, state, mapStyle, travelM }: { rd: RouteData; state: SceneState; mapStyle: MapStyle; travelM: number }) {
-  if (state !== 'B' || mapStyle !== 'flat') return null;
-  const p = positionAtDistance(rd, travelM, state, mapStyle);
+// Same cone as WedgeTravelMarker but white, for the Route (3D terrain) view,
+// since RouteHighlight's ahead-line no longer doubles as the position
+// indicator once it's coloured by gradient instead of by
+// travelled/not-travelled. Samples the terrain DEM directly (not
+// positionAtDistance, which drives its elevation from the GPX's own
+// smoothed elevation, not the terrain surface) — same terrainElevationAt
+// lookup RouteHighlight's own terrain-mode points use, so the marker sits
+// on the same surface the line and mesh are already drawn on.
+function TerrainTravelMarker({ rd, slug, state, mapStyle, travelM }: { rd: RouteData; slug: string; state: SceneState; mapStyle: MapStyle; travelM: number }) {
+  const terrain = useTerrainData(slug);
+  if (state !== 'B' || mapStyle !== 'terrain' || !terrain) return null;
+  const { route } = rd;
+  let lo = 0;
+  while (lo < route.length - 2 && route[lo + 1].distanceM < travelM) lo++;
+  const p0 = route[lo];
+  const p1 = route[Math.min(route.length - 1, lo + 1)];
+  const f = p1.distanceM > p0.distanceM ? (travelM - p0.distanceM) / (p1.distanceM - p0.distanceM) : 0;
+  const x = p0.x + (p1.x - p0.x) * f;
+  const z = p0.z + (p1.z - p0.z) * f;
+  const y = terrainElevationAt(terrain, x, z) * rd.exaggeration;
   return (
-    <mesh position={[p.x, p.y + 160, p.z]} rotation={[Math.PI, 0, 0]}>
+    <mesh position={[x, y + 160, z]} rotation={[Math.PI, 0, 0]}>
       <coneGeometry args={[110, 320, 16]} />
-      <meshBasicMaterial color="#ffcd00" />
+      <meshBasicMaterial color={MUTED_WHITE} />
+    </mesh>
+  );
+}
+
+// Same white cone as TerrainTravelMarker, for the Plan view. Plan's route
+// sits on a fixed flat y=15 (see RouteHighlight's own `points` computation
+// for state 'A') rather than a terrain lookup, so no useTerrainData
+// dependency needed here.
+function PlanTravelMarker({ rd, state, travelM }: { rd: RouteData; state: SceneState; travelM: number }) {
+  if (state !== 'A') return null;
+  const { route } = rd;
+  let lo = 0;
+  while (lo < route.length - 2 && route[lo + 1].distanceM < travelM) lo++;
+  const p0 = route[lo];
+  const p1 = route[Math.min(route.length - 1, lo + 1)];
+  const f = p1.distanceM > p0.distanceM ? (travelM - p0.distanceM) / (p1.distanceM - p0.distanceM) : 0;
+  const x = p0.x + (p1.x - p0.x) * f;
+  const z = p0.z + (p1.z - p0.z) * f;
+  return (
+    <mesh position={[x, 15 + 160, z]} rotation={[Math.PI, 0, 0]}>
+      <coneGeometry args={[110, 320, 16]} />
+      <meshBasicMaterial color={MUTED_WHITE} />
     </mesh>
   );
 }
@@ -682,6 +784,8 @@ function terrainAwareBounds(rd: RouteData, base: ReturnType<typeof stateBounds>,
     cy: (yMin + yMax) / 2,
     cz: (zMin + zMax) / 2,
     diag: Math.hypot(xMax - xMin, yMax - yMin, zMax - zMin),
+    yMin,
+    yMax,
   };
 }
 
@@ -695,6 +799,37 @@ const SceneControls = forwardRef<ControlsHandle, { rd: RouteData; slug: string; 
       const base = stateBounds(rd, state, mapStyle);
       return isTerrain ? terrainAwareBounds(rd, base, terrain) : base;
     }, [rd, state, mapStyle, isTerrain, terrain]);
+
+    // Wedge (state 'C') camera distance — Robin: "side on projection, no
+    // zoom no rotation... fully framed... does not show whole of climb"
+    // (col-d'Ornon, 2026-08-27 — an earlier pass here only fit the height
+    // and let flyTo pan sideways to reveal the rest of the length, which
+    // read as "not the whole climb"; fixed by fitting BOTH dimensions so
+    // the entire wedge is visible at once, permanently). Distance is
+    // whichever of (fit the full rise vertically) / (fit the full length
+    // horizontally, via the live camera aspect) needs the camera further
+    // back — never both are just barely fit, so nothing crops on either
+    // axis regardless of a climb's own length:height ratio.
+    const WEDGE_FOV_DEG = 45; // must match the Canvas `camera={{ fov: 45 }}` prop below
+    // Fixed world-space margins, not a percentage — WedgeAltitudeLines'
+    // start/summit labels (both parked at labelX=-600, extending further
+    // left via anchorX="right") and RouteMarkers' summit km-marker text
+    // (centred on the route's own end point, so half its width overhangs
+    // to the right) are a roughly CONSTANT size regardless of the climb's
+    // own length, so a percentage-of-length padding badly under-covers
+    // short climbs and over-covers long ones. Found by Robin on col-dornon
+    // (2026-08-27): the previous 1.3x-of-length padding fit the wedge
+    // shape itself but clipped both text labels at the frame edges.
+    const WEDGE_MARGIN_X = 2800; // covers the wider of the two label overhangs (right, ~2270; left, ~2000), plus buffer
+    const WEDGE_MARGIN_Y = 1800; // covers the summit km-marker's tick+label rising above the ribbon top
+    const wedgeCamZ = useMemo(() => {
+      if (state !== 'C') return 0;
+      const vFovRad = (WEDGE_FOV_DEG * Math.PI) / 180;
+      const distForHeight = ((bounds.yMax - bounds.yMin) / 2 + WEDGE_MARGIN_Y) / Math.tan(vFovRad / 2);
+      const aspect = camera instanceof THREE.PerspectiveCamera ? camera.aspect : 16 / 9;
+      const distForWidth = (rd.lengthM / 2 + WEDGE_MARGIN_X) / (aspect * Math.tan(vFovRad / 2));
+      return Math.max(distForHeight, distForWidth);
+    }, [state, bounds, rd, camera]);
 
     // The user's actual desired camera-to-target offset (angle + distance) —
     // updated only by genuine user interaction (handleControlsChange, wired
@@ -733,9 +868,25 @@ const SceneControls = forwardRef<ControlsHandle, { rd: RouteData; slug: string; 
     };
 
     const resetView = () => {
-      // A generic elevated 3/4 view — frames any of the three quite different
-      // shapes (spread-out plan, raised route, long flat wedge) reasonably
-      // well without needing a bespoke angle per state.
+      if (state === 'C') {
+        // Pure side-on elevation — zero tilt, centred on and fully framing
+        // the whole climb (see wedgeCamZ above). computeFlyTarget below
+        // returns this exact same position for every travel distance, so
+        // this is also the permanent view, not just an initial one.
+        const camPos = new THREE.Vector3(bounds.cx, bounds.cy, wedgeCamZ);
+        desiredOffsetRef.current = new THREE.Vector3(0, 0, wedgeCamZ);
+        isProgrammaticRef.current = true;
+        camera.position.copy(camPos);
+        if (controlsRef.current) {
+          controlsRef.current.target.set(bounds.cx, bounds.cy, 0);
+          controlsRef.current.update();
+        }
+        isProgrammaticRef.current = false;
+        return;
+      }
+      // A generic elevated 3/4 view — frames Plan/Route's quite different
+      // shapes (spread-out plan, raised route) reasonably well without
+      // needing a bespoke angle per state.
       const offset = new THREE.Vector3(0.6, 0.5, 0.6).normalize().multiplyScalar(bounds.diag * 0.8);
       desiredOffsetRef.current = offset.clone();
       const camPos = new THREE.Vector3(bounds.cx + offset.x, bounds.cy + offset.y, bounds.cz + offset.z);
@@ -759,6 +910,17 @@ const SceneControls = forwardRef<ControlsHandle, { rd: RouteData; slug: string; 
     const computeFlyTarget = (distanceM: number) => {
       const p = positionAtDistance(rd, distanceM, state, mapStyle);
 
+      if (state === 'C') {
+        // Wedge is fully framed on both axes (see wedgeCamZ above) — the
+        // whole climb is always visible, so the camera has nothing to
+        // track and never moves; only WedgeTravelMarker's cone slides
+        // sideways within this fixed frame as travel changes.
+        return {
+          camPos: new THREE.Vector3(bounds.cx, bounds.cy, wedgeCamZ),
+          targetPos: new THREE.Vector3(bounds.cx, bounds.cy, 0),
+        };
+      }
+
       let offset = desiredOffsetRef.current;
       if (!offset || offset.lengthSq() < 1) {
         // Degenerate only if flyTo is somehow called before any view has
@@ -769,8 +931,7 @@ const SceneControls = forwardRef<ControlsHandle, { rd: RouteData; slug: string; 
         // since the ribbon towers up as a tall thin wall over a flat plane
         // with nothing around it to give it scale.
         const dir = state === 'A' ? new THREE.Vector3(0, 1, 0.0001).normalize() : new THREE.Vector3(0.5, 0.4, 0.8).normalize();
-        const flyDist =
-          state === 'A' ? bounds.diag * 0.16 : state === 'B' ? bounds.diag * (isTerrain ? 0.14 : 0.22) : bounds.diag * 0.06;
+        const flyDist = state === 'A' ? bounds.diag * 0.16 : bounds.diag * (isTerrain ? 0.14 : 0.22);
         offset = dir.multiplyScalar(flyDist);
         desiredOffsetRef.current = offset.clone();
       }
@@ -833,6 +994,11 @@ const SceneControls = forwardRef<ControlsHandle, { rd: RouteData; slug: string; 
       <OrbitControls
         ref={controlsRef}
         enablePan={false}
+        // Wedge: "side on projection, no zoom no rotation" — fully framed
+        // and permanently fixed (see wedgeCamZ above), so there's nothing
+        // left for the user to rotate or zoom anyway.
+        enableRotate={state !== 'C'}
+        enableZoom={state !== 'C'}
         enableDamping
         dampingFactor={0.08}
         minPolarAngle={0.02}
@@ -871,7 +1037,15 @@ export default function DebugScene({
   const controlsRef = useRef<ControlsHandle>(null);
   const compassRef = useRef<HTMLDivElement>(null);
   const [travelKm, setTravelKm] = useState(0);
-  const [smoothWindowM, setSmoothWindowM] = useState(0);
+  // The slider thumb itself drags at fine (1m) granularity for a smooth
+  // feel, but the value actually fed into the gradient-smoothing recompute
+  // (and shown in the label) snaps to the nearest 50m — Robin: "make the
+  // slider move smoothly but only change the smoothing amount in 50m
+  // increments." Keeps native drag motion fluid while avoiding a re-smooth
+  // recompute on every pixel of movement.
+  const [smoothWindowMRaw, setSmoothWindowMRaw] = useState(0);
+  const SMOOTH_STEP_M = 50;
+  const smoothWindowM = Math.round(smoothWindowMRaw / SMOOTH_STEP_M) * SMOOTH_STEP_M;
   const [isPlaying, setIsPlaying] = useState(false);
   const rd = useRouteData(slug);
 
@@ -919,10 +1093,12 @@ export default function DebugScene({
     );
   }
 
-  // Smoothing only does anything to the gradient-colour ribbon, which is
-  // itself only visible on Route (flat map) and Wedge — no point showing
-  // the control on Plan or Route (3D terrain), where it has no effect.
-  const ribbonVisible = state === 'C' || (state === 'B' && mapStyle === 'flat');
+  // Smoothing affects the Wedge ribbon and RouteHighlight's gradient-coloured
+  // line on Plan/Route (3D terrain) — no point showing the control anywhere
+  // else, where it has no effect. Route (flat map) no longer exists as a
+  // reachable state (see the note in RouteHighlight above).
+  const ribbonVisible = state === 'C';
+  const smoothingSliderVisible = ribbonVisible || state === 'A' || (state === 'B' && mapStyle === 'terrain');
 
   return (
     <div style={{ width: '100%', height: '100%', position: 'relative' }}>
@@ -969,16 +1145,16 @@ export default function DebugScene({
             {isPlaying ? 'Pause' : 'Play'}
           </button>
         </div>
-        {ribbonVisible && (
+        {smoothingSliderVisible && (
           <div className="map-overlay">
             <span>Smoothing</span>
             <input
               type="range"
               min={0}
               max={1000}
-              step={10}
-              value={smoothWindowM}
-              onChange={(e) => setSmoothWindowM(Number(e.target.value))}
+              step={1}
+              value={smoothWindowMRaw}
+              onChange={(e) => setSmoothWindowMRaw(Number(e.target.value))}
               className="map-overlay-slider"
             />
             <span style={{ minWidth: 46, textAlign: 'right' }}>{smoothWindowM === 0 ? 'off' : `${smoothWindowM}m`}</span>
@@ -997,8 +1173,9 @@ export default function DebugScene({
         <BasemapPlane slug={slug} visible={state === 'A' || (state === 'B' && mapStyle === 'flat')} />
         <TerrainMesh slug={slug} rd={rd} visible={state === 'B' && mapStyle === 'terrain'} />
         <TerrainSkirt slug={slug} rd={rd} visible={state === 'B' && mapStyle === 'terrain'} />
-        <RouteHighlight rd={rd} slug={slug} state={state} mapStyle={mapStyle} travelM={travelKm} />
-        <RouteFlatTravelMarker rd={rd} state={state} mapStyle={mapStyle} travelM={travelKm} />
+        <RouteHighlight rd={rd} slug={slug} state={state} mapStyle={mapStyle} smoothWindowM={smoothWindowM} />
+        <TerrainTravelMarker rd={rd} slug={slug} state={state} mapStyle={mapStyle} travelM={travelKm} />
+        <PlanTravelMarker rd={rd} state={state} travelM={travelKm} />
         <RouteMarkers rd={rd} slug={slug} state={state} mapStyle={mapStyle} />
         <WedgeAltitudeLines rd={rd} state={state} />
         <WedgeTravelMarker rd={rd} state={state} travelM={travelKm} />

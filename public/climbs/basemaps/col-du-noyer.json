@@ -1,0 +1,13 @@
+{
+  "slug": "col-du-noyer",
+  "source": "OpenTopoMap",
+  "attribution": "Map: OpenTopoMap, CC-BY-SA",
+  "zoom": 16,
+  "imageWidthPx": 3072,
+  "bounds": {
+    "xMin": -3872.8581765592367,
+    "xMax": 1343.3711680253334,
+    "zMin": -1331.8104416796054,
+    "zMax": 1258.0146398748407
+  }
+}

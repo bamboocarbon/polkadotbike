@@ -1,0 +1,13 @@
+{
+  "slug": "col-de-la-griffoul",
+  "source": "OpenTopoMap",
+  "attribution": "Map: OpenTopoMap, CC-BY-SA",
+  "zoom": 16,
+  "imageWidthPx": 3072,
+  "bounds": {
+    "xMin": -1334.9050126750174,
+    "xMax": 3852.7265033538283,
+    "zMin": -2482.9250162395742,
+    "zMax": 1380.2003197001661
+  }
+}

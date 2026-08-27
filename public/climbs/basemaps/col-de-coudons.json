@@ -1,0 +1,13 @@
+{
+  "slug": "col-de-coudons",
+  "source": "OpenTopoMap",
+  "attribution": "Map: OpenTopoMap, CC-BY-SA",
+  "zoom": 15,
+  "imageWidthPx": 2560,
+  "bounds": {
+    "xMin": -6969.831620362336,
+    "xMax": 1992.4178305313842,
+    "zMin": -1606.4986096313391,
+    "zMax": 2843.6309050680907
+  }
+}

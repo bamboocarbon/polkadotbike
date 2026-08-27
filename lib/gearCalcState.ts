@@ -157,3 +157,4 @@ export function parseCustomCassette(raw: string): number[] | null {
 
 export const ACCENT_MAP: Record<Brand, string> = { shimano: '#1a72e0', sram: '#ee1c28', campagnolo: '#ffcd00', custom: '#12b05f' };
 export const ACCENT_LIGHT_MAP: Record<Brand, string> = { shimano: '#7fb3f0', sram: '#ff7178', campagnolo: '#ffe066', custom: '#5fd39a' };
+export const BRAND_LABELS: Record<Brand, string> = { shimano: 'Shimano', sram: 'SRAM', campagnolo: 'Campagnolo', custom: 'Custom' };

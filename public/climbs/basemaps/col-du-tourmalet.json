@@ -1,0 +1,13 @@
+{
+  "slug": "col-du-tourmalet",
+  "source": "OpenTopoMap",
+  "attribution": "Map: OpenTopoMap, CC-BY-SA",
+  "zoom": 15,
+  "imageWidthPx": 1687,
+  "bounds": {
+    "xMin": -9567.854731823765,
+    "xMax": 2957.4389413194467,
+    "zMin": -3070.1254049037525,
+    "zMax": 12042.547902634054
+  }
+}

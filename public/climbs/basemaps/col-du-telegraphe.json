@@ -1,0 +1,13 @@
+{
+  "slug": "col-du-telegraphe",
+  "source": "OpenTopoMap",
+  "attribution": "Map: OpenTopoMap, CC-BY-SA",
+  "zoom": 16,
+  "imageWidthPx": 2560,
+  "bounds": {
+    "xMin": -2727.2692664055517,
+    "xMax": 1580.0789983703842,
+    "zMin": -1411.507093099021,
+    "zMax": 4150.021236265591
+  }
+}

@@ -1,0 +1,13 @@
+{
+  "slug": "col-de-montsegur",
+  "source": "OpenTopoMap",
+  "attribution": "Map: OpenTopoMap, CC-BY-SA",
+  "zoom": 15,
+  "imageWidthPx": 3328,
+  "bounds": {
+    "xMin": -8719.50224391999,
+    "xMax": 2930.1208466797066,
+    "zMin": -844.7674696309978,
+    "zMax": 3605.3620450684325
+  }
+}

@@ -1,10 +1,10 @@
 import { DB, DISC_BRANDS, WHEELS, Discipline, Brand } from '@/lib/gearDb';
-import { firstGroupsetKey, groupsetOptionsFor, CUST_LIMITS, ACCENT_MAP, ACCENT_LIGHT_MAP, parseCustomCassette } from '@/lib/gearCalcState';
+import { firstGroupsetKey, groupsetOptionsFor, CUST_LIMITS, ACCENT_MAP, ACCENT_LIGHT_MAP, BRAND_LABELS, parseCustomCassette } from '@/lib/gearCalcState';
 import { kgToLbs } from '@/lib/units';
 import type { SharedSetup } from '@/lib/sharedSetup';
 
 export type { ChartMode } from '@/lib/gearCalcState';
-export { CUST_LIMITS, ACCENT_MAP, ACCENT_LIGHT_MAP, parseCustomCassette, groupsetOptionsFor };
+export { CUST_LIMITS, ACCENT_MAP, ACCENT_LIGHT_MAP, BRAND_LABELS, parseCustomCassette, groupsetOptionsFor };
 
 export type WeightUnit = 'kg' | 'lbs';
 export type DistUnit = 'km' | 'mi';

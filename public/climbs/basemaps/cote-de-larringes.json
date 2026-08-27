@@ -1,0 +1,13 @@
+{
+  "slug": "cote-de-larringes",
+  "source": "OpenTopoMap",
+  "attribution": "Map: OpenTopoMap, CC-BY-SA",
+  "zoom": 15,
+  "imageWidthPx": 2816,
+  "bounds": {
+    "xMin": -5374.723551731899,
+    "xMax": 3902.454898148564,
+    "zMin": -1505.4195534282997,
+    "zMax": 5196.39283764617
+  }
+}

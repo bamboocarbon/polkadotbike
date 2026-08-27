@@ -1,0 +1,13 @@
+{
+  "slug": "col-du-galibier",
+  "source": "OpenTopoMap",
+  "attribution": "Map: OpenTopoMap, CC-BY-SA",
+  "zoom": 14,
+  "imageWidthPx": 768,
+  "bounds": {
+    "xMin": -2868.722500521729,
+    "xMax": 2305.0175394902253,
+    "zMin": -5260.991679572655,
+    "zMax": 15305.318304880575
+  }
+}

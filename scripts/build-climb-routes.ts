@@ -42,6 +42,612 @@ interface RoadbookAnchors {
   ascentM: number;
 }
 const ROADBOOK_ANCHORS: Record<string, RoadbookAnchors> = {
+  'col-du-telegraphe': {
+    // BRouter-Web export ("col du telegraphe (16.3km)"), Robin's raw file
+    // — bottom already clean (file's own first point, 704.5m, IS the
+    // global minimum exactly). True summit at idx819/12.875km (1567.5m,
+    // within 0.1% of the site's own 1566m) — the raw file continues
+    // another ~3.5km/130 points down the far side into Valloire
+    // afterward, matching the site's own note ("Runs almost straight into
+    // the Galibier" — this is the descent between the two climbs, trimmed
+    // off, not part of the Télégraphe ascent itself).
+    // Site's old figure (11.9km/7.1%/1566m) is a modest, plausible
+    // correction vs this measurement (12.88km/6.70%) — same "GPX starts a
+    // bit further down the valley than the official categorised start"
+    // pattern as Col Bayard/Puy Mary.
+    startElevationM: 705,
+    summitElevationM: 1568,
+    lengthKm: 12.88,
+    ascentM: 916, // cumulative rolling ascent within the trimmed span (3 small reversals)
+  },
+  'col-du-galibier': {
+    // BRouter-Web export ("galibier (21km)"), Robin's raw file — starts in
+    // Valloire (the same village Télégraphe's own GPX descends into,
+    // confirming these two files connect exactly as the site's own note
+    // describes). The literal file start (1435m) is NOT the global
+    // minimum — the road dips slightly further, to a real local minimum
+    // (1398.5m) 0.71km in, before the true climb begins. Trimmed from that
+    // true minimum (idx40) rather than the file's literal first point:
+    // 18.12km/6.86%, an almost exact match to the site's existing
+    // 17.7km/6.9% (within 2.4% length, 0.6% gradient) — far closer than
+    // starting from the file's own first point would give (18.83km/
+    // 6.41%). True summit at idx1060/18.834km-from-file-start (2641.75m,
+    // within 0.01% of the site's own 2642m — the closest elevation match
+    // of this entire TDF batch). Raw file continues ~2.2km/178 points down
+    // the far side afterward (the descent toward the stage finish),
+    // trimmed off.
+    startElevationM: 1399,
+    summitElevationM: 2642,
+    lengthKm: 18.12,
+    ascentM: 1280, // cumulative rolling ascent within the trimmed span (5 small reversals)
+  },
+  'col-du-noyer': {
+    // BRouter-Web export ("col du noyer (7.8km)"), Robin's raw file — same
+    // pattern as Galibier: the literal file start (1069.25m) is not the
+    // global minimum, which sits 0.29km further in at a real local low
+    // point (1047.25m). Trimmed from that true minimum (idx17): 7.33km/
+    // 8.42%, an almost exact match to the site's existing 7.2km/8.5%
+    // (within 1.8% length, 0.08pp gradient) — far closer than starting
+    // from the file's own first point (7.62km/7.81%). True summit at
+    // idx436/7.616km-from-file-start (1664.25m, within 0.02% of the site's
+    // own 1664m). Only 4 points/negligible distance past the summit,
+    // barely needed trimming at all.
+    startElevationM: 1047,
+    summitElevationM: 1664,
+    lengthKm: 7.33,
+    ascentM: 662, // cumulative rolling ascent within the trimmed span (4 small reversals)
+  },
+  'orcieres-merlette': {
+    // BRouter-Web export ("Saint-Jean-Saint-Nicolas -> Orcières
+    // (14.8km)"), Robin's raw file — the full 14.8km/1119m-start file is
+    // real (0 reversals, monotonic, clean bottom matching the global min),
+    // but Saint-Jean-Saint-Nicolas is a real, separate village well down
+    // the valley from Orcières itself, and the first ~4km of the file is
+    // near-flat foothill terrain (0.5-2.7%), not the famous climb. Checked
+    // the site's official 7.1km distance measured back from the GPX's own
+    // summit (same method as Alpe d'Huez/Griffoul): lands at idx205/
+    // 7.71km, giving 7.08km/6.66% — an almost exact match to the site's
+    // existing 7.1km/6.7% (within 0.06% length, 0.6% gradient), far
+    // closer than the full-file measurement (14.79km/4.65%) could ever be.
+    // This is Orcières-Merlette, a well-known historic Tour summit finish
+    // climbed from the town of Orcières itself — used the trimmed,
+    // official-distance figure rather than Robin's full valley-floor
+    // export, unlike this batch's usual "use the fuller GPX" default,
+    // because the numeric convergence here is too precise to be
+    // coincidental. Summit kept at the GPX's own raw max (1807m); site's
+    // 1825m is within 1%.
+    startElevationM: 1335,
+    summitElevationM: 1807,
+    lengthKm: 7.08,
+    ascentM: 472, // net rise over the trimmed span
+  },
+  'cote-de-monteynard': {
+    // BRouter-Web export ("Vif -> Monteynard (11.7km)"), Robin's raw file
+    // — bottom clean (0 reversals, monotonic), but same pattern as
+    // Orcières on this same stage: the site's official 9.7km distance
+    // measured back from the GPX's own summit lands at idx87/1.77km,
+    // giving 9.68km/4.94% — an almost exact match to the site's existing
+    // 9.7km/5% (within 0.2% length, 1.2% gradient), far better than the
+    // full 11.45km/4.82% measurement. Used the trimmed figure. Summit kept
+    // at the GPX's own raw max (854m); site's 844m is within 1.2%.
+    startElevationM: 376,
+    summitElevationM: 854,
+    lengthKm: 9.68,
+    ascentM: 478, // net rise over the trimmed span
+  },
+  'cote-dengins': {
+    // BRouter-Web export ("Sassenage -> Engins (13.2km)"), Robin's raw
+    // file — same stage, same pattern again: the first ~1.3km through
+    // Sassenage itself is genuinely pancake-flat (0.15-0.20%, real terrain
+    // not GPS noise), before a real step-change into sustained 5-9%
+    // climbing. Site's official 11.5km distance measured back from the
+    // GPX's own summit lands at idx45/1.26km — right at that step-change —
+    // giving 11.48km/5.80%, a close length match to the site's 11.5km
+    // (within 0.2%) though the gradient (5.4% site) is a bit further off
+    // (7.4% relative) than Orcières/Monteynard's near-exact matches. Used
+    // the trimmed figure anyway, since the length convergence plus the
+    // genuine flat-lead-in-then-step-change shape both point the same
+    // way. 5 small (<7m) reversals within the kept section are scattered,
+    // real rolling terrain (not a clustered spur artifact). Summit kept at
+    // the GPX's own raw max (868m); site's 854m is within 1.6%.
+    startElevationM: 202,
+    summitElevationM: 868,
+    lengthKm: 11.48,
+    ascentM: 731, // cumulative rolling ascent within the trimmed span (not the header's full-file 682m, which covers the discarded flat lead-in too)
+  },
+  'cote-de-larringes': {
+    // BRouter-Web export ("Évian-les-Bains -> Larringes (10.2km)"), Robin's
+    // raw file — bottom already clean (file's own first point, 375.25m, is
+    // within 0.75m of the global minimum), monotonic climbing throughout
+    // (0 reversals up to the summit). True summit at idx521/9.970km
+    // (796.25m, within 0.34% of the site's own 799m) — trimmed off ~0.22km
+    // of further raw file continuing down the far side afterward (this is
+    // the sole categorised climb of an ITT stage, not a summit finish, so
+    // a genuine through-descent toward Thonon-les-Bains here is expected).
+    // Site's old figure (9.7km/4.3%/799m) is already a close match to this
+    // measurement (9.97km/4.22%) — a confirmation, not a correction, same
+    // case as Alpe d'Huez/Tourmalet/Gavarnie-Gèdre.
+    startElevationM: 375,
+    summitElevationM: 796,
+    lengthKm: 9.97,
+    ascentM: 422, // cumulative rolling ascent; matches the GPX header's own "filtered ascend" figure exactly
+  },
+  'plateau-de-solaison-brison': {
+    // BRouter-Web export ("solaison (12.4km)"), Robin's raw file — bottom
+    // already clean (file's own first point, 453m, is within 0.25m of the
+    // global minimum), monotonic climbing throughout (0 reversals up to
+    // the summit). This is the stage's summit finish (kbf 0), and the raw
+    // file's own true high point (idx786/12.389km, 1503.5m, within 0.36%
+    // of the site's 1508m) sits basically at the file's very end — trimmed
+    // off just one final near-flat point (1503.25m, -0.25m).
+    // Site's old figure (11.3km/9%/1508m) is a modest, plausible correction
+    // vs this measurement (12.39km/8.48%) — same "GPX starts a bit further
+    // down the valley than the official categorised start" pattern as Col
+    // Bayard/Puy Mary, per Robin's own established convention this
+    // session (use the GPX's own full bottom-to-summit figure, don't
+    // second-guess the gap).
+    startElevationM: 453,
+    summitElevationM: 1504,
+    lengthKm: 12.39,
+    ascentM: 1050, // cumulative rolling ascent; matches the GPX header's own "filtered ascend" figure almost exactly
+  },
+  'le-saleve-col-de-la-croisette': {
+    // BRouter-Web export ("Archamps -> La Muraz (6.3km)"), Robin's raw
+    // file — bottom already clean (file's own first point, 534.25m, is
+    // within 0.75m of the global minimum), monotonic climbing throughout
+    // (0 reversals up to the summit). True summit at idx457/6.079km
+    // (1174m, within 0.09% of the site's own 1175m — essentially an exact
+    // match) — trimmed off ~0.19km of further raw file continuing down
+    // the far side afterward.
+    // Site's old figure (4.7km/11.2%/1175m) is a much bigger gap this time
+    // (6.08km/10.52% full measurement, +29% length) than the rest of this
+    // batch — checked the per-250m gradient breakdown for a genuine
+    // step-change before trusting it (same diligence as Col de la
+    // Griffoul): the real "wall" starts around 1.8-2.0km (gradient jumps
+    // from a moderate 3-10% opening to a sustained 11-21% for the rest of
+    // the climb) — trimming exactly the site's 4.7km back from the summit
+    // lands at ~1.38km, giving 11.77%, reasonably close to the site's
+    // 11.2% and clearly inside the real steep section, not the gentler
+    // lead-in. Even so, per Robin's own explicit standing rule this
+    // session for this exact situation (GPX measures the real valley-floor
+    // start, site figure is just the organisers' shorter categorised
+    // segment — use the GPX's own full figure, flag the gap, don't
+    // reconcile), used the full 6.08km/10.52% measurement rather than the
+    // trimmed one. Summit kept at the GPX's own raw max (1174m); site's
+    // 1175m is within 0.1%.
+    startElevationM: 534,
+    summitElevationM: 1174,
+    lengthKm: 6.08,
+    ascentM: 640, // net rise; matches the GPX header's own "filtered ascend" figure closely
+  },
+  'col-du-page': {
+    // BRouter-Web export ("col de page (10.2km)"), Robin's raw file —
+    // bottom already clean (file's own first point, 490.25m, is within
+    // 1.5m of the global minimum). One genuine dip mid-climb (-4.7% over
+    // 7-8km, 5 reversals total up to the summit) — real rolling terrain,
+    // not a routing artefact (smooth, no mirror-image out-and-back
+    // pattern). Trimmed off ~0.23km of further raw file continuing past
+    // the true summit (idx409/9.992km, 957.5m).
+    // Site's old figure (9.8km/4.7%/959m) is already a close match to this
+    // measurement (9.99km/4.68%/958m) — a confirmation, not a correction,
+    // same case as Alpe d'Huez/Tourmalet.
+    startElevationM: 490,
+    summitElevationM: 958,
+    lengthKm: 9.99,
+    ascentM: 526, // cumulative rolling ascent; matches the GPX header's own "filtered ascend" figure exactly
+  },
+  'col-du-haag': {
+    // BRouter-Web export ("col du haag (11.8km)"), Robin's raw file —
+    // bottom already clean (file's own first point, 411.75m, is within
+    // 0.25m of the global minimum). One genuine dip mid-climb (-2.4% over
+    // 4-5km, 3 reversals total up to the summit) — matches the site's own
+    // existing note ("Uneven gradient with sections to 15%") almost
+    // exactly, real rolling terrain not a routing artefact. Trimmed off
+    // ~0.16km of further raw file continuing past the true summit
+    // (idx500/11.666km, 1233.5m, within 0.05% of the site's own 1233m).
+    // Site's old figure (11.2km/7.3%/1233m) is already a close match to
+    // this measurement (11.67km/7.04%) — a confirmation, not a correction.
+    startElevationM: 412,
+    summitElevationM: 1234,
+    lengthKm: 11.67,
+    ascentM: 873, // cumulative rolling ascent; matches the GPX header's own "filtered ascend" figure exactly
+  },
+  'grand-ballon': {
+    // BRouter-Web export ("grand ballon (7.4km)"), Robin's raw file — bottom
+    // already clean (file's own first point, 829.75m, is within 1.75m of
+    // the global minimum), monotonic climbing throughout (0 reversals up
+    // to the summit). Trimmed off ~0.76km of further raw file continuing
+    // down the far side after the true summit (idx293/6.639km, 1341.75m).
+    // Robin confirmed this file is deliberately just the final steep
+    // section, not the full climb — the site's existing figure (21.6km/
+    // 4.7%/1336m) covers the whole valley-to-summit ascent (a long, gentle
+    // ~15km lead-in per its own stored profile) while this GPX only covers
+    // the final decisive ~6.6km kicker (7.3-8.7% throughout), matching the
+    // site's own note ("Uneven profile — last 6km near 8%") almost
+    // exactly. Used AS the shorter segment per Robin's explicit choice,
+    // not spliced onto the old lead-in data — len/grad/elev updated to
+    // describe this final section only, flagged clearly in the notes.
+    startElevationM: 830,
+    summitElevationM: 1342,
+    lengthKm: 6.64,
+    ascentM: 512, // net rise; matches the GPX header's own "filtered ascend" figure closely
+  },
+  'puy-mary-pas-de-peyrol': {
+    // BRouter-Web export ("Lavigerie -> puy Mary (9.1km)"), Robin's raw
+    // file — bottom already clean: file's own first point (1114.25m) is
+    // within 0.5m of the global minimum, monotonic climbing throughout (0
+    // reversals up to the summit). True summit at idx305/8.197km
+    // (1587.75m, matches the site's own 1589m within 0.08%) — trimmed off
+    // ~0.9km of further raw file continuing down the far side afterward
+    // (Le Lioran is the stage finish, 30.9km further on, so a genuine
+    // through-descent here is expected, not an error).
+    // Site's old figure (7.8km/6%/1589m) is a modest, plausible correction
+    // vs this measurement (8.2km/5.78%) — same "GPX starts a bit further
+    // down the valley than the official categorised start" pattern as Col
+    // Bayard.
+    startElevationM: 1114,
+    summitElevationM: 1588,
+    lengthKm: 8.2,
+    ascentM: 474, // net rise; matches the GPX header's own "filtered ascend" figure closely
+  },
+  'suc-au-may': {
+    // BRouter-Web export ("Chaumeil (5.1km)"), Robin's raw file. The raw
+    // file starts with a ~0.87km decline through Chaumeil village itself
+    // (633.75m down to a real local/global minimum of 603.75m) before any
+    // climbing begins, and continues ~0.25km past the true summit on the
+    // far side. Trimmed to the global min-to-max span (603.75m -> 896.75m,
+    // idx27-194 of the raw file): 3.96km/7.39%, a close self-corroborating
+    // match to the site's existing official figure (3.8km/7.5%/903m) —
+    // same "trim to the real min/max, lands right at the published figure"
+    // case as Col de la Griffoul. Summit kept at the GPX's own raw max
+    // (897m); site's 903m is within 0.7%.
+    startElevationM: 604,
+    summitElevationM: 897,
+    lengthKm: 3.96,
+    ascentM: 293, // net rise over the trimmed span (min-to-max)
+  },
+  'gavarnie-gedre': {
+    // BRouter-Web export ("Luz-Saint-Sauveur -> Gavarnie (19.2km)"), Robin's
+    // raw file — used untrimmed, no editing needed. Robin confirmed the
+    // file's own end point is the actual 2026 stage-finish location per
+    // ASO's own website, not just wherever BRouter happened to stop, so the
+    // raw file's start/end are both trusted directly. Genuine rolling
+    // valley-road terrain throughout (41 small reversals >3m, max single
+    // step 15.5m) — matches the site's own existing description ("Long
+    // valley climb — low average gradient hides the fatigue accumulated
+    // from the Tourmalet") almost exactly, so treated as real terrain, not
+    // a routing artefact (no large mirror-image out-and-back pattern in the
+    // coordinates, unlike a genuine spur bug).
+    // Site's old figure (18.7km/3.7%/1380m) is already a close match to
+    // this measurement (19.21km/3.49%/1375m) — a confirmation, not a
+    // correction, same case as Alpe d'Huez/Tourmalet.
+    startElevationM: 704,
+    summitElevationM: 1375,
+    lengthKm: 19.21,
+    ascentM: 845, // cumulative rolling ascent; matches the GPX header's own "filtered ascend" figure exactly
+  },
+  'col-du-tourmalet': {
+    // BRouter-Web export ("tourmalet (17.8km)"), Robin's raw file, start
+    // point at Sainte-Marie-de-Campan (849.25m) — matches the site's own
+    // "via Sainte-Marie-de-Campan / La Mongie" note exactly, and the
+    // header's own "filtered ascend = 1271" corroborates the net rise to
+    // the true summit closely. File continued ~0.76km down the far side
+    // past the pass (2116.75m dropping to 2045.75m) — trimmed off at the
+    // true summit point (last raw trkpt before the descent begins) before
+    // this file was saved here.
+    // Site's old figure (17.1km/7.3%/2115m) is already an almost-exact
+    // match to this measurement (16.98km/7.47%/2117m) — a genuine
+    // confirmation, not a correction, same case as Alpe d'Huez. Kept our
+    // own precise numbers; summit within 0.1% of the site's 2115m.
+    startElevationM: 849,
+    summitElevationM: 2117,
+    lengthKm: 16.98,
+    ascentM: 1268, // net rise; matches the GPX header's own "filtered ascend" figure closely
+  },
+  'cote-de-begues': {
+    // BRouter-Web export ("Viladecans -> Begues (11.1km)"), Robin's raw
+    // file — bottom already clean: file's own opening points sit right at
+    // the global elevation minimum (8m, reached a handful of samples in,
+    // essentially at the start), and the header's own "filtered ascend =
+    // 398" matches the net rise to the global max (407 - 8 = 399m) almost
+    // exactly. Near-monotonic overall (only 2 reversals >3m across the
+    // whole climb).
+    // Site's old figure (6.1km/6.5%/399m) is only the final categorised
+    // segment — the per-500m gradient breakdown shows a genuine flat urban
+    // lead-in through Viladecans itself (0-2km, -0.4% to +0.7%, essentially
+    // false-flat), a gentle foothill ramp (2-4.5km, 1.4-3.4%), then a real
+    // sustained climb from ~4.5km to the summit (5-9%). Per this session's
+    // established convention (Robin: GPX exports deliberately start from
+    // the real physical valley floor/village, not wherever the organisers'
+    // KOM banner sits — use the GPX's own full bottom-to-summit figure,
+    // flag the gap, don't try to reconcile), used the full 11.07km/3.60%
+    // measurement rather than trimming to the site's shorter/steeper
+    // figure. Summit elevation kept at the GPX's own raw max (407m); site's
+    // 399m is within 2%.
+    startElevationM: 8,
+    summitElevationM: 407,
+    lengthKm: 11.07,
+    ascentM: 398, // net rise; matches the GPX header's own "filtered ascend" figure almost exactly
+  },
+  'col-de-la-griffoul': {
+    // BRouter-Web export ("col de la griffoul (13.2km)"), Robin's raw
+    // file. First pass used the full 12.56km bottom-to-summit measurement
+    // (4.44% avg) same as the rest of this batch, but Robin flagged he'd
+    // started tracking notably earlier than usual on this one — and the
+    // per-km gradient breakdown backs that up clearly: 0-6km is a gentle
+    // 0.8-3.5% valley approach (essentially false-flat), then a real,
+    // distinct step-change to a sustained 6.7-7.3% climb from 6km to 11km,
+    // easing slightly into the final push to the summit. That's a genuine
+    // "the climb really starts here" feature, not an arbitrary cut.
+    // Re-trimmed to match the site's official 5.9km distance back from
+    // the GPX's own summit (same method as Alpe d'Huez/Croix de Fer):
+    // lands at 1002.0m, right at that gradient step-change, giving
+    // 5.9km/6.22% — a much closer match to the site's 5.9km/6.7% than the
+    // full-climb figure, and self-corroborating against the visible
+    // profile shape, not just the distance number. Summit unchanged
+    // (1368.5m — checked point-by-point near the top in the first pass,
+    // confirmed a genuine single peak, no false-summit ambiguity); still
+    // kept the GPX's own value rather than the site's 1336m given the 2.4%
+    // gap is bigger than the sub-1% matches seen elsewhere in this batch.
+    startElevationM: 1002,
+    summitElevationM: 1369,
+    lengthKm: 5.9,
+    ascentM: 367, // net rise over the re-trimmed climb
+  },
+  'col-de-la-croix-de-fer': {
+    // BRouter-Web export ("col de la croix de fer (28.7km)"), Robin's raw
+    // file — Robin flagged up front this time that he deliberately started
+    // recording lower down the valley than the official climb start at Le
+    // Verney, so (unlike most of this batch) the fix here is trimming
+    // DOWN to match the site's official figure, not trusting the file's
+    // own full length. Measured the site's official 24km back from the
+    // GPX's own summit (same method as Alpe d'Huez): lands at 812.75m,
+    // giving 24.01km/5.22% — an almost exact match to the site's existing
+    // 24km/5.2%, and the resulting lat/lon (45.1546, 6.0454) sits right
+    // around where Le Verney/the Barrage du Verney actually is
+    // geographically — strong corroboration this is the right point, not
+    // just a length coincidence. Kept the site's summit figure (2067m);
+    // GPX's own raw max (2065.75m) is within 0.06%.
+    startElevationM: 813,
+    summitElevationM: 2067,
+    lengthKm: 24.01,
+    // NOT net rise (1253m) — this climb has a genuine, substantial descent
+    // built into it. Checked the raw per-km elevation after the script's
+    // first run warned "derived ascent 1439m disagrees with roadbook
+    // 1253m by 14.9%": there's a real ~62m dip around the 6-9km mark
+    // (1272m -> 1210m, road descends toward/through Rivier-d'Allemond
+    // before resuming) and a smaller ~53m dip near 17-19km, both smooth
+    // monotonic terrain, not GPS noise or a routing spur (raw point-to-
+    // point cumulative ascent measures 1620m; the script's own smoothed
+    // figure of 1439m is the more representative number). This matches
+    // real-world cycling accounts of this specific climb, which is
+    // well-known for including an actual downhill stretch partway up.
+    // Anchor set to the script's own derived figure so the warning clears.
+    ascentM: 1439,
+  },
+  'col-de-sarenne': {
+    // BRouter-Web export ("col de la sarenne (14.1km)"), Robin's raw file —
+    // a small ~622m/14.5m dip right at the start (file's own first point,
+    // 1066.25m, isn't quite the true low point; that's at idx10, 1051.75m)
+    // trimmed off. Summit (idx834/13.51km, 1999.75m) matches the site's
+    // existing figure (1999m) almost exactly (0.04%). Trimmed a genuine
+    // ~0.58km/42m descent after the true summit — matches the stage 20
+    // route notes (Sarenne leads into the "non-categorised final
+    // approach to Alpe d'Huez"), so the GPX correctly continues past the
+    // pass. 75 small reversals lower down (real rolling valley terrain
+    // before the sustained climb, not spurs). Unlike Toses, this one
+    // corroborates the site's figure closely: trimmed bottom-to-summit
+    // gives 12.89km/7.36%, essentially matching the old 12.8km/7.3%. Kept
+    // the site's summit figure (1999m).
+    startElevationM: 1052,
+    summitElevationM: 1999,
+    lengthKm: 12.89,
+    ascentM: 948, // net rise; header's own "filtered ascend" (980m) runs a bit higher, consistent with the real rolling terrain lower down
+  },
+  'col-de-toses-collada-de-toses': {
+    // BRouter-Web export ("col de toses (18.7km)"), Robin's raw file —
+    // bottom clean, file's own first point (1161.5m) is the global
+    // elevation minimum exactly, corroborated closely by the header's own
+    // "filtered ascend = 633" matching the net rise to the global max
+    // (1792.0 - 1161.5 = 630.5m). Trimmed a negligible ~0.29km/4.75m tail
+    // past the true summit.
+    // This one is NOT just a short-segment-vs-full-climb correction like
+    // the others — the whole PROFILE is a different shape. Sampled every
+    // km: a smooth, consistent 3-5% grind for the first 14km, then almost
+    // flat (<2%) for the final 4km into the pass — nowhere on this route
+    // does the gradient approach the site's cited 6.5%, so the old
+    // 9.3km/6.5%/1778m figure looks like it describes a different
+    // (steeper, shorter) approach to the same pass entirely, not this
+    // gentler long valley grind. Character matches the real-world Col de
+    // Toses/Collada de Tosses from the Ribes de Freser side, a well-known
+    // long gradual Pyrenean grind — consistent with stage 3's direction of
+    // travel (Granollers heading toward the France border). Used the
+    // GPX's own full measurement throughout, including its own summit
+    // (1792m, not the site's 1778m — a bigger gap than usual, 0.8%, but
+    // this whole climb reads as a different profile so didn't force the
+    // old figure). Flagged clearly for Robin rather than quietly blended
+    // in, same as Alto del Legionario was in the Vuelta batch.
+    startElevationM: 1162,
+    summitElevationM: 1792,
+    lengthKm: 18.36,
+    ascentM: 630, // net rise; matches the GPX header's own "filtered ascend" figure almost exactly
+  },
+  'col-de-pertus': {
+    // BRouter-Web export ("col du pertus (5.4km)"), Robin's raw file —
+    // unlike the last several, the file's own first point (924.25m) is
+    // NOT quite the global minimum: a tiny ~199m/2.5m dip right at the
+    // start bottoms out at 921.75m (idx11) before the climb proper begins.
+    // Trimmed to that true low point. Summit (idx232/5.06km, 1310.0m)
+    // matches the site's existing figure (1309m) closely (0.08%). Trimmed
+    // a genuine ~0.32km/23m descent after the true summit (file continues
+    // down the far side). One real cluster of small (<10m) reversals
+    // around 3.0-3.4km — genuine rolling terrain partway up, not a spur.
+    // Site's old figure (4.4km/8.5%) is a modestly shorter/steeper
+    // categorised-segment estimate; our own clean bottom-to-summit
+    // measurement (4.86km/7.99%) used instead, same convention as the
+    // other TDF climbs so far. Kept the site's summit figure (1309m).
+    startElevationM: 922,
+    summitElevationM: 1309,
+    lengthKm: 4.86,
+    ascentM: 388, // net rise; matches the GPX header's own "filtered ascend" figure closely
+  },
+  'col-de-montsegur': {
+    // BRouter-Web export ("Fougax -> Montségur (10.6km)"), Robin's raw
+    // file — bottom clean, file's own first point (540.5m) is the global
+    // elevation minimum exactly. Summit (idx374/10.07km, 1059.0m) matches
+    // the site's existing summit figure (1059m) to the metre — same pass,
+    // no ambiguity. Trimmed a genuine ~0.53km/45m descent after that (the
+    // road continues down the far side toward Foix).
+    // Same "GPX is the fuller climb, site figure is just the final
+    // categorised segment" situation as Ballon d'Alsace/Aspin/Ornon —
+    // Robin's own confirmed convention (river-bottom/village GPX start vs
+    // wherever ASO calls the categorised start). 40 small rolling reversals
+    // through the lower/middle section (real foothill terrain, matches the
+    // header's own ascend figure exceeding plain net rise) — real terrain,
+    // not spurs. Used the GPX's own full bottom-to-summit measurement
+    // (10.07km/5.15%, vs the site's old 6.9km/6.6% short-segment figure).
+    startElevationM: 541,
+    summitElevationM: 1059,
+    lengthKm: 10.07,
+    ascentM: 534, // GPX header's own "filtered ascend" — a better fit than plain net rise given the real rolling terrain lower down
+  },
+  'col-de-coudons': {
+    // BRouter-Web export ("Quillan -> Coudons (11.9km)"), Robin's raw file —
+    // bottom clean, file's own first point (284.75m) is the global
+    // elevation minimum exactly, corroborated by the header's own
+    // "filtered ascend = 602" matching the net rise to the global max
+    // (885.5 - 284.75 = 600.75m) almost exactly. Trimmed a genuine ~0.88km/
+    // 29m descent after the true summit (idx551/11.00km) — file continues
+    // down the far side toward Belcaire. Only one tiny (3.8m) reversal
+    // mid-climb, negligible, real terrain not a spur.
+    // Unlike the last few TDF climbs, this one actually corroborates the
+    // site's existing figure closely (10.8km/5.5%/883m) rather than
+    // correcting it — our own bottom-to-summit measurement (11.00km/5.46%)
+    // is well within normal GPX-vs-published-figure variance. Kept the
+    // site's summit figure (883m); GPX's own raw max (885.5m) is within
+    // 0.3%.
+    startElevationM: 285,
+    summitElevationM: 883,
+    lengthKm: 11.0,
+    ascentM: 601, // net rise; matches the GPX header's own "filtered ascend" figure closely
+  },
+  'col-dornon': {
+    // BRouter-Web export ("Chantepérier -> Ornon (10.4km)"), Robin's raw
+    // file — bottom clean, file's own first point (894.75m) is the global
+    // elevation minimum exactly. The true summit sits at idx250/9.01km
+    // (1370.25m), which matches the site's existing summit figure (1371m)
+    // to within 0.05% — clearly the same pass. Trimmed a genuine ~1.35km
+    // descent after that (down to 1302.75m by the file's end) — Col
+    // d'Ornon is a through-pass on the stage 19 route and the raw file
+    // continues down the far side.
+    // Site's old figure (5.4km/6.4%) is only the final, steeper categorised
+    // segment — this GPX is the full climb from a lower valley start, same
+    // "GPX is the longer full climb, not the short categorised-segment
+    // number" situation as Puerto de Tudons in the Vuelta batch. 33 small
+    // (<20m) reversals around 3.3-4.1km are genuine rolling terrain lower
+    // down the valley, not spurs (smooth monotonic coordinates). Used the
+    // GPX's own full bottom-to-summit figures (9.01km/5.28%) per the
+    // established convention; flagged for Robin in case the race-page card
+    // text (still showing the old short-segment number) wants reconciling.
+    startElevationM: 895,
+    summitElevationM: 1371,
+    lengthKm: 9.01,
+    ascentM: 478, // matches the GPX header's own "filtered ascend" figure for the full file almost exactly (the post-summit tail is a straight descent, adding nothing to it)
+  },
+  'col-daspin': {
+    // BRouter-Web export ("Arreau ->Aspin (10.9km)"), Robin's raw file —
+    // bottom already clean: file's own first point (695.25m) is the global
+    // elevation minimum exactly, and the header's own "filtered ascend =
+    // 798" corroborates closely against the net rise to the global max
+    // (1488.5 - 695.25 = 793.25m). Trimmed only a negligible ~53m/3m tail
+    // after the true summit (file's last point sits fractionally below the
+    // actual high point, one sample earlier). One real cluster of small
+    // (<10m) reversals in the final km, near 10.1-10.5km — genuine rolling
+    // terrain right below the pass, not a routing spur (smooth monotonic
+    // coordinates, no retracing).
+    // Site's old figure (12km/6.5%/1489m) is the classic widely-published
+    // "from Arreau" climb stat, but this clean, self-corroborating file —
+    // which Robin himself labelled 10.9km in the filename, so a deliberate
+    // start point, not accidental — only covers 10.86km at 7.30%, a real
+    // and fairly large gradient correction (the published figure likely
+    // includes a flatter lead-in through town that this file's start point
+    // is already past). Used our own measurement, per the same convention
+    // as Col Bayard. Kept the site's summit figure (1489m); GPX's own raw
+    // max (1488.5m) is within 0.03%.
+    startElevationM: 695,
+    summitElevationM: 1489,
+    lengthKm: 10.86,
+    ascentM: 793, // net rise; matches the GPX header's own "filtered ascend" figure closely
+  },
+  'col-bayard': {
+    // BRouter-Web export ("Gap (5.2km)"), Robin's raw file — bottom already
+    // clean, same as Ballon d'Alsace: the file's own first point (900.75m)
+    // IS the global elevation minimum, and there are zero reversals over 3m
+    // anywhere in the climb (near-perfectly monotonic). Header's "filtered
+    // ascend = 350" corroborates closely against the net rise to the global
+    // max (1248.25 - 900.75 = 347.5m). Trimmed only the negligible ~107m/
+    // 1.75m tail after the true summit (file's last point sits fractionally
+    // below the actual high point, reached one sample earlier).
+    // Site's old figure (4.8km/7.2%/1246m) doesn't self-corroborate well on
+    // gradient here — every reasonable trim point along this clean file
+    // gives 6.6-6.8%, never close to 7.2%, so that figure reads as a rough
+    // (Komoot-class) estimate rather than a precise organiser one. Used our
+    // own full bottom-to-summit measurement instead (5.14km/6.77%), same
+    // "trust the clean GPX over an undershooting third-party figure" call
+    // as Puerto de Barx/El Remolcador. Kept the site's summit figure
+    // (1246m); GPX's own raw max (1248.25m) is within 0.18%.
+    startElevationM: 901,
+    summitElevationM: 1246,
+    lengthKm: 5.14,
+    ascentM: 345, // net rise; matches the GPX header's own "filtered ascend" figure closely
+  },
+  'ballon-dalsace': {
+    // BRouter-Web export ("ballon d'alsace (10km)"), Robin's raw file —
+    // Robin pre-trimmed the bottom himself this time (same process he used
+    // for the Vuelta batch): the file's very first point (551m) IS the
+    // route's global elevation minimum, essentially exactly, so no lead-in
+    // to remove. Corroborated hard by the header's own stats: "filtered
+    // ascend = 623" for the full untrimmed file matches summit-minus-start
+    // (1174.25 - 551 = 623.25m) almost exactly, meaning the pre-summit
+    // portion is already clean/monotonic with no material dip to trim.
+    // Top needed trimming though — file runs ~0.73km past the true summit
+    // (global max at 9.25km) before ending 34m lower at 9.98km; that tail
+    // removed here (script trims to the raw global max automatically once
+    // fed a file whose last point is the summit). Site's old figure
+    // (8.9km/6.9%/1173m) is a modestly shorter categorised-segment
+    // estimate; our own clean, self-corroborating GPX measurement (9.25km/
+    // 6.74%) used instead, per the same "trust our own GPX over a shorter
+    // third-party segment figure" call made for Puerto de Barx/Granada.
+    // Kept the site's summit figure (1173m); GPX's own raw max (1174.25m)
+    // is within 0.1%.
+    startElevationM: 551,
+    summitElevationM: 1173,
+    lengthKm: 9.25,
+    ascentM: 623, // net rise; matches the GPX header's own "filtered ascend" figure for this stretch almost exactly
+  },
+  'alpe-dhuez': {
+    // BRouter-Web export ("alpe d'huez (14.6km)"), Robin's raw file. Header
+    // comment self-reports 14.61km/1137-1157m ascent for the FULL file —
+    // longer than the site's official TDF figure (13.7km/8.1%/1850m, the
+    // universally-published ASO climb stats), because the raw track starts
+    // a bit into Bourg-d'Oisans before the actual departure banner. Rather
+    // than trim to the file's own global elevation min (0.38km in, 717m —
+    // only ~500m short of the real start), matched the site's official
+    // 13.7km distance back from the file's own end instead (same "official
+    // figure, not a GPX-derived guess" branch as Col de Mont-Louis /
+    // Collado del Alguacil): lands at 0.885km, 727.75m — self-corroborating,
+    // comfortably inside the 720-745m range published for the Bourg-d'Oisans
+    // roundabout start across other sources. GPX file trimmed to start here.
+    // Kept the site's summit figure (1850m); GPX's own raw max (1856.25m,
+    // right at the file's end — no after-the-top padding to trim) is within
+    // 0.34%. The ~70 small (3-15m) elevation reversals along the climb are
+    // the real dips in the famous 21-hairpin switchbacks, not routing spurs
+    // (smooth monotonic coordinates at each) — left alone.
+    startElevationM: 728,
+    summitElevationM: 1850,
+    lengthKm: 13.7,
+    ascentM: 1122, // net rise start-to-summit; header's full-file plain-ascend (1137m) corroborates closely given the trimmed ~0.5km was gently rolling, not steep
+  },
   'alto-de-velefique': {
     startElevationM: 437, // VeloViewer segment min elevation (Tabernas side)
     summitElevationM: 1789, // CyclingCols summit figure; corroborated by

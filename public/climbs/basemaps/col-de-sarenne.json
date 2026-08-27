@@ -1,0 +1,13 @@
+{
+  "slug": "col-de-sarenne",
+  "source": "OpenTopoMap",
+  "attribution": "Map: OpenTopoMap, CC-BY-SA",
+  "zoom": 15,
+  "imageWidthPx": 1280,
+  "bounds": {
+    "xMin": -1728.4262549202329,
+    "xMax": 2591.93583541598,
+    "zMin": -8015.901122786533,
+    "zMax": 2275.6368848802426
+  }
+}

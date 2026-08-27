@@ -1,0 +1,13 @@
+{
+  "slug": "grand-ballon",
+  "source": "OpenTopoMap",
+  "attribution": "Map: OpenTopoMap, CC-BY-SA",
+  "zoom": 16,
+  "imageWidthPx": 2304,
+  "bounds": {
+    "xMin": -2655.9197752391788,
+    "xMax": 1035.5029568113987,
+    "zMin": -4499.092979415417,
+    "zMax": 1201.2430667262165
+  }
+}

@@ -1,0 +1,13 @@
+{
+  "slug": "col-du-page",
+  "source": "OpenTopoMap",
+  "attribution": "Map: OpenTopoMap, CC-BY-SA",
+  "zoom": 15,
+  "imageWidthPx": 3328,
+  "bounds": {
+    "xMin": -8112.895051624488,
+    "xMax": 2540.0487260943128,
+    "zMin": -945.5513648348183,
+    "zMax": 2309.6985098896375
+  }
+}

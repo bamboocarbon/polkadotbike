@@ -23,7 +23,7 @@ export interface ClimbIndexItem {
 const RACE_CHIPS: { key: 'all' | 'tdf' | 'giro' | 'vuelta'; label: string; disabled?: boolean }[] = [
   { key: 'all', label: 'All' },
   { key: 'giro', label: 'Giro', disabled: true },
-  { key: 'tdf', label: 'Tour', disabled: true },
+  { key: 'tdf', label: 'Tour' },
   { key: 'vuelta', label: 'Vuelta' },
 ];
 

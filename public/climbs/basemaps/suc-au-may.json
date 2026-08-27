@@ -1,0 +1,13 @@
+{
+  "slug": "suc-au-may",
+  "source": "OpenTopoMap",
+  "attribution": "Map: OpenTopoMap, CC-BY-SA",
+  "zoom": 17,
+  "imageWidthPx": 4864,
+  "bounds": {
+    "xMin": -3124.0848126300175,
+    "xMax": 950.4525720876951,
+    "zMin": -1557.317541107507,
+    "zMax": 571.9813509322757
+  }
+}

@@ -1,0 +1,13 @@
+{
+  "slug": "col-du-haag",
+  "source": "OpenTopoMap",
+  "attribution": "Map: OpenTopoMap, CC-BY-SA",
+  "zoom": 15,
+  "imageWidthPx": 2816,
+  "bounds": {
+    "xMin": -2283.813766073211,
+    "xMax": 6739.861853822504,
+    "zMin": -5438.536799608988,
+    "zMax": 1890.4667244777256
+  }
+}

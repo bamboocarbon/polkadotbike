@@ -1,0 +1,13 @@
+{
+  "slug": "col-dornon",
+  "source": "OpenTopoMap",
+  "attribution": "Map: OpenTopoMap, CC-BY-SA",
+  "zoom": 15,
+  "imageWidthPx": 1024,
+  "bounds": {
+    "xMin": -2407.127212936578,
+    "xMax": 1055.8558361480184,
+    "zMin": -10839.417396239785,
+    "zMax": 2906.8510813798684
+  }
+}

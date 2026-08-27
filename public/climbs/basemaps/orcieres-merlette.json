@@ -1,0 +1,13 @@
+{
+  "slug": "orcieres-merlette",
+  "source": "OpenTopoMap",
+  "attribution": "Map: OpenTopoMap, CC-BY-SA",
+  "zoom": 17,
+  "imageWidthPx": 3072,
+  "bounds": {
+    "xMin": -557.6653024372936,
+    "xMax": 2050.9850994046883,
+    "zMin": -1783.6356798882275,
+    "zMax": 590.6507930324092
+  }
+}
