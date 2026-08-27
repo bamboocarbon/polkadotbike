@@ -15,7 +15,7 @@
  * rendered as a kink. Spacing here instead tracks curvature computed on the
  * raw GPX points: tight bends get ~4m samples, straights get up to 30m.
  */
-import { readFileSync, writeFileSync, readdirSync, mkdirSync, existsSync, statSync } from 'fs';
+import { readFileSync, writeFileSync, readdirSync, mkdirSync, existsSync, statSync, copyFileSync } from 'fs';
 import { join } from 'path';
 
 const ROUTES_DIR = join(__dirname, '..', 'data', 'climbs', 'routes');
@@ -1495,6 +1495,11 @@ function main() {
     // the real ClimbMorph3D) can fetch it at runtime without server code.
     writeFileSync(join(ROUTES_DIR, `${slug}.json`), json);
     writeFileSync(join(PUBLIC_ROUTES_DIR, `${slug}.json`), json);
+    // Also publish the real, trimmed GPX itself (not the resampled route
+    // JSON above) so the site's own "Download GPX" button has something a
+    // bike computer/Strava can actually load — same public/ mirroring
+    // pattern as the JSON copy.
+    copyFileSync(gpxPath, join(PUBLIC_ROUTES_DIR, file));
     console.log(`  -> ${slug}.json (${route.points.length} points, ${(route.lengthM / 1000).toFixed(2)}km, ${route.ascentM.toFixed(0)}m ascent)`);
   }
   if (skipped > 0) console.log(`Skipped ${skipped} already-up-to-date route(s) (FORCE=1 to rebuild everything).`);

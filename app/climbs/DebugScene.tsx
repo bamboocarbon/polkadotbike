@@ -19,6 +19,7 @@ import { useMemo, useRef, useEffect, useState, forwardRef, useImperativeHandle }
 import * as THREE from 'three';
 import { buildMorphGeometry, buildRibbonColors, smoothGradients, computeExaggeration, type RoutePoint } from '@/lib/climbs/morphGeometry';
 import { colourForGradient } from '@/lib/climbs/gradientColour';
+import { GPX_PARTIAL_CLIMB_SLUGS, GPX_PARTIAL_CLIMB_CAVEAT } from '@/lib/climbGpxCaveats';
 
 // Gradient-coloured ahead-line + white terrain-following marker on every
 // view, replacing the old flat yellow/red split — trialled on col-de-sarenne
@@ -1102,12 +1103,22 @@ export default function DebugScene({
 
   return (
     <div style={{ width: '100%', height: '100%', position: 'relative' }}>
-      <button
-        onClick={() => controlsRef.current?.resetView()}
-        style={{ position: 'absolute', top: 10, right: 10, zIndex: 10, padding: '8px 16px', background: '#555', color: '#fff', border: 'none', borderRadius: 6, cursor: 'pointer' }}
-      >
-        Reset view
-      </button>
+      <div style={{ position: 'absolute', top: 10, right: 10, zIndex: 10, display: 'flex', gap: 8 }}>
+        <a
+          className="map-gpx-btn"
+          href={`/climbs/routes/${slug}.gpx`}
+          download
+          title={GPX_PARTIAL_CLIMB_SLUGS.has(slug) ? GPX_PARTIAL_CLIMB_CAVEAT : undefined}
+        >
+          Download GPX
+        </a>
+        <button
+          onClick={() => controlsRef.current?.resetView()}
+          style={{ padding: '8px 16px', background: '#555', color: '#fff', border: 'none', borderRadius: 6, cursor: 'pointer' }}
+        >
+          Reset view
+        </button>
+      </div>
       <div className="map-overlay-compass">
         <div ref={compassRef} style={{ position: 'relative', width: '100%', height: '100%' }}>
           <span style={{ position: 'absolute', top: 3, left: '50%', transform: 'translateX(-50%)', color: '#ee1c28', fontWeight: 700, fontSize: 13, fontFamily: 'sans-serif' }}>N</span>

@@ -2,6 +2,7 @@
 
 import ClimbProfile from './ClimbProfile';
 import { CAT_CLS, buildPlanUrl, gradColor, type Climb } from '@/lib/raceHelpers';
+import { GPX_PARTIAL_CLIMB_SLUGS, GPX_PARTIAL_CLIMB_CAVEAT } from '@/lib/climbGpxCaveats';
 
 // Climbs with real, built 3D route data (data/climbs/), keyed by name —
 // gates the extra "Plan this climb in 3D" button, since /climbs/<slug>
@@ -124,9 +125,19 @@ export default function ClimbCard({ climb: c }: { climb: Climb }) {
     <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap' }}>
       <a className="plan-btn" href={buildPlanUrl(c)}>Plan this climb →</a>
       {climb3dSlug && (
-        <a className="plan-btn" href={`/climbs/${climb3dSlug}`} style={{ background: '#12b05f' }}>
-          Plan this climb in 3D →
-        </a>
+        <>
+          <a className="plan-btn" href={`/climbs/${climb3dSlug}`} style={{ background: '#12b05f' }}>
+            Plan this climb in 3D →
+          </a>
+          <a
+            className="gpx-btn"
+            href={`/climbs/routes/${climb3dSlug}.gpx`}
+            download
+            title={GPX_PARTIAL_CLIMB_SLUGS.has(climb3dSlug) ? GPX_PARTIAL_CLIMB_CAVEAT : undefined}
+          >
+            Download GPX
+          </a>
+        </>
       )}
     </div>
   ) : (

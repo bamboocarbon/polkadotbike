@@ -117,6 +117,14 @@
 .tbc-note { font-size: 11px; color: var(--muted); font-style: italic; margin-top: 4px; }
 .plan-btn { display: inline-flex; align-self: flex-start; align-items: center; gap: 6px; padding: 7px 14px; background: #1a72e0; border: none; border-radius: 9px; color: #fff; font-size: 12px; font-weight: 700; text-decoration: none; transition: all 0.15s; cursor: pointer; }
 .plan-btn:hover { background: #3b8ef0; color: #fff; }
+/* Secondary/utility action, deliberately quieter than the two colourful
+   plan-btn CTAs either side of it — a real GPX file, not something most
+   visitors need, so it shouldn't compete for attention. Hidden below the
+   same breakpoint the sidebar/mobile-select swap already uses (740px) —
+   three buttons plus a wide climb-profile SVG has no room on a phone. */
+.gpx-btn { display: inline-flex; align-self: flex-start; align-items: center; gap: 6px; padding: 7px 14px; background: transparent; border: 1px solid var(--border); border-radius: 9px; color: var(--sec); font-size: 12px; font-weight: 700; text-decoration: none; transition: all 0.15s; cursor: pointer; }
+.gpx-btn:hover { border-color: var(--muted); color: #fff; }
+@media (max-width: 740px) { .gpx-btn { display: none; } }
 .cc-body { display: flex; flex-wrap: wrap; gap: 16px; align-items: flex-start; margin-top: 10px; }
 /* The profile SVG's own width scales with climb length (12px/km,
    ClimbProfile.tsx) — genuinely too wide on mobile for the longer climbs
