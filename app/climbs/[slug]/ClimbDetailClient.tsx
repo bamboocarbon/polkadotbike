@@ -309,7 +309,7 @@ export default function ClimbDetailClient({ name, summary }: ClimbDetailClientPr
             </div>
             <ul className="controls" style={{ margin: 0 }}>
               <li><b>Plan</b> — the climb laid out on a 2D map, drag the slider under the map to travel along it.</li>
-              <li><b>Route (3D terrain)</b> — the same route over real 3D elevation data.</li>
+              <li><b>3D View</b> — the same route over real 3D elevation data.</li>
               <li><b>Wedge</b> — a side-on profile of the climb, showing gradient as a rising wedge.</li>
               <li>Whichever view is open, dragging the slider moves you along the climb — the gradient, distance and elevation readouts on the right update live as you go.</li>
               <li><b>Smoothing</b> (bottom-right of the map) — averages the gradient colour band over a distance window from 0 (off) up to 1000m, so noisy raw gradient data reads as a cleaner gradient.</li>
