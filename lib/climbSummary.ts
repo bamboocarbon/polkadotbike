@@ -50,7 +50,8 @@ export interface ClimbSummaryInput {
  *  climb's own stats, its position in its stage, and whether it decides
  *  the stage (summit finish, or the last major climb before one). Never
  *  invents anything not already in climb-index.json/data/climbs.json. */
-const GEAR_TOOL_SENTENCE = "Set your groupset — Shimano, SRAM, Campagnolo or a custom setup — and see exactly which gears get you up it, kilometre by kilometre.";
+const GEAR_TOOL_SENTENCE =
+  "Set your groupset — Shimano, SRAM, Campagnolo or a custom setup — and see exactly which gears get you up it, kilometre by kilometre, plus a personalised time and pace estimate built from your own power and weight against this climb's real gradient data.";
 
 export function buildClimbSummary(input: ClimbSummaryInput): string {
   const { name, range, cat, len, grad, elev, race } = input;
