@@ -20,6 +20,7 @@ import * as THREE from 'three';
 import { buildMorphGeometry, buildRibbonColors, smoothGradients, computeExaggeration, type RoutePoint } from '@/lib/climbs/morphGeometry';
 import { colourForGradient } from '@/lib/climbs/gradientColour';
 import { GPX_PARTIAL_CLIMB_SLUGS, GPX_PARTIAL_CLIMB_CAVEAT } from '@/lib/climbGpxCaveats';
+import { trackGpxDownload } from '@/lib/trackGpxDownload';
 
 // Gradient-coloured ahead-line + white terrain-following marker on every
 // view, replacing the old flat yellow/red split — trialled on col-de-sarenne
@@ -1106,8 +1107,9 @@ export default function DebugScene({
       <div style={{ position: 'absolute', top: 10, right: 10, zIndex: 10, display: 'flex', gap: 8 }}>
         <a
           className="map-gpx-btn"
-          href={`/climbs/routes/${slug}.gpx`}
+          href={`/api/gpx/${slug}`}
           download
+          onClick={() => trackGpxDownload(slug)}
           title={GPX_PARTIAL_CLIMB_SLUGS.has(slug) ? GPX_PARTIAL_CLIMB_CAVEAT : undefined}
         >
           Download GPX
