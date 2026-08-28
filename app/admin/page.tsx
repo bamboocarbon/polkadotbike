@@ -39,7 +39,7 @@ export default function Admin() {
 
   if (!authed) {
     return (
-      <div style={{ minHeight: '100vh', background: '#0a0f1e', display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '24px' }}>
+      <div style={{ position: 'relative', zIndex: 1, minHeight: '100vh', background: '#0a0f1e', display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '24px' }}>
         <form
           onSubmit={e => { e.preventDefault(); load(password); }}
           style={{ background: '#111827', border: '1px solid #1e2a3a', borderRadius: '16px', padding: '36px 32px', width: '100%', maxWidth: '380px' }}
@@ -66,7 +66,7 @@ export default function Admin() {
   }
 
   return (
-    <div style={{ minHeight: '100vh', background: '#0a0f1e', padding: '32px 20px' }}>
+    <div style={{ position: 'relative', zIndex: 1, minHeight: '100vh', background: '#0a0f1e', padding: '32px 20px' }}>
       <div style={{ maxWidth: '640px', margin: '0 auto' }}>
         <h1 style={{ color: '#fff', fontSize: '22px', fontWeight: 700, marginBottom: '4px' }}>GPX downloads</h1>
         <p style={{ color: '#9ca3af', fontSize: '14px', marginBottom: '24px' }}>
