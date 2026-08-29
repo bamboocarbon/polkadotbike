@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect, useState } from 'react';
+import Link from 'next/link';
 
 type Counts = Record<string, number>;
 
@@ -60,6 +61,9 @@ export default function Admin() {
           >
             {loading ? 'Checking…' : 'Enter'}
           </button>
+          <Link href="/admin/calendar" style={{ display: 'block', textAlign: 'center', marginTop: '16px', color: '#64748b', fontSize: '13px' }}>
+            Season Calendar →
+          </Link>
         </form>
       </div>
     );
@@ -68,7 +72,12 @@ export default function Admin() {
   return (
     <div style={{ position: 'relative', zIndex: 1, minHeight: '100vh', background: '#0a0f1e', padding: '32px 20px' }}>
       <div style={{ maxWidth: '640px', margin: '0 auto' }}>
-        <h1 style={{ color: '#fff', fontSize: '22px', fontWeight: 700, marginBottom: '4px' }}>GPX downloads</h1>
+        <div style={{ display: 'flex', alignItems: 'baseline', justifyContent: 'space-between', gap: '12px' }}>
+          <h1 style={{ color: '#fff', fontSize: '22px', fontWeight: 700, marginBottom: '4px' }}>GPX downloads</h1>
+          <Link href="/admin/calendar" style={{ color: '#9ca3af', fontSize: '13px', whiteSpace: 'nowrap' }}>
+            Season Calendar →
+          </Link>
+        </div>
         <p style={{ color: '#9ca3af', fontSize: '14px', marginBottom: '24px' }}>
           {total.toLocaleString()} total download{total === 1 ? '' : 's'} across {rows.length} climb{rows.length === 1 ? '' : 's'}.
         </p>

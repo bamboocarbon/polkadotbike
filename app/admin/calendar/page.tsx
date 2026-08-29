@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect, useRef, useState } from 'react';
+import Link from 'next/link';
 import { renderCalendarDocument } from '@/lib/calendar/renderCalendarDocument';
 import type { CalendarStoreData } from '@/lib/calendar/types';
 
@@ -61,16 +62,26 @@ export default function AdminCalendar() {
           >
             {loading ? 'Checking…' : 'Enter'}
           </button>
+          <Link href="/admin" style={{ display: 'block', textAlign: 'center', marginTop: '16px', color: '#64748b', fontSize: '13px' }}>
+            ← GPX Downloads
+          </Link>
         </form>
       </div>
     );
   }
 
   return (
-    <iframe
-      ref={iframeRef}
-      title="Season calendar"
-      style={{ position: 'relative', zIndex: 1, display: 'block', width: '100%', height: '100vh', border: 0 }}
-    />
+    <div style={{ position: 'relative', zIndex: 1 }}>
+      <div style={{ background: '#0a0f1e', borderBottom: '1px solid #1e2a3a', padding: '8px 16px' }}>
+        <Link href="/admin" style={{ color: '#9ca3af', fontSize: '13px' }}>
+          ← GPX Downloads
+        </Link>
+      </div>
+      <iframe
+        ref={iframeRef}
+        title="Season calendar"
+        style={{ display: 'block', width: '100%', height: 'calc(100vh - 37px)', border: 0 }}
+      />
+    </div>
   );
 }
