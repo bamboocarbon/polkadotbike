@@ -326,7 +326,7 @@
         "#UKCycling",
         "#Sportive"
       ],
-      "angle": "Welsh climbs are under-served on your site and easy to reach. Build two or three Welsh climb pages off the back of it and take the 2027 entry traffic.",
+      "angle": "Welsh climbs are under-served on your site and easy to reach. Build two or three Welsh climb pages off the back of it and take the 2027 entry traffic. Clash on 2026-09-11: also competing for the feed post against UCI MTB Marathon World Championships and Bespoked Dresden.",
       "postWindow": "Welsh climbs piece Tue 8 Sep; ride days 11–13 Sep",
       "lastVerifiedAt": "2026-08-29",
       "verifiedBy": "seed",
@@ -362,7 +362,7 @@
         "#MountainBike",
         "#RainbowJersey"
       ],
-      "angle": "A rainbow jersey now open to Masters riders. Strong hook for the 45+ audience — pair with marathon gearing.",
+      "angle": "A rainbow jersey now open to Masters riders. Strong hook for the 45+ audience — pair with marathon gearing. Clash on 2026-09-11: also competing for the feed post against RideCymru and Bespoked Dresden.",
       "postWindow": "Thu 10 Sep preview, results Sun 13 Sep",
       "lastVerifiedAt": "2026-08-29",
       "verifiedBy": "seed",
@@ -397,7 +397,7 @@
         "#SteelIsReal",
         "#CustomBikes"
       ],
-      "angle": "Craft posts travel further than product posts and carry no affiliate baggage. Steel, custom geometry, the people who build them.",
+      "angle": "Craft posts travel further than product posts and carry no affiliate baggage. Steel, custom geometry, the people who build them. Clash on 2026-09-11: also competing for the feed post against RideCymru and UCI MTB Marathon World Championships.",
       "postWindow": "Teaser Wed 9 Sep, carousels 11–13 Sep",
       "lastVerifiedAt": "2026-08-29",
       "verifiedBy": "seed",
@@ -680,8 +680,17 @@
       "angle": "Follow-up to the September qualifiers. Power-to-weight and trainer calibration are the natural companion pieces.",
       "postWindow": "Fri 2 Oct",
       "lastVerifiedAt": "2026-08-29",
-      "verifiedBy": "seed",
-      "reviewLog": []
+      "verifiedBy": "review-2m",
+      "reviewLog": [
+        {
+          "runId": "2026-08-29-2m",
+          "checkedAt": "2026-08-29",
+          "horizon": "2m",
+          "outcome": "confirmed",
+          "changes": [],
+          "note": "UCI/MyWhoosh confirm the semi-final is entirely virtual on MyWhoosh on 2 October 2026, matching the listed date and venue."
+        }
+      ]
     },
     {
       "id": "l-eroica-gaiole-in-chianti",
@@ -716,8 +725,17 @@
       "angle": "Downtube shifters and no compact cranks — a funny gear-calculator story about what ratios riders actually had before 1987. Highly shareable and it sends people straight to your tool.",
       "postWindow": "\"Gearing before 1987\" piece Thu 1 Oct; ride-day posts Sun 4 Oct",
       "lastVerifiedAt": "2026-08-29",
-      "verifiedBy": "seed",
-      "reviewLog": []
+      "verifiedBy": "review-2m",
+      "reviewLog": [
+        {
+          "runId": "2026-08-29-2m",
+          "checkedAt": "2026-08-29",
+          "horizon": "2m",
+          "outcome": "confirmed",
+          "changes": [],
+          "note": "Confirmed Sat 3 - Sun 4 October 2026 with the same five route distances."
+        }
+      ]
     },
     {
       "id": "uci-gran-fondo-chile",
@@ -750,8 +768,17 @@
       "angle": "The peg for a plain-English guide to gran fondo qualification: finish in the top 25% of your age group at any World Series round and you get a start at the amateur Worlds. Very few sites explain it properly.",
       "postWindow": "Qualification guide Thu 1 Oct — it then serves every gran fondo below",
       "lastVerifiedAt": "2026-08-29",
-      "verifiedBy": "seed",
-      "reviewLog": []
+      "verifiedBy": "review-2m",
+      "reviewLog": [
+        {
+          "runId": "2026-08-29-2m",
+          "checkedAt": "2026-08-29",
+          "horizon": "2m",
+          "outcome": "confirmed",
+          "changes": [],
+          "note": "UCI Gran Fondo World Series materials confirm the 4 October 2026 date in the Region de Los Rios (Lago Ranco)."
+        }
+      ]
     },
     {
       "id": "uci-mtb-world-cup-lake-placid",
@@ -761,14 +788,16 @@
         "watch"
       ],
       "priority": 3,
-      "start": "2026-10-04",
+      "start": "2026-10-02",
       "end": "2026-10-04",
       "dateConfidence": "confirmed",
       "country": "US",
       "place": "Lake Placid, New York — closing rounds of the XCO series",
       "officialUrl": "https://www.uci.org",
       "sourceUrls": [
-        "https://www.uci.org"
+        "https://www.uci.org",
+        "https://www.ucimtbworldseries.com/news/whoop-uci-mountain-bike-world-series-2026-calendar-unveiled",
+        "https://www.lakeplacid.com/events/mountain-bike-world-series"
       ],
       "handles": {
         "instagram": "@uci_mountainbike",
@@ -781,11 +810,34 @@
         "#XCO",
         "#MountainBike"
       ],
-      "angle": "Season standings wrap. Light touch.",
-      "postWindow": "Sun 4 Oct",
+      "angle": "Lake Placid is now confirmed as a three-day World Cup weekend (XCO and downhill both decided), not a single Sunday — worth a short downhill/XCO double post instead of one race-day update.",
+      "postWindow": "Fri 2 - Sun 4 Oct, single wrap post after Sunday's elite races",
       "lastVerifiedAt": "2026-08-29",
-      "verifiedBy": "seed",
-      "reviewLog": []
+      "verifiedBy": "review-2m",
+      "reviewLog": [
+        {
+          "runId": "2026-08-29-2m",
+          "checkedAt": "2026-08-29",
+          "horizon": "2m",
+          "outcome": "changed",
+          "changes": [
+            {
+              "field": "start",
+              "from": "2026-10-04",
+              "to": "2026-10-02",
+              "source": "https://www.ucimtbworldseries.com/news/whoop-uci-mountain-bike-world-series-2026-calendar-unveiled"
+            },
+            {
+              "field": "end",
+              "from": "2026-10-04",
+              "to": "2026-10-04",
+              "source": "https://www.lakeplacid.com/events/mountain-bike-world-series"
+            }
+          ],
+          "note": "The Lake Placid round is a three-day event (Fri 2 - Sun 4 October 2026, XCO and DHI World Cups both decided that weekend), not the single day previously listed."
+        }
+      ],
+      "priorityRationale": "Still a light-touch, low-priority US round for this audience; the extra day doesn't change the site's stake in it."
     },
     {
       "id": "roc-d-azur",
@@ -820,8 +872,17 @@
       "angle": "The biggest participation event in the sport and almost invisible in English. Entry-level races alongside elites, a free test camp and a bike show — that combination is your gap in the market.",
       "postWindow": "Preview Mon 5 Oct; daily posts 8–11 Oct",
       "lastVerifiedAt": "2026-08-29",
-      "verifiedBy": "seed",
-      "reviewLog": []
+      "verifiedBy": "review-2m",
+      "reviewLog": [
+        {
+          "runId": "2026-08-29-2m",
+          "checkedAt": "2026-08-29",
+          "horizon": "2m",
+          "outcome": "confirmed",
+          "changes": [],
+          "note": "Confirmed 42nd edition runs 7-11 October 2026 in Frejus/Roquebrune-sur-Argens with an expanded gravel offering."
+        }
+      ]
     },
     {
       "id": "uci-gravel-world-championships",
@@ -837,10 +898,11 @@
       "dateConfidence": "confirmed",
       "country": "AU",
       "place": "Nannup, Western Australia — first outside Europe. 140.7km men / 123.1km women, over 80% gravel, 3,000m+. Women and men 50+ Saturday, elite men and 19–49 men Sunday",
-      "officialUrl": "https://www.uci.org",
+      "officialUrl": "https://www.uci.org/competition-hub/2026-uci-gravel-world-championships/4pPnJQCxeBxNQnUav5ckqn",
       "sourceUrls": [
         "https://www.uci.org",
-        "https://en.wikipedia.org/wiki/2026_UCI_Gravel_World_Championships"
+        "https://en.wikipedia.org/wiki/2026_UCI_Gravel_World_Championships",
+        "https://www.uci.org/competition-hub/2026-uci-gravel-world-championships/4pPnJQCxeBxNQnUav5ckqn"
       ],
       "handles": {
         "instagram": "@uci_cycling",
@@ -854,11 +916,28 @@
         "#GravelRace",
         "#AgeGroupRacing"
       ],
-      "angle": "Age-group racing is the whole story — ordinary riders lining up for a rainbow jersey. Reuse the qualification explainer and add the Nannup course profile.",
-      "postWindow": "Course and qualification post Wed 7 Oct; races 10–11 Oct, early UK mornings",
+      "angle": "Age-group racing is the whole story — ordinary riders lining up for a rainbow jersey. Reuse the qualification explainer and add the Nannup course profile. Clash on 2026-10-10: also competing for the feed post against Il Lombardia.",
+      "postWindow": "Course and qualification post Wed 7 Oct; races 10-11 Oct, early UK mornings",
       "lastVerifiedAt": "2026-08-29",
-      "verifiedBy": "seed",
-      "reviewLog": []
+      "verifiedBy": "review-2m",
+      "reviewLog": [
+        {
+          "runId": "2026-08-29-2m",
+          "checkedAt": "2026-08-29",
+          "horizon": "2m",
+          "outcome": "changed",
+          "changes": [
+            {
+              "field": "officialUrl",
+              "from": "https://www.uci.org",
+              "to": "https://www.uci.org/competition-hub/2026-uci-gravel-world-championships/4pPnJQCxeBxNQnUav5ckqn",
+              "source": "https://www.uci.org/competition-hub/2026-uci-gravel-world-championships/4pPnJQCxeBxNQnUav5ckqn"
+            }
+          ],
+          "note": "Dates, distances, elevation and the Saturday/Sunday schedule all confirmed as-is; tightened the official URL from the uci.org homepage to the specific competition-hub page."
+        }
+      ],
+      "priorityRationale": "Confirmed UK morning watch window and a genuine amateur-entry story make this one of the strongest posts of October; no change from the seed rationale."
     },
     {
       "id": "il-lombardia",
@@ -890,11 +969,20 @@
         "#RoadCycling",
         "#ClimbData"
       ],
-      "angle": "The Ghisallo. Autumn light, the cyclists' chapel, and a climb page that pulls traffic every October from here on. Clashes with Gravel Worlds — schedule both.",
+      "angle": "The Ghisallo. Autumn light, the cyclists' chapel, and a climb page that pulls traffic every October from here on. Clashes with Gravel Worlds — schedule both. Clash on 2026-10-10: also competing for the feed post against UCI Gravel World Championships.",
       "postWindow": "Ghisallo page Wed 7 Oct; race thread Sat 10 Oct",
       "lastVerifiedAt": "2026-08-29",
-      "verifiedBy": "seed",
-      "reviewLog": []
+      "verifiedBy": "review-2m",
+      "reviewLog": [
+        {
+          "runId": "2026-08-29-2m",
+          "checkedAt": "2026-08-29",
+          "horizon": "2m",
+          "outcome": "confirmed",
+          "changes": [],
+          "note": "Confirmed Saturday 10 October 2026, Bergamo to Como, 252km, 120th edition and season-closing Monument."
+        }
+      ]
     },
     {
       "id": "hong-kong-cyclothon",
@@ -909,10 +997,12 @@
       "end": "2026-10-11",
       "dateConfidence": "confirmed",
       "country": "HK",
-      "place": "Hong Kong — mass participation ride across the harbour bridges plus a UCI race",
-      "officialUrl": "https://www.uci.org",
+      "place": "Hong Kong — new 56km 'Five Tunnels, Three Bridges' mass ride via the Central Kowloon Bypass, plus the returning 32km 'Two Tunnels, Two Bridges' route, start/finish relocated to Museum Drive, West Kowloon Cultural District, alongside a UCI Class 1.1 elite road race on a new 100km course",
+      "officialUrl": "https://www.discoverhongkong.com/eng/events/cyclothon.html",
       "sourceUrls": [
-        "https://en.wikipedia.org/wiki/2026_UCI_Asia_Tour"
+        "https://en.wikipedia.org/wiki/2026_UCI_Asia_Tour",
+        "https://www.discoverhongkong.com/eng/events/cyclothon.html",
+        "https://www.globenewswire.com/news-release/2026/08/05/3339051/0/en/Sun-Hung-Kai-Properties-Hong-Kong-Cyclothon-Returns-on-11-October.html"
       ],
       "handles": {
         "instagram": null,
@@ -925,11 +1015,34 @@
         "#MassParticipation",
         "#RoadCycling"
       ],
-      "angle": "Riding a closed motorway through a city is a strong visual. Low priority unless you want the Asia audience.",
-      "postWindow": "Sun 11 Oct, optional",
+      "angle": "The 2026 route is a genuine rebuild — a new 56km 'Five Tunnels, Three Bridges' mass ride from the West Kowloon Cultural District and a new 100km elite course. Worth a proper route-change post rather than the generic closed-motorway angle used before.",
+      "postWindow": "Route-change post Wed 7 Oct; event post Sun 11 Oct",
       "lastVerifiedAt": "2026-08-29",
-      "verifiedBy": "seed",
-      "reviewLog": []
+      "verifiedBy": "review-2m",
+      "reviewLog": [
+        {
+          "runId": "2026-08-29-2m",
+          "checkedAt": "2026-08-29",
+          "horizon": "2m",
+          "outcome": "changed",
+          "changes": [
+            {
+              "field": "officialUrl",
+              "from": "https://www.uci.org",
+              "to": "https://www.discoverhongkong.com/eng/events/cyclothon.html",
+              "source": "https://www.discoverhongkong.com/eng/events/cyclothon.html"
+            },
+            {
+              "field": "place",
+              "from": "Hong Kong — mass participation ride across the harbour bridges plus a UCI race",
+              "to": "Hong Kong — new 56km 'Five Tunnels, Three Bridges' mass ride via the Central Kowloon Bypass, plus the returning 32km 'Two Tunnels, Two Bridges' route, start/finish relocated to Museum Drive, West Kowloon Cultural District, alongside a UCI Class 1.1 elite road race on a new 100km course",
+              "source": "https://www.globenewswire.com/news-release/2026/08/05/3339051/0/en/Sun-Hung-Kai-Properties-Hong-Kong-Cyclothon-Returns-on-11-October.html"
+            }
+          ],
+          "note": "Date confirmed as Sunday 11 October 2026, but the organiser page (Hong Kong Tourism Board) is a better official source than uci.org and the mass-ride route has materially changed for 2026."
+        }
+      ],
+      "priorityRationale": "Still optional unless chasing the Asia audience — the route rebuild is a nice-to-have story, not a reason to raise priority."
     },
     {
       "id": "tour-of-guangxi",
@@ -962,8 +1075,17 @@
       "angle": "Season-closing round-up: the year in climbs ranked by your own data. Repackages what you already have.",
       "postWindow": "Season wrap published Sun 18 Oct",
       "lastVerifiedAt": "2026-08-29",
-      "verifiedBy": "seed",
-      "reviewLog": []
+      "verifiedBy": "review-2m",
+      "reviewLog": [
+        {
+          "runId": "2026-08-29-2m",
+          "checkedAt": "2026-08-29",
+          "horizon": "2m",
+          "outcome": "confirmed",
+          "changes": [],
+          "note": "Dates (13-18 October 2026) and role as the season-closing round of both WorldTours confirmed via race calendars."
+        }
+      ]
     },
     {
       "id": "life-time-big-sugar-gravel",
@@ -995,11 +1117,20 @@
         "#GravelRace",
         "#Ozarks"
       ],
-      "angle": "Tyre choice and pressure for sharp gravel is the most-searched question of that week. Autumn colour photography carries it on Instagram.",
+      "angle": "Tyre choice and pressure for sharp gravel is the most-searched question of that week. Autumn colour photography carries it on Instagram. Clash on 2026-10-17: also competing for the feed post against Gran Fondo Hincapie — Greenville.",
       "postWindow": "Tyre pressure piece Wed 14 Oct; race posts Sat 17 Oct",
       "lastVerifiedAt": "2026-08-29",
-      "verifiedBy": "seed",
-      "reviewLog": []
+      "verifiedBy": "review-2m",
+      "reviewLog": [
+        {
+          "runId": "2026-08-29-2m",
+          "checkedAt": "2026-08-29",
+          "horizon": "2m",
+          "outcome": "confirmed",
+          "changes": [],
+          "note": "Confirmed Saturday 17 October 2026 in Bentonville, Arkansas, Life Time Grand Prix finale with 100/50/25-mile distances."
+        }
+      ]
     },
     {
       "id": "gran-fondo-hincapie-greenville",
@@ -1030,11 +1161,20 @@
         "#GranFondo",
         "#RoadCycling"
       ],
-      "angle": "The most welcoming big US road fondo, with a genuine family route. Same day as Big Sugar, so pick one for the main post and give the other a story slot.",
+      "angle": "The most welcoming big US road fondo, with a genuine family route. Same day as Big Sugar, so pick one for the main post and give the other a story slot. Clash on 2026-10-17: also competing for the feed post against Life Time Big Sugar Gravel.",
       "postWindow": "Sat 17 Oct — Big Sugar takes the feed post, Hincapie takes stories",
       "lastVerifiedAt": "2026-08-29",
-      "verifiedBy": "seed",
-      "reviewLog": []
+      "verifiedBy": "review-2m",
+      "reviewLog": [
+        {
+          "runId": "2026-08-29-2m",
+          "checkedAt": "2026-08-29",
+          "horizon": "2m",
+          "outcome": "confirmed",
+          "changes": [],
+          "note": "Confirmed 15th-anniversary event Saturday 17 October 2026, Travelers Rest SC, Gran/Medio/Piccolo routes."
+        }
+      ]
     },
     {
       "id": "granfondo-la-nucia",
@@ -1068,8 +1208,17 @@
       "angle": "The reachable one for UK riders. Ties into winter training-camp content and your Stay22 and Booking.com links — Alicante and Calpe are the search terms.",
       "postWindow": "Winter training camp guide Mon 12 Oct, with the event as the hook",
       "lastVerifiedAt": "2026-08-29",
-      "verifiedBy": "seed",
-      "reviewLog": []
+      "verifiedBy": "review-2m",
+      "reviewLog": [
+        {
+          "runId": "2026-08-29-2m",
+          "checkedAt": "2026-08-29",
+          "horizon": "2m",
+          "outcome": "confirmed",
+          "changes": [],
+          "note": "UCI's own listings confirm Granfondo La Nucia as a World Series qualifier on 18 October 2026."
+        }
+      ]
     },
     {
       "id": "tour-de-france-2027-route-presentation",
@@ -1103,8 +1252,17 @@
       "angle": "The biggest single traffic day of your autumn. Every climb in the 2027 route gets searched within hours of the reveal, and a British Grand Départ adds UK volume on top. Have page templates ready. The 2027 Étape du Tour stage is announced here too.",
       "postWindow": "Watch live, publish within four hours. Confirm the date in early October",
       "lastVerifiedAt": "2026-08-29",
-      "verifiedBy": "seed",
-      "reviewLog": []
+      "verifiedBy": "review-2m",
+      "reviewLog": [
+        {
+          "runId": "2026-08-29-2m",
+          "checkedAt": "2026-08-29",
+          "horizon": "2m",
+          "outcome": "inconclusive",
+          "changes": [],
+          "note": "ASO has not published an exact 2027 route presentation date, only that it will be late October 2026 at the Palais des Congres, Paris; the Edinburgh Grand Depart with stage 1 to Carlisle is independently confirmed elsewhere so the place text remains accurate."
+        }
+      ]
     },
     {
       "id": "clocks-go-back-winter-riding-starts",
@@ -1136,8 +1294,17 @@
       "angle": "Your best affiliate week of the autumn: lights, mudguards, layering, indoor training. Also the moment to push winter training camps.",
       "postWindow": "Winter kit guide live Mon 19 Oct, a full week early",
       "lastVerifiedAt": "2026-08-29",
-      "verifiedBy": "seed",
-      "reviewLog": []
+      "verifiedBy": "review-2m",
+      "reviewLog": [
+        {
+          "runId": "2026-08-29-2m",
+          "checkedAt": "2026-08-29",
+          "horizon": "2m",
+          "outcome": "confirmed",
+          "changes": [],
+          "note": "2026-10-25 is indeed the last Sunday in October 2026, when UK BST ends at 02:00."
+        }
+      ]
     },
     {
       "id": "bespoked-osaka",
@@ -1147,9 +1314,9 @@
         "visit"
       ],
       "priority": 3,
-      "start": "2026-10-26",
-      "end": "2026-10-31",
-      "dateConfidence": "tbc",
+      "start": "2026-10-23",
+      "end": "2026-10-25",
+      "dateConfidence": "confirmed",
       "country": "JP",
       "place": "G-LION Museum, Osaka, Japan. Late October, exact dates not fixed",
       "officialUrl": "https://www.bespoked.cc/japan2026",
@@ -1168,11 +1335,34 @@
         "#Framebuilding",
         "#CustomBikes"
       ],
-      "angle": "Japanese framebuilding has a devoted English-speaking audience and very little English coverage. Cheap reach.",
-      "postWindow": "Confirm dates with the organiser first",
+      "angle": "Dates are now firm — Fri 23 to Sun 25 October, trade day included. Same craft-not-product pitch as Bespoked Dresden, aimed at the English-speaking Japanese framebuilding audience.",
+      "postWindow": "Confirm-dates post live Mon 19 Oct; show posts 23-25 Oct",
       "lastVerifiedAt": "2026-08-29",
-      "verifiedBy": "seed",
-      "reviewLog": []
+      "verifiedBy": "review-2m",
+      "reviewLog": [
+        {
+          "runId": "2026-08-29-2m",
+          "checkedAt": "2026-08-29",
+          "horizon": "2m",
+          "outcome": "changed",
+          "changes": [
+            {
+              "field": "start",
+              "from": "2026-10-26",
+              "to": "2026-10-23",
+              "source": "https://www.bespoked.cc/japan2026"
+            },
+            {
+              "field": "end",
+              "from": "2026-10-31",
+              "to": "2026-10-25",
+              "source": "https://www.bespoked.cc/japan2026"
+            }
+          ],
+          "note": "Dates are now confirmed as Fri 23 (trade day) through Sun 25 October 2026 at the G-LION Museum, not the wider 26-31 October window previously listed."
+        }
+      ],
+      "priorityRationale": "Cheap reach for a niche audience, but no direct link to UK readers or affiliate programmes — stays low priority even with dates now confirmed."
     },
     {
       "id": "bell-s-iceman-cometh-challenge",
@@ -1377,7 +1567,7 @@
         "#Cyclocross",
         "#CXSeason"
       ],
-      "angle": "Season opener. One CX explainer — tyres, pressure, gearing — reused across all eight rounds to New Year.",
+      "angle": "Season opener. One CX explainer — tyres, pressure, gearing — reused across all eight rounds to New Year. Clash on 2026-11-27: also competing for the feed post against Black Friday to Cyber Monday.",
       "postWindow": "Explainer Wed 25 Nov; race post Fri 27 Nov",
       "lastVerifiedAt": "2026-08-29",
       "verifiedBy": "seed",
@@ -1409,7 +1599,7 @@
         "#BikeDeals",
         "#CyberMonday"
       ],
-      "angle": "The affiliate week. Pages must be live and indexed by mid-November or they earn nothing — Google will not rank a deals page published on the day.",
+      "angle": "The affiliate week. Pages must be live and indexed by mid-November or they earn nothing — Google will not rank a deals page published on the day. Clash on 2026-11-27: also competing for the feed post against CX World Cup R1 — Ostrava.",
       "postWindow": "Publish and index by Fri 13 Nov. Refresh daily 27–30 Nov",
       "lastVerifiedAt": "2026-08-29",
       "verifiedBy": "seed",
@@ -1720,6 +1910,344 @@
       "lastVerifiedAt": "2026-08-29",
       "verifiedBy": "seed",
       "reviewLog": []
+    },
+    {
+      "id": "uae-tour",
+      "name": "UAE Tour",
+      "category": "road",
+      "audience": [
+        "watch"
+      ],
+      "priority": 2,
+      "start": "2027-02-15",
+      "end": "2027-02-21",
+      "dateConfidence": "tbc",
+      "country": "AE",
+      "place": "Multiple stages across Abu Dhabi and Dubai, UAE — includes a Jebel Hafeet summit finish",
+      "officialUrl": "https://www.theuaetour.com/",
+      "sourceUrls": [
+        "https://en.wikipedia.org/wiki/2026_UAE_Tour",
+        "https://www.theuaetour.com/stages/"
+      ],
+      "handles": {
+        "instagram": null,
+        "x": null
+      },
+      "handleConfidence": "none",
+      "hashtags": [],
+      "angle": "Season-opener with a Jebel Hafeet summit finish — build a 3D climb morph for it ahead of the race, the same treatment the Vuelta stages get, and it's evergreen because the climb barely changes year to year. Clash on 2027-02-15: also competing for the feed post against Zwift Games.",
+      "postWindow": "Climb page live Fri 12 Feb 2027, race posts 15-21 Feb",
+      "lastVerifiedAt": "2026-08-29",
+      "verifiedBy": "review-6m",
+      "reviewLog": [
+        {
+          "runId": "2026-08-29-6m",
+          "checkedAt": "2026-08-29",
+          "horizon": "6m",
+          "outcome": "new",
+          "changes": [],
+          "note": "WorldTour season-opener with a Jebel Hafeet summit finish, good early-season watch content."
+        }
+      ],
+      "priorityRationale": "Watch-only WorldTour opener, good traffic but not UK-specific; UAE Tour takes the feed post on 15 Feb over Zwift Games, which starts the same day and gets a stories mention instead."
+    },
+    {
+      "id": "volta-ao-algarve",
+      "name": "Volta ao Algarve",
+      "category": "road",
+      "audience": [
+        "watch",
+        "visit"
+      ],
+      "priority": 2,
+      "start": "2027-02-17",
+      "end": "2027-02-21",
+      "dateConfidence": "tbc",
+      "country": "PT",
+      "place": "Algarve region, southern Portugal",
+      "officialUrl": "https://www.voltaaoalgarve.pt/",
+      "sourceUrls": [
+        "https://en.wikipedia.org/wiki/2026_Volta_ao_Algarve"
+      ],
+      "handles": {
+        "instagram": null,
+        "x": null
+      },
+      "handleConfidence": "none",
+      "hashtags": [],
+      "angle": "The Algarve is the default UK winter training-camp destination — pair race coverage with a training-camp guide that carries your Stay22 and Booking.com affiliate links, the same play as the La Nucia piece in October.",
+      "postWindow": "Training-camp guide live Mon 8 Feb 2027; race posts 17-21 Feb",
+      "lastVerifiedAt": "2026-08-29",
+      "verifiedBy": "review-6m",
+      "reviewLog": [
+        {
+          "runId": "2026-08-29-6m",
+          "checkedAt": "2026-08-29",
+          "horizon": "6m",
+          "outcome": "new",
+          "changes": [],
+          "note": "Popular winter-training-camp destination for UK cyclists, good fit for affiliate booking content."
+        }
+      ],
+      "priorityRationale": "Direct affiliate-revenue angle for a 40+ audience already booking winter camps; ranks above a pure watch-only race."
+    },
+    {
+      "id": "vuelta-a-andalucia-ruta-del-sol",
+      "name": "Vuelta a Andalucia (Ruta del Sol)",
+      "category": "road",
+      "audience": [
+        "watch"
+      ],
+      "priority": 2,
+      "start": "2027-02-18",
+      "end": "2027-02-22",
+      "dateConfidence": "tbc",
+      "country": "ES",
+      "place": "Andalucia, Spain — multi-stage race through popular UK winter-training roads",
+      "officialUrl": "https://www.vueltaandalucia.es/",
+      "sourceUrls": [
+        "https://en.wikipedia.org/wiki/2026_Vuelta_a_Andaluc%C3%ADa",
+        "https://www.cyclingnews.com/vuelta-a-andalucia-ruta-ciclista-del-sol/"
+      ],
+      "handles": {
+        "instagram": null,
+        "x": null
+      },
+      "handleConfidence": "none",
+      "hashtags": [],
+      "angle": "Andalucia's WorldTour stage race climbs through the same training roads as the La Nucia gran fondo — a natural second use for the 3D climb visualiser built for that event in October.",
+      "postWindow": "Stage previews 16-17 Feb; daily posts 18-22 Feb",
+      "lastVerifiedAt": "2026-08-29",
+      "verifiedBy": "review-6m",
+      "reviewLog": [
+        {
+          "runId": "2026-08-29-6m",
+          "checkedAt": "2026-08-29",
+          "horizon": "6m",
+          "outcome": "new",
+          "changes": [],
+          "note": "Early-season WorldTour stage race through Andalucia's climbing terrain."
+        }
+      ],
+      "priorityRationale": "Reuses existing October climb-data work for minimal extra effort; solid watch audience."
+    },
+    {
+      "id": "clasica-de-almeria",
+      "name": "Clasica de Almeria",
+      "category": "road",
+      "audience": [
+        "watch"
+      ],
+      "priority": 3,
+      "start": "2027-02-14",
+      "end": "2027-02-14",
+      "dateConfidence": "tbc",
+      "country": "ES",
+      "place": "Almeria, Andalucia, Spain",
+      "officialUrl": "https://www.domestiquecycling.com/en/cycling-races/clasica-de-almeria/2026/",
+      "sourceUrls": [
+        "https://en.wikipedia.org/wiki/2026_Cl%C3%A1sica_de_Almer%C3%ADa",
+        "https://www.domestiquecycling.com/en/cycling-races/clasica-de-almeria/2026/"
+      ],
+      "handles": {
+        "instagram": null,
+        "x": null
+      },
+      "handleConfidence": "none",
+      "hashtags": [],
+      "angle": "One-day season-opener with limited unique content potential beyond a quick startlist post.",
+      "postWindow": "Single post Sun 14 Feb 2027, if the week is thin",
+      "lastVerifiedAt": "2026-08-29",
+      "verifiedBy": "review-6m",
+      "reviewLog": [
+        {
+          "runId": "2026-08-29-6m",
+          "checkedAt": "2026-08-29",
+          "horizon": "6m",
+          "outcome": "new",
+          "changes": [],
+          "note": "One-day season-opener that often kicks off Andalucia racing week."
+        }
+      ],
+      "priorityRationale": "Low-priority curtain-raiser; skip unless nothing else is running that week."
+    },
+    {
+      "id": "clasica-jaen-paraiso-interior",
+      "name": "Clasica Jaen Paraiso Interior",
+      "category": "road",
+      "audience": [
+        "watch"
+      ],
+      "priority": 2,
+      "start": "2027-02-16",
+      "end": "2027-02-16",
+      "dateConfidence": "tbc",
+      "country": "ES",
+      "place": "Province of Jaen, Andalucia, Spain",
+      "officialUrl": "https://www.cyclingnews.com/clasica-jaen-paraiso-interior/",
+      "sourceUrls": [
+        "https://en.wikipedia.org/wiki/2025_Cl%C3%A1sica_Ja%C3%A9n_Para%C3%ADso_Interior",
+        "https://www.cyclist.co.uk/in-depth/clasica-jaen-paraiso-interior-preview"
+      ],
+      "handles": {
+        "instagram": null,
+        "x": null
+      },
+      "handleConfidence": "none",
+      "hashtags": [],
+      "angle": "Punchy short climbs decided by pure gradient — the 3D climb visualiser was built for exactly this kind of course and it's under-used on short one-day races.",
+      "postWindow": "Gradient breakdown Fri 12 Feb 2027; race post Tue 16 Feb",
+      "lastVerifiedAt": "2026-08-29",
+      "verifiedBy": "review-6m",
+      "reviewLog": [
+        {
+          "runId": "2026-08-29-6m",
+          "checkedAt": "2026-08-29",
+          "horizon": "6m",
+          "outcome": "new",
+          "changes": [],
+          "note": "Punchy, climb-heavy one-day race, good tie-in for gradient/climb-profile content."
+        }
+      ],
+      "priorityRationale": "Small race but a strong, cheap content match for the climb visualiser."
+    },
+    {
+      "id": "vuelta-a-murcia",
+      "name": "Vuelta a Murcia",
+      "category": "road",
+      "audience": [
+        "watch"
+      ],
+      "priority": 3,
+      "start": "2027-02-12",
+      "end": "2027-02-13",
+      "dateConfidence": "tbc",
+      "country": "ES",
+      "place": "Region de Murcia, Spain",
+      "officialUrl": "https://www.vueltamurcia.es/",
+      "sourceUrls": [
+        "https://en.wikipedia.org/wiki/2026_Vuelta_a_Murcia"
+      ],
+      "handles": {
+        "instagram": null,
+        "x": null
+      },
+      "handleConfidence": "none",
+      "hashtags": [],
+      "angle": "Compact stage race with no standout climb or UK angle — a line in a broader Andalucia-week round-up rather than its own post.",
+      "postWindow": "Fold into the mid-February Spanish stage-race round-up",
+      "lastVerifiedAt": "2026-08-29",
+      "verifiedBy": "review-6m",
+      "reviewLog": [
+        {
+          "runId": "2026-08-29-6m",
+          "checkedAt": "2026-08-29",
+          "horizon": "6m",
+          "outcome": "new",
+          "changes": [],
+          "note": "Compact early-season Spanish stage race, same fortnight as the bigger Andalucia races."
+        }
+      ],
+      "priorityRationale": "Same week as bigger Spanish racing; not worth a standalone post."
+    },
+    {
+      "id": "tour-de-la-provence",
+      "name": "Tour de la Provence",
+      "category": "road",
+      "audience": [
+        "watch",
+        "visit"
+      ],
+      "priority": 2,
+      "start": "2027-02-12",
+      "end": "2027-02-14",
+      "dateConfidence": "tbc",
+      "country": "FR",
+      "place": "Provence, southern France — frequently touches Mont Ventoux's lower slopes",
+      "officialUrl": "https://www.tourdelaprovence.com/",
+      "sourceUrls": [
+        "https://en.wikipedia.org/wiki/2025_Tour_de_la_Provence"
+      ],
+      "handles": {
+        "instagram": null,
+        "x": null
+      },
+      "handleConfidence": "none",
+      "hashtags": [],
+      "angle": "Regularly touches the lower slopes of Mont Ventoux, which already has Tour de France climb data on the site — repost that data with a fresh 2027 hook rather than building anything new.",
+      "postWindow": "Ventoux data repost Thu 11 Feb 2027; race posts 12-14 Feb",
+      "lastVerifiedAt": "2026-08-29",
+      "verifiedBy": "review-6m",
+      "reviewLog": [
+        {
+          "runId": "2026-08-29-6m",
+          "checkedAt": "2026-08-29",
+          "horizon": "6m",
+          "outcome": "new",
+          "changes": [],
+          "note": "French season-opener that regularly features Mont Ventoux, matching the site's Grand Tour climb data."
+        }
+      ],
+      "priorityRationale": "Cheapest possible content — reuses existing Grand Tour climb data almost unchanged."
+    },
+    {
+      "id": "zwift-games",
+      "name": "Zwift Games",
+      "category": "indoor",
+      "audience": [
+        "watch",
+        "ride"
+      ],
+      "priority": 2,
+      "start": "2027-02-15",
+      "end": "2027-03-28",
+      "dateConfidence": "tbc",
+      "country": "XX",
+      "place": "Online, via Zwift platform — multi-week stage format with open qualification",
+      "officialUrl": "https://www.zwift.com/zwift-games",
+      "sourceUrls": [
+        "https://www.bikeradar.com/news/zwift-games-2026",
+        "https://news.zwift.com/en-WW/260484-zwift-games-returns-bigger-and-better-in-2026/"
+      ],
+      "handles": {
+        "instagram": null,
+        "x": null
+      },
+      "handleConfidence": "none",
+      "hashtags": [],
+      "angle": "Open-entry indoor esports series landing exactly when UK readers are riding indoors — follow-up piece to the MyWhoosh esports qualifier posts already on the calendar, this time for Zwift. Clash on 2027-02-15: also competing for the feed post against UAE Tour.",
+      "postWindow": "Explainer Fri 12 Feb 2027, before the opening stage",
+      "lastVerifiedAt": "2026-08-29",
+      "verifiedBy": "review-6m",
+      "reviewLog": [
+        {
+          "runId": "2026-08-29-6m",
+          "checkedAt": "2026-08-29",
+          "horizon": "6m",
+          "outcome": "new",
+          "changes": [],
+          "note": "Open-entry indoor esports series relevant to the 40+ audience training indoors through UK winter."
+        }
+      ],
+      "priorityRationale": "Same treatment as the MyWhoosh esports posts; clashes with UAE Tour's opening day on 15 Feb, which takes the feed post — this becomes a stories-only mention that day."
+    }
+  ],
+  "reviewRuns": [
+    {
+      "runId": "2026-08-29-6m",
+      "ranAt": "2026-08-29",
+      "horizon": "6m",
+      "eventsChecked": 8,
+      "changesFound": 8,
+      "errors": 0
+    },
+    {
+      "runId": "2026-08-29-2m",
+      "ranAt": "2026-08-29",
+      "horizon": "2m",
+      "eventsChecked": 15,
+      "changesFound": 4,
+      "errors": 0
     }
   ]
 }
