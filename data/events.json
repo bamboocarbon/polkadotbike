@@ -1,0 +1,1725 @@
+{
+  "schemaVersion": 1,
+  "generatedAt": "2026-08-29",
+  "seedNote": "Hand-researched seed set covering 29 Aug - 31 Dec 2026. All dates verified against the sources listed unless dateConfidence says otherwise.",
+  "categories": {
+    "road": "Road",
+    "mtb": "Mountain",
+    "gravel": "Gravel",
+    "cx": "Cyclocross",
+    "indoor": "Indoor and virtual",
+    "show": "Shows and festivals",
+    "moment": "Retail moments"
+  },
+  "audiences": {
+    "watch": "To watch",
+    "ride": "To ride",
+    "visit": "To visit"
+  },
+  "events": [
+    {
+      "id": "vuelta-a-espana",
+      "name": "Vuelta a España",
+      "category": "road",
+      "audience": [
+        "watch"
+      ],
+      "priority": 1,
+      "start": "2026-08-22",
+      "end": "2026-09-13",
+      "dateConfidence": "confirmed",
+      "country": "ES",
+      "place": "Monaco → Granada. 21 stages, 3,275km, 58,000m of climbing, seven mountain stages",
+      "officialUrl": "https://www.lavuelta.es/en/overall-route",
+      "sourceUrls": [
+        "https://www.lavuelta.es/en/overall-route",
+        "https://en.wikipedia.org/wiki/2026_Vuelta_a_Espa%C3%B1a"
+      ],
+      "handles": {
+        "instagram": "@lavuelta",
+        "x": null
+      },
+      "handleConfidence": "verified",
+      "hashtags": [
+        "#LaVuelta26",
+        "#LaVuelta",
+        "#GrandTour",
+        "#ClimbData",
+        "#RoadCycling"
+      ],
+      "angle": "Your strongest card and the last Grand Tour of the year. One 3D climb morph per mountain stage, published the night before. Final week is Andalusia — Peñas Blancas 11 Sep, Collado del Alguacil 12 Sep, Granada finish 13 Sep.",
+      "postWindow": "Daily, 18:00–20:00 UK, the evening before each mountain stage",
+      "lastVerifiedAt": "2026-08-29",
+      "verifiedBy": "seed",
+      "reviewLog": []
+    },
+    {
+      "id": "uci-mtb-world-championships",
+      "name": "UCI MTB World Championships",
+      "category": "mtb",
+      "audience": [
+        "watch"
+      ],
+      "priority": 2,
+      "start": "2026-08-26",
+      "end": "2026-08-30",
+      "dateConfidence": "confirmed",
+      "country": "IT",
+      "place": "Val di Sole, Italy — XCO, short track, relay, E-MTB and downhill on the Black Snake",
+      "officialUrl": "https://www.uci.org",
+      "sourceUrls": [
+        "https://www.uci.org"
+      ],
+      "handles": {
+        "instagram": "@uci_mountainbike",
+        "x": null
+      },
+      "handleConfidence": "verified",
+      "hashtags": [
+        "#ValdiSole",
+        "#MTBWorlds",
+        "#XCO",
+        "#MountainBike",
+        "#Rainbow Jersey"
+      ],
+      "angle": "Gradient and gearing explainer: what XCO climbing gears look like next to a Grand Tour climb. Feeds the gear calculator.",
+      "postWindow": "Live now — daily clips through Sun 30 Aug",
+      "lastVerifiedAt": "2026-08-29",
+      "verifiedBy": "seed",
+      "reviewLog": []
+    },
+    {
+      "id": "badlands",
+      "name": "Badlands",
+      "category": "gravel",
+      "audience": [
+        "ride",
+        "watch"
+      ],
+      "priority": 2,
+      "start": "2026-08-30",
+      "end": "2026-08-30",
+      "dateConfidence": "confirmed",
+      "country": "ES",
+      "place": "Granada to Almería, Spain — roughly 800km and 16,000m, self-supported ultra",
+      "officialUrl": "https://www.badlands.cc",
+      "sourceUrls": [],
+      "handles": {
+        "instagram": null,
+        "x": null
+      },
+      "handleConfidence": "none",
+      "hashtags": [
+        "#Badlands26",
+        "#Badlands",
+        "#Bikepacking",
+        "#UltraDistance",
+        "#GravelRiding"
+      ],
+      "angle": "Ultra gearing: what you actually run for 16,000m unsupported. Dot-watching gives you a week of content from one post.",
+      "postWindow": "Starts tomorrow — schedule tonight, then follow the trackers all week",
+      "lastVerifiedAt": "2026-08-29",
+      "verifiedBy": "seed",
+      "reviewLog": []
+    },
+    {
+      "id": "uk-cyclocross-league-season",
+      "name": "UK cyclocross league season",
+      "category": "cx",
+      "audience": [
+        "ride"
+      ],
+      "priority": 2,
+      "start": "2026-09-01",
+      "end": "2026-12-31",
+      "dateConfidence": "confirmed",
+      "country": "GB",
+      "place": "Nationwide — regional leagues and the National Trophy series run September to January. Cheap entry, open to all ages",
+      "officialUrl": "https://www.britishcycling.org.uk",
+      "sourceUrls": [
+        "https://www.britishcycling.org.uk"
+      ],
+      "handles": {
+        "instagram": "@britishcycling",
+        "x": null
+      },
+      "handleConfidence": "unverified",
+      "hashtags": [
+        "#Cyclocross",
+        "#CXSeason",
+        "#FirstCXRace",
+        "#UKCycling",
+        "#GetInvolved"
+      ],
+      "angle": "The easiest way for your readers to start racing. A \"your first cross race\" guide — tyres, pressure, gearing, what actually happens — pulls traffic every autumn from now on.",
+      "postWindow": "Publish the beginner guide in the first week of September, refresh each October",
+      "lastVerifiedAt": "2026-08-29",
+      "verifiedBy": "seed",
+      "reviewLog": []
+    },
+    {
+      "id": "lloyds-tour-of-britain-men",
+      "name": "Lloyds Tour of Britain Men",
+      "category": "road",
+      "audience": [
+        "watch"
+      ],
+      "priority": 1,
+      "start": "2026-09-02",
+      "end": "2026-09-06",
+      "dateConfidence": "confirmed",
+      "country": "GB",
+      "place": "Lincoln → Earlston, Scottish Borders. Five stages, 910km, 8,814m. Free to watch roadside",
+      "officialUrl": "https://www.britishcycling.org.uk/tourofbritain",
+      "sourceUrls": [
+        "https://www.britishcycling.org.uk/tourofbritain/article/20260630-Stage-routes-go-live-for-the-2026-Lloyds-Tour-of-Britain-Men-0"
+      ],
+      "handles": {
+        "instagram": "@tourofbritain",
+        "x": null
+      },
+      "handleConfidence": "unverified",
+      "hashtags": [
+        "#TourOfBritain",
+        "#TOB26",
+        "#Michaelgate",
+        "#UKCycling",
+        "#RoadCycling"
+      ],
+      "angle": "Home traffic. Michaelgate in Lincoln averages 11.3% and is climbed five times on stage 1 — build a UK climb page and cross-link it to the Grand Tour set. Stage 4 Helmsley–Leyburn over the Moors and Dales is the decisive day.",
+      "postWindow": "Michaelgate page live Mon 31 Aug, then a post per stage day",
+      "lastVerifiedAt": "2026-08-29",
+      "verifiedBy": "seed",
+      "reviewLog": []
+    },
+    {
+      "id": "deloitte-ride-across-britain",
+      "name": "Deloitte Ride Across Britain",
+      "category": "road",
+      "audience": [
+        "ride"
+      ],
+      "priority": 2,
+      "start": "2026-09-05",
+      "end": "2026-09-13",
+      "dateConfidence": "unverified",
+      "country": "GB",
+      "place": "Land's End to John o' Groats — nine days, around 980 miles, fully supported",
+      "officialUrl": "https://www.rideacrossbritain.com",
+      "sourceUrls": [
+        "https://www.thresholdsports.co.uk"
+      ],
+      "handles": {
+        "instagram": null,
+        "x": null
+      },
+      "handleConfidence": "none",
+      "hashtags": [
+        "#RideAcrossBritain",
+        "#LEJOG",
+        "#RAB2026",
+        "#UKCycling",
+        "#Endurance"
+      ],
+      "angle": "LEJOG planning is an evergreen search term with real volume — daily mileage, gearing for nine consecutive days, what breaks. Publish the guide now and it earns every year.",
+      "postWindow": "LEJOG gearing guide Wed 2 Sep. Organiser lists 5–13 Sep, one aggregator says 6–14 — confirm",
+      "lastVerifiedAt": "2026-08-29",
+      "verifiedBy": "seed",
+      "reviewLog": []
+    },
+    {
+      "id": "mywhoosh-sunday-race-club-esports-worlds-qualifiers",
+      "name": "MyWhoosh Sunday Race Club — Esports Worlds qualifiers",
+      "category": "indoor",
+      "audience": [
+        "ride"
+      ],
+      "priority": 2,
+      "start": "2026-09-06",
+      "end": "2026-09-13",
+      "dateConfidence": "confirmed",
+      "country": "XX",
+      "place": "Virtual, worldwide. Open-access qualifying on the first two Sundays of September",
+      "officialUrl": "https://www.uci.org",
+      "sourceUrls": [
+        "https://www.uci.org/pressrelease/uci-and-mywhoosh-reveal-key-dates-new-locations-and-updated-qualification-pathway-for-2026-uci-cycling-esports-world-championships/6Jn9pgoAN4GILyEPw4Tv9k"
+      ],
+      "handles": {
+        "instagram": "@mywhoosh",
+        "x": null
+      },
+      "handleConfidence": "unverified",
+      "hashtags": [
+        "#CyclingEsports",
+        "#MyWhoosh",
+        "#IndoorCycling",
+        "#VirtualRacing",
+        "#EsportsWorlds"
+      ],
+      "angle": "Anyone can qualify for a world championship from a spare room. Around 30 places per gender come through these open races — almost nobody has written that plainly.",
+      "postWindow": "Explainer Fri 4 Sep, before the first Sunday",
+      "lastVerifiedAt": "2026-08-29",
+      "verifiedBy": "seed",
+      "reviewLog": []
+    },
+    {
+      "id": "rebecca-s-private-idaho",
+      "name": "Rebecca's Private Idaho",
+      "category": "gravel",
+      "audience": [
+        "ride"
+      ],
+      "priority": 2,
+      "start": "2026-09-09",
+      "end": "2026-09-12",
+      "dateConfidence": "confirmed",
+      "country": "US",
+      "place": "Sun Valley and Ketchum, Idaho — four routes from the 19-mile Tater Tot to the 126-mile Twice Baked. Main event Saturday 12th. Moved to the weekend after Labor Day for 2026",
+      "officialUrl": "https://www.rebeccasprivateidaho.com",
+      "sourceUrls": [
+        "https://www.rebeccasprivateidaho.com"
+      ],
+      "handles": {
+        "instagram": "@rebeccasprivateidaho",
+        "x": null
+      },
+      "handleConfidence": "verified",
+      "hashtags": [
+        "#RebeccasPrivateIdaho",
+        "#BakedPotato",
+        "#GravelRiding",
+        "#SunValley",
+        "#GravelRace"
+      ],
+      "angle": "The friendliest big US gravel event — a 19-mile route next to a 126-mile one on the same day. Perfect peg for a \"which gravel distance should you actually enter\" piece, with gearing for each.",
+      "postWindow": "Distance-choice guide Mon 7 Sep; event posts 10–12 Sep",
+      "lastVerifiedAt": "2026-08-29",
+      "verifiedBy": "seed",
+      "reviewLog": []
+    },
+    {
+      "id": "ridecymru",
+      "name": "RideCymru",
+      "category": "road",
+      "audience": [
+        "ride"
+      ],
+      "priority": 2,
+      "start": "2026-09-11",
+      "end": "2026-09-13",
+      "dateConfidence": "confirmed",
+      "country": "GB",
+      "place": "Llandudno to Cardiff — three days across Wales, hotel or supported camping. 2026 sold out",
+      "officialUrl": "https://www.ridecymru.co.uk",
+      "sourceUrls": [
+        "https://www.ridecymru.co.uk"
+      ],
+      "handles": {
+        "instagram": null,
+        "x": null
+      },
+      "handleConfidence": "none",
+      "hashtags": [
+        "#RideCymru",
+        "#CyclingWales",
+        "#WelshClimbs",
+        "#UKCycling",
+        "#Sportive"
+      ],
+      "angle": "Welsh climbs are under-served on your site and easy to reach. Build two or three Welsh climb pages off the back of it and take the 2027 entry traffic.",
+      "postWindow": "Welsh climbs piece Tue 8 Sep; ride days 11–13 Sep",
+      "lastVerifiedAt": "2026-08-29",
+      "verifiedBy": "seed",
+      "reviewLog": []
+    },
+    {
+      "id": "uci-mtb-marathon-world-championships",
+      "name": "UCI MTB Marathon World Championships",
+      "category": "mtb",
+      "audience": [
+        "watch",
+        "ride"
+      ],
+      "priority": 2,
+      "start": "2026-09-11",
+      "end": "2026-09-13",
+      "dateConfidence": "confirmed",
+      "country": "IT",
+      "place": "Primiero San Martino di Castrozza, Italy — Masters categories included for the first time",
+      "officialUrl": "https://www.uci.org",
+      "sourceUrls": [
+        "https://www.uci.org"
+      ],
+      "handles": {
+        "instagram": "@uci_mountainbike",
+        "x": null
+      },
+      "handleConfidence": "verified",
+      "hashtags": [
+        "#MarathonWorlds",
+        "#XCM",
+        "#MastersRacing",
+        "#MountainBike",
+        "#RainbowJersey"
+      ],
+      "angle": "A rainbow jersey now open to Masters riders. Strong hook for the 45+ audience — pair with marathon gearing.",
+      "postWindow": "Thu 10 Sep preview, results Sun 13 Sep",
+      "lastVerifiedAt": "2026-08-29",
+      "verifiedBy": "seed",
+      "reviewLog": []
+    },
+    {
+      "id": "bespoked-dresden",
+      "name": "Bespoked Dresden",
+      "category": "show",
+      "audience": [
+        "visit"
+      ],
+      "priority": 2,
+      "start": "2026-09-11",
+      "end": "2026-09-13",
+      "dateConfidence": "confirmed",
+      "country": "DE",
+      "place": "Dresden Airport, Germany — Europe's biggest handmade bike show, 7,000+ visitors",
+      "officialUrl": "https://www.bespoked.cc",
+      "sourceUrls": [
+        "https://www.bespoked.cc"
+      ],
+      "handles": {
+        "instagram": "@bespokedshow",
+        "x": null
+      },
+      "handleConfidence": "unverified",
+      "hashtags": [
+        "#Bespoked",
+        "#HandmadeBikes",
+        "#Framebuilding",
+        "#SteelIsReal",
+        "#CustomBikes"
+      ],
+      "angle": "Craft posts travel further than product posts and carry no affiliate baggage. Steel, custom geometry, the people who build them.",
+      "postWindow": "Teaser Wed 9 Sep, carousels 11–13 Sep",
+      "lastVerifiedAt": "2026-08-29",
+      "verifiedBy": "seed",
+      "reviewLog": []
+    },
+    {
+      "id": "grand-prix-cycliste-de-quebec",
+      "name": "Grand Prix Cycliste de Québec",
+      "category": "road",
+      "audience": [
+        "watch"
+      ],
+      "priority": 3,
+      "start": "2026-09-11",
+      "end": "2026-09-11",
+      "dateConfidence": "confirmed",
+      "country": "CA",
+      "place": "Québec City, Canada — WorldTour one-day",
+      "officialUrl": "https://www.gpcqm.ca",
+      "sourceUrls": [
+        "https://www.gpcqm.ca"
+      ],
+      "handles": {
+        "instagram": null,
+        "x": null
+      },
+      "handleConfidence": "none",
+      "hashtags": [
+        "#GPCQM",
+        "#GPCQ",
+        "#WorldTour",
+        "#RoadCycling"
+      ],
+      "angle": "Warm-up act for Worlds. Use it to launch the Mont Royal build a week early.",
+      "postWindow": "Fri 11 Sep, single post",
+      "lastVerifiedAt": "2026-08-29",
+      "verifiedBy": "seed",
+      "reviewLog": []
+    },
+    {
+      "id": "grand-prix-cycliste-de-montreal",
+      "name": "Grand Prix Cycliste de Montréal",
+      "category": "road",
+      "audience": [
+        "watch"
+      ],
+      "priority": 1,
+      "start": "2026-09-13",
+      "end": "2026-09-13",
+      "dateConfidence": "confirmed",
+      "country": "CA",
+      "place": "Montréal, Canada — the Mont Royal circuit, a preview of the Worlds course",
+      "officialUrl": "https://www.gpcqm.ca",
+      "sourceUrls": [
+        "https://www.gpcqm.ca"
+      ],
+      "handles": {
+        "instagram": null,
+        "x": null
+      },
+      "handleConfidence": "none",
+      "hashtags": [
+        "#GPCQM",
+        "#GPCM",
+        "#MontRoyal",
+        "#WorldTour",
+        "#RoadCycling"
+      ],
+      "angle": "Publish the Mont Royal / Camillien-Houde climb page here. It then does the work twice, again during Worlds week.",
+      "postWindow": "Sat 12 Sep evening — this page must be live before the 20th",
+      "lastVerifiedAt": "2026-08-29",
+      "verifiedBy": "seed",
+      "reviewLog": []
+    },
+    {
+      "id": "marji-gesick",
+      "name": "Marji Gesick",
+      "category": "mtb",
+      "audience": [
+        "ride"
+      ],
+      "priority": 3,
+      "start": "2026-09-18",
+      "end": "2026-09-20",
+      "dateConfidence": "unverified",
+      "country": "US",
+      "place": "Marquette and Ishpeming, Michigan — 100 miles of brutal singletrack with a famously low finish rate. Dates approximate, confirm with the organiser",
+      "officialUrl": "https://www.marjigesick100.com",
+      "sourceUrls": [],
+      "handles": {
+        "instagram": null,
+        "x": null
+      },
+      "handleConfidence": "none",
+      "hashtags": [
+        "#MarjiGesick",
+        "#MarjiGesick100",
+        "#MountainBike",
+        "#Marquette",
+        "#Endurance"
+      ],
+      "angle": "The DNF rate is the story — an event most entrants do not finish. Good \"what actually breaks people\" content, and gearing for 100 miles of singletrack is a real question.",
+      "postWindow": "Only if the September slot is thin; Chequamegon is the bigger event that weekend",
+      "lastVerifiedAt": "2026-08-29",
+      "verifiedBy": "seed",
+      "reviewLog": []
+    },
+    {
+      "id": "chequamegon-mtb-festival",
+      "name": "Chequamegon MTB Festival",
+      "category": "mtb",
+      "audience": [
+        "ride",
+        "visit"
+      ],
+      "priority": 2,
+      "start": "2026-09-19",
+      "end": "2026-09-19",
+      "dateConfidence": "confirmed",
+      "country": "US",
+      "place": "Hayward to Cable, Wisconsin — 40 miles on the Birkebeiner ski trail, plus a 16-mile Short & Fat. Oldest MTB race in the US, entry by lottery. Expo Friday 18th",
+      "officialUrl": "https://www.cheqmtb.com",
+      "sourceUrls": [
+        "https://www.cheqmtb.com"
+      ],
+      "handles": {
+        "instagram": "@cheqmtbfestival",
+        "x": null
+      },
+      "handleConfidence": "unverified",
+      "hashtags": [
+        "#Chequamegon",
+        "#Cheq40",
+        "#LifeTimeGrandPrix",
+        "#MountainBike",
+        "#Wisconsin"
+      ],
+      "angle": "41st edition, thousands of riders, autumn colour in the Northwoods, and a genuinely beginner-friendly 16-mile option alongside the pro race. The lottery entry system is worth explaining on its own.",
+      "postWindow": "Preview Wed 16 Sep; race and festival posts Sat 19 Sep",
+      "lastVerifiedAt": "2026-08-29",
+      "verifiedBy": "seed",
+      "reviewLog": []
+    },
+    {
+      "id": "uci-road-world-championships",
+      "name": "UCI Road World Championships",
+      "category": "road",
+      "audience": [
+        "watch"
+      ],
+      "priority": 1,
+      "start": "2026-09-20",
+      "end": "2026-09-27",
+      "dateConfidence": "confirmed",
+      "country": "CA",
+      "place": "Montréal, Canada. 13 events, all finishing on Avenue du Parc. Time trials 20–22 Sep, elite road races 26–27 Sep",
+      "officialUrl": "https://www.uci.org",
+      "sourceUrls": [
+        "https://www.uci.org",
+        "https://en.wikipedia.org/wiki/2026_UCI_Road_World_Championships"
+      ],
+      "handles": {
+        "instagram": "@uci_cycling",
+        "x": null
+      },
+      "handleConfidence": "verified",
+      "hashtags": [
+        "#Montreal2026",
+        "#RoadWorlds",
+        "#RainbowJersey",
+        "#MontRoyal",
+        "#RoadCycling"
+      ],
+      "angle": "Biggest road audience of the autumn. The 13.4km circuit climbs 269m a lap: Camillien-Houde at 2.3km/6.2%, Polytechnique over 11% in places. Lap-by-lap 3D morph is the piece.",
+      "postWindow": "Circuit breakdown Fri 18 Sep; TT posts 20–22 Sep; road races 24–27 Sep",
+      "lastVerifiedAt": "2026-08-29",
+      "verifiedBy": "seed",
+      "reviewLog": []
+    },
+    {
+      "id": "3-peaks-cyclo-cross",
+      "name": "3 Peaks Cyclo-Cross",
+      "category": "cx",
+      "audience": [
+        "ride",
+        "watch"
+      ],
+      "priority": 2,
+      "start": "2026-09-27",
+      "end": "2026-09-27",
+      "dateConfidence": "confirmed",
+      "country": "GB",
+      "place": "Yorkshire Dales — 62nd edition. The hardest and biggest CX race in Britain, entry by experience panel, 35mm tyre limit",
+      "officialUrl": "http://3peakscyclocross.org.uk",
+      "sourceUrls": [
+        "http://3peakscyclocross.org.uk"
+      ],
+      "handles": {
+        "instagram": null,
+        "x": null
+      },
+      "handleConfidence": "none",
+      "hashtags": [
+        "#3PeaksCX",
+        "#ThreePeaks",
+        "#Cyclocross",
+        "#YorkshireDales",
+        "#UKCycling"
+      ],
+      "angle": "Carrying a cross bike over Ingleborough is the most photogenic thing in British cycling and there is barely any good data content on it. Gradient profiles of the three climbs, plus the tyre rule as a talking point.",
+      "postWindow": "Course profile piece Thu 24 Sep; race-day gallery Sun 27 Sep",
+      "lastVerifiedAt": "2026-08-29",
+      "verifiedBy": "seed",
+      "reviewLog": []
+    },
+    {
+      "id": "uci-mtb-world-cup-whistler",
+      "name": "UCI MTB World Cup — Whistler",
+      "category": "mtb",
+      "audience": [
+        "watch"
+      ],
+      "priority": 3,
+      "start": "2026-09-27",
+      "end": "2026-09-27",
+      "dateConfidence": "confirmed",
+      "country": "CA",
+      "place": "Whistler, Canada",
+      "officialUrl": "https://www.uci.org",
+      "sourceUrls": [
+        "https://www.uci.org"
+      ],
+      "handles": {
+        "instagram": "@uci_mountainbike",
+        "x": null
+      },
+      "handleConfidence": "verified",
+      "hashtags": [
+        "#MTBWorldCup",
+        "#Whistler",
+        "#Downhill",
+        "#MountainBike"
+      ],
+      "angle": "Descending and tyre pressure. Low effort, decent reach.",
+      "postWindow": "Sun 27 Sep",
+      "lastVerifiedAt": "2026-08-29",
+      "verifiedBy": "seed",
+      "reviewLog": []
+    },
+    {
+      "id": "uci-cycling-esports-world-championships-semi-final",
+      "name": "UCI Cycling Esports World Championships — semi-final",
+      "category": "indoor",
+      "audience": [
+        "ride",
+        "watch"
+      ],
+      "priority": 2,
+      "start": "2026-10-02",
+      "end": "2026-10-02",
+      "dateConfidence": "confirmed",
+      "country": "XX",
+      "place": "Virtual, on MyWhoosh",
+      "officialUrl": "https://www.uci.org",
+      "sourceUrls": [
+        "https://www.uci.org"
+      ],
+      "handles": {
+        "instagram": "@uci_cycling",
+        "x": null
+      },
+      "handleConfidence": "verified",
+      "hashtags": [
+        "#CyclingEsports",
+        "#EsportsWorlds",
+        "#MyWhoosh",
+        "#VirtualRacing",
+        "#IndoorCycling"
+      ],
+      "angle": "Follow-up to the September qualifiers. Power-to-weight and trainer calibration are the natural companion pieces.",
+      "postWindow": "Fri 2 Oct",
+      "lastVerifiedAt": "2026-08-29",
+      "verifiedBy": "seed",
+      "reviewLog": []
+    },
+    {
+      "id": "l-eroica-gaiole-in-chianti",
+      "name": "L'Eroica, Gaiole in Chianti",
+      "category": "show",
+      "audience": [
+        "ride",
+        "visit"
+      ],
+      "priority": 1,
+      "start": "2026-10-03",
+      "end": "2026-10-04",
+      "dateConfidence": "confirmed",
+      "country": "IT",
+      "place": "Tuscany — vintage gran fondo on the strade bianche. Long routes Sat 3rd (209km, 135km), main day Sun 4th (106/81/46km). Pre-1987 steel bikes only",
+      "officialUrl": "https://www.eroica.cc",
+      "sourceUrls": [
+        "https://www.eroica.cc"
+      ],
+      "handles": {
+        "instagram": "@eroicaofficial",
+        "x": null
+      },
+      "handleConfidence": "unverified",
+      "hashtags": [
+        "#Eroica",
+        "#StradeBianche",
+        "#VintageCycling",
+        "#SteelIsReal",
+        "#GranFondo"
+      ],
+      "angle": "Downtube shifters and no compact cranks — a funny gear-calculator story about what ratios riders actually had before 1987. Highly shareable and it sends people straight to your tool.",
+      "postWindow": "\"Gearing before 1987\" piece Thu 1 Oct; ride-day posts Sun 4 Oct",
+      "lastVerifiedAt": "2026-08-29",
+      "verifiedBy": "seed",
+      "reviewLog": []
+    },
+    {
+      "id": "uci-gran-fondo-chile",
+      "name": "UCI Gran Fondo Chile",
+      "category": "road",
+      "audience": [
+        "ride"
+      ],
+      "priority": 3,
+      "start": "2026-10-04",
+      "end": "2026-10-04",
+      "dateConfidence": "confirmed",
+      "country": "CL",
+      "place": "Región de Los Ríos, Chile — first UCI gran fondo in the country, qualifier for the 2027 amateur Worlds",
+      "officialUrl": "https://ucigranfondoworldseries.com",
+      "sourceUrls": [
+        "https://ucigranfondoworldseries.com"
+      ],
+      "handles": {
+        "instagram": null,
+        "x": null
+      },
+      "handleConfidence": "none",
+      "hashtags": [
+        "#UCIGranFondo",
+        "#GranFondoWorldSeries",
+        "#AmateurWorlds",
+        "#GranFondo"
+      ],
+      "angle": "The peg for a plain-English guide to gran fondo qualification: finish in the top 25% of your age group at any World Series round and you get a start at the amateur Worlds. Very few sites explain it properly.",
+      "postWindow": "Qualification guide Thu 1 Oct — it then serves every gran fondo below",
+      "lastVerifiedAt": "2026-08-29",
+      "verifiedBy": "seed",
+      "reviewLog": []
+    },
+    {
+      "id": "uci-mtb-world-cup-lake-placid",
+      "name": "UCI MTB World Cup — Lake Placid",
+      "category": "mtb",
+      "audience": [
+        "watch"
+      ],
+      "priority": 3,
+      "start": "2026-10-04",
+      "end": "2026-10-04",
+      "dateConfidence": "confirmed",
+      "country": "US",
+      "place": "Lake Placid, New York — closing rounds of the XCO series",
+      "officialUrl": "https://www.uci.org",
+      "sourceUrls": [
+        "https://www.uci.org"
+      ],
+      "handles": {
+        "instagram": "@uci_mountainbike",
+        "x": null
+      },
+      "handleConfidence": "verified",
+      "hashtags": [
+        "#MTBWorldCup",
+        "#LakePlacid",
+        "#XCO",
+        "#MountainBike"
+      ],
+      "angle": "Season standings wrap. Light touch.",
+      "postWindow": "Sun 4 Oct",
+      "lastVerifiedAt": "2026-08-29",
+      "verifiedBy": "seed",
+      "reviewLog": []
+    },
+    {
+      "id": "roc-d-azur",
+      "name": "Roc d'Azur",
+      "category": "mtb",
+      "audience": [
+        "ride",
+        "visit"
+      ],
+      "priority": 1,
+      "start": "2026-10-07",
+      "end": "2026-10-11",
+      "dateConfidence": "confirmed",
+      "country": "FR",
+      "place": "Fréjus and Roquebrune-sur-Argens, France — 34 events, 20,000 riders, 300 exhibitors, 150,000 visitors. Gravel expanded for 2026",
+      "officialUrl": "https://www.rocazur.com/en",
+      "sourceUrls": [
+        "https://www.rocazur.com/en"
+      ],
+      "handles": {
+        "instagram": "@rocdazur",
+        "x": null
+      },
+      "handleConfidence": "verified",
+      "hashtags": [
+        "#RocdAzur",
+        "#RocdAzur2026",
+        "#VTT",
+        "#MountainBike",
+        "#BikeFestival"
+      ],
+      "angle": "The biggest participation event in the sport and almost invisible in English. Entry-level races alongside elites, a free test camp and a bike show — that combination is your gap in the market.",
+      "postWindow": "Preview Mon 5 Oct; daily posts 8–11 Oct",
+      "lastVerifiedAt": "2026-08-29",
+      "verifiedBy": "seed",
+      "reviewLog": []
+    },
+    {
+      "id": "uci-gravel-world-championships",
+      "name": "UCI Gravel World Championships",
+      "category": "gravel",
+      "audience": [
+        "ride",
+        "watch"
+      ],
+      "priority": 1,
+      "start": "2026-10-10",
+      "end": "2026-10-11",
+      "dateConfidence": "confirmed",
+      "country": "AU",
+      "place": "Nannup, Western Australia — first outside Europe. 140.7km men / 123.1km women, over 80% gravel, 3,000m+. Women and men 50+ Saturday, elite men and 19–49 men Sunday",
+      "officialUrl": "https://www.uci.org",
+      "sourceUrls": [
+        "https://www.uci.org",
+        "https://en.wikipedia.org/wiki/2026_UCI_Gravel_World_Championships"
+      ],
+      "handles": {
+        "instagram": "@uci_cycling",
+        "x": null
+      },
+      "handleConfidence": "verified",
+      "hashtags": [
+        "#GravelWorlds",
+        "#Nannup",
+        "#UCIGravel",
+        "#GravelRace",
+        "#AgeGroupRacing"
+      ],
+      "angle": "Age-group racing is the whole story — ordinary riders lining up for a rainbow jersey. Reuse the qualification explainer and add the Nannup course profile.",
+      "postWindow": "Course and qualification post Wed 7 Oct; races 10–11 Oct, early UK mornings",
+      "lastVerifiedAt": "2026-08-29",
+      "verifiedBy": "seed",
+      "reviewLog": []
+    },
+    {
+      "id": "il-lombardia",
+      "name": "Il Lombardia",
+      "category": "road",
+      "audience": [
+        "watch"
+      ],
+      "priority": 1,
+      "start": "2026-10-10",
+      "end": "2026-10-10",
+      "dateConfidence": "confirmed",
+      "country": "IT",
+      "place": "Bergamo → Como, 252km. 120th edition, the final Monument of the season",
+      "officialUrl": "https://www.ilombardia.it",
+      "sourceUrls": [
+        "https://www.ilombardia.it",
+        "https://en.wikipedia.org/wiki/2026_UCI_World_Tour"
+      ],
+      "handles": {
+        "instagram": "@ilombardia",
+        "x": null
+      },
+      "handleConfidence": "unverified",
+      "hashtags": [
+        "#IlLombardia",
+        "#Ghisallo",
+        "#Monument",
+        "#RoadCycling",
+        "#ClimbData"
+      ],
+      "angle": "The Ghisallo. Autumn light, the cyclists' chapel, and a climb page that pulls traffic every October from here on. Clashes with Gravel Worlds — schedule both.",
+      "postWindow": "Ghisallo page Wed 7 Oct; race thread Sat 10 Oct",
+      "lastVerifiedAt": "2026-08-29",
+      "verifiedBy": "seed",
+      "reviewLog": []
+    },
+    {
+      "id": "hong-kong-cyclothon",
+      "name": "Hong Kong Cyclothon",
+      "category": "road",
+      "audience": [
+        "ride",
+        "watch"
+      ],
+      "priority": 3,
+      "start": "2026-10-11",
+      "end": "2026-10-11",
+      "dateConfidence": "confirmed",
+      "country": "HK",
+      "place": "Hong Kong — mass participation ride across the harbour bridges plus a UCI race",
+      "officialUrl": "https://www.uci.org",
+      "sourceUrls": [
+        "https://en.wikipedia.org/wiki/2026_UCI_Asia_Tour"
+      ],
+      "handles": {
+        "instagram": null,
+        "x": null
+      },
+      "handleConfidence": "none",
+      "hashtags": [
+        "#HKCyclothon",
+        "#HongKong",
+        "#MassParticipation",
+        "#RoadCycling"
+      ],
+      "angle": "Riding a closed motorway through a city is a strong visual. Low priority unless you want the Asia audience.",
+      "postWindow": "Sun 11 Oct, optional",
+      "lastVerifiedAt": "2026-08-29",
+      "verifiedBy": "seed",
+      "reviewLog": []
+    },
+    {
+      "id": "tour-of-guangxi",
+      "name": "Tour of Guangxi",
+      "category": "road",
+      "audience": [
+        "watch"
+      ],
+      "priority": 3,
+      "start": "2026-10-13",
+      "end": "2026-10-18",
+      "dateConfidence": "confirmed",
+      "country": "CN",
+      "place": "Guangxi, China — closes the men's and women's WorldTour on 18 Oct",
+      "officialUrl": "https://www.uci.org",
+      "sourceUrls": [
+        "https://en.wikipedia.org/wiki/2026_UCI_World_Tour"
+      ],
+      "handles": {
+        "instagram": "@uci_cycling",
+        "x": null
+      },
+      "handleConfidence": "verified",
+      "hashtags": [
+        "#TourOfGuangxi",
+        "#WorldTour",
+        "#RoadCycling",
+        "#SeasonFinale"
+      ],
+      "angle": "Season-closing round-up: the year in climbs ranked by your own data. Repackages what you already have.",
+      "postWindow": "Season wrap published Sun 18 Oct",
+      "lastVerifiedAt": "2026-08-29",
+      "verifiedBy": "seed",
+      "reviewLog": []
+    },
+    {
+      "id": "life-time-big-sugar-gravel",
+      "name": "Life Time Big Sugar Gravel",
+      "category": "gravel",
+      "audience": [
+        "ride",
+        "watch"
+      ],
+      "priority": 1,
+      "start": "2026-10-17",
+      "end": "2026-10-17",
+      "dateConfidence": "confirmed",
+      "country": "US",
+      "place": "Bentonville, Arkansas — 100, 50 or 25 miles of Ozark chunk. Life Time Grand Prix finale, amateurs on the same course as the pros",
+      "officialUrl": "https://www.bigsugarclassic.com/gravel/",
+      "sourceUrls": [
+        "https://www.bigsugarclassic.com/gravel/"
+      ],
+      "handles": {
+        "instagram": "@lifetimegrandprix",
+        "x": null
+      },
+      "handleConfidence": "unverified",
+      "hashtags": [
+        "#BigSugarGravel",
+        "#Bentonville",
+        "#LifeTimeGrandPrix",
+        "#GravelRace",
+        "#Ozarks"
+      ],
+      "angle": "Tyre choice and pressure for sharp gravel is the most-searched question of that week. Autumn colour photography carries it on Instagram.",
+      "postWindow": "Tyre pressure piece Wed 14 Oct; race posts Sat 17 Oct",
+      "lastVerifiedAt": "2026-08-29",
+      "verifiedBy": "seed",
+      "reviewLog": []
+    },
+    {
+      "id": "gran-fondo-hincapie-greenville",
+      "name": "Gran Fondo Hincapie — Greenville",
+      "category": "road",
+      "audience": [
+        "ride"
+      ],
+      "priority": 2,
+      "start": "2026-10-17",
+      "end": "2026-10-17",
+      "dateConfidence": "confirmed",
+      "country": "US",
+      "place": "Travelers Rest, South Carolina — 15th anniversary. Gran, Medio and a family Piccolo route through the Blue Ridge foothills",
+      "officialUrl": "https://hincapie.com/pages/gran-fondo-greenville",
+      "sourceUrls": [
+        "https://hincapie.com/pages/gran-fondo-greenville"
+      ],
+      "handles": {
+        "instagram": "@granfondohincapie",
+        "x": null
+      },
+      "handleConfidence": "unverified",
+      "hashtags": [
+        "#GranFondoHincapie",
+        "#Greenville",
+        "#BlueRidge",
+        "#GranFondo",
+        "#RoadCycling"
+      ],
+      "angle": "The most welcoming big US road fondo, with a genuine family route. Same day as Big Sugar, so pick one for the main post and give the other a story slot.",
+      "postWindow": "Sat 17 Oct — Big Sugar takes the feed post, Hincapie takes stories",
+      "lastVerifiedAt": "2026-08-29",
+      "verifiedBy": "seed",
+      "reviewLog": []
+    },
+    {
+      "id": "granfondo-la-nucia",
+      "name": "Granfondo La Nucia",
+      "category": "road",
+      "audience": [
+        "ride"
+      ],
+      "priority": 2,
+      "start": "2026-10-18",
+      "end": "2026-10-18",
+      "dateConfidence": "confirmed",
+      "country": "ES",
+      "place": "La Nucia, Alicante, Spain — UCI World Series qualifier in the region WorldTeams use for winter training",
+      "officialUrl": "https://ucigranfondoworldseries.com",
+      "sourceUrls": [
+        "https://ucigranfondoworldseries.com"
+      ],
+      "handles": {
+        "instagram": null,
+        "x": null
+      },
+      "handleConfidence": "none",
+      "hashtags": [
+        "#LaNucia",
+        "#UCIGranFondo",
+        "#Alicante",
+        "#WinterTraining",
+        "#GranFondo"
+      ],
+      "angle": "The reachable one for UK riders. Ties into winter training-camp content and your Stay22 and Booking.com links — Alicante and Calpe are the search terms.",
+      "postWindow": "Winter training camp guide Mon 12 Oct, with the event as the hook",
+      "lastVerifiedAt": "2026-08-29",
+      "verifiedBy": "seed",
+      "reviewLog": []
+    },
+    {
+      "id": "tour-de-france-2027-route-presentation",
+      "name": "Tour de France 2027 route presentation",
+      "category": "road",
+      "audience": [
+        "watch"
+      ],
+      "priority": 1,
+      "start": "2026-10-22",
+      "end": "2026-10-22",
+      "dateConfidence": "tbc",
+      "country": "FR",
+      "place": "Palais des Congrès, Paris. Late October, exact date not yet published. The 2027 Grand Départ is Edinburgh, with stage 1 heading for Carlisle",
+      "officialUrl": "https://www.letour.fr",
+      "sourceUrls": [
+        "https://www.letour.fr"
+      ],
+      "handles": {
+        "instagram": "@letourdefrance",
+        "x": null
+      },
+      "handleConfidence": "verified",
+      "hashtags": [
+        "#TDF2027",
+        "#TourDeFrance",
+        "#GrandDepart",
+        "#Edinburgh",
+        "#ClimbData"
+      ],
+      "angle": "The biggest single traffic day of your autumn. Every climb in the 2027 route gets searched within hours of the reveal, and a British Grand Départ adds UK volume on top. Have page templates ready. The 2027 Étape du Tour stage is announced here too.",
+      "postWindow": "Watch live, publish within four hours. Confirm the date in early October",
+      "lastVerifiedAt": "2026-08-29",
+      "verifiedBy": "seed",
+      "reviewLog": []
+    },
+    {
+      "id": "clocks-go-back-winter-riding-starts",
+      "name": "Clocks go back — winter riding starts",
+      "category": "moment",
+      "audience": [
+        "ride"
+      ],
+      "priority": 1,
+      "start": "2026-10-25",
+      "end": "2026-10-25",
+      "dateConfidence": "confirmed",
+      "country": "GB",
+      "place": "UK. BST ends at 02:00 on the last Sunday in October",
+      "officialUrl": null,
+      "sourceUrls": [],
+      "handles": {
+        "instagram": null,
+        "x": null
+      },
+      "handleConfidence": "none",
+      "hashtags": [
+        "#WinterRiding",
+        "#LightsOn",
+        "#DarkMiles",
+        "#WinterKit",
+        "#Commuting"
+      ],
+      "angle": "Your best affiliate week of the autumn: lights, mudguards, layering, indoor training. Also the moment to push winter training camps.",
+      "postWindow": "Winter kit guide live Mon 19 Oct, a full week early",
+      "lastVerifiedAt": "2026-08-29",
+      "verifiedBy": "seed",
+      "reviewLog": []
+    },
+    {
+      "id": "bespoked-osaka",
+      "name": "Bespoked Osaka",
+      "category": "show",
+      "audience": [
+        "visit"
+      ],
+      "priority": 3,
+      "start": "2026-10-26",
+      "end": "2026-10-31",
+      "dateConfidence": "tbc",
+      "country": "JP",
+      "place": "G-LION Museum, Osaka, Japan. Late October, exact dates not fixed",
+      "officialUrl": "https://www.bespoked.cc/japan2026",
+      "sourceUrls": [
+        "https://www.bespoked.cc/japan2026"
+      ],
+      "handles": {
+        "instagram": "@bespokedshow",
+        "x": null
+      },
+      "handleConfidence": "unverified",
+      "hashtags": [
+        "#BespokedJapan",
+        "#Osaka",
+        "#HandmadeBikes",
+        "#Framebuilding",
+        "#CustomBikes"
+      ],
+      "angle": "Japanese framebuilding has a devoted English-speaking audience and very little English coverage. Cheap reach.",
+      "postWindow": "Confirm dates with the organiser first",
+      "lastVerifiedAt": "2026-08-29",
+      "verifiedBy": "seed",
+      "reviewLog": []
+    },
+    {
+      "id": "bell-s-iceman-cometh-challenge",
+      "name": "Bell's Iceman Cometh Challenge",
+      "category": "mtb",
+      "audience": [
+        "ride",
+        "visit"
+      ],
+      "priority": 2,
+      "start": "2026-11-07",
+      "end": "2026-11-07",
+      "dateConfidence": "confirmed",
+      "country": "US",
+      "place": "Kalkaska to Traverse City, Michigan — 30-mile point-to-point, 5,400 riders across 77 age divisions plus 300 children. Ice Cycle Expo on the Friday",
+      "officialUrl": "https://iceman.com",
+      "sourceUrls": [
+        "https://www.traversecity.com/event-detail/bells-iceman-cometh-challenge-2026/24923/"
+      ],
+      "handles": {
+        "instagram": "@icemancometh",
+        "x": null
+      },
+      "handleConfidence": "unverified",
+      "hashtags": [
+        "#IcemanCometh",
+        "#Iceman2026",
+        "#TraverseCity",
+        "#MountainBike",
+        "#ColdWeatherRiding"
+      ],
+      "angle": "The biggest single-day MTB race in America and it runs in near-freezing conditions — perfect timing for a cold-weather clothing and tyre-choice piece, right when your UK readers are facing the same problem.",
+      "postWindow": "Cold-weather kit guide Mon 2 Nov; race posts Sat 7 Nov",
+      "lastVerifiedAt": "2026-08-29",
+      "verifiedBy": "seed",
+      "reviewLog": []
+    },
+    {
+      "id": "rouleur-live",
+      "name": "Rouleur Live",
+      "category": "show",
+      "audience": [
+        "visit"
+      ],
+      "priority": 1,
+      "start": "2026-11-12",
+      "end": "2026-11-14",
+      "dateConfidence": "confirmed",
+      "country": "GB",
+      "place": "The Truman Brewery, London — 80+ brands and riders on stage. Thu 17:00–22:00, Fri 13:00–20:00, Sat 10:00–16:00",
+      "officialUrl": "https://www.rouleur.cc/live/2026",
+      "sourceUrls": [
+        "https://www.rouleur.cc/live/2026"
+      ],
+      "handles": {
+        "instagram": "@rouleurlive",
+        "x": null
+      },
+      "handleConfidence": "verified",
+      "hashtags": [
+        "#RouleurLive",
+        "#RouleurLive26",
+        "#CyclingCulture",
+        "#BikeShow",
+        "#London"
+      ],
+      "angle": "Go in person. Highest density of cycling media, brands and affiliate managers in the UK calendar, in one room, in one day. Your SEO analysis put backlinks and domain authority as the ranking gap — this is where you close it.",
+      "postWindow": "Attend Thursday evening or Saturday; post live, round-up the following Tuesday",
+      "lastVerifiedAt": "2026-08-29",
+      "verifiedBy": "seed",
+      "reviewLog": []
+    },
+    {
+      "id": "granfondo-ecuador",
+      "name": "Granfondo Ecuador",
+      "category": "road",
+      "audience": [
+        "ride"
+      ],
+      "priority": 3,
+      "start": "2026-11-14",
+      "end": "2026-11-14",
+      "dateConfidence": "confirmed",
+      "country": "EC",
+      "place": "Salinas, Ecuador — UCI World Series qualifier on the country's westernmost point",
+      "officialUrl": "https://ucigranfondoworldseries.com",
+      "sourceUrls": [
+        "https://ucigranfondoworldseries.com"
+      ],
+      "handles": {
+        "instagram": null,
+        "x": null
+      },
+      "handleConfidence": "none",
+      "hashtags": [
+        "#UCIGranFondo",
+        "#Ecuador",
+        "#GranFondo",
+        "#AmateurWorlds"
+      ],
+      "angle": "Only worth a mention inside a \"where to qualify for the 2027 amateur Worlds\" round-up. Not a standalone post.",
+      "postWindow": "Fold into a single World Series round-up in mid-November",
+      "lastVerifiedAt": "2026-08-29",
+      "verifiedBy": "seed",
+      "reviewLog": []
+    },
+    {
+      "id": "el-tour-de-tucson",
+      "name": "El Tour de Tucson",
+      "category": "road",
+      "audience": [
+        "ride"
+      ],
+      "priority": 2,
+      "start": "2026-11-21",
+      "end": "2026-11-21",
+      "dateConfidence": "confirmed",
+      "country": "US",
+      "place": "Tucson, Arizona — 43rd edition. Around 11,000 riders on 102, 62 and 32-mile routes, plus family rides. Charity fundraiser, over $138m raised since 1983",
+      "officialUrl": "https://eltourdetucson.org",
+      "sourceUrls": [
+        "https://eltourdetucson.org"
+      ],
+      "handles": {
+        "instagram": "@eltourdetucson",
+        "x": null
+      },
+      "handleConfidence": "verified",
+      "hashtags": [
+        "#ElTourDeTucson",
+        "#ElTour",
+        "#Tucson",
+        "#CenturyRide",
+        "#RoadCycling"
+      ],
+      "angle": "The best mass-participation road event in the US calendar and the clearest example of the charity-ride model, which barely exists in the UK the same way. Also: warm November riding, which is exactly what your readers are daydreaming about that week.",
+      "postWindow": "Warm-weather escapes piece Mon 16 Nov; event posts Sat 21 Nov",
+      "lastVerifiedAt": "2026-08-29",
+      "verifiedBy": "seed",
+      "reviewLog": []
+    },
+    {
+      "id": "granfondo-siete-lagos",
+      "name": "Granfondo Siete Lagos",
+      "category": "road",
+      "audience": [
+        "ride"
+      ],
+      "priority": 3,
+      "start": "2026-11-21",
+      "end": "2026-11-22",
+      "dateConfidence": "confirmed",
+      "country": "AR",
+      "place": "San Martín de los Andes to Villa la Angostura, Patagonia — first UCI gran fondo in Argentina",
+      "officialUrl": "https://ucigranfondoworldseries.com",
+      "sourceUrls": [
+        "https://ucigranfondoworldseries.com"
+      ],
+      "handles": {
+        "instagram": null,
+        "x": null
+      },
+      "handleConfidence": "none",
+      "hashtags": [
+        "#SieteLagos",
+        "#UCIGranFondo",
+        "#Patagonia",
+        "#GranFondo",
+        "#BucketList"
+      ],
+      "angle": "Bucket-list scenery. Good imagery for a \"gran fondos worth travelling for in 2027\" piece.",
+      "postWindow": "Fold into the World Series round-up",
+      "lastVerifiedAt": "2026-08-29",
+      "verifiedBy": "seed",
+      "reviewLog": []
+    },
+    {
+      "id": "cx-world-cup-r1-ostrava",
+      "name": "CX World Cup R1 — Ostrava",
+      "category": "cx",
+      "audience": [
+        "watch"
+      ],
+      "priority": 2,
+      "start": "2026-11-27",
+      "end": "2026-11-27",
+      "dateConfidence": "confirmed",
+      "country": "XX",
+      "place": "Ostrava, Czechia — new venue, racing under lights on a Friday night",
+      "officialUrl": "https://www.uci.org",
+      "sourceUrls": [
+        "https://www.cyclingnews.com/pro-cycling/racing/great-britain-captures-calendar-spot-for-2026-27-uci-cyclo-cross-world-cup-with-glasgow-confirmed-as-host/"
+      ],
+      "handles": {
+        "instagram": "@uci_cycling",
+        "x": null
+      },
+      "handleConfidence": "verified",
+      "hashtags": [
+        "#CXWorldCup",
+        "#Ostrava",
+        "#Cyclocross",
+        "#CXSeason"
+      ],
+      "angle": "Season opener. One CX explainer — tyres, pressure, gearing — reused across all eight rounds to New Year.",
+      "postWindow": "Explainer Wed 25 Nov; race post Fri 27 Nov",
+      "lastVerifiedAt": "2026-08-29",
+      "verifiedBy": "seed",
+      "reviewLog": []
+    },
+    {
+      "id": "black-friday-to-cyber-monday",
+      "name": "Black Friday to Cyber Monday",
+      "category": "moment",
+      "audience": [
+        "ride"
+      ],
+      "priority": 1,
+      "start": "2026-11-27",
+      "end": "2026-11-30",
+      "dateConfidence": "confirmed",
+      "country": "XX",
+      "place": "Global. Black Friday 27 Nov, Cyber Monday 30 Nov",
+      "officialUrl": null,
+      "sourceUrls": [],
+      "handles": {
+        "instagram": null,
+        "x": null
+      },
+      "handleConfidence": "none",
+      "hashtags": [
+        "#BlackFriday",
+        "#CyclingDeals",
+        "#BikeDeals",
+        "#CyberMonday"
+      ],
+      "angle": "The affiliate week. Pages must be live and indexed by mid-November or they earn nothing — Google will not rank a deals page published on the day.",
+      "postWindow": "Publish and index by Fri 13 Nov. Refresh daily 27–30 Nov",
+      "lastVerifiedAt": "2026-08-29",
+      "verifiedBy": "seed",
+      "reviewLog": []
+    },
+    {
+      "id": "cx-world-cup-r2-tabor",
+      "name": "CX World Cup R2 — Tábor",
+      "category": "cx",
+      "audience": [
+        "watch"
+      ],
+      "priority": 2,
+      "start": "2026-11-29",
+      "end": "2026-11-29",
+      "dateConfidence": "confirmed",
+      "country": "XX",
+      "place": "Tábor, Czechia — 18th time hosting",
+      "officialUrl": "https://www.uci.org",
+      "sourceUrls": [
+        "https://www.cyclingnews.com/pro-cycling/racing/great-britain-captures-calendar-spot-for-2026-27-uci-cyclo-cross-world-cup-with-glasgow-confirmed-as-host/"
+      ],
+      "handles": {
+        "instagram": "@uci_cycling",
+        "x": null
+      },
+      "handleConfidence": "verified",
+      "hashtags": [
+        "#CXWorldCup",
+        "#Tabor",
+        "#Cyclocross",
+        "#CXSeason"
+      ],
+      "angle": "Reuse the CX explainer with a fresh top image.",
+      "postWindow": "Sun 29 Nov",
+      "lastVerifiedAt": "2026-08-29",
+      "verifiedBy": "seed",
+      "reviewLog": []
+    },
+    {
+      "id": "uci-cycling-esports-world-championships-final",
+      "name": "UCI Cycling Esports World Championships — final",
+      "category": "indoor",
+      "audience": [
+        "watch",
+        "ride"
+      ],
+      "priority": 2,
+      "start": "2026-12-12",
+      "end": "2026-12-12",
+      "dateConfidence": "confirmed",
+      "country": "XX",
+      "place": "Two venues, one in North America and one in Europe, riders racing on MyWhoosh",
+      "officialUrl": "https://www.uci.org",
+      "sourceUrls": [],
+      "handles": {
+        "instagram": "@uci_cycling",
+        "x": null
+      },
+      "handleConfidence": "verified",
+      "hashtags": [
+        "#EsportsWorlds",
+        "#CyclingEsports",
+        "#MyWhoosh",
+        "#IndoorCycling",
+        "#VirtualRacing"
+      ],
+      "angle": "Closes the loop on the September and October posts. Pair with an indoor-training piece — your audience is on a trainer that week anyway.",
+      "postWindow": "Sat 12 Dec, plus an indoor training guide the Monday before",
+      "lastVerifiedAt": "2026-08-29",
+      "verifiedBy": "seed",
+      "reviewLog": []
+    },
+    {
+      "id": "cx-world-cup-r3-glasgow",
+      "name": "CX World Cup R3 — Glasgow",
+      "category": "cx",
+      "audience": [
+        "watch"
+      ],
+      "priority": 1,
+      "start": "2026-12-13",
+      "end": "2026-12-13",
+      "dateConfidence": "confirmed",
+      "country": "XX",
+      "place": "Kelvingrove Park, Glasgow — first World Cup round in Britain in over a decade. Free to spectate",
+      "officialUrl": "https://www.britishcycling.org.uk",
+      "sourceUrls": [
+        "https://www.cyclingnews.com/pro-cycling/racing/great-britain-captures-calendar-spot-for-2026-27-uci-cyclo-cross-world-cup-with-glasgow-confirmed-as-host/"
+      ],
+      "handles": {
+        "instagram": "@britishcycling",
+        "x": null
+      },
+      "handleConfidence": "unverified",
+      "hashtags": [
+        "#CXWorldCup",
+        "#Glasgow",
+        "#Cyclocross",
+        "#UKCycling",
+        "#Kelvingrove"
+      ],
+      "angle": "The UK cycling story of December, and free to attend. Search volume will spike with almost no competition for it yet — build the preview page early.",
+      "postWindow": "Preview live by Mon 7 Dec; posts on the day Sun 13 Dec",
+      "lastVerifiedAt": "2026-08-29",
+      "verifiedBy": "seed",
+      "reviewLog": []
+    },
+    {
+      "id": "cx-world-cup-r4-antwerp",
+      "name": "CX World Cup R4 — Antwerp",
+      "category": "cx",
+      "audience": [
+        "watch"
+      ],
+      "priority": 2,
+      "start": "2026-12-19",
+      "end": "2026-12-19",
+      "dateConfidence": "confirmed",
+      "country": "XX",
+      "place": "Scheldecross, Antwerp, Belgium",
+      "officialUrl": "https://www.uci.org",
+      "sourceUrls": [
+        "https://www.cyclingnews.com/pro-cycling/racing/great-britain-captures-calendar-spot-for-2026-27-uci-cyclo-cross-world-cup-with-glasgow-confirmed-as-host/"
+      ],
+      "handles": {
+        "instagram": "@uci_cycling",
+        "x": null
+      },
+      "handleConfidence": "verified",
+      "hashtags": [
+        "#Scheldecross",
+        "#CXWorldCup",
+        "#Antwerp",
+        "#Cyclocross"
+      ],
+      "angle": "The Christmas block starts here — six rounds in nine days. Batch and schedule all of them before the 18th.",
+      "postWindow": "Sat 19 Dec",
+      "lastVerifiedAt": "2026-08-29",
+      "verifiedBy": "seed",
+      "reviewLog": []
+    },
+    {
+      "id": "cx-world-cup-r5-koksijde",
+      "name": "CX World Cup R5 — Koksijde",
+      "category": "cx",
+      "audience": [
+        "watch"
+      ],
+      "priority": 2,
+      "start": "2026-12-20",
+      "end": "2026-12-20",
+      "dateConfidence": "confirmed",
+      "country": "XX",
+      "place": "Duinencross, Koksijde, Belgium — the sand dunes",
+      "officialUrl": "https://www.uci.org",
+      "sourceUrls": [
+        "https://www.cyclingnews.com/pro-cycling/racing/great-britain-captures-calendar-spot-for-2026-27-uci-cyclo-cross-world-cup-with-glasgow-confirmed-as-host/"
+      ],
+      "handles": {
+        "instagram": "@uci_cycling",
+        "x": null
+      },
+      "handleConfidence": "verified",
+      "hashtags": [
+        "#Koksijde",
+        "#Duinencross",
+        "#CXWorldCup",
+        "#Cyclocross"
+      ],
+      "angle": "Sand riding technique. Most visually distinctive round of the series.",
+      "postWindow": "Sun 20 Dec",
+      "lastVerifiedAt": "2026-08-29",
+      "verifiedBy": "seed",
+      "reviewLog": []
+    },
+    {
+      "id": "rapha-festive-500",
+      "name": "Rapha Festive 500",
+      "category": "moment",
+      "audience": [
+        "ride"
+      ],
+      "priority": 1,
+      "start": "2026-12-24",
+      "end": "2026-12-31",
+      "dateConfidence": "confirmed",
+      "country": "XX",
+      "place": "Anywhere — 500km between Christmas Eve and New Year's Eve. Free to join, tracked on Strava",
+      "officialUrl": "https://www.rapha.cc",
+      "sourceUrls": [],
+      "handles": {
+        "instagram": "@rapha",
+        "x": null
+      },
+      "handleConfidence": "unverified",
+      "hashtags": [
+        "#Festive500",
+        "#Rapha500",
+        "#WinterRiding",
+        "#Strava",
+        "#Endurance"
+      ],
+      "angle": "Highest-engagement week of the winter and it costs nothing to enter. Publish a planning tool: 500km split into eight rides, with gearing and winter-kit checklists.",
+      "postWindow": "Planning post Mon 21 Dec; daily posts 24–31 Dec",
+      "lastVerifiedAt": "2026-08-29",
+      "verifiedBy": "seed",
+      "reviewLog": []
+    },
+    {
+      "id": "cx-world-cup-r6-gavere",
+      "name": "CX World Cup R6 — Gavere",
+      "category": "cx",
+      "audience": [
+        "watch"
+      ],
+      "priority": 2,
+      "start": "2026-12-26",
+      "end": "2026-12-26",
+      "dateConfidence": "confirmed",
+      "country": "XX",
+      "place": "Gavere, Belgium — Boxing Day mud",
+      "officialUrl": "https://www.uci.org",
+      "sourceUrls": [
+        "https://www.cyclingnews.com/pro-cycling/racing/great-britain-captures-calendar-spot-for-2026-27-uci-cyclo-cross-world-cup-with-glasgow-confirmed-as-host/"
+      ],
+      "handles": {
+        "instagram": "@uci_cycling",
+        "x": null
+      },
+      "handleConfidence": "verified",
+      "hashtags": [
+        "#Gavere",
+        "#CXWorldCup",
+        "#Cyclocross",
+        "#BoxingDay"
+      ],
+      "angle": "Boxing Day is dead for most publishers and alive for cycling. Scheduled posts do well.",
+      "postWindow": "Sat 26 Dec, scheduled in advance",
+      "lastVerifiedAt": "2026-08-29",
+      "verifiedBy": "seed",
+      "reviewLog": []
+    },
+    {
+      "id": "cx-world-cup-r7-namur",
+      "name": "CX World Cup R7 — Namur",
+      "category": "cx",
+      "audience": [
+        "watch"
+      ],
+      "priority": 2,
+      "start": "2026-12-27",
+      "end": "2026-12-27",
+      "dateConfidence": "confirmed",
+      "country": "XX",
+      "place": "Citadelcross, Namur, Belgium — the hardest course on the calendar",
+      "officialUrl": "https://www.uci.org",
+      "sourceUrls": [
+        "https://www.cyclingnews.com/pro-cycling/racing/great-britain-captures-calendar-spot-for-2026-27-uci-cyclo-cross-world-cup-with-glasgow-confirmed-as-host/"
+      ],
+      "handles": {
+        "instagram": "@uci_cycling",
+        "x": null
+      },
+      "handleConfidence": "verified",
+      "hashtags": [
+        "#Namur",
+        "#Citadelcross",
+        "#CXWorldCup",
+        "#Cyclocross"
+      ],
+      "angle": "Steepest course of the series. Genuinely good gradient content in a discipline nobody applies it to.",
+      "postWindow": "Sun 27 Dec",
+      "lastVerifiedAt": "2026-08-29",
+      "verifiedBy": "seed",
+      "reviewLog": []
+    },
+    {
+      "id": "cx-world-cup-r8-besancon",
+      "name": "CX World Cup R8 — Besançon",
+      "category": "cx",
+      "audience": [
+        "watch"
+      ],
+      "priority": 2,
+      "start": "2026-12-29",
+      "end": "2026-12-29",
+      "dateConfidence": "confirmed",
+      "country": "XX",
+      "place": "Besançon, France",
+      "officialUrl": "https://www.uci.org",
+      "sourceUrls": [
+        "https://www.cyclingnews.com/pro-cycling/racing/great-britain-captures-calendar-spot-for-2026-27-uci-cyclo-cross-world-cup-with-glasgow-confirmed-as-host/"
+      ],
+      "handles": {
+        "instagram": "@uci_cycling",
+        "x": null
+      },
+      "handleConfidence": "verified",
+      "hashtags": [
+        "#Besancon",
+        "#CXWorldCup",
+        "#Cyclocross",
+        "#SeasonReview"
+      ],
+      "angle": "Year-end wrap. Link it to the Festive 500 posts and your 2027 preview.",
+      "postWindow": "Tue 29 Dec, then the year in review on 31 Dec",
+      "lastVerifiedAt": "2026-08-29",
+      "verifiedBy": "seed",
+      "reviewLog": []
+    }
+  ]
+}

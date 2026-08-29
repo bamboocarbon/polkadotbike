@@ -14,3 +14,6 @@ next-env.d.ts
 # meant to live in git history. Kept on disk for the Phase 5 visual diff.
 baseline/
 .env*.local
+
+# npm run calendar:export output
+dist/

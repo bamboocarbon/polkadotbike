@@ -6,7 +6,9 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "calendar:export": "tsx scripts/calendar-export.ts",
+    "calendar:apply-review": "tsx scripts/calendar-apply-review.ts"
   },
   "dependencies": {
     "@react-three/drei": "^9.114.3",
