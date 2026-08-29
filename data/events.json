@@ -992,7 +992,7 @@
         "ride",
         "watch"
       ],
-      "priority": 3,
+      "priority": 2,
       "start": "2026-10-11",
       "end": "2026-10-11",
       "dateConfidence": "confirmed",
@@ -1018,7 +1018,7 @@
       "angle": "The 2026 route is a genuine rebuild — a new 56km 'Five Tunnels, Three Bridges' mass ride from the West Kowloon Cultural District and a new 100km elite course. Worth a proper route-change post rather than the generic closed-motorway angle used before.",
       "postWindow": "Route-change post Wed 7 Oct; event post Sun 11 Oct",
       "lastVerifiedAt": "2026-08-29",
-      "verifiedBy": "review-2m",
+      "verifiedBy": "manual",
       "reviewLog": [
         {
           "runId": "2026-08-29-2m",
@@ -1042,7 +1042,10 @@
           "note": "Date confirmed as Sunday 11 October 2026, but the organiser page (Hong Kong Tourism Board) is a better official source than uci.org and the mass-ride route has materially changed for 2026."
         }
       ],
-      "priorityRationale": "Still optional unless chasing the Asia audience — the route rebuild is a nice-to-have story, not a reason to raise priority."
+      "priorityRationale": "Still optional unless chasing the Asia audience — the route rebuild is a nice-to-have story, not a reason to raise priority.",
+      "pinnedFields": [
+        "priority"
+      ]
     },
     {
       "id": "tour-of-guangxi",
