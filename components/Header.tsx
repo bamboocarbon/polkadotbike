@@ -25,7 +25,7 @@ export default function Header() {
 
   return (
     <header>
-      <Link className="logo" href="/">
+      <Link className="logo" href="/" prefetch={false}>
         Polka
         <svg className="logo-dot-svg" viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg">
           <defs>
@@ -49,6 +49,7 @@ export default function Header() {
           <Link
             key={item.href}
             href={item.href}
+            prefetch={false}
             className={pathname === item.href ? 'active' : undefined}
           >
             {item.label}
