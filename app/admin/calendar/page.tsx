@@ -70,7 +70,7 @@ export default function AdminCalendar() {
     <iframe
       ref={iframeRef}
       title="Season calendar"
-      style={{ position: 'fixed', inset: 0, width: '100%', height: '100%', border: 0 }}
+      style={{ position: 'fixed', zIndex: 1, inset: 0, width: '100%', height: '100%', border: 0 }}
     />
   );
 }
