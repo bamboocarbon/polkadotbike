@@ -10,6 +10,7 @@ export default function AdminCalendar() {
   const [authed, setAuthed] = useState(false);
   const [authError, setAuthError] = useState('');
   const [loading, setLoading] = useState(false);
+  const [calendarData, setCalendarData] = useState<CalendarStoreData | null>(null);
   const iframeRef = useRef<HTMLIFrameElement>(null);
 
   useEffect(() => {
@@ -17,6 +18,16 @@ export default function AdminCalendar() {
     if (stored) { setPassword(stored); load(stored); }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
+  // Runs after React has committed the iframe to the DOM (unlike the raw
+  // requestAnimationFrame this replaced, which could fire before the commit
+  // — iframeRef.current was still null and the srcdoc write was silently
+  // skipped, leaving the iframe permanently blank on the auto-authed path).
+  useEffect(() => {
+    if (authed && calendarData && iframeRef.current) {
+      iframeRef.current.srcdoc = renderCalendarDocument(calendarData, { editable: true });
+    }
+  }, [authed, calendarData]);
 
   async function load(pw: string) {
     setLoading(true);
@@ -27,12 +38,9 @@ export default function AdminCalendar() {
       if (!res.ok) { setAuthError('Something went wrong.'); setLoading(false); return; }
       const data = (await res.json()) as CalendarStoreData;
       sessionStorage.setItem('pdb_admin_pw', pw);
+      setCalendarData(data);
       setAuthed(true);
       setLoading(false);
-      // Wait a tick for the iframe to exist, then inject the shared document.
-      requestAnimationFrame(() => {
-        if (iframeRef.current) iframeRef.current.srcdoc = renderCalendarDocument(data, { editable: true });
-      });
     } catch {
       setAuthError('Something went wrong.');
       setLoading(false);
