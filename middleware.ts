@@ -15,7 +15,12 @@ import { put } from '@vercel/blob';
 // crawler with no bot/spider/crawl substring in its name, and the common
 // non-browser HTTP clients (curl, wget, language-runtime HTTP libraries,
 // API-testing tools) that a real visitor's browser never sends.
-const BOT_UA = /bot|spider|crawl|slurp|facebookexternalhit|meta-externalagent|headless|lighthouse|pingdom|uptimerobot|monitor|preview|whatsapp|telegrambot|discordbot|google-inspectiontool|barkrowler|curl\/|wget\/|python-requests|python-urllib|go-http-client|okhttp|axios\/|node-fetch|postmanruntime|libwww-perl|apache-httpclient|guzzlehttp|insomnia|http\.rb/i;
+//
+// 2026-08-30, second widening: caught `get_titles/1.0` live in the actual
+// recorded data (a single hit, but a real gap — the UA-logging above is
+// exactly what made this findable instead of guessed at) — a plain,
+// undisguised scraper name that didn't match anything in the list above.
+const BOT_UA = /bot|spider|crawl|slurp|facebookexternalhit|meta-externalagent|headless|lighthouse|pingdom|uptimerobot|monitor|preview|whatsapp|telegrambot|discordbot|google-inspectiontool|barkrowler|curl\/|wget\/|python-requests|python-urllib|go-http-client|okhttp|axios\/|node-fetch|postmanruntime|libwww-perl|apache-httpclient|guzzlehttp|insomnia|http\.rb|get_titles/i;
 
 function encodePath(pathname: string): string {
   const trimmed = pathname.replace(/^\/+/, '').replace(/\/+$/, '');
@@ -33,6 +38,15 @@ function encodePath(pathname: string): string {
  * request otherwise — middleware runs on every matched request regardless.
  */
 export function middleware(request: NextRequest, event: NextFetchEvent) {
+  // `npm run dev` shares this exact same production Blob store (same
+  // BLOB_READ_WRITE_TOKEN in .env.local) — found 2026-08-30 when a day of
+  // local testing on the new Rebecca's Private Idaho pages silently added
+  // 43 fake "views" to the real counter (27% of that day's total). Vercel
+  // sets `VERCEL` in every deployed environment (production AND preview)
+  // but never in plain local `next dev` — same signal lib/calendar/store.ts
+  // already uses to pick its storage backend. Skip recording entirely
+  // rather than try to filter dev traffic out after the fact.
+  if (!process.env.VERCEL) return NextResponse.next();
   const ua = request.headers.get('user-agent') || '';
   // A real browser always sends a User-Agent — a blank one is itself a
   // reliable bot signal, not just "unknown".
