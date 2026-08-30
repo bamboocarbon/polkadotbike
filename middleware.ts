@@ -22,6 +22,15 @@ import { put } from '@vercel/blob';
 // undisguised scraper name that didn't match anything in the list above.
 const BOT_UA = /bot|spider|crawl|slurp|facebookexternalhit|meta-externalagent|headless|lighthouse|pingdom|uptimerobot|monitor|preview|whatsapp|telegrambot|discordbot|google-inspectiontool|barkrowler|curl\/|wget\/|python-requests|python-urllib|go-http-client|okhttp|axios\/|node-fetch|postmanruntime|libwww-perl|apache-httpclient|guzzlehttp|insomnia|http\.rb|get_titles/i;
 
+// A different bot class UA filtering can never catch: these self-identify
+// by hitting a PATH that isn't a real route on this site at all, often with
+// a normal-looking (or subtly malformed) UA rather than an honest one.
+// Found live on digital-credit-yield 2026-08-30: /file-manager/initialize
+// (a known vulnerability-scanner probe path, unrelated to this site) with a
+// UA missing its browser/version entirely — no real browser sends that.
+// Best-effort, extend as new scan targets show up in the recorded UA data.
+const SCAN_PATH = /^\/(wp-|wordpress|xmlrpc\.php|\.env|\.git|phpmyadmin|pma\/|file-manager|elfinder|cgi-bin|actuator|vendor\/phpunit|config\.php|\.aws|\.ssh|shell\.php|eval-stdin\.php)/i;
+
 function encodePath(pathname: string): string {
   const trimmed = pathname.replace(/^\/+/, '').replace(/\/+$/, '');
   if (!trimmed) return '_home';
@@ -50,7 +59,7 @@ export function middleware(request: NextRequest, event: NextFetchEvent) {
   const ua = request.headers.get('user-agent') || '';
   // A real browser always sends a User-Agent — a blank one is itself a
   // reliable bot signal, not just "unknown".
-  if (ua && !BOT_UA.test(ua)) {
+  if (ua && !BOT_UA.test(ua) && !SCAN_PATH.test(request.nextUrl.pathname)) {
     const encoded = encodePath(request.nextUrl.pathname);
     // Content is the UA behind the timestamp, not just a bare ISO string —
     // added 2026-08-30 so a repeat of an unfiltered crawl can be diagnosed
