@@ -156,10 +156,21 @@ body::after {
   html, body { overflow-x: hidden; }
   header { gap: 8px; }
   .logo { flex-shrink: 0; }
+  /* .nav-rows (added when the header split into two rows) is now the
+     direct flex child of header, not `nav` itself — it needs its own
+     min-width: 0 for the same reason `nav` below does (a flex item's
+     default min-width is auto, i.e. "never shrink below content size",
+     which silently defeats overflow-x: auto on whatever's inside it and
+     pushes header wider than the viewport instead — clipped invisibly by
+     html/body's own overflow-x: hidden two lines up, not scrollable).
+     Robin, 2026-08-31 (iOS): "not scrollable sideways so only a few pages
+     can be selected" — this is why. */
+  .nav-rows { min-width: 0; flex: 1; align-items: stretch; }
   nav {
     min-width: 0;
     overflow-x: auto; -webkit-overflow-scrolling: touch;
     flex-wrap: nowrap; max-width: 100%;
+    justify-content: flex-start;
     scrollbar-width: none; -ms-overflow-style: none;
   }
   nav::-webkit-scrollbar { display: none; }
