@@ -21,13 +21,15 @@ import '@/components/affiliate/affiliate.css';
 // where a given visitor is browsing from.
 const RPI_STAY22_SRC = 'https://www.stay22.com/embed/6a9580e25681985ace979f5b?currency=USD';
 
-// Local-only for now, per Robin (2026-08-30) — not committed/pushed/deployed
-// until he's reviewed it. noindex as a safety default in case that changes
-// before this is actually ready, same pattern as the TDF batch used while
-// localhost-only (see project_cyclegear_climb_3d.md memory).
+// Indexable since 2026-08-31 (Robin: "turn the pages on so they are
+// seen and indexable" — affiliates/ads stay off separately, see
+// RPI_AFFILIATES_ENABLED in components/rpi/rpiFeatureFlags.ts). Was
+// noindex as a safety default while local-only/unreviewed, same pattern
+// as the TDF batch used while localhost-only (see
+// project_cyclegear_climb_3d.md memory).
 export const metadata: Metadata = {
   title: "Rebecca's Private Idaho — Polka Dot Bike",
-  robots: { index: false, follow: false },
+  robots: { index: true, follow: true },
 };
 
 function RouteCard({ r }: { r: RpiRoute }) {

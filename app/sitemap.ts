@@ -1,6 +1,7 @@
 import type { MetadataRoute } from 'next';
 import climbIndexData from '@/data/climb-index.json';
 import { hasRouteData } from '@/lib/climbRouteData';
+import { RPI_ROUTES } from '@/data/rpiRoutes';
 
 const BASE = 'https://polkadotbike.com';
 
@@ -17,6 +18,7 @@ const STATIC_PATHS = [
   '/giro26',
   '/vuelta',
   '/climbs',
+  '/rebeccas-private-idaho',
   '/about',
   '/guide',
   '/glossary',
@@ -51,5 +53,16 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.65,
     }));
 
-  return [...staticEntries, ...climbEntries];
+  // Went index:true 2026-08-31 (were noindex while local-only/unreviewed) —
+  // same priority tier as the Grand Tour climb pages, same reasoning
+  // (differentiated interactive tools with real GPX-backed content, not
+  // generic stats pages).
+  const rpiEntries: MetadataRoute.Sitemap = RPI_ROUTES.map((r) => ({
+    url: `${BASE}/rebeccas-private-idaho/${r.slug}`,
+    lastModified: now,
+    changeFrequency: 'monthly',
+    priority: 0.65,
+  }));
+
+  return [...staticEntries, ...climbEntries, ...rpiEntries];
 }
