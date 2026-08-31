@@ -21,16 +21,80 @@ import '@/components/affiliate/affiliate.css';
 // where a given visitor is browsing from.
 const RPI_STAY22_SRC = 'https://www.stay22.com/embed/6a9580e25681985ace979f5b?currency=USD';
 
-// Indexable since 2026-08-31 (Robin: "turn the pages on so they are
-// seen and indexable" — affiliates/ads stay off separately, see
-// RPI_AFFILIATES_ENABLED in components/rpi/rpiFeatureFlags.ts). Was
-// noindex as a safety default while local-only/unreviewed, same pattern
-// as the TDF batch used while localhost-only (see
-// project_cyclegear_climb_3d.md memory).
+const SITE = 'https://polkadotbike.com';
+const PAGE_URL = `${SITE}/rebeccas-private-idaho`;
+const TITLE = "Rebecca's Private Idaho — 3D Routes, Your Time & Gears — Polka Dot Bike";
+const DESCRIPTION =
+  "Get your personalised time and pace for every Rebecca's Private Idaho gravel route — Harriman, the Dollarhide Summit time trial, and the four Day 3 distance options. Ride each in 3D, pick your gearing, download the GPX.";
+
+// Full SEO metadata since 2026-08-31 (Robin: "turn the pages on so they
+// are seen and indexable" then "do the SEOs and the X cards") — mirrors
+// app/climbs/page.tsx's pattern (description leads with the personalised
+// estimate, same CollectionPage+ItemList+BreadcrumbList JSON-LD shape
+// below in buildJsonLd). Was noindex/no-metadata-at-all while
+// local-only/unreviewed, same pattern as the TDF batch used while
+// localhost-only (see project_cyclegear_climb_3d.md memory). Affiliates/
+// ads stay off separately — see RPI_AFFILIATES_ENABLED above.
 export const metadata: Metadata = {
-  title: "Rebecca's Private Idaho — Polka Dot Bike",
+  title: { absolute: TITLE },
+  description: DESCRIPTION,
+  alternates: { canonical: PAGE_URL },
   robots: { index: true, follow: true },
+  openGraph: {
+    type: 'website',
+    siteName: 'Polka Dot Bike',
+    title: TITLE,
+    description: DESCRIPTION,
+    url: PAGE_URL,
+    images: [{ url: `${SITE}/og-card.png`, width: 1200, height: 630 }],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: TITLE,
+    description: DESCRIPTION,
+    images: [`${SITE}/og-card.png`],
+  },
 };
+
+function buildJsonLd() {
+  return {
+    '@context': 'https://schema.org',
+    '@graph': [
+      {
+        '@type': 'CollectionPage',
+        '@id': `${PAGE_URL}#page`,
+        url: PAGE_URL,
+        name: "Rebecca's Private Idaho — 3D Routes",
+        description: DESCRIPTION,
+        isPartOf: { '@id': `${SITE}/#website` },
+        author: { '@type': 'Person', name: 'Robin Gillingham', url: `${SITE}/about` },
+        mainEntity: { '@id': `${PAGE_URL}#list` },
+        breadcrumb: { '@id': `${PAGE_URL}#breadcrumb` },
+      },
+      {
+        '@type': 'ItemList',
+        '@id': `${PAGE_URL}#list`,
+        name: "Rebecca's Private Idaho routes",
+        numberOfItems: RPI_ROUTES.length,
+        itemListOrder: 'https://schema.org/ItemListOrderAscending',
+        itemListElement: RPI_ROUTES.map((r, i) => ({
+          '@type': 'ListItem',
+          position: i + 1,
+          name: r.name,
+          url: `${PAGE_URL}/${r.slug}`,
+        })),
+      },
+      {
+        '@type': 'BreadcrumbList',
+        '@id': `${PAGE_URL}#breadcrumb`,
+        itemListElement: [
+          { '@type': 'ListItem', position: 1, name: 'Home', item: `${SITE}/` },
+          { '@type': 'ListItem', position: 2, name: "Rebecca's Private Idaho", item: PAGE_URL },
+        ],
+      },
+    ],
+  };
+}
 
 function RouteCard({ r }: { r: RpiRoute }) {
   return (
@@ -57,6 +121,11 @@ export default function RebeccasPrivateIdahoPage() {
 
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(buildJsonLd()) }}
+      />
+
       <div className="hero">
         <h1>
           Rebecca&apos;s Private Idaho
