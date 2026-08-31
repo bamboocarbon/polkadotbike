@@ -1,0 +1,13 @@
+{
+  "slug": "rpi-harriman",
+  "source": "OpenTopoMap",
+  "attribution": "Map: OpenTopoMap, CC-BY-SA",
+  "zoom": 14,
+  "imageWidthPx": 2048,
+  "bounds": {
+    "xMin": -18355.798066543804,
+    "xMax": 11664.55427672026,
+    "zMin": -16117.830282835612,
+    "zMax": 6661.704583469248
+  }
+}

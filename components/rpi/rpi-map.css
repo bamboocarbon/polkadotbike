@@ -1,0 +1,46 @@
+/* Rebecca's Private Idaho overview map (2026-08-31) — same visual language
+   as the Grand Tour race maps (components/race/race.css's .map-outer/
+   .map-skeleton/.map-tip), duplicated here rather than importing race.css
+   wholesale onto a non-race page, matching this codebase's existing
+   "each page carries its own copy" pattern (see e.g. wkg.css's comment on
+   .calc-grid/.input-panel/.rail). Real values differ from race.css's
+   country-choropleth map in one deliberate way: this is a real terrain
+   tile basemap (Esri World Topo — see RpiMapInner.tsx's comment on why
+   not OpenTopoMap) (a single small valley has no "colour a whole country in"
+   equivalent), so there's no .map-city/.map-country/.map-dot-per-stage-
+   number machinery to port — just the map chrome and tooltip bubble. */
+.map-outer .leaflet-container { height: 420px; border-radius: 14px; border: 1px solid rgba(100, 130, 150, 0.3); }
+.map-skeleton { height: 420px; border-radius: 14px; border: 1px solid rgba(100, 130, 150, 0.3); background: #cfe8f7; }
+
+.rpi-map-dot {
+  width: 20px; height: 20px; border-radius: 50%;
+  cursor: pointer;
+  /* White ring then a dark ring outside it — legible against a light
+     tile colour (the white ring shows) or a dark one (the black ring
+     shows) rather than betting on just one, same reasoning as the route
+     lines' dark casing below. */
+  box-shadow: 0 0 0 2.5px #fff, 0 0 0 4.5px rgba(0, 0, 0, 0.65), 0 1px 4px rgba(0, 0, 0, 0.4);
+  transition: transform 0.12s;
+}
+.rpi-map-dot:hover { transform: scale(1.25); }
+
+.leaflet-tooltip.rpi-map-tip {
+  background: rgba(4, 9, 26, 0.96); border: 1px solid rgba(255, 255, 255, 0.12);
+  color: #e8edf5; font-family: 'Inter', system-ui, sans-serif;
+  font-size: 12px; line-height: 1.5; border-radius: 8px; padding: 6px 10px;
+  white-space: nowrap; box-shadow: 0 4px 16px rgba(0, 0, 0, 0.5);
+}
+.leaflet-tooltip.rpi-map-tip::before { border-top-color: rgba(255, 255, 255, 0.12); }
+
+/* Sits directly on the page body (white, not one of the site's dark
+   .glass cards), so it needs its own dark pill rather than inheriting
+   --sec/--text — those were both too low-contrast here (--sec is a grey
+   tuned for dark cards; --text is near-white, meant to sit on a black
+   card, not white body). */
+.rpi-map-legend { display: flex; flex-wrap: wrap; gap: 8px 10px; justify-content: center; margin-top: 14px; }
+.rpi-map-legend-item {
+  display: inline-flex; align-items: center; gap: 7px;
+  font-size: 12.5px; font-weight: 600; color: #fff;
+  background: #000; border-radius: 20px; padding: 6px 14px 6px 10px;
+}
+.rpi-map-legend-dot { width: 11px; height: 11px; border-radius: 50%; flex-shrink: 0; box-shadow: 0 0 0 1.5px rgba(255, 255, 255, 0.4); }

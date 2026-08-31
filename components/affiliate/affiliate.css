@@ -1,0 +1,29 @@
+/* Styling BikesBookingCard/KiwiCard/Stay22Embed need that isn't in any
+   stylesheet a non-race page already imports (race pages get it via
+   race.css's own copy of these same rules — duplicated here rather than
+   pulled out of race.css, matching this codebase's existing "each page
+   carries its own copy" pattern, e.g. wkg.css/derailleur.css's near-identical
+   .calc-grid/.input-panel/.rail). Import this on any page that renders
+   these affiliate components outside a race page's own stage-header
+   context (currently: Rebecca's Private Idaho route pages). */
+.stage-header { padding: 16px 20px 18px; margin-bottom: 12px; }
+.stay-card { margin-top: 14px; padding: 15px 17px; }
+.stay-card-title { font-size: 13px; font-weight: 700; color: var(--text); margin-bottom: 10px; }
+.title-icon-bright { filter: brightness(2.1) saturate(2.4) contrast(1.15); }
+.bb-logo-chip { display: block; width: 100%; max-width: 180px; height: auto; margin: 0 auto 12px; filter: brightness(1.35) saturate(1.5) contrast(1.1); }
+.kiwi-logo-chip { display: block; width: 100%; max-width: 110px; height: auto; margin: 0 auto 12px; filter: brightness(1.35) saturate(1.5) contrast(1.1); }
+.plan-btn { display: inline-flex; align-self: flex-start; align-items: center; gap: 6px; padding: 7px 14px; background: #1a72e0; border: none; border-radius: 9px; color: #fff; font-size: 12px; font-weight: 700; text-decoration: none; transition: all 0.15s; cursor: pointer; }
+.plan-btn:hover { background: #3b8ef0; color: #fff; }
+
+/* Rebecca's Private Idaho: the Stay22 "where to stay" card rendered
+   standalone (not inside race.css's .stay-row grid, which is what
+   normally stretches .stay22-frame to a real height via flex:1 — see
+   race.css's own comment on that). Give it an explicit height instead. */
+.rpi-stay-card .stay22-frame { height: 420px; }
+
+/* Rebecca's Private Idaho: BikesBookingCard + KiwiCard side by side as two
+   smaller boxes instead of full-width stacked (Robin, 2026-08-31) — race
+   pages keep their own stacked/stay-row layouts untouched. */
+.rpi-affiliate-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+.rpi-affiliate-row .stay-card { margin-top: 0; }
+@media (max-width: 640px) { .rpi-affiliate-row { grid-template-columns: 1fr; } }

@@ -1,0 +1,13 @@
+{
+  "slug": "rpi-french-fry",
+  "source": "OpenTopoMap",
+  "attribution": "Map: OpenTopoMap, CC-BY-SA",
+  "zoom": 13,
+  "imageWidthPx": 1755,
+  "bounds": {
+    "xMin": -9529.283214500017,
+    "xMax": 32921.76898261612,
+    "zMin": -37432.20796115814,
+    "zMax": 11650.941643095026
+  }
+}

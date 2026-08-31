@@ -70,7 +70,7 @@
    for .tool, glossary.html used 18px/12px for .term (a real, pre-existing
    difference between the two pages, not a shared value); merging them into
    one rule had silently inflated glossary's boxes to guide's numbers. */
-.tool, .term { scroll-margin-top: 70px; }
+.tool, .term { scroll-margin-top: calc(var(--header-h) + 16px); }
 .tool { padding: 20px 22px; margin-bottom: 14px; }
 .term { padding: 18px 22px; margin-bottom: 12px; }
 .tool h3, .term h3 { font-size: 19px; font-weight: 800; color: #fff; letter-spacing: -0.3px; margin-bottom: 4px; }

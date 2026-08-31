@@ -28,10 +28,10 @@ import Footer from '@/components/Footer';
 import AchievabilityCards from '@/components/climb/AchievabilityCards';
 import ClimbConfigPanel from '@/components/climb/ClimbConfigPanel';
 import PersonalisedClimbReport from '@/components/climb/PersonalisedClimbReport';
-import { computeClimbGears, computeBuyInfo, type ClimbBuyInfo } from '@/lib/climbGearCalc';
+import BuyCard from '@/components/climb/BuyCard';
+import { computeClimbGears, computeBuyInfo } from '@/lib/climbGearCalc';
 import { ClimbCalcState, defaultClimbState, initClimbStateFromShared, BRAND_LABELS } from '@/lib/climbCalcState';
 import { readSharedSetup, writeSharedSetup } from '@/lib/sharedSetup';
-import { pbBrandColorStyle } from '@/lib/pbLinks';
 import { lbsToKg } from '@/lib/units';
 import '@/components/climb/climb.css';
 
@@ -74,38 +74,6 @@ function useSmoothedValue(target: number, tauMs: number, snap = false): number {
     return () => cancelAnimationFrame(raf);
   }, [tauMs]);
   return snap ? target : value;
-}
-
-function BuyCard({ buyInfo }: { buyInfo: ClimbBuyInfo }) {
-  return (
-    <div className="rail-card" id="buy-card">
-      <div className="rail-head">Buy These Components</div>
-      <div className="rail-body" style={{ padding: '18px 20px' }}>
-        <div style={{ display: 'flex', alignItems: 'center', gap: 20, flexWrap: 'wrap' }}>
-          <img src="/pb-logo.png" alt="Performance Bicycle" style={{ width: 190, maxWidth: '100%', height: 'auto', flexShrink: 0 }} />
-          <div
-            style={{ fontSize: 19, fontWeight: 700, color: '#fff', flex: '1 1 180px', minWidth: 160 }}
-            title={buyInfo.label}
-          >
-            {buyInfo.label}
-          </div>
-          <a
-            className="pb-buy-link"
-            href={buyInfo.url}
-            target="_blank"
-            rel="noopener sponsored"
-            style={{ ...pbBrandColorStyle(buyInfo.color, buyInfo.text), flexShrink: 0, padding: '14px 30px', gap: 8, fontSize: 16 }}
-          >
-            <span className="pb-text" style={{ whiteSpace: 'nowrap' }}>
-              {buyInfo.exact ? 'Shop this groupset' : 'Browse similar groupsets'}
-            </span>
-            <span className="pb-arrow">→</span>
-          </a>
-        </div>
-        <p className="pb-note" style={{ marginTop: 10 }}>Affiliate link — I may earn a small commission at no extra cost to you.</p>
-      </div>
-    </div>
-  );
 }
 
 // "Route (flat map)" was dropped sitewide (2026-08-27) — the gradient-line
@@ -265,7 +233,7 @@ export default function ClimbDetailClient({ name, summary }: ClimbDetailClientPr
             {panelTab === 'gears' && (
               <div
                 className="glass"
-                style={{ padding: 16, position: 'sticky', top: 70, maxHeight: 'calc(100vh - 82px)', overflowY: 'auto', overflowX: 'hidden' }}
+                style={{ padding: 16, position: 'sticky', top: 'calc(var(--header-h) + 16px)', maxHeight: 'calc(100vh - var(--header-h) - 28px)', overflowY: 'auto', overflowX: 'hidden' }}
               >
                 <div style={{ fontSize: 20, fontWeight: 700, color: '#fff', marginBottom: 6 }}>{name}</div>
                 <div style={{ fontSize: 22, fontWeight: 800, color: '#fff', marginBottom: 2 }}>

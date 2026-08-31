@@ -32,6 +32,27 @@
 }
 .climb-guide-box { background: #000; border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 16px; padding: 20px 24px; margin-top: 20px; }
 
+/* Rebecca's Private Idaho route pages: modifier on .climb-detail-grid so
+   the map box stretches down to match the Setup/Gears panel's bottom edge
+   (Robin, 2026-08-31: "for cleanness of look"). .climb-detail-grid's own
+   align-items: start is left untouched for the 87 Grand Tour climb pages
+   that also use that class — this only takes effect where the second
+   class is also present. The map's own R3F Canvas already resizes
+   responsively to its container (no fixed-height assumption in
+   DebugScene.tsx), so growing this box taller doesn't break the 3D view —
+   it just letterboxes a bit more, same as any window resize would. */
+.rpi-detail-grid { align-items: stretch; }
+.rpi-detail-grid > div:first-child { display: flex; flex-direction: column; }
+.rpi-map-stretch { flex: 1; min-height: 400px; }
+@media (max-width: 900px) {
+  /* Below the grid's own 900px stack-to-one-column breakpoint, "stretch to
+     match the other column" no longer means anything (there's only one
+     column) — revert to a normal fixed map height instead of whatever
+     flex:1 would collapse to with nothing to stretch against. */
+  .rpi-detail-grid { align-items: start; }
+  .rpi-map-stretch { flex: none; height: 640px; }
+}
+
 /* 3D map overlay controls (app/climbs/DebugScene.tsx). Previously
    Smoothing and Travel-along-route were two independently absolutely-
    positioned boxes side by side, sized with fixed pixel math tuned for a
@@ -77,7 +98,7 @@
 /* ── INPUT PANEL ── */
 .input-panel { overflow: hidden; }
 @media (min-width: 721px) {
-  .input-panel { position: sticky; top: 70px; max-height: calc(100vh - 82px); overflow-y: auto; overflow-x: hidden; scrollbar-width: none; }
+  .input-panel { position: sticky; top: calc(var(--header-h) + 16px); max-height: calc(100vh - var(--header-h) - 28px); overflow-y: auto; overflow-x: hidden; scrollbar-width: none; }
   .input-panel::-webkit-scrollbar { display: none; }
 }
 .panel-head { padding: 13px 18px; font-size: 10px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); border-bottom: 1px solid var(--border); }
@@ -258,7 +279,7 @@ input[type='range']::-webkit-slider-thumb { appearance: none; width: 18px; heigh
 @media (max-width: 520px) { .achieve-cols { grid-template-columns: 1fr; } .achieve-col + .achieve-col { border-left: none; border-top: 1px solid var(--border); } }
 
 /* ── RAIL ── */
-.rail { display: flex; flex-direction: column; gap: 16px; position: sticky; top: 70px; }
+.rail { display: flex; flex-direction: column; gap: 16px; position: sticky; top: calc(var(--header-h) + 16px); }
 .rail-card { border-radius: 14px; background: var(--glass); border: 1px solid rgba(255,255,255,0.12); overflow: hidden; }
 .rail-head { padding: 12px 16px; font-size: 10px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); border-bottom: 1px solid var(--border); }
 .rail-body { padding: 14px 16px; }
@@ -279,3 +300,10 @@ input[type='range']::-webkit-slider-thumb { appearance: none; width: 18px; heigh
 .pb-buy-link .pb-text small { display: block; font-weight: 500; color: var(--sec); font-size: 10.5px; margin-top: 1px; }
 .pb-buy-link .pb-arrow { flex-shrink: 0; }
 .pb-note { font-size: 10.5px; color: var(--muted); margin-top: 8px; text-align: center; }
+
+/* Rebecca's Private Idaho index — Day 3's four route cards, two per row
+   (Robin, 2026-08-31: "like above", matching the Day 1/Day 2 two-column
+   split higher up the page) rather than the auto-fill that was cramming
+   3-4 across at this container's 1100px width. */
+.rpi-day3-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; }
+@media (max-width: 600px) { .rpi-day3-grid { grid-template-columns: 1fr; } }

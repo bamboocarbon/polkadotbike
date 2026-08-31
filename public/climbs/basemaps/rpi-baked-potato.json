@@ -1,0 +1,13 @@
+{
+  "slug": "rpi-baked-potato",
+  "source": "OpenTopoMap",
+  "attribution": "Map: OpenTopoMap, CC-BY-SA",
+  "zoom": 12,
+  "imageWidthPx": 2048,
+  "bounds": {
+    "xMin": -20141.698329668496,
+    "xMax": 64760.40980709937,
+    "zMin": -58356.438890304016,
+    "zMax": 18692.30386604622
+  }
+}

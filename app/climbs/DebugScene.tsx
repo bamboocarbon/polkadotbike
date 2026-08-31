@@ -60,6 +60,7 @@ interface RouteData {
   lengthM: number;
   totalAscentM: number;
   exaggeration: number;
+  footprintScale: number;
 }
 
 // Per-climb landmark labels (name + distance-along-route) — found by
@@ -75,6 +76,42 @@ const LANDMARKS: Record<string, { distanceM: number; label: string }[]> = {
   'alto-de-aitana': [
     { distanceM: 12073, label: 'Port de Tudons' }, // from the GPX's own embedded waypoint, 7m off the route
   ],
+  // From the GPX's own embedded waypoints (all 1-28m off the route, same
+  // validate-before-trusting check as Aitana's) — Copper Basin and
+  // Wildhorse each appear twice because this loop genuinely passes near
+  // both locations twice, not a data duplication.
+  'rpi-fully-loaded': [
+    { distanceM: 18990, label: 'Trail Creek' },
+    { distanceM: 74937, label: 'Burma Road' },
+    { distanceM: 98193, label: 'Copper Basin' },
+    { distanceM: 98223, label: 'Big Lost' },
+    { distanceM: 127759, label: 'Copper Basin' },
+    { distanceM: 145309, label: 'Wildhorse' },
+    { distanceM: 150824, label: 'Wildhorse' },
+    { distanceM: 155024, label: 'El Diablito' },
+  ],
+  // Same real aid-station/place waypoints as rpi-fully-loaded (identical
+  // lat/lon in this course's own GPX — confirmed, not assumed), matched
+  // against this shorter course's own route (6-29m gaps).
+  'rpi-baked-potato': [
+    { distanceM: 18980, label: 'Trail Creek' },
+    { distanceM: 74934, label: 'Burma Road' },
+    { distanceM: 98185, label: 'Copper Basin' },
+    { distanceM: 98215, label: 'Big Lost' },
+    { distanceM: 104589, label: 'Copper Basin' },
+    { distanceM: 122102, label: 'Wildhorse' },
+    { distanceM: 127615, label: 'Wildhorse' },
+    { distanceM: 131815, label: 'El Diablito' },
+  ],
+  'rpi-french-fry': [
+    { distanceM: 31127, label: 'El Diablito' },
+    { distanceM: 38807, label: 'Wildhorse' },
+    { distanceM: 57102, label: 'Wildhorse' },
+    { distanceM: 73449, label: 'Trail Creek' },
+  ],
+  'rpi-dollarhide': [
+    { distanceM: 18196, label: "Frenchman's Hot Spring" },
+  ],
 };
 
 // Wider horizontal "footprint" than the raw GPX-projected x/z — validated
@@ -85,9 +122,52 @@ const LANDMARKS: Record<string, { distanceM: number; label: string }[]> = {
 // own scaling logic. Elevation (both the route's own exaggeration and the
 // terrain heightmap) is untouched — this is the horizontal counterpart to
 // computeExaggeration's vertical-only scale, not a general zoom.
-const FOOTPRINT_SCALE = 2;
+// Default for the Grand Tour climbs (2 — unchanged, still what every one of
+// them renders with). A per-instance override is threaded through via
+// DebugScene's own `footprintScale` prop (see RouteData.footprintScale)
+// rather than changed here, so this stays untouched for the 60 already-
+// tuned/live climb pages — added 2026-08-30 for Rebecca's Private Idaho's
+// much longer, shallower-gradient routes, where computeExaggeration's
+// vertical scale hits its own ceiling clamp (15x, vs ~3x for a typical
+// mountain climb) and reads as disproportionately spiky against the
+// default horizontal footprint. See project_cyclegear_rpi_routes.md memory.
+const DEFAULT_FOOTPRINT_SCALE = 2;
 
-function useRouteData(slug: string): RouteData | null {
+// The white travel-position cone (WedgeTravelMarker/TerrainTravelMarker/
+// PlanTravelMarker) was tuned as a fixed absolute size (radius 110, height
+// 320) with no footprintScale dependency at all — fine at the default
+// footprint, but on Rebecca's Private Idaho's much wider footprint (6x vs
+// the default 2x) the same fixed-size cone reads as too small against the
+// now-bigger map (Robin: "the white icon needs to be larger"). Scaled by
+// the RATIO to the default, not footprintScale directly, so every Grand
+// Tour climb (footprintScale = DEFAULT_FOOTPRINT_SCALE) gets exactly the
+// same 110/320 it always has — only a larger override actually grows it.
+function markerConeSize(footprintScale: number): [radius: number, height: number] {
+  const ratio = footprintScale / DEFAULT_FOOTPRINT_SCALE;
+  return [110 * ratio, 320 * ratio];
+}
+
+// Default Play-button duration (see the play effect below) — fixed
+// regardless of route length, which is fine for the Grand Tour climbs
+// (5-30km) but makes the travel marker look like it's zooming on Rebecca's
+// Private Idaho's much longer routes (30-190km): at a flat 25s, Dollarhide
+// (80.6km) covers ~3,223 m/s versus a typical ~20km mountain climb's
+// ~800 m/s. Overridable per-instance via DebugScene's `playDurationS` prop
+// — RpiRouteDetailClient.tsx computes one from each route's own real length
+// so every RPI route (not just Dollarhide) plays back at a consistent,
+// unrushed pace instead of a fixed wall-clock time. Untouched here, so
+// every Grand Tour climb keeps its exact current 25s behaviour.
+const DEFAULT_PLAY_DURATION_S = 25;
+
+// Smoothing slider's upper bound — fixed 1000m (1km) everywhere until now.
+// Robin: on the much longer Rebecca's Private Idaho routes, 1km of
+// smoothing isn't enough of a change to see a real difference relative to
+// the route's own 30-190km scale. Overridable per-instance via DebugScene's
+// `maxSmoothingM` prop, same pattern as footprintScale/playDurationS —
+// every Grand Tour climb keeps its exact original 1000m cap.
+const DEFAULT_MAX_SMOOTHING_M = 1000;
+
+function useRouteData(slug: string, footprintScale: number): RouteData | null {
   const [data, setData] = useState<RouteData | null>(null);
   useEffect(() => {
     setData(null);
@@ -96,16 +176,16 @@ function useRouteData(slug: string): RouteData | null {
       .then((r) => r.json())
       .then((raw: { points: RoutePoint[] }) => {
         if (cancelled) return;
-        const route = raw.points.map((p) => ({ ...p, x: p.x * FOOTPRINT_SCALE, z: p.z * FOOTPRINT_SCALE }));
+        const route = raw.points.map((p) => ({ ...p, x: p.x * footprintScale, z: p.z * footprintScale }));
         const lengthM = route[route.length - 1].distanceM;
         const totalAscentM = route.reduce((sum, p, i) => (i === 0 ? 0 : sum + Math.max(0, p.elevationM - route[i - 1].elevationM)), 0);
         const exaggeration = computeExaggeration(lengthM, totalAscentM);
-        setData({ route, lengthM, totalAscentM, exaggeration });
+        setData({ route, lengthM, totalAscentM, exaggeration, footprintScale });
       });
     return () => {
       cancelled = true;
     };
-  }, [slug]);
+  }, [slug, footprintScale]);
   return data;
 }
 
@@ -211,20 +291,20 @@ function RibbonMesh({
 // Basemap ground plane (Phase 2.2) — only meaningful in Plan view; the
 // tasksheet fades it out through the A->B morph, but this debug tool only
 // has discrete states, so it's a hard show/hide tied to `visible`.
-function BasemapPlane({ slug, visible }: { slug: string; visible: boolean }) {
+function BasemapPlane({ slug, visible, footprintScale }: { slug: string; visible: boolean; footprintScale: number }) {
   const [bounds, setBounds] = useState<{ xMin: number; xMax: number; zMin: number; zMax: number } | null>(null);
   useEffect(() => {
     setBounds(null);
     fetch(`/climbs/basemaps/${slug}.json`)
       .then((r) => r.json())
       .then((d) => {
-        // Same FOOTPRINT_SCALE as useRouteData/useTerrainData — this plane
+        // Same footprintScale as useRouteData/useTerrainData — this plane
         // is the *flat*-map basemap, a separate bounds source from the
         // terrain one, so it needs its own copy of the scale.
         const b = d.bounds;
-        setBounds({ xMin: b.xMin * FOOTPRINT_SCALE, xMax: b.xMax * FOOTPRINT_SCALE, zMin: b.zMin * FOOTPRINT_SCALE, zMax: b.zMax * FOOTPRINT_SCALE });
+        setBounds({ xMin: b.xMin * footprintScale, xMax: b.xMax * footprintScale, zMin: b.zMin * footprintScale, zMax: b.zMax * footprintScale });
       });
-  }, [slug]);
+  }, [slug, footprintScale]);
   const texture = useLoader(THREE.TextureLoader, `/climbs/basemaps/${slug}.webp`);
 
   useEffect(() => {
@@ -256,7 +336,7 @@ interface TerrainData {
 // SceneControls) reads the exact same data — one fetch each, cached by
 // slug, rather than risking independently-loaded copies drifting apart.
 const terrainPromises = new Map<string, Promise<TerrainData>>();
-function useTerrainData(slug: string): TerrainData | null {
+function useTerrainData(slug: string, footprintScale: number): TerrainData | null {
   const [terrain, setTerrain] = useState<TerrainData | null>(null);
   useEffect(() => {
     setTerrain(null);
@@ -264,7 +344,7 @@ function useTerrainData(slug: string): TerrainData | null {
       terrainPromises.set(slug, fetch(`/climbs/basemaps/${slug}.terrain.json`).then((r) => r.json()));
     }
     terrainPromises.get(slug)!.then((t) => {
-      // Same FOOTPRINT_SCALE as useRouteData — bounds only, so the terrain
+      // Same footprintScale as useRouteData — bounds only, so the terrain
       // mesh/skirt grow in step with the route's now-wider x/z. Grid
       // elevations (the height data) are untouched. Scaled about the
       // coordinate origin (0,0) — the same pivot useRouteData scales route
@@ -276,14 +356,14 @@ function useTerrainData(slug: string): TerrainData | null {
       setTerrain({
         ...t,
         bounds: {
-          xMin: xMin * FOOTPRINT_SCALE,
-          xMax: xMax * FOOTPRINT_SCALE,
-          zMin: zMin * FOOTPRINT_SCALE,
-          zMax: zMax * FOOTPRINT_SCALE,
+          xMin: xMin * footprintScale,
+          xMax: xMax * footprintScale,
+          zMin: zMin * footprintScale,
+          zMax: zMax * footprintScale,
         },
       });
     });
-  }, [slug]);
+  }, [slug, footprintScale]);
   return terrain;
 }
 
@@ -312,7 +392,7 @@ function terrainElevationAt(terrain: TerrainData, x: number, z: number): number 
 // terrain.ts), draped with the same basemap texture. Only shown in Route
 // (state B) — Plan stays conceptually flat per the original design.
 function TerrainMesh({ slug, rd, visible }: { slug: string; rd: RouteData; visible: boolean }) {
-  const terrain = useTerrainData(slug);
+  const terrain = useTerrainData(slug, rd.footprintScale);
   const texture = useLoader(THREE.TextureLoader, `/climbs/basemaps/${slug}.webp`);
 
   useEffect(() => {
@@ -356,7 +436,7 @@ function TerrainMesh({ slug, rd, visible }: { slug: string; rd: RouteData; visib
 // walls drop from each boundary vertex's actual (elevation-displaced)
 // height down to a shared flat base well below the lowest point.
 function TerrainSkirt({ slug, rd, visible }: { slug: string; rd: RouteData; visible: boolean }) {
-  const terrain = useTerrainData(slug);
+  const terrain = useTerrainData(slug, rd.footprintScale);
   const geometry = useMemo(() => {
     if (!terrain) return null;
     const { gridN, bounds, elevations } = terrain;
@@ -432,7 +512,27 @@ function RouteHighlight({
   mapStyle: MapStyle;
   smoothWindowM: number;
 }) {
-  const terrain = useTerrainData(slug);
+  const terrain = useTerrainData(slug, rd.footprintScale);
+  // Fixed absolute margin (was a bare 15 everywhere below) to lift the
+  // highlight line clear of whatever surface it's drawn over. polygonOffset
+  // on the <Line> below handles genuine depth-buffer z-fighting; this
+  // separate margin is for a DIFFERENT failure mode Robin caught by eye on
+  // Rebecca's Private Idaho's most rugged sections (76-81km on Fully Loaded
+  // Long Name, his own diagnosis: "maybe the terrain is above the route line
+  // along these sections" — correct): the terrain mesh triangulates
+  // piecewise-linear between its 96x96 grid nodes (each cell ~800m+ of real
+  // ground on these much larger routes), while the line's own elevation
+  // comes from a separate bilinear sample (terrainElevationAt) at its exact
+  // position — the two interpolation methods can disagree within a single
+  // coarse cell on sharply-creased real terrain, and whatever that raw-metre
+  // disagreement is gets multiplied by `exaggeration` (up to 15x here vs.
+  // ~3x for a typical Grand Tour climb) before this margin is even added,
+  // so exaggeration — not footprintScale — is the more direct driver of how
+  // much clearance is actually needed. Gated so any climb still on the
+  // default footprint (all 60 Grand Tour ones) keeps its exact original 15
+  // regardless of that climb's own exaggeration value.
+  const highlightOffset =
+    rd.footprintScale === DEFAULT_FOOTPRINT_SCALE ? 15 : 15 * (rd.footprintScale / DEFAULT_FOOTPRINT_SCALE) * (rd.exaggeration / 3);
   const points = useMemo(() => {
     if (state === 'C') return null;
     // Route (flat map) is no longer reachable via the UI (its button was
@@ -442,12 +542,12 @@ function RouteHighlight({
     if (state === 'B') {
       if (mapStyle === 'terrain') {
         if (!terrain) return null;
-        return rd.route.map((p) => new THREE.Vector3(p.x, terrainElevationAt(terrain, p.x, p.z) * rd.exaggeration + 15, p.z));
+        return rd.route.map((p) => new THREE.Vector3(p.x, terrainElevationAt(terrain, p.x, p.z) * rd.exaggeration + highlightOffset, p.z));
       }
-      return rd.route.map((p) => new THREE.Vector3(p.x, p.elevationM * rd.exaggeration + 15, p.z));
+      return rd.route.map((p) => new THREE.Vector3(p.x, p.elevationM * rd.exaggeration + highlightOffset, p.z));
     }
-    return rd.route.map((p) => new THREE.Vector3(p.x, 15, p.z));
-  }, [rd, state, mapStyle, terrain]);
+    return rd.route.map((p) => new THREE.Vector3(p.x, highlightOffset, p.z));
+  }, [rd, state, mapStyle, terrain, highlightOffset]);
 
   // One flat colour per route point via the same colourForGradient bands
   // the Wedge/Route-flat ribbon uses. Smoothing window is the same live
@@ -468,7 +568,27 @@ function RouteHighlight({
   // Route (3D terrain) — the only two states `points` is ever non-null for.
   // A dedicated white marker (PlanTravelMarker/TerrainTravelMarker) is the
   // position indicator on these views instead of a colour split.
-  return points.length > 1 ? <Line points={points} vertexColors={gradColors} lineWidth={6.4} transparent opacity={0.95} /> : null;
+  // polygonOffset (not just the world-space highlightOffset above) is what
+  // actually fixes the z-fighting robustly regardless of scale: a world-unit
+  // gap is a guess at how much separation the depth buffer can resolve at a
+  // given camera distance, and that guess kept needing to grow as Rebecca's
+  // Private Idaho's scale grew (15 -> 45, still visibly dashed on Robin's
+  // real screenshot at 76.7km). Depth-buffer polygon offset nudges the
+  // rendered depth directly, independent of world-space distance or scale,
+  // which is the standard fix for a line/decal meant to sit right on a
+  // surface without genuinely being pulled off it in world space.
+  return points.length > 1 ? (
+    <Line
+      points={points}
+      vertexColors={gradColors}
+      lineWidth={6.4}
+      transparent
+      opacity={0.95}
+      polygonOffset
+      polygonOffsetFactor={-4}
+      polygonOffsetUnits={-4}
+    />
+  ) : null;
 }
 
 // Horizontal reference lines at start and summit altitude, offset to the
@@ -515,12 +635,21 @@ function WedgeAltitudeLines({ rd, state }: { rd: RouteData; state: SceneState })
 function WedgeTravelMarker({ rd, state, travelM }: { rd: RouteData; state: SceneState; travelM: number }) {
   if (state !== 'C') return null;
   const y = (smoothedElevationAt(rd, travelM, FOLLOW_SMOOTH_M) - rd.route[0].elevationM) * rd.exaggeration;
+  const [radius, height] = markerConeSize(rd.footprintScale);
   // Knocked-back white to match the muted gradient ribbon (per Robin: "copy
   // the colours and marker to the wedge").
+  //
+  // depthTest/renderOrder (Robin, 2026-08-31, Harriman around 50km): the
+  // ribbon fill still renders its z=0 face across the marker where the
+  // profile dips below the start elevation, hiding it. Wedge's camera is
+  // permanently fixed side-on ("no zoom no rotation" — see wedgeCamZ), so
+  // there's no legitimate angle where the ribbon should be allowed to
+  // occlude this marker — it always belongs on top of the ribbon surface,
+  // not just usually.
   return (
-    <mesh position={[travelM, y + 160, 0]} rotation={[Math.PI, 0, 0]}>
-      <coneGeometry args={[110, 320, 16]} />
-      <meshBasicMaterial color={MUTED_WHITE} />
+    <mesh position={[travelM, y + height / 2, 0]} rotation={[Math.PI, 0, 0]} renderOrder={999}>
+      <coneGeometry args={[radius, height, 16]} />
+      <meshBasicMaterial color={MUTED_WHITE} depthTest={false} />
     </mesh>
   );
 }
@@ -534,7 +663,7 @@ function WedgeTravelMarker({ rd, state, travelM }: { rd: RouteData; state: Scene
 // lookup RouteHighlight's own terrain-mode points use, so the marker sits
 // on the same surface the line and mesh are already drawn on.
 function TerrainTravelMarker({ rd, slug, state, mapStyle, travelM }: { rd: RouteData; slug: string; state: SceneState; mapStyle: MapStyle; travelM: number }) {
-  const terrain = useTerrainData(slug);
+  const terrain = useTerrainData(slug, rd.footprintScale);
   if (state !== 'B' || mapStyle !== 'terrain' || !terrain) return null;
   const { route } = rd;
   let lo = 0;
@@ -545,9 +674,10 @@ function TerrainTravelMarker({ rd, slug, state, mapStyle, travelM }: { rd: Route
   const x = p0.x + (p1.x - p0.x) * f;
   const z = p0.z + (p1.z - p0.z) * f;
   const y = terrainElevationAt(terrain, x, z) * rd.exaggeration;
+  const [radius, height] = markerConeSize(rd.footprintScale);
   return (
-    <mesh position={[x, y + 160, z]} rotation={[Math.PI, 0, 0]}>
-      <coneGeometry args={[110, 320, 16]} />
+    <mesh position={[x, y + height / 2, z]} rotation={[Math.PI, 0, 0]}>
+      <coneGeometry args={[radius, height, 16]} />
       <meshBasicMaterial color={MUTED_WHITE} />
     </mesh>
   );
@@ -567,9 +697,10 @@ function PlanTravelMarker({ rd, state, travelM }: { rd: RouteData; state: SceneS
   const f = p1.distanceM > p0.distanceM ? (travelM - p0.distanceM) / (p1.distanceM - p0.distanceM) : 0;
   const x = p0.x + (p1.x - p0.x) * f;
   const z = p0.z + (p1.z - p0.z) * f;
+  const [radius, height] = markerConeSize(rd.footprintScale);
   return (
-    <mesh position={[x, 15 + 160, z]} rotation={[Math.PI, 0, 0]}>
-      <coneGeometry args={[110, 320, 16]} />
+    <mesh position={[x, 15 + height / 2, z]} rotation={[Math.PI, 0, 0]}>
+      <coneGeometry args={[radius, height, 16]} />
       <meshBasicMaterial color={MUTED_WHITE} />
     </mesh>
   );
@@ -708,7 +839,7 @@ function RouteMarkers({ rd, slug, state, mapStyle }: { rd: RouteData; slug: stri
     return ms;
   }, [rd, slug]);
 
-  // Same FOOTPRINT_SCALE as the route/terrain/basemap data — tick height,
+  // Same footprintScale as the route/terrain/basemap data — tick height,
   // label offset and font size are fixed world-space sizes, so with the
   // wider footprint the camera pulls back further to frame the bigger scene
   // and these would otherwise read as too small at that distance. Scaling
@@ -719,13 +850,13 @@ function RouteMarkers({ rd, slug, state, mapStyle }: { rd: RouteData; slug: stri
       {markers.map((m, i) => {
         const { x, y, z } = positionAtDistance(rd, m.distanceM, state, mapStyle);
         const isTown = m.kind === 'town';
-        const tickTop = y + (isTown ? 900 : 500) * FOOTPRINT_SCALE;
+        const tickTop = y + (isTown ? 900 : 500) * rd.footprintScale;
         return (
           <group key={i}>
             <Line points={[[x, y, z], [x, tickTop, z]]} color={isTown ? '#ee1c28' : '#999'} lineWidth={isTown ? 3 : 1.5} />
-            <Billboard position={[x, tickTop + 150 * FOOTPRINT_SCALE, z]}>
+            <Billboard position={[x, tickTop + 150 * rd.footprintScale, z]}>
               <Text
-                fontSize={(isTown ? 220 : 170) * FOOTPRINT_SCALE}
+                fontSize={(isTown ? 220 : 170) * rd.footprintScale}
                 color={isTown ? '#ee1c28' : '#fff'}
                 anchorX="center"
                 anchorY="bottom"
@@ -795,7 +926,7 @@ const SceneControls = forwardRef<ControlsHandle, { rd: RouteData; slug: string; 
   function SceneControls({ rd, slug, state, mapStyle }, ref) {
     const { camera } = useThree();
     const controlsRef = useRef<any>(null);
-    const terrain = useTerrainData(slug);
+    const terrain = useTerrainData(slug, rd.footprintScale);
     const isTerrain = state === 'B' && mapStyle === 'terrain';
     const bounds = useMemo(() => {
       const base = stateBounds(rd, state, mapStyle);
@@ -1026,6 +1157,9 @@ export default function DebugScene({
   state,
   mapStyle,
   onTravelChange,
+  footprintScale = DEFAULT_FOOTPRINT_SCALE,
+  playDurationS = DEFAULT_PLAY_DURATION_S,
+  maxSmoothingM = DEFAULT_MAX_SMOOTHING_M,
 }: {
   slug: string;
   influences: [number, number];
@@ -1035,6 +1169,18 @@ export default function DebugScene({
    *  a parent page (e.g. a gear-achievability panel) react to where the
    *  user currently is on the climb without re-fetching route data itself. */
   onTravelChange?: (info: TravelInfo) => void;
+  /** Horizontal (x/z) footprint multiplier — see DEFAULT_FOOTPRINT_SCALE's
+   *  comment. Defaults to the value every Grand Tour climb already renders
+   *  with; only Rebecca's Private Idaho currently passes a larger override. */
+  footprintScale?: number;
+  /** Seconds for the Play button to traverse the WHOLE route, regardless of
+   *  its actual length — see DEFAULT_PLAY_DURATION_S's comment. Defaults to
+   *  the fixed 25s every Grand Tour climb already plays at. */
+  playDurationS?: number;
+  /** Upper bound (metres) on the Smoothing slider — see
+   *  DEFAULT_MAX_SMOOTHING_M's comment. Defaults to the fixed 1000m every
+   *  Grand Tour climb already has. */
+  maxSmoothingM?: number;
 }) {
   const controlsRef = useRef<ControlsHandle>(null);
   const compassRef = useRef<HTMLDivElement>(null);
@@ -1049,7 +1195,7 @@ export default function DebugScene({
   const SMOOTH_STEP_M = 50;
   const smoothWindowM = Math.round(smoothWindowMRaw / SMOOTH_STEP_M) * SMOOTH_STEP_M;
   const [isPlaying, setIsPlaying] = useState(false);
-  const rd = useRouteData(slug);
+  const rd = useRouteData(slug, footprintScale);
 
   useEffect(() => {
     setTravelKm(0);
@@ -1057,13 +1203,12 @@ export default function DebugScene({
   }, [slug]);
 
   // Play/pause: animates travelKm from wherever it currently sits up to the
-  // route's end, whole climb in PLAY_DURATION_S regardless of route length,
+  // route's end, whole climb in playDurationS regardless of route length,
   // via requestAnimationFrame (not setInterval) so speed doesn't drift with
   // frame rate — each tick advances by real elapsed time, not a fixed step.
   useEffect(() => {
     if (!isPlaying || !rd) return;
-    const PLAY_DURATION_S = 25;
-    const ratePerMs = rd.lengthM / (PLAY_DURATION_S * 1000);
+    const ratePerMs = rd.lengthM / (playDurationS * 1000);
     let raf = 0;
     let last = performance.now();
     const tick = (now: number) => {
@@ -1079,7 +1224,7 @@ export default function DebugScene({
     };
     raf = requestAnimationFrame(tick);
     return () => cancelAnimationFrame(raf);
-  }, [isPlaying, rd]);
+  }, [isPlaying, rd, playDurationS]);
 
   useEffect(() => {
     if (!rd || !onTravelChange) return;
@@ -1164,7 +1309,7 @@ export default function DebugScene({
             <input
               type="range"
               min={0}
-              max={1000}
+              max={maxSmoothingM}
               step={1}
               value={smoothWindowMRaw}
               onChange={(e) => setSmoothWindowMRaw(Number(e.target.value))}
@@ -1176,14 +1321,24 @@ export default function DebugScene({
       </div>
       <Canvas
         key={slug}
-        camera={{ fov: 45, near: 1, far: 500000 }}
+        // far was a fixed 500,000 — comfortably beyond anything a Grand Tour
+        // climb's ~30,000-unit scene needs, but on Rebecca's Private Idaho's
+        // wider footprintScale (6x) the basemap plane's padded far corner can
+        // sit well past that, since PAD_PCT's extra 35% margin (real for the
+        // map, not present on the route line itself) pushes it further from
+        // camera than the route ever reaches — WebGL silently clips anything
+        // beyond `far`, which is exactly why the map appeared to stop partway
+        // while the route line (no such padding) kept rendering in full.
+        // Bumped with generous headroom rather than computed exactly, so a
+        // future even-longer route doesn't reopen the same failure mode.
+        camera={{ fov: 45, near: 1, far: 5000000 }}
         gl={{ antialias: true, preserveDrawingBuffer: true, logarithmicDepthBuffer: true }}
       >
         <color attach="background" args={['#1a1a1a']} />
         <ambientLight intensity={0.75} />
         <directionalLight position={[-4000, 8000, 5000]} intensity={0.6} />
         <RibbonMesh rd={rd} influences={influences} smoothWindowM={smoothWindowM} visible={ribbonVisible} />
-        <BasemapPlane slug={slug} visible={state === 'A' || (state === 'B' && mapStyle === 'flat')} />
+        <BasemapPlane slug={slug} visible={state === 'A' || (state === 'B' && mapStyle === 'flat')} footprintScale={footprintScale} />
         <TerrainMesh slug={slug} rd={rd} visible={state === 'B' && mapStyle === 'terrain'} />
         <TerrainSkirt slug={slug} rd={rd} visible={state === 'B' && mapStyle === 'terrain'} />
         <RouteHighlight rd={rd} slug={slug} state={state} mapStyle={mapStyle} smoothWindowM={smoothWindowM} />

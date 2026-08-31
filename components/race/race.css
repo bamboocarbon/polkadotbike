@@ -28,7 +28,7 @@
 
 .glass { background: var(--glass); border: 1px solid rgba(255, 255, 255, 0.12); border-radius: 16px; }
 
-.stage-sidebar { position: sticky; top: 70px; max-height: calc(100vh - 86px); overflow-y: auto; overflow-x: hidden; scrollbar-width: none; border-radius: 14px; }
+.stage-sidebar { position: sticky; top: calc(var(--header-h) + 16px); max-height: calc(100vh - var(--header-h) - 32px); overflow-y: auto; overflow-x: hidden; scrollbar-width: none; border-radius: 14px; }
 .stage-sidebar::-webkit-scrollbar { display: none; }
 .sidebar-head { padding: 11px 14px; font-size: 10px; font-weight: 800; letter-spacing: 0.1em; text-transform: uppercase; color: #ffcd00; border-bottom: 1px solid var(--border); }
 .stage-btn { width: 100%; padding: 9px 12px; background: transparent; border: none; border-bottom: 1px solid var(--border); cursor: pointer; text-align: left; font-family: inherit; display: flex; align-items: flex-start; gap: 9px; transition: background 0.15s; }

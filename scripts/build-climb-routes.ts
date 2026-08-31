@@ -42,6 +42,27 @@ interface RoadbookAnchors {
   ascentM: number;
 }
 const ROADBOOK_ANCHORS: Record<string, RoadbookAnchors> = {
+  // Rebecca's Private Idaho (rebeccasprivateidaho.com) — a one-day gravel
+  // event with several distance options, not a Grand Tour mountain climb.
+  // These GPX exports already carry real embedded per-point elevation
+  // (same as Aitana's RideWithGPS file, unlike Velefique's externally-
+  // anchored BRouter export), so — same precedent as Aitana — the anchors
+  // here are the GPX's OWN first-point and global-max elevation, not an
+  // independently-sourced correction. That makes buildRoute()'s
+  // start/summit linear rescale a no-op (scale≈1, offset≈0): it preserves
+  // the real profile untouched rather than distorting it toward a single-
+  // peak assumption that doesn't hold for these long, rolling, multi-summit
+  // routes (each has several distinct climbs within it, e.g. Copper Basin,
+  // Trail Creek, Wildhorse, El Diablito — not one bottom-to-top ascent).
+  // lengthKm/ascentM are this same GPX's own haversine length and naive
+  // elevation-gain sum — there's no external "roadbook" to reconcile
+  // against for a course like this, the GPX file IS the roadbook.
+  'rpi-fully-loaded': { startElevationM: 1792, summitElevationM: 2659, lengthKm: 190.15, ascentM: 2280 },
+  'rpi-baked-potato': { startElevationM: 1792, summitElevationM: 2659, lengthKm: 167.03, ascentM: 2023 },
+  'rpi-french-fry': { startElevationM: 1792, summitElevationM: 2408, lengthKm: 92.45, ascentM: 1155 },
+  'rpi-tater-tot': { startElevationM: 1791, summitElevationM: 2118, lengthKm: 30.41, ascentM: 385 },
+  'rpi-dollarhide': { startElevationM: 1779, summitElevationM: 2654, lengthKm: 80.57, ascentM: 982 },
+  'rpi-harriman': { startElevationM: 2037, summitElevationM: 2497, lengthKm: 57.01, ascentM: 834 },
   'col-du-telegraphe': {
     // BRouter-Web export ("col du telegraphe (16.3km)"), Robin's raw file
     // — bottom already clean (file's own first point, 704.5m, IS the

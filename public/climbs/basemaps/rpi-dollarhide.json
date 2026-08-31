@@ -1,0 +1,13 @@
+{
+  "slug": "rpi-dollarhide",
+  "source": "OpenTopoMap",
+  "attribution": "Map: OpenTopoMap, CC-BY-SA",
+  "zoom": 13,
+  "imageWidthPx": 3584,
+  "bounds": {
+    "xMin": -37513.01740259719,
+    "xMax": 12019.062620675324,
+    "zMin": -6704.248341058981,
+    "zMax": 14387.222308392968
+  }
+}

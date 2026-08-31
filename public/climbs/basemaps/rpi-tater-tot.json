@@ -1,0 +1,13 @@
+{
+  "slug": "rpi-tater-tot",
+  "source": "OpenTopoMap",
+  "attribution": "Map: OpenTopoMap, CC-BY-SA",
+  "zoom": 14,
+  "imageWidthPx": 2816,
+  "bounds": {
+    "xMin": -4222.639968433425,
+    "xMax": 15234.093484141806,
+    "zMin": -9429.77124342148,
+    "zMax": 2858.9321441931374
+  }
+}

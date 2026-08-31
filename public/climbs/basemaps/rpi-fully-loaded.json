@@ -1,0 +1,13 @@
+{
+  "slug": "rpi-fully-loaded",
+  "source": "OpenTopoMap",
+  "attribution": "Map: OpenTopoMap, CC-BY-SA",
+  "zoom": 12,
+  "imageWidthPx": 2048,
+  "bounds": {
+    "xMin": -20142.110289607655,
+    "xMax": 64759.996798942266,
+    "zMin": -58356.35702397778,
+    "zMax": 18692.38573237246
+  }
+}

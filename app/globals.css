@@ -10,6 +10,11 @@
 ============================================================================ */
 
 :root {
+  /* Real value is set on mount by Header.tsx's ResizeObserver (the header
+     is no longer a fixed height — two nav rows, sometimes three once row 2
+     wraps below ~1000px). This is only the pre-JS/SSR fallback, sized for
+     the common two-row desktop case so there's no visible jump on load. */
+  --header-h: 103px;
   --border: rgba(255, 255, 255, 0.08);
   --text: #e8edf5;
   --muted: #64748b;
@@ -55,8 +60,8 @@ header {
   background: rgba(4, 9, 26, 0.85);
   backdrop-filter: blur(16px);
   border-bottom: 1px solid var(--border);
-  padding: 0 24px; height: 54px;
-  display: flex; align-items: center; justify-content: space-between;
+  padding: 8px 24px; min-height: 54px;
+  display: flex; align-items: center; justify-content: space-between; gap: 16px;
 }
 .logo {
   font-size: 19px; font-weight: 900; letter-spacing: -0.5px;
@@ -72,7 +77,8 @@ header {
 .logo span { color: #fff; }
 .logo-dot-svg { width: 32px; height: 32px; flex-shrink: 0; }
 
-nav { display: flex; gap: 2px; align-items: center; }
+.nav-rows { display: flex; flex-direction: column; gap: 2px; align-items: flex-end; }
+nav { display: flex; gap: 2px; align-items: center; flex-wrap: wrap; justify-content: flex-end; }
 nav a {
   color: var(--sec); text-decoration: none;
   font-size: 13px; font-weight: 500;
@@ -83,7 +89,7 @@ nav a:hover { color: #fff; background: rgba(255, 255, 255, 0.06); }
 nav a.active { color: #3b82f6; background: rgba(59, 130, 246, 0.12); }
 
 @media (max-width: 768px) {
-  header { padding: 0 12px; }
+  header { padding: 8px 12px; }
   nav a { font-size: 11px; padding: 4px 6px; }
 }
 
