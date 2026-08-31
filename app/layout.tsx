@@ -5,6 +5,7 @@ import { ConsentProvider } from '@/components/ConsentProvider';
 import ConsentBanner from '@/components/ConsentBanner';
 import Analytics from '@/components/Analytics';
 import Stay22Script from '@/components/Stay22Script';
+import { Analytics as VercelAnalytics } from '@vercel/analytics/next';
 
 // Site-wide fallback metadata only. Page-specific title/description/OG/
 // Twitter tags (different per race, per tool) are set per page in Phase 3
@@ -82,6 +83,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           <ConsentBanner />
           <Analytics />
           <Stay22Script />
+          <VercelAnalytics />
         </ConsentProvider>
       </body>
     </html>
