@@ -136,14 +136,14 @@ export default function RebeccasPrivateIdahoPage() {
 
       <div className="container" style={{ maxWidth: 1100 }}>
         <p className="climb-summary">
-          Three days of Rebecca&apos;s Private Idaho (
+          Rebecca&apos;s Private Idaho (
           <a href="https://rebeccasprivateidaho.com" target="_blank" rel="noopener" style={{ color: 'inherit', textDecoration: 'underline' }}>
             rebeccasprivateidaho.com
           </a>
-          ), out of Ketchum/Sun Valley —
-          Harriman on Day 1, the Dollarhide Summit time trial on Day 2, then four distance options for the Day 3
-          main event. Each route has a full 3D plan view, real 3D terrain relief, and a gradient wedge profile,
-          built from the real GPX for that route.
+          ), 9–12 September 2026, out of Ketchum/Sun Valley —
+          Harriman on Day 1 (Wed 9 Sept), the Dollarhide Summit time trial on Day 2 (Thu 10 Sept), then four
+          distance options for the Day 3 main event (Sat 12 Sept). Each route has a full 3D plan view, real 3D
+          terrain relief, and a gradient wedge profile, built from the real GPX for that route.
         </p>
 
         <div className="map-outer">
@@ -176,7 +176,7 @@ export default function RebeccasPrivateIdahoPage() {
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))', gap: 32, marginTop: 32 }}>
           <div>
             <h2 style={{ fontSize: 15, fontWeight: 800, textTransform: 'uppercase', letterSpacing: 1.2, color: 'var(--accent-light)', marginBottom: 14 }}>
-              Day 1 — Wednesday
+              Day 1 — Wednesday 9 September 2026
             </h2>
             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(260px, 1fr))', gap: 16 }}>
               {day1.map((r) => <RouteCard key={r.slug} r={r} />)}
@@ -185,7 +185,7 @@ export default function RebeccasPrivateIdahoPage() {
 
           <div>
             <h2 style={{ fontSize: 15, fontWeight: 800, textTransform: 'uppercase', letterSpacing: 1.2, color: 'var(--accent-light)', marginBottom: 14 }}>
-              Day 2 — Thursday
+              Day 2 — Thursday 10 September 2026
             </h2>
             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(260px, 1fr))', gap: 16 }}>
               {day2.map((r) => <RouteCard key={r.slug} r={r} />)}
@@ -194,7 +194,7 @@ export default function RebeccasPrivateIdahoPage() {
         </div>
 
         <h2 style={{ fontSize: 15, fontWeight: 800, textTransform: 'uppercase', letterSpacing: 1.2, color: 'var(--accent-light)', marginTop: 32, marginBottom: 14 }}>
-          Day 3 — Saturday · main event, choose your distance
+          Day 3 — Saturday 12 September 2026 · main event, choose your distance
         </h2>
         <div className="rpi-day3-grid">
           {day3.map((r) => <RouteCard key={r.slug} r={r} />)}

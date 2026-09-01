@@ -148,6 +148,7 @@ export default function RpiRouteDetailClient({ route }: { route: RpiRoute }) {
 
       <div className="container" style={{ maxWidth: 1400, paddingBottom: 0 }}>
         <p className="climb-summary">{route.blurb}</p>
+        <p style={{ fontSize: 13, color: 'var(--muted)', marginTop: -8, marginBottom: 18 }}>{route.dayLabel}</p>
         <PersonalisedClimbReport slug={route.slug} S={S} gears={gears} />
       </div>
 
