@@ -1399,9 +1399,18 @@
       ],
       "angle": "The biggest single-day MTB race in America and it runs in near-freezing conditions — perfect timing for a cold-weather clothing and tyre-choice piece, right when your UK readers are facing the same problem.",
       "postWindow": "Cold-weather kit guide Mon 2 Nov; race posts Sat 7 Nov",
-      "lastVerifiedAt": "2026-08-29",
-      "verifiedBy": "seed",
-      "reviewLog": []
+      "lastVerifiedAt": "2026-09-01",
+      "verifiedBy": "review-2m",
+      "reviewLog": [
+        {
+          "runId": "2026-09-01-2m",
+          "checkedAt": "2026-09-01",
+          "horizon": "2m",
+          "outcome": "confirmed",
+          "changes": [],
+          "note": "Confirmed Sat 7 Nov 2026, Kalkaska to Traverse City, Ice Cycle Expo Fri 6 Nov; main-event entry is currently full with a waitlist but the event itself is proceeding as planned."
+        }
+      ]
     },
     {
       "id": "rouleur-live",
@@ -1434,9 +1443,18 @@
       ],
       "angle": "Go in person. Highest density of cycling media, brands and affiliate managers in the UK calendar, in one room, in one day. Your SEO analysis put backlinks and domain authority as the ranking gap — this is where you close it.",
       "postWindow": "Attend Thursday evening or Saturday; post live, round-up the following Tuesday",
-      "lastVerifiedAt": "2026-08-29",
-      "verifiedBy": "seed",
-      "reviewLog": []
+      "lastVerifiedAt": "2026-09-01",
+      "verifiedBy": "review-2m",
+      "reviewLog": [
+        {
+          "runId": "2026-09-01-2m",
+          "checkedAt": "2026-09-01",
+          "horizon": "2m",
+          "outcome": "confirmed",
+          "changes": [],
+          "note": "Organiser's own site confirms Thu 12 - Sat 14 Nov 2026 at the Truman Brewery with the listed hours; kept the organiser's dates over a Cyclingnews article that said 13-15 Nov."
+        }
+      ]
     },
     {
       "id": "granfondo-ecuador",
@@ -1468,9 +1486,18 @@
       ],
       "angle": "Only worth a mention inside a \"where to qualify for the 2027 amateur Worlds\" round-up. Not a standalone post.",
       "postWindow": "Fold into a single World Series round-up in mid-November",
-      "lastVerifiedAt": "2026-08-29",
-      "verifiedBy": "seed",
-      "reviewLog": []
+      "lastVerifiedAt": "2026-09-01",
+      "verifiedBy": "review-2m",
+      "reviewLog": [
+        {
+          "runId": "2026-09-01-2m",
+          "checkedAt": "2026-09-01",
+          "horizon": "2m",
+          "outcome": "confirmed",
+          "changes": [],
+          "note": "Confirmed Sat 14 Nov 2026 in Salinas as a UCI Gran Fondo World Series qualifier, no cancellation signals found."
+        }
+      ]
     },
     {
       "id": "el-tour-de-tucson",
@@ -1503,9 +1530,18 @@
       ],
       "angle": "The best mass-participation road event in the US calendar and the clearest example of the charity-ride model, which barely exists in the UK the same way. Also: warm November riding, which is exactly what your readers are daydreaming about that week.",
       "postWindow": "Warm-weather escapes piece Mon 16 Nov; event posts Sat 21 Nov",
-      "lastVerifiedAt": "2026-08-29",
-      "verifiedBy": "seed",
-      "reviewLog": []
+      "lastVerifiedAt": "2026-09-01",
+      "verifiedBy": "review-2m",
+      "reviewLog": [
+        {
+          "runId": "2026-09-01-2m",
+          "checkedAt": "2026-09-01",
+          "horizon": "2m",
+          "outcome": "confirmed",
+          "changes": [],
+          "note": "Confirmed Sat 21 Nov 2026, 43rd edition, registration open, no cancellation found."
+        }
+      ]
     },
     {
       "id": "granfondo-siete-lagos",
@@ -1538,9 +1574,18 @@
       ],
       "angle": "Bucket-list scenery. Good imagery for a \"gran fondos worth travelling for in 2027\" piece.",
       "postWindow": "Fold into the World Series round-up",
-      "lastVerifiedAt": "2026-08-29",
-      "verifiedBy": "seed",
-      "reviewLog": []
+      "lastVerifiedAt": "2026-09-01",
+      "verifiedBy": "review-2m",
+      "reviewLog": [
+        {
+          "runId": "2026-09-01-2m",
+          "checkedAt": "2026-09-01",
+          "horizon": "2m",
+          "outcome": "confirmed",
+          "changes": [],
+          "note": "Confirmed 21-22 Nov 2026, San Martin de los Andes to Villa la Angostura, no cancellation signals found."
+        }
+      ]
     },
     {
       "id": "cx-world-cup-r1-ostrava",
@@ -1572,9 +1617,18 @@
       ],
       "angle": "Season opener. One CX explainer — tyres, pressure, gearing — reused across all eight rounds to New Year. Clash on 2026-11-27: also competing for the feed post against Black Friday to Cyber Monday.",
       "postWindow": "Explainer Wed 25 Nov; race post Fri 27 Nov",
-      "lastVerifiedAt": "2026-08-29",
-      "verifiedBy": "seed",
-      "reviewLog": []
+      "lastVerifiedAt": "2026-09-01",
+      "verifiedBy": "review-2m",
+      "reviewLog": [
+        {
+          "runId": "2026-09-01-2m",
+          "checkedAt": "2026-09-01",
+          "horizon": "2m",
+          "outcome": "confirmed",
+          "changes": [],
+          "note": "Confirmed Round 1 in Ostrava on Fri 27 Nov 2026 as a new-format evening season opener, no cancellation found."
+        }
+      ]
     },
     {
       "id": "black-friday-to-cyber-monday",
@@ -1604,9 +1658,18 @@
       ],
       "angle": "The affiliate week. Pages must be live and indexed by mid-November or they earn nothing — Google will not rank a deals page published on the day. Clash on 2026-11-27: also competing for the feed post against CX World Cup R1 — Ostrava.",
       "postWindow": "Publish and index by Fri 13 Nov. Refresh daily 27–30 Nov",
-      "lastVerifiedAt": "2026-08-29",
-      "verifiedBy": "seed",
-      "reviewLog": []
+      "lastVerifiedAt": "2026-09-01",
+      "verifiedBy": "review-2m",
+      "reviewLog": [
+        {
+          "runId": "2026-09-01-2m",
+          "checkedAt": "2026-09-01",
+          "horizon": "2m",
+          "outcome": "confirmed",
+          "changes": [],
+          "note": "Confirmed by calendar math: Thanksgiving 2026 is Thu 26 Nov, so Black Friday is 27 Nov and Cyber Monday is 30 Nov, matching the listed dates."
+        }
+      ]
     },
     {
       "id": "cx-world-cup-r2-tabor",
@@ -1638,9 +1701,18 @@
       ],
       "angle": "Reuse the CX explainer with a fresh top image.",
       "postWindow": "Sun 29 Nov",
-      "lastVerifiedAt": "2026-08-29",
-      "verifiedBy": "seed",
-      "reviewLog": []
+      "lastVerifiedAt": "2026-09-01",
+      "verifiedBy": "review-2m",
+      "reviewLog": [
+        {
+          "runId": "2026-09-01-2m",
+          "checkedAt": "2026-09-01",
+          "horizon": "2m",
+          "outcome": "confirmed",
+          "changes": [],
+          "note": "Confirmed Round 2 in Tabor on Sun 29 Nov 2026, no cancellation found; the '18th time hosting' detail is unverified but not material enough to flag as a place change."
+        }
+      ]
     },
     {
       "id": "uci-cycling-esports-world-championships-final",
@@ -2233,6 +2305,330 @@
         }
       ],
       "priorityRationale": "Same treatment as the MyWhoosh esports posts; clashes with UAE Tour's opening day on 15 Feb, which takes the feed post — this becomes a stories-only mention that day."
+    },
+    {
+      "id": "paris-nice",
+      "name": "Paris-Nice",
+      "category": "road",
+      "audience": [
+        "watch"
+      ],
+      "priority": 2,
+      "start": "2027-03-07",
+      "end": "2027-03-14",
+      "dateConfidence": "confirmed",
+      "country": "FR",
+      "place": "Paris to Nice, France — the 'Race to the Sun', week-long WorldTour stage race",
+      "officialUrl": "https://www.letour.fr/paris-nice/en/",
+      "sourceUrls": [
+        "https://www.cyclingnews.com/pro-cycling/racing/uci-reveals-2027-worldtour-racing-calendars-with-super-world-championships-in-france-forcing-changes/",
+        "https://www.domestiquecycling.com/en/2027-uci-worldtour-calendar/"
+      ],
+      "handles": {
+        "instagram": null,
+        "x": null
+      },
+      "handleConfidence": "none",
+      "hashtags": [],
+      "angle": "Recent editions finish with a summit or the Col d'Eze time trial above Nice — publish the finishing climb's plan/route/profile on the 3D visualiser before the final weekend. Clash on 2027-03-07: also competing for the feed post against Strade Bianche.",
+      "postWindow": "Finishing-climb page live Fri 12 Mar 2027; daily stage posts 7-14 Mar",
+      "lastVerifiedAt": "2026-09-01",
+      "verifiedBy": "review-6m",
+      "reviewLog": [
+        {
+          "runId": "2026-09-01-6m",
+          "checkedAt": "2026-09-01",
+          "horizon": "6m",
+          "outcome": "new",
+          "changes": [],
+          "note": "On the published 2027 UCI WorldTour calendar; recent editions finish with a summit or Col d'Eze time-trial finale near Nice, a fit for the 3D climb morph."
+        }
+      ],
+      "priorityRationale": "Solid WorldTour stage race and a genuine climb-data reuse opportunity, but Strade Bianche takes the feed post on 7 Mar — this gets a stories/daily-recap treatment instead."
+    },
+    {
+      "id": "strade-bianche",
+      "name": "Strade Bianche",
+      "category": "road",
+      "audience": [
+        "watch",
+        "ride"
+      ],
+      "priority": 1,
+      "start": "2027-03-07",
+      "end": "2027-03-07",
+      "dateConfidence": "confirmed",
+      "country": "IT",
+      "place": "Siena, Tuscany, Italy — WorldTour classic run largely on unpaved sterrato roads, with its own mass-participation Gran Fondo edition",
+      "officialUrl": "https://www.strade-bianche.it/en/",
+      "sourceUrls": [
+        "https://www.domestiquecycling.com/en/2027-uci-worldtour-calendar/",
+        "https://www.rouleur.cc/travel/trip/the-strade-bianche-experience-2027",
+        "https://sportivebreaks.com/classics/strade-bianche-gran-fondo/"
+      ],
+      "handles": {
+        "instagram": null,
+        "x": null
+      },
+      "handleConfidence": "none",
+      "hashtags": [],
+      "angle": "The sterrato sectors make tyre width and pressure the whole story — a genuinely different gearing/tyre piece from the tarmac Grand Tour content — and the same-weekend Gran Fondo gives a 'ride' audience hook alongside the 'watch' one. Clash on 2027-03-07: also competing for the feed post against Paris-Nice.",
+      "postWindow": "Sterrato tyre-pressure guide Thu 4 Mar 2027; race-day post Sun 7 Mar",
+      "lastVerifiedAt": "2026-09-01",
+      "verifiedBy": "review-6m",
+      "reviewLog": [
+        {
+          "runId": "2026-09-01-6m",
+          "checkedAt": "2026-09-01",
+          "horizon": "6m",
+          "outcome": "new",
+          "changes": [],
+          "note": "On the published 2027 UCI WorldTour calendar. The sterrato sectors make tyre choice the story, and the companion Gran Fondo gives a 'ride' audience hook too."
+        }
+      ],
+      "priorityRationale": "One of the most photogenic, widely-watched Classics with a genuine gear-choice story; takes the feed post over Paris-Nice on 7 Mar since it's a single unmissable day rather than stage one of a longer race."
+    },
+    {
+      "id": "tirreno-adriatico",
+      "name": "Tirreno-Adriatico",
+      "category": "road",
+      "audience": [
+        "watch"
+      ],
+      "priority": 3,
+      "start": "2027-03-08",
+      "end": "2027-03-14",
+      "dateConfidence": "confirmed",
+      "country": "IT",
+      "place": "Lido di Camaiore to San Benedetto del Tronto, Italy — the 'Race of the Two Seas', WorldTour stage race",
+      "officialUrl": "https://www.tirrenoadriatico.it/en/",
+      "sourceUrls": [
+        "https://www.domestiquecycling.com/en/2027-uci-worldtour-calendar/",
+        "https://www.domestiquecycling.com/en/news/uci-confirms-2027-worldtour-calendars-as-vuelta-espana-femenina-moves-to-september/"
+      ],
+      "handles": {
+        "instagram": null,
+        "x": null
+      },
+      "handleConfidence": "none",
+      "hashtags": [],
+      "angle": "Runs the same week as Paris-Nice and Strade Bianche — if used at all, the 'Race of the Two Seas' vs 'Race to the Sun' concurrent-races angle is the hook, not a standalone stage report.",
+      "postWindow": "Fold into a single mid-March stage-race round-up, week of 8 Mar 2027, only if that week needs filling",
+      "lastVerifiedAt": "2026-09-01",
+      "verifiedBy": "review-6m",
+      "reviewLog": [
+        {
+          "runId": "2026-09-01-6m",
+          "checkedAt": "2026-09-01",
+          "horizon": "6m",
+          "outcome": "new",
+          "changes": [],
+          "note": "On the published 2027 UCI WorldTour calendar, running concurrently with Paris-Nice; has its own summit finishes but is under-covered relative to the Grand Tours."
+        }
+      ],
+      "priorityRationale": "Genuinely under-covered race, but the same week already carries Strade Bianche and Paris-Nice — a third road stage-race post would be one too many."
+    },
+    {
+      "id": "milano-sanremo",
+      "name": "Milano-Sanremo",
+      "category": "road",
+      "audience": [
+        "watch"
+      ],
+      "priority": 1,
+      "start": "2027-03-20",
+      "end": "2027-03-20",
+      "dateConfidence": "confirmed",
+      "country": "IT",
+      "place": "Milan to Sanremo, Italy — roughly 290km, the longest WorldTour one-day race, decided on the Cipressa and Poggio climbs",
+      "officialUrl": "https://www.milanosanremo.it/en/",
+      "sourceUrls": [
+        "https://www.domestiquecycling.com/en/2027-uci-worldtour-calendar/",
+        "https://www.domestiquecycling.com/en/news/uci-confirms-2027-worldtour-calendars-as-vuelta-espana-femenina-moves-to-september/"
+      ],
+      "handles": {
+        "instagram": null,
+        "x": null
+      },
+      "handleConfidence": "none",
+      "hashtags": [],
+      "angle": "At roughly 290km it's the longest WorldTour one-day race, decided on the short, punchy Cipressa and Poggio climbs in the final 20km — exactly the compact, dramatic gradient profile the 3D visualiser is built to show.",
+      "postWindow": "Cipressa/Poggio climb page live Wed 17 Mar 2027; race-day post Sat 20 Mar",
+      "lastVerifiedAt": "2026-09-01",
+      "verifiedBy": "review-6m",
+      "reviewLog": [
+        {
+          "runId": "2026-09-01-6m",
+          "checkedAt": "2026-09-01",
+          "horizon": "6m",
+          "outcome": "new",
+          "changes": [],
+          "note": "On the published 2027 UCI WorldTour calendar. A Monument decided on two short, dramatic late climbs — strong 3D-visualiser material."
+        }
+      ],
+      "priorityRationale": "A Monument with a genuinely unique format and two short, dramatic climbs — same tier as Il Lombardia in October."
+    },
+    {
+      "id": "absa-cape-epic",
+      "name": "Absa Cape Epic",
+      "category": "mtb",
+      "audience": [
+        "watch",
+        "ride"
+      ],
+      "priority": 1,
+      "start": "2027-03-21",
+      "end": "2027-03-28",
+      "dateConfidence": "confirmed",
+      "country": "ZA",
+      "place": "Western Cape, South Africa — 8-day, ~650km, ~15,500m MTB stage race, widely regarded as the toughest in the world",
+      "officialUrl": "https://www.epic-series.com/races/capeepic",
+      "sourceUrls": [
+        "https://www.epic-series.com/races/capeepic",
+        "https://www.epic-series.com/races/capeepic/rite-of-passage"
+      ],
+      "handles": {
+        "instagram": null,
+        "x": null
+      },
+      "handleConfidence": "none",
+      "hashtags": [],
+      "angle": "The best-known MTB stage race in the world (8 days, ~650km, ~15,500m) is a real bucket-list entry for the 40+ ride audience — build a 'what it costs and takes to get to the start line' guide carrying Stay22/Booking.com flight-and-accommodation links, the same play as Roc d'Azur and Rebecca's Private Idaho.",
+      "postWindow": "Planning/affiliate guide live Mon 8 Mar 2027, two weeks ahead; daily stage wrap-ups 21-28 Mar",
+      "lastVerifiedAt": "2026-09-01",
+      "verifiedBy": "review-6m",
+      "reviewLog": [
+        {
+          "runId": "2026-09-01-6m",
+          "checkedAt": "2026-09-01",
+          "horizon": "6m",
+          "outcome": "new",
+          "changes": [],
+          "note": "Organiser-confirmed 2027 dates. The best-known MTB stage race worldwide and a genuine bucket-list entry with a direct flights-and-accommodation affiliate hook."
+        }
+      ],
+      "priorityRationale": "Rare combination of huge prestige and a direct affiliate travel-booking hook — the single strongest 'ride' story of the month."
+    },
+    {
+      "id": "volta-a-catalunya",
+      "name": "Volta a Catalunya",
+      "category": "road",
+      "audience": [
+        "watch"
+      ],
+      "priority": 2,
+      "start": "2027-03-22",
+      "end": "2027-03-28",
+      "dateConfidence": "tbc",
+      "country": "ES",
+      "place": "Catalonia, Spain — week-long WorldTour race with mountain-top finishes (e.g. Vallter 2000)",
+      "officialUrl": "https://www.voltacatalunya.cat/",
+      "sourceUrls": [
+        "https://en.wikipedia.org/wiki/2026_Volta_a_Catalunya",
+        "https://www.domestiquecycling.com/en/news/2026-volta-a-catalunya-start-list/"
+      ],
+      "handles": {
+        "instagram": null,
+        "x": null
+      },
+      "handleConfidence": "none",
+      "hashtags": [],
+      "angle": "Mountain-top finishes such as Vallter 2000 reuse the same climb-data pipeline built for the Grand Tours, at low marginal cost, once the exact 2027 route is published.",
+      "postWindow": "Confirm dates and stage list by mid-Feb 2027, then a climb page per summit finish; daily posts 22-28 Mar",
+      "lastVerifiedAt": "2026-09-01",
+      "verifiedBy": "review-6m",
+      "reviewLog": [
+        {
+          "runId": "2026-09-01-6m",
+          "checkedAt": "2026-09-01",
+          "horizon": "6m",
+          "outcome": "new",
+          "changes": [],
+          "note": "No official 2027 date published yet; estimated from the 2026 edition's 23-29 March slot. Confirm once the organiser publishes the route."
+        }
+      ],
+      "priorityRationale": "Same low-effort climb-data reuse pattern as Vuelta a Andalucia, but dates are still unconfirmed — hold at watch-only priority until the organiser publishes the 2027 route."
+    },
+    {
+      "id": "taipei-cycle-show",
+      "name": "Taipei Cycle Show",
+      "category": "show",
+      "audience": [
+        "visit"
+      ],
+      "priority": 3,
+      "start": "2027-03-24",
+      "end": "2027-03-27",
+      "dateConfidence": "confirmed",
+      "country": "TW",
+      "place": "Taipei Nangang Exhibition Center, Taiwan — the world's largest cycling trade show",
+      "officialUrl": "https://www.taipeicycle.com.tw/en/index.html",
+      "sourceUrls": [
+        "https://bikebiz.com/taipei-cycle-show-opens-2027-exhibitor-registration-and-unveils-new-brand-positioning/",
+        "https://cyclingindustry.news/taipei-cycle-2027-opens-booth-registration/"
+      ],
+      "handles": {
+        "instagram": null,
+        "x": null
+      },
+      "handleConfidence": "none",
+      "hashtags": [],
+      "angle": "The world's largest cycling trade show is where new groupsets and gear ratios are first shown each year — useful as research for keeping the gear ratio calculator's component database current, not as reader-facing event coverage.",
+      "postWindow": "If following coverage, a single new-components round-up post after the show closes, w/c 29 Mar 2027",
+      "lastVerifiedAt": "2026-09-01",
+      "verifiedBy": "review-6m",
+      "reviewLog": [
+        {
+          "runId": "2026-09-01-6m",
+          "checkedAt": "2026-09-01",
+          "horizon": "6m",
+          "outcome": "new",
+          "changes": [],
+          "note": "Organiser-confirmed 2027 dates. Where new groupsets and gearing standards are typically first shown — useful for keeping the gear ratio calculator's component data current."
+        }
+      ],
+      "priorityRationale": "Valuable for internal research but no direct UK reader hook or affiliate angle — same tier as Bespoked Osaka."
+    },
+    {
+      "id": "exeter-gravel-races",
+      "name": "Exeter Gravel Races",
+      "category": "gravel",
+      "audience": [
+        "ride"
+      ],
+      "priority": 3,
+      "start": "2027-03-28",
+      "end": "2027-03-28",
+      "dateConfidence": "tbc",
+      "country": "GB",
+      "place": "Escot Park, Ottery St Mary, Devon, UK — lapped gravel race on fire roads, open to gravel and CX bikes",
+      "officialUrl": "https://sportivaevents.co.uk/events/exeter-gravel-races/",
+      "sourceUrls": [
+        "https://www.timeoutdoors.com/events/exeter-gravel-races",
+        "https://www.britishcycling.org.uk/events/details/296029/Exeter-Gravel-Races",
+        "https://www.granfondoguide.com/Events/Index/12259/exeter-gravel-races"
+      ],
+      "handles": {
+        "instagram": null,
+        "x": null
+      },
+      "handleConfidence": "none",
+      "hashtags": [],
+      "angle": "A genuine UK gravel race the readership could actually enter — pairs with a gravel-vs-cross bike setup piece, though the organiser hasn't published a firm 2027 date yet.",
+      "postWindow": "Confirm the date with the organiser by Feb 2027; if it holds, a setup-guide post the week before",
+      "lastVerifiedAt": "2026-09-01",
+      "verifiedBy": "review-6m",
+      "reviewLog": [
+        {
+          "runId": "2026-09-01-6m",
+          "checkedAt": "2026-09-01",
+          "horizon": "6m",
+          "outcome": "new",
+          "changes": [],
+          "note": "2026 ran 29 March; 2027 date estimated from that pattern and not yet organiser-confirmed. A rare confirmed-organiser UK gravel entry for the site's ride audience."
+        }
+      ],
+      "priorityRationale": "Good UK participation fit but small-scale and still date-unconfirmed — worth a mention only if the week is otherwise thin."
     }
   ],
   "reviewRuns": [
@@ -2250,6 +2646,22 @@
       "horizon": "2m",
       "eventsChecked": 15,
       "changesFound": 4,
+      "errors": 0
+    },
+    {
+      "runId": "2026-09-01-6m",
+      "ranAt": "2026-09-01",
+      "horizon": "6m",
+      "eventsChecked": 8,
+      "changesFound": 8,
+      "errors": 0
+    },
+    {
+      "runId": "2026-09-01-2m",
+      "ranAt": "2026-09-01",
+      "horizon": "2m",
+      "eventsChecked": 8,
+      "changesFound": 0,
       "errors": 0
     }
   ]
