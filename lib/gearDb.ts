@@ -196,24 +196,46 @@ road: {
       ]
     },
     // ── 10-speed ───────────────────────────────────────────
+    // 2026-09-02: corrected from Shimano's own EV (exploded-parts) PDFs
+    // via si.shimano.com/en/manual/search?input_model=<code> (the model-
+    // search page — direct URL query works, no need to click filters).
+    // EV-CS-7900-2869A + SI-1KY0A-003 (FC-7900/FC-7950). Real cassette
+    // range is much wider than the file had (8 options, not 4) and tops
+    // out at 12-27, not 12-25. Real chainrings: 53/42 and 53/39 (A/B-type
+    // FC-7900) + 52/39 + 50/34 (FC-7950 compact) — the file's 52/36 and
+    // 55/42 were fabricated (55/42 is a real FC-7900 option but only in
+    // the TT/triathlon E-type build, out of scope like other TT variants
+    // in this file).
     'Dura-Ace 7900 (2008–12)': {
       era:'10-speed · 2004–2015',
-      chainrings:[{label:'53/39',outer:53,inner:39},{label:'52/36',outer:52,inner:36},{label:'50/34',outer:50,inner:34},{label:'55/42',outer:55,inner:42}],
-      cassettes:[
-        {label:'11-23',teeth:[11,12,13,14,15,16,17,18,21,23]},
-        {label:'11-25',teeth:[11,12,13,14,15,16,17,18,21,25]},
-        {label:'11-28',teeth:[11,12,13,14,15,16,17,19,23,28]},
-        {label:'12-25',teeth:[12,13,14,15,16,17,18,20,23,25]},
-      ]
-    },
-    'Dura-Ace 7800 (2004–08)': {
-      era:'10-speed · 2004–2015',
-      chainrings:[{label:'53/39',outer:53,inner:39},{label:'52/39',outer:52,inner:39},{label:'50/34',outer:50,inner:34}],
+      chainrings:[{label:'53/42',outer:53,inner:42},{label:'53/39',outer:53,inner:39},{label:'52/39',outer:52,inner:39},{label:'50/34',outer:50,inner:34}],
       cassettes:[
         {label:'11-21',teeth:[11,12,13,14,15,16,17,18,19,21]},
-        {label:'11-23',teeth:[11,12,13,14,15,16,17,18,20,23]},
-        {label:'11-25',teeth:[11,12,13,14,15,16,17,18,21,25]},
-        {label:'12-27',teeth:[12,13,14,15,16,17,18,20,24,27]},
+        {label:'11-23',teeth:[11,12,13,14,15,16,17,19,21,23]},
+        {label:'11-25',teeth:[11,12,13,14,15,17,19,21,23,25]},
+        {label:'11-27',teeth:[11,12,13,14,15,17,19,21,24,27]},
+        {label:'11-28',teeth:[11,12,13,14,15,17,19,21,24,28]},
+        {label:'12-23',teeth:[12,13,14,15,16,17,18,19,21,23]},
+        {label:'12-25',teeth:[12,13,14,15,16,17,19,21,23,25]},
+        {label:'12-27',teeth:[12,13,14,15,16,17,19,21,24,27]},
+      ]
+    },
+    // 2026-09-02: corrected from EV-CS-7800-2253 + EV-FC-7800-2251E, same
+    // source pass as 7900 above. Real cassette range tops out at 12-27
+    // with 6 options total (file only had 4, missing 12-21 and had a
+    // fabricated 11-25 that isn't real for this generation). Real
+    // chainrings: 53/42 (A-type) + 50/39, 52/39, 53/39 (B-type) — 50/34
+    // was fabricated (7800 predates the FC-6750-style road compact).
+    'Dura-Ace 7800 (2004–08)': {
+      era:'10-speed · 2004–2015',
+      chainrings:[{label:'53/42',outer:53,inner:42},{label:'53/39',outer:53,inner:39},{label:'52/39',outer:52,inner:39},{label:'50/39',outer:50,inner:39}],
+      cassettes:[
+        {label:'11-21',teeth:[11,12,13,14,15,16,17,18,19,21]},
+        {label:'11-23',teeth:[11,12,13,14,15,16,17,19,21,23]},
+        {label:'12-21',teeth:[12,13,14,15,16,17,18,19,20,21]},
+        {label:'12-23',teeth:[12,13,14,15,16,17,18,19,21,23]},
+        {label:'12-25',teeth:[12,13,14,15,16,17,19,21,23,25]},
+        {label:'12-27',teeth:[12,13,14,15,16,17,19,21,24,27]},
       ]
     },
     // 2026-09-02: corrected from Shimano's own SI (Service Instructions)
@@ -235,12 +257,23 @@ road: {
         {label:'11-28',teeth:[11,12,13,14,15,17,19,21,24,28]},
       ]
     },
+    // 2026-09-02: corrected from EV-CS-6600-2370 + EV-FC-6600-2365E. Real
+    // cassette range is wider (8 options) but 13-25/14-25/15-25/16-27 are
+    // TT-oriented (16T smallest cog is impractical for a standard double)
+    // so excluded, matching the FC-7900/7800 TT-variant exclusion
+    // convention — kept the 4 standard-range options, adding the real
+    // 11-23 that was missing and correcting 12-25's spacing. Chainrings:
+    // FC-6600's parts list only lists 39T/52T/53T rings on a 130mm BCD —
+    // no compact option exists on this model; the file's 50/34 was
+    // actually FC-6650 (Ultegra's separate first compact crank, 110mm
+    // BCD), wrongly merged into this entry.
     'Ultegra 6600 (2005–09)': {
       era:'10-speed · 2004–2015',
-      chainrings:[{label:'53/39',outer:53,inner:39},{label:'50/34',outer:50,inner:34}],
+      chainrings:[{label:'53/39',outer:53,inner:39},{label:'52/39',outer:52,inner:39}],
       cassettes:[
+        {label:'11-23',teeth:[11,12,13,14,15,16,17,19,21,23]},
         {label:'12-23',teeth:[12,13,14,15,16,17,18,19,21,23]},
-        {label:'12-25',teeth:[12,13,14,15,16,17,18,19,22,25]},
+        {label:'12-25',teeth:[12,13,14,15,16,17,19,21,23,25]},
         {label:'12-27',teeth:[12,13,14,15,16,17,19,21,24,27]},
       ]
     },
@@ -260,20 +293,34 @@ road: {
         {label:'12-27',teeth:[12,13,14,15,16,17,19,21,24,27]},
       ]
     },
+    // 2026-09-02: corrected from EV-CS-5600-2455C + EV-FC-5600-2439C, same
+    // source pass as Ultegra 6600 above. Cassette gains the real 11-23 and
+    // 11-25 options (file only had 12-25/12-27, and 12-25's spacing was
+    // wrong). Chainrings: FC-5600's parts list is 39T inner with 50/52/53T
+    // outer options on a 130mm BCD, no compact — the file's 50/34 was
+    // wrong for the same reason as Ultegra 6600 (that's FC-5650, a
+    // separate compact model).
     '105 5600 (2005–10)': {
       era:'10-speed · 2004–2015',
-      chainrings:[{label:'52/39',outer:52,inner:39},{label:'50/34',outer:50,inner:34}],
+      chainrings:[{label:'53/39',outer:53,inner:39},{label:'52/39',outer:52,inner:39},{label:'50/39',outer:50,inner:39}],
       cassettes:[
-        {label:'12-25',teeth:[12,13,14,15,16,17,18,20,23,25]},
+        {label:'11-23',teeth:[11,12,13,14,15,16,17,19,21,23]},
+        {label:'11-25',teeth:[11,12,13,14,15,17,19,21,23,25]},
+        {label:'12-25',teeth:[12,13,14,15,16,17,19,21,23,25]},
         {label:'12-27',teeth:[12,13,14,15,16,17,19,21,24,27]},
       ]
     },
     // Corrected 2026-09-02 from CS-4600's own parts PDF, found the same
     // pass as the Tiagra 4700 fix above — also gained the real 11-25
     // option, missing here entirely before.
+    // Chainrings independently verified same day from EV-FC-4600-3144
+    // (standard crank: 39T inner/52T-B outer only, BCD 130mm) and
+    // EV-FC-4650-3146 (compact crank: 34T/50T-F, BCD 110mm) — real options
+    // are 52/39 and 50/34; the file's 46/36 was fabricated, doesn't match
+    // either real crank in this generation.
     'Tiagra 4600 (2010–15)': {
       era:'10-speed · 2004–2015',
-      chainrings:[{label:'50/34',outer:50,inner:34},{label:'46/36',outer:46,inner:36}],
+      chainrings:[{label:'52/39',outer:52,inner:39},{label:'50/34',outer:50,inner:34}],
       cassettes:[
         {label:'11-25',teeth:[11,12,13,14,15,17,19,21,23,25]},
         {label:'12-28',teeth:[12,13,14,15,17,19,21,23,25,28]},
