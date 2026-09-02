@@ -1275,35 +1275,71 @@ mtb: {
       ]
     },
     // ── 9-speed ────────────────────────────────────────────
+    // 2026-09-02: cassette corrected from EV-CS-M970-2577 — real options
+    // are THREE distinct cassettes, not two: ba-group 11-32
+    // (11-12-14-16-18-21-24-28-32), be-group 11-34
+    // (11-13-15-17-20-23-26-30-34, different internal spacing to ba —
+    // not just a wider ba), and bd-group 12-34
+    // (12-14-16-18-20-23-26-30-34). The file's old single "11-34" was a
+    // wrong hybrid of the two real 11-range cassettes.
+    // Chainring corrected from EV-FC-M970-2592 — real combos are 44-32-22T
+    // (AA-group) and 44-32-24T (AB-group), both triples, BCD 104mm outer/
+    // middle + 64mm inner. The file's 2×/26-36 option does NOT appear
+    // anywhere in this parts doc (only single 22/24/32/44T rings listed,
+    // no 26T or 36T) — flagged as unconfirmed rather than removed, since
+    // this doc may just not cover a separate 2×-specific model code.
     'XTR M970 (2006–10)': {
       era:'9-speed · 2004–2012',
-      chainrings:[{label:'22/32/44 3×',outer:44,inner:22},{label:'26/36 2×',outer:36,inner:26}],
+      chainrings:[{label:'44/22 3×',outer:44,inner:22},{label:'44/24 3×',outer:44,inner:24},{label:'26/36 2× (UNCONFIRMED)',outer:36,inner:26}],
       cassettes:[
-        {label:'11-34',teeth:[11,12,14,16,18,21,24,28,34]},
-        {label:'12-34',teeth:[12,13,14,16,18,21,24,28,34]},
+        {label:'11-32',teeth:[11,12,14,16,18,21,24,28,32]},
+        {label:'11-34',teeth:[11,13,15,17,20,23,26,30,34]},
+        {label:'12-34',teeth:[12,14,16,18,20,23,26,30,34]},
       ]
     },
+    // 2026-09-02: cassette corrected from EV-CS-M760-2267 — real options
+    // are aq-group 11-32 (11-12-14-16-18-21-24-28-32) and as-group 11-34
+    // (11-13-15-17-20-23-26-30-34), identical spacing to XTR M970's
+    // ba/be-groups above (shared 9-speed cassette architecture across
+    // tiers) — no third/bd-group option exists for this tier though.
+    // Chainring corrected from EV-FC-M760-2261D — real combo is a single
+    // 44-32-22T triple (BCD 104mm outer/middle, 64mm inner); the parts
+    // list only has 22T/32T/44T rings, no 24T variant and no 26T/34T
+    // anywhere — the file's old "24/34 2×" was fabricated outright.
     'Deore XT M760 (2004–08)': {
       era:'9-speed · 2004–2012',
-      chainrings:[{label:'22/32/44 3×',outer:44,inner:22},{label:'24/34 2×',outer:34,inner:24}],
+      chainrings:[{label:'44/22 3×',outer:44,inner:22}],
       cassettes:[
-        {label:'11-34',teeth:[11,12,14,16,18,21,24,28,34]},
-        {label:'12-34',teeth:[12,13,14,16,18,21,24,28,34]},
+        {label:'11-32',teeth:[11,12,14,16,18,21,24,28,32]},
+        {label:'11-34',teeth:[11,13,15,17,20,23,26,30,34]},
       ]
     },
+    // 2026-09-02: cassette corrected from EV-CS-M580-2354 — real options
+    // are ar-group 11-32 and au-group 11-34, same exact spacing as XTR
+    // M970/Deore XT M760 above (shared 9-speed cassette architecture).
+    // Chainring cross-checked against EV-FC-M580-2356C — confirmed
+    // correct as-is (single 44-32-22T triple, same rings as M760's crank).
     'LX M580 (2003–09)': {
       era:'9-speed · 2004–2012',
       chainrings:[{label:'22/32/44 3×',outer:44,inner:22}],
       cassettes:[
-        {label:'11-34',teeth:[11,12,14,16,18,21,24,28,34]},
-        {label:'12-34',teeth:[12,13,15,17,20,23,26,30,34]},
+        {label:'11-32',teeth:[11,12,14,16,18,21,24,28,32]},
+        {label:'11-34',teeth:[11,13,15,17,20,23,26,30,34]},
       ]
     },
+    // 2026-09-02: chainring corrected from EV-FC-M530-2463A — real combos
+    // are 44-32-22T and 48-36-26T (both triples, BCD 104mm outer/middle,
+    // 64mm inner); the file's 42T/34T/24T options don't match anything in
+    // the real parts list. Cassette corrected from EV-CS-HG50-9M-ar-1904 —
+    // explicitly labeled "SHIMANO DEORE Cassette Sprocket... ar-Group",
+    // confirming it's the real Deore-tier part, same ar-group spacing as
+    // XTR M970/XT M760/LX M580 above (11-32) — only the narrower option is
+    // documented for Deore, no au-group (11-34) found for this tier.
     'Deore M530 (2004–10)': {
       era:'9-speed · 2004–2012',
-      chainrings:[{label:'22/32/42 3×',outer:42,inner:22},{label:'24/34 2×',outer:34,inner:24}],
+      chainrings:[{label:'44/22 3×',outer:44,inner:22},{label:'48/26 3×',outer:48,inner:26}],
       cassettes:[
-        {label:'11-34',teeth:[11,12,14,16,18,21,24,28,34]},
+        {label:'11-32',teeth:[11,12,14,16,18,21,24,28,32]},
       ]
     },
     // ── 8-speed ────────────────────────────────────────────
