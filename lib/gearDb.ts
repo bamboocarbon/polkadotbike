@@ -50,13 +50,21 @@ road: {
       '5-speed · pre-1984',
     ],
     // ── 12-speed ───────────────────────────────────────────
+    // 2026-09-02: corrected from Shimano's own official parts-diagram PDFs
+    // (dassets.shimano.com/.../EV-CS-*.pdf — one per cassette, exact
+    // exploded-diagram tooth tables, same primary-source pattern as
+    // Campagnolo's Spare Parts Catalogue and SRAM's product pages; Robin
+    // asked for the same audit across all three brands). Dura-Ace/Ultegra/
+    // 105 share IDENTICAL tooth progressions at matching range labels
+    // (confirmed directly, same as Campagnolo/SRAM's shared-family
+    // pattern) — only 11-30 was already correct anywhere in this section.
     'Dura-Ace R9200': {
       era:'12-speed · 2021–present',
       chainrings:[{label:'54/40',outer:54,inner:40},{label:'53/39',outer:53,inner:39},{label:'52/36',outer:52,inner:36},{label:'50/34',outer:50,inner:34}],
       cassettes:[
-        {label:'11-28',teeth:[11,12,13,14,15,16,17,19,21,23,25,28]},
+        {label:'11-28',teeth:[11,12,13,14,15,16,17,18,19,21,24,28]},
         {label:'11-30',teeth:[11,12,13,14,15,16,17,19,21,24,27,30]},
-        {label:'11-34',teeth:[11,12,13,14,16,18,20,22,25,28,32,34]},
+        {label:'11-34',teeth:[11,12,13,14,15,17,19,21,24,27,30,34]},
       ]
     },
     'Ultegra R8100': {
@@ -64,70 +72,84 @@ road: {
       chainrings:[{label:'52/36',outer:52,inner:36},{label:'50/34',outer:50,inner:34}],
       cassettes:[
         {label:'11-30',teeth:[11,12,13,14,15,16,17,19,21,24,27,30]},
-        {label:'11-34',teeth:[11,12,13,14,16,18,20,22,25,28,32,34]},
+        {label:'11-34',teeth:[11,12,13,14,15,17,19,21,24,27,30,34]},
       ]
     },
+    // 105 R7100 itself only has ONE cassette (11-34, identical to Dura-
+    // Ace/Ultegra's) — the wider '11-36' option is really a separate,
+    // cheaper cassette (CS-HG710-12) that Shimano markets alongside/
+    // compatible with R7100/R8100/R9200 derailleurs (confirmed via its own
+    // parts PDF's interchangeability table), not a second true "105"
+    // cassette — kept as a second option here since that's how it's sold
+    // and used, but with its real (different) tooth progression.
     '105 R7100': {
       era:'12-speed · 2021–present',
       chainrings:[{label:'52/36',outer:52,inner:36},{label:'50/34',outer:50,inner:34}],
       cassettes:[
-        {label:'11-34',teeth:[11,12,13,14,16,18,20,22,25,28,32,34]},
-        {label:'11-36',teeth:[11,12,13,14,16,18,20,22,25,28,32,36]},
+        {label:'11-34',teeth:[11,12,13,14,15,17,19,21,24,27,30,34]},
+        {label:'11-36',teeth:[11,12,13,14,15,17,19,21,24,28,32,36]},
       ]
     },
     // ── 11-speed ───────────────────────────────────────────
+    // Dura-Ace 9000/R9100 share one cassette family (confirmed via the
+    // R9100 PDF's own title grouping them together); Ultegra R8000/6800
+    // and 105 R7000/5800 likewise share cassettes within their own pairs
+    // (confirmed via the R7000 PDF's interchangeability table listing
+    // CS-6800/CS-5800/CS-R8000 as compatible with CS-R7000). None of the
+    // 4 relevant official PDFs show an 11-34 option anywhere in this
+    // 11-speed generation — it looks to have been a 12-speed-only addition;
+    // removed rather than left unconfirmed on R8000/R7000 below.
     'Dura-Ace R9100 (2016–22)': {
       era:'11-speed · 2012–2022',
       chainrings:[{label:'53/39',outer:53,inner:39},{label:'52/36',outer:52,inner:36},{label:'50/34',outer:50,inner:34}],
       cassettes:[
-        {label:'11-25',teeth:[11,12,13,14,15,16,17,18,21,23,25]},
-        {label:'11-28',teeth:[11,12,13,14,15,16,17,18,21,25,28]},
-        {label:'11-30',teeth:[11,12,13,14,15,16,17,19,22,25,30]},
+        {label:'11-25',teeth:[11,12,13,14,15,16,17,19,21,23,25]},
+        {label:'11-28',teeth:[11,12,13,14,15,17,19,21,23,25,28]},
+        {label:'11-30',teeth:[11,12,13,14,15,17,19,21,24,27,30]},
       ]
     },
     'Dura-Ace 9000 (2012–16)': {
       era:'11-speed · 2012–2022',
       chainrings:[{label:'53/39',outer:53,inner:39},{label:'52/36',outer:52,inner:36},{label:'50/34',outer:50,inner:34}],
       cassettes:[
-        {label:'11-25',teeth:[11,12,13,14,15,16,17,18,21,23,25]},
-        {label:'11-28',teeth:[11,12,13,14,15,16,17,18,21,25,28]},
+        {label:'11-25',teeth:[11,12,13,14,15,16,17,19,21,23,25]},
+        {label:'11-28',teeth:[11,12,13,14,15,17,19,21,23,25,28]},
       ]
     },
     'Ultegra R8000 (2017–22)': {
       era:'11-speed · 2012–2022',
       chainrings:[{label:'53/39',outer:53,inner:39},{label:'52/36',outer:52,inner:36},{label:'50/34',outer:50,inner:34}],
       cassettes:[
-        {label:'11-28',teeth:[11,12,13,14,15,16,17,18,21,25,28]},
-        {label:'11-30',teeth:[11,12,13,14,15,16,17,19,22,25,30]},
-        {label:'11-32',teeth:[11,12,13,14,15,17,19,21,24,28,32]},
-        {label:'11-34',teeth:[11,12,13,14,15,17,19,21,24,28,34]},
+        {label:'11-28',teeth:[11,12,13,14,15,17,19,21,23,25,28]},
+        {label:'11-30',teeth:[11,12,13,14,15,17,19,21,24,27,30]},
+        {label:'11-32',teeth:[11,12,13,14,16,18,20,22,25,28,32]},
       ]
     },
     'Ultegra 6800 (2013–17)': {
       era:'11-speed · 2012–2022',
       chainrings:[{label:'53/39',outer:53,inner:39},{label:'52/36',outer:52,inner:36},{label:'50/34',outer:50,inner:34}],
       cassettes:[
-        {label:'11-25',teeth:[11,12,13,14,15,16,17,18,21,23,25]},
-        {label:'11-28',teeth:[11,12,13,14,15,16,17,18,21,25,28]},
-        {label:'11-32',teeth:[11,12,13,14,15,17,19,21,24,28,32]},
+        {label:'11-23',teeth:[11,12,13,14,15,16,17,18,19,21,23]},
+        {label:'11-25',teeth:[11,12,13,14,15,16,17,19,21,23,25]},
+        {label:'11-28',teeth:[11,12,13,14,15,17,19,21,23,25,28]},
+        {label:'11-32',teeth:[11,12,13,14,16,18,20,22,25,28,32]},
       ]
     },
     '105 R7000 (2018–22)': {
       era:'11-speed · 2012–2022',
       chainrings:[{label:'52/36',outer:52,inner:36},{label:'50/34',outer:50,inner:34}],
       cassettes:[
-        {label:'11-28',teeth:[11,12,13,14,15,16,17,18,21,25,28]},
-        {label:'11-30',teeth:[11,12,13,14,15,16,17,19,22,25,30]},
-        {label:'11-32',teeth:[11,12,13,14,15,17,19,21,24,28,32]},
-        {label:'11-34',teeth:[11,12,13,14,15,17,19,22,25,30,34]},
+        {label:'11-28',teeth:[11,12,13,14,15,17,19,21,23,25,28]},
+        {label:'11-30',teeth:[11,12,13,14,15,17,19,21,24,27,30]},
+        {label:'11-32',teeth:[11,12,13,14,16,18,20,22,25,28,32]},
       ]
     },
     '105 5800 (2014–18)': {
       era:'11-speed · 2012–2022',
       chainrings:[{label:'52/36',outer:52,inner:36},{label:'50/34',outer:50,inner:34}],
       cassettes:[
-        {label:'11-28',teeth:[11,12,13,14,15,16,17,18,21,25,28]},
-        {label:'11-32',teeth:[11,12,13,14,15,17,19,21,24,28,32]},
+        {label:'11-28',teeth:[11,12,13,14,15,17,19,21,23,25,28]},
+        {label:'11-32',teeth:[11,12,13,14,16,18,20,22,25,28,32]},
       ]
     },
     'Tiagra 4700 (2015–22)': {
