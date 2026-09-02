@@ -882,6 +882,29 @@ mtb: {
         {label:'10-51',teeth:[10,12,14,16,18,21,24,28,33,39,45,51]},
       ]
     },
+    // Launched June 2026 (found the same session, via the same Shimano
+    // compatibility matrix that turned up M9200/M8200) — Shimano retired
+    // the SLX brand name here: CS-M7200 is literally "the SLX M7100
+    // cassette reworked into the Deore lineup" per contemporary press
+    // coverage, both M7200 and M6200 now badged Deore. Real, confirmed:
+    // BOTH only ship the 10-51 range (no 10-45 option, unlike the tiers
+    // above) — a genuine simplification, not a gap in this data. Chainring
+    // options assumed unchanged from SLX M7100 / Deore M6100 respectively
+    // — not independently confirmed.
+    'Deore M7200 (2026–)': {
+      era:'12-speed · 2018–present',
+      chainrings:[{label:'32T 1×',outer:32,inner:null},{label:'30T 1×',outer:30,inner:null}],
+      cassettes:[
+        {label:'10-51',teeth:[10,12,14,16,18,21,24,28,33,39,45,51]},
+      ]
+    },
+    'Deore M6200 (2026–)': {
+      era:'12-speed · 2018–present',
+      chainrings:[{label:'30T 1×',outer:30,inner:null},{label:'32T 1×',outer:32,inner:null}],
+      cassettes:[
+        {label:'10-51',teeth:[10,12,14,16,18,21,24,28,33,39,45,51]},
+      ]
+    },
     // ── 11-speed ───────────────────────────────────────────
     // Confirmed shared across XTR/Deore XT/SLX (CS-M9000/M8000/M7000 all
     // interchangeable per their own parts PDFs) — 11-42 was already
