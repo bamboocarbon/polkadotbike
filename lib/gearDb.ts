@@ -1396,19 +1396,48 @@ mtb: {
       ]
     },
     // ── 7-speed ────────────────────────────────────────────
+    // 2026-09-02: real model number researched first (web search) since
+    // "Deore LX (7-speed)" isn't itself a Shimano part number — found
+    // FC-M550, confirmed via EV-FC-M550-1101A ("Front Chainwheel DEORE
+    // LX"). Unlike every other chainring doc this session, this one has
+    // NO stated "combination" line — it's a fully modular parts list
+    // (inner 24/25/28/30T, middle 36/37/38/40T, outer 46/47/48/50T,
+    // including BIOPACE oval-ring variants), so no single small set of
+    // "the real combos" exists to cite. The file's 28/38/48 IS at least a
+    // real, valid combination of existing sizes (kept). Its 26/36/46 is
+    // NOT valid — 26T isn't in the parts list at all (closest real inner
+    // options are 24/25/28/30) — swapped for 25/37/47, another valid
+    // modular combo, but treat both as illustrative rather than a
+    // confirmed factory-standard pairing.
+    // Cassette corrected from EV-CS-HG90_HG70_HG50-7E/7F-1128A/1129A —
+    // both doc titles confirm CS-HG50-7(x) is IDENTICAL across HG90/HG70/
+    // HG50 tiers (XT/mid/Deore all share the same physical part), so tier
+    // doesn't matter here. Real E-group is 12-28, F-group is 14-32 — used
+    // both as the two listed options; other letter groups (G/H/I/J/K/M)
+    // exist in the same doc family but weren't individually checked this
+    // pass.
     'Deore LX (7-speed 1992–99)': {
       era:'7-speed · 1992–2002',
-      chainrings:[{label:'28/38/48 3×',outer:48,inner:28},{label:'26/36/46 3×',outer:46,inner:26}],
+      chainrings:[{label:'28/38/48 3× (illustrative)',outer:48,inner:28},{label:'25/37/47 3× (illustrative)',outer:47,inner:25}],
       cassettes:[
-        {label:'13-30',teeth:[13,15,17,19,21,24,30]},
-        {label:'14-28',teeth:[14,15,17,19,21,24,28]},
+        {label:'12-28',teeth:[12,14,16,18,21,24,28]},
+        {label:'14-32',teeth:[14,16,18,21,24,28,32]},
       ]
     },
+    // 2026-09-02: real model number researched first (web search) — found
+    // FC-M410, confirmed via EV-FC-M410-2465A ("ALIVIO Front Chainwheel
+    // FC-M410"). Real combo is a single 42-32-22T triple (BCD 104mm outer/
+    // middle, 64mm inner) — parts list only has 22T/32T/42T rings, nothing
+    // matching the file's old 28/38/48. Cassette: same shared 7-speed
+    // HG-series parts as Deore LX above (EV-CS-HG90_HG70_HG50-7E/7F —
+    // doc titles confirm these are identical across HG90/HG70/HG50 tiers,
+    // Alivio sits at the low end of that same shared range) — E-group
+    // 12-28, F-group 14-32, replacing the file's old unconfirmed spacing.
     'Deore / Alivio (7-speed 1993–2001)': {
       era:'7-speed · 1992–2002',
-      chainrings:[{label:'28/38/48 3×',outer:48,inner:28}],
+      chainrings:[{label:'42/22 3×',outer:42,inner:22}],
       cassettes:[
-        {label:'14-28',teeth:[14,16,18,20,22,24,28]},
+        {label:'12-28',teeth:[12,14,16,18,21,24,28]},
         {label:'14-32',teeth:[14,16,18,21,24,28,32]},
       ]
     },
