@@ -818,11 +818,17 @@ mtb: {
       '7-speed · 1992–2002',
     ],
     // ── 12-speed ───────────────────────────────────────────
+    // 2026-09-02: corrected from Shimano's official parts-diagram PDFs
+    // (dassets.shimano.com/.../EV-CS-M*.pdf, same source used for the road
+    // section fix) — the 10-45 cassette was missing two sprockets (32/36/40
+    // collapsed into an 11-value list instead of the real 12), shared
+    // identically across XTR/XT/SLX/Deore (confirmed per tier). 10-51 was
+    // already correct everywhere it appeared.
     'XTR M9100 (2018–)': {
       era:'12-speed · 2018–present',
       chainrings:[{label:'34T 1×',outer:34,inner:null},{label:'32T 1×',outer:32,inner:null},{label:'30T 1×',outer:30,inner:null},{label:'36/26 2×',outer:36,inner:26}],
       cassettes:[
-        {label:'10-45',teeth:[10,12,14,16,18,21,24,28,33,39,45]},
+        {label:'10-45',teeth:[10,12,14,16,18,21,24,28,32,36,40,45]},
         {label:'10-51',teeth:[10,12,14,16,18,21,24,28,33,39,45,51]},
       ]
     },
@@ -830,7 +836,7 @@ mtb: {
       era:'12-speed · 2018–present',
       chainrings:[{label:'32T 1×',outer:32,inner:null},{label:'34T 1×',outer:34,inner:null},{label:'30T 1×',outer:30,inner:null}],
       cassettes:[
-        {label:'10-45',teeth:[10,12,14,16,18,21,24,28,33,39,45]},
+        {label:'10-45',teeth:[10,12,14,16,18,21,24,28,32,36,40,45]},
         {label:'10-51',teeth:[10,12,14,16,18,21,24,28,33,39,45,51]},
       ]
     },
@@ -838,7 +844,7 @@ mtb: {
       era:'12-speed · 2018–present',
       chainrings:[{label:'32T 1×',outer:32,inner:null},{label:'30T 1×',outer:30,inner:null}],
       cassettes:[
-        {label:'10-45',teeth:[10,12,14,16,18,21,24,28,33,39,45]},
+        {label:'10-45',teeth:[10,12,14,16,18,21,24,28,32,36,40,45]},
         {label:'10-51',teeth:[10,12,14,16,18,21,24,28,33,39,45,51]},
       ]
     },
@@ -846,17 +852,20 @@ mtb: {
       era:'12-speed · 2018–present',
       chainrings:[{label:'30T 1×',outer:30,inner:null},{label:'32T 1×',outer:32,inner:null}],
       cassettes:[
-        {label:'10-45',teeth:[10,12,14,16,18,21,24,28,33,39,45]},
+        {label:'10-45',teeth:[10,12,14,16,18,21,24,28,32,36,40,45]},
         {label:'10-51',teeth:[10,12,14,16,18,21,24,28,33,39,45,51]},
       ]
     },
     // ── 11-speed ───────────────────────────────────────────
+    // Confirmed shared across XTR/Deore XT/SLX (CS-M9000/M8000/M7000 all
+    // interchangeable per their own parts PDFs) — 11-42 was already
+    // correct everywhere; 11-40 and 11-46 both had the wrong tail.
     'XTR M9000 (2014–20)': {
       era:'11-speed · 2014–2020',
       chainrings:[{label:'30T 1×',outer:30,inner:null},{label:'32T 1×',outer:32,inner:null},{label:'28/38 2×',outer:38,inner:28},{label:'26/36 2×',outer:36,inner:26}],
       cassettes:[
-        {label:'11-40',teeth:[11,13,15,17,19,21,24,28,32,37,40]},
-        {label:'11-46',teeth:[11,13,15,18,21,24,28,32,37,40,46]},
+        {label:'11-40',teeth:[11,13,15,17,19,21,24,27,31,35,40]},
+        {label:'11-46',teeth:[11,13,15,17,19,21,24,28,32,37,46]},
       ]
     },
     'Deore XT M8000 (2016–20)': {
@@ -864,7 +873,7 @@ mtb: {
       chainrings:[{label:'30T 1×',outer:30,inner:null},{label:'32T 1×',outer:32,inner:null},{label:'28/38 2×',outer:38,inner:28}],
       cassettes:[
         {label:'11-42',teeth:[11,13,15,17,19,21,24,28,32,37,42]},
-        {label:'11-46',teeth:[11,13,15,18,21,24,28,32,37,40,46]},
+        {label:'11-46',teeth:[11,13,15,17,19,21,24,28,32,37,46]},
       ]
     },
     'SLX M7000 (2016–20)': {
@@ -1159,27 +1168,38 @@ gravel: {
       'GRX 12-speed · 2022–present',
       'GRX 11-speed · 2019',
     ],
+    // 2026-09-02: GRX RX820 (current) borrows the road 12-speed cassette
+    // family directly — confirmed 11-34 is the same CS-R8101 (Ultegra)
+    // cassette as the road section, and 11-36 the same CS-HG710-12 —
+    // corrected to match those confirmed values exactly.
     'GRX RX820 2× (2022–)': {
       era:'GRX 12-speed · 2022–present',
       chainrings:[{label:'48/31',outer:48,inner:31},{label:'46/30',outer:46,inner:30}],
       cassettes:[
-        {label:'11-34',teeth:[11,12,13,14,16,18,20,22,25,28,32,34]},
-        {label:'11-36',teeth:[11,12,13,14,16,18,20,22,25,28,32,36]},
+        {label:'11-34',teeth:[11,12,13,14,15,17,19,21,24,27,30,34]},
+        {label:'11-36',teeth:[11,12,13,14,15,17,19,21,24,28,32,36]},
       ]
     },
     'GRX RX820 1× (2022–)': {
       era:'GRX 12-speed · 2022–present',
       chainrings:[{label:'40T 1×',outer:40,inner:null},{label:'42T 1×',outer:42,inner:null},{label:'38T 1×',outer:38,inner:null}],
       cassettes:[
-        {label:'11-34',teeth:[11,12,13,14,16,18,20,22,25,28,32,34]},
-        {label:'11-36',teeth:[11,12,13,14,16,18,20,22,25,28,32,36]},
+        {label:'11-34',teeth:[11,12,13,14,15,17,19,21,24,27,30,34]},
+        {label:'11-36',teeth:[11,12,13,14,15,17,19,21,24,28,32,36]},
       ]
     },
+    // RX810 (2019, 11-speed) predates GRX-specific cassettes — it borrowed
+    // MTB cassettes instead: 11-34 is CS-HG700 (confirmed, MTB-style skip
+    // spacing, very different from the road 11-34 above), 11-42 is the
+    // same CS-M7000/M8000 cassette as 11-speed SLX/Deore XT MTB (already
+    // correct here). RX810's own rear derailleur (RD-RX810) is only rated
+    // for 11-30/32/34T — the '11-36' 1x option below has no confirmed real
+    // product behind it this pass, kept but flagged rather than removed.
     'GRX RX810 2× (2019)': {
       era:'GRX 11-speed · 2019',
       chainrings:[{label:'48/31',outer:48,inner:31},{label:'46/30',outer:46,inner:30}],
       cassettes:[
-        {label:'11-34',teeth:[11,12,13,14,16,18,20,22,25,30,34]},
+        {label:'11-34',teeth:[11,13,15,17,19,21,23,25,27,30,34]},
         {label:'11-42',teeth:[11,13,15,17,19,21,24,28,32,37,42]},
       ]
     },
@@ -1188,6 +1208,7 @@ gravel: {
       chainrings:[{label:'40T 1×',outer:40,inner:null},{label:'42T 1×',outer:42,inner:null}],
       cassettes:[
         {label:'11-42',teeth:[11,13,15,17,19,21,24,28,32,37,42]},
+        // UNCONFIRMED — see comment above.
         {label:'11-36',teeth:[11,12,13,14,16,18,20,22,25,30,36]},
       ]
     },
