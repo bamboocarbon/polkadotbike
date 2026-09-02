@@ -35,7 +35,26 @@ import { put } from '@vercel/blob';
 //   together can only mean a fabricated UA, never a real browser, so this
 //   is safe to match precisely without risking any real visitor's UA (a
 //   real Mobile Safari UA never contains "Chrome/" at all).
-const BOT_UA = /bot|spider|crawl|slurp|facebookexternalhit|meta-externalagent|headless|lighthouse|pingdom|uptimerobot|monitor|preview|whatsapp|telegrambot|discordbot|google-inspectiontool|barkrowler|curl\/|wget\/|python-requests|python-urllib|go-http-client|okhttp|axios\/|node-fetch|postmanruntime|libwww-perl|apache-httpclient|guzzlehttp|insomnia|http\.rb|get_titles|forestengine|networkingextension|chrome\/[\d.]+ safari\/604\.1/i;
+//
+// 2026-09-02, fourth widening (ported from the same fix on
+// digital-credit-yield — Robin asked to compare a day's admin count against
+// Vercel Web Analytics; the gap traced to real UA data, same method as
+// above). Found live on this site and/or digital-credit-yield the same day:
+// - `GoogleOther` — Google's own generic crawler, self-identifies honestly
+//   in its UA, just wasn't caught (only `google-inspectiontool` was listed)
+//   — 66 hits here, over a third of that day's total on this site alone.
+// - `crusader-worker` — a plainly-named scraper, undisguised.
+// - `AppEngine-Google` (with a `virustotalcloud` appid seen live) — Google
+//   App Engine's default outbound UA, used by automated cloud scanners
+//   (VirusTotal here), never a real browser.
+// - `iPhone OS 13_2_3 ... Version/13.0.3 ... Safari/604.1` — an exact,
+//   identical UA hit both this site and digital-credit-yield the same day
+//   at real volume; iOS 13.2.3 is a 2019 release no real device would still
+//   present in 2026, and the same fixed string on two unrelated sites the
+//   same day points to one shared bot/prefetch service with a hardcoded
+//   fake UA, not organic traffic. Matched on the exact OS+Safari-version
+//   combination so it can't collide with any real visitor's UA.
+const BOT_UA = /bot|spider|crawl|slurp|facebookexternalhit|meta-externalagent|headless|lighthouse|pingdom|uptimerobot|monitor|preview|whatsapp|telegrambot|discordbot|google-inspectiontool|googleother|barkrowler|curl\/|wget\/|python-requests|python-urllib|go-http-client|okhttp|axios\/|node-fetch|postmanruntime|libwww-perl|apache-httpclient|guzzlehttp|insomnia|http\.rb|get_titles|forestengine|networkingextension|crusader-worker|appengine-google|chrome\/[\d.]+ safari\/604\.1|iphone os 13_2_3.*version\/13\.0\.3/i;
 
 // A different bot class UA filtering can never catch: these self-identify
 // by hitting a PATH that isn't a real route on this site at all, often with
