@@ -580,6 +580,10 @@ road: {
         {label:'11-29',teeth:[11,12,13,14,15,17,19,21,23,26,29]},
       ]
     },
+    // 2026-09-02: the 3 additional ranges (12-25/12-27/12-29) confirmed
+    // from catalogue page 64 — this WAS genuinely Chorus 11S (same CS-112/
+    // CS-111 sprocket-carrier code as 11-23/25/27/29 on page 63), not a
+    // mismatched table. Chorus 11 has 7 cassette options total.
     'Chorus 11 (2009–20)': {
       era:'11-speed · 2009–2020',
       chainrings:[{label:'52/36',outer:52,inner:36},{label:'50/34',outer:50,inner:34}],
@@ -588,79 +592,102 @@ road: {
         {label:'11-25',teeth:[11,12,13,14,15,16,17,19,21,23,25]},
         {label:'11-27',teeth:[11,12,13,14,15,17,19,21,23,25,27]},
         {label:'11-29',teeth:[11,12,13,14,15,17,19,21,23,26,29]},
+        {label:'12-25',teeth:[12,13,14,15,16,17,18,19,21,23,25]},
+        {label:'12-27',teeth:[12,13,14,15,16,17,19,21,23,25,27]},
+        {label:'12-29',teeth:[12,13,14,15,16,17,19,21,23,26,29]},
       ]
     },
-    // NOT verified against the catalogue this pass — a same-named
-    // "12-25/12-27/12-29" table also appears on catalogue page 64 under a
-    // repeated "Chorus 11S" header that doesn't match any 11-speed Chorus
-    // cassette this site (or common knowledge) has ever listed as 12-tooth-
-    // start; left untouched rather than guess which product it's really
-    // for. Athena 11 numbers below are also unverified this pass (Athena
-    // doesn't appear in the Spare Parts Catalogue - B at all — possibly
-    // covered in Catalogue - A, not fetched this session).
+    // Cassette spacing confirmed real (identical to the shared Super
+    // Record/Record 11 "Campagnolo 11S" cassette on catalogue p.65).
+    // Chainrings: high confidence on 53/39 and 50/34 (2009/2010 launch);
+    // 52/36 and 52/39 confirmed via retailer part listings + a contemporary
+    // Bikerumor first-look rather than a single catalogue table — medium
+    // confidence, not a primary-source read like the cassette numbers.
     'Athena 11 (2012–18)': {
       era:'11-speed · 2009–2020',
-      chainrings:[{label:'52/36',outer:52,inner:36},{label:'50/34',outer:50,inner:34}],
+      chainrings:[{label:'53/39',outer:53,inner:39},{label:'52/39',outer:52,inner:39},{label:'52/36',outer:52,inner:36},{label:'50/34',outer:50,inner:34}],
       cassettes:[
-        {label:'11-29',teeth:[11,12,13,14,15,16,17,19,22,25,29]},
-        {label:'11-32',teeth:[11,12,13,14,16,18,20,22,25,28,32]},
+        {label:'11-29',teeth:[11,12,13,14,15,17,19,21,23,26,29]},
+        {label:'11-32',teeth:[11,12,13,14,15,17,19,22,25,28,32]},
       ]
     },
     // ── 10-speed ───────────────────────────────────────────
-    'Super Record 10 (2004–09)': {
-      era:'10-speed · 2000–2012',
-      chainrings:[{label:'53/39',outer:53,inner:39},{label:'52/39',outer:52,inner:39}],
-      cassettes:[
-        {label:'11-23',teeth:[11,12,13,14,15,16,17,18,21,23]},
-        {label:'11-25',teeth:[11,12,13,14,15,16,17,18,21,25]},
-        {label:'12-25',teeth:[12,13,14,15,16,17,18,20,23,25]},
-        {label:'12-27',teeth:[12,13,14,15,16,17,19,21,24,27]},
-      ]
-    },
+    // 2026-09-02: 'Super Record' as a nameplate did not exist in this era —
+    // confirmed absent from Campagnolo's own official Spare Parts & Tools
+    // Catalogues for 2001, 2002, and 2006 (checked cranksets AND sprockets
+    // in all three, cover to cover — no "Super Record" tier alongside
+    // Record/Chorus/Centaur/Veloce/Mirage). The name was retired after the
+    // 6-speed era and only reintroduced in 2008 as the (real) 11-speed
+    // flagship already listed above. The 'Super Record 10 (2004–09)' entry
+    // that used to be here was fabricated; removed rather than kept as a
+    // misleading product name on a public site.
     'Record 10 (2000–09)': {
       era:'10-speed · 2000–2012',
-      chainrings:[{label:'53/39',outer:53,inner:39},{label:'52/39',outer:52,inner:39}],
+      // Fully modular Z39/Z41/Z42 inner x Z52/Z53 outer system at this
+      // tier — no 50/34 compact yet. Confirmed from the 2001 catalogue.
+      chainrings:[{label:'53/39',outer:53,inner:39},{label:'52/39',outer:52,inner:39},{label:'52/42',outer:52,inner:42}],
       cassettes:[
-        {label:'12-25',teeth:[12,13,14,15,16,17,18,20,23,25]},
+        {label:'11-21',teeth:[11,12,13,14,15,16,17,18,19,21]},
+        {label:'11-23',teeth:[11,12,13,14,15,16,17,19,21,23]},
+        {label:'12-25',teeth:[12,13,14,15,16,17,19,21,23,25]},
         {label:'13-26',teeth:[13,14,15,16,17,18,19,21,23,26]},
-        {label:'12-27',teeth:[12,13,14,15,16,17,19,21,24,27]},
+        {label:'13-29',teeth:[13,14,15,16,17,19,21,23,26,29]},
       ]
     },
     'Chorus 10 (2000–09)': {
       era:'10-speed · 2000–2012',
-      chainrings:[{label:'53/39',outer:53,inner:39},{label:'50/34',outer:50,inner:34}],
+      // Same modular system as Record 10 at this tier — no 50/34 yet.
+      chainrings:[{label:'53/39',outer:53,inner:39},{label:'52/39',outer:52,inner:39},{label:'52/42',outer:52,inner:42}],
       cassettes:[
-        {label:'12-25',teeth:[12,13,14,15,16,17,18,20,23,25]},
+        {label:'11-23',teeth:[11,12,13,14,15,16,17,19,21,23]},
+        {label:'12-25',teeth:[12,13,14,15,16,17,19,21,23,25]},
         {label:'13-26',teeth:[13,14,15,16,17,18,19,21,23,26]},
+        {label:'13-29',teeth:[13,14,15,16,17,19,21,23,26,29]},
       ]
     },
+    // Cassette spacing confirmed identical to Record/Chorus 10 (shared
+    // architecture). Chainrings: 50/34 not found in the 2006 catalogue —
+    // may have been added later in this generation's run; flagged as
+    // possibly incomplete rather than assumed.
     'Centaur 10 (2006–12)': {
       era:'10-speed · 2000–2012',
-      chainrings:[{label:'50/34',outer:50,inner:34}],
+      chainrings:[{label:'53/39',outer:53,inner:39},{label:'52/39',outer:52,inner:39},{label:'52/42',outer:52,inner:42}],
       cassettes:[
-        {label:'12-27',teeth:[12,13,14,15,16,17,19,21,24,27]},
-        {label:'14-29',teeth:[14,15,16,17,18,19,21,23,26,29]},
+        {label:'11-23',teeth:[11,12,13,14,15,16,17,19,21,23]},
+        {label:'12-25',teeth:[12,13,14,15,16,17,19,21,23,25]},
+        {label:'13-26',teeth:[13,14,15,16,17,18,19,21,23,26]},
+        {label:'13-29',teeth:[13,14,15,16,17,19,21,23,26,29]},
       ]
     },
     // ── 9-speed ────────────────────────────────────────────
     'Record 9 (1998–2004)': {
       era:'9-speed · 1998–2006',
-      chainrings:[{label:'53/39',outer:53,inner:39},{label:'52/39',outer:52,inner:39}],
+      chainrings:[{label:'53/39',outer:53,inner:39},{label:'52/39',outer:52,inner:39},{label:'52/42',outer:52,inner:42}],
       cassettes:[
-        {label:'12-23',teeth:[12,13,14,15,16,17,18,20,23]},
-        {label:'12-25',teeth:[12,13,14,15,16,17,18,21,25]},
-        {label:'13-26',teeth:[13,14,15,16,17,18,20,23,26]},
-        {label:'12-27',teeth:[12,13,14,15,16,17,19,22,27]},
+        {label:'11-23',teeth:[11,12,13,14,15,17,19,21,23]},
+        {label:'12-21',teeth:[12,13,14,15,16,17,18,19,21]},
+        {label:'12-23',teeth:[12,13,14,15,16,17,19,21,23]},
+        {label:'13-23',teeth:[13,14,15,16,17,18,19,21,23]},
+        {label:'13-26',teeth:[13,14,15,16,17,19,21,23,26]},
       ]
     },
+    // No 38t/50t ring existed at this tier — the old '50/38' option here
+    // was wrong.
     'Chorus 9 (1999–2004)': {
       era:'9-speed · 1998–2006',
-      chainrings:[{label:'53/39',outer:53,inner:39},{label:'50/38',outer:50,inner:38}],
+      chainrings:[{label:'53/39',outer:53,inner:39},{label:'52/39',outer:52,inner:39},{label:'52/42',outer:52,inner:42}],
       cassettes:[
-        {label:'13-26',teeth:[13,14,15,16,17,18,20,23,26]},
-        {label:'13-29',teeth:[13,14,15,16,18,20,22,25,29]},
+        {label:'12-21',teeth:[12,13,14,15,16,17,18,19,21]},
+        {label:'12-23',teeth:[12,13,14,15,16,17,19,21,23]},
+        {label:'13-23',teeth:[13,14,15,16,17,18,19,21,23]},
+        {label:'13-26',teeth:[13,14,15,16,17,19,21,23,26]},
       ]
     },
+    // UNVERIFIED this pass — Centaur doesn't appear at all in the 2001
+    // catalogue, and by 2002 Campagnolo had already dropped 9-speed
+    // sprocket listings entirely. Left as-is (an existing unconfirmed
+    // guess, not improved or worsened) rather than replace with an
+    // equally-unconfirmed alternative.
     'Centaur 9 (2000–06)': {
       era:'9-speed · 1998–2006',
       chainrings:[{label:'50/34',outer:50,inner:34}],
@@ -670,24 +697,44 @@ road: {
       ]
     },
     // ── 8-speed ────────────────────────────────────────────
+    // 2026-09-02: Record and Chorus 8 share ONE cassette system at this
+    // era — Campagnolo's "Exa-Drive" sprockets, one official exploded-
+    // diagram table covering Record/Chorus/Athena together, confirmed
+    // directly (7 range options, not the 2-3 previously listed here with
+    // unconfirmed spacing). Chainrings also fully modular across both
+    // tiers: Z39/Z41/Z42 inner x Z52/Z53 outer.
     'Record 8 (1994–2000)': {
       era:'8-speed · 1994–2000',
-      chainrings:[{label:'53/39',outer:53,inner:39},{label:'52/42',outer:52,inner:42}],
+      chainrings:[{label:'53/39',outer:53,inner:39},{label:'53/41',outer:53,inner:41},{label:'53/42',outer:53,inner:42},{label:'52/39',outer:52,inner:39},{label:'52/41',outer:52,inner:41},{label:'52/42',outer:52,inner:42}],
       cassettes:[
-        {label:'12-23',teeth:[12,13,14,15,16,17,19,23]},
-        {label:'13-26',teeth:[13,14,15,16,17,19,21,26]},
-        {label:'13-28',teeth:[13,14,15,16,18,20,23,28]},
+        {label:'12-19',teeth:[12,13,14,15,16,17,18,19]},
+        {label:'12-21',teeth:[12,13,14,15,16,17,19,21]},
+        {label:'12-23',teeth:[12,13,14,15,17,19,21,23]},
+        {label:'13-21',teeth:[13,14,15,16,17,18,19,21]},
+        {label:'13-23',teeth:[13,14,15,16,17,19,21,23]},
+        {label:'13-26',teeth:[13,14,15,17,19,21,23,26]},
+        {label:'14-26',teeth:[14,15,16,17,19,21,23,26]},
       ]
     },
     'Chorus 8 (1994–2000)': {
       era:'8-speed · 1994–2000',
-      chainrings:[{label:'52/39',outer:52,inner:39}],
+      chainrings:[{label:'53/39',outer:53,inner:39},{label:'53/41',outer:53,inner:41},{label:'53/42',outer:53,inner:42},{label:'52/39',outer:52,inner:39},{label:'52/41',outer:52,inner:41},{label:'52/42',outer:52,inner:42}],
       cassettes:[
-        {label:'13-23',teeth:[13,14,15,16,17,18,20,23]},
-        {label:'13-26',teeth:[13,14,15,16,17,19,21,26]},
+        {label:'12-19',teeth:[12,13,14,15,16,17,18,19]},
+        {label:'12-21',teeth:[12,13,14,15,16,17,19,21]},
+        {label:'12-23',teeth:[12,13,14,15,17,19,21,23]},
+        {label:'13-21',teeth:[13,14,15,16,17,18,19,21]},
+        {label:'13-23',teeth:[13,14,15,16,17,19,21,23]},
+        {label:'13-26',teeth:[13,14,15,17,19,21,23,26]},
+        {label:'14-26',teeth:[14,15,16,17,19,21,23,26]},
       ]
     },
     // ── 7-speed ────────────────────────────────────────────
+    // UNVERIFIED this pass — no official spec table found for either tier
+    // at 7-speed (Campagnolo's own archival documentation for this era is
+    // marketing brochures, not spare-parts tooth-count tables). Left as-is
+    // rather than guess further; treat both entries with real suspicion
+    // until a primary source turns up.
     'Record 7 (1987–96)': {
       era:'7-speed · 1987–1996',
       chainrings:[{label:'53/42',outer:53,inner:42},{label:'52/42',outer:52,inner:42}],
@@ -706,12 +753,18 @@ road: {
       ]
     },
     // ── 6-speed ────────────────────────────────────────────
+    // 2026-09-02: two of the (real, physically-verified) 6-speed freewheel
+    // ranges got confirmed exact tooth sequences (13-23, 14-20) from
+    // vintage-parts listings — swapped in for the old 13-21/14-24 entries,
+    // which had no confirming source at all. Other real period ranges
+    // (13-21, 13-24, 14-24) exist but their exact spacing is still
+    // unconfirmed; not added rather than guessed.
     'Record 6 (pre-1990)': {
       era:'6-speed · pre-1990',
       chainrings:[{label:'53/42',outer:53,inner:42}],
       cassettes:[
-        {label:'13-21',teeth:[13,14,15,17,19,21]},
-        {label:'14-24',teeth:[14,15,17,18,21,24]},
+        {label:'13-23',teeth:[13,15,17,19,21,23]},
+        {label:'14-20',teeth:[14,15,16,17,18,20]},
       ]
     },
   }, // end campagnolo road
