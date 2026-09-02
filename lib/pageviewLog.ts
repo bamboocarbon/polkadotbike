@@ -81,7 +81,7 @@ export async function getPageviewStats(): Promise<PageviewStats> {
   const topPages: PageCount[] = Object.entries(pathCounts)
     .map(([path, count]) => ({ path: decodePath(path), count: Number(count) }))
     .sort((a, b) => b.count - a.count)
-    .slice(0, 5);
+    .slice(0, 10);
 
   const totalRecorded = Number(await redis.get<number>(`${NS}:total`)) || 0;
 
