@@ -328,50 +328,106 @@ road: {
       ]
     },
     // ── 9-speed ────────────────────────────────────────────
+    // 2026-09-02: corrected from EV-CS-7700-1660 + EV-FC-7700-1655B. Real
+    // cassette range is 11-21/11-23/12-21/12-23/12-25/12-27 (file had a
+    // fabricated 13-26 that isn't real for this generation, and was
+    // missing 11-23/12-21/12-23/12-27 entirely). Chainrings: A-type is
+    // 53/42 (confirmed), B-type is 53/39 or 52/39 (also confirmed) — the
+    // parts list also shows a 41T B-type inner ring but doesn't state
+    // which outer ring(s) it pairs with, so that combo is left out rather
+    // than guessed. Triathlon-specific inner/outer rings (42T/44T/45T
+    // triathlon, 54-42T/55-42T/56-44T) excluded per this file's TT-variant
+    // convention.
     'Dura-Ace 7700 (1997–04)': {
       era:'9-speed · 1997–2010',
-      chainrings:[{label:'53/39',outer:53,inner:39},{label:'52/42',outer:52,inner:42}],
+      chainrings:[{label:'53/42',outer:53,inner:42},{label:'53/39',outer:53,inner:39},{label:'52/39',outer:52,inner:39}],
       cassettes:[
         {label:'11-21',teeth:[11,12,13,14,15,16,17,19,21]},
-        {label:'12-23',teeth:[12,13,14,15,16,17,18,20,23]},
-        {label:'12-25',teeth:[12,13,14,15,16,17,19,21,25]},
-        {label:'13-26',teeth:[13,14,15,16,17,18,20,23,26]},
+        {label:'11-23',teeth:[11,12,13,14,15,17,19,21,23]},
+        {label:'12-21',teeth:[12,13,14,15,16,17,18,19,21]},
+        {label:'12-23',teeth:[12,13,14,15,16,17,19,21,23]},
+        {label:'12-25',teeth:[12,13,14,15,17,19,21,23,25]},
+        {label:'12-27',teeth:[12,13,14,15,17,19,21,24,27]},
       ]
     },
+    // 2026-09-02: corrected from EV-CS-6500-1680A + EV-FC-6500-1677A.
+    // Cassette range is wider than the file had (6 options, not 3) —
+    // 13-23/13-25/14-25 rows also exist in the source but are TT-oriented
+    // (excluded per convention, same as Dura-Ace 7700 above). Chainrings:
+    // A-type 53/42, B-type 52/39 — the file's 53/39 and 50/34 were both
+    // fabricated (no compact existed yet in this generation; that's
+    // FC-6650, introduced c.2008).
     'Ultegra 6500 (1999–05)': {
       era:'9-speed · 1997–2010',
-      chainrings:[{label:'53/39',outer:53,inner:39},{label:'52/42',outer:52,inner:42},{label:'50/34',outer:50,inner:34}],
+      chainrings:[{label:'53/42',outer:53,inner:42},{label:'52/39',outer:52,inner:39}],
       cassettes:[
-        {label:'12-25',teeth:[12,13,14,15,16,17,19,21,25]},
-        {label:'12-27',teeth:[12,13,14,15,16,17,19,22,27]},
-        {label:'13-26',teeth:[13,14,15,16,17,18,20,23,26]},
+        {label:'11-21',teeth:[11,12,13,14,15,16,17,19,21]},
+        {label:'11-23',teeth:[11,12,13,14,15,17,19,21,23]},
+        {label:'12-21',teeth:[12,13,14,15,16,17,18,19,21]},
+        {label:'12-23',teeth:[12,13,14,15,16,17,19,21,23]},
+        {label:'12-25',teeth:[12,13,14,15,17,19,21,23,25]},
+        {label:'12-27',teeth:[12,13,14,15,17,19,21,24,27]},
       ]
     },
+    // 2026-09-02: corrected from EV-FC-5500-1732 + EV-CS-HG70-9-1746A. 105
+    // 9-speed shared the generic HG70-9 cassette (not a 5500-branded part
+    // number — CS-5500 doesn't exist in Shimano's archive) — confirmed
+    // this is the right one from the doc's own "SHIMANO 105 Cassette
+    // Sprocket" header. Real options are 12-23/12-25/13-23/13-25 — no
+    // 12-27 exists for this cassette (fabricated in the file) and 13-25's
+    // spacing was wrong. Chainrings: A-type 53/42, B-type 50/39, 52/39,
+    // 53/39 — the file's 50/34 was fabricated (no compact existed yet).
     '105 5500 (2000–06)': {
       era:'9-speed · 1997–2010',
-      chainrings:[{label:'53/39',outer:53,inner:39},{label:'50/34',outer:50,inner:34}],
+      chainrings:[{label:'53/42',outer:53,inner:42},{label:'53/39',outer:53,inner:39},{label:'52/39',outer:52,inner:39},{label:'50/39',outer:50,inner:39}],
       cassettes:[
-        {label:'12-25',teeth:[12,13,14,15,16,17,19,21,25]},
-        {label:'13-25',teeth:[13,14,15,16,17,18,20,22,25]},
-        {label:'12-27',teeth:[12,13,14,15,16,17,19,22,27]},
+        {label:'12-23',teeth:[12,13,14,15,16,17,19,21,23]},
+        {label:'12-25',teeth:[12,13,14,15,17,19,21,23,25]},
+        {label:'13-23',teeth:[13,14,15,16,17,18,19,21,23]},
+        {label:'13-25',teeth:[13,14,15,16,17,19,21,23,25]},
       ]
     },
+    // 2026-09-02: corrected from EV-FC-4500-2593B + EV-FC-4550-2595B
+    // (standard FC-4500 is 52/39 only, 130mm BCD; FC-4550 compact is
+    // 50/34, 110mm BCD — the file's 46/38 didn't match either real crank)
+    // and EV-CS-HG50-9-1880E for the cassette (the generic 9-speed
+    // spare-parts cassette this tier used — no CS-4500-branded part
+    // exists). Real range tops out at 11-30/12-27; the file's 11-32 isn't
+    // a real HG50-9 option (13-25/14-25 close-ratio options also exist in
+    // the source but excluded as non-representative for a touring-tier
+    // groupset, matching this file's TT/close-ratio exclusion convention
+    // elsewhere).
     'Tiagra 4500 (2004–10)': {
       era:'9-speed · 1997–2010',
-      chainrings:[{label:'50/34',outer:50,inner:34},{label:'46/38',outer:46,inner:38}],
+      chainrings:[{label:'52/39',outer:52,inner:39},{label:'50/34',outer:50,inner:34}],
       cassettes:[
-        {label:'12-25',teeth:[12,13,14,15,16,17,19,21,25]},
-        {label:'12-27',teeth:[12,13,14,15,16,17,20,24,27]},
-        {label:'11-32',teeth:[11,13,15,17,19,21,23,26,32]},
+        {label:'11-25',teeth:[11,12,13,15,17,19,21,23,25]},
+        {label:'11-30',teeth:[11,12,14,16,18,20,23,26,30]},
+        {label:'12-23',teeth:[12,13,14,15,16,17,19,21,23]},
+        {label:'12-25',teeth:[12,13,14,15,17,19,21,23,25]},
+        {label:'12-27',teeth:[12,13,14,15,17,19,21,24,27]},
       ]
     },
+    // 2026-09-02: corrected from EV-FC-3300-1868. Real chainrings are
+    // 52/39 and 50/39 (130mm BCD, no compact) — the file's 50/34 and
+    // 46/38 were both fabricated. Note: "FC-3400" doesn't exist in
+    // Shimano's SI archive (only FC-3300) — this may be a non-real model
+    // number, similar to the "105 Golden Arrow" naming issue in the
+    // 7-speed section below; only FC-3300 is confirmed. Cassette: no
+    // CS-3300 exists either — reused the confirmed CS-HG50-9 data from
+    // Tiagra 4500 above (same generic 9-speed spare-parts cassette,
+    // commonly shared across Shimano's budget/mid tiers in this era) —
+    // this is an inference about shared parts, not an independently
+    // sourced Sora-specific document.
     'Sora 3300/3400 (2002–17)': {
       era:'9-speed · 1997–2010',
-      chainrings:[{label:'50/34',outer:50,inner:34},{label:'46/38',outer:46,inner:38}],
+      chainrings:[{label:'52/39',outer:52,inner:39},{label:'50/39',outer:50,inner:39}],
       cassettes:[
-        {label:'12-25',teeth:[12,13,14,15,16,17,19,21,25]},
-        {label:'11-32',teeth:[11,13,15,17,19,21,23,26,32]},
-        {label:'12-30',teeth:[12,13,15,17,19,21,23,26,30]},
+        {label:'11-25',teeth:[11,12,13,15,17,19,21,23,25]},
+        {label:'11-30',teeth:[11,12,14,16,18,20,23,26,30]},
+        {label:'12-23',teeth:[12,13,14,15,16,17,19,21,23]},
+        {label:'12-25',teeth:[12,13,14,15,17,19,21,23,25]},
+        {label:'12-27',teeth:[12,13,14,15,17,19,21,24,27]},
       ]
     },
     // ── 8-speed ────────────────────────────────────────────
