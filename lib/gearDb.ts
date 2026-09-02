@@ -620,11 +620,20 @@ road: {
       ]
     },
     // ── 11-speed ───────────────────────────────────────────
+    // 2026-09-02: verified against real sram.com service pages (Robin
+    // asked to finish the SRAM audit, same pass as the road/gravel/MTB
+    // current-tier fixes earlier). Cross-checked Red 22's real cassette
+    // (XG-1190), Force 22's (PG-1170), Rival 22's and Apex 1's (both
+    // PG-1130) — Rival 22 and Apex 1 were already exactly right. Red 22's
+    // 11-25 and Force 22's 11-26 both had one wrong internal digit each
+    // (18→19 / 18,22,25→19,21,23) — fixed, everything else in this tier
+    // (all chainrings, Red/Force's 11-28 and 11-32) already matched the
+    // real spec exactly.
     'Red 22 (2013–19)': {
       era:'11-speed · 2013–2019',
       chainrings:[{label:'53/39',outer:53,inner:39},{label:'52/36',outer:52,inner:36},{label:'50/34',outer:50,inner:34}],
       cassettes:[
-        {label:'11-25',teeth:[11,12,13,14,15,16,17,18,21,23,25]},
+        {label:'11-25',teeth:[11,12,13,14,15,16,17,19,21,23,25]},
         {label:'11-28',teeth:[11,12,13,14,15,16,17,19,22,25,28]},
         {label:'11-32',teeth:[11,12,13,14,15,17,19,22,25,28,32]},
       ]
@@ -633,11 +642,13 @@ road: {
       era:'11-speed · 2013–2019',
       chainrings:[{label:'53/39',outer:53,inner:39},{label:'50/34',outer:50,inner:34}],
       cassettes:[
-        {label:'11-26',teeth:[11,12,13,14,15,16,17,18,22,25,26]},
+        {label:'11-26',teeth:[11,12,13,14,15,16,17,19,21,23,26]},
         {label:'11-28',teeth:[11,12,13,14,15,16,17,19,22,25,28]},
         {label:'11-32',teeth:[11,12,13,14,15,17,19,22,25,28,32]},
       ]
     },
+    // Cross-checked against the real PG-1130 cassette (sram.com service
+    // page) — already exactly right, no change needed.
     'Rival 22 (2013–19)': {
       era:'11-speed · 2013–2019',
       chainrings:[{label:'50/34',outer:50,inner:34},{label:'46/36',outer:46,inner:36}],
@@ -646,6 +657,8 @@ road: {
         {label:'11-32',teeth:[11,12,13,14,15,17,19,22,25,28,32]},
       ]
     },
+    // Cross-checked against the real PG-1130 11-42t option — already
+    // exactly right, no change needed.
     'Apex 1 (2016–19 · 1×11)': {
       era:'11-speed · 2013–2019',
       chainrings:[{label:'42T 1×',outer:42,inner:null},{label:'40T 1×',outer:40,inner:null},{label:'38T 1×',outer:38,inner:null}],
