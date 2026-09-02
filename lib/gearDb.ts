@@ -997,9 +997,35 @@ mtb: {
         {label:'10-52',teeth:[10,12,14,16,18,21,24,28,32,36,42,52]},
       ]
     },
-    'GX Eagle Transmission AXS (2024–)': {
+    'GX Eagle Transmission AXS (2023–)': {
       era:'12-speed Eagle Transmission (T-Type) · 2023–present',
       chainrings:[{label:'30T 1×',outer:30,inner:null},{label:'32T 1×',outer:32,inner:null},{label:'34T 1×',outer:34,inner:null},{label:'36T 1×',outer:36,inner:null},{label:'38T 1×',outer:38,inner:null}],
+      cassettes:[
+        {label:'10-52',teeth:[10,12,14,16,18,21,24,28,32,36,42,52]},
+      ]
+    },
+    // Real launch was July 2023, alongside/shortly after XX SL/XX/X0 — not
+    // 2024 as this entry previously said.
+    //
+    // 2026-09-02: two current tiers were missing entirely — Eagle 90 and
+    // Eagle 70 Transmission (launched March 2025), SRAM's first MECHANICAL
+    // (DoubleTap, not AXS electronic) Transmission drivetrains, sitting
+    // below GX. Chainring range confirmed narrower than the AXS tiers
+    // (30-34T only, not 30-38T). Cassette assumed to share the same 10-52
+    // XG-1299-family progression as every other Eagle Transmission tier
+    // (SRAM markets the whole Transmission line on that consistent 520%
+    // range) — not independently confirmed for these two specific alloy
+    // cassette SKUs (XS-1275/XS-1270), medium confidence on that one point.
+    'Eagle 90 Transmission (2025–)': {
+      era:'12-speed Eagle Transmission (T-Type) · 2023–present',
+      chainrings:[{label:'30T 1×',outer:30,inner:null},{label:'32T 1×',outer:32,inner:null},{label:'34T 1×',outer:34,inner:null}],
+      cassettes:[
+        {label:'10-52',teeth:[10,12,14,16,18,21,24,28,32,36,42,52]},
+      ]
+    },
+    'Eagle 70 Transmission (2025–)': {
+      era:'12-speed Eagle Transmission (T-Type) · 2023–present',
+      chainrings:[{label:'30T 1×',outer:30,inner:null},{label:'32T 1×',outer:32,inner:null},{label:'34T 1×',outer:34,inner:null}],
       cassettes:[
         {label:'10-52',teeth:[10,12,14,16,18,21,24,28,32,36,42,52]},
       ]
@@ -1026,18 +1052,21 @@ mtb: {
         {label:'10-52',teeth:[10,12,14,16,18,21,24,28,32,36,42,52]},
       ]
     },
+    // 2026-09-02: 11-50 spacing corrected from the real PG-1230 product
+    // page (21,24 → confirmed real 22,25) — the 10-52 XG-1299 cassette
+    // above was already accurate when checked against the same source.
     'NX Eagle (2017–)': {
       era:'12-speed Eagle · 2017–present',
       chainrings:[{label:'30T 1×',outer:30,inner:null},{label:'32T 1×',outer:32,inner:null}],
       cassettes:[
-        {label:'11-50',teeth:[11,13,15,17,19,21,24,28,32,36,42,50]},
+        {label:'11-50',teeth:[11,13,15,17,19,22,25,28,32,36,42,50]},
       ]
     },
     'SX Eagle (2019–)': {
       era:'12-speed Eagle · 2017–present',
       chainrings:[{label:'30T 1×',outer:30,inner:null},{label:'32T 1×',outer:32,inner:null}],
       cassettes:[
-        {label:'11-50',teeth:[11,13,15,17,19,21,24,28,32,36,42,50]},
+        {label:'11-50',teeth:[11,13,15,17,19,22,25,28,32,36,42,50]},
       ]
     },
     // ── 11-speed ───────────────────────────────────────────
