@@ -824,6 +824,32 @@ mtb: {
     // collapsed into an 11-value list instead of the real 12), shared
     // identically across XTR/XT/SLX/Deore (confirmed per tier). 10-51 was
     // already correct everywhere it appeared.
+    //
+    // Same day, spotted via Shimano's own compatibility matrix
+    // (productinfo.shimano.com/en/compatibility/C-433, which Robin had
+    // open): a newer generation — XTR M9200 (launched Aug 2025) and Deore
+    // XT M8200 (Di2 Jun 2025, mechanical 2026) — was missing entirely.
+    // Confirmed via Shimano's own product copy that CS-M9200-12/CS-M8200-12
+    // use "the same tooth configuration" as M9100/M8100 (refined
+    // HYPERGLIDE+ tooth PROFILE, not a different tooth COUNT), so added
+    // reusing the same confirmed cassette values; chainring options assumed
+    // unchanged from M9100/M8100 (not independently confirmed).
+    'XTR M9200 (2025–)': {
+      era:'12-speed · 2018–present',
+      chainrings:[{label:'34T 1×',outer:34,inner:null},{label:'32T 1×',outer:32,inner:null},{label:'30T 1×',outer:30,inner:null},{label:'36/26 2×',outer:36,inner:26}],
+      cassettes:[
+        {label:'10-45',teeth:[10,12,14,16,18,21,24,28,32,36,40,45]},
+        {label:'10-51',teeth:[10,12,14,16,18,21,24,28,33,39,45,51]},
+      ]
+    },
+    'Deore XT M8200 (2025–)': {
+      era:'12-speed · 2018–present',
+      chainrings:[{label:'32T 1×',outer:32,inner:null},{label:'34T 1×',outer:34,inner:null},{label:'30T 1×',outer:30,inner:null}],
+      cassettes:[
+        {label:'10-45',teeth:[10,12,14,16,18,21,24,28,32,36,40,45]},
+        {label:'10-51',teeth:[10,12,14,16,18,21,24,28,33,39,45,51]},
+      ]
+    },
     'XTR M9100 (2018–)': {
       era:'12-speed · 2018–present',
       chainrings:[{label:'34T 1×',outer:34,inner:null},{label:'32T 1×',outer:32,inner:null},{label:'30T 1×',outer:30,inner:null},{label:'36/26 2×',outer:36,inner:26}],
