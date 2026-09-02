@@ -498,6 +498,12 @@ road: {
       ]
     },
     // ── 7-speed ────────────────────────────────────────────
+    // 2026-09-02: EV-FC-7400-0681D exists but is a low-resolution 1980s
+    // scan, illegible even at max zoom — couldn't confirm or contradict
+    // the existing chainring/cassette values, left as-is (they already
+    // show 53/42 + 52/42, consistent with the confirmed 600 Ultegra
+    // chainring pattern below, for what that's worth). Cassette STILL
+    // UNVERIFIED.
     'Dura-Ace 7400 (1984–91)': {
       era:'7-speed · 1984–1994',
       chainrings:[{label:'53/42',outer:53,inner:42},{label:'52/42',outer:52,inner:42}],
@@ -507,17 +513,35 @@ road: {
         {label:'14-28',teeth:[14,15,17,19,21,24,28]},
       ]
     },
+    // 2026-09-02: chainring corrected from EV-FC-6400-SG-1150A ("SHIMANO
+    // 600 Ultegra Front Chainwheel", the same crank confirmed for the
+    // 8-speed Ultegra 6400/6401 entry above — one crank spans multiple
+    // cassette speed counts) — gains the real 53/42 option alongside the
+    // existing 52/42. Cassette (CS-6400-7) STILL UNVERIFIED: the doc
+    // exists (EV-CS-6400-0837B) but gives a fixed parts diagram, not a
+    // labeled tooth-range table like the newer-format docs, and reading
+    // exact digits off the diagram risked a wrong guess — left as-is.
     '600 Ultegra (1987–93)': {
       era:'7-speed · 1984–1994',
-      chainrings:[{label:'52/42',outer:52,inner:42}],
+      chainrings:[{label:'53/42',outer:53,inner:42},{label:'52/42',outer:52,inner:42}],
       cassettes:[
         {label:'13-21',teeth:[13,14,15,16,17,19,21]},
         {label:'14-24',teeth:[14,15,16,17,19,21,24]},
       ]
     },
+    // 2026-09-02: real model number confirmed as FC-1055 (EV-FC-1055-1109
+    // is explicitly titled "Front Chainwheel SHIMANO 105") — "Golden
+    // Arrow" doesn't appear anywhere in Shimano's own documentation for
+    // this part, likely a dealer/marketing nickname rather than the
+    // official designation; kept as the display label since it's what
+    // Robin's data was filed under, but the model number is now sourced.
+    // Chainrings corrected: real options are 52/42 and 53/42 — the file's
+    // 50/40 was fabricated (doesn't match anything in the parts list).
+    // Cassette STILL UNVERIFIED — no matching CS-1055 or similar doc found
+    // in the time available this pass.
     '105 Golden Arrow (7-speed)': {
       era:'7-speed · 1984–1994',
-      chainrings:[{label:'52/42',outer:52,inner:42},{label:'50/40',outer:50,inner:40}],
+      chainrings:[{label:'53/42',outer:53,inner:42},{label:'52/42',outer:52,inner:42}],
       cassettes:[
         {label:'13-23',teeth:[13,14,15,17,19,21,23]},
         {label:'14-28',teeth:[14,15,17,19,21,24,28]},
