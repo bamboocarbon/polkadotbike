@@ -42,6 +42,9 @@ road: {
     _eras: [
       '12-speed · 2021–present',
       '11-speed · 2012–2022',
+      'Tiagra 10-speed · 2015–present',
+      'Sora 9-speed · 2017–present',
+      'Claris 8-speed · 2017–present',
       '10-speed · 2004–2015',
       '9-speed · 1997–2010',
       '8-speed · 1991–2004',
@@ -152,29 +155,44 @@ road: {
         {label:'11-32',teeth:[11,12,13,14,16,18,20,22,25,28,32]},
       ]
     },
-    'Tiagra 4700 (2015–22)': {
-      era:'11-speed · 2012–2022',
+    // 2026-09-02: MAJOR CORRECTION — Robin filtered Shimano's own
+    // compatibility page for "claris" (productinfo.shimano.com/en/
+    // compatibility/C-454?q=claris) and it stated plainly that Claris is
+    // an 8-speed system. That's real and correct — Claris has always been
+    // Shimano's 8-speed entry tier. All three budget groupsets below were
+    // filed under the 11-speed era with 11-sprocket cassette arrays, which
+    // is wrong at a structural level (wrong rear speed count entirely),
+    // not just wrong tooth spacing: real Tiagra 4700 is 10-speed, Sora
+    // R3000 is 9-speed, Claris R2000 is 8-speed. Each moved to its own era
+    // and given a real cassette at the correct sprocket count, sourced
+    // from Shimano's own parts PDFs (CS-4600 for Tiagra's generation,
+    // CS-HG400-9 for Sora's, CS-HG50-8 for Claris's — each covers several
+    // regional "-group" spacing variants; picked the most representative
+    // modern option(s) per tier). Chainring options unchanged — those
+    // aren't tied to rear speed count and weren't in question.
+    'Tiagra 4700 (2015–)': {
+      era:'Tiagra 10-speed · 2015–present',
       chainrings:[{label:'50/34',outer:50,inner:34},{label:'46/36',outer:46,inner:36}],
       cassettes:[
-        {label:'11-34',teeth:[11,12,13,14,16,18,20,23,26,34]},
-        {label:'12-28',teeth:[12,13,14,15,16,17,19,21,24,28]},
+        {label:'11-25',teeth:[11,12,13,14,15,17,19,21,23,25]},
+        {label:'12-28',teeth:[12,13,14,15,17,19,21,23,25,28]},
+        {label:'12-30',teeth:[12,13,14,15,17,19,21,24,27,30]},
       ]
     },
     'Sora R3000 (2017–)': {
-      era:'11-speed · 2012–2022',
+      era:'Sora 9-speed · 2017–present',
       chainrings:[{label:'50/34',outer:50,inner:34},{label:'46/34',outer:46,inner:34}],
       cassettes:[
-        {label:'11-34',teeth:[11,13,15,17,19,21,23,26,30,34]},
         {label:'11-32',teeth:[11,12,14,16,18,21,24,28,32]},
+        {label:'11-34',teeth:[11,13,15,17,20,23,26,30,34]},
       ]
     },
     'Claris R2000 (2017–)': {
-      era:'11-speed · 2012–2022',
+      era:'Claris 8-speed · 2017–present',
       chainrings:[{label:'50/34',outer:50,inner:34},{label:'46/34',outer:46,inner:34}],
       cassettes:[
-        {label:'11-34',teeth:[11,13,15,17,19,21,23,26,30,34]},
-        {label:'11-32',teeth:[11,13,15,17,19,21,24,28,32]},
-        {label:'11-28',teeth:[11,13,15,17,19,21,23,26,28]},
+        {label:'11-32',teeth:[11,13,15,18,21,24,28,32]},
+        {label:'11-34',teeth:[11,13,15,18,21,24,28,34]},
       ]
     },
     // ── 10-speed ───────────────────────────────────────────
@@ -233,12 +251,16 @@ road: {
         {label:'12-27',teeth:[12,13,14,15,16,17,19,21,24,27]},
       ]
     },
+    // Corrected 2026-09-02 from CS-4600's own parts PDF, found the same
+    // pass as the Tiagra 4700 fix above — also gained the real 11-25
+    // option, missing here entirely before.
     'Tiagra 4600 (2010–15)': {
       era:'10-speed · 2004–2015',
       chainrings:[{label:'50/34',outer:50,inner:34},{label:'46/36',outer:46,inner:36}],
       cassettes:[
-        {label:'12-28',teeth:[12,13,14,15,16,17,19,21,24,28]},
-        {label:'12-30',teeth:[12,13,14,15,17,19,21,23,26,30]},
+        {label:'11-25',teeth:[11,12,13,14,15,17,19,21,23,25]},
+        {label:'12-28',teeth:[12,13,14,15,17,19,21,23,25,28]},
+        {label:'12-30',teeth:[12,13,14,15,17,19,21,24,27,30]},
       ]
     },
     // ── 9-speed ────────────────────────────────────────────
