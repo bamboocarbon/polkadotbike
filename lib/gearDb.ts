@@ -956,9 +956,15 @@ mtb: {
         {label:'11-42',teeth:[11,13,15,17,19,21,24,28,32,37,42]},
       ]
     },
+    // 2026-09-02: chainring corrected from Shimano's official current spec
+    // handbook (productinfo.shimano.com master PDF) — FC-M6000-2's real
+    // chainring combination is 36-26T only, not the invented 36/22+38/24
+    // pair that was on file. Cassette rows are unconfirmed (M6000 doesn't
+    // appear in the current spec handbook's MTB cassette tables — likely
+    // discontinued spare — left as-is, flagged not verified).
     'Deore M6000 (2014–19)': {
       era:'11-speed · 2014–2020',
-      chainrings:[{label:'36/22 2×',outer:36,inner:22},{label:'38/24 2×',outer:38,inner:24}],
+      chainrings:[{label:'36/26 2×',outer:36,inner:26}],
       cassettes:[
         {label:'11-42',teeth:[11,12,13,14,16,18,21,24,28,34,42]},
         {label:'11-36',teeth:[11,13,15,17,19,21,24,28,32,34,36]},
@@ -1282,9 +1288,13 @@ gravel: {
     // family directly — confirmed 11-34 is the same CS-R8101 (Ultegra)
     // cassette as the road section, and 11-36 the same CS-HG710-12 —
     // corrected to match those confirmed values exactly.
+    // Chainrings corrected same session against Shimano's own current spec
+    // handbook: FC-RX820-2 is 48-31T ONLY (the 46/30 option here was
+    // actually RX610's crank, now split into its own entries below), and
+    // FC-RX820-1 really offers 40T/42T/44T/46T, not the 38T that was here.
     'GRX RX820 2× (2022–)': {
       era:'GRX 12-speed · 2022–present',
-      chainrings:[{label:'48/31',outer:48,inner:31},{label:'46/30',outer:46,inner:30}],
+      chainrings:[{label:'48/31',outer:48,inner:31}],
       cassettes:[
         {label:'11-34',teeth:[11,12,13,14,15,17,19,21,24,27,30,34]},
         {label:'11-36',teeth:[11,12,13,14,15,17,19,21,24,28,32,36]},
@@ -1292,7 +1302,27 @@ gravel: {
     },
     'GRX RX820 1× (2022–)': {
       era:'GRX 12-speed · 2022–present',
-      chainrings:[{label:'40T 1×',outer:40,inner:null},{label:'42T 1×',outer:42,inner:null},{label:'38T 1×',outer:38,inner:null}],
+      chainrings:[{label:'40T 1×',outer:40,inner:null},{label:'42T 1×',outer:42,inner:null},{label:'44T 1×',outer:44,inner:null},{label:'46T 1×',outer:46,inner:null}],
+      cassettes:[
+        {label:'11-34',teeth:[11,12,13,14,15,17,19,21,24,27,30,34]},
+        {label:'11-36',teeth:[11,12,13,14,15,17,19,21,24,28,32,36]},
+      ]
+    },
+    // Added 2026-09-02 — GRX RX610 was missing entirely. Confirmed from
+    // Shimano's current spec handbook crankset table: FC-RX610-2 is
+    // 46-30T, FC-RX610-1 is 38T/40T; "Compatible chain: HG 12-speed" (not
+    // LINKGLIDE) means it shares RX820's standard cassette family.
+    'GRX RX610 2× (2022–)': {
+      era:'GRX 12-speed · 2022–present',
+      chainrings:[{label:'46/30',outer:46,inner:30}],
+      cassettes:[
+        {label:'11-34',teeth:[11,12,13,14,15,17,19,21,24,27,30,34]},
+        {label:'11-36',teeth:[11,12,13,14,15,17,19,21,24,28,32,36]},
+      ]
+    },
+    'GRX RX610 1× (2022–)': {
+      era:'GRX 12-speed · 2022–present',
+      chainrings:[{label:'38T 1×',outer:38,inner:null},{label:'40T 1×',outer:40,inner:null}],
       cassettes:[
         {label:'11-34',teeth:[11,12,13,14,15,17,19,21,24,27,30,34]},
         {label:'11-36',teeth:[11,12,13,14,15,17,19,21,24,28,32,36]},
@@ -1305,9 +1335,12 @@ gravel: {
     // correct here). RX810's own rear derailleur (RD-RX810) is only rated
     // for 11-30/32/34T — the '11-36' 1x option below has no confirmed real
     // product behind it this pass, kept but flagged rather than removed.
+    // 2x chainring corrected 2026-09-02: FC-RX810-2 is 48-31T only per
+    // Shimano's current spec handbook — the 46/30 pairing here was actually
+    // RX610's crank (now its own entry in the 12-speed section above).
     'GRX RX810 2× (2019)': {
       era:'GRX 11-speed · 2019',
-      chainrings:[{label:'48/31',outer:48,inner:31},{label:'46/30',outer:46,inner:30}],
+      chainrings:[{label:'48/31',outer:48,inner:31}],
       cassettes:[
         {label:'11-34',teeth:[11,13,15,17,19,21,23,25,27,30,34]},
         {label:'11-42',teeth:[11,13,15,17,19,21,24,28,32,37,42]},
