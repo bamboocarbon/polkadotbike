@@ -1612,16 +1612,30 @@ mtb: {
       ]
     },
     // ── 10-speed ───────────────────────────────────────────
+    // 2026-09-02: chainrings corrected from SRAM's real "Model Year 2013
+    // 3x10/2x10/1x10 MTB Drivetrain Compatibility" map (a genuine primary
+    // source — a proper checkbox/icon matrix, screenshotted+read directly,
+    // not a legacy product page — see [[cyclegear-campagnolo-data]] for
+    // why WebFetch on those specific pages had to be abandoned this pass).
+    // Real 2x10 combos come in two triangle-icon tiers: 42/28-or-39/26
+    // (XX gets ONLY this tier) and 38/24-or-36/22 (X0/X9/X7/X5 only, XX is
+    // NOT listed against this tier at all) — the file's old XX "36/22" was
+    // wrong, XX never had that combo; real second XX option is 42/28. The
+    // real 3x10 triple is a single shared 44/33/22 (X0/X9/X7/X5 crank
+    // models only, not XX) — the file's old "22/32/44" and "24/34/42" for
+    // X0/X9 and X7/X5 didn't match anything real at all. Cassette range
+    // labels (11-36, 11-32, 12-36) were already all real per the same
+    // map's cassette table — kept as-is, internal spacing unconfirmed.
     'XX (2010–14)': {
       era:'10-speed · 2006–2014',
-      chainrings:[{label:'39/26 2×',outer:39,inner:26},{label:'36/22 2×',outer:36,inner:22}],
+      chainrings:[{label:'42/28 2×',outer:42,inner:28},{label:'39/26 2×',outer:39,inner:26}],
       cassettes:[
         {label:'11-36',teeth:[11,12,14,16,18,21,24,28,32,36]},
       ]
     },
     'X0 / X9 (2007–14)': {
       era:'10-speed · 2006–2014',
-      chainrings:[{label:'38/24 2×',outer:38,inner:24},{label:'42/28 2×',outer:42,inner:28},{label:'22/32/44 3×',outer:44,inner:22}],
+      chainrings:[{label:'44/33/22 3×',outer:44,inner:22},{label:'42/28 2×',outer:42,inner:28},{label:'38/24 2×',outer:38,inner:24}],
       cassettes:[
         {label:'11-36',teeth:[11,12,14,16,18,21,24,28,32,36]},
         {label:'11-32',teeth:[11,12,13,15,17,20,23,26,29,32]},
@@ -1629,7 +1643,7 @@ mtb: {
     },
     'X7 / X5 (2008–14)': {
       era:'10-speed · 2006–2014',
-      chainrings:[{label:'22/32/44 3×',outer:44,inner:22},{label:'24/34/42 3×',outer:42,inner:24}],
+      chainrings:[{label:'44/33/22 3×',outer:44,inner:22},{label:'38/24 2×',outer:38,inner:24},{label:'36/22 2×',outer:36,inner:22}],
       cassettes:[
         {label:'11-36',teeth:[11,12,14,16,18,21,24,28,32,36]},
         {label:'12-36',teeth:[12,13,14,16,18,21,24,28,32,36]},
