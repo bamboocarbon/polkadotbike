@@ -431,22 +431,41 @@ road: {
       ]
     },
     // ── 8-speed ────────────────────────────────────────────
+    // 2026-09-02: corrected from EV-FC-7410-1256A + the CS-7401/HG90/HG70
+    // shared 8-speed cassette family (each range is a separate EV doc —
+    // 8S=12-21, 8U=12-23, 8T=13-23, 8V=13-26 checked; a 5th variant, 8W,
+    // wasn't checked). Cassette range labels the file already had were
+    // right, but internal tooth spacing was wrong in 2 of 3, and the real
+    // 12-23 option was missing entirely. Chainrings gain the real A-type
+    // 53/42 option alongside the file's existing 52/42 and 53/39.
     'Dura-Ace 7410 (1991–97)': {
       era:'8-speed · 1991–2004',
-      chainrings:[{label:'53/39',outer:53,inner:39},{label:'52/42',outer:52,inner:42}],
+      chainrings:[{label:'53/42',outer:53,inner:42},{label:'52/42',outer:52,inner:42},{label:'53/39',outer:53,inner:39}],
       cassettes:[
         {label:'12-21',teeth:[12,13,14,15,16,17,19,21]},
-        {label:'13-23',teeth:[13,14,15,16,17,18,20,23]},
-        {label:'13-26',teeth:[13,14,15,16,17,19,21,26]},
+        {label:'12-23',teeth:[12,13,14,15,17,19,21,23]},
+        {label:'13-23',teeth:[13,14,15,16,17,19,21,23]},
+        {label:'13-26',teeth:[13,14,15,17,19,21,23,26]},
       ]
     },
+    // 2026-09-02: corrected from EV-FC-6400-SG-1150A, which is explicitly
+    // titled "SHIMANO 600 Ultegra Front Chainwheel" — confirms this crank
+    // covers both the 8-speed entry here and the separate '600 Ultegra
+    // (1987–93)' 7-speed entry below. Real chainrings are 52/42 and 53/42
+    // — no compact existed at this vintage, and inner ring is 42T not
+    // 39T, so the file's 53/39 and 50/34 were both fabricated. No
+    // CS-6400/CS-6401 8-speed cassette doc exists (CS-6400 itself turned
+    // out to be the 7/6-speed variant) — reused the confirmed shared
+    // CS-7401/HG90/HG70 8-speed cassette data from Dura-Ace 7410 above
+    // (same inference-about-shared-parts pattern as Sora/Tiagra 9-speed).
     'Ultegra 6400/6401 (1991–99)': {
       era:'8-speed · 1991–2004',
-      chainrings:[{label:'53/39',outer:53,inner:39},{label:'50/34',outer:50,inner:34}],
+      chainrings:[{label:'53/42',outer:53,inner:42},{label:'52/42',outer:52,inner:42}],
       cassettes:[
         {label:'12-21',teeth:[12,13,14,15,16,17,19,21]},
-        {label:'13-23',teeth:[13,14,15,16,17,18,20,23]},
-        {label:'13-26',teeth:[13,14,15,16,17,19,21,26]},
+        {label:'12-23',teeth:[12,13,14,15,17,19,21,23]},
+        {label:'13-23',teeth:[13,14,15,16,17,19,21,23]},
+        {label:'13-26',teeth:[13,14,15,17,19,21,23,26]},
       ]
     },
     '105 5200/5300 (1993–2000)': {
@@ -857,11 +876,29 @@ road: {
         {label:'13-26',teeth:[13,14,15,16,17,19,21,23,26]},
       ]
     },
-    // UNVERIFIED this pass — Centaur doesn't appear at all in the 2001
+    // STILL UNVERIFIED — Centaur doesn't appear at all in the 2001
     // catalogue, and by 2002 Campagnolo had already dropped 9-speed
-    // sprocket listings entirely. Left as-is (an existing unconfirmed
-    // guess, not improved or worsened) rather than replace with an
-    // equally-unconfirmed alternative.
+    // sprocket listings entirely.
+    // 2026-09-02 follow-up: tried again — the real "Daytona→Centaur" road
+    // rename happened in this exact 2000-2002 window, but the 1990-era
+    // "Centaur" hits found via web/archive search are a wholly different,
+    // unrelated off-road group from a decade earlier (same name reused,
+    // see [[cyclegear-campagnolo-data]] for the disraeligears.co.uk 1990
+    // catalogue detail — Record/Chorus/Croce d'Aune from that catalogue
+    // don't touch this entry). campybike.com hosts a 2000-2004 spare-parts
+    // archive but it's a 500MB+ multi-year zip, not worth the download for
+    // one groupset's data — abandoned rather than spend an unreasonable
+    // amount of bandwidth chasing it.
+    // Cross-checked against this file's own confirmed 'Record 9'/'Chorus 9'
+    // entries (same era, real Ultra Drive cassette data): their teeth
+    // sequences do NOT match this entry's 13-26/13-29 rows at all (e.g.
+    // Record 9's confirmed 13-26 is 13-14-15-16-17-19-21-23-26, not this
+    // entry's 13-14-15-16-17-18-20-23-26) — so this can't be cross-
+    // validated as a shared part, it's still a bare guess. The 50/34
+    // chainring is also suspect on its face: Record 9/Chorus 9 (same era)
+    // only ever had 53/39, 52/39, 52/42 — no compact existed at this tier
+    // yet, real Campagnolo compacts came years later. Left as-is rather
+    // than guess a replacement.
     'Centaur 9 (2000–06)': {
       era:'9-speed · 1998–2006',
       chainrings:[{label:'50/34',outer:50,inner:34}],
@@ -904,11 +941,34 @@ road: {
       ]
     },
     // ── 7-speed ────────────────────────────────────────────
-    // UNVERIFIED this pass — no official spec table found for either tier
-    // at 7-speed (Campagnolo's own archival documentation for this era is
-    // marketing brochures, not spare-parts tooth-count tables). Left as-is
-    // rather than guess further; treat both entries with real suspicion
-    // until a primary source turns up.
+    // 2026-09-02: found and read Campagnolo's actual June 1990 catalogue
+    // (scanned original, disraeligears.co.uk archive — screenshotted via
+    // Chrome + cropped/upscaled with sips for exact digit reading, same
+    // technique used for si.shimano.com this session, see
+    // [[shimano-si-pdf-access]]). It has a real per-groupset spec table
+    // (crank length / chainring / hub / seatpost options, dot=standard,
+    // circle=upon-request) for both Record and Chorus — but Campagnolo
+    // never spec'd exact freewheel tooth combinations themselves at this
+    // era; the freewheel was a third-party Regina part ("Campagnolo
+    // approved chain and freewheel by Regina" per the catalogue's own
+    // Chorus copy), so cassette teeth genuinely can't be confirmed from
+    // Campagnolo's own documentation — still a bare guess below, treat
+    // with real suspicion.
+    // What the catalogue DID confirm: 52/42 is the real standard chainring
+    // for both tiers (matches what was already coded) — inner ring is a
+    // modular 39-47T range (42T standard) on both, outer ring modular
+    // 48-54T on Chorus / 48-57T on Record (52T standard on both, Record's
+    // range goes wider). Crank lengths: Chorus only 170/172.5mm, Record
+    // the full 165-180mm range.
+    // Also a real era-boundary correction: by this June 1990 printing,
+    // Chorus's 7-speed was already being phased out (this catalogue is
+    // the last one to show it — Anaheim 1990, shortly after, dropped it
+    // for 8-speed) and Record's STANDARD configuration had already become
+    // an 8-speed cassette hub, with the old 7-speed hub relegated to
+    // "upon request" only. By the 1992 catalogue both are "all 8-speed",
+    // no 7-speed option left at all. So '1987–96' below is wrong at the
+    // end (real cutoff is ~1990, not 1996) — start year still unconfirmed
+    // (predates this catalogue, not researched this pass).
     'Record 7 (1987–96)': {
       era:'7-speed · 1987–1996',
       chainrings:[{label:'53/42',outer:53,inner:42},{label:'52/42',outer:52,inner:42}],
