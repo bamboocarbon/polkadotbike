@@ -1582,6 +1582,18 @@ mtb: {
       ]
     },
     // ── 11-speed ───────────────────────────────────────────
+    // 2026-09-02: cassette range labels cross-checked against SRAM's real
+    // "2021 MTB Components" compatibility map (1x11 MTB Compatibility
+    // page) — a genuine primary-source PDF, not a hallucination-prone
+    // legacy product page (see the road-tier commit earlier today for
+    // that lesson). Confirmed exactly right as-is: the 10-42 cassette
+    // (XG-1199/1195/1180/1175/1150 family) is real and shared across
+    // XX1/X01/X1/GX, while 11-42 (PG-1130) is the separate standard-
+    // freehub-compatible option — matches this file's structure exactly,
+    // no change needed. Chainring single-ring tooth sizes are NOT covered
+    // by this compatibility map (it only lists bottom-bracket/frame
+    // compatibility, not gearing options) — left as previously coded,
+    // still unconfirmed against a primary source.
     'XX1 (2012–17)': {
       era:'11-speed · 2012–2018',
       chainrings:[{label:'32T 1×',outer:32,inner:null},{label:'34T 1×',outer:34,inner:null}],
