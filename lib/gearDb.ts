@@ -468,6 +468,13 @@ road: {
         {label:'13-26',teeth:[13,14,15,17,19,21,23,26]},
       ]
     },
+    // 2026-09-02: STILL UNVERIFIED — no SI/EV documentation exists for
+    // FC-5200/FC-5300/CS-5200/CS-5300 on si.shimano.com (this generation,
+    // 1993-2000, predates the site's archive; same gap as the 7-speed
+    // section below). The existing 50/34 compact is almost certainly
+    // fabricated (no compact chainring existed at this vintage — every
+    // other pre-2007 crank checked this session is a standard-BCD double
+    // only), but left as-is rather than guessed at without a source.
     '105 5200/5300 (1993–2000)': {
       era:'8-speed · 1991–2004',
       chainrings:[{label:'52/39',outer:52,inner:39},{label:'50/34',outer:50,inner:34}],
@@ -477,9 +484,14 @@ road: {
         {label:'12-25',teeth:[12,13,14,15,16,17,20,25]},
       ]
     },
+    // 2026-09-02: chainring corrected from EV-FC-4400-1866 — real options
+    // are 52/39 and 50/39 (130mm BCD standard double), the file's 50/34
+    // compact was fabricated (same pattern as every other pre-2007 crank
+    // this session). Cassette (CS-4400) STILL UNVERIFIED — no SI/EV doc
+    // exists for it on si.shimano.com, left as-is rather than guessed.
     'Tiagra 4400 (1999–2004)': {
       era:'8-speed · 1991–2004',
-      chainrings:[{label:'50/34',outer:50,inner:34}],
+      chainrings:[{label:'52/39',outer:52,inner:39},{label:'50/39',outer:50,inner:39}],
       cassettes:[
         {label:'12-25',teeth:[12,13,14,15,16,17,20,25]},
         {label:'13-26',teeth:[13,14,15,16,17,19,21,26]},
