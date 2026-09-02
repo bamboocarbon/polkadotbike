@@ -463,8 +463,8 @@ road: {
 
   campagnolo: {
     _eras: [
-      '13-speed · 2022–present',
-      '12-speed · 2020–2022',
+      '13-speed · 2023–present',
+      '12-speed · 2018–present',
       '11-speed · 2009–2020',
       '10-speed · 2000–2012',
       '9-speed · 1998–2006',
@@ -473,42 +473,77 @@ road: {
       '6-speed · pre-1990',
     ],
     // ── 13-speed ───────────────────────────────────────────
-    'Super Record Wireless 13 (2022–)': {
-      era:'13-speed · 2022–present',
-      chainrings:[{label:'54/41',outer:54,inner:41},{label:'52/39',outer:52,inner:39},{label:'50/37',outer:50,inner:37},{label:'48/35',outer:48,inner:35}],
+    // 2026-09-02: rebuilt from real campagnolo.com product pages (the old
+    // 'Super Record Wireless 13 (2022–)' entry below had fabricated 9-tooth
+    // options and wrong internal spacing — flagged when Robin compared it
+    // against Campagnolo's own site). Super Record 13 launched 2023.
+    'Super Record 13 (2023–)': {
+      era:'13-speed · 2023–present',
+      chainrings:[{label:'45/29',outer:45,inner:29},{label:'48/32',outer:48,inner:32},{label:'50/34',outer:50,inner:34},{label:'52/36',outer:52,inner:36},{label:'53/39',outer:53,inner:39},{label:'54/39',outer:54,inner:39},{label:'55/39',outer:55,inner:39}],
       cassettes:[
-        {label:'9-29', teeth:[9,10,11,12,13,14,15,16,17,19,21,24,29]},
-        {label:'9-33', teeth:[9,10,11,12,13,14,15,17,19,21,24,28,33]},
-        {label:'10-29',teeth:[10,11,12,13,14,15,16,17,19,21,24,27,29]},
-        {label:'10-33',teeth:[10,11,12,13,14,15,17,19,21,24,27,30,33]},
+        {label:'10-29',teeth:[10,11,12,13,14,15,16,17,18,20,23,26,29]},
+        {label:'10-33',teeth:[10,11,12,13,14,15,16,18,20,23,26,29,33]},
+        {label:'11-32',teeth:[11,12,13,14,15,16,17,18,20,23,26,29,32]},
+        {label:'11-36',teeth:[11,12,13,14,15,16,18,20,23,26,29,32,36]},
       ]
     },
-    // ── 12-speed ───────────────────────────────────────────
-    'Super Record 12 (2020–22)': {
-      era:'12-speed · 2020–2022',
+    // Record 13 launched April 2026 — same 7 chainring options as Super
+    // Record 13 (confirmed), narrower cassette range (2 options vs 4).
+    'Record 13 (2026–)': {
+      era:'13-speed · 2023–present',
+      chainrings:[{label:'45/29',outer:45,inner:29},{label:'48/32',outer:48,inner:32},{label:'50/34',outer:50,inner:34},{label:'52/36',outer:52,inner:36},{label:'53/39',outer:53,inner:39},{label:'54/39',outer:54,inner:39},{label:'55/39',outer:55,inner:39}],
+      cassettes:[
+        {label:'10-33',teeth:[10,11,12,13,14,15,16,18,20,23,26,29,33]},
+        {label:'11-36',teeth:[11,12,13,14,15,16,18,20,23,26,29,32,36]},
+      ]
+    },
+    // ── 12-speed (still current — Campagnolo sells this generation
+    // alongside 13-speed, it is not discontinued) ──────────────────
+    // Super Record went 12-speed in 2018, four years before Chorus.
+    // Chainrings confirmed via Campagnolo/press (50/34, 52/36, 53/39).
+    // Cassette internals confirmed from Chorus 12's product page — Record/
+    // Super Record/Chorus 12-speed mechanical share the same sprocket
+    // progression across tiers (differ in material/weight, not spacing).
+    'Super Record 12 (2018–)': {
+      era:'12-speed · 2018–present',
       chainrings:[{label:'53/39',outer:53,inner:39},{label:'52/36',outer:52,inner:36},{label:'50/34',outer:50,inner:34}],
       cassettes:[
-        {label:'11-29',teeth:[11,12,13,14,15,16,17,19,21,24,27,29]},
+        {label:'11-29',teeth:[11,12,13,14,15,16,17,19,21,23,26,29]},
         {label:'11-32',teeth:[11,12,13,14,15,16,17,19,22,25,28,32]},
-        {label:'11-34',teeth:[11,12,13,14,15,16,18,20,23,26,30,34]},
+        {label:'11-34',teeth:[11,12,13,14,15,16,17,19,22,25,29,34]},
       ]
     },
-    'Record 12 (2020–22)': {
-      era:'12-speed · 2020–2022',
+    // Record retired as a 12-speed mechanical tier when Record 13 launched
+    // (2026) — kept here as a discontinued/historical entry, cassette
+    // spacing corrected to match the real shared 12-speed progression.
+    'Record 12 (2020–26)': {
+      era:'12-speed · 2018–present',
       chainrings:[{label:'52/36',outer:52,inner:36},{label:'50/34',outer:50,inner:34}],
       cassettes:[
-        {label:'11-29',teeth:[11,12,13,14,15,16,17,19,21,24,27,29]},
+        {label:'11-29',teeth:[11,12,13,14,15,16,17,19,21,23,26,29]},
         {label:'11-32',teeth:[11,12,13,14,15,16,17,19,22,25,28,32]},
       ]
     },
-    'Chorus 12 (2020–22)': {
-      era:'12-speed · 2020–2022',
-      chainrings:[{label:'52/36',outer:52,inner:36},{label:'50/34',outer:50,inner:34}],
+    // Chorus 12 is still current — confirmed live on campagnolo.com,
+    // 48/32 crank added since launch, 11-34 cassette confirmed as a real
+    // (previously missing here) option alongside 11-29/11-32.
+    'Chorus 12 (2020–)': {
+      era:'12-speed · 2018–present',
+      chainrings:[{label:'52/36',outer:52,inner:36},{label:'50/34',outer:50,inner:34},{label:'48/32',outer:48,inner:32}],
       cassettes:[
-        {label:'11-29',teeth:[11,12,13,14,15,16,17,19,21,24,27,29]},
+        {label:'11-29',teeth:[11,12,13,14,15,16,17,19,21,23,26,29]},
         {label:'11-32',teeth:[11,12,13,14,15,16,17,19,22,25,28,32]},
+        {label:'11-34',teeth:[11,12,13,14,15,16,17,19,22,25,29,34]},
       ]
     },
+    // KNOWN GAP: 'Super Record Wireless 12' (2022–, the EPS electronic
+    // tier — different cassette family from mechanical Super Record 12
+    // above: real range labels are 10-25/10-27/10-29/11-32, confirmed live
+    // on campagnolo.com) is deliberately NOT added here — the product page
+    // doesn't expose the full per-sprocket tooth sequence in crawlable
+    // content (only in a PDF manual), and a wrong/guessed teeth array would
+    // silently break this site's gear-ratio maths. Needs the PDF manual or
+    // another primary source before adding.
     // ── 11-speed ───────────────────────────────────────────
     'Super Record 11 (2009–20)': {
       era:'11-speed · 2009–2020',
@@ -1052,12 +1087,53 @@ gravel: {
     _eras: [
       '13-speed · 2021–present',
     ],
+    // 2026-09-02: cassette spacing corrected + missing options added from
+    // real campagnolo.com product pages (crawled after Robin spotted the
+    // road-side Super Record 13 data was wrong too — see the road section
+    // above for the full diagnosis). Ekar's real three sprocket sets are
+    // named Endurance/Gravel Race/Gravel Adventure by Campagnolo; only two
+    // (with wrong spacing) were here before.
     'Ekar (2021–)': {
       era:'13-speed · 2021–present',
       chainrings:[{label:'38T 1×',outer:38,inner:null},{label:'40T 1×',outer:40,inner:null},{label:'42T 1×',outer:42,inner:null},{label:'44T 1×',outer:44,inner:null},{label:'46T 1×',outer:46,inner:null}],
       cassettes:[
-        {label:'9-36', teeth:[9,10,11,12,13,15,17,19,22,26,30,33,36]},
-        {label:'10-44',teeth:[10,11,12,13,15,17,19,22,26,30,35,40,44]},
+        {label:'9-36 Endurance',       teeth:[9,10,11,12,13,14,16,18,20,23,27,31,36]},
+        {label:'9-42 Gravel Race',     teeth:[9,10,11,12,13,14,16,18,21,25,30,36,42]},
+        {label:'10-44 Gravel Adventure',teeth:[10,11,12,13,14,15,17,20,23,27,32,38,44]},
+      ]
+    },
+    // Launched 2024 — same 1x crank options as Ekar, plus the Ekar family's
+    // widest cassette (shared 10-48 with Record X below).
+    'Ekar GT (2024–)': {
+      era:'13-speed · 2021–present',
+      chainrings:[{label:'38T 1×',outer:38,inner:null},{label:'40T 1×',outer:40,inner:null},{label:'42T 1×',outer:42,inner:null},{label:'44T 1×',outer:44,inner:null},{label:'46T 1×',outer:46,inner:null}],
+      cassettes:[
+        {label:'9-36 Endurance',       teeth:[9,10,11,12,13,14,16,18,20,23,27,31,36]},
+        {label:'9-42 Gravel Race',     teeth:[9,10,11,12,13,14,16,18,21,25,30,36,42]},
+        {label:'10-44 Gravel Adventure',teeth:[10,11,12,13,14,15,17,20,23,27,32,38,44]},
+        {label:'10-48',teeth:[10,11,12,13,14,16,18,21,25,30,36,42,48]},
+      ]
+    },
+    // 1x13 hybrid road/gravel tier (Super Record X launched 2023 alongside
+    // Super Record 13; Record X launched with Record 13 in 2026). Not
+    // chainring-compatible with 2x Super Record/Record 13 — single-ring
+    // only, hence listed here under gravel rather than the road section.
+    'Super Record X (2023–)': {
+      era:'13-speed · 2021–present',
+      chainrings:[{label:'38T 1×',outer:38,inner:null},{label:'40T 1×',outer:40,inner:null},{label:'42T 1×',outer:42,inner:null},{label:'44T 1×',outer:44,inner:null},{label:'46T 1×',outer:46,inner:null},{label:'48T 1×',outer:48,inner:null},{label:'50T 1×',outer:50,inner:null},{label:'52T 1×',outer:52,inner:null}],
+      cassettes:[
+        {label:'9-42',teeth:[9,10,11,12,13,14,16,18,21,25,30,36,42]},
+        {label:'10-48',teeth:[10,11,12,13,14,16,18,21,25,30,36,42,48]},
+      ]
+    },
+    // Record X's crankset shares the same platform/chainring range as
+    // Super Record X (confirmed: Campagnolo's "Record X crankset" and
+    // "1x Super Record crankset" are the same 1x13 architecture).
+    'Record X (2026–)': {
+      era:'13-speed · 2021–present',
+      chainrings:[{label:'38T 1×',outer:38,inner:null},{label:'40T 1×',outer:40,inner:null},{label:'42T 1×',outer:42,inner:null},{label:'44T 1×',outer:44,inner:null},{label:'46T 1×',outer:46,inner:null},{label:'48T 1×',outer:48,inner:null},{label:'50T 1×',outer:50,inner:null},{label:'52T 1×',outer:52,inner:null}],
+      cassettes:[
+        {label:'10-48',teeth:[10,11,12,13,14,16,18,21,25,30,36,42,48]},
       ]
     },
   }, // end campagnolo gravel
