@@ -48,9 +48,6 @@ road: {
       '10-speed · 2004–2015',
       '9-speed · 1997–2010',
       '8-speed · 1991–2004',
-      '7-speed · 1984–1994',
-      '6-speed · 1978–1988',
-      '5-speed · pre-1984',
     ],
     // ── 12-speed ───────────────────────────────────────────
     // 2026-09-02: corrected from Shimano's own official parts-diagram PDFs
@@ -468,22 +465,6 @@ road: {
         {label:'13-26',teeth:[13,14,15,17,19,21,23,26]},
       ]
     },
-    // 2026-09-02: STILL UNVERIFIED — no SI/EV documentation exists for
-    // FC-5200/FC-5300/CS-5200/CS-5300 on si.shimano.com (this generation,
-    // 1993-2000, predates the site's archive; same gap as the 7-speed
-    // section below). The existing 50/34 compact is almost certainly
-    // fabricated (no compact chainring existed at this vintage — every
-    // other pre-2007 crank checked this session is a standard-BCD double
-    // only), but left as-is rather than guessed at without a source.
-    '105 5200/5300 (1993–2000)': {
-      era:'8-speed · 1991–2004',
-      chainrings:[{label:'52/39',outer:52,inner:39},{label:'50/34',outer:50,inner:34}],
-      cassettes:[
-        {label:'13-23',teeth:[13,14,15,16,17,18,20,23]},
-        {label:'13-26',teeth:[13,14,15,16,17,19,21,26]},
-        {label:'12-25',teeth:[12,13,14,15,16,17,20,25]},
-      ]
-    },
     // 2026-09-02: chainring corrected from EV-FC-4400-1866 — real options
     // are 52/39 and 50/39 (130mm BCD standard double), the file's 50/34
     // compact was fabricated (same pattern as every other pre-2007 crank
@@ -495,82 +476,6 @@ road: {
       cassettes:[
         {label:'12-25',teeth:[12,13,14,15,16,17,20,25]},
         {label:'13-26',teeth:[13,14,15,16,17,19,21,26]},
-      ]
-    },
-    // ── 7-speed ────────────────────────────────────────────
-    // 2026-09-02: EV-FC-7400-0681D exists but is a low-resolution 1980s
-    // scan, illegible even at max zoom — couldn't confirm or contradict
-    // the existing chainring/cassette values, left as-is (they already
-    // show 53/42 + 52/42, consistent with the confirmed 600 Ultegra
-    // chainring pattern below, for what that's worth). Cassette STILL
-    // UNVERIFIED.
-    'Dura-Ace 7400 (1984–91)': {
-      era:'7-speed · 1984–1994',
-      chainrings:[{label:'53/42',outer:53,inner:42},{label:'52/42',outer:52,inner:42}],
-      cassettes:[
-        {label:'13-21',teeth:[13,14,15,16,17,19,21]},
-        {label:'13-23',teeth:[13,14,15,16,17,20,23]},
-        {label:'14-28',teeth:[14,15,17,19,21,24,28]},
-      ]
-    },
-    // 2026-09-02: chainring corrected from EV-FC-6400-SG-1150A ("SHIMANO
-    // 600 Ultegra Front Chainwheel", the same crank confirmed for the
-    // 8-speed Ultegra 6400/6401 entry above — one crank spans multiple
-    // cassette speed counts) — gains the real 53/42 option alongside the
-    // existing 52/42. Cassette (CS-6400-7) STILL UNVERIFIED: the doc
-    // exists (EV-CS-6400-0837B) but gives a fixed parts diagram, not a
-    // labeled tooth-range table like the newer-format docs, and reading
-    // exact digits off the diagram risked a wrong guess — left as-is.
-    '600 Ultegra (1987–93)': {
-      era:'7-speed · 1984–1994',
-      chainrings:[{label:'53/42',outer:53,inner:42},{label:'52/42',outer:52,inner:42}],
-      cassettes:[
-        {label:'13-21',teeth:[13,14,15,16,17,19,21]},
-        {label:'14-24',teeth:[14,15,16,17,19,21,24]},
-      ]
-    },
-    // 2026-09-02: real model number confirmed as FC-1055 (EV-FC-1055-1109
-    // is explicitly titled "Front Chainwheel SHIMANO 105") — "Golden
-    // Arrow" doesn't appear anywhere in Shimano's own documentation for
-    // this part, likely a dealer/marketing nickname rather than the
-    // official designation; kept as the display label since it's what
-    // Robin's data was filed under, but the model number is now sourced.
-    // Chainrings corrected: real options are 52/42 and 53/42 — the file's
-    // 50/40 was fabricated (doesn't match anything in the parts list).
-    // Cassette STILL UNVERIFIED — no matching CS-1055 or similar doc found
-    // in the time available this pass.
-    '105 Golden Arrow (7-speed)': {
-      era:'7-speed · 1984–1994',
-      chainrings:[{label:'53/42',outer:53,inner:42},{label:'52/42',outer:52,inner:42}],
-      cassettes:[
-        {label:'13-23',teeth:[13,14,15,17,19,21,23]},
-        {label:'14-28',teeth:[14,15,17,19,21,24,28]},
-      ]
-    },
-    // ── 6-speed ────────────────────────────────────────────
-    'Dura-Ace EX 7200 (1982–88)': {
-      era:'6-speed · 1978–1988',
-      chainrings:[{label:'53/42',outer:53,inner:42}],
-      cassettes:[
-        {label:'13-21',teeth:[13,14,15,17,19,21]},
-        {label:'14-24',teeth:[14,15,17,18,21,24]},
-      ]
-    },
-    '600 EX (1978–88)': {
-      era:'6-speed · 1978–1988',
-      chainrings:[{label:'52/42',outer:52,inner:42}],
-      cassettes:[
-        {label:'14-24',teeth:[14,15,17,18,21,24]},
-        {label:'14-28',teeth:[14,15,17,20,23,28]},
-      ]
-    },
-    // ── 5-speed ────────────────────────────────────────────
-    'Shimano 5-speed (pre-1984)': {
-      era:'5-speed · pre-1984',
-      chainrings:[{label:'52/42',outer:52,inner:42},{label:'50/40',outer:50,inner:40}],
-      cassettes:[
-        {label:'14-28',teeth:[14,17,19,23,28]},
-        {label:'14-24',teeth:[14,16,19,22,24]},
       ]
     },
   }, // end shimano road
@@ -735,7 +640,6 @@ road: {
       '10-speed · 2000–2012',
       '9-speed · 1998–2006',
       '8-speed · 1994–2000',
-      '7-speed · 1987–1996',
       '6-speed · pre-1990',
     ],
     // ── 13-speed ───────────────────────────────────────────
@@ -1011,52 +915,6 @@ road: {
         {label:'13-23',teeth:[13,14,15,16,17,19,21,23]},
         {label:'13-26',teeth:[13,14,15,17,19,21,23,26]},
         {label:'14-26',teeth:[14,15,16,17,19,21,23,26]},
-      ]
-    },
-    // ── 7-speed ────────────────────────────────────────────
-    // 2026-09-02: found and read Campagnolo's actual June 1990 catalogue
-    // (scanned original, disraeligears.co.uk archive — screenshotted via
-    // Chrome + cropped/upscaled with sips for exact digit reading, same
-    // technique used for si.shimano.com this session, see
-    // [[shimano-si-pdf-access]]). It has a real per-groupset spec table
-    // (crank length / chainring / hub / seatpost options, dot=standard,
-    // circle=upon-request) for both Record and Chorus — but Campagnolo
-    // never spec'd exact freewheel tooth combinations themselves at this
-    // era; the freewheel was a third-party Regina part ("Campagnolo
-    // approved chain and freewheel by Regina" per the catalogue's own
-    // Chorus copy), so cassette teeth genuinely can't be confirmed from
-    // Campagnolo's own documentation — still a bare guess below, treat
-    // with real suspicion.
-    // What the catalogue DID confirm: 52/42 is the real standard chainring
-    // for both tiers (matches what was already coded) — inner ring is a
-    // modular 39-47T range (42T standard) on both, outer ring modular
-    // 48-54T on Chorus / 48-57T on Record (52T standard on both, Record's
-    // range goes wider). Crank lengths: Chorus only 170/172.5mm, Record
-    // the full 165-180mm range.
-    // Also a real era-boundary correction: by this June 1990 printing,
-    // Chorus's 7-speed was already being phased out (this catalogue is
-    // the last one to show it — Anaheim 1990, shortly after, dropped it
-    // for 8-speed) and Record's STANDARD configuration had already become
-    // an 8-speed cassette hub, with the old 7-speed hub relegated to
-    // "upon request" only. By the 1992 catalogue both are "all 8-speed",
-    // no 7-speed option left at all. So '1987–96' below is wrong at the
-    // end (real cutoff is ~1990, not 1996) — start year still unconfirmed
-    // (predates this catalogue, not researched this pass).
-    'Record 7 (1987–96)': {
-      era:'7-speed · 1987–1996',
-      chainrings:[{label:'53/42',outer:53,inner:42},{label:'52/42',outer:52,inner:42}],
-      cassettes:[
-        {label:'13-21',teeth:[13,14,15,16,17,19,21]},
-        {label:'13-23',teeth:[13,14,15,16,17,20,23]},
-        {label:'13-26',teeth:[13,14,15,16,18,21,26]},
-      ]
-    },
-    'Chorus 7 (1988–96)': {
-      era:'7-speed · 1987–1996',
-      chainrings:[{label:'52/42',outer:52,inner:42}],
-      cassettes:[
-        {label:'13-21',teeth:[13,14,15,16,17,19,21]},
-        {label:'14-24',teeth:[14,15,16,17,19,21,24]},
       ]
     },
     // ── 6-speed ────────────────────────────────────────────
@@ -1433,34 +1291,6 @@ mtb: {
       ]
     },
     // ── 7-speed ────────────────────────────────────────────
-    // 2026-09-02: real model number researched first (web search) since
-    // "Deore LX (7-speed)" isn't itself a Shimano part number — found
-    // FC-M550, confirmed via EV-FC-M550-1101A ("Front Chainwheel DEORE
-    // LX"). Unlike every other chainring doc this session, this one has
-    // NO stated "combination" line — it's a fully modular parts list
-    // (inner 24/25/28/30T, middle 36/37/38/40T, outer 46/47/48/50T,
-    // including BIOPACE oval-ring variants), so no single small set of
-    // "the real combos" exists to cite. The file's 28/38/48 IS at least a
-    // real, valid combination of existing sizes (kept). Its 26/36/46 is
-    // NOT valid — 26T isn't in the parts list at all (closest real inner
-    // options are 24/25/28/30) — swapped for 25/37/47, another valid
-    // modular combo, but treat both as illustrative rather than a
-    // confirmed factory-standard pairing.
-    // Cassette corrected from EV-CS-HG90_HG70_HG50-7E/7F-1128A/1129A —
-    // both doc titles confirm CS-HG50-7(x) is IDENTICAL across HG90/HG70/
-    // HG50 tiers (XT/mid/Deore all share the same physical part), so tier
-    // doesn't matter here. Real E-group is 12-28, F-group is 14-32 — used
-    // both as the two listed options; other letter groups (G/H/I/J/K/M)
-    // exist in the same doc family but weren't individually checked this
-    // pass.
-    'Deore LX (7-speed 1992–99)': {
-      era:'7-speed · 1992–2002',
-      chainrings:[{label:'28/38/48 3× (illustrative)',outer:48,inner:28},{label:'25/37/47 3× (illustrative)',outer:47,inner:25}],
-      cassettes:[
-        {label:'12-28',teeth:[12,14,16,18,21,24,28]},
-        {label:'14-32',teeth:[14,16,18,21,24,28,32]},
-      ]
-    },
     // 2026-09-02: real model number researched first (web search) — found
     // FC-M410, confirmed via EV-FC-M410-2465A ("ALIVIO Front Chainwheel
     // FC-M410"). Real combo is a single 42-32-22T triple (BCD 104mm outer/
