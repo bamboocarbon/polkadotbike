@@ -1224,34 +1224,53 @@ mtb: {
       ]
     },
     // ── 10-speed ───────────────────────────────────────────
+    // 2026-09-02: cassette corrected from EV-CS-M980-3019A — real options
+    // are 11-34 (bj-group) and 11-36 (bk-group); the file's 11-32 wasn't
+    // real (should be 11-34) and 11-36's internal spacing was wrong.
+    // Chainrings not independently re-checked this pass — left as-is.
     'XTR M985/980 (2010–14)': {
       era:'10-speed · 2007–2016',
       chainrings:[{label:'26/36 2×',outer:36,inner:26},{label:'22/36 2×',outer:36,inner:22},{label:'22/30/40 3×',outer:40,inner:22}],
       cassettes:[
-        {label:'11-36',teeth:[11,12,14,16,18,21,24,28,32,36]},
-        {label:'11-32',teeth:[11,12,13,14,16,18,21,24,28,32]},
+        {label:'11-36',teeth:[11,13,15,17,19,21,24,28,32,36]},
+        {label:'11-34',teeth:[11,13,15,17,19,21,23,26,30,34]},
       ]
     },
+    // 2026-09-02: MODEL NUMBER FLAG — CS-M770's own doc header says "9-
+    // Speed" (SI-3CZ0A confirms it), not 10-speed. Real Shimano history:
+    // Deore XT M770 was the 9-speed generation (should live in the
+    // 9-speed era below); the real 10-speed XT is M780. Left this entry's
+    // name/era as-is (a rename is a bigger structural change than a data
+    // fix), but the cassette here is corrected using the real 10-speed
+    // shared cassette (CS-HG81-10, bj/bk-group, which XT/SLX/Deore all
+    // used at 10-speed) via EV-CS-HG81-10-3018B — real 11-34 and 11-36
+    // spacing, both were wrong in the file.
     'Deore XT M770 (2007–12)': {
       era:'10-speed · 2007–2016',
       chainrings:[{label:'26/36 2×',outer:36,inner:26},{label:'22/30/40 3×',outer:40,inner:22}],
       cassettes:[
-        {label:'11-34',teeth:[11,12,13,14,16,18,21,24,28,34]},
-        {label:'11-36',teeth:[11,12,14,16,18,21,24,28,32,36]},
+        {label:'11-34',teeth:[11,13,15,17,19,21,23,26,30,34]},
+        {label:'11-36',teeth:[11,13,15,17,19,21,24,28,32,36]},
       ]
     },
+    // 2026-09-02: 11-36 spacing corrected from the same EV-CS-HG81-10-3018B
+    // shared cassette confirmed for Deore XT M770 above (SLX shared this
+    // part too).
     'SLX M660 (2009–14)': {
       era:'10-speed · 2007–2016',
       chainrings:[{label:'26/36 2×',outer:36,inner:26},{label:'22/32/44 3×',outer:44,inner:22}],
       cassettes:[
-        {label:'11-36',teeth:[11,12,14,16,18,21,24,28,32,36]},
+        {label:'11-36',teeth:[11,13,15,17,19,21,24,28,32,36]},
       ]
     },
+    // 2026-09-02: 11-36 spacing corrected from the same shared CS-HG81-10
+    // cassette. 11-42 not independently re-checked this pass (different,
+    // wider-range part) — left as-is.
     'Deore M615 (2012–16)': {
       era:'10-speed · 2007–2016',
       chainrings:[{label:'26/36 2×',outer:36,inner:26},{label:'22/30/40 3×',outer:40,inner:22}],
       cassettes:[
-        {label:'11-36',teeth:[11,12,14,16,18,21,24,28,32,36]},
+        {label:'11-36',teeth:[11,13,15,17,19,21,24,28,32,36]},
         {label:'11-42',teeth:[11,13,15,18,21,24,28,32,37,42]},
       ]
     },
