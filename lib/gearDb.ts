@@ -952,24 +952,28 @@ mtb: {
     // ANY 11-speed tier) is unique to this one. Chainring options assumed
     // 1x-only, matching the era's XT/SLX pattern — not independently
     // confirmed for M5100 specifically.
+    // Chainrings confirmed 2026-09-02 from the MTB crankset spec page
+    // (productinfo.shimano.com/en/spec/mtb-crankset, which Robin found) —
+    // FC-M5100-1 (1x, 32T/30T) matches what was already here exactly, plus
+    // a real FC-M5100-2 (2x, 36/26) that was missing.
     'Deore M5100 (2019–)': {
       era:'Deore 11-speed · 2019–present',
-      chainrings:[{label:'32T 1×',outer:32,inner:null},{label:'30T 1×',outer:30,inner:null}],
+      chainrings:[{label:'32T 1×',outer:32,inner:null},{label:'30T 1×',outer:30,inner:null},{label:'36/26 2×',outer:36,inner:26}],
       cassettes:[
         {label:'11-42',teeth:[11,13,15,17,19,21,24,28,32,37,42]},
         {label:'11-51',teeth:[11,13,15,18,21,24,28,33,39,45,51]},
       ]
     },
-    // Also found via the current-products spec page and confirmed exact
-    // from its own PDF: CS-M4100, a Deore-branded 10-speed cassette still
-    // sold today (dated May 2020, same as M5100 above) — likely aimed at
-    // cost-sensitive OEM builds. Genuinely different tooth counts from the
-    // 11-speed family despite similar-looking numbers (10 sprockets, not
-    // 11). Chainring options assumed 1x, matching M5100 — not
-    // independently confirmed.
+    // CS-M4100, a Deore-branded 10-speed cassette still sold today (dated
+    // May 2020, same as M5100 above) — likely aimed at cost-sensitive OEM
+    // builds. Genuinely different tooth counts from the 11-speed family
+    // despite similar-looking numbers (10 sprockets, not 11). CORRECTED
+    // 2026-09-02: the crankset spec page shows FC-M4100 is 2x-ONLY
+    // (36/26) — there is no 1x variant at all. The 1x 32T/30T guessed here
+    // originally was wrong, not just unconfirmed.
     'Deore M4100 (2019–)': {
       era:'Deore 10-speed · 2019–present',
-      chainrings:[{label:'32T 1×',outer:32,inner:null},{label:'30T 1×',outer:30,inner:null}],
+      chainrings:[{label:'36/26 2×',outer:36,inner:26}],
       cassettes:[
         {label:'11-42',teeth:[11,13,15,18,21,24,28,32,37,42]},
         {label:'11-46',teeth:[11,13,15,18,21,24,28,32,37,46]},
