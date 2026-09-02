@@ -667,6 +667,26 @@ road: {
       ]
     },
     // ── 10-speed ───────────────────────────────────────────
+    // 2026-09-02: important lesson learned this pass — WebFetch on
+    // sram.com's legacy /service/models/ product pages (e.g. PG-1070,
+    // PG-1050, PG-1030) returned confident-looking "spec tables" that
+    // turned out to be HALLUCINATED: visually opening the same pages in
+    // Safari showed only a product image + a link to a generic manual, no
+    // spec content on the page at all. Caught before committing by
+    // cross-checking the visual render — do not trust WebFetch numeric
+    // output on these specific legacy pages without a visual check.
+    // What IS real and primary-sourced: SRAM's own "2018 Road Components
+    // Compatibility Map" PDF (sram.com/globalassets/document-hierarchy/
+    // compatibility-map/road/compatibility-map-road-2018.pdf) has a real
+    // checkbox matrix confirming which cassette RANGE LABELS pair with
+    // which model — Red's real cassette is XG-1090 (11-23/25/26/28
+    // available), Force's is PG-1070 (11-23/28, 12-26 — NOT 12-28), Rival's
+    // is PG-1050 (11-23/32, 12-27 — NOT 11-28/12-32). Force and Rival's
+    // range labels below are corrected to match. Internal tooth-by-tooth
+    // digit sequences are NOT independently confirmed from an official
+    // SRAM spec table this pass (same category of gap as Campagnolo's
+    // pre-cassette freewheel era) — left as reasonable HG-compatible
+    // estimates, flagged rather than presented as verified.
     'Red (2009–13)': {
       era:'10-speed · 2006–2013',
       chainrings:[{label:'53/39',outer:53,inner:39},{label:'52/36',outer:52,inner:36},{label:'50/34',outer:50,inner:34}],
@@ -680,19 +700,23 @@ road: {
       era:'10-speed · 2006–2013',
       chainrings:[{label:'53/39',outer:53,inner:39},{label:'50/34',outer:50,inner:34}],
       cassettes:[
-        {label:'11-26',teeth:[11,12,13,14,15,16,17,19,23,26]},
+        {label:'11-23',teeth:[11,12,13,14,15,16,17,18,21,23]},
         {label:'11-28',teeth:[11,12,13,14,15,16,17,19,23,28]},
-        {label:'12-28',teeth:[12,13,14,15,16,17,18,21,25,28]},
+        {label:'12-26',teeth:[12,13,14,15,16,17,18,21,23,26]},
       ]
     },
     'Rival (2006–13)': {
       era:'10-speed · 2006–2013',
       chainrings:[{label:'50/34',outer:50,inner:34},{label:'46/36',outer:46,inner:36}],
       cassettes:[
-        {label:'11-28',teeth:[11,12,13,14,15,16,17,19,23,28]},
-        {label:'12-32',teeth:[12,13,14,15,17,19,21,24,28,32]},
+        {label:'11-32',teeth:[11,12,13,14,15,17,19,22,26,32]},
+        {label:'12-27',teeth:[12,13,14,15,16,17,19,21,24,27]},
       ]
     },
+    // Apex doesn't appear at all in the 2018 compatibility map's 10-speed
+    // cassette table (XG-1090/XG-1090CX/PG-1070/PG-1050 only) — its real
+    // cassette model for this era is genuinely unidentified in the sources
+    // checked this pass, not just the internal spacing. Left as-is.
     'Apex (2009–13)': {
       era:'10-speed · 2006–2013',
       chainrings:[{label:'50/34',outer:50,inner:34}],
