@@ -1343,28 +1343,56 @@ mtb: {
       ]
     },
     // ── 8-speed ────────────────────────────────────────────
+    // 2026-09-02: cassette corrected from EV-CS-M950-ak-1597 + EV-CS-M950-
+    // P-1598, both explicitly "SHIMANO XTR Cassette Sprocket" — real
+    // options are ak-group 11-30 (11-13-15-17-20-23-26-30) and P-group
+    // 12-32 (12-14-16-18-21-24-28-32), completely different spacing to
+    // what the file had (which also wrongly capped ak-group at 32T instead
+    // of 30T). Chainring corrected from EV-FC-M950-1591 — real parts list
+    // only has 24T/34T/46T rings (a single 46-34-24T triple), nothing
+    // matching the file's old 22/32/44 or 26/36 options at all.
     'XTR M950/952 (1999–2004)': {
       era:'8-speed · 1998–2006',
-      chainrings:[{label:'22/32/44 3×',outer:44,inner:22},{label:'26/36 2×',outer:36,inner:26}],
+      chainrings:[{label:'46/24 3×',outer:46,inner:24}],
       cassettes:[
-        {label:'11-32',teeth:[11,12,14,16,18,21,24,32]},
-        {label:'12-32',teeth:[12,13,14,16,18,21,24,32]},
+        {label:'11-30',teeth:[11,13,15,17,20,23,26,30]},
+        {label:'12-32',teeth:[12,14,16,18,21,24,28,32]},
       ]
     },
+    // 2026-09-02: chainring corrected from EV-FC-M560-1257B, explicitly
+    // "DEORE LX Front Chainwheel FC-M560" — real combo is a single
+    // 46-36-26T triple (BCD 110mm outer/middle, 74mm inner), nothing like
+    // the file's old 22/32/44. Cassette: no dedicated CS-M560 part exists
+    // (direct model search returned nothing) — M560 shares the generic
+    // 8-speed HG50/HG60 cassette family (EV-CS-HG60-8I(an)-1651A covers
+    // both CS-HG60-8I and CS-HG50-8I under the same "an-group" part,
+    // EV-CS-HG50-8I-2125A adds the wider "aw-group") — an inference about
+    // shared parts, not an LX-specific document like the chainring above.
+    // Real options: an-group 11-30 (matches XTR M950's ak-group exactly)
+    // and aw-group 11-32 — different spacing to the file's old 11-32/13-32.
     'Deore LX M560 (2000–04)': {
       era:'8-speed · 1998–2006',
-      chainrings:[{label:'22/32/44 3×',outer:44,inner:22}],
+      chainrings:[{label:'46/26 3×',outer:46,inner:26}],
       cassettes:[
-        {label:'11-32',teeth:[11,12,14,16,18,21,24,32]},
-        {label:'13-32',teeth:[13,14,15,17,19,22,26,32]},
+        {label:'11-30',teeth:[11,13,15,17,20,23,26,30]},
+        {label:'11-32',teeth:[11,13,15,18,21,24,28,32]},
       ]
     },
+    // 2026-09-02: chainring corrected from EV-FC-M510-S-1872A, explicitly
+    // "SHIMANO DEORE Front Chainwheel FC-M510" — real combos are 44-32-22T
+    // and 48-36-26T (both triples, BCD 104mm outer/middle, 64mm inner),
+    // exactly matching Deore M530's 9-speed crank above — the file's old
+    // 42T/36T/24T options didn't match anything real. Cassette: no
+    // dedicated CS-M510 doc found (direct search returned nothing) —
+    // reusing the same shared-parts inference as Deore LX M560 above
+    // (generic 8-speed an-group 11-30 / aw-group 11-32), since M510 is
+    // also an 8-speed Deore-tier bike; not an M510-specific document.
     'Deore M510 (2000–06)': {
       era:'8-speed · 1998–2006',
-      chainrings:[{label:'22/32/42 3×',outer:42,inner:22},{label:'24/36 2×',outer:36,inner:24}],
+      chainrings:[{label:'44/22 3×',outer:44,inner:22},{label:'48/26 3×',outer:48,inner:26}],
       cassettes:[
-        {label:'11-32',teeth:[11,12,14,16,18,21,24,32]},
-        {label:'13-32',teeth:[13,14,15,17,19,22,26,32]},
+        {label:'11-30',teeth:[11,13,15,17,20,23,26,30]},
+        {label:'11-32',teeth:[11,13,15,18,21,24,28,32]},
       ]
     },
     // ── 7-speed ────────────────────────────────────────────
