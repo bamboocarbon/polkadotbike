@@ -216,13 +216,23 @@ road: {
         {label:'12-27',teeth:[12,13,14,15,16,17,18,20,24,27]},
       ]
     },
+    // 2026-09-02: corrected from Shimano's own SI (Service Instructions)
+    // PDFs — SI-1YX0A-001 (CS-6700 cassette) and SI-1M30A-003 (FC-6700/
+    // FC-6703/FC-6750 chainwheel), read via screenshotting Robin's own
+    // Safari (si.shimano.com Akamai-blocks curl/WebFetch, see
+    // [[shimano-si-pdf-access]]). Real chainring options are 53/39 and
+    // 52/39 (FC-6700 double) plus 50/34 (FC-6750 compact) — the file's
+    // 52/36 was never a real 6700-series option. Real cassette range tops
+    // out at 11-28 — the 12-30 option was fabricated.
     'Ultegra 6700 (2009–13)': {
       era:'10-speed · 2004–2015',
-      chainrings:[{label:'53/39',outer:53,inner:39},{label:'52/36',outer:52,inner:36},{label:'50/34',outer:50,inner:34}],
+      chainrings:[{label:'53/39',outer:53,inner:39},{label:'52/39',outer:52,inner:39},{label:'50/34',outer:50,inner:34}],
       cassettes:[
-        {label:'11-25',teeth:[11,12,13,14,15,16,17,18,21,25]},
-        {label:'11-28',teeth:[11,12,13,14,15,16,17,19,23,28]},
-        {label:'12-30',teeth:[12,13,14,15,16,17,18,21,26,30]},
+        {label:'11-23',teeth:[11,12,13,14,15,16,17,19,21,23]},
+        {label:'12-23',teeth:[12,13,14,15,16,17,18,19,21,23]},
+        {label:'12-25',teeth:[12,13,14,15,16,17,19,21,23,25]},
+        {label:'11-25',teeth:[11,12,13,14,15,17,19,21,23,25]},
+        {label:'11-28',teeth:[11,12,13,14,15,17,19,21,24,28]},
       ]
     },
     'Ultegra 6600 (2005–09)': {
@@ -234,13 +244,20 @@ road: {
         {label:'12-27',teeth:[12,13,14,15,16,17,19,21,24,27]},
       ]
     },
+    // 2026-09-02: corrected from Shimano's own SI PDFs — SI-1YN0A-001
+    // (CS-5700 cassette) and SI-1M30A-003 (FC-5700/FC-5703/FC-5750
+    // chainwheel), same source pass as Ultegra 6700 above. Real chainring
+    // options are 53/39 and 52/39 (FC-5700 double) plus 50/34 (FC-5750
+    // compact). Real cassette options are 11-25/11-28/12-25/12-27 — the
+    // file's 12-28 and 12-30 were fabricated.
     '105 5700 (2010–14)': {
       era:'10-speed · 2004–2015',
-      chainrings:[{label:'53/39',outer:53,inner:39},{label:'50/34',outer:50,inner:34}],
+      chainrings:[{label:'53/39',outer:53,inner:39},{label:'52/39',outer:52,inner:39},{label:'50/34',outer:50,inner:34}],
       cassettes:[
-        {label:'11-28',teeth:[11,12,13,14,15,16,17,19,23,28]},
-        {label:'12-28',teeth:[12,13,14,15,16,17,19,21,24,28]},
-        {label:'12-30',teeth:[12,13,14,15,16,17,18,21,26,30]},
+        {label:'11-25',teeth:[11,12,13,14,15,17,19,21,23,25]},
+        {label:'11-28',teeth:[11,12,13,14,15,17,19,21,24,28]},
+        {label:'12-25',teeth:[12,13,14,15,16,17,19,21,23,25]},
+        {label:'12-27',teeth:[12,13,14,15,16,17,19,21,24,27]},
       ]
     },
     '105 5600 (2005–10)': {
