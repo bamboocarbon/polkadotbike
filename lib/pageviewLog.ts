@@ -1,4 +1,9 @@
-import { list } from '@vercel/blob';
+import { redis } from './redisClient';
+
+// Namespaced because this Redis instance is shared with digital-credit-yield
+// (single free-tier Upstash database — Marketplace only grants one free DB
+// per account, see project_pageview_counter_pattern memory 2026-09-02).
+const NS = 'pdb:pv';
 
 export interface DayCount { date: string; count: number }
 export interface WeekCount { label: string; count: number }
@@ -23,63 +28,62 @@ function ymd(d: Date): string {
 }
 
 /**
- * Aggregates the one-marker-blob-per-pageview log written by middleware.ts
- * into day/week/month buckets and a top-pages breakdown. No database and no
- * per-visitor cookie — each blob just records that some page loaded at some
- * time, mirroring the GPX download counter's proven pattern. list() is
- * Blob's rate-limited "Advanced Operation" tier, but this only runs when an
- * admin opens /admin, and traffic here is modest — if that ever stops being
- * true, this should move to periodic compaction or a real counter store
- * instead of re-listing full history on every read.
+ * Reads the day/month/path/total counters middleware.ts increments on every
+ * real pageview. Replaces the original list()-over-full-history design (one
+ * Blob "Advanced Operation" per write AND per read) — that put both sites
+ * over Vercel Blob's 2,000/month Hobby cap within ~3 days at normal traffic
+ * (~400 combined real pageviews/day). Counters cost a handful of Redis
+ * commands per event, comfortably inside Upstash's 500K/month free tier.
  */
 export async function getPageviewStats(): Promise<PageviewStats> {
-  const events: { date: Date; path: string }[] = [];
-  let cursor: string | undefined;
-  do {
-    const page = await list({ prefix: 'pageviews/', cursor, limit: 1000 });
-    for (const blob of page.blobs) {
-      // pageviews/<encodedPath>/<timestamp>-<uuid>
-      const parts = blob.pathname.split('/');
-      if (parts.length < 3) continue;
-      events.push({ date: new Date(blob.uploadedAt), path: decodePath(parts[1]) });
-    }
-    cursor = page.hasMore ? page.cursor : undefined;
-  } while (cursor);
-
   const today = new Date();
   today.setUTCHours(0, 0, 0, 0);
 
-  const daily: DayCount[] = [];
-  for (let i = 6; i >= 0; i--) {
-    const start = new Date(today); start.setUTCDate(start.getUTCDate() - i);
-    const end = new Date(start); end.setUTCDate(end.getUTCDate() + 1);
-    daily.push({ date: ymd(start), count: events.filter((e) => e.date >= start && e.date < end).length });
+  // 28 days covers both the 7-day "daily" view and the 4-week "weekly"
+  // view — fetch them all in one round trip and derive both from it.
+  const dayDates: Date[] = [];
+  for (let i = 27; i >= 0; i--) {
+    const d = new Date(today);
+    d.setUTCDate(d.getUTCDate() - i);
+    dayDates.push(d);
   }
+  const dayKeys = dayDates.map((d) => `${NS}:day:${ymd(d)}`);
+  const dayCountsRaw = await redis.mget<(number | null)[]>(...dayKeys);
+  const dayCounts = new Map(dayDates.map((d, i) => [ymd(d), Number(dayCountsRaw[i]) || 0]));
+
+  const daily: DayCount[] = dayDates.slice(-7).map((d) => ({ date: ymd(d), count: dayCounts.get(ymd(d)) || 0 }));
 
   const weekly: WeekCount[] = [];
   for (let i = 3; i >= 0; i--) {
-    const end = new Date(today); end.setUTCDate(end.getUTCDate() - i * 7 + 1);
-    const start = new Date(end); start.setUTCDate(start.getUTCDate() - 7);
-    const count = events.filter((e) => e.date >= start && e.date < end).length;
+    const end = new Date(today);
+    end.setUTCDate(end.getUTCDate() - i * 7 + 1);
+    const start = new Date(end);
+    start.setUTCDate(start.getUTCDate() - 7);
+    let count = 0;
+    for (const d of dayDates) {
+      if (d >= start && d < end) count += dayCounts.get(ymd(d)) || 0;
+    }
     const label = `${start.toISOString().slice(5, 10)}–${new Date(end.getTime() - 86400000).toISOString().slice(5, 10)}`;
     weekly.push({ label, count });
   }
 
-  const monthCounts = new Map<string, number>();
-  for (const e of events) {
-    const key = e.date.toISOString().slice(0, 7);
-    monthCounts.set(key, (monthCounts.get(key) || 0) + 1);
+  const months = await redis.smembers(`${NS}:months`);
+  let monthly: MonthCount[] = [];
+  if (months.length) {
+    const monthKeys = months.map((m) => `${NS}:month:${m}`);
+    const monthCountsRaw = await redis.mget<(number | null)[]>(...monthKeys);
+    monthly = months
+      .map((month, i) => ({ month, count: Number(monthCountsRaw[i]) || 0 }))
+      .sort((a, b) => a.month.localeCompare(b.month));
   }
-  const monthly: MonthCount[] = [...monthCounts.entries()]
-    .sort(([a], [b]) => a.localeCompare(b))
-    .map(([month, count]) => ({ month, count }));
 
-  const pathCounts = new Map<string, number>();
-  for (const e of events) pathCounts.set(e.path, (pathCounts.get(e.path) || 0) + 1);
-  const topPages: PageCount[] = [...pathCounts.entries()]
-    .sort((a, b) => b[1] - a[1])
-    .slice(0, 5)
-    .map(([path, count]) => ({ path, count }));
+  const pathCounts = (await redis.hgetall<Record<string, number>>(`${NS}:paths`)) || {};
+  const topPages: PageCount[] = Object.entries(pathCounts)
+    .map(([path, count]) => ({ path: decodePath(path), count: Number(count) }))
+    .sort((a, b) => b.count - a.count)
+    .slice(0, 5);
 
-  return { daily, weekly, monthly, topPages, totalRecorded: events.length };
+  const totalRecorded = Number(await redis.get<number>(`${NS}:total`)) || 0;
+
+  return { daily, weekly, monthly, topPages, totalRecorded };
 }
