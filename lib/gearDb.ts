@@ -363,31 +363,41 @@ road: {
       '10-speed · 2006–2013',
     ],
     // ── 12-speed ───────────────────────────────────────────
-    'Red AXS (2019–)': {
-      era:'12-speed AXS · 2019–present',
-      chainrings:[{label:'54/41',outer:54,inner:41},{label:'52/39',outer:52,inner:39},{label:'50/37',outer:50,inner:37},{label:'48/35',outer:48,inner:35}],
-      cassettes:[
-        {label:'10-28',teeth:[10,11,12,13,14,15,17,19,21,23,25,28]},
-        {label:'10-30',teeth:[10,11,12,13,14,15,17,19,21,24,27,30]},
-        {label:'10-33',teeth:[10,11,12,13,14,16,18,20,23,26,30,33]},
-        {label:'10-36',teeth:[10,11,12,13,14,16,18,21,24,28,33,36]},
-      ]
-    },
-    'Force AXS (2019–)': {
+    // 2026-09-02: corrected from real sram.com product-page spec tables
+    // (XG-1290/1270/1250 cassettes — Robin asked for the same audit that
+    // caught fabricated Campagnolo data; SRAM's real-model-number entries
+    // turned out mostly right on labels but wrong on internal tooth
+    // spacing for 3 of Red's 4 cassette options, and Red's chainrings were
+    // still the pre-2023-refresh set (54/41/52/39 no longer exist — real
+    // current range tops out at 50/37). Red/Force/Rival's cassettes at
+    // matching range labels share IDENTICAL tooth progressions (same
+    // XG-129x/127x/125x cassette family, confirmed directly per tier).
+    'Red AXS (2023–)': {
       era:'12-speed AXS · 2019–present',
       chainrings:[{label:'50/37',outer:50,inner:37},{label:'48/35',outer:48,inner:35},{label:'46/33',outer:46,inner:33}],
       cassettes:[
-        {label:'10-28',teeth:[10,11,12,13,14,15,17,19,21,23,25,28]},
-        {label:'10-33',teeth:[10,11,12,13,14,16,18,20,23,26,30,33]},
-        {label:'10-36',teeth:[10,11,12,13,14,16,18,21,24,28,33,36]},
+        {label:'10-28',teeth:[10,11,12,13,14,15,16,17,19,21,24,28]},
+        {label:'10-30',teeth:[10,11,12,13,14,15,17,19,21,24,27,30]},
+        {label:'10-33',teeth:[10,11,12,13,14,15,17,19,21,24,28,33]},
+        {label:'10-36',teeth:[10,11,12,13,15,17,19,21,24,28,32,36]},
       ]
     },
-    'Rival AXS (2020–)': {
+    'Force AXS (2023–)': {
+      era:'12-speed AXS · 2019–present',
+      chainrings:[{label:'50/37',outer:50,inner:37},{label:'48/35',outer:48,inner:35},{label:'46/33',outer:46,inner:33}],
+      cassettes:[
+        {label:'10-28',teeth:[10,11,12,13,14,15,16,17,19,21,24,28]},
+        {label:'10-30',teeth:[10,11,12,13,14,15,17,19,21,24,27,30]},
+        {label:'10-33',teeth:[10,11,12,13,14,15,17,19,21,24,28,33]},
+        {label:'10-36',teeth:[10,11,12,13,15,17,19,21,24,28,32,36]},
+      ]
+    },
+    'Rival AXS (2022–)': {
       era:'12-speed AXS · 2019–present',
       chainrings:[{label:'48/35',outer:48,inner:35},{label:'46/33',outer:46,inner:33}],
       cassettes:[
         {label:'10-30',teeth:[10,11,12,13,14,15,17,19,21,24,27,30]},
-        {label:'10-36',teeth:[10,11,12,13,14,16,18,21,24,28,33,36]},
+        {label:'10-36',teeth:[10,11,12,13,15,17,19,21,24,28,32,36]},
       ]
     },
     // ── 11-speed ───────────────────────────────────────────
@@ -1134,30 +1144,68 @@ gravel: {
 
   sram: {
     _eras: [
-      'XPLR 12-speed · 2022–present',
+      'XPLR 13-speed · 2025–present',
+      'XPLR 12-speed · 2022–2025',
+      'Apex 12-speed · 2023–present',
     ],
-    'Force XPLR AXS (2022–)': {
-      era:'XPLR 12-speed · 2022–present',
+    // 2026-09-02: SRAM's whole flagship XPLR family moved to 13-speed with
+    // a single shared 10-46 cassette (confirmed exact from sram.com product
+    // pages + cross-checked against an independent Cyclingnews/BikeRadar
+    // review quoting the identical sequence) — replaces the old 2022
+    // 12-speed generation's per-tier 10-44/10-36 options below, which are
+    // now historical (Robin asked for the same audit that caught fabricated
+    // Campagnolo data; 'Red XPLR AXS' was also missing here entirely).
+    'Red XPLR AXS (2025–)': {
+      era:'XPLR 13-speed · 2025–present',
+      chainrings:[{label:'46T 1×',outer:46,inner:null},{label:'44T 1×',outer:44,inner:null},{label:'42T 1×',outer:42,inner:null},{label:'40T 1×',outer:40,inner:null},{label:'38T 1×',outer:38,inner:null}],
+      cassettes:[
+        {label:'10-46',teeth:[10,11,12,13,15,17,19,21,24,28,32,38,46]},
+      ]
+    },
+    'Force XPLR AXS (2025–)': {
+      era:'XPLR 13-speed · 2025–present',
+      chainrings:[{label:'46T 1×',outer:46,inner:null},{label:'44T 1×',outer:44,inner:null},{label:'42T 1×',outer:42,inner:null},{label:'40T 1×',outer:40,inner:null},{label:'38T 1×',outer:38,inner:null}],
+      cassettes:[
+        {label:'10-46',teeth:[10,11,12,13,15,17,19,21,24,28,32,38,46]},
+      ]
+    },
+    'Rival XPLR AXS (2025–)': {
+      era:'XPLR 13-speed · 2025–present',
+      chainrings:[{label:'46T 1×',outer:46,inner:null},{label:'44T 1×',outer:44,inner:null},{label:'42T 1×',outer:42,inner:null},{label:'40T 1×',outer:40,inner:null},{label:'38T 1×',outer:38,inner:null}],
+      cassettes:[
+        {label:'10-46',teeth:[10,11,12,13,15,17,19,21,24,28,32,38,46]},
+      ]
+    },
+    // Superseded by the 13-speed generation above — not re-verified against
+    // a primary source this pass (only the naming/era was corrected), left
+    // as a lower-confidence historical entry rather than deleted outright.
+    'Force XPLR AXS (2022–25)': {
+      era:'XPLR 12-speed · 2022–2025',
       chainrings:[{label:'43T 1×',outer:43,inner:null},{label:'40T 1×',outer:40,inner:null},{label:'38T 1×',outer:38,inner:null}],
       cassettes:[
         {label:'10-44',teeth:[10,11,12,13,15,17,19,22,26,30,35,44]},
         {label:'10-36',teeth:[10,11,12,13,14,15,17,19,22,25,30,36]},
       ]
     },
-    'Rival XPLR AXS (2022–)': {
-      era:'XPLR 12-speed · 2022–present',
+    'Rival XPLR AXS (2022–25)': {
+      era:'XPLR 12-speed · 2022–2025',
       chainrings:[{label:'40T 1×',outer:40,inner:null},{label:'38T 1×',outer:38,inner:null}],
       cassettes:[
         {label:'10-44',teeth:[10,11,12,13,15,17,19,22,26,30,35,44]},
         {label:'10-36',teeth:[10,11,12,13,14,15,17,19,22,25,30,36]},
       ]
     },
-    'Apex XPLR AXS (2022–)': {
-      era:'XPLR 12-speed · 2022–present',
-      chainrings:[{label:'40T 1×',outer:40,inner:null},{label:'38T 1×',outer:38,inner:null}],
+    // Real current naming is just 'Apex' (not 'Apex XPLR AXS') — launched
+    // 2023, mechanical AND AXS variants, 1x12 only. Uses its own 11-44
+    // cassette (exact spacing confirmed from sram.com), distinct from the
+    // flagship XPLR family's 10-46. Apex can also be built with MTB Eagle
+    // Transmission parts (10-52 cassette) for wide-range "mullet" setups —
+    // not modelled here, out of scope for a road/gravel gear calculator.
+    'Apex (2023–)': {
+      era:'Apex 12-speed · 2023–present',
+      chainrings:[{label:'44T 1×',outer:44,inner:null},{label:'42T 1×',outer:42,inner:null},{label:'40T 1×',outer:40,inner:null},{label:'38T 1×',outer:38,inner:null}],
       cassettes:[
-        {label:'10-44',teeth:[10,11,12,13,15,17,19,22,26,30,35,44]},
-        {label:'10-36',teeth:[10,11,12,13,14,15,17,19,22,25,30,36]},
+        {label:'11-44',teeth:[11,12,13,15,17,19,21,24,28,32,38,44]},
       ]
     },
   }, // end sram gravel
