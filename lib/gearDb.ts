@@ -536,42 +536,68 @@ road: {
         {label:'11-34',teeth:[11,12,13,14,15,16,17,19,22,25,29,34]},
       ]
     },
-    // KNOWN GAP: 'Super Record Wireless 12' (2022–, the EPS electronic
-    // tier — different cassette family from mechanical Super Record 12
-    // above: real range labels are 10-25/10-27/10-29/11-32, confirmed live
-    // on campagnolo.com) is deliberately NOT added here — the product page
-    // doesn't expose the full per-sprocket tooth sequence in crawlable
-    // content (only in a PDF manual), and a wrong/guessed teeth array would
-    // silently break this site's gear-ratio maths. Needs the PDF manual or
-    // another primary source before adding.
+    // Confirmed 2026-09-02 from Campagnolo's own 2025 Spare Parts Catalogue
+    // - B (real exploded-diagram spec sheets, downloaded from the "Super
+    // Record 12 Speed Wireless sprockets" product page's Downloads section)
+    // — the exact per-sprocket sequence the live product page's text didn't
+    // expose. This is the EPS/wireless electronic 12-speed tier, a distinct
+    // cassette family from the mechanical Super Record 12 above.
+    'Super Record Wireless 12 (2022–)': {
+      era:'12-speed · 2018–present',
+      chainrings:[{label:'53/39',outer:53,inner:39},{label:'52/36',outer:52,inner:36},{label:'50/34',outer:50,inner:34}],
+      cassettes:[
+        {label:'10-25',teeth:[10,11,12,13,14,15,16,17,19,21,23,25]},
+        {label:'10-27',teeth:[10,11,12,13,14,15,16,17,19,21,24,27]},
+        {label:'10-29',teeth:[10,11,12,13,14,15,16,18,20,23,26,29]},
+        {label:'11-32',teeth:[11,12,13,14,15,16,17,19,22,25,28,32]},
+      ]
+    },
     // ── 11-speed ───────────────────────────────────────────
+    // 2026-09-02: corrected from the same Spare Parts Catalogue - B (pages
+    // 63-66, "Chorus 11S" and "Campagnolo 11S" — Campagnolo still stocks
+    // spare sprockets for this discontinued generation, so the catalogue
+    // has exact spec sheets). Real Super Record/Record 11 range is 11-25/
+    // 11-27/11-29/11-32 — the old '12-29' option here didn't appear
+    // anywhere in the catalogue and looks to have been invented; replaced
+    // with the confirmed 11-32. Chorus 11 real range is FOUR options
+    // (11-23/11-25/11-27/11-29), not two — 11-23 and 11-25 were missing.
     'Super Record 11 (2009–20)': {
       era:'11-speed · 2009–2020',
       chainrings:[{label:'53/39',outer:53,inner:39},{label:'52/36',outer:52,inner:36},{label:'50/34',outer:50,inner:34}],
       cassettes:[
-        {label:'11-25',teeth:[11,12,13,14,15,16,17,18,21,23,25]},
-        {label:'11-27',teeth:[11,12,13,14,15,16,17,18,21,24,27]},
-        {label:'11-29',teeth:[11,12,13,14,15,16,17,19,22,25,29]},
-        {label:'12-29',teeth:[12,13,14,15,16,17,18,20,23,26,29]},
+        {label:'11-25',teeth:[11,12,13,14,15,16,17,19,21,23,25]},
+        {label:'11-27',teeth:[11,12,13,14,15,17,19,21,23,25,27]},
+        {label:'11-29',teeth:[11,12,13,14,15,17,19,21,23,26,29]},
+        {label:'11-32',teeth:[11,12,13,14,15,17,19,22,25,28,32]},
       ]
     },
     'Record 11 (2009–20)': {
       era:'11-speed · 2009–2020',
       chainrings:[{label:'53/39',outer:53,inner:39},{label:'52/36',outer:52,inner:36},{label:'50/34',outer:50,inner:34}],
       cassettes:[
-        {label:'11-25',teeth:[11,12,13,14,15,16,17,18,21,23,25]},
-        {label:'11-27',teeth:[11,12,13,14,15,16,17,18,21,24,27]},
-        {label:'11-29',teeth:[11,12,13,14,15,16,17,19,22,25,29]},
+        {label:'11-25',teeth:[11,12,13,14,15,16,17,19,21,23,25]},
+        {label:'11-27',teeth:[11,12,13,14,15,17,19,21,23,25,27]},
+        {label:'11-29',teeth:[11,12,13,14,15,17,19,21,23,26,29]},
       ]
     },
     'Chorus 11 (2009–20)': {
       era:'11-speed · 2009–2020',
       chainrings:[{label:'52/36',outer:52,inner:36},{label:'50/34',outer:50,inner:34}],
       cassettes:[
-        {label:'11-27',teeth:[11,12,13,14,15,16,17,18,21,24,27]},
-        {label:'11-29',teeth:[11,12,13,14,15,16,17,19,22,25,29]},
+        {label:'11-23',teeth:[11,12,13,14,15,16,17,18,19,21,23]},
+        {label:'11-25',teeth:[11,12,13,14,15,16,17,19,21,23,25]},
+        {label:'11-27',teeth:[11,12,13,14,15,17,19,21,23,25,27]},
+        {label:'11-29',teeth:[11,12,13,14,15,17,19,21,23,26,29]},
       ]
     },
+    // NOT verified against the catalogue this pass — a same-named
+    // "12-25/12-27/12-29" table also appears on catalogue page 64 under a
+    // repeated "Chorus 11S" header that doesn't match any 11-speed Chorus
+    // cassette this site (or common knowledge) has ever listed as 12-tooth-
+    // start; left untouched rather than guess which product it's really
+    // for. Athena 11 numbers below are also unverified this pass (Athena
+    // doesn't appear in the Spare Parts Catalogue - B at all — possibly
+    // covered in Catalogue - A, not fetched this session).
     'Athena 11 (2012–18)': {
       era:'11-speed · 2009–2020',
       chainrings:[{label:'52/36',outer:52,inner:36},{label:'50/34',outer:50,inner:34}],
@@ -1087,30 +1113,37 @@ gravel: {
     _eras: [
       '13-speed · 2021–present',
     ],
-    // 2026-09-02: cassette spacing corrected + missing options added from
-    // real campagnolo.com product pages (crawled after Robin spotted the
-    // road-side Super Record 13 data was wrong too — see the road section
-    // above for the full diagnosis). Ekar's real three sprocket sets are
-    // named Endurance/Gravel Race/Gravel Adventure by Campagnolo; only two
-    // (with wrong spacing) were here before.
+    // 2026-09-02: cassette spacing corrected + missing options added, then
+    // cross-checked against Campagnolo's own 2025 Spare Parts Catalogue - B
+    // (exact exploded-diagram spec sheets — the primary source, more
+    // reliable than the product page's summarised text). The catalogue
+    // caught a real error the product-page text had introduced: Ekar's
+    // 10-44 spacing below was wrong until this pass. Ekar's real three
+    // sprocket sets are named Endurance/Gravel Race/Gravel Adventure by
+    // Campagnolo; only two (with wrong spacing) were here before this
+    // session's fixes.
     'Ekar (2021–)': {
       era:'13-speed · 2021–present',
       chainrings:[{label:'38T 1×',outer:38,inner:null},{label:'40T 1×',outer:40,inner:null},{label:'42T 1×',outer:42,inner:null},{label:'44T 1×',outer:44,inner:null},{label:'46T 1×',outer:46,inner:null}],
       cassettes:[
         {label:'9-36 Endurance',       teeth:[9,10,11,12,13,14,16,18,20,23,27,31,36]},
         {label:'9-42 Gravel Race',     teeth:[9,10,11,12,13,14,16,18,21,25,30,36,42]},
-        {label:'10-44 Gravel Adventure',teeth:[10,11,12,13,14,15,17,20,23,27,32,38,44]},
+        {label:'10-44 Gravel Adventure',teeth:[10,11,12,13,14,15,17,19,22,26,32,38,44]},
       ]
     },
-    // Launched 2024 — same 1x crank options as Ekar, plus the Ekar family's
-    // widest cassette (shared 10-48 with Record X below).
+    // Launched 2024 — same 1x crank options as Ekar. Its 10-44 is NOT the
+    // same cassette as standard Ekar's 10-44 above (confirmed from the
+    // catalogue: different part number, "13S-1012G" vs "13S-1012", and a
+    // genuinely different tooth progression) — a mistake in this site's
+    // first pass at this fix was reusing Ekar's 10-44 numbers here; real
+    // Ekar GT 10-44 and 10-48 both confirmed from the catalogue directly.
     'Ekar GT (2024–)': {
       era:'13-speed · 2021–present',
       chainrings:[{label:'38T 1×',outer:38,inner:null},{label:'40T 1×',outer:40,inner:null},{label:'42T 1×',outer:42,inner:null},{label:'44T 1×',outer:44,inner:null},{label:'46T 1×',outer:46,inner:null}],
       cassettes:[
         {label:'9-36 Endurance',       teeth:[9,10,11,12,13,14,16,18,20,23,27,31,36]},
         {label:'9-42 Gravel Race',     teeth:[9,10,11,12,13,14,16,18,21,25,30,36,42]},
-        {label:'10-44 Gravel Adventure',teeth:[10,11,12,13,14,15,17,20,23,27,32,38,44]},
+        {label:'10-44 Gravel Adventure',teeth:[10,11,12,13,14,16,18,21,24,28,33,38,44]},
         {label:'10-48',teeth:[10,11,12,13,14,16,18,21,25,30,36,42,48]},
       ]
     },
