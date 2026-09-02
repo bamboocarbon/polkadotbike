@@ -811,6 +811,8 @@ mtb: {
   shimano: {
     _eras: [
       '12-speed · 2018–present',
+      'Deore 11-speed · 2019–present',
+      'Deore 10-speed · 2019–present',
       '11-speed · 2014–2020',
       '10-speed · 2007–2016',
       '9-speed · 2004–2012',
@@ -938,6 +940,39 @@ mtb: {
       cassettes:[
         {label:'11-42',teeth:[11,12,13,14,16,18,21,24,28,34,42]},
         {label:'11-36',teeth:[11,13,15,17,19,21,24,28,32,34,36]},
+      ]
+    },
+    // Added 2026-09-02 — found via Shimano's own current-products spec
+    // page (productinfo.shimano.com/en/spec/mtb-cassette, which still
+    // lists it) and confirmed exact from its own parts PDF: CS-M5100 is
+    // Deore's real 11-speed cassette from 2019 on, effectively M6000's
+    // successor at this tier (M6000's own era already ends 2019). The
+    // 11-42 option is the SAME cassette confirmed for XTR/XT/SLX M9000/
+    // M8000/M7000 above; 11-51 (not previously in this file at all, at
+    // ANY 11-speed tier) is unique to this one. Chainring options assumed
+    // 1x-only, matching the era's XT/SLX pattern — not independently
+    // confirmed for M5100 specifically.
+    'Deore M5100 (2019–)': {
+      era:'Deore 11-speed · 2019–present',
+      chainrings:[{label:'32T 1×',outer:32,inner:null},{label:'30T 1×',outer:30,inner:null}],
+      cassettes:[
+        {label:'11-42',teeth:[11,13,15,17,19,21,24,28,32,37,42]},
+        {label:'11-51',teeth:[11,13,15,18,21,24,28,33,39,45,51]},
+      ]
+    },
+    // Also found via the current-products spec page and confirmed exact
+    // from its own PDF: CS-M4100, a Deore-branded 10-speed cassette still
+    // sold today (dated May 2020, same as M5100 above) — likely aimed at
+    // cost-sensitive OEM builds. Genuinely different tooth counts from the
+    // 11-speed family despite similar-looking numbers (10 sprockets, not
+    // 11). Chainring options assumed 1x, matching M5100 — not
+    // independently confirmed.
+    'Deore M4100 (2019–)': {
+      era:'Deore 10-speed · 2019–present',
+      chainrings:[{label:'32T 1×',outer:32,inner:null},{label:'30T 1×',outer:30,inner:null}],
+      cassettes:[
+        {label:'11-42',teeth:[11,13,15,18,21,24,28,32,37,42]},
+        {label:'11-46',teeth:[11,13,15,18,21,24,28,32,37,46]},
       ]
     },
     // ── 10-speed ───────────────────────────────────────────
