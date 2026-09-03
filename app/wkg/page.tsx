@@ -83,7 +83,9 @@ export default function WkgPage() {
           __html: `
         nav a.active { color: var(--accent); }
         .logo span { color: #fff; }
-        .hero > h1 { font-size: clamp(28px, 5vw, 48px); }
+        .hero { flex-direction: column; align-items: center; text-align: center; gap: 6px; }
+        .hero > h1 { font-size: clamp(28px, 5vw, 48px); margin: 0 0 2px; text-align: center; }
+        .hero > p { text-align: center; max-width: min(340px, 100%); }
       `,
         }}
       />
@@ -94,7 +96,7 @@ export default function WkgPage() {
         <div
           className="hero-bikes"
           style={{
-            flexBasis: '100%', maxWidth: 1120, margin: '12px auto 0', display: 'flex',
+            width: '100%', flexBasis: '100%', maxWidth: 1120, margin: '12px auto 0', display: 'flex',
             justifyContent: 'space-between', alignItems: 'center', fontSize: 28, fontWeight: 900,
             letterSpacing: '-1px', color: '#0f172a',
           }}
