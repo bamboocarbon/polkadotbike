@@ -73,7 +73,8 @@ export default function ComparePage() {
           __html: `
         nav a.active { color: var(--accent); }
         .logo span { color: #fff; }
-        .hero > h1 { font-size: clamp(26px, 4.5vw, 44px); }
+        .hero { justify-content: flex-start; }
+        .hero > h1 { font-size: clamp(26px, 4.5vw, 44px); flex-basis: 100%; width: 100%; margin-bottom: 4px; }
       `,
         }}
       />
