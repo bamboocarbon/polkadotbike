@@ -73,8 +73,9 @@ export default function ComparePage() {
           __html: `
         nav a.active { color: var(--accent); }
         .logo span { color: #fff; }
-        .hero { justify-content: flex-start; }
-        .hero > h1 { font-size: clamp(26px, 4.5vw, 44px); flex-basis: 100%; width: 100%; margin-bottom: 4px; }
+        .hero { flex-direction: column; align-items: center; text-align: center; gap: 6px; }
+        .hero > h1 { font-size: clamp(26px, 4.5vw, 44px); margin: 0 0 2px; text-align: center; }
+        .hero > p { text-align: center; max-width: min(340px, 100%); }
       `,
         }}
       />
@@ -86,8 +87,9 @@ export default function ComparePage() {
         <div
           className="hero-bikes"
           style={{
-            flexBasis: '100%', maxWidth: 1120, margin: '12px auto 0', display: 'flex',
-            justifyContent: 'space-between', alignItems: 'center', fontSize: 28, fontWeight: 900,
+            width: '100%', maxWidth: 1120, margin: '12px auto 0', display: 'flex', flexWrap: 'wrap',
+            justifyContent: 'center', alignItems: 'center', gap: '4px clamp(12px, 4vw, 32px)',
+            fontSize: 'clamp(18px, 5.5vw, 28px)', fontWeight: 900,
             letterSpacing: '-1px', color: '#0f172a',
           }}
         >
