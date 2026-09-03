@@ -87,9 +87,8 @@ export default function ComparePage() {
         <div
           className="hero-bikes"
           style={{
-            width: '100%', maxWidth: 1120, margin: '12px auto 0', display: 'flex', flexWrap: 'wrap',
-            justifyContent: 'center', alignItems: 'center', gap: '4px clamp(12px, 4vw, 32px)',
-            fontSize: 'clamp(18px, 5.5vw, 28px)', fontWeight: 900,
+            width: '100%', flexBasis: '100%', maxWidth: 1120, margin: '12px auto 0', display: 'flex',
+            justifyContent: 'space-between', alignItems: 'center', fontSize: 28, fontWeight: 900,
             letterSpacing: '-1px', color: '#0f172a',
           }}
         >
