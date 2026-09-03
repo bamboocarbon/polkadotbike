@@ -59,6 +59,10 @@ const FAQ: { q: string; a: string }[] = [
     a: 'Every stage and climb of the 2026 Giro, Tour and Vuelta, with gradient profiles. Each climb card gives you its length, average gradient, category and an elevation profile, and can send that climb straight into the Climb Planner.',
   },
   {
+    q: 'How many groupsets does the site cover?',
+    a: "117, from Shimano, SRAM and Campagnolo, across road, MTB and gravel. It's built and checked by hand against each manufacturer's own spec sheets, not copied from a spares catalogue — see the About page for how that's put together.",
+  },
+  {
     q: 'Does my setup carry across the tools?',
     a: "Choose your groupset and wheels once on the Gear Calculator and they carry across to the Climb Planner, the Comparator and the race climb browsers. You're not re-entering your bike on every page — change it anywhere and the other tools pick it up.",
   },

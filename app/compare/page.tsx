@@ -7,7 +7,7 @@ import '@/components/compare/compare.css';
 const PAGE_URL = 'https://polkadotbike.com/compare';
 const TITLE = 'Bike Groupset & Cassette Comparator · Polka Dot Bike';
 const DESCRIPTION =
-  'Compare road-bike groupsets and cassettes side by side — Shimano, SRAM and Campagnolo gear ranges, ratios and gaps — to pick the right setup for your riding.';
+  'Compare groupsets and cassettes side by side from a database of 117 Shimano, SRAM and Campagnolo groupsets — road, MTB and gravel — to pick the right setup.';
 
 export const metadata: Metadata = {
   title: { absolute: TITLE },
@@ -81,6 +81,7 @@ export default function ComparePage() {
       <div className="hero">
         <h1>Groupset Comparator</h1>
         <p>Plot two drivetrains side by side. The coloured band shows where they match — and where they diverge.</p>
+        <p style={{ marginTop: 6, opacity: 0.72 }}>Drawn from 117 groupsets — Shimano, SRAM and Campagnolo, road to gravel.</p>
         <div
           className="hero-bikes"
           style={{

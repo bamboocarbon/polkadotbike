@@ -101,6 +101,14 @@ export default function AboutPage() {
         </div>
 
         <div className="glass sec">
+          <h2>The groupset database</h2>
+          <p>
+            Every calculator on this site runs off one database I built and maintain myself — 117 groupsets from Shimano, SRAM and Campagnolo, across road, MTB and gravel. I&apos;ve worked through it against each manufacturer&apos;s own spec sheets rather than copying numbers from aggregator sites, and that process has already caught real mistakes: a fabricated Campagnolo groupset that never existed, cassette spacings that were simply wrong. I&apos;d rather find those myself than have them feed your numbers.
+          </p>
+          <p>It&apos;s not finished — older, discontinued groupsets are the next job — but every current and recent-generation groupset from all three brands is in there now, checked, not guessed at.</p>
+        </div>
+
+        <div className="glass sec">
           <h2>How it works</h2>
           <p>The gearing side of the maths is exact — a given chainring, cog and wheel size produce the same result every time, and that part you control completely with your selections. It&apos;s the rider side that moves: power, aerodynamics, weight, wind and road surface. The inputs let you set those as realistically as you can, but they&apos;re estimates of variables that change from ride to ride and can&apos;t be pinned down by a website, so treat the speed and power figures as a very good guide rather than gospel. If something looks wrong, or you can think of a way to make a tool better, I&apos;d genuinely like to hear it.</p>
         </div>

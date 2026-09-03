@@ -7,7 +7,7 @@ import '@/components/index/index.css';
 const PAGE_URL = 'https://polkadotbike.com/';
 const TITLE = 'Bike Gear Ratio & Gear Inches Calculator · Polka Dot Bike';
 const DESCRIPTION =
-  'Free road-bike gear ratio and gear-inches calculator. Compare chainrings and cassettes, see gain ratios, speed at cadence, and find your ideal climbing gear.';
+  'Free bike gear ratio and gear-inches calculator, drawing on 117 Shimano, SRAM and Campagnolo groupsets across road, MTB and gravel.';
 
 export const metadata: Metadata = {
   title: { absolute: TITLE },
@@ -89,6 +89,7 @@ export default function HomePage() {
       <div className="hero">
         <h1>Gear Ratio Calculator</h1>
         <p>Select your groupset and instantly see every gear, speed, development and steps.</p>
+        <p style={{ marginTop: 6, opacity: 0.72 }}>117 groupsets in the database — Shimano, SRAM and Campagnolo, road to gravel.</p>
         <div
           className="hero-bikes"
           style={{
