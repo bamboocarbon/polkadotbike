@@ -63,6 +63,17 @@ export default function Footer({ attribution, links }: FooterProps) {
             <path d="M13.5 21.9v-8.4h2.82l.42-3.27h-3.24V8.03c0-.95.26-1.6 1.63-1.6h1.74V3.55C16.55 3.47 15.6 3.4 14.5 3.4c-2.33 0-3.93 1.42-3.93 4.03v2.8H7.74v3.27h2.83v8.4h2.93z" />
           </svg>
         </a>
+        <a
+          href="https://x.com/polkadotbike"
+          target="_blank"
+          rel="noopener"
+          aria-label="X (Twitter)"
+          style={{ display: 'inline-flex', verticalAlign: 'middle', margin: '0 7px' }}
+        >
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
+          </svg>
+        </a>
       </p>
     </footer>
   );

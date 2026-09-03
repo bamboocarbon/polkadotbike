@@ -157,3 +157,7 @@
   background: #1877f2;
   box-shadow: 0 10px 26px rgba(24, 119, 242, 0.35);
 }
+.social-btn.x {
+  background: #000;
+  box-shadow: 0 10px 26px rgba(0, 0, 0, 0.35);
+}
