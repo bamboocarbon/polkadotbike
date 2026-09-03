@@ -141,7 +141,10 @@ export default function RacePage({ params }: PageProps) {
         dangerouslySetInnerHTML={{
           __html: `
         :root { --accent: ${config.accent}; --accent-light: ${config.accentLight}; }
-        .hero > h1 { font-size: clamp(26px, 5vw, 46px); }
+        .hero { flex-direction: column; align-items: center; text-align: center; gap: 6px; }
+        .hero > h1 { font-size: clamp(26px, 5vw, 46px); margin: 0 0 2px; text-align: center; }
+        .hero > p { text-align: center; max-width: min(340px, 100%); }
+        .hero-stats { width: 100%; }
       `,
         }}
       />

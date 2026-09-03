@@ -91,6 +91,16 @@ export default function GlossaryPage() {
         />
       ))}
 
+      <style
+        dangerouslySetInnerHTML={{
+          __html: `
+        .hero { flex-direction: column; align-items: center; text-align: center; gap: 6px; }
+        .hero > h1 { margin: 0 0 2px; text-align: center; }
+        .hero > p { text-align: center; max-width: min(340px, 100%); }
+      `,
+        }}
+      />
+
       <div className="hero">
         <h1>Cycling Glossary</h1>
         <p>The words behind the calculators — gearing, climbing and power — explained.</p>

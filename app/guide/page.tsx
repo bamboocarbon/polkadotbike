@@ -114,6 +114,9 @@ export default function GuidePage() {
       <style>{`
         .jump-links a { background: rgba(26,114,224,0.10); border-color: rgba(26,114,224,0.22); }
         .jump-links a:hover { background: rgba(26,114,224,0.22); }
+        .hero { flex-direction: column; align-items: center; text-align: center; gap: 6px; }
+        .hero > h1 { margin: 0 0 2px; text-align: center; }
+        .hero > p { text-align: center; max-width: min(340px, 100%); }
       `}</style>
 
       <div className="hero">
