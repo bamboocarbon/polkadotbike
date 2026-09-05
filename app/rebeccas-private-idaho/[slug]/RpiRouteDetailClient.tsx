@@ -187,7 +187,7 @@ export default function RpiRouteDetailClient({ route }: { route: RpiRoute }) {
                   </button>
                 ))}
               </div>
-              <DebugScene key={route.slug} slug={route.slug} influences={influences} state={stop.state} mapStyle={stop.mapStyle} onTravelChange={setTravel} footprintScale={RPI_FOOTPRINT_SCALE} playDurationS={playDurationS} maxSmoothingM={RPI_MAX_SMOOTHING_M} />
+              <DebugScene key={route.slug} slug={route.slug} influences={influences} state={stop.state} mapStyle={stop.mapStyle} onTravelChange={setTravel} footprintScale={RPI_FOOTPRINT_SCALE} playDurationS={playDurationS} maxSmoothingM={RPI_MAX_SMOOTHING_M} endLabel="Finish" />
             </div>
             {/* Download GPX lives inside DebugScene's own control bar
                 (top-right, next to Reset view) — this used to duplicate it

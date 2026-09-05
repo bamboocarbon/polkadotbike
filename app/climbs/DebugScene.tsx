@@ -13,7 +13,7 @@
  * rather than a static import, since a static import can't be keyed by a
  * value only known at request time.
  */
-import { Canvas, useThree, useLoader, useFrame } from '@react-three/fiber';
+import { Canvas, useThree, useFrame } from '@react-three/fiber';
 import { OrbitControls, Line, Text, Billboard } from '@react-three/drei';
 import { useMemo, useRef, useEffect, useState, forwardRef, useImperativeHandle } from 'react';
 import * as THREE from 'three';
@@ -159,6 +159,24 @@ function markerConeSize(footprintScale: number): [radius: number, height: number
 // every Grand Tour climb keeps its exact current 25s behaviour.
 const DEFAULT_PLAY_DURATION_S = 25;
 
+// Chequamegon/RPI-scale wedge zoom — climbs under this length (every Grand
+// Tour climb, ~5-30km) stay exactly as before: fully framed, no zoom, no
+// rotation ("side on projection, no zoom no rotation" — Robin, col-d'Ornon
+// 2026-08-27). Longer events (30km+) get a zoom-in/out facility added on
+// top of that same fixed side view — Robin (2026-09-05): "these longer
+// events over 30km add the zoom feature. but... the side view projection
+// is the only view. we do not rotate or spin around the wedge. just side
+// view in and out" — so rotation stays off even for these.
+const WEDGE_ZOOM_LENGTH_THRESHOLD_M = 30000;
+// Width (metres of route) framed once fully zoomed in — independent of the
+// route's total length, so a ~63km Chequamegon lap and a 190km Rebecca's
+// Private Idaho route both zoom to roughly the same "readable gradient
+// detail" scale rather than one over- or under-zooming relative to the
+// other.
+const WEDGE_ZOOM_WINDOW_M = 4000;
+const WEDGE_ZOOM_MARGIN_X = 400;
+const WEDGE_ZOOM_MARGIN_Y = 300;
+
 // Smoothing slider's upper bound — fixed 1000m (1km) everywhere until now.
 // Robin: on the much longer Rebecca's Private Idaho routes, 1km of
 // smoothing isn't enough of a change to see a real difference relative to
@@ -167,7 +185,7 @@ const DEFAULT_PLAY_DURATION_S = 25;
 // every Grand Tour climb keeps its exact original 1000m cap.
 const DEFAULT_MAX_SMOOTHING_M = 1000;
 
-function useRouteData(slug: string, footprintScale: number): RouteData | null {
+function useRouteData(slug: string, footprintScale: number, exaggerationMultiplier: number): RouteData | null {
   const [data, setData] = useState<RouteData | null>(null);
   useEffect(() => {
     setData(null);
@@ -179,13 +197,20 @@ function useRouteData(slug: string, footprintScale: number): RouteData | null {
         const route = raw.points.map((p) => ({ ...p, x: p.x * footprintScale, z: p.z * footprintScale }));
         const lengthM = route[route.length - 1].distanceM;
         const totalAscentM = route.reduce((sum, p, i) => (i === 0 ? 0 : sum + Math.max(0, p.elevationM - route[i - 1].elevationM)), 0);
-        const exaggeration = computeExaggeration(lengthM, totalAscentM);
+        // exaggerationMultiplier scales the already-computed (and already
+        // ceiling-clamped, see computeExaggeration) value — a page-level
+        // relief boost on top of the shared formula, not a replacement for
+        // it. Defaults to 1 (a no-op) everywhere except Chequamegon, whose
+        // very low elevation RANGE (86-170m) reads as flat even at
+        // computeExaggeration's own 15x ceiling — see
+        // CheqRouteDetailClient.tsx's CHEQ_EXAGGERATION_MULTIPLIER comment.
+        const exaggeration = computeExaggeration(lengthM, totalAscentM) * exaggerationMultiplier;
         setData({ route, lengthM, totalAscentM, exaggeration, footprintScale });
       });
     return () => {
       cancelled = true;
     };
-  }, [slug, footprintScale]);
+  }, [slug, footprintScale, exaggerationMultiplier]);
   return data;
 }
 
@@ -249,7 +274,14 @@ function RibbonMesh({
   // bands. Robin: "can we thicken the width of the wedge" (trialled on
   // col-de-sarenne 2026-08-26, rolled out everywhere 2026-08-27).
   const widthM = 500;
-  const { geometry, exaggeration, slots } = useMemo(() => buildMorphGeometry(rd.route, { widthM }), [rd, widthM]);
+  // Pass rd.exaggeration explicitly rather than letting buildMorphGeometry
+  // recompute its own from scratch — the two used to always agree (both
+  // called computeExaggeration on the same lengthM/totalAscentM), but
+  // rd.exaggeration can now carry a page-level exaggerationMultiplier
+  // (DebugScene prop, see its own comment) that a from-scratch recompute
+  // here wouldn't know about, which would make the Wedge ribbon disagree
+  // with every other view's height scale.
+  const { geometry, exaggeration, slots } = useMemo(() => buildMorphGeometry(rd.route, { widthM, exaggeration: rd.exaggeration }), [rd, widthM]);
 
   useEffect(() => {
     console.log('exaggeration:', exaggeration);
@@ -288,31 +320,163 @@ function RibbonMesh({
   );
 }
 
+interface BasemapMeta {
+  source: string;
+  bounds: { xMin: number; xMax: number; zMin: number; zMax: number };
+}
+
+// Shared per-slug (BasemapPlane and TerrainMesh both need `source`, and
+// BasemapPlane additionally needs `bounds`) — fetches the sidecar JSON
+// build-climb-basemaps.ts writes alongside each mosaic. Cached raw (before
+// footprintScale) same pattern as useTerrainData below, so multiple
+// footprintScale values (shouldn't happen for one slug, but matches the
+// existing convention) each get their own correctly-scaled bounds off one
+// shared fetch.
+const basemapMetaPromises = new Map<string, Promise<{ source: string; bounds: { xMin: number; xMax: number; zMin: number; zMax: number } }>>();
+function useBasemapMeta(slug: string, footprintScale: number): BasemapMeta | null {
+  const [meta, setMeta] = useState<BasemapMeta | null>(null);
+  useEffect(() => {
+    setMeta(null);
+    if (!basemapMetaPromises.has(slug)) {
+      basemapMetaPromises.set(slug, fetch(`/climbs/basemaps/${slug}.json`).then((r) => r.json()));
+    }
+    basemapMetaPromises.get(slug)!.then((d) => {
+      const b = d.bounds;
+      setMeta({
+        source: d.source,
+        bounds: { xMin: b.xMin * footprintScale, xMax: b.xMax * footprintScale, zMin: b.zMin * footprintScale, zMax: b.zMax * footprintScale },
+      });
+    });
+  }, [slug, footprintScale]);
+  return meta;
+}
+
+// Raw basemap image, cached per slug so BasemapPlane and TerrainMesh (both
+// of which need it) decode it once between them rather than twice.
+const basemapImagePromises = new Map<string, Promise<HTMLImageElement>>();
+function loadBasemapImage(slug: string): Promise<HTMLImageElement> {
+  if (!basemapImagePromises.has(slug)) {
+    basemapImagePromises.set(
+      slug,
+      new Promise((resolve, reject) => {
+        const img = new Image();
+        img.onload = () => resolve(img);
+        img.onerror = reject;
+        img.src = `/climbs/basemaps/${slug}.webp`;
+      })
+    );
+  }
+  return basemapImagePromises.get(slug)!;
+}
+
+// OpenTopoMap's own vegetation fill is a much more saturated lime-green than
+// IGN España's — close enough to the route highlight's own green to read as
+// "the same colour" on any non-Spain climb (Chequamegon, Rebecca's Private
+// Idaho, and every Tour/Giro climb outside Spain all fall back to
+// OpenTopoMap; see SOURCES in build-climb-basemaps.ts). Robin, 2026-09-05,
+// comparing a Chequamegon (OpenTopoMap) screenshot against a Vuelta (IGN)
+// one: "its still a bright green the map terrain, compare to the vuelta
+// terrain." Two things tried first and rejected: a flat per-channel colour
+// multiply on the material only scales a colour, doesn't desaturate it, and
+// wasn't enough of a change; Canvas 2D's built-in `filter` (saturate/
+// hue-rotate) is the "correct" API for this but silently no-ops in this
+// Safari (26.4) — confirmed by sampling identical pixel values with and
+// without a filter set, even on a plain fillRect. Manual per-pixel HSL
+// adjustment (getImageData/putImageData, no `filter` dependency) is what
+// actually works, tuned by eye against a live Vuelta screenshot: cut
+// saturation hard, darken, and shift hue toward yellow/brown, but ONLY for
+// green-range hues, so blue lakes and grey/brown roads (already fine)
+// aren't touched.
+const GREEN_HUE_MIN = 55 / 360;
+const GREEN_HUE_MAX = 175 / 360;
+const GREEN_SATURATION_MULT = 0.22;
+const GREEN_LIGHTNESS_MULT = 0.8;
+const GREEN_HUE_SHIFT = -0.075;
+
+function hueToRgbChannel(p: number, q: number, t: number): number {
+  if (t < 0) t += 1;
+  if (t > 1) t -= 1;
+  if (t < 1 / 6) return p + (q - p) * 6 * t;
+  if (t < 1 / 2) return q;
+  if (t < 2 / 3) return p + (q - p) * (2 / 3 - t) * 6;
+  return p;
+}
+
+// Mutates `imgData` in place, muting only green-hued pixels — see the
+// GREEN_* constants' comment above for why this exists instead of Canvas
+// 2D's `filter`.
+function desaturateGreens(imgData: ImageData): void {
+  const d = imgData.data;
+  for (let i = 0; i < d.length; i += 4) {
+    const r = d[i] / 255, g = d[i + 1] / 255, b = d[i + 2] / 255;
+    const max = Math.max(r, g, b), min = Math.min(r, g, b);
+    if (max === min) continue; // pure grey — no hue to test or touch
+    const delta = max - min;
+    let h: number;
+    if (max === r) h = ((g - b) / delta) % 6;
+    else if (max === g) h = (b - r) / delta + 2;
+    else h = (r - g) / delta + 4;
+    h /= 6;
+    if (h < 0) h += 1;
+    if (h < GREEN_HUE_MIN || h > GREEN_HUE_MAX) continue; // leave water/roads/labels alone
+    const l = (max + min) / 2;
+    const s = (l > 0.5 ? delta / (2 - max - min) : delta / (max + min)) * GREEN_SATURATION_MULT;
+    const newL = Math.max(0, Math.min(1, l * GREEN_LIGHTNESS_MULT));
+    const newH = h + GREEN_HUE_SHIFT;
+    const q = newL < 0.5 ? newL * (1 + s) : newL + s - newL * s;
+    const p = 2 * newL - q;
+    d[i] = Math.round(hueToRgbChannel(p, q, newH + 1 / 3) * 255);
+    d[i + 1] = Math.round(hueToRgbChannel(p, q, newH) * 255);
+    d[i + 2] = Math.round(hueToRgbChannel(p, q, newH - 1 / 3) * 255);
+  }
+}
+
+// `desaturate` is null while the source (useBasemapMeta) hasn't resolved yet
+// — deliberately returns no texture during that window rather than guessing,
+// so a climb never flashes un-desaturated OpenTopoMap green before settling.
+function useBasemapTexture(slug: string, desaturate: boolean | null): THREE.Texture | null {
+  const [texture, setTexture] = useState<THREE.Texture | null>(null);
+  useEffect(() => {
+    setTexture(null);
+    if (desaturate === null) return;
+    let cancelled = false;
+    loadBasemapImage(slug).then((img) => {
+      if (cancelled) return;
+      let tex: THREE.Texture;
+      if (desaturate) {
+        const canvas = document.createElement('canvas');
+        canvas.width = img.naturalWidth;
+        canvas.height = img.naturalHeight;
+        const ctx = canvas.getContext('2d')!;
+        ctx.drawImage(img, 0, 0);
+        const imgData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+        desaturateGreens(imgData);
+        ctx.putImageData(imgData, 0, 0);
+        tex = new THREE.CanvasTexture(canvas);
+      } else {
+        tex = new THREE.Texture(img);
+        tex.needsUpdate = true;
+      }
+      tex.colorSpace = THREE.SRGBColorSpace;
+      tex.anisotropy = 16; // three.js clamps to the hardware max automatically
+      setTexture(tex);
+    });
+    return () => {
+      cancelled = true;
+    };
+  }, [slug, desaturate]);
+  return texture;
+}
+
 // Basemap ground plane (Phase 2.2) — only meaningful in Plan view; the
 // tasksheet fades it out through the A->B morph, but this debug tool only
 // has discrete states, so it's a hard show/hide tied to `visible`.
 function BasemapPlane({ slug, visible, footprintScale }: { slug: string; visible: boolean; footprintScale: number }) {
-  const [bounds, setBounds] = useState<{ xMin: number; xMax: number; zMin: number; zMax: number } | null>(null);
-  useEffect(() => {
-    setBounds(null);
-    fetch(`/climbs/basemaps/${slug}.json`)
-      .then((r) => r.json())
-      .then((d) => {
-        // Same footprintScale as useRouteData/useTerrainData — this plane
-        // is the *flat*-map basemap, a separate bounds source from the
-        // terrain one, so it needs its own copy of the scale.
-        const b = d.bounds;
-        setBounds({ xMin: b.xMin * footprintScale, xMax: b.xMax * footprintScale, zMin: b.zMin * footprintScale, zMax: b.zMax * footprintScale });
-      });
-  }, [slug, footprintScale]);
-  const texture = useLoader(THREE.TextureLoader, `/climbs/basemaps/${slug}.webp`);
+  const meta = useBasemapMeta(slug, footprintScale);
+  const texture = useBasemapTexture(slug, meta ? meta.source === 'OpenTopoMap' : null);
 
-  useEffect(() => {
-    texture.colorSpace = THREE.SRGBColorSpace;
-    texture.anisotropy = 16; // three.js clamps to the hardware max automatically
-  }, [texture]);
-
-  if (!bounds) return null;
+  if (!meta || !texture) return null;
+  const { bounds } = meta;
   const w = bounds.xMax - bounds.xMin;
   const h = bounds.zMax - bounds.zMin;
   const cx = (bounds.xMin + bounds.xMax) / 2;
@@ -393,12 +557,12 @@ function terrainElevationAt(terrain: TerrainData, x: number, z: number): number 
 // (state B) — Plan stays conceptually flat per the original design.
 function TerrainMesh({ slug, rd, visible }: { slug: string; rd: RouteData; visible: boolean }) {
   const terrain = useTerrainData(slug, rd.footprintScale);
-  const texture = useLoader(THREE.TextureLoader, `/climbs/basemaps/${slug}.webp`);
-
-  useEffect(() => {
-    texture.colorSpace = THREE.SRGBColorSpace;
-    texture.anisotropy = 16; // three.js clamps to the hardware max automatically
-  }, [texture]);
+  // Only `source` is used here — terrain's own bounds come from
+  // useTerrainData's own {slug}.terrain.json, a different file than this
+  // meta's {slug}.json, so footprintScale is passed through untouched
+  // rather than reused for anything.
+  const meta = useBasemapMeta(slug, rd.footprintScale);
+  const texture = useBasemapTexture(slug, meta ? meta.source === 'OpenTopoMap' : null);
 
   const geometry = useMemo(() => {
     if (!terrain) return null;
@@ -417,7 +581,7 @@ function TerrainMesh({ slug, rd, visible }: { slug: string; rd: RouteData; visib
     return geo;
   }, [terrain, rd]);
 
-  if (!terrain || !geometry) return null;
+  if (!terrain || !geometry || !texture) return null;
   const cx = (terrain.bounds.xMin + terrain.bounds.xMax) / 2;
   const cz = (terrain.bounds.zMin + terrain.bounds.zMax) / 2;
 
@@ -525,14 +689,30 @@ function RouteHighlight({
   // comes from a separate bilinear sample (terrainElevationAt) at its exact
   // position — the two interpolation methods can disagree within a single
   // coarse cell on sharply-creased real terrain, and whatever that raw-metre
-  // disagreement is gets multiplied by `exaggeration` (up to 15x here vs.
-  // ~3x for a typical Grand Tour climb) before this margin is even added,
-  // so exaggeration — not footprintScale — is the more direct driver of how
-  // much clearance is actually needed. Gated so any climb still on the
-  // default footprint (all 60 Grand Tour ones) keeps its exact original 15
-  // regardless of that climb's own exaggeration value.
+  // disagreement is gets multiplied by `exaggeration` before this margin is
+  // even added, so exaggeration — not footprintScale — is the more direct
+  // driver of how much clearance is actually needed.
+  //
+  // Originally gated on footprintScale alone (only RPI changes it), which
+  // silently missed Chequamegon: same symptom on cheq-40 (Robin, 2026-09-05:
+  // "the route is not always showing on top of the 3d map... we had this
+  // issue on rebeccas 3ds") because Chequamegon keeps the DEFAULT footprint
+  // but boosts exaggeration a different way — CHEQ_EXAGGERATION_MULTIPLIER
+  // (CheqRouteDetailClient.tsx) multiplies computeExaggeration's own
+  // 15x-clamped output, reaching a FINAL exaggeration of 30 on cheq-40 (its
+  // raw computeExaggeration already clamps to the 15x ceiling on its own,
+  // ×2) — double RPI's own 15x ceiling that originally justified this fix,
+  // so it needed it more, not less. Re-deriving computeExaggeration's own
+  // (pre-multiplier) output and comparing catches any such page-level boost
+  // generically, not just RPI's specific footprintScale one, while every
+  // Grand Tour climb (footprintScale=DEFAULT, no multiplier applied
+  // anywhere) still gets its exact original, already-tuned 15.
+  const baseExaggeration = computeExaggeration(rd.lengthM, rd.totalAscentM);
+  const exaggerationBoosted = rd.exaggeration > baseExaggeration + 0.01;
   const highlightOffset =
-    rd.footprintScale === DEFAULT_FOOTPRINT_SCALE ? 15 : 15 * (rd.footprintScale / DEFAULT_FOOTPRINT_SCALE) * (rd.exaggeration / 3);
+    rd.footprintScale === DEFAULT_FOOTPRINT_SCALE && !exaggerationBoosted
+      ? 15
+      : 15 * (rd.footprintScale / DEFAULT_FOOTPRINT_SCALE) * (rd.exaggeration / 3);
   const points = useMemo(() => {
     if (state === 'C') return null;
     // Route (flat map) is no longer reachable via the UI (its button was
@@ -594,7 +774,7 @@ function RouteHighlight({
 // Horizontal reference lines at start and summit altitude, offset to the
 // side of the ribbon (not through it) so the total rise between them reads
 // clearly at a glance.
-function WedgeAltitudeLines({ rd, state }: { rd: RouteData; state: SceneState }) {
+function WedgeAltitudeLines({ rd, state, endLabel }: { rd: RouteData; state: SceneState; endLabel: string }) {
   const startElev = rd.route[0].elevationM;
   const endElev = rd.route[rd.route.length - 1].elevationM;
   // Relative to the wedge's own baseline-anchored geometry (see
@@ -618,7 +798,7 @@ function WedgeAltitudeLines({ rd, state }: { rd: RouteData; state: SceneState })
       </Billboard>
       <Billboard position={[labelX, endY, zOffset]}>
         <Text fontSize={180} color="#fff" anchorX="right" anchorY="middle" outlineWidth={3} outlineColor="#000">
-          {`${Math.round(endElev)}m summit`}
+          {`${Math.round(endElev)}m ${endLabel.toLowerCase()}`}
         </Text>
       </Billboard>
     </>
@@ -827,7 +1007,19 @@ function positionAtDistance(rd: RouteData, distanceM: number, state: SceneState,
 // entry still get start/summit km markers, just no town names). Shown in
 // all three states — Plan included, even though it has the basemap's own
 // place-name labels too, since the km/altitude figures aren't on the map.
-function RouteMarkers({ rd, slug, state, mapStyle }: { rd: RouteData; slug: string; state: SceneState; mapStyle: MapStyle }) {
+function RouteMarkers({
+  rd,
+  slug,
+  state,
+  mapStyle,
+  endLabel,
+}: {
+  rd: RouteData;
+  slug: string;
+  state: SceneState;
+  mapStyle: MapStyle;
+  endLabel: string;
+}) {
   const markers: WedgeMarker[] = useMemo(() => {
     const towns = LANDMARKS[slug] ?? [];
     const ms: WedgeMarker[] = towns.map((t) => ({ distanceM: t.distanceM, label: t.label, kind: 'town' as const }));
@@ -835,9 +1027,9 @@ function RouteMarkers({ rd, slug, state, mapStyle }: { rd: RouteData; slug: stri
       ms.push({ distanceM: km * 1000, label: `${km}km · ${Math.round(elevationAtDistance(rd, km * 1000))}m`, kind: 'km' });
     }
     const endElev = rd.route[rd.route.length - 1].elevationM;
-    ms.push({ distanceM: rd.lengthM, label: `${(rd.lengthM / 1000).toFixed(1)}km · ${Math.round(endElev)}m · Summit`, kind: 'km' });
+    ms.push({ distanceM: rd.lengthM, label: `${(rd.lengthM / 1000).toFixed(1)}km · ${Math.round(endElev)}m · ${endLabel}`, kind: 'km' });
     return ms;
-  }, [rd, slug]);
+  }, [rd, slug, endLabel]);
 
   // Same footprintScale as the route/terrain/basemap data — tick height,
   // label offset and font size are fixed world-space sizes, so with the
@@ -982,6 +1174,43 @@ const SceneControls = forwardRef<ControlsHandle, { rd: RouteData; slug: string; 
     // the old hard 300-unit clamp (which discarded whatever height the user
     // had actually set).
     const desiredClearanceRef = useRef<number | null>(null);
+    // Only meaningful when wedgeZoomEnabled (routes over
+    // WEDGE_ZOOM_LENGTH_THRESHOLD_M) — the rider's last chosen wedge camera
+    // distance (captured off real scroll/pinch input by handleControlsChange
+    // below), preserved across travel-slider moves/autoplay so flyTo/
+    // flyToSmooth don't snap back to the full-frame wedgeCamZ on every
+    // tick. Unused (and enableZoom is false) for every shorter climb, which
+    // keeps its exact original "no zoom no rotation" fixed frame.
+    const wedgeDistRef = useRef<number | null>(null);
+    const wedgeZoomEnabled = state === 'C' && rd.lengthM > WEDGE_ZOOM_LENGTH_THRESHOLD_M;
+
+    // The camera distance that frames just a WEDGE_ZOOM_WINDOW_M-wide slice
+    // of the climb centred on `centerM`, rather than wedgeCamZ's whole-route
+    // frame — this is what makes zooming in actually reveal more gradient
+    // detail instead of just re-fitting the same whole-climb shape closer.
+    // Vertical bound comes from the real elevation range WITHIN that window
+    // (not the climb's full rise) so a flat stretch zooms in tight and a
+    // steep one doesn't.
+    const wedgeCloseCamZFor = (centerM: number) => {
+      const vFovRad = (WEDGE_FOV_DEG * Math.PI) / 180;
+      const halfWindow = WEDGE_ZOOM_WINDOW_M / 2;
+      const d0 = Math.max(0, centerM - halfWindow);
+      const d1 = Math.min(rd.lengthM, centerM + halfWindow);
+      const startElev = rd.route[0].elevationM;
+      let yMin = Infinity, yMax = -Infinity;
+      for (const pt of rd.route) {
+        if (pt.distanceM < d0 || pt.distanceM > d1) continue;
+        const y = (pt.elevationM - startElev) * rd.exaggeration;
+        if (y < yMin) yMin = y;
+        if (y > yMax) yMax = y;
+      }
+      if (yMin === Infinity) { yMin = 0; yMax = 0; }
+      const distForHeight = ((yMax - yMin) / 2 + WEDGE_ZOOM_MARGIN_Y) / Math.tan(vFovRad / 2);
+      const aspect = camera instanceof THREE.PerspectiveCamera ? camera.aspect : 16 / 9;
+      const distForWidth = (halfWindow + WEDGE_ZOOM_MARGIN_X) / (aspect * Math.tan(vFovRad / 2));
+      return Math.max(distForHeight, distForWidth);
+    };
+
     // OrbitControls' onChange fires on ANY change .update() produces —
     // including our own programmatic repositioning below, not just real user
     // drags/scrolls. Without this guard, flyTo's own position would get
@@ -991,6 +1220,17 @@ const SceneControls = forwardRef<ControlsHandle, { rd: RouteData; slug: string; 
 
     const handleControlsChange = () => {
       if (isProgrammaticRef.current) return;
+      if (state === 'C') {
+        // Wedge never rotates or pans (enableRotate/enablePan are always
+        // false) — the only genuine user input that can land here is a
+        // zoom-enabled long route's scroll/pinch dolly, which only changes
+        // distance. desiredOffsetRef/desiredClearanceRef below are Plan/
+        // Route-only concerns and don't apply to the wedge's pure side view.
+        if (wedgeZoomEnabled && controlsRef.current) {
+          wedgeDistRef.current = camera.position.z - controlsRef.current.target.z;
+        }
+        return;
+      }
       if (controlsRef.current) {
         desiredOffsetRef.current = new THREE.Vector3().subVectors(camera.position, controlsRef.current.target);
         if (isTerrain && terrain) {
@@ -1008,6 +1248,7 @@ const SceneControls = forwardRef<ControlsHandle, { rd: RouteData; slug: string; 
         // this is also the permanent view, not just an initial one.
         const camPos = new THREE.Vector3(bounds.cx, bounds.cy, wedgeCamZ);
         desiredOffsetRef.current = new THREE.Vector3(0, 0, wedgeCamZ);
+        wedgeDistRef.current = wedgeCamZ;
         isProgrammaticRef.current = true;
         camera.position.copy(camPos);
         if (controlsRef.current) {
@@ -1044,13 +1285,35 @@ const SceneControls = forwardRef<ControlsHandle, { rd: RouteData; slug: string; 
       const p = positionAtDistance(rd, distanceM, state, mapStyle);
 
       if (state === 'C') {
-        // Wedge is fully framed on both axes (see wedgeCamZ above) — the
-        // whole climb is always visible, so the camera has nothing to
-        // track and never moves; only WedgeTravelMarker's cone slides
-        // sideways within this fixed frame as travel changes.
+        if (!wedgeZoomEnabled) {
+          // Wedge is fully framed on both axes (see wedgeCamZ above) — the
+          // whole climb is always visible, so the camera has nothing to
+          // track and never moves; only WedgeTravelMarker's cone slides
+          // sideways within this fixed frame as travel changes.
+          return {
+            camPos: new THREE.Vector3(bounds.cx, bounds.cy, wedgeCamZ),
+            targetPos: new THREE.Vector3(bounds.cx, bounds.cy, 0),
+          };
+        }
+        // Zoomed-in wedge (30km+ events only): keep whatever distance the
+        // rider last scrolled to (wedgeDistRef) instead of snapping back to
+        // the full-frame wedgeCamZ on every slider move/autoplay tick, and
+        // pan the camera+target toward the white travel marker's own
+        // position (`p`, computed above) in step with how zoomed in they
+        // are — t=0 at the full-frame distance (matches the un-zoomed case
+        // exactly, camera centred on the whole climb), t=1 at
+        // wedgeCloseCamZFor's close distance (camera centred ON the
+        // marker). Still a pure side-on Z-offset from that centre — no
+        // rotation, matching "just side view in and out."
+        const dist = wedgeDistRef.current ?? wedgeCamZ;
+        const closeDist = wedgeCloseCamZFor(distanceM);
+        const span = Math.max(1, wedgeCamZ - closeDist);
+        const t = Math.min(1, Math.max(0, (wedgeCamZ - dist) / span));
+        const cx = bounds.cx + (p.x - bounds.cx) * t;
+        const cy = bounds.cy + (p.y - bounds.cy) * t;
         return {
-          camPos: new THREE.Vector3(bounds.cx, bounds.cy, wedgeCamZ),
-          targetPos: new THREE.Vector3(bounds.cx, bounds.cy, 0),
+          camPos: new THREE.Vector3(cx, cy, dist),
+          targetPos: new THREE.Vector3(cx, cy, 0),
         };
       }
 
@@ -1127,17 +1390,20 @@ const SceneControls = forwardRef<ControlsHandle, { rd: RouteData; slug: string; 
       <OrbitControls
         ref={controlsRef}
         enablePan={false}
-        // Wedge: "side on projection, no zoom no rotation" — fully framed
-        // and permanently fixed (see wedgeCamZ above), so there's nothing
-        // left for the user to rotate or zoom anyway.
+        // Wedge: "side on projection, no zoom no rotation... just side view
+        // in and out" — rotation is always off here, full stop. Zoom is
+        // also off by default (fully framed and permanently fixed, see
+        // wedgeCamZ above) except on 30km+ events (wedgeZoomEnabled), which
+        // get scroll/pinch zoom bounded between the full-frame distance and
+        // wedgeCloseCamZFor's close-in distance — see computeFlyTarget.
         enableRotate={state !== 'C'}
-        enableZoom={state !== 'C'}
+        enableZoom={state !== 'C' || wedgeZoomEnabled}
         enableDamping
         dampingFactor={0.08}
         minPolarAngle={0.02}
         maxPolarAngle={1.5}
-        minDistance={bounds.diag * 0.03}
-        maxDistance={bounds.diag * 4}
+        minDistance={wedgeZoomEnabled ? wedgeCloseCamZFor(bounds.cx) : bounds.diag * 0.03}
+        maxDistance={state === 'C' ? wedgeCamZ : bounds.diag * 4}
         onChange={handleControlsChange}
         makeDefault
       />
@@ -1160,6 +1426,8 @@ export default function DebugScene({
   footprintScale = DEFAULT_FOOTPRINT_SCALE,
   playDurationS = DEFAULT_PLAY_DURATION_S,
   maxSmoothingM = DEFAULT_MAX_SMOOTHING_M,
+  exaggerationMultiplier = 1,
+  endLabel = 'Summit',
 }: {
   slug: string;
   influences: [number, number];
@@ -1181,6 +1449,20 @@ export default function DebugScene({
    *  DEFAULT_MAX_SMOOTHING_M's comment. Defaults to the fixed 1000m every
    *  Grand Tour climb already has. */
   maxSmoothingM?: number;
+  /** Multiplies computeExaggeration's own (already ceiling-clamped) result
+   *  — a page-level relief boost for routes whose elevation RANGE is so
+   *  small that even the 15x ceiling reads as flat. Defaults to 1 (a
+   *  no-op) for every Grand Tour climb and RPI route. */
+  exaggerationMultiplier?: number;
+  /** Word used for the route's final marker/altitude-line label (RouteMarkers'
+   *  last km tick, WedgeAltitudeLines' end-of-ribbon label) — "Summit" reads
+   *  wrong for a point-to-point/loop race that doesn't crest a mountain.
+   *  Robin, 2026-09-05, re Chequamegon: "at the end of the 67km route the
+   *  marker says summit. not really. it is the finish of the ride." Defaults
+   *  to "Summit" for every Grand Tour climb (a real mountain-pass summit);
+   *  Chequamegon and Rebecca's Private Idaho (both races with a finish line,
+   *  not a climb) pass "Finish". */
+  endLabel?: string;
 }) {
   const controlsRef = useRef<ControlsHandle>(null);
   const compassRef = useRef<HTMLDivElement>(null);
@@ -1195,7 +1477,7 @@ export default function DebugScene({
   const SMOOTH_STEP_M = 50;
   const smoothWindowM = Math.round(smoothWindowMRaw / SMOOTH_STEP_M) * SMOOTH_STEP_M;
   const [isPlaying, setIsPlaying] = useState(false);
-  const rd = useRouteData(slug, footprintScale);
+  const rd = useRouteData(slug, footprintScale, exaggerationMultiplier);
 
   useEffect(() => {
     setTravelKm(0);
@@ -1344,8 +1626,8 @@ export default function DebugScene({
         <RouteHighlight rd={rd} slug={slug} state={state} mapStyle={mapStyle} smoothWindowM={smoothWindowM} />
         <TerrainTravelMarker rd={rd} slug={slug} state={state} mapStyle={mapStyle} travelM={travelKm} />
         <PlanTravelMarker rd={rd} state={state} travelM={travelKm} />
-        <RouteMarkers rd={rd} slug={slug} state={state} mapStyle={mapStyle} />
-        <WedgeAltitudeLines rd={rd} state={state} />
+        <RouteMarkers rd={rd} slug={slug} state={state} mapStyle={mapStyle} endLabel={endLabel} />
+        <WedgeAltitudeLines rd={rd} state={state} endLabel={endLabel} />
         <WedgeTravelMarker rd={rd} state={state} travelM={travelKm} />
         <SceneControls rd={rd} slug={slug} state={state} mapStyle={mapStyle} ref={controlsRef} />
         <CompassUpdater compassRef={compassRef} />
