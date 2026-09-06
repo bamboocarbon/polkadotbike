@@ -22,6 +22,13 @@ import { colourForGradient } from '@/lib/climbs/gradientColour';
 import { GPX_PARTIAL_CLIMB_SLUGS, GPX_PARTIAL_CLIMB_CAVEAT } from '@/lib/climbGpxCaveats';
 import { trackGpxDownload } from '@/lib/trackGpxDownload';
 
+// Basemap imagery + terrain data (webp/json/terrain.json per climb) live in
+// Cloudflare R2, not in public/ — they were duplicating ~90MB+ into every
+// single Vercel deployment (Deployment Storage cap), see project_cyclegear
+// memory 2026-09-06. Uploaded once via `wrangler r2 object put`, served from
+// assets.polkadotbike.com (custom domain on the polkadotbike-assets bucket).
+const BASEMAP_BASE_URL = 'https://assets.polkadotbike.com/basemaps';
+
 // Gradient-coloured ahead-line + white terrain-following marker on every
 // view, replacing the old flat yellow/red split — trialled on col-de-sarenne
 // only (2026-08-26), rolled out to every climb (2026-08-27) once confirmed.
@@ -338,7 +345,7 @@ function useBasemapMeta(slug: string, footprintScale: number): BasemapMeta | nul
   useEffect(() => {
     setMeta(null);
     if (!basemapMetaPromises.has(slug)) {
-      basemapMetaPromises.set(slug, fetch(`/climbs/basemaps/${slug}.json`).then((r) => r.json()));
+      basemapMetaPromises.set(slug, fetch(`${BASEMAP_BASE_URL}/${slug}.json`).then((r) => r.json()));
     }
     basemapMetaPromises.get(slug)!.then((d) => {
       const b = d.bounds;
@@ -362,7 +369,8 @@ function loadBasemapImage(slug: string): Promise<HTMLImageElement> {
         const img = new Image();
         img.onload = () => resolve(img);
         img.onerror = reject;
-        img.src = `/climbs/basemaps/${slug}.webp`;
+        img.crossOrigin = 'anonymous';
+        img.src = `${BASEMAP_BASE_URL}/${slug}.webp`;
       })
     );
   }
@@ -505,7 +513,7 @@ function useTerrainData(slug: string, footprintScale: number): TerrainData | nul
   useEffect(() => {
     setTerrain(null);
     if (!terrainPromises.has(slug)) {
-      terrainPromises.set(slug, fetch(`/climbs/basemaps/${slug}.terrain.json`).then((r) => r.json()));
+      terrainPromises.set(slug, fetch(`${BASEMAP_BASE_URL}/${slug}.terrain.json`).then((r) => r.json()));
     }
     terrainPromises.get(slug)!.then((t) => {
       // Same footprintScale as useRouteData — bounds only, so the terrain

@@ -3,20 +3,24 @@
  *
  * For each data/climbs/routes/{slug}.json, fetches and stitches map tiles
  * covering the route's padded bounding box, burns in attribution, and
- * writes public/climbs/basemaps/{slug}.webp plus a sidecar {slug}.json
- * carrying the plane's world-space bounds (same local tangent-plane
- * projection as the route) so the in-scene ground plane aligns exactly.
+ * writes {slug}.webp plus a sidecar {slug}.json (world-space bounds, same
+ * local tangent-plane projection as the route, so the in-scene ground plane
+ * aligns exactly) to a git-ignored local staging dir, then uploads both to
+ * the polkadotbike-assets R2 bucket (assets.polkadotbike.com/basemaps) —
+ * NOT public/, which would duplicate ~1.3MB+ per climb into every Vercel
+ * deployment forever. See project_cyclegear memory, Sept 2026.
  *
- * Run once, commit the output — never fetch tiles at runtime. Both tile
- * servers below are donation- or state-funded and rate-limited.
+ * Run once, upload happens automatically — never fetch tiles at runtime.
+ * Both tile servers below are donation- or state-funded and rate-limited.
  * Run with: npx tsx scripts/build-climb-basemaps.ts
  */
 import { readFileSync, writeFileSync, readdirSync, mkdirSync, existsSync, statSync } from 'fs';
 import { join } from 'path';
 import sharp from 'sharp';
+import { uploadBasemapAsset } from './lib/uploadBasemapToR2';
 
 const ROUTES_DIR = join(__dirname, '..', 'data', 'climbs', 'routes');
-const OUT_DIR = join(__dirname, '..', 'public', 'climbs', 'basemaps');
+const OUT_DIR = join(__dirname, '..', '.basemap-staging', 'basemaps');
 const TILE_PX = 256;
 const TARGET_PX = 4800;
 const PAD_PCT = 0.35;
@@ -297,6 +301,7 @@ async function buildBasemap(slug: string): Promise<void> {
 
   if (!existsSync(OUT_DIR)) mkdirSync(OUT_DIR, { recursive: true });
   writeFileSync(join(OUT_DIR, `${slug}.webp`), webp);
+  uploadBasemapAsset(join(OUT_DIR, `${slug}.webp`), `${slug}.webp`, 'image/webp');
 
   // Exact geographic bounds of the stitched mosaic (snapped to whole tiles,
   // so slightly larger than the padded bbox), projected into the same
@@ -323,8 +328,9 @@ async function buildBasemap(slug: string): Promise<void> {
       2
     )
   );
+  uploadBasemapAsset(join(OUT_DIR, `${slug}.json`), `${slug}.json`, 'application/json');
 
-  console.log(`  -> ${slug}.webp (${(webp.length / 1024).toFixed(0)}KB) + ${slug}.json`);
+  console.log(`  -> ${slug}.webp (${(webp.length / 1024).toFixed(0)}KB) + ${slug}.json (uploaded to R2)`);
 }
 
 // Incremental by default -- this runs against every climb in ROUTES_DIR

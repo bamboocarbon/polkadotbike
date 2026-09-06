@@ -14,9 +14,13 @@
 import { readFileSync, writeFileSync, readdirSync, existsSync, statSync } from 'fs';
 import { join } from 'path';
 import sharp from 'sharp';
+import { uploadBasemapAsset } from './lib/uploadBasemapToR2';
 
 const ROUTES_DIR = join(__dirname, '..', 'data', 'climbs', 'routes');
-const BASEMAPS_DIR = join(__dirname, '..', 'public', 'climbs', 'basemaps');
+// Same staging dir build-climb-basemaps.ts writes to — terrain.json is
+// uploaded to R2 alongside the webp/json it's a sidecar to, not shipped in
+// public/. See project_cyclegear memory, Sept 2026.
+const BASEMAPS_DIR = join(__dirname, '..', '.basemap-staging', 'basemaps');
 const GRID_N = 96; // vertices per axis — plenty for a stylised terrain mesh
 const ELEV_ZOOM = 12; // Terrarium tiles are usable well below imagery zoom for a coarse grid
 const USER_AGENT = 'PolkaDotBike-ClimbTerrainPOC/1.0 (+https://polkadotbike.com)';
@@ -106,7 +110,8 @@ async function buildTerrain(slug: string) {
   const out = { slug, gridN: GRID_N, bounds: { xMin, xMax, zMin, zMax }, elevations };
   const outPath = join(BASEMAPS_DIR, `${slug}.terrain.json`);
   writeFileSync(outPath, JSON.stringify(out));
-  console.log(`  -> ${outPath}`);
+  uploadBasemapAsset(outPath, `${slug}.terrain.json`, 'application/json');
+  console.log(`  -> ${outPath} (uploaded to R2)`);
 }
 
 // Incremental by default, same reasoning as build-climb-basemaps.ts — this

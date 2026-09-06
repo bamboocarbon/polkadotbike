@@ -17,3 +17,8 @@ baseline/
 
 # npm run calendar:export output
 dist/
+
+# Climb basemap/terrain build output — uploaded to R2 (assets.polkadotbike.com)
+# by scripts/build-climb-basemaps.ts and build-climb-terrain.ts, not shipped
+# in the repo/public/. See project_cyclegear memory, Sept 2026.
+.basemap-staging/
