@@ -1,0 +1,30 @@
+/* Chequamegon MTB overview map (2026-09-04) — copy of
+   components/rpi/rpi-map.css's chrome, same "each page carries its own
+   copy" pattern rather than importing rpi-map.css wholesale onto a
+   non-RPI page. See that file's own header comment for why. */
+.map-outer .leaflet-container { height: 420px; border-radius: 14px; border: 1px solid rgba(100, 130, 150, 0.3); }
+.map-skeleton { height: 420px; border-radius: 14px; border: 1px solid rgba(100, 130, 150, 0.3); background: #cfe8f7; }
+
+.cheq-map-dot {
+  width: 20px; height: 20px; border-radius: 50%;
+  cursor: pointer;
+  box-shadow: 0 0 0 2.5px #fff, 0 0 0 4.5px rgba(0, 0, 0, 0.65), 0 1px 4px rgba(0, 0, 0, 0.4);
+  transition: transform 0.12s;
+}
+.cheq-map-dot:hover { transform: scale(1.25); }
+
+.leaflet-tooltip.cheq-map-tip {
+  background: rgba(4, 9, 26, 0.96); border: 1px solid rgba(255, 255, 255, 0.12);
+  color: #e8edf5; font-family: 'Inter', system-ui, sans-serif;
+  font-size: 12px; line-height: 1.5; border-radius: 8px; padding: 6px 10px;
+  white-space: nowrap; box-shadow: 0 4px 16px rgba(0, 0, 0, 0.5);
+}
+.leaflet-tooltip.cheq-map-tip::before { border-top-color: rgba(255, 255, 255, 0.12); }
+
+.cheq-map-legend { display: flex; flex-wrap: wrap; gap: 8px 10px; justify-content: center; margin-top: 14px; }
+.cheq-map-legend-item {
+  display: inline-flex; align-items: center; gap: 7px;
+  font-size: 12.5px; font-weight: 600; color: #fff;
+  background: #000; border-radius: 20px; padding: 6px 14px 6px 10px;
+}
+.cheq-map-legend-dot { width: 11px; height: 11px; border-radius: 50%; flex-shrink: 0; box-shadow: 0 0 0 1.5px rgba(255, 255, 255, 0.4); }
