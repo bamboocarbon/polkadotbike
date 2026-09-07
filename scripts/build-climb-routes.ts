@@ -42,6 +42,24 @@ interface RoadbookAnchors {
   ascentM: number;
 }
 const ROADBOOK_ANCHORS: Record<string, RoadbookAnchors> = {
+  // Chequamegon MTB Festival (cheqmtb.com), Hayward/Cable, WI — 19 Sept
+  // 2026. Robin's own GPX exports (files literally named "Official Cheq
+  // 40 Pro Course", "Official Cheq 40 Course", "Official Cheq Short &
+  // Fat"), already carrying real embedded per-point elevation (same case
+  // as RPI's own GPX files below, not a raw BRouter/SRTM lookup needing
+  // correction) — anchors are this GPX's own first-point and global-max
+  // elevation, a no-op rescale that preserves the real profile. lengthKm
+  // is this file's own haversine length (matches the site's own published
+  // 40mi/16mi race-name distances within a few %, see cheqRoutes.ts for
+  // the site-vs-GPX reconciliation detail); ascentM is the script's own
+  // 75m-smoothed cumulative-rise figure over the real rolling profile
+  // (elevation range is only ~160m/86m, but the Birkie-trail-style rollers
+  // add up to far more total climbing than that range alone suggests) —
+  // there's no external elevation-gain figure published on cheqmtb.com to
+  // reconcile against for any of the three courses.
+  'cheq-40-pro': { startElevationM: 371, summitElevationM: 532, lengthKm: 62.81, ascentM: 913 },
+  'cheq-40': { startElevationM: 368, summitElevationM: 532, lengthKm: 66.97, ascentM: 913 },
+  'cheq-short-fat': { startElevationM: 416, summitElevationM: 501, lengthKm: 25.34, ascentM: 338 },
   // Rebecca's Private Idaho (rebeccasprivateidaho.com) — a one-day gravel
   // event with several distance options, not a Grand Tour mountain climb.
   // These GPX exports already carry real embedded per-point elevation
@@ -1156,6 +1174,195 @@ const ROADBOOK_ANCHORS: Record<string, RoadbookAnchors> = {
     summitElevationM: 819,
     lengthKm: 7.76,
     ascentM: 503,
+  },
+  'borovets-pass': {
+    // BRouter-Web export ("Raduil -> Borovets (10.5km)"), Robin's raw file
+    // — bottom already clean (file's own first point, 844m, is within 3m of
+    // the global minimum, 60m into the file). True summit at idx310/9.28km
+    // (1343.5m, within 0.7% of the site's existing 1334m) — the raw file
+    // continues another ~1.15km past it, rolling through the Borovets ski
+    // resort itself (several small ups/downs between 1310-1343m) down to
+    // 1316m at the file's very end, not part of the categorised climb.
+    // Trimmed to the min-to-summit span: 9.28km, an almost exact match to
+    // the site's existing 9.2km (within 0.9%). GPX header's own "filtered
+    // ascend" (702m) and "plain-ascend" (472m) both cover the full
+    // untrimmed file including that extra rolling tail, so ascentM here is
+    // instead the naive cumulative rise within just the trimmed span.
+    startElevationM: 844,
+    summitElevationM: 1344,
+    lengthKm: 9.28,
+    ascentM: 561, // script's own smoothed cumulative-rise figure (many small GPS-noise reversals along the climb push this above the ~500m naive/net-rise estimate)
+  },
+  'cozzo-tunno': {
+    // BRouter-Web export ("cozzo tunno (15km)"), Robin's raw file — bottom
+    // already clean (file's own first point, 77m, IS the global minimum
+    // exactly). True summit at idx474/14.21km (915m), then a genuine but
+    // minor rolling plateau for the final ~0.77km (dips to 889.5m and back
+    // up to 896m at the file's very end) — unlike Borovets/Galibier's clear
+    // "raw file continues into a different place" tail, this reads as part
+    // of the same summit plateau (matches the site's own note, "a long
+    // steady drag rather than steep"), not a separate descent to trim off.
+    // Used untrimmed (496 points, 14.97km, matching the header's own
+    // track-length of 14.968km almost exactly). Kept the site's existing
+    // summit figure (921m) over the GPX's own raw max (915m, within 0.7%).
+    startElevationM: 77,
+    summitElevationM: 921,
+    lengthKm: 14.97,
+    ascentM: 821, // net rise; matches the GPX header's own "plain-ascend" figure exactly
+  },
+  'montagna-grande-di-viggiano': {
+    // BRouter-Web export ("Viggiano -> Marsicovetere (11km)"), Robin's raw
+    // file — Robin flagged up front that the route start sits outside the
+    // town, and the profile confirms it: the file's own first point (947.75m,
+    // in Viggiano itself) descends for 2.85km to a real local minimum
+    // (794.75m, idx102) before the categorised climb actually begins, then
+    // climbs to a true summit (1402m, idx378/9.44km), then descends again
+    // for a further 1.6km into Marsicovetere (ending 1259.5m/11.04km) — none
+    // of which is part of the climb. Trimmed to just the min-to-summit span
+    // (idx102-378): 6.59km, an almost exact match to the site's existing
+    // 6.6km (within 0.2%). Summit (1402m) is within 0.2% of the site's
+    // existing 1405m.
+    startElevationM: 795,
+    summitElevationM: 1405,
+    lengthKm: 6.59,
+    ascentM: 615, // naive cumulative ascent within the trimmed span (clean climb, only minor GPS-noise reversals)
+  },
+  blockhaus: {
+    // Real GPS ride recording (Team Bike Olympo, converted via TCX
+    // Converter), not a BRouter-Web synthetic route — dense (1443 points
+    // over 13.5km), with actual KM-to-go waypoints (KM_10...KM_1,
+    // HALF_WAY) and a "G26_SAL01_Block" finish waypoint confirming this is
+    // the real official Giro 2026 stage 7 climb file. Exceptionally clean:
+    // the file's own first point (525.9m) IS the global minimum and its
+    // own last point (1665.8m) IS the global maximum — fully monotonic,
+    // no trimming needed at all. Used untrimmed (1443 points, 13.55km).
+    // Length within 0.4% of the site's existing 13.6km; summit within
+    // 0.05% of the site's existing 1665m.
+    startElevationM: 526,
+    summitElevationM: 1666,
+    lengthKm: 13.55,
+    ascentM: 1140, // net rise; matches the site's own published gradient (8.4%) almost exactly
+  },
+  roccaraso: {
+    // BRouter-Web export ("Castel di Sangro -> Roccaraso (10.6km)"),
+    // Robin's raw file — the first 1.1km is genuinely flat/rolling valley
+    // floor through Castel di Sangro itself (789-797m, no real climbing),
+    // then a further ~1km of very gentle grade before the real climb's
+    // step-change kicks in. Measured the site's official 6.9km distance
+    // back from the GPX's own summit (idx248, 9.004km, 1246m — within
+    // 0.08% of the site's existing 1245m): lands at idx41/2.103km/808m,
+    // right at that step-change — giving 6.90km, an almost exact match
+    // (within 0.02%) to the site's existing 6.9km. Same "official distance
+    // measured back from the summit lands at the real gradient
+    // step-change" pattern as Côte d'Engins/Orcières-Merlette.
+    startElevationM: 808,
+    summitElevationM: 1246,
+    lengthKm: 6.9,
+    ascentM: 453, // naive cumulative ascent within the trimmed span
+  },
+  'corno-alle-scale': {
+    // Real GPS ride recording (Team Bike Olympo, converted via TCX
+    // Converter), same source/format as blockhaus — dense (1116 points
+    // over 11.0km), KM-to-go waypoints, and a "G26_SAL03_Corno" finish
+    // waypoint confirming this is the real official Giro 2026 stage 9
+    // climb file. Exceptionally clean: the file's own first point (824.7m)
+    // IS the global minimum and its own last point (1469.8m) IS the global
+    // maximum — fully monotonic, no trimming needed. Used untrimmed (1116
+    // points, 11.01km). Length within 2% of the site's existing 10.8km;
+    // summit within 0.08% of the site's existing 1471m.
+    startElevationM: 825,
+    summitElevationM: 1470,
+    lengthKm: 11.01,
+    ascentM: 645, // net rise
+  },
+  'colle-di-guaitarola': {
+    // BRouter-Web export ("colle de guitarola (10.3km)"), Robin's raw file
+    // — bottom already clean (file's own first point, 5.75m, within 1.75m
+    // of the global minimum, 80m into the file — coastal Cinque Terre
+    // start). True summit at idx553/9.924km (618.5m, within 0.08% of the
+    // site's existing 619m) — the raw file continues a further ~0.39km
+    // past it with a minor 6.5m dip, not part of the categorised climb.
+    // Trimmed to the min-to-summit span: 9.92km, an almost exact match
+    // (within 0.24%) to the site's existing 9.9km.
+    startElevationM: 6,
+    summitElevationM: 619,
+    lengthKm: 9.92,
+    ascentM: 686, // naive cumulative ascent within the trimmed span
+  },
+  'col-du-saint-barthelemy': {
+    // BRouter-Web export ("saint Barthelemy (28.6km)"), Robin's raw file —
+    // flagged up front as needing cutting, and it does: the file is one
+    // continuous, monotonic ~24km valley-to-pass climb (574m start climbing
+    // essentially the whole way to a 1636.5m high point at 24.4km), then
+    // descends 4.1km further to the file's end. The site's own summit
+    // (1619m) is NOT the file's global max — it's a real small plateau/pass
+    // feature (elevation holds 1616-1625m across idx1020-1054, genuine col
+    // terrain, not noise) sitting a little below the true topographic high
+    // point further up the same road. Neither a pure min-to-max trim nor a
+    // simple distance-back-from-the-real-summit approach converged well on
+    // their own, so both the site's length (15.8km) AND its summit
+    // elevation (1619m) were matched simultaneously: searched every
+    // candidate start point against the fixed 1619.5m plateau point
+    // (idx1021/23.233km) for the best joint fit to (15.8km, 6.1%), landing
+    // on idx330/7.43km/699m — length converges almost exactly (15.80km)
+    // though the resulting gradient (5.8%) is a bit off the site's 6.1%.
+    // Corroborated independently: this span's own naive cumulative ascent
+    // (1107m) closely matches the site's own published note for this climb
+    // ("1029m of elevation gain").
+    startElevationM: 699,
+    summitElevationM: 1620,
+    lengthKm: 15.8,
+    ascentM: 949, // script's own smoothed cumulative-rise figure — closely matches the simple net-rise estimate (920.5m); the naive point-to-point sum (1107m, closer to the site's own "1029m" note) overcounts small GPS-noise reversals
+  },
+  'lin-noir': {
+    // Robin supplied two BRouter-Web exports for this climb. The first
+    // ("lin noir (8.3km)") didn't reconcile at all — it starts higher
+    // (1001.5m), rises to a false high point (1090m/2.74km), genuinely
+    // descends back down (~90m, real terrain not noise) before climbing to
+    // the true summit, and no single start point on that file could match
+    // both the site's length (7.4km) and gradient (7.9%) at once (best
+    // joint fit was 3.59km/7.9% — length off by more than half). The
+    // second export ("lin noir 2 (12.2km)"), starting from a lower point
+    // further back, reconciles cleanly instead: file's own real local
+    // minimum (693.75m/idx162/3.55km) to its own real maximum (1286.5m/
+    // idx492/11.26km, within 0.2% of the site's existing 1284m) gives
+    // 7.71km at 7.69% — both within 4% of the site's existing 7.4km/7.9%.
+    // Used this second file, trimmed to that min-to-max span.
+    startElevationM: 694,
+    summitElevationM: 1287,
+    lengthKm: 7.71,
+    ascentM: 635, // naive cumulative ascent within the trimmed span
+  },
+  verrogne: {
+    // BRouter-Web export ("verrogne (8km)"), Robin's raw file — connects
+    // from Lin Noir's summit (per the site's own note), so the file
+    // starting at 1241.5m and immediately descending to a real local
+    // minimum (1197.75m/idx58/1.4km) before climbing matches that "no real
+    // descent before the next climb" transition exactly. True summit at
+    // idx327/7.151km (1589.25m, within 0.14% of the site's existing
+    // 1587m) — the raw file continues a further ~0.8km past it. Trimmed
+    // to the min-to-summit span: 5.75km at 6.81%, both close matches
+    // (within 2.7%/1.3%) to the site's existing 5.6km/6.9%.
+    startElevationM: 1198,
+    summitElevationM: 1589,
+    lengthKm: 5.75,
+    ascentM: 424, // naive cumulative ascent within the trimmed span
+  },
+  pila: {
+    // Real GPS ride recording (Team Bike Olympo, converted via TCX
+    // Converter), same source/format as blockhaus/corno-alle-scale — dense
+    // (1498 points over 16.5km), KM-to-go waypoints, and a
+    // "G26_SAL06_Pila" finish waypoint confirming this is the real
+    // official Giro 2026 stage 14 summit-finish climb file. Exceptionally
+    // clean: the file's own first point (624m) IS the global minimum and
+    // its own last point (1795m) IS the global maximum — fully monotonic,
+    // no trimming needed. Used untrimmed (1498 points, 16.53km). Length
+    // within 0.17% of the site's existing 16.5km; summit within 0.11% of
+    // the site's existing 1793m.
+    startElevationM: 624,
+    summitElevationM: 1795,
+    lengthKm: 16.53,
+    ascentM: 1171, // net rise
   },
 };
 

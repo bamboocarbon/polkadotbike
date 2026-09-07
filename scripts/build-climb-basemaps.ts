@@ -26,6 +26,18 @@ const TARGET_PX = 4800;
 const PAD_PCT = 0.35;
 const MAX_BYTES = 2600 * 1024;
 const FALLBACK_PX = 2048;
+// WebGL1's guaranteed-minimum MAX_TEXTURE_SIZE is 4096 — some iOS devices
+// enforce exactly that ceiling, silently failing to bind (and rendering no
+// basemap/terrain at all, route line only) for anything larger, even though
+// desktop GPUs happily take much bigger textures. TARGET_PX (4800) already
+// aims under that, but tile-boundary snapping (floor()/ceil() on tile
+// indices, not the raw padded bbox) can push either mosaic dimension past
+// it by up to ~256px — found 2026-09-07 auditing why Robin saw no map on
+// iOS: 12 of 79 built climbs exceeded 4096px in at least one dimension
+// despite fitting the MAX_BYTES budget (flat/plain terrain compresses well
+// even at large pixel dimensions, so the byte-size check alone missed
+// them). This is a second, independent trigger for the same downscale path.
+const MAX_DIMENSION_PX = 4096;
 const USER_AGENT = 'PolkaDotBike-ClimbBasemap/1.0 (build-time tile fetch, one run per climb; +https://polkadotbike.com)';
 const REQUEST_DELAY_MS = 60; // politeness gap between tile requests
 
@@ -285,12 +297,16 @@ async function buildBasemap(slug: string): Promise<void> {
   }
 
   let outW = mosaicW;
-  if (webp.length > MAX_BYTES) {
+  if (webp.length > MAX_BYTES || mosaicW > MAX_DIMENSION_PX || mosaicH > MAX_DIMENSION_PX) {
     // Fit within a FALLBACK_PX square, shrinking by whichever dimension is
     // actually larger — this climb's bbox is taller than it is wide, so a
     // width-only resize would have upscaled it (source narrower than
     // FALLBACK_PX) instead of shrinking the binding (height) dimension.
-    console.log(`  ${(webp.length / 1024).toFixed(0)}KB exceeds ${(MAX_BYTES / 1024).toFixed(0)}KB, downscaling to fit ${FALLBACK_PX}px`);
+    const reason =
+      webp.length > MAX_BYTES
+        ? `${(webp.length / 1024).toFixed(0)}KB exceeds ${(MAX_BYTES / 1024).toFixed(0)}KB`
+        : `${mosaicW}x${mosaicH}px exceeds the ${MAX_DIMENSION_PX}px safe texture dimension`;
+    console.log(`  ${reason}, downscaling to fit ${FALLBACK_PX}px`);
     const resized = await sharp(webp)
       .resize({ width: FALLBACK_PX, height: FALLBACK_PX, fit: 'inside', withoutEnlargement: true })
       .webp({ quality: 80 })
