@@ -71,18 +71,40 @@ const CLIMB_3D_SLUGS: Record<string, string> = {
   'Puerto El Remolcador': 'puerto-el-remolcador',
   'Sierra de la Pandera': 'sierra-de-la-pandera',
   'Venta de la Cebada': 'venta-de-la-cebada',
-  'Borovets Pass': 'borovets-pass',
-  'Cozzo Tunno': 'cozzo-tunno',
-  'Montagna Grande di Viggiano': 'montagna-grande-di-viggiano',
-  'Blockhaus (via Roccamorice)': 'blockhaus',
-  'Roccaraso': 'roccaraso',
-  'Corno alle Scale': 'corno-alle-scale',
-  'Colle di Guaitarola': 'colle-di-guaitarola',
-  'Col du Saint-Barthélemy': 'col-du-saint-barthelemy',
-  'Lin Noir': 'lin-noir',
-  'Verrogne': 'verrogne',
-  'Pila (Gressan side)': 'pila',
 };
+
+// Giro 2026 climbs built 2026-09-07 — deliberately NOT in CLIMB_3D_SLUGS yet.
+// Each page (data/route/basemap/terrain) is fully live and testable via its
+// direct /climbs/{slug} URL, same "exists but unlinked" state most climbs
+// sat in before getting a CLIMB_3D_SLUGS entry — this just keeps them off
+// the public Giro race cards (no "Plan this climb in 3D" button) until
+// Robin says they're ready for general visitors to stumble on. Move each
+// line back into CLIMB_3D_SLUGS above (matching the climb's exact `name`
+// field in data/climbs.json) when that's ready — see
+// feedback_climb_3d_cat_scope / project_cyclegear_borovets_pass memory.
+//
+// 'Borovets Pass': 'borovets-pass',
+// 'Cozzo Tunno': 'cozzo-tunno',
+// 'Montagna Grande di Viggiano': 'montagna-grande-di-viggiano',
+// 'Blockhaus (via Roccamorice)': 'blockhaus',
+// 'Roccaraso': 'roccaraso',
+// 'Corno alle Scale': 'corno-alle-scale',
+// 'Colle di Guaitarola': 'colle-di-guaitarola',
+// 'Col du Saint-Barthélemy': 'col-du-saint-barthelemy',
+// 'Lin Noir': 'lin-noir',
+// 'Verrogne': 'verrogne',
+// 'Pila (Gressan side)': 'pila',
+// 'Leontica (1st ascent)': 'leontica',
+// 'Leontica (2nd ascent)': 'leontica',
+// 'Carì': 'cari',
+// 'Passo Duran': 'passo-duran',
+// 'Passo Giau': 'passo-giau',
+// 'Coi': 'coi',
+// 'Forcella Staulanza': 'forcella-staulanza',
+// 'Passo Falzarego': 'passo-falzarego',
+// 'Piani di Pezzè': 'piani-di-pezze',
+// 'Piancavallo (1st ascent)': 'piancavallo',
+// 'Piancavallo (2nd ascent)': 'piancavallo',
 
 export default function ClimbCard({ climb: c }: { climb: Climb }) {
   const isFinish = c.kbf === 0;

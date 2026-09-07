@@ -1364,6 +1364,145 @@ const ROADBOOK_ANCHORS: Record<string, RoadbookAnchors> = {
     lengthKm: 16.53,
     ascentM: 1171, // net rise
   },
+  leontica: {
+    // BRouter-Web export ("Prugiasco -> Leontica (3.5km)"), Robin's raw
+    // file — climbed twice on Giro stage 16 (same physical road both
+    // times, one shared route). File starts at 617.25m, dips to a real
+    // local minimum (609.75m/idx33/0.33km) before climbing — a short
+    // false-flat leaving Prugiasco. True summit at idx218/3.336km
+    // (875.75m, within 0.2% of the site's existing 874m) — the raw file
+    // continues a further ~0.21km past it. Trimmed to the min-to-summit
+    // span: 3.01km at 8.85%, both close matches (within 0.23%/4%) to the
+    // site's existing 3km/8.5%.
+    startElevationM: 610,
+    summitElevationM: 876,
+    lengthKm: 3.01,
+    ascentM: 278, // naive cumulative ascent within the trimmed span
+  },
+  cari: {
+    // BRouter-Web export ("cari (12.3km)"), Robin's raw file — the
+    // stage 16 summit finish after the Torre/Leontica circuit. File
+    // starts at 718m, dips to a real local minimum (710.75m/idx16/0.58km)
+    // before climbing. True summit at idx682/12.219km (1646m, within
+    // 0.12% of the site's existing 1644m) — the raw file continues a
+    // further ~0.05km past it. Trimmed to the min-to-summit span: 11.64km
+    // at 8.04%, both close matches (within 0.52%/1.7%) to the site's
+    // existing 11.7km/7.9%.
+    startElevationM: 711,
+    summitElevationM: 1646,
+    lengthKm: 11.64,
+    ascentM: 980, // naive cumulative ascent within the trimmed span
+  },
+  'passo-duran': {
+    // BRouter-Web export ("passo duran (13.6km)"), Robin's raw file —
+    // bottom already clean (file's own first point, 598.75m, IS the
+    // global minimum exactly), but the first ~1.05km is a genuine flat
+    // lead-in (598.75m to 611.75m, only 13m rise) before a real
+    // step-change into sustained climbing. Measured the site's official
+    // 12.1km distance back from the GPX's own summit (idx605/13.302km,
+    // 1602.25m — within 0.08% of the site's existing 1601m): lands at
+    // idx62/1.223km/623.25m, right at that step-change — giving 12.08km
+    // at 8.10%, both close matches (within 0.17%/1.2%) to the site's
+    // existing 12.1km/8.2%. Same "official distance measured back from
+    // the summit lands at the real gradient step-change" pattern as
+    // Côte d'Engins/Roccaraso.
+    startElevationM: 623,
+    summitElevationM: 1602,
+    lengthKm: 12.08,
+    ascentM: 1025, // naive cumulative ascent within the trimmed span
+  },
+  'passo-giau': {
+    // Real GPS ride recording (Team Bike Olympo, converted via TCX
+    // Converter), same source/format as blockhaus/corno-alle-scale/pila —
+    // dense (1216 points over 9.79km), KM-to-go waypoints, and a
+    // "G26_SAL10_Giau" finish waypoint confirming this is the real
+    // official Giro 2026 stage 19 HC climb file. Exceptionally clean: the
+    // file's own first point (1318.8m) is within 0.3m of the global
+    // minimum and its own last point (2230.6m) IS the global maximum —
+    // fully monotonic, no trimming needed. Used untrimmed (1216 points,
+    // 9.79km). Length within 1% of the site's existing 9.9km; summit
+    // within 0.24% of the site's existing 2236m.
+    startElevationM: 1319,
+    summitElevationM: 2231,
+    lengthKm: 9.79,
+    ascentM: 912, // net rise
+  },
+  'piani-di-pezze': {
+    // BRouter-Web export ("Alleghe (5.5km)"), Robin's raw file — the
+    // stage 19 summit finish. Clean, smooth, continuous climb throughout
+    // (no flat lead-in, no dip) from the file's own first point (971.5m,
+    // essentially the global minimum) to its own last point (1467.75m,
+    // essentially the global maximum) — no natural alternate cut point
+    // exists. Used untrimmed (5.50km). The site's existing published
+    // figure (5km) reads as a rounded approximation of this real ~5.5km
+    // climb; summit (1467.75m) is within 0.26% of the site's existing
+    // 1465m.
+    startElevationM: 971,
+    summitElevationM: 1469,
+    lengthKm: 5.5,
+    ascentM: 498, // net rise; matches the GPX header's own ascend figures exactly (filtered == plain, i.e. genuinely monotonic)
+  },
+  'passo-falzarego': {
+    // BRouter-Web export ("falzarego (10.9km)"), Robin's raw file —
+    // bottom already clean (file's own first point, 1528m, IS the global
+    // minimum exactly). True summit at idx374/10.666km (2105m, an exact
+    // match to the site's existing 2105m) — the raw file continues a
+    // further ~0.21km past it. Trimmed to the min-to-summit span: 10.67km
+    // at 5.41%, both close matches (within 5.6%/3.4%) to the site's
+    // existing 10.1km/5.6%.
+    startElevationM: 1528,
+    summitElevationM: 2105,
+    lengthKm: 10.67,
+    ascentM: 586, // naive cumulative ascent within the trimmed span
+  },
+  coi: {
+    // BRouter-Web export ("coi and staulanza (16.2km)"), a single file
+    // covering BOTH Coi and Forcella Staulanza (same stage 19 order:
+    // climb, descend, climb again) — split into two separate route files.
+    // Coi: bottom clean (real local min, 941.25m/idx23/0.365km, after a
+    // short ~0.36km descent from the file's literal start). True summit
+    // at idx389/6.158km (1501.5m, within 0.03% of the site's existing
+    // 1501m). Trimmed to that span: 5.79km at 9.67%, both almost exact
+    // matches (within 0.12%/0.3%) to the site's existing 5.8km/9.7%.
+    startElevationM: 941,
+    summitElevationM: 1502,
+    lengthKm: 5.79,
+    ascentM: 575, // naive cumulative ascent within the trimmed span
+  },
+  'forcella-staulanza': {
+    // Same combined file as coi (see above) — the second climb. Real
+    // local min at the bottom of the connecting descent (1339.25m/
+    // idx523/8.263km), but genuine climbing doesn't start until the end
+    // of a flat/rolling saddle a bit further on. Measured the site's
+    // official 6.3km distance back from the GPX's own summit (idx817/
+    // 15.217km, 1767.5m — within 0.08% of the site's existing 1766m):
+    // lands at idx540/8.907km/1345.75m, right at the end of that saddle —
+    // giving 6.31km at 6.68%, both almost exact matches (within
+    // 0.16%/0.3%) to the site's existing 6.3km/6.7%.
+    startElevationM: 1346,
+    summitElevationM: 1768,
+    lengthKm: 6.31,
+    ascentM: 442, // naive cumulative ascent within the trimmed span
+  },
+  piancavallo: {
+    // BRouter-Web export ("Villotta / Vilote -> Piancavallo / Plancjaval
+    // (17.1km)"), Robin's raw file — climbed twice on Giro stage 20 (the
+    // final stage, same physical road both times, one shared route).
+    // File starts at 156.75m in the flatlands (Villotta/Vilote), and
+    // rolls gently for ~2.3km (down to 156.75m again at idx70/2.33km — a
+    // second, essentially tied low point) before real sustained climbing
+    // begins — not the file's literal first point. True summit at
+    // idx662/16.651km (1295m, within 0.39% of the site's existing
+    // 1290m). Trimmed from that second low point to the summit: 14.32km
+    // at 7.95%, both close matches (within 1.2%/2%) to the site's
+    // existing 14.5km/7.8%. A distance-back-from-summit measurement alone
+    // landed mid-plains, not at a real transition — used the terrain's
+    // own last-low-point-before-sustained-climb instead.
+    startElevationM: 157,
+    summitElevationM: 1295,
+    lengthKm: 14.32,
+    ascentM: 1155, // naive cumulative ascent within the trimmed span
+  },
 };
 
 interface GpxPoint {

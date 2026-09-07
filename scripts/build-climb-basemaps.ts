@@ -97,9 +97,20 @@ function project(lat: number, lon: number, lat0: number, lon0: number): { x: num
 }
 
 // Highest zoom whose padded-bbox pixel span still fits within TARGET_PX —
-// "the zoom filling ~2048px" (1.2).
+// "the zoom filling ~2048px" (1.2). Capped at 17, OpenTopoMap's documented
+// global max zoom for its standard raster layer — anything higher returns
+// a literal "max zoom / layer = 17" text-placeholder tile instead of real
+// cartography, not an HTTP error, so fetchTile's own ok+content-type check
+// can't catch it. Zoom is picked once, before the IGN-vs-OpenTopoMap
+// source decision below, so a short/small-bbox climb that falls back to
+// OpenTopoMap (every non-Spain climb, on IGN failure) would otherwise
+// silently bake in that placeholder — found 2026-09-07 on leontica (a
+// 3km climb, the shortest built so far, whose small bbox pushed the
+// naive uncapped picker to z18). IGN España's own tile matrix goes higher
+// (up to z19), so this trades a little extra sharpness on Spanish climbs
+// for safety everywhere else — not worth a per-source zoom pass to avoid.
 function pickZoom(latMin: number, latMax: number, lonMin: number, lonMax: number): number {
-  for (let z = 18; z >= 5; z--) {
+  for (let z = 17; z >= 5; z--) {
     const xPx = (lonToTileX(lonMax, z) - lonToTileX(lonMin, z)) * TILE_PX;
     const yPx = (latToTileY(latMin, z) - latToTileY(latMax, z)) * TILE_PX;
     if (Math.max(xPx, yPx) <= TARGET_PX) return z;
