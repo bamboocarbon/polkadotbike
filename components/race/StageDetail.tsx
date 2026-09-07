@@ -33,7 +33,7 @@ export default function StageDetail({ race, climbs, stageNum, stay22Links }: Sta
             ? 'Sprint stage — no categorised climbs.'
             : stage.type === 'Flat'
               ? 'Flat stage — no categorised climbs.'
-              : 'Detailed climb data not yet available for this stage.';
+              : 'No categorised climbs on this stage.';
     climbsContent = <div className="no-climbs">{msg}</div>;
   } else {
     climbsContent = (
