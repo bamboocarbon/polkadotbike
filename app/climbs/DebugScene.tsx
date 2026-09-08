@@ -330,16 +330,28 @@ function RibbonMesh({
 interface BasemapMeta {
   source: string;
   bounds: { xMin: number; xMax: number; zMin: number; zMax: number };
+  // Content hash of the currently-published webp/terrain.json, folded into
+  // their request URLs as a ?v= query param so a rebuild-in-place is never
+  // stuck behind the R2 assets' own 1yr immutable cache for anyone who
+  // already has the old version cached — see uploadBasemapToR2.ts's
+  // IMMUTABLE_CACHE_CONTROL comment (found 2026-09-08 on leontica: a fixed
+  // basemap stayed invisible in a browser that had cached the pre-fix one).
+  // Undefined on any manifest predating this scheme; callers fall back to
+  // the old unversioned URL, which still works, just isn't bustable.
+  webpVersion?: string;
+  terrainVersion?: string;
 }
 
-// Shared per-slug (BasemapPlane and TerrainMesh both need `source`, and
-// BasemapPlane additionally needs `bounds`) — fetches the sidecar JSON
-// build-climb-basemaps.ts writes alongside each mosaic. Cached raw (before
-// footprintScale) same pattern as useTerrainData below, so multiple
-// footprintScale values (shouldn't happen for one slug, but matches the
-// existing convention) each get their own correctly-scaled bounds off one
-// shared fetch.
-const basemapMetaPromises = new Map<string, Promise<{ source: string; bounds: { xMin: number; xMax: number; zMin: number; zMax: number } }>>();
+// Shared per-slug (BasemapPlane and TerrainMesh both need `source` and the
+// version fields, and BasemapPlane additionally needs `bounds`) — fetches
+// the sidecar JSON build-climb-basemaps.ts writes alongside each mosaic.
+// This manifest itself is served short-cache (MANIFEST_CACHE_CONTROL, not
+// immutable) precisely so its own webpVersion/terrainVersion are never
+// stale for more than a few minutes. Cached raw (before footprintScale)
+// same pattern as useTerrainData below, so multiple footprintScale values
+// (shouldn't happen for one slug, but matches the existing convention) each
+// get their own correctly-scaled bounds off one shared fetch.
+const basemapMetaPromises = new Map<string, Promise<any>>();
 function useBasemapMeta(slug: string, footprintScale: number): BasemapMeta | null {
   const [meta, setMeta] = useState<BasemapMeta | null>(null);
   useEffect(() => {
@@ -352,29 +364,34 @@ function useBasemapMeta(slug: string, footprintScale: number): BasemapMeta | nul
       setMeta({
         source: d.source,
         bounds: { xMin: b.xMin * footprintScale, xMax: b.xMax * footprintScale, zMin: b.zMin * footprintScale, zMax: b.zMax * footprintScale },
+        webpVersion: d.webpVersion,
+        terrainVersion: d.terrainVersion,
       });
     });
   }, [slug, footprintScale]);
   return meta;
 }
 
-// Raw basemap image, cached per slug so BasemapPlane and TerrainMesh (both
-// of which need it) decode it once between them rather than twice.
+// Raw basemap image, cached per slug+version so BasemapPlane and TerrainMesh
+// (both of which need it) decode it once between them rather than twice,
+// and so a version bump (see BasemapMeta.webpVersion) fetches a fresh copy
+// instead of reusing whatever this tab already decoded for the old URL.
 const basemapImagePromises = new Map<string, Promise<HTMLImageElement>>();
-function loadBasemapImage(slug: string): Promise<HTMLImageElement> {
-  if (!basemapImagePromises.has(slug)) {
+function loadBasemapImage(slug: string, webpVersion: string | undefined): Promise<HTMLImageElement> {
+  const key = `${slug}:${webpVersion ?? ''}`;
+  if (!basemapImagePromises.has(key)) {
     basemapImagePromises.set(
-      slug,
+      key,
       new Promise((resolve, reject) => {
         const img = new Image();
         img.onload = () => resolve(img);
         img.onerror = reject;
         img.crossOrigin = 'anonymous';
-        img.src = `${BASEMAP_BASE_URL}/${slug}.webp`;
+        img.src = `${BASEMAP_BASE_URL}/${slug}.webp${webpVersion ? `?v=${webpVersion}` : ''}`;
       })
     );
   }
-  return basemapImagePromises.get(slug)!;
+  return basemapImagePromises.get(key)!;
 }
 
 // Every other OpenTopoMap-sourced climb (Chequamegon included) renders at
@@ -441,12 +458,20 @@ function desaturateGreens(imgData: ImageData): void {
   }
 }
 
-function useBasemapTexture(slug: string): THREE.Texture | null {
+// `webpVersion` is `null` while the manifest (useBasemapMeta) hasn't
+// resolved yet — deliberately fetches nothing during that window rather
+// than guessing, so a slow/cold manifest fetch can't cause a wasted
+// unversioned request immediately followed by a versioned refetch once it
+// resolves. `''` (falsy but not null) means "meta resolved, no version on
+// this manifest" — fetch unversioned deliberately, not because it's still
+// loading.
+function useBasemapTexture(slug: string, webpVersion: string | null): THREE.Texture | null {
   const [texture, setTexture] = useState<THREE.Texture | null>(null);
   useEffect(() => {
     setTexture(null);
+    if (webpVersion === null) return;
     let cancelled = false;
-    loadBasemapImage(slug).then((img) => {
+    loadBasemapImage(slug, webpVersion || undefined).then((img) => {
       if (cancelled) return;
       let tex: THREE.Texture;
       if (DARKENED_SLUGS.has(slug)) {
@@ -470,7 +495,7 @@ function useBasemapTexture(slug: string): THREE.Texture | null {
     return () => {
       cancelled = true;
     };
-  }, [slug]);
+  }, [slug, webpVersion]);
   return texture;
 }
 
@@ -479,7 +504,7 @@ function useBasemapTexture(slug: string): THREE.Texture | null {
 // has discrete states, so it's a hard show/hide tied to `visible`.
 function BasemapPlane({ slug, visible, footprintScale }: { slug: string; visible: boolean; footprintScale: number }) {
   const meta = useBasemapMeta(slug, footprintScale);
-  const texture = useBasemapTexture(slug);
+  const texture = useBasemapTexture(slug, meta ? meta.webpVersion ?? '' : null);
 
   if (!meta || !texture) return null;
   const { bounds } = meta;
@@ -506,14 +531,21 @@ interface TerrainData {
 // SceneControls) reads the exact same data — one fetch each, cached by
 // slug, rather than risking independently-loaded copies drifting apart.
 const terrainPromises = new Map<string, Promise<TerrainData>>();
-function useTerrainData(slug: string, footprintScale: number): TerrainData | null {
+// `terrainVersion` follows the same null-gate convention as webpVersion in
+// useBasemapTexture above — `null` means "meta hasn't resolved yet, don't
+// fetch"; `''` means "resolved, no version on this manifest, fetch
+// unversioned".
+function useTerrainData(slug: string, footprintScale: number, terrainVersion: string | null): TerrainData | null {
   const [terrain, setTerrain] = useState<TerrainData | null>(null);
   useEffect(() => {
     setTerrain(null);
-    if (!terrainPromises.has(slug)) {
-      terrainPromises.set(slug, fetch(`${BASEMAP_BASE_URL}/${slug}.terrain.json`).then((r) => r.json()));
+    if (terrainVersion === null) return;
+    const key = `${slug}:${terrainVersion}`;
+    if (!terrainPromises.has(key)) {
+      const url = `${BASEMAP_BASE_URL}/${slug}.terrain.json${terrainVersion ? `?v=${terrainVersion}` : ''}`;
+      terrainPromises.set(key, fetch(url).then((r) => r.json()));
     }
-    terrainPromises.get(slug)!.then((t) => {
+    terrainPromises.get(key)!.then((t) => {
       // Same footprintScale as useRouteData — bounds only, so the terrain
       // mesh/skirt grow in step with the route's now-wider x/z. Grid
       // elevations (the height data) are untouched. Scaled about the
@@ -533,7 +565,7 @@ function useTerrainData(slug: string, footprintScale: number): TerrainData | nul
         },
       });
     });
-  }, [slug, footprintScale]);
+  }, [slug, footprintScale, terrainVersion]);
   return terrain;
 }
 
@@ -562,8 +594,9 @@ function terrainElevationAt(terrain: TerrainData, x: number, z: number): number 
 // terrain.ts), draped with the same basemap texture. Only shown in Route
 // (state B) — Plan stays conceptually flat per the original design.
 function TerrainMesh({ slug, rd, visible }: { slug: string; rd: RouteData; visible: boolean }) {
-  const terrain = useTerrainData(slug, rd.footprintScale);
-  const texture = useBasemapTexture(slug);
+  const meta = useBasemapMeta(slug, rd.footprintScale);
+  const terrain = useTerrainData(slug, rd.footprintScale, meta ? meta.terrainVersion ?? '' : null);
+  const texture = useBasemapTexture(slug, meta ? meta.webpVersion ?? '' : null);
 
   const geometry = useMemo(() => {
     if (!terrain) return null;
@@ -601,7 +634,8 @@ function TerrainMesh({ slug, rd, visible }: { slug: string; rd: RouteData; visib
 // walls drop from each boundary vertex's actual (elevation-displaced)
 // height down to a shared flat base well below the lowest point.
 function TerrainSkirt({ slug, rd, visible }: { slug: string; rd: RouteData; visible: boolean }) {
-  const terrain = useTerrainData(slug, rd.footprintScale);
+  const meta = useBasemapMeta(slug, rd.footprintScale);
+  const terrain = useTerrainData(slug, rd.footprintScale, meta ? meta.terrainVersion ?? '' : null);
   const geometry = useMemo(() => {
     if (!terrain) return null;
     const { gridN, bounds, elevations } = terrain;
@@ -677,7 +711,8 @@ function RouteHighlight({
   mapStyle: MapStyle;
   smoothWindowM: number;
 }) {
-  const terrain = useTerrainData(slug, rd.footprintScale);
+  const meta = useBasemapMeta(slug, rd.footprintScale);
+  const terrain = useTerrainData(slug, rd.footprintScale, meta ? meta.terrainVersion ?? '' : null);
   // Fixed absolute margin (was a bare 15 everywhere below) to lift the
   // highlight line clear of whatever surface it's drawn over. polygonOffset
   // on the <Line> below handles genuine depth-buffer z-fighting; this
@@ -844,7 +879,8 @@ function WedgeTravelMarker({ rd, state, travelM }: { rd: RouteData; state: Scene
 // lookup RouteHighlight's own terrain-mode points use, so the marker sits
 // on the same surface the line and mesh are already drawn on.
 function TerrainTravelMarker({ rd, slug, state, mapStyle, travelM }: { rd: RouteData; slug: string; state: SceneState; mapStyle: MapStyle; travelM: number }) {
-  const terrain = useTerrainData(slug, rd.footprintScale);
+  const meta = useBasemapMeta(slug, rd.footprintScale);
+  const terrain = useTerrainData(slug, rd.footprintScale, meta ? meta.terrainVersion ?? '' : null);
   if (state !== 'B' || mapStyle !== 'terrain' || !terrain) return null;
   const { route } = rd;
   let lo = 0;
@@ -1119,7 +1155,8 @@ const SceneControls = forwardRef<ControlsHandle, { rd: RouteData; slug: string; 
   function SceneControls({ rd, slug, state, mapStyle }, ref) {
     const { camera } = useThree();
     const controlsRef = useRef<any>(null);
-    const terrain = useTerrainData(slug, rd.footprintScale);
+    const meta = useBasemapMeta(slug, rd.footprintScale);
+    const terrain = useTerrainData(slug, rd.footprintScale, meta ? meta.terrainVersion ?? '' : null);
     const isTerrain = state === 'B' && mapStyle === 'terrain';
     const bounds = useMemo(() => {
       const base = stateBounds(rd, state, mapStyle);

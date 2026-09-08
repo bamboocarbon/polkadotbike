@@ -17,7 +17,7 @@
 import { readFileSync, writeFileSync, readdirSync, mkdirSync, existsSync, statSync } from 'fs';
 import { join } from 'path';
 import sharp from 'sharp';
-import { uploadBasemapAsset } from './lib/uploadBasemapToR2';
+import { contentHash, MANIFEST_CACHE_CONTROL, uploadBasemapAsset } from './lib/uploadBasemapToR2';
 
 const ROUTES_DIR = join(__dirname, '..', 'data', 'climbs', 'routes');
 const OUT_DIR = join(__dirname, '..', '.basemap-staging', 'basemaps');
@@ -327,8 +327,10 @@ async function buildBasemap(slug: string): Promise<void> {
   }
 
   if (!existsSync(OUT_DIR)) mkdirSync(OUT_DIR, { recursive: true });
-  writeFileSync(join(OUT_DIR, `${slug}.webp`), webp);
-  uploadBasemapAsset(join(OUT_DIR, `${slug}.webp`), `${slug}.webp`, 'image/webp');
+  const webpPath = join(OUT_DIR, `${slug}.webp`);
+  writeFileSync(webpPath, webp);
+  uploadBasemapAsset(webpPath, `${slug}.webp`, 'image/webp');
+  const webpVersion = contentHash(webpPath);
 
   // Exact geographic bounds of the stitched mosaic (snapped to whole tiles,
   // so slightly larger than the padded bbox), projected into the same
@@ -340,8 +342,17 @@ async function buildBasemap(slug: string): Promise<void> {
   const nw = project(cornerLatMax, cornerLonMin, route.origin.lat, route.origin.lon);
   const se = project(cornerLatMin, cornerLonMax, route.origin.lat, route.origin.lon);
 
+  // Preserve an existing terrainVersion (written by build-climb-terrain.ts,
+  // which reads but never rewrites this manifest) rather than dropping it —
+  // this script overwrites the whole file, and terrain isn't rebuilt every
+  // time the basemap is.
+  const manifestPath = join(OUT_DIR, `${slug}.json`);
+  const existingTerrainVersion = existsSync(manifestPath)
+    ? JSON.parse(readFileSync(manifestPath, 'utf-8')).terrainVersion
+    : undefined;
+
   writeFileSync(
-    join(OUT_DIR, `${slug}.json`),
+    manifestPath,
     JSON.stringify(
       {
         slug,
@@ -350,14 +361,16 @@ async function buildBasemap(slug: string): Promise<void> {
         zoom: z,
         imageWidthPx: outW,
         bounds: { xMin: nw.x, xMax: se.x, zMin: nw.z, zMax: se.z },
+        webpVersion,
+        ...(existingTerrainVersion ? { terrainVersion: existingTerrainVersion } : {}),
       },
       null,
       2
     )
   );
-  uploadBasemapAsset(join(OUT_DIR, `${slug}.json`), `${slug}.json`, 'application/json');
+  uploadBasemapAsset(manifestPath, `${slug}.json`, 'application/json', MANIFEST_CACHE_CONTROL);
 
-  console.log(`  -> ${slug}.webp (${(webp.length / 1024).toFixed(0)}KB) + ${slug}.json (uploaded to R2)`);
+  console.log(`  -> ${slug}.webp (${(webp.length / 1024).toFixed(0)}KB, v${webpVersion}) + ${slug}.json (uploaded to R2)`);
 }
 
 // Incremental by default -- this runs against every climb in ROUTES_DIR

@@ -14,7 +14,7 @@
 import { readFileSync, writeFileSync, readdirSync, existsSync, statSync } from 'fs';
 import { join } from 'path';
 import sharp from 'sharp';
-import { uploadBasemapAsset } from './lib/uploadBasemapToR2';
+import { contentHash, MANIFEST_CACHE_CONTROL, uploadBasemapAsset } from './lib/uploadBasemapToR2';
 
 const ROUTES_DIR = join(__dirname, '..', 'data', 'climbs', 'routes');
 // Same staging dir build-climb-basemaps.ts writes to — terrain.json is
@@ -111,7 +111,18 @@ async function buildTerrain(slug: string) {
   const outPath = join(BASEMAPS_DIR, `${slug}.terrain.json`);
   writeFileSync(outPath, JSON.stringify(out));
   uploadBasemapAsset(outPath, `${slug}.terrain.json`, 'application/json');
-  console.log(`  -> ${outPath} (uploaded to R2)`);
+  const terrainVersion = contentHash(outPath);
+
+  // Fold terrainVersion into the shared manifest (basemapMeta, read above)
+  // without disturbing webpVersion/bounds — same cache-busting scheme as
+  // build-climb-basemaps.ts's own webpVersion, so a terrain-only rebuild
+  // (independent of the basemap image) still reaches every client, not just
+  // new ones. See uploadBasemapToR2.ts's IMMUTABLE_CACHE_CONTROL comment.
+  const manifestPath = join(BASEMAPS_DIR, `${slug}.json`);
+  writeFileSync(manifestPath, JSON.stringify({ ...basemapMeta, terrainVersion }, null, 2));
+  uploadBasemapAsset(manifestPath, `${slug}.json`, 'application/json', MANIFEST_CACHE_CONTROL);
+
+  console.log(`  -> ${outPath} (v${terrainVersion}, uploaded to R2)`);
 }
 
 // Incremental by default, same reasoning as build-climb-basemaps.ts — this
