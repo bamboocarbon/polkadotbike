@@ -461,6 +461,11 @@ const DARKENED_SLUGS = new Set(['cheq-40', 'cheq-40-pro', 'cheq-short-fat']);
 // markers.
 const WIDE_LANDMARK_SLUGS = new Set(['cheq-40', 'cheq-40-pro', 'cheq-short-fat']);
 const WIDE_LANDMARK_BOOST = 1.4;
+// Height tiers town markers cycle through by their fixed position in
+// LANDMARKS[slug] (see the tier assignment in RouteMarkers' markers
+// useMemo) — module-level so it's available there, not just in the render
+// loop that reads it further down.
+const TOWN_TIER_HEIGHTS = [450, 850, 1250];
 
 // OpenTopoMap's own vegetation fill is a much more saturated lime-green than
 // IGN España's. Two things tried first and rejected: a flat per-channel
@@ -986,6 +991,9 @@ interface WedgeMarker {
   distanceM: number;
   label: string;
   kind: 'km' | 'town';
+  // Fixed height tier for 'town' markers, by the landmark's own position in
+  // LANDMARKS[slug] — see RouteMarkers' markers useMemo. Undefined for 'km'.
+  tier?: number;
 }
 
 function elevationAtDistance(rd: RouteData, distanceM: number): number {
@@ -1129,11 +1137,20 @@ function RouteMarkers({
   travelM: number;
 }) {
   const markers: WedgeMarker[] = useMemo(() => {
-    const allTowns = LANDMARKS[slug] ?? [];
+    // Tier assigned by each landmark's position in the FULL list, before
+    // the visibility filter below — not a running counter over whichever
+    // subset is currently visible. Robin, 2026-09-08: "some markers were
+    // appearing then disappearing and coming back at different heights" —
+    // that was a running counter reassigning tiers every time the visible
+    // set changed as the travel position moved, so the same landmark could
+    // land on a different height tier each time it re-entered range. A
+    // landmark's tier (and therefore its height) is now fixed regardless of
+    // which other landmarks are visible alongside it.
+    const allTowns = (LANDMARKS[slug] ?? []).map((t, i) => ({ ...t, tier: i % TOWN_TIER_HEIGHTS.length }));
     const towns = WIDE_LANDMARK_SLUGS.has(slug)
       ? allTowns.filter((t) => Math.abs(t.distanceM - travelM) <= LANDMARK_VISIBLE_RANGE_M)
       : allTowns;
-    const ms: WedgeMarker[] = towns.map((t) => ({ distanceM: t.distanceM, label: t.label, kind: 'town' as const }));
+    const ms: WedgeMarker[] = towns.map((t) => ({ distanceM: t.distanceM, label: t.label, kind: 'town' as const, tier: t.tier }));
     for (let km = 5; km < rd.lengthM / 1000; km += 5) {
       ms.push({ distanceM: km * 1000, label: `${km}km · ${Math.round(elevationAtDistance(rd, km * 1000))}m`, kind: 'km' });
     }
@@ -1165,8 +1182,6 @@ function RouteMarkers({
   // down the boosted size's contrast against Chequamegon's OpenTopoMap
   // green, not a judgement on the original red against other climbs' own
   // (mostly IGN, more muted) basemaps.
-  const TOWN_TIER_HEIGHTS = [450, 850, 1250];
-  let townIndex = -1;
   const isWide = WIDE_LANDMARK_SLUGS.has(slug);
   const townLineColor = isWide ? '#c62828' : '#ee1c28';
   const townTextColor = isWide ? '#ff6b5f' : '#ee1c28';
@@ -1176,9 +1191,8 @@ function RouteMarkers({
       {markers.map((m, i) => {
         const { x, y, z } = positionAtDistance(rd, m.distanceM, state, mapStyle);
         const isTown = m.kind === 'town';
-        if (isTown) townIndex++;
         const boost = isTown ? townBoost : 1;
-        const tierBase = isTown ? TOWN_TIER_HEIGHTS[townIndex % TOWN_TIER_HEIGHTS.length] : 500;
+        const tierBase = isTown ? TOWN_TIER_HEIGHTS[(m.tier ?? 0) % TOWN_TIER_HEIGHTS.length] : 500;
         const tickTop = y + tierBase * rd.footprintScale * boost;
         return (
           <group key={i}>
