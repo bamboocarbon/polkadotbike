@@ -377,29 +377,31 @@ function loadBasemapImage(slug: string): Promise<HTMLImageElement> {
   return basemapImagePromises.get(slug)!;
 }
 
+// Every other OpenTopoMap-sourced climb (Chequamegon included) renders at
+// real OpenTopoMap colour since 2026-09-08 — Robin compared it directly
+// against a live opentopomap.org window and asked for the true colours back
+// sitewide. Chequamegon's own 3 routes are the one deliberate exception:
+// Robin asked to keep just these back at the earlier muted/darkened look
+// (originally applied to every OpenTopoMap climb, see git history for the
+// removed desaturateGreens sitewide version) rather than the raw green.
+const DARKENED_SLUGS = new Set(['cheq-40', 'cheq-40-pro', 'cheq-short-fat']);
+
 // OpenTopoMap's own vegetation fill is a much more saturated lime-green than
-// IGN España's — close enough to the route highlight's own green to read as
-// "the same colour" on any non-Spain climb (Chequamegon, Rebecca's Private
-// Idaho, and every Tour/Giro climb outside Spain all fall back to
-// OpenTopoMap; see SOURCES in build-climb-basemaps.ts). Robin, 2026-09-05,
-// comparing a Chequamegon (OpenTopoMap) screenshot against a Vuelta (IGN)
-// one: "its still a bright green the map terrain, compare to the vuelta
-// terrain." Two things tried first and rejected: a flat per-channel colour
-// multiply on the material only scales a colour, doesn't desaturate it, and
-// wasn't enough of a change; Canvas 2D's built-in `filter` (saturate/
-// hue-rotate) is the "correct" API for this but silently no-ops in this
-// Safari (26.4) — confirmed by sampling identical pixel values with and
-// without a filter set, even on a plain fillRect. Manual per-pixel HSL
-// adjustment (getImageData/putImageData, no `filter` dependency) is what
-// actually works, tuned by eye against a live Vuelta screenshot: cut
-// saturation hard, darken, and shift hue toward yellow/brown, but ONLY for
-// green-range hues, so blue lakes and grey/brown roads (already fine)
-// aren't touched.
+// IGN España's. Two things tried first and rejected: a flat per-channel
+// colour multiply on the material only scales a colour, doesn't desaturate
+// it, and wasn't enough of a change; Canvas 2D's built-in `filter` (saturate/
+// hue-rotate) is the "correct" API for this but silently no-ops in Safari
+// (26.4) — confirmed by sampling identical pixel values with and without a
+// filter set, even on a plain fillRect. Manual per-pixel HSL adjustment
+// (getImageData/putImageData, no `filter` dependency) is what actually
+// works, tuned by eye against a live Vuelta (IGN) screenshot: cut saturation
+// hard, darken, and shift hue toward yellow/brown, but ONLY for green-range
+// hues, so blue lakes and grey/brown roads (already fine) aren't touched.
 const GREEN_HUE_MIN = 55 / 360;
 const GREEN_HUE_MAX = 175 / 360;
-const GREEN_SATURATION_MULT = 0.22;
+const GREEN_SATURATION_MULT = 0.7;
 const GREEN_LIGHTNESS_MULT = 0.8;
-const GREEN_HUE_SHIFT = -0.075;
+const GREEN_HUE_SHIFT = -0.025;
 
 function hueToRgbChannel(p: number, q: number, t: number): number {
   if (t < 0) t += 1;
@@ -439,19 +441,15 @@ function desaturateGreens(imgData: ImageData): void {
   }
 }
 
-// `desaturate` is null while the source (useBasemapMeta) hasn't resolved yet
-// — deliberately returns no texture during that window rather than guessing,
-// so a climb never flashes un-desaturated OpenTopoMap green before settling.
-function useBasemapTexture(slug: string, desaturate: boolean | null): THREE.Texture | null {
+function useBasemapTexture(slug: string): THREE.Texture | null {
   const [texture, setTexture] = useState<THREE.Texture | null>(null);
   useEffect(() => {
     setTexture(null);
-    if (desaturate === null) return;
     let cancelled = false;
     loadBasemapImage(slug).then((img) => {
       if (cancelled) return;
       let tex: THREE.Texture;
-      if (desaturate) {
+      if (DARKENED_SLUGS.has(slug)) {
         const canvas = document.createElement('canvas');
         canvas.width = img.naturalWidth;
         canvas.height = img.naturalHeight;
@@ -472,7 +470,7 @@ function useBasemapTexture(slug: string, desaturate: boolean | null): THREE.Text
     return () => {
       cancelled = true;
     };
-  }, [slug, desaturate]);
+  }, [slug]);
   return texture;
 }
 
@@ -481,7 +479,7 @@ function useBasemapTexture(slug: string, desaturate: boolean | null): THREE.Text
 // has discrete states, so it's a hard show/hide tied to `visible`.
 function BasemapPlane({ slug, visible, footprintScale }: { slug: string; visible: boolean; footprintScale: number }) {
   const meta = useBasemapMeta(slug, footprintScale);
-  const texture = useBasemapTexture(slug, meta ? meta.source === 'OpenTopoMap' : null);
+  const texture = useBasemapTexture(slug);
 
   if (!meta || !texture) return null;
   const { bounds } = meta;
@@ -565,12 +563,7 @@ function terrainElevationAt(terrain: TerrainData, x: number, z: number): number 
 // (state B) — Plan stays conceptually flat per the original design.
 function TerrainMesh({ slug, rd, visible }: { slug: string; rd: RouteData; visible: boolean }) {
   const terrain = useTerrainData(slug, rd.footprintScale);
-  // Only `source` is used here — terrain's own bounds come from
-  // useTerrainData's own {slug}.terrain.json, a different file than this
-  // meta's {slug}.json, so footprintScale is passed through untouched
-  // rather than reused for anything.
-  const meta = useBasemapMeta(slug, rd.footprintScale);
-  const texture = useBasemapTexture(slug, meta ? meta.source === 'OpenTopoMap' : null);
+  const texture = useBasemapTexture(slug);
 
   const geometry = useMemo(() => {
     if (!terrain) return null;

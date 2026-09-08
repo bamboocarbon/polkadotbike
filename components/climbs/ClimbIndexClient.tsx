@@ -12,8 +12,9 @@ export interface ClimbIndexItem {
   race: 'tdf' | 'giro' | 'vuelta';
   raceLabel: string;
   /** True once this climb has real, verified route data and its own detail
-   *  page. Only Vuelta climbs qualify so far — Giro/Tour rows render
-   *  greyed out and non-clickable until their pages land. */
+   *  page. Vuelta climbs all qualify; Giro/Tour climbs qualify per-slug
+   *  once they have GPX-processed route data — the rest render greyed
+   *  out and non-clickable until their pages land. */
   ready: boolean;
   /** Pre-folded "name + range", lowercase, accents stripped — matches the
    *  source's own data-h attribute, computed once rather than per keystroke. */
@@ -22,7 +23,7 @@ export interface ClimbIndexItem {
 
 const RACE_CHIPS: { key: 'all' | 'tdf' | 'giro' | 'vuelta'; label: string; disabled?: boolean }[] = [
   { key: 'all', label: 'All' },
-  { key: 'giro', label: 'Giro', disabled: true },
+  { key: 'giro', label: 'Giro' },
   { key: 'tdf', label: 'Tour' },
   { key: 'vuelta', label: 'Vuelta' },
 ];
@@ -36,7 +37,7 @@ function fold(s: string): string {
 
 export default function ClimbIndexClient({ climbs }: { climbs: ClimbIndexItem[] }) {
   const [query, setQuery] = useState('');
-  const [race, setRace] = useState<'all' | 'tdf' | 'giro' | 'vuelta'>('vuelta');
+  const [race, setRace] = useState<'all' | 'tdf' | 'giro' | 'vuelta'>('all');
 
   const filtered = useMemo(() => {
     const q = fold(query.trim());

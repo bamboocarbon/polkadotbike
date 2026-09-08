@@ -86,13 +86,11 @@ const climbs: ClimbIndexItem[] = (climbIndexData.climbs as RawClimb[])
       elev: c.elev,
       race,
       raceLabel: RACE_LABELS[race] || race,
-      // Vuelta climbs are all ready; Giro climb pages still 404 by design
-      // (see climbs-index.css's header comment) so stay greyed out
-      // wholesale. TDF is now per-climb (2026-08-26, localhost-only TDF
-      // batch in progress): only the ones with a real GPX-processed route
-      // (data/climbs/routes/<slug>.json) are clickable, the rest still
-      // show "coming soon" same as before.
-      ready: race === 'vuelta' || (race === 'tdf' && hasRouteData(c.slug)),
+      // Vuelta climbs are all ready. Giro and TDF are per-climb (Giro
+      // batch landed 2026-09-07): only the ones with a real GPX-processed
+      // route (data/climbs/routes/<slug>.json) are clickable, the rest
+      // still show "coming soon".
+      ready: race === 'vuelta' || ((race === 'tdf' || race === 'giro') && hasRouteData(c.slug)),
       haystack: fold(`${c.name} ${c.range}`),
     };
   });
