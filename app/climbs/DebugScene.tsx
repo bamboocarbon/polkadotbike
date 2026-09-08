@@ -446,6 +446,22 @@ function loadBasemapImage(slug: string, webpVersion: string | undefined): Promis
 // removed desaturateGreens sitewide version) rather than the raw green.
 const DARKENED_SLUGS = new Set(['cheq-40', 'cheq-40-pro', 'cheq-short-fat']);
 
+// Chequamegon's landmark ticks/labels were technically rendering (Robin,
+// 2026-09-08, first read "no markers visible" — confirmed by zooming into
+// a screenshot that they were there, just tiny) but unreadable at the
+// default camera framing: these courses are 25-67km, footprintScale stays
+// at the site's own default 2 (deliberately NOT widened like RPI's 6 — see
+// CHEQ_FOOTPRINT_SCALE's own comment, widening would flatten the already-
+// subtle terrain relief further), so the camera has to pull back much
+// further than a typical 10-20km Grand Tour climb to frame the whole
+// route, shrinking every fixed-world-size marker in the process. Boosts
+// just the named-landmark ticks (not the plain km ticks) for these slugs
+// specifically, rather than a general length-based scale-up that would
+// also affect RPI's already-tuned (and untested against this change)
+// markers.
+const WIDE_LANDMARK_SLUGS = new Set(['cheq-40', 'cheq-40-pro', 'cheq-short-fat']);
+const WIDE_LANDMARK_BOOST = 2.5;
+
 // OpenTopoMap's own vegetation fill is a much more saturated lime-green than
 // IGN España's. Two things tried first and rejected: a flat per-channel
 // colour multiply on the material only scales a colour, doesn't desaturate
@@ -1117,18 +1133,21 @@ function RouteMarkers({
   // and these would otherwise read as too small at that distance. Scaling
   // them by the same factor keeps them legible.
 
+  const townBoost = WIDE_LANDMARK_SLUGS.has(slug) ? WIDE_LANDMARK_BOOST : 1;
+
   return (
     <>
       {markers.map((m, i) => {
         const { x, y, z } = positionAtDistance(rd, m.distanceM, state, mapStyle);
         const isTown = m.kind === 'town';
-        const tickTop = y + (isTown ? 900 : 500) * rd.footprintScale;
+        const boost = isTown ? townBoost : 1;
+        const tickTop = y + (isTown ? 900 : 500) * rd.footprintScale * boost;
         return (
           <group key={i}>
-            <Line points={[[x, y, z], [x, tickTop, z]]} color={isTown ? '#ee1c28' : '#999'} lineWidth={isTown ? 3 : 1.5} />
-            <Billboard position={[x, tickTop + 150 * rd.footprintScale, z]}>
+            <Line points={[[x, y, z], [x, tickTop, z]]} color={isTown ? '#ee1c28' : '#999'} lineWidth={isTown ? 3 * boost : 1.5} />
+            <Billboard position={[x, tickTop + 150 * rd.footprintScale * boost, z]}>
               <Text
-                fontSize={(isTown ? 220 : 170) * rd.footprintScale}
+                fontSize={(isTown ? 220 : 170) * rd.footprintScale * boost}
                 color={isTown ? '#ee1c28' : '#fff'}
                 anchorX="center"
                 anchorY="bottom"
