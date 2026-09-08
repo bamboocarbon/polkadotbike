@@ -1103,21 +1103,36 @@ function positionAtDistance(rd: RouteData, distanceM: number, state: SceneState,
 // entry still get start/summit km markers, just no town names). Shown in
 // all three states — Plan included, even though it has the basemap's own
 // place-name labels too, since the km/altitude figures aren't on the map.
+// Chequamegon's landmarks are dense enough (6+ within a few hundred
+// metres in the northern loop) that even staggered/resized labels still
+// read as cluttered showing the whole course at once — Robin, 2026-09-08:
+// "only show the markers +/- say 5km from the white triangle track
+// position, we can adjust if its too close/far". Scoped to
+// WIDE_LANDMARK_SLUGS only; other climbs' landmark lists are sparse
+// enough (2-8, spread over the whole route) that seeing them all at once
+// is the more useful default, not a clutter problem to solve.
+const LANDMARK_VISIBLE_RANGE_M = 5000;
+
 function RouteMarkers({
   rd,
   slug,
   state,
   mapStyle,
   endLabel,
+  travelM,
 }: {
   rd: RouteData;
   slug: string;
   state: SceneState;
   mapStyle: MapStyle;
   endLabel: string;
+  travelM: number;
 }) {
   const markers: WedgeMarker[] = useMemo(() => {
-    const towns = LANDMARKS[slug] ?? [];
+    const allTowns = LANDMARKS[slug] ?? [];
+    const towns = WIDE_LANDMARK_SLUGS.has(slug)
+      ? allTowns.filter((t) => Math.abs(t.distanceM - travelM) <= LANDMARK_VISIBLE_RANGE_M)
+      : allTowns;
     const ms: WedgeMarker[] = towns.map((t) => ({ distanceM: t.distanceM, label: t.label, kind: 'town' as const }));
     for (let km = 5; km < rd.lengthM / 1000; km += 5) {
       ms.push({ distanceM: km * 1000, label: `${km}km · ${Math.round(elevationAtDistance(rd, km * 1000))}m`, kind: 'km' });
@@ -1125,7 +1140,7 @@ function RouteMarkers({
     const endElev = rd.route[rd.route.length - 1].elevationM;
     ms.push({ distanceM: rd.lengthM, label: `${(rd.lengthM / 1000).toFixed(1)}km · ${Math.round(endElev)}m · ${endLabel}`, kind: 'km' });
     return ms;
-  }, [rd, slug, endLabel]);
+  }, [rd, slug, endLabel, travelM]);
 
   // Same footprintScale as the route/terrain/basemap data — tick height,
   // label offset and font size are fixed world-space sizes, so with the
@@ -1749,7 +1764,7 @@ export default function DebugScene({
         <RouteHighlight rd={rd} slug={slug} state={state} mapStyle={mapStyle} smoothWindowM={smoothWindowM} />
         <TerrainTravelMarker rd={rd} slug={slug} state={state} mapStyle={mapStyle} travelM={travelKm} />
         <PlanTravelMarker rd={rd} state={state} travelM={travelKm} />
-        <RouteMarkers rd={rd} slug={slug} state={state} mapStyle={mapStyle} endLabel={endLabel} />
+        <RouteMarkers rd={rd} slug={slug} state={state} mapStyle={mapStyle} endLabel={endLabel} travelM={travelKm} />
         <WedgeAltitudeLines rd={rd} state={state} endLabel={endLabel} />
         <WedgeTravelMarker rd={rd} state={state} travelM={travelKm} />
         <SceneControls rd={rd} slug={slug} state={state} mapStyle={mapStyle} ref={controlsRef} />
