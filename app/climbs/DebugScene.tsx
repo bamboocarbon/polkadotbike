@@ -119,6 +119,49 @@ const LANDMARKS: Record<string, { distanceM: number; label: string }[]> = {
   'rpi-dollarhide': [
     { distanceM: 18196, label: "Frenchman's Hot Spring" },
   ],
+  // Read directly off cheqmtb.com's own 2026 course map (mile markers
+  // printed next to each named feature), not GPS-matched against the GPX —
+  // its <wpt> track has no embedded waypoints (unlike Aitana/RPI above) to
+  // validate against. Both courses share the same northern loop out of
+  // Hayward; where the map prints two mile numbers at one physical point
+  // (e.g. "High Point 4.1 / 30.2") the small one (0-15.7 range) is Short &
+  // Fat's own pass and the large one (16-41.7) is Chequamegon 40's — S&F's
+  // total is 15.7mi, Cheq 40's is 41.7mi, matching each course's real
+  // length closely enough (25.3km/67.0km) to trust the pairing. Cheq 40 Pro
+  // isn't marked separately on the map at all (it's ~4.2km/2.6mi shorter
+  // than the standard 40) and no exact diff is known, so it gets no entries
+  // here rather than a guessed scaling.
+  'cheq-40': [
+    { distanceM: 4023, label: 'Rollout' },
+    { distanceM: 7725, label: 'Fish Hatchery' },
+    { distanceM: 13358, label: 'Mosquito Brook Road' },
+    { distanceM: 16415, label: 'Phipps Fire Lane' },
+    { distanceM: 19634, label: 'Gravel Pit Feed Station' },
+    { distanceM: 29612, label: 'Highway OO' },
+    { distanceM: 32026, label: 'Janet Rd' },
+    { distanceM: 36854, label: "Martel's Pothole" },
+    { distanceM: 38141, label: 'Telemark Road' },
+    { distanceM: 40073, label: 'Firetower Hill Climb' },
+    { distanceM: 41682, label: 'Seven Sisters' },
+    { distanceM: 43130, label: 'Firetower Descent' },
+    { distanceM: 48602, label: 'High Point' },
+    { distanceM: 49246, label: 'Camp 38 ATV Trail' },
+    { distanceM: 51177, label: 'Telemark Road' },
+    { distanceM: 54074, label: 'TT Trailhead' },
+  ],
+  'cheq-short-fat': [
+    { distanceM: 6598, label: 'High Point' },
+    { distanceM: 7242, label: 'Camp 38 ATV Trail' },
+    { distanceM: 9173, label: 'Telemark Road' },
+    { distanceM: 10783, label: 'Feed Station' },
+    { distanceM: 12070, label: 'TT Trailhead' },
+    { distanceM: 14645, label: 'North End Trailhead' },
+    // Not printed with its own mile number on the map — estimated as the
+    // midpoint of the two North End Trailhead passes either side of it
+    // (9.1mi / 13.0mi), since Big Bertha sits within that sub-loop.
+    { distanceM: 17783, label: 'Big Bertha' },
+    { distanceM: 20921, label: 'North End Trailhead' },
+  ],
 };
 
 // Wider horizontal "footprint" than the raw GPX-projected x/z — validated
