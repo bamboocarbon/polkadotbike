@@ -465,7 +465,7 @@ const WIDE_LANDMARK_BOOST = 1.4;
 // LANDMARKS[slug] (see the tier assignment in RouteMarkers' markers
 // useMemo) — module-level so it's available there, not just in the render
 // loop that reads it further down.
-const TOWN_TIER_HEIGHTS = [1500, 2400, 3000];
+const TOWN_TIER_HEIGHTS = [1500, 2250, 3000];
 
 // OpenTopoMap's own vegetation fill is a much more saturated lime-green than
 // IGN España's. Two things tried first and rejected: a flat per-channel
