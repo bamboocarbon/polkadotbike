@@ -21,10 +21,7 @@ const NAV_ROW_2: { href: string; label: ReactNode }[] = [
   { href: '/tdf', label: 'TDF 2026' },
   { href: '/giro26', label: 'Giro 2026' },
   { href: '/rebeccas-private-idaho', label: <>Rebecca&apos;s<br />Private Idaho</> },
-  // Chequamegon nav link deliberately held back — page is live at
-  // /chequamegon for direct-URL testing, just not linked from nav yet.
-  // See project_cyclegear_chequamegon memory. Re-add when Robin says launch:
-  // { href: '/chequamegon', label: 'Chequamegon' },
+  { href: '/chequamegon', label: 'Chequamegon' },
   { href: '/about', label: 'About' },
   { href: '/guide', label: 'Guide' },
   { href: '/glossary', label: 'Glossary' },
