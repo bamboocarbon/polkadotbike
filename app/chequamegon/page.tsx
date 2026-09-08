@@ -14,21 +14,16 @@ const TITLE = 'Chequamegon MTB Festival — 3D Courses, Your Time & Gears — Po
 const DESCRIPTION =
   'Get your personalised time and pace for every Chequamegon MTB Festival course — the Chequamegon 40, its Pro/Elite course, and Short & Fat. Ride each in 3D, pick your gearing, download the GPX.';
 
-// Deliberately NOT indexed and NOT in app/sitemap.ts — this page stays
-// local-development-only for now (Robin, 2026-09-04: "this will remain
-// only in development and not pushed live"), same "noindex/no-metadata
-// while local-only/unreviewed" holding pattern the RPI and climb pages
+// Went index:true 2026-09-08 on Robin's go-ahead (same launch as the nav
+// link in components/Header.tsx and the three routes below) — was noindex
+// while local-only/unreviewed, same holding pattern the RPI and climb pages
 // went through before their own launch (see app/rebeccas-private-idaho/
-// page.tsx's comment). Full metadata/JSON-LD structure is built now
-// anyway per Robin's own request ("add SEOs to each page") so flipping
-// `index: true` and adding the three /chequamegon/* paths to
-// STATIC_PATHS/a new route list in sitemap.ts is the only work needed
-// to go live later.
+// page.tsx's comment). Now added to app/sitemap.ts too.
 export const metadata: Metadata = {
   title: { absolute: TITLE },
   description: DESCRIPTION,
   alternates: { canonical: PAGE_URL },
-  robots: { index: false, follow: false },
+  robots: { index: true, follow: true },
   openGraph: {
     type: 'website',
     siteName: 'Polka Dot Bike',

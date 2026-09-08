@@ -2,6 +2,7 @@ import type { MetadataRoute } from 'next';
 import climbIndexData from '@/data/climb-index.json';
 import { hasRouteData } from '@/lib/climbRouteData';
 import { RPI_ROUTES } from '@/data/rpiRoutes';
+import { CHEQ_ROUTES } from '@/data/cheqRoutes';
 
 const BASE = 'https://polkadotbike.com';
 
@@ -19,6 +20,7 @@ const STATIC_PATHS = [
   '/vuelta',
   '/climbs',
   '/rebeccas-private-idaho',
+  '/chequamegon',
   '/about',
   '/guide',
   '/glossary',
@@ -64,5 +66,14 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 0.65,
   }));
 
-  return [...staticEntries, ...climbEntries, ...rpiEntries];
+  // Went index:true 2026-09-08 alongside the /chequamegon nav link launch —
+  // same priority tier as RPI/Grand Tour climb pages, same reasoning.
+  const cheqEntries: MetadataRoute.Sitemap = CHEQ_ROUTES.map((r) => ({
+    url: `${BASE}/chequamegon/${r.slug}`,
+    lastModified: now,
+    changeFrequency: 'monthly',
+    priority: 0.65,
+  }));
+
+  return [...staticEntries, ...climbEntries, ...rpiEntries, ...cheqEntries];
 }

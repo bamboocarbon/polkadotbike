@@ -5,9 +5,8 @@ import CheqRouteDetailClient from './CheqRouteDetailClient';
 
 const SITE = 'https://polkadotbike.com';
 
-// Deliberately NOT indexed (see app/chequamegon/page.tsx's comment) —
-// full metadata/JSON-LD structure built now anyway, same pattern as
-// app/rebeccas-private-idaho/[slug]/page.tsx.
+// Went index:true 2026-09-08 alongside app/chequamegon/page.tsx — see its
+// comment for the launch note.
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
   const { slug } = await params;
   const route = findCheqRoute(slug);
@@ -21,7 +20,7 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
     title: { absolute: TITLE },
     description: DESCRIPTION,
     alternates: { canonical: PAGE_URL },
-    robots: { index: false, follow: false },
+    robots: { index: true, follow: true },
     openGraph: {
       type: 'website',
       siteName: 'Polka Dot Bike',
