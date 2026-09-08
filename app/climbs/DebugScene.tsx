@@ -480,7 +480,7 @@ const TOWN_TIER_HEIGHTS = [450, 850, 1250];
 // hues, so blue lakes and grey/brown roads (already fine) aren't touched.
 const GREEN_HUE_MIN = 55 / 360;
 const GREEN_HUE_MAX = 175 / 360;
-const GREEN_SATURATION_MULT = 0.7;
+const GREEN_SATURATION_MULT = 0.45;
 const GREEN_LIGHTNESS_MULT = 0.8;
 const GREEN_HUE_SHIFT = -0.025;
 
