@@ -460,7 +460,7 @@ const DARKENED_SLUGS = new Set(['cheq-40', 'cheq-40-pro', 'cheq-short-fat']);
 // also affect RPI's already-tuned (and untested against this change)
 // markers.
 const WIDE_LANDMARK_SLUGS = new Set(['cheq-40', 'cheq-40-pro', 'cheq-short-fat']);
-const WIDE_LANDMARK_BOOST = 2.5;
+const WIDE_LANDMARK_BOOST = 1.4;
 
 // OpenTopoMap's own vegetation fill is a much more saturated lime-green than
 // IGN España's. Two things tried first and rejected: a flat per-channel
@@ -1135,23 +1135,46 @@ function RouteMarkers({
 
   const townBoost = WIDE_LANDMARK_SLUGS.has(slug) ? WIDE_LANDMARK_BOOST : 1;
 
+  // 2026-09-08: the first pass at fixing "markers invisible" (bigger flat
+  // boost, same tick height for every town marker) overshot — Robin: "a
+  // scramble of letters... very zingy... all words are around the same
+  // height... too cluttered". Chequamegon's northern loop has 6+ named
+  // landmarks within a few hundred metres of each other, so same-height
+  // billboards stack directly on top of one another regardless of size.
+  // Cycling town ticks through 3 height tiers (in route order, so two
+  // landmarks close together in world space are very likely on different
+  // tiers) is universal — it can only help on any climb with close-together
+  // landmarks, RPI's repeated Wildhorse/Copper Basin included, never hurts
+  // a climb with well-spaced ones. The colour softening is scoped to just
+  // the wide-landmark slugs though, since that's specifically about toning
+  // down the boosted size's contrast against Chequamegon's OpenTopoMap
+  // green, not a judgement on the original red against other climbs' own
+  // (mostly IGN, more muted) basemaps.
+  const TOWN_TIER_HEIGHTS = [900, 1700, 2500];
+  let townIndex = -1;
+  const isWide = WIDE_LANDMARK_SLUGS.has(slug);
+  const townLineColor = isWide ? '#c62828' : '#ee1c28';
+  const townTextColor = isWide ? '#ff6b5f' : '#ee1c28';
+
   return (
     <>
       {markers.map((m, i) => {
         const { x, y, z } = positionAtDistance(rd, m.distanceM, state, mapStyle);
         const isTown = m.kind === 'town';
+        if (isTown) townIndex++;
         const boost = isTown ? townBoost : 1;
-        const tickTop = y + (isTown ? 900 : 500) * rd.footprintScale * boost;
+        const tierBase = isTown ? TOWN_TIER_HEIGHTS[townIndex % TOWN_TIER_HEIGHTS.length] : 500;
+        const tickTop = y + tierBase * rd.footprintScale * boost;
         return (
           <group key={i}>
-            <Line points={[[x, y, z], [x, tickTop, z]]} color={isTown ? '#ee1c28' : '#999'} lineWidth={isTown ? 3 * boost : 1.5} />
+            <Line points={[[x, y, z], [x, tickTop, z]]} color={isTown ? townLineColor : '#999'} lineWidth={isTown ? 3 : 1.5} />
             <Billboard position={[x, tickTop + 150 * rd.footprintScale * boost, z]}>
               <Text
                 fontSize={(isTown ? 220 : 170) * rd.footprintScale * boost}
-                color={isTown ? '#ee1c28' : '#fff'}
+                color={isTown ? townTextColor : '#fff'}
                 anchorX="center"
                 anchorY="bottom"
-                outlineWidth={isTown ? 0 : 3}
+                outlineWidth={3}
                 outlineColor="#000"
               >
                 {m.label}
