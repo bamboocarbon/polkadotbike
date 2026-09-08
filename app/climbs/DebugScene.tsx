@@ -1150,7 +1150,7 @@ function RouteMarkers({
   // down the boosted size's contrast against Chequamegon's OpenTopoMap
   // green, not a judgement on the original red against other climbs' own
   // (mostly IGN, more muted) basemaps.
-  const TOWN_TIER_HEIGHTS = [900, 1700, 2500];
+  const TOWN_TIER_HEIGHTS = [450, 850, 1250];
   let townIndex = -1;
   const isWide = WIDE_LANDMARK_SLUGS.has(slug);
   const townLineColor = isWide ? '#c62828' : '#ee1c28';
