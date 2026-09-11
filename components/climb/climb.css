@@ -43,14 +43,24 @@
    it just letterboxes a bit more, same as any window resize would. */
 .rpi-detail-grid { align-items: stretch; }
 .rpi-detail-grid > div:first-child { display: flex; flex-direction: column; }
-.rpi-map-stretch { flex: 1; min-height: 400px; }
+/* Pinned to the exact same viewport-derived formula the Setup/Gears panel
+   already uses for its own maxHeight (RpiRouteDetailClient.tsx: calc(100vh
+   - var(--header-h) - 28px)) — both boxes size independently off the same
+   constant, rather than the map stretching (flex:1) to chase whatever
+   height the Gears column's content happened to produce. That earlier
+   approach meant the map's size silently depended on unrelated content
+   below it in the same column (the stats card, and BuyCard when
+   RPI_AFFILIATES_ENABLED is on) — Robin, 2026-09-11, after re-enabling
+   affiliates visibly shrank the map: "surely the map height and gear
+   height should have stayed the same." min-height guards small viewports. */
+.rpi-map-stretch { height: calc(100vh - var(--header-h) - 28px); min-height: 400px; }
 @media (max-width: 900px) {
-  /* Below the grid's own 900px stack-to-one-column breakpoint, "stretch to
-     match the other column" no longer means anything (there's only one
-     column) — revert to a normal fixed map height instead of whatever
-     flex:1 would collapse to with nothing to stretch against. */
+  /* Below the grid's own 900px stack-to-one-column breakpoint there's no
+     second column to visually match — a fixed height reads better than a
+     viewport-relative one once the map is full-width and stacked above
+     everything else. */
   .rpi-detail-grid { align-items: start; }
-  .rpi-map-stretch { flex: none; height: 640px; }
+  .rpi-map-stretch { height: 640px; }
 }
 
 /* 3D map overlay controls (app/climbs/DebugScene.tsx). Previously
