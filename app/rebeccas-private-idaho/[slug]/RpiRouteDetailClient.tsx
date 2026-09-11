@@ -101,6 +101,22 @@ export default function RpiRouteDetailClient({ route }: { route: RpiRoute }) {
   const buyInfo = useMemo(() => computeBuyInfo(S, gears), [S, gears]);
   const playDurationS = (route.lengthKm * 1000) / RPI_PLAY_TARGET_MPS;
 
+  const statsCard = (
+    <div className="glass" style={{ padding: 16 }}>
+      <div style={{ fontSize: 20, fontWeight: 700, color: '#fff', marginBottom: 6 }}>{route.name}</div>
+      <div style={{ fontSize: 13, color: 'var(--sec)', marginBottom: 14 }}>
+        {travel
+          ? `${(travel.distanceM / 1000).toFixed(1)}km · ${Math.round(travel.elevationM)}m · ${travel.gradientPct >= 0 ? '+' : ''}${travel.gradientPct.toFixed(1)}%`
+          : 'move the slider under the map'}
+      </div>
+      <div style={{ borderTop: '1px solid rgba(255,255,255,0.12)', paddingTop: 12, display: 'grid', gap: 8 }}>
+        <StatRow label="Distance" value={`${route.lengthMi.toFixed(1)} mi (${route.lengthKm.toFixed(1)} km)`} />
+        <StatRow label="Elevation gain" value={`${route.ascentFt.toLocaleString()} ft (${route.ascentM.toLocaleString()} m)`} />
+        <StatRow label="Elevation range" value={`${route.elevMinM.toLocaleString()}–${route.elevMaxM.toLocaleString()} m`} />
+      </div>
+    </div>
+  );
+
   // Inherit whatever setup was last used on the Gear Calculator / Climb
   // Planner / Comparator / Grand Tour climb pages (cg_shared) — same
   // pattern as ClimbDetailClient.tsx.
@@ -192,23 +208,17 @@ export default function RpiRouteDetailClient({ route }: { route: RpiRoute }) {
             {/* Download GPX lives inside DebugScene's own control bar
                 (top-right, next to Reset view) — this used to duplicate it
                 with a second button below the map (Robin, 2026-08-31). */}
-            <div className="glass" style={{ padding: 16, marginTop: 12 }}>
-              <div style={{ fontSize: 20, fontWeight: 700, color: '#fff', marginBottom: 6 }}>{route.name}</div>
-              <div style={{ fontSize: 13, color: 'var(--sec)', marginBottom: 14 }}>
-                {travel
-                  ? `${(travel.distanceM / 1000).toFixed(1)}km · ${Math.round(travel.elevationM)}m · ${travel.gradientPct >= 0 ? '+' : ''}${travel.gradientPct.toFixed(1)}%`
-                  : 'move the slider under the map'}
-              </div>
-              <div style={{ borderTop: '1px solid rgba(255,255,255,0.12)', paddingTop: 12, display: 'grid', gap: 8 }}>
-                <StatRow label="Distance" value={`${route.lengthMi.toFixed(1)} mi (${route.lengthKm.toFixed(1)} km)`} />
-                <StatRow label="Elevation gain" value={`${route.ascentFt.toLocaleString()} ft (${route.ascentM.toLocaleString()} m)`} />
-                <StatRow label="Elevation range" value={`${route.elevMinM.toLocaleString()}–${route.elevMaxM.toLocaleString()} m`} />
-              </div>
-            </div>
-            {RPI_AFFILIATES_ENABLED && buyInfo && (
-              <div style={{ marginTop: 16 }}>
+            {RPI_AFFILIATES_ENABLED && buyInfo ? (
+              // Side by side with Buy These Components once it's showing
+              // (Robin, 2026-09-11) — same rpi-affiliate-row grid already
+              // used for the BikesBooking/Kiwi row above, stacks to one
+              // column under 640px same as that row does.
+              <div className="rpi-affiliate-row" style={{ marginTop: 12, alignItems: 'stretch' }}>
+                {statsCard}
                 <BuyCard buyInfo={buyInfo} />
               </div>
+            ) : (
+              <div style={{ marginTop: 12 }}>{statsCard}</div>
             )}
           </div>
 
