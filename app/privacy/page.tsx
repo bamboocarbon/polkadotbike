@@ -70,7 +70,7 @@ export default function PrivacyPage() {
       <div className="container" style={{ maxWidth: 760 }}>
         <div className="glass intro">
           <p style={{ fontSize: 13, color: 'var(--muted)', fontWeight: 600, marginBottom: 10 }}>
-            Last updated: 30 June 2026
+            Last updated: 11 September 2026
           </p>
           <p><span className="pdb-brand">Polka<span className="pdb-dot">DOT</span>Bike</span> is a one-person run website of cycling calculators. It has no accounts, no logins and no sign-up forms, so there is very little of your data for me to collect — and the little the calculators do remember stays on your own device. This page explains exactly what happens, including the third-party services the site relies on.</p>
         </div>
@@ -94,6 +94,11 @@ export default function PrivacyPage() {
         </div>
 
         <div className="glass sec">
+          <h2>Cookie consent</h2>
+          <p>If you&apos;re visiting from the UK or European Economic Area (EEA), I ask for your consent before setting analytics or advertising cookies — a small banner appears on your first visit letting you accept or decline, and you can withdraw consent at any time by clearing your browser&apos;s site data for <span className="pdb-brand">Polka<span className="pdb-dot">DOT</span>Bike</span>. If you&apos;re visiting from elsewhere, these cookies are set automatically with no prompt, since consent of this kind isn&apos;t required by law outside the UK/EEA. A short-lived, non-personal cookie records which of these regions you&apos;re browsing from so the site knows whether to show the banner.</p>
+        </div>
+
+        <div className="glass sec">
           <h2>Analytics</h2>
           <p>I use <b>Google Analytics</b>, a service provided by Google, to understand how the site is used — which pages are visited, roughly which country visits come from, and which tools people actually find useful. To do this, Google Analytics sets <b>cookies</b> in your browser and collects information about your device and your visit (such as pages viewed, browser type and an anonymised form of your IP address), which is processed on Google&apos;s servers. I only ever see aggregated statistics — I can&apos;t identify you from them.</p>
           <p>You can opt out of Google Analytics on all websites by installing Google&apos;s <a href="https://tools.google.com/dlpage/gaoptout" target="_blank" rel="noopener">opt-out browser add-on</a>, and you can read how Google handles this data at <a href="https://policies.google.com/privacy" target="_blank" rel="noopener">policies.google.com/privacy</a>.</p>
@@ -101,13 +106,13 @@ export default function PrivacyPage() {
 
         <div className="glass sec">
           <h2>Advertising and cookies</h2>
-          <p><span className="pdb-brand">Polka<span className="pdb-dot">DOT</span>Bike</span> is supported by advertising. I use <b>Google AdSense</b>, an advertising service provided by Google, to display adverts on the site.</p>
+          <p><span className="pdb-brand">Polka<span className="pdb-dot">DOT</span>Bike</span> is supported by advertising. I use <b>A-Ads</b>, an anonymous ad network, to display adverts on the site.</p>
           <ul>
-            <li>Google and its partners use cookies and similar technologies to serve adverts based on your visits to this site and other sites on the internet.</li>
-            <li>Google&apos;s use of advertising cookies enables it and its partners to serve adverts to you. This may include personalised advertising.</li>
+            <li>A-Ads and its partners use cookies and similar technologies to serve adverts, including adverts based on your visits to this site and other sites on the internet — this may include personalised advertising.</li>
+            <li>If you&apos;re in the UK or EEA, these advertising cookies are only set once you accept the cookie banner (see Cookie consent above); elsewhere they&apos;re set automatically.</li>
             <li>The site itself does not set its own tracking cookies.</li>
           </ul>
-          <p>You can opt out of personalised advertising by visiting <a href="https://www.google.com/settings/ads" target="_blank" rel="noopener">Google Ads Settings</a>, or opt out of a wider range of vendors at <a href="https://www.aboutads.info" target="_blank" rel="noopener">aboutads.info</a> and <a href="https://www.youronlinechoices.eu" target="_blank" rel="noopener">Your Online Choices</a>. You can also block or delete cookies in your browser settings at any time, though some adverts may then be less relevant. For more detail, see <a href="https://policies.google.com/technologies/ads" target="_blank" rel="noopener">how Google uses information from sites that use its services</a>.</p>
+          <p>You can block or delete cookies in your browser settings at any time, though some adverts may then be less relevant. For details of what A-Ads collects and how, see the <a href="https://aads.com/privacy_policy/" target="_blank" rel="noopener">A-Ads Privacy Policy</a>.</p>
         </div>
 
         <div className="glass sec">

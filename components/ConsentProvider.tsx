@@ -34,7 +34,23 @@ export function ConsentProvider({ children }: { children: ReactNode }) {
     } catch {
       // storage blocked (private browsing, etc.) — treat as undecided
     }
-    setChoice((stored as Choice) ?? null);
+    if (stored === 'accepted' || stored === 'rejected') {
+      setChoice(stored);
+      return;
+    }
+    // No explicit choice stored yet — outside the EEA/UK (see
+    // middleware.ts: regionFor / REGULATED_COUNTRIES) cookies default on
+    // with no prompt, so treat as accepted without persisting it as the
+    // user's own choice. Inside it, fall through to null and show the
+    // banner as before.
+    let region = 'regulated';
+    try {
+      const match = document.cookie.match(/(?:^|; )consent_region=([^;]*)/);
+      if (match) region = decodeURIComponent(match[1]);
+    } catch {
+      // cookie read blocked — fail safe to regulated (show the banner)
+    }
+    setChoice(region === 'open' ? 'accepted' : null);
   }, []);
 
   const persist = (value: 'accepted' | 'rejected') => {
