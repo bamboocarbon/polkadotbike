@@ -105,17 +105,31 @@ const STAGES: Stage[] = [
     climbCount: 5,
     summary: 'Expected breakaway stage.',
     climbs: [
-      { name: 'Côte de Jubilee Tower', position: 'km 88, after Lancaster', len: 3.8, grad: 6.1, profile: [4.1, 10.4, 4.2, 5.7], gain: 232 },
-      { name: 'Côte de Trough of Bowland', position: 'km 98.5', len: 1.9, grad: 5.2, profile: [2.9, 7.7], gain: 98 },
+      {
+        name: 'Côte de Jubilee Tower', position: 'km 88, after Lancaster', len: 3.8, grad: 6.1, profile: [4.1, 10.4, 4.2, 5.7], gain: 232,
+        history: 'The steepest test comes early — a 10%+ second kilometre — before three gentler kilometres carry the road to the top.',
+      },
+      {
+        name: 'Côte de Trough of Bowland', position: 'km 98.5', len: 1.9, grad: 5.2, profile: [2.9, 7.7], gain: 98,
+        history: 'A gentle opening kilometre gives way to a much steeper final pitch near 8%.',
+      },
       {
         name: 'Côte de Waddington Fell', position: 'km 112', len: 3.4, grad: 6.4, profile: [5.4, 6.1, 7.0, 8.1], gain: 220,
         history: "The opening Category 1 climb of Stage 2, 2026 Tour of Britain Women.",
       },
       {
+        // The old note here ("Part of the 2023 Tour of Britain men's Stage 1
+        // route... on Rivington Road") was checked and found false — that
+        // stage's real categorised climbs were Grains Bar and Ramsbottom
+        // Rake, no mention of Rivington Road anywhere (2026-09-16). Replaced
+        // with a descriptive line grounded in this climb's own profile data.
         name: 'Côte de Belmont', position: 'km 152.5, after Blackburn', len: 2, grad: 4, profile: [2.5, 5.5, 0.6], gain: 80,
-        history: 'Part of the Tour of Britain men\'s Stage 1 route through Greater Manchester in 2023, climbing out of the village on Rivington Road.',
+        history: 'A short, punchy middle kilometre near 5.5%, bookended by two much easier ones.',
       },
-      { name: 'Côte de Parbold', position: 'km 183', len: 1.8, grad: 5.6, profile: [3.9, 7.8], gain: 101 },
+      {
+        name: 'Côte de Parbold', position: 'km 183', len: 1.8, grad: 5.6, profile: [3.9, 7.8], gain: 101,
+        history: 'Doubles in gradient for its second and final kilometre, close to 8%.',
+      },
     ],
   },
   {
@@ -132,16 +146,34 @@ const STAGES: Stage[] = [
     climbCount: 8,
     summary: 'GC / puncheur stage.',
     climbs: [
-      { name: "Côte d'Épynt", position: 'km 85.5', len: 3.7, grad: 7.9, profile: [5.4, 7.7, 9.8, 9.0], gain: 293 },
-      { name: 'Côte de Bannau Brycheiniog', position: 'km 121.5', len: 6.6, grad: 3.5, profile: [3.1, 3.3, 3.4, 3.7, 3.8, 3.8, 3.2], gain: 231 },
+      {
+        name: "Côte d'Épynt", position: 'km 85.5', len: 3.7, grad: 7.9, profile: [5.4, 7.7, 9.8, 9.0], gain: 293,
+        history: 'Builds steadily to a genuinely hard third kilometre near 10%, and barely eases before the summit.',
+      },
+      {
+        name: 'Côte de Bannau Brycheiniog', position: 'km 121.5', len: 6.6, grad: 3.5, profile: [3.1, 3.3, 3.4, 3.7, 3.8, 3.8, 3.2], gain: 231,
+        history: 'The longest of the UK climbs, but remarkably steady — every kilometre sits within a point of 3.5%, with no real sting in the tail.',
+      },
       {
         name: 'Côte de Rhigos', position: 'km 145.5', len: 4.6, grad: 5.8, profile: [4.9, 6.1, 6.5, 5.4, 6.2], gain: 266,
         history: 'A Category 1 KOM on Stage 8 of the 2023 Tour of Britain, en route to a finish on the Côte de Caerffili below.',
       },
-      { name: 'Côte de Penrhys', position: 'km 160.5', len: 1.3, grad: 10.1, profile: [9.8, 10.9], gain: 130 },
-      { name: 'Côte de Maerdy', position: 'km 169', len: 1.5, grad: 8.7, profile: [9.1, 7.3], gain: 126 },
-      { name: 'Côte de Gelligaer', position: 'km 193', len: 1.4, grad: 4.9, profile: [5.7, 2.9], gain: 68 },
-      { name: 'Côte de Hengoed', position: 'km 197.5', len: 0.7, grad: 11, profile: [10.7], gain: 73 },
+      {
+        name: 'Côte de Penrhys', position: 'km 160.5', len: 1.3, grad: 10.1, profile: [9.8, 10.9], gain: 130,
+        history: 'Short and consistently brutal — both kilometres average close to 10%, with the second slightly steeper again.',
+      },
+      {
+        name: 'Côte de Maerdy', position: 'km 169', len: 1.5, grad: 8.7, profile: [9.1, 7.3], gain: 126,
+        history: 'Hardest right from the gun — over 9% in the opening kilometre — before easing slightly into the finish.',
+      },
+      {
+        name: 'Côte de Gelligaer', position: 'km 193', len: 1.4, grad: 4.9, profile: [5.7, 2.9], gain: 68,
+        history: 'A demanding opening kilometre at nearly 6% softens to a gentle run-in for the second.',
+      },
+      {
+        name: 'Côte de Hengoed', position: 'km 197.5', len: 0.7, grad: 11, profile: [10.7], gain: 73,
+        history: 'Barely 700m long but averaging almost 11% throughout — a short, sharp shock of a climb.',
+      },
       {
         name: 'Côte de Caerffili', position: 'final climb, km 210.5', len: 2, grad: 8.1, profile: [4.6, 11.6], gain: 162,
         history: 'A regular Tour of Britain finishing climb — used in 2012, 2013 (Sam Bennett won there) and 2023, its fourth appearance in the race.',
