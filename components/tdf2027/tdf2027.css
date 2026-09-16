@@ -39,8 +39,13 @@
 .status-banner {
   display: flex; align-items: flex-start; gap: 10px;
   padding: 14px 18px; margin-bottom: 18px;
-  background: rgba(245, 158, 11, 0.12);
-  border: 1px solid rgba(245, 158, 11, 0.4);
+  /* Was rgba(245,158,11,0.12) — a near-transparent wash that only reads
+     against a dark page background. This page's own background is light,
+     so the pale-yellow text below sat almost invisibly on near-white
+     (Robin, 2026-09-16: "the text is not readable"). Darkened to a solid
+     amber-brown so the existing text colours get real contrast. */
+  background: rgba(120, 72, 8, 0.92);
+  border: 1px solid rgba(245, 158, 11, 0.5);
   border-radius: 12px;
   color: #fde68a;
   font-size: 13.5px; line-height: 1.55;
