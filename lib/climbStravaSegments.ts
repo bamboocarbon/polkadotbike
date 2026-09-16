@@ -3,11 +3,14 @@
  * Chrome, matching by segment start/finish coordinates against each
  * climb's own GPX endpoints, not by name (several of these roads have
  * multiple overlapping segments). Started 2026-09-16 with the 14 2027 TDF
- * UK climbs, then extended the same day to Giro 2026's 20 and TDF 2026's
- * 29 — Vuelta 2026 still to come. Every 2026 Grand Tour climb's GPX
- * download is already removed sitewide (GPX_2026_GRAND_TOUR_SLUGS in
- * climbGpxCaveats.ts) ahead of its Strava link landing here, so a climb
- * with neither button yet is mid-handover, not a bug.
+ * UK climbs, then extended the same day to Giro 2026's 20, TDF 2026's 29,
+ * and Vuelta 2026's 31 — all 3 Grand Tours' built climbs now covered.
+ * Every 2026 Grand Tour climb's GPX download is already removed sitewide
+ * (GPX_2026_GRAND_TOUR_SLUGS in climbGpxCaveats.ts), so a climb with no
+ * Strava link either genuinely has no usable match (checked and confirmed
+ * — alto-del-legionario, puerto-de-granada, puerto-de-los-villares; see
+ * their omission below) or, for anything outside these 3 races, hasn't
+ * been searched yet.
  *
  * Deliberately NO rider names or times here. Strava's API Agreement
  * restricts displaying one user's Strava data to anyone other than that
@@ -120,4 +123,39 @@ export const CLIMB_STRAVA_SEGMENTS: Record<string, ClimbStravaSegment> = {
   'plateau-de-solaison-brison': { id: 18522427, lengthKm: 9.87, fit: 'Partial — covers the top ~80%' },
   'puy-mary-pas-de-peyrol': { id: 21518000, lengthKm: 10.82, fit: 'Longer segment — starts ~2.7km before this climb, ends at the top' },
   'suc-au-may': { id: 10252510, lengthKm: 3.9, fit: 'Exact match' },
+
+  // Vuelta 2026 (28 of 31 — alto-del-legionario, puerto-de-granada and
+  // puerto-de-los-villares are deliberately absent: checked and confirmed
+  // no usable Strava match, not just unsearched. Los Villares' coordinates
+  // were re-verified against its own route file — nearby segments there
+  // genuinely climb from a different side of the mountain, not a lookup
+  // error.) Same CSV shape as Giro/TDF, no segment-name column.
+  'alto-de-aitana': { id: 40721795, lengthKm: 7.75, fit: 'Partial (weak match) — covers only the lower ~41% from Sella; no segment found for the upper climb to the summit from this side' },
+  'alto-de-velefique': { id: 8364179, name: 'Tabernas to Velefique', lengthKm: 28.93, fit: 'Partial — starts ~1.1km before this climb’s start, stops ~1.25km short of the top (~93% of the climb)' },
+  'alto-del-desierto-de-las-palmas': { id: 26110379, lengthKm: 9.88, fit: 'Longer segment — starts ~700m from this climb’s start, passes the finish and runs ~2.8km beyond' },
+  'aramon-valdelinares': { id: 12218520, lengthKm: 5.18, fit: 'Partial (weak match) — covers only the lower ~52%' },
+  'calar-alto': { id: 8323120, lengthKm: 16.76, fit: 'Close match — covers about 93% of the climb' },
+  'col-de-mont-louis': { id: 1746811, lengthKm: 18.89, fit: 'Partial — starts ~2.4km before this climb’s start, stops ~1.6km short of the top (~90% of the climb)' },
+  'coll-dordino': { id: 6137187, lengthKm: 9.84, fit: 'Close match' },
+  'collada-de-beixalis': { id: 20953385, lengthKm: 6.4, fit: 'Close match' },
+  'collado-del-alguacil': { id: 9436092, lengthKm: 7.73, fit: 'Close match' },
+  'collado-garcia': { id: 35689327, lengthKm: 3.96, fit: 'Partial — covers the top ~81%' },
+  'font-romeu': { id: 14606013, lengthKm: 5.56, fit: 'Partial (weak match) — covers only the top ~42%, runs ~1.9km past the finish' },
+  'penas-blancas': { id: 1781169, lengthKm: 14.26, fit: 'Partial — covers the top ~77%' },
+  'port-denvalira': { id: 12300903, name: 'Encamp to the top', lengthKm: 21.23, fit: 'Partial — covers about 82% of the climb' },
+  'puerto-de-barx': { id: 7196320, lengthKm: 2.46, fit: 'Partial (weak match) — covers only the final ~26%' },
+  'puerto-de-el-duque': { id: 12572849, lengthKm: 7.13, fit: 'Partial — covers the top ~86%' },
+  'puerto-de-el-miserat': { id: 7013808, lengthKm: 6.16, fit: 'Partial — covers the top ~85%' },
+  'puerto-de-el-purche': { id: 16360125, lengthKm: 8.12, fit: 'Close match — covers about 92% of the climb (Strava’s own page shows 0m elevation gain, a data glitch)' },
+  'puerto-de-la-serratella': { id: 10985597, lengthKm: 15.16, fit: 'Partial — covers the top ~63%, passes the finish and runs ~3.5km beyond' },
+  'puerto-de-las-abejas': { id: 5437463, lengthKm: 14.6, fit: 'Longer segment — starts ~4.1km before this climb, ends at the top' },
+  'puerto-de-locubin': { id: 1580091, lengthKm: 8.06, fit: 'Partial — covers the top ~77%' },
+  'puerto-de-san-rafael': { id: 12423902, lengthKm: 11.4, fit: 'Partial — covers the top ~83%' },
+  'puerto-de-tarbena': { id: 6463377, lengthKm: 4.97, fit: 'Partial — covers the top ~72%' },
+  'puerto-de-tudons': { id: 632482, lengthKm: 7.36, fit: 'Partial — covers the top ~55%' },
+  'puerto-del-viento': { id: 3878458, lengthKm: 13.36, fit: 'Close match' },
+  'puerto-el-bartolo': { id: 12320743, lengthKm: 9.07, fit: 'Partial — covers the top ~83%' },
+  'puerto-el-remolcador': { id: 9190390, lengthKm: 14.78, fit: 'Close match' },
+  'sierra-de-la-pandera': { id: 15910681, lengthKm: 8.23, fit: 'Partial — covers the top ~66%' },
+  'venta-de-la-cebada': { id: 4161785, lengthKm: 7.43, fit: 'Exact match' },
 };
