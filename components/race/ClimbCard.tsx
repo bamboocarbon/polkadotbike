@@ -118,12 +118,18 @@ const CLIMB_3D_SLUGS: Record<string, string> = {
 export default function ClimbCard({
   climb: c,
   hideGpxDownload = false,
+  profileScale = 1,
 }: {
   climb: Climb;
   /** Suppresses just the "Download GPX" link, keeping "Plan this climb in 3D" —
    *  Robin's call for the 2027 UK preview climbs (2026-09-15), while their
    *  routes are still provisional ahead of the full October route reveal. */
   hideGpxDownload?: boolean;
+  /** Passed straight through to ClimbProfile — see its own comment. Only
+   *  the 2027 TDF UK page raises this above the default (2026-09-16,
+   *  Robin: these climbs' profile graphics render too small at the
+   *  standard scale, tuned for the site's usual much-longer climbs). */
+  profileScale?: number;
 }) {
   const isFinish = c.kbf === 0;
   const hasData = c.len !== null && c.grad !== null;
@@ -204,7 +210,7 @@ export default function ClimbCard({
       <div className={`climb-card${isFinish ? ' is-finish' : ''}`}>
         {top}
         <div className="cc-body">
-          <ClimbProfile climb={c} />
+          <ClimbProfile climb={c} scale={profileScale} />
           <div className="cc-body-right">
             {stats}
             {c.notes && <div className="cc-notes">{c.notes}</div>}

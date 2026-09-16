@@ -1,6 +1,6 @@
 import type { Climb } from '@/lib/raceHelpers';
 
-export default function ClimbProfile({ climb }: { climb: Climb }) {
+export default function ClimbProfile({ climb, scale = 1 }: { climb: Climb; /** Multiplies only the per-km (width) pixel scale — for a page whose climbs are all much shorter than the site's usual major-race climbs (2027 TDF UK), where so few km-segments render an illegibly narrow sliver at the default width. Height stays standard: it's already a fixed, legible size regardless of climb length, and scaling it by the same factor turned short/steep climbs into a tall thin spike instead of a wider wedge. Deliberately not "to scale" against other races' climbs when raised; that's the point Robin asked for here. */ scale?: number }) {
   const p = climb.profile;
   if (!p || !p.length) return null;
 
@@ -9,7 +9,7 @@ export default function ClimbProfile({ climb }: { climb: Climb }) {
   const elev = [0, ...p.map((g) => (cum += g * 10, cum))];
   const totalElev = elev[elev.length - 1];
 
-  const KM_PX = 12; // fixed display pixels per km
+  const KM_PX = 12 * scale; // fixed display pixels per km
   const PX_PER_100M = 6; // fixed display pixels per 100m elevation gain
   const H = 90;
   const pad = 4;

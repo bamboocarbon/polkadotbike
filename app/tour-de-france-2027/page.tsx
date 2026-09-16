@@ -202,7 +202,7 @@ function ClimbRow({ c }: { c: StageClimb }) {
     // yet officially categorised by ASO (expected alongside the full route reveal).
     cat: 'TBC', kbf: null, profile: c.profile, notes: c.history ?? '',
   };
-  return <ClimbCard climb={climbObj} hideGpxDownload />;
+  return <ClimbCard climb={climbObj} hideGpxDownload profileScale={4} />;
 }
 
 function StageCard({ s }: { s: Stage }) {
