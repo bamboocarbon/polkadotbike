@@ -1,6 +1,22 @@
 import type { Climb } from '@/lib/raceHelpers';
 
-export default function ClimbProfile({ climb, scale = 1 }: { climb: Climb; /** Multiplies only the per-km (width) pixel scale — for a page whose climbs are all much shorter than the site's usual major-race climbs (2027 TDF UK), where so few km-segments render an illegibly narrow sliver at the default width. Height stays standard: it's already a fixed, legible size regardless of climb length, and scaling it by the same factor turned short/steep climbs into a tall thin spike instead of a wider wedge. Deliberately not "to scale" against other races' climbs when raised; that's the point Robin asked for here. */ scale?: number }) {
+export default function ClimbProfile({
+  climb,
+  widthScale = 1,
+  heightScale = 1,
+}: {
+  climb: Climb;
+  /** Multiplies the per-km (width) pixel scale — for a page whose climbs are
+   *  all much shorter than the site's usual major-race climbs (2027 TDF UK),
+   *  where so few km-segments render an illegibly narrow sliver at the
+   *  default width. Deliberately not "to scale" against other races'
+   *  climbs when raised; that's the point Robin asked for here. */
+  widthScale?: number;
+  /** Multiplies the per-100m-elevation (height) pixel scale — independent
+   *  of widthScale, since scaling both by the same factor turned short/
+   *  steep climbs into a tall thin spike instead of a wider wedge. */
+  heightScale?: number;
+}) {
   const p = climb.profile;
   if (!p || !p.length) return null;
 
@@ -9,9 +25,9 @@ export default function ClimbProfile({ climb, scale = 1 }: { climb: Climb; /** M
   const elev = [0, ...p.map((g) => (cum += g * 10, cum))];
   const totalElev = elev[elev.length - 1];
 
-  const KM_PX = 12 * scale; // fixed display pixels per km
-  const PX_PER_100M = 6; // fixed display pixels per 100m elevation gain
-  const H = 90;
+  const KM_PX = 12 * widthScale; // fixed display pixels per km
+  const PX_PER_100M = 6 * heightScale; // fixed display pixels per 100m elevation gain
+  const H = 90 * heightScale;
   const pad = 4;
   const W = p.length * KM_PX + pad * 2; // total width scales with climb length
   const iH = H - pad * 2; // = 82px — fits all profiled climbs at 6px/100m
