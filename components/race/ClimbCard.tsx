@@ -95,9 +95,36 @@ const CLIMB_3D_SLUGS: Record<string, string> = {
   'Piani di Pezzè': 'piani-di-pezze',
   'Piancavallo (1st ascent)': 'piancavallo',
   'Piancavallo (2nd ascent)': 'piancavallo',
+  // 2027 Tour de France — UK Grand Départ climbs, built 2026-09-15. Route/
+  // terrain/basemap data comes from Robin's own GPX, trimmed and matched
+  // against the official ASO stage-profile graphics (see
+  // scripts/build-climb-routes.ts's ROADBOOK_ANCHORS for the same climbs).
+  'Côte de Melrose (Dingleton)': 'cote-de-melrose',
+  'Côte de Jubilee Tower': 'cote-de-jubilee-tower',
+  'Côte de Trough of Bowland': 'cote-de-trough-of-bowland',
+  'Côte de Waddington Fell': 'cote-de-waddington-fell',
+  'Côte de Belmont': 'cote-de-belmont',
+  'Côte de Parbold': 'cote-de-parbold',
+  "Côte d'Épynt": 'cote-de-epynt',
+  'Côte de Bannau Brycheiniog': 'cote-de-bannau-brycheiniog',
+  'Côte de Rhigos': 'cote-de-rhigos',
+  'Côte de Penrhys': 'cote-de-penrhys',
+  'Côte de Maerdy': 'cote-de-maerdy',
+  'Côte de Gelligaer': 'cote-de-gelligaer',
+  'Côte de Hengoed': 'cote-de-hengoed',
+  'Côte de Caerffili': 'cote-de-caerffili',
 };
 
-export default function ClimbCard({ climb: c }: { climb: Climb }) {
+export default function ClimbCard({
+  climb: c,
+  hideGpxDownload = false,
+}: {
+  climb: Climb;
+  /** Suppresses just the "Download GPX" link, keeping "Plan this climb in 3D" —
+   *  Robin's call for the 2027 UK preview climbs (2026-09-15), while their
+   *  routes are still provisional ahead of the full October route reveal. */
+  hideGpxDownload?: boolean;
+}) {
   const isFinish = c.kbf === 0;
   const hasData = c.len !== null && c.grad !== null;
   const catCls = CAT_CLS[c.cat] || 'cat-tbc';
@@ -154,15 +181,17 @@ export default function ClimbCard({ climb: c }: { climb: Climb }) {
           <a className="plan-btn" href={`/climbs/${climb3dSlug}`} style={{ background: '#12b05f' }}>
             Plan this climb in 3D →
           </a>
-          <a
-            className="gpx-btn"
-            href={`/api/gpx/${climb3dSlug}`}
-            download
-            onClick={() => trackGpxDownload(climb3dSlug)}
-            title={GPX_PARTIAL_CLIMB_SLUGS.has(climb3dSlug) ? GPX_PARTIAL_CLIMB_CAVEAT : undefined}
-          >
-            Download GPX
-          </a>
+          {!hideGpxDownload && (
+            <a
+              className="gpx-btn"
+              href={`/api/gpx/${climb3dSlug}`}
+              download
+              onClick={() => trackGpxDownload(climb3dSlug)}
+              title={GPX_PARTIAL_CLIMB_SLUGS.has(climb3dSlug) ? GPX_PARTIAL_CLIMB_CAVEAT : undefined}
+            >
+              Download GPX
+            </a>
+          )}
         </>
       )}
     </div>

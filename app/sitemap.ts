@@ -18,6 +18,7 @@ const STATIC_PATHS = [
   '/tdf',
   '/giro26',
   '/vuelta',
+  '/tour-de-france-2027',
   '/climbs',
   '/rebeccas-private-idaho',
   '/chequamegon',

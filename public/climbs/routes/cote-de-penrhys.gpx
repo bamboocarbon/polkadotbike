@@ -1,0 +1,74 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<gpx version="1.1" creator="polkadotbike-trim" xmlns="http://www.topografix.com/GPX/1/1">
+  <trk>
+    <name>Côte De Penrhys</name>
+    <trkseg>
+      <trkpt lat="51.644336" lon="-3.462021">
+        <ele>157.75</ele>
+      </trkpt>
+      <trkpt lat="51.644076" lon="-3.460043">
+        <ele>169.25</ele>
+      </trkpt>
+      <trkpt lat="51.643912" lon="-3.458956">
+        <ele>174.00</ele>
+      </trkpt>
+      <trkpt lat="51.643902" lon="-3.458873">
+        <ele>174.25</ele>
+      </trkpt>
+      <trkpt lat="51.643813" lon="-3.458095">
+        <ele>176.25</ele>
+      </trkpt>
+      <trkpt lat="51.643770" lon="-3.457640">
+        <ele>178.25</ele>
+      </trkpt>
+      <trkpt lat="51.643744" lon="-3.457146">
+        <ele>179.75</ele>
+      </trkpt>
+      <trkpt lat="51.643733" lon="-3.456568">
+        <ele>182.50</ele>
+      </trkpt>
+      <trkpt lat="51.643738" lon="-3.456118">
+        <ele>186.50</ele>
+      </trkpt>
+      <trkpt lat="51.643730" lon="-3.455533">
+        <ele>194.00</ele>
+      </trkpt>
+      <trkpt lat="51.643680" lon="-3.454884">
+        <ele>199.25</ele>
+      </trkpt>
+      <trkpt lat="51.643610" lon="-3.454180">
+        <ele>207.00</ele>
+      </trkpt>
+      <trkpt lat="51.643597" lon="-3.454047">
+        <ele>207.00</ele>
+      </trkpt>
+      <trkpt lat="51.643527" lon="-3.453624">
+        <ele>211.25</ele>
+      </trkpt>
+      <trkpt lat="51.643480" lon="-3.453339">
+        <ele>214.50</ele>
+      </trkpt>
+      <trkpt lat="51.643344" lon="-3.452620">
+        <ele>218.25</ele>
+      </trkpt>
+      <trkpt lat="51.643079" lon="-3.451579">
+        <ele>225.00</ele>
+      </trkpt>
+      <trkpt lat="51.641434" lon="-3.445408">
+        <ele>278.75</ele>
+      </trkpt>
+      <trkpt lat="51.641407" lon="-3.445133">
+        <ele>280.25</ele>
+      </trkpt>
+      <trkpt lat="51.641415" lon="-3.444887">
+        <ele>282.25</ele>
+      </trkpt>
+      <trkpt lat="51.641494" lon="-3.444348">
+        <ele>285.75</ele>
+      </trkpt>
+      <trkpt lat="51.641569" lon="-3.444073">
+        <ele>287.75</ele>
+      </trkpt>
+    </trkseg>
+  </trk>
+</gpx>

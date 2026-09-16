@@ -22,6 +22,9 @@ const CAT_LABEL: Record<string, string> = {
   Cat1: 'a Category 1 climb',
   Cat2: 'a Category 2 climb',
   Cat3: 'a Category 3 climb',
+  // Falls through to `a ${cat} climb` otherwise ("a TBC climb", ungrammatical)
+  // — added for the 2027 TDF UK climbs, whose official category isn't public yet.
+  TBC: 'a climb not yet officially categorised',
 };
 
 const MAJOR_CATS = new Set(['HC', 'ESP', 'Cat1', 'Cat2']);

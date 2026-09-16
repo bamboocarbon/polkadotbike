@@ -114,6 +114,7 @@ const tdfConfig: RaceConfig = {
     'Polka Dot Bike · Tour de France 2026 · Stage and climb data from the official Tour de France roadbook; gradients are average values.',
   footerLinks: [
     { href: '/', label: '← Gear Calculator' },
+    { href: '/tour-de-france-2027', label: '2027 UK Grand Départ →' },
     { href: '/wkg', label: 'W/KG and FTP' },
     { href: '/guide', label: 'Guide' },
     { href: '/glossary', label: 'Glossary' },

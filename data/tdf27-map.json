@@ -1,0 +1,33 @@
+{
+  "STAGE_COORDS": [
+    {
+      "num": 1,
+      "sLat": 55.9533,
+      "sLng": -3.1883,
+      "fLat": 54.8951,
+      "fLng": -2.9382
+    },
+    {
+      "num": 2,
+      "sLat": 54.6013,
+      "sLng": -3.1349,
+      "fLat": 53.4084,
+      "fLng": -2.9916
+    },
+    {
+      "num": 3,
+      "sLat": 52.66,
+      "sLng": -3.147,
+      "fLat": 51.4816,
+      "fLng": -3.1791
+    }
+  ],
+  "CITY_LABELS": [
+    { "num": 1, "end": "s", "name": "Edinburgh" },
+    { "num": 1, "end": "f", "name": "Carlisle", "cls": "right" },
+    { "num": 2, "end": "s", "name": "Keswick" },
+    { "num": 2, "end": "f", "name": "Liverpool", "cls": "left" },
+    { "num": 3, "end": "s", "name": "Welshpool" },
+    { "num": 3, "end": "f", "name": "Cardiff", "cls": "left" }
+  ]
+}

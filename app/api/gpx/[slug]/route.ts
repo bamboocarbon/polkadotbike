@@ -1,7 +1,6 @@
 import { readFile } from 'fs/promises';
 import path from 'path';
-import { randomUUID } from 'crypto';
-import { put } from '@vercel/blob';
+import { recordGpxDownload } from '@/lib/gpxDownloadLog';
 
 // Serves the same static files as public/climbs/routes/*.gpx did directly,
 // but records each download per climb first. Counting has to happen here
@@ -12,20 +11,12 @@ export const runtime = 'nodejs';
 
 const SLUG_RE = /^[a-z0-9-]+$/;
 
-// One tiny marker blob per download, under gpx-downloads/<slug>/<id> — not a
-// single shared counts file that every request reads, increments and writes
-// back. That read-modify-write approach was tried first and silently lost
-// downloads under real traffic: Vercel Blob's direct-URL reads lag behind a
-// preceding write (same propagation-lag issue as the DCY site's Blob store),
-// so two requests close together both read the same stale count and the
-// second write clobbers the first. An append-only marker per event has no
-// shared state to race over — app/api/admin/gpx-stats tallies them at read
-// time via list(), which only runs when the admin page is opened.
+// HINCRBY on a single Redis hash (lib/gpxDownloadLog.ts) — was previously
+// one marker blob per download on Vercel Blob, migrated off it (see that
+// file's comment) for the same reason lib/pageviewLog.ts was.
 async function recordDownload(slug: string) {
   try {
-    await put(`gpx-downloads/${slug}/${Date.now()}-${randomUUID()}`, new Date().toISOString(), {
-      access: 'private', addRandomSuffix: false, contentType: 'text/plain',
-    });
+    await recordGpxDownload(slug);
   } catch {
     // A missed count shouldn't ever block the actual download.
   }

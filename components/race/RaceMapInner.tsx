@@ -53,6 +53,12 @@ export interface RaceMapProps {
   activeStage: number;
   onStageClick: (num: number) => void;
   fitBoundsPadding: [number, number];
+  /** Extra [lat, lng] points folded into the fitBounds/maxBounds calculation
+   *  alongside the real stage points — for a map where a country fill needs
+   *  to be visible/reachable even though no stage runs through it yet (the
+   *  2027 TDF preview map: France is shown as context but has no plotted
+   *  route). Omit for the normal case (bounds driven by stages alone). */
+  extraBoundsPoints?: [number, number][];
   /** TDF/Vuelta: `zoomControl: true`, no `separate`, mobile view just pans
    *  left by 16px. Giro differs on both (its own `L.control.zoom` at
    *  bottomleft, mobile re-centres and zooms in on Italy).
@@ -145,6 +151,7 @@ export default function RaceMapInner({
   activeStage,
   onStageClick,
   fitBoundsPadding,
+  extraBoundsPoints = [],
   zoomControl = { position: 'topright' },
   mobileView = { type: 'panBy', dx: -16 },
   zoomDelta,
@@ -245,7 +252,7 @@ export default function RaceMapInner({
     });
     markersRef.current = markers;
 
-    const pts = stageCoords.flatMap((sc) => [[sc.sLat, sc.sLng], [sc.fLat, sc.fLng]] as [number, number][]);
+    const pts = stageCoords.flatMap((sc) => [[sc.sLat, sc.sLng], [sc.fLat, sc.fLng]] as [number, number][]).concat(extraBoundsPoints);
     map.fitBounds(pts, { padding: fitBoundsPadding });
 
     if (window.innerWidth <= 768) {

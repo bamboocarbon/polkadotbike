@@ -2,8 +2,8 @@
   "generated": "2026-08-07",
   "source": "Extracted from the CLIMBS arrays in tdf.html, giro26.html and vuelta.html by lib/climbs.js. Do not hand-edit — edit the race pages and re-run.",
   "counts": {
-    "distinctClimbs": 167,
-    "pagesGenerated": 87
+    "distinctClimbs": 174,
+    "pagesGenerated": 101
   },
   "climbs": [
     {
@@ -8678,6 +8678,736 @@
           "profile": null,
           "notes": "Longest climb of the Bulgarian stages. Max gradient 11%.",
           "rawName": "Vratnik Pass"
+        }
+      ]
+    },
+    {
+      "slug": "cote-de-melrose",
+      "name": "Côte de Melrose (Dingleton)",
+      "range": "Scottish Borders",
+      "cat": "TBC",
+      "len": 2.2,
+      "grad": 6.7,
+      "elev": 242,
+      "profile": [
+        6.4,
+        6.7,
+        7.9
+      ],
+      "isSummitFinish": false,
+      "ascentsVary": false,
+      "races": [
+        "tdf27"
+      ],
+      "hasPage": true,
+      "gateReasons": [
+        "preview"
+      ],
+      "notes": [
+        "Stage 1 of the 2027 Tour de France's UK Grand Départ (Edinburgh to Carlisle) — early in the stage, sole categorised climb. Official category not yet announced."
+      ],
+      "ascents": [
+        {
+          "race": "tdf27",
+          "raceName": "2027 Tour de France",
+          "raceShort": "Tour de France",
+          "raceFile": null,
+          "stage": 1,
+          "stageStart": "Edinburgh",
+          "stageFinish": "Carlisle",
+          "stageDate": "2027-07-02",
+          "ordinal": null,
+          "route": null,
+          "len": 2.2,
+          "grad": 6.7,
+          "elev": 242,
+          "cat": "TBC",
+          "kbf": null,
+          "profile": [
+            6.4,
+            6.7,
+            7.9
+          ],
+          "notes": "Stage 1 of the 2027 Tour de France's UK Grand Départ (Edinburgh to Carlisle) — early in the stage, sole categorised climb. Official category not yet announced.",
+          "rawName": "Côte de Melrose (Dingleton)"
+        }
+      ]
+    },
+    {
+      "slug": "cote-de-jubilee-tower",
+      "name": "Côte de Jubilee Tower",
+      "range": "Lancashire",
+      "cat": "TBC",
+      "len": 3.8,
+      "grad": 6.1,
+      "elev": 284,
+      "profile": [
+        4.1,
+        10.4,
+        4.2,
+        5.7
+      ],
+      "isSummitFinish": false,
+      "ascentsVary": false,
+      "races": [
+        "tdf27"
+      ],
+      "hasPage": true,
+      "gateReasons": [
+        "preview"
+      ],
+      "notes": [
+        "Stage 2 (Keswick to Liverpool) — first of five categorised climbs, after Lancaster. Official category not yet announced."
+      ],
+      "ascents": [
+        {
+          "race": "tdf27",
+          "raceName": "2027 Tour de France",
+          "raceShort": "Tour de France",
+          "raceFile": null,
+          "stage": 2,
+          "stageStart": "Keswick",
+          "stageFinish": "Liverpool",
+          "stageDate": "2027-07-03",
+          "ordinal": null,
+          "route": null,
+          "len": 3.8,
+          "grad": 6.1,
+          "elev": 284,
+          "cat": "TBC",
+          "kbf": null,
+          "profile": [
+            4.1,
+            10.4,
+            4.2,
+            5.7
+          ],
+          "notes": "Stage 2 (Keswick to Liverpool) — first of five categorised climbs, after Lancaster. Official category not yet announced.",
+          "rawName": "Côte de Jubilee Tower"
+        }
+      ]
+    },
+    {
+      "slug": "cote-de-trough-of-bowland",
+      "name": "Côte de Trough of Bowland",
+      "range": "Lancashire",
+      "cat": "TBC",
+      "len": 1.9,
+      "grad": 5.2,
+      "elev": 288,
+      "profile": [
+        2.9,
+        7.7
+      ],
+      "isSummitFinish": false,
+      "ascentsVary": false,
+      "races": [
+        "tdf27"
+      ],
+      "hasPage": true,
+      "gateReasons": [
+        "preview"
+      ],
+      "notes": [
+        "Stage 2 (Keswick to Liverpool) — second of five categorised climbs. Official category not yet announced."
+      ],
+      "ascents": [
+        {
+          "race": "tdf27",
+          "raceName": "2027 Tour de France",
+          "raceShort": "Tour de France",
+          "raceFile": null,
+          "stage": 2,
+          "stageStart": "Keswick",
+          "stageFinish": "Liverpool",
+          "stageDate": "2027-07-03",
+          "ordinal": null,
+          "route": null,
+          "len": 1.9,
+          "grad": 5.2,
+          "elev": 288,
+          "cat": "TBC",
+          "kbf": null,
+          "profile": [
+            2.9,
+            7.7
+          ],
+          "notes": "Stage 2 (Keswick to Liverpool) — second of five categorised climbs. Official category not yet announced.",
+          "rawName": "Côte de Trough of Bowland"
+        }
+      ]
+    },
+    {
+      "slug": "cote-de-waddington-fell",
+      "name": "Côte de Waddington Fell",
+      "range": "Lancashire",
+      "cat": "TBC",
+      "len": 3.4,
+      "grad": 6.4,
+      "elev": 348,
+      "profile": [
+        5.4,
+        6.1,
+        7.0,
+        8.1
+      ],
+      "isSummitFinish": false,
+      "ascentsVary": false,
+      "races": [
+        "tdf27"
+      ],
+      "hasPage": true,
+      "gateReasons": [
+        "preview"
+      ],
+      "notes": [
+        "Stage 2 (Keswick to Liverpool) — third of five categorised climbs. Official category not yet announced."
+      ],
+      "ascents": [
+        {
+          "race": "tdf27",
+          "raceName": "2027 Tour de France",
+          "raceShort": "Tour de France",
+          "raceFile": null,
+          "stage": 2,
+          "stageStart": "Keswick",
+          "stageFinish": "Liverpool",
+          "stageDate": "2027-07-03",
+          "ordinal": null,
+          "route": null,
+          "len": 3.4,
+          "grad": 6.4,
+          "elev": 348,
+          "cat": "TBC",
+          "kbf": null,
+          "profile": [
+            5.4,
+            6.1,
+            7.0,
+            8.1
+          ],
+          "notes": "Stage 2 (Keswick to Liverpool) — third of five categorised climbs. Official category not yet announced.",
+          "rawName": "Côte de Waddington Fell"
+        }
+      ]
+    },
+    {
+      "slug": "cote-de-belmont",
+      "name": "Côte de Belmont",
+      "range": "Lancashire",
+      "cat": "TBC",
+      "len": 2.0,
+      "grad": 4.0,
+      "elev": 325,
+      "profile": [
+        2.5,
+        5.5,
+        0.6
+      ],
+      "isSummitFinish": false,
+      "ascentsVary": false,
+      "races": [
+        "tdf27"
+      ],
+      "hasPage": true,
+      "gateReasons": [
+        "preview"
+      ],
+      "notes": [
+        "Stage 2 (Keswick to Liverpool) — fourth of five categorised climbs, after Blackburn. Official category not yet announced."
+      ],
+      "ascents": [
+        {
+          "race": "tdf27",
+          "raceName": "2027 Tour de France",
+          "raceShort": "Tour de France",
+          "raceFile": null,
+          "stage": 2,
+          "stageStart": "Keswick",
+          "stageFinish": "Liverpool",
+          "stageDate": "2027-07-03",
+          "ordinal": null,
+          "route": null,
+          "len": 2.0,
+          "grad": 4.0,
+          "elev": 325,
+          "cat": "TBC",
+          "kbf": null,
+          "profile": [
+            2.5,
+            5.5,
+            0.6
+          ],
+          "notes": "Stage 2 (Keswick to Liverpool) — fourth of five categorised climbs, after Blackburn. Official category not yet announced.",
+          "rawName": "Côte de Belmont"
+        }
+      ]
+    },
+    {
+      "slug": "cote-de-parbold",
+      "name": "Côte de Parbold",
+      "range": "Lancashire",
+      "cat": "TBC",
+      "len": 1.8,
+      "grad": 5.6,
+      "elev": 116,
+      "profile": [
+        3.9,
+        7.8
+      ],
+      "isSummitFinish": false,
+      "ascentsVary": false,
+      "races": [
+        "tdf27"
+      ],
+      "hasPage": true,
+      "gateReasons": [
+        "preview"
+      ],
+      "notes": [
+        "Stage 2 (Keswick to Liverpool) — last of five categorised climbs, about 40km from the finish. Official category not yet announced."
+      ],
+      "ascents": [
+        {
+          "race": "tdf27",
+          "raceName": "2027 Tour de France",
+          "raceShort": "Tour de France",
+          "raceFile": null,
+          "stage": 2,
+          "stageStart": "Keswick",
+          "stageFinish": "Liverpool",
+          "stageDate": "2027-07-03",
+          "ordinal": null,
+          "route": null,
+          "len": 1.8,
+          "grad": 5.6,
+          "elev": 116,
+          "cat": "TBC",
+          "kbf": null,
+          "profile": [
+            3.9,
+            7.8
+          ],
+          "notes": "Stage 2 (Keswick to Liverpool) — last of five categorised climbs, about 40km from the finish. Official category not yet announced.",
+          "rawName": "Côte de Parbold"
+        }
+      ]
+    },
+    {
+      "slug": "cote-de-epynt",
+      "name": "Côte d'Épynt",
+      "range": "Powys",
+      "cat": "TBC",
+      "len": 3.7,
+      "grad": 7.9,
+      "elev": 452,
+      "profile": [
+        5.4,
+        7.7,
+        9.8,
+        9.0
+      ],
+      "isSummitFinish": false,
+      "ascentsVary": false,
+      "races": [
+        "tdf27"
+      ],
+      "hasPage": true,
+      "gateReasons": [
+        "preview"
+      ],
+      "notes": [
+        "Stage 3 (Welshpool to Cardiff) — first of eight categorised climbs, around the 85.5km mark. Official category not yet announced."
+      ],
+      "ascents": [
+        {
+          "race": "tdf27",
+          "raceName": "2027 Tour de France",
+          "raceShort": "Tour de France",
+          "raceFile": null,
+          "stage": 3,
+          "stageStart": "Welshpool",
+          "stageFinish": "Cardiff",
+          "stageDate": "2027-07-04",
+          "ordinal": null,
+          "route": null,
+          "len": 3.7,
+          "grad": 7.9,
+          "elev": 452,
+          "cat": "TBC",
+          "kbf": null,
+          "profile": [
+            5.4,
+            7.7,
+            9.8,
+            9.0
+          ],
+          "notes": "Stage 3 (Welshpool to Cardiff) — first of eight categorised climbs, around the 85.5km mark. Official category not yet announced.",
+          "rawName": "Côte d'Épynt"
+        }
+      ]
+    },
+    {
+      "slug": "cote-de-bannau-brycheiniog",
+      "name": "Côte de Bannau Brycheiniog",
+      "range": "Brecon Beacons",
+      "cat": "TBC",
+      "len": 6.6,
+      "grad": 3.5,
+      "elev": 432,
+      "profile": [
+        3.1,
+        3.3,
+        3.4,
+        3.7,
+        3.8,
+        3.8,
+        3.2
+      ],
+      "isSummitFinish": false,
+      "ascentsVary": false,
+      "races": [
+        "tdf27"
+      ],
+      "hasPage": true,
+      "gateReasons": [
+        "preview"
+      ],
+      "notes": [
+        "Stage 3 (Welshpool to Cardiff) — second of eight categorised climbs, around the 121.5km mark. Official category not yet announced."
+      ],
+      "ascents": [
+        {
+          "race": "tdf27",
+          "raceName": "2027 Tour de France",
+          "raceShort": "Tour de France",
+          "raceFile": null,
+          "stage": 3,
+          "stageStart": "Welshpool",
+          "stageFinish": "Cardiff",
+          "stageDate": "2027-07-04",
+          "ordinal": null,
+          "route": null,
+          "len": 6.6,
+          "grad": 3.5,
+          "elev": 432,
+          "cat": "TBC",
+          "kbf": null,
+          "profile": [
+            3.1,
+            3.3,
+            3.4,
+            3.7,
+            3.8,
+            3.8,
+            3.2
+          ],
+          "notes": "Stage 3 (Welshpool to Cardiff) — second of eight categorised climbs, around the 121.5km mark. Official category not yet announced.",
+          "rawName": "Côte de Bannau Brycheiniog"
+        }
+      ]
+    },
+    {
+      "slug": "cote-de-rhigos",
+      "name": "Côte de Rhigos",
+      "range": "Rhondda Cynon Taf",
+      "cat": "TBC",
+      "len": 4.6,
+      "grad": 5.8,
+      "elev": 483,
+      "profile": [
+        4.9,
+        6.1,
+        6.5,
+        5.4,
+        6.2
+      ],
+      "isSummitFinish": false,
+      "ascentsVary": false,
+      "races": [
+        "tdf27"
+      ],
+      "hasPage": true,
+      "gateReasons": [
+        "preview"
+      ],
+      "notes": [
+        "Stage 3 (Welshpool to Cardiff) — third of eight categorised climbs, around the 145.5km mark. Official category not yet announced."
+      ],
+      "ascents": [
+        {
+          "race": "tdf27",
+          "raceName": "2027 Tour de France",
+          "raceShort": "Tour de France",
+          "raceFile": null,
+          "stage": 3,
+          "stageStart": "Welshpool",
+          "stageFinish": "Cardiff",
+          "stageDate": "2027-07-04",
+          "ordinal": null,
+          "route": null,
+          "len": 4.6,
+          "grad": 5.8,
+          "elev": 483,
+          "cat": "TBC",
+          "kbf": null,
+          "profile": [
+            4.9,
+            6.1,
+            6.5,
+            5.4,
+            6.2
+          ],
+          "notes": "Stage 3 (Welshpool to Cardiff) — third of eight categorised climbs, around the 145.5km mark. Official category not yet announced.",
+          "rawName": "Côte de Rhigos"
+        }
+      ]
+    },
+    {
+      "slug": "cote-de-penrhys",
+      "name": "Côte de Penrhys",
+      "range": "Rhondda Cynon Taf",
+      "cat": "TBC",
+      "len": 1.3,
+      "grad": 10.1,
+      "elev": 288,
+      "profile": [
+        9.8,
+        10.9
+      ],
+      "isSummitFinish": false,
+      "ascentsVary": false,
+      "races": [
+        "tdf27"
+      ],
+      "hasPage": true,
+      "gateReasons": [
+        "preview"
+      ],
+      "notes": [
+        "Stage 3 (Welshpool to Cardiff) — fourth of eight categorised climbs, around the 160.5km mark. Official category not yet announced."
+      ],
+      "ascents": [
+        {
+          "race": "tdf27",
+          "raceName": "2027 Tour de France",
+          "raceShort": "Tour de France",
+          "raceFile": null,
+          "stage": 3,
+          "stageStart": "Welshpool",
+          "stageFinish": "Cardiff",
+          "stageDate": "2027-07-04",
+          "ordinal": null,
+          "route": null,
+          "len": 1.3,
+          "grad": 10.1,
+          "elev": 288,
+          "cat": "TBC",
+          "kbf": null,
+          "profile": [
+            9.8,
+            10.9
+          ],
+          "notes": "Stage 3 (Welshpool to Cardiff) — fourth of eight categorised climbs, around the 160.5km mark. Official category not yet announced.",
+          "rawName": "Côte de Penrhys"
+        }
+      ]
+    },
+    {
+      "slug": "cote-de-maerdy",
+      "name": "Côte de Maerdy",
+      "range": "Rhondda Cynon Taf",
+      "cat": "TBC",
+      "len": 1.5,
+      "grad": 8.7,
+      "elev": 404,
+      "profile": [
+        9.1,
+        7.3
+      ],
+      "isSummitFinish": false,
+      "ascentsVary": false,
+      "races": [
+        "tdf27"
+      ],
+      "hasPage": true,
+      "gateReasons": [
+        "preview"
+      ],
+      "notes": [
+        "Stage 3 (Welshpool to Cardiff) — fifth of eight categorised climbs, around the 169km mark. Official category not yet announced."
+      ],
+      "ascents": [
+        {
+          "race": "tdf27",
+          "raceName": "2027 Tour de France",
+          "raceShort": "Tour de France",
+          "raceFile": null,
+          "stage": 3,
+          "stageStart": "Welshpool",
+          "stageFinish": "Cardiff",
+          "stageDate": "2027-07-04",
+          "ordinal": null,
+          "route": null,
+          "len": 1.5,
+          "grad": 8.7,
+          "elev": 404,
+          "cat": "TBC",
+          "kbf": null,
+          "profile": [
+            9.1,
+            7.3
+          ],
+          "notes": "Stage 3 (Welshpool to Cardiff) — fifth of eight categorised climbs, around the 169km mark. Official category not yet announced.",
+          "rawName": "Côte de Maerdy"
+        }
+      ]
+    },
+    {
+      "slug": "cote-de-gelligaer",
+      "name": "Côte de Gelligaer",
+      "range": "Caerphilly County Borough",
+      "cat": "TBC",
+      "len": 1.4,
+      "grad": 4.9,
+      "elev": 246,
+      "profile": [
+        5.7,
+        2.9
+      ],
+      "isSummitFinish": false,
+      "ascentsVary": false,
+      "races": [
+        "tdf27"
+      ],
+      "hasPage": true,
+      "gateReasons": [
+        "preview"
+      ],
+      "notes": [
+        "Stage 3 (Welshpool to Cardiff) — sixth of eight categorised climbs, around the 193km mark. Official category not yet announced."
+      ],
+      "ascents": [
+        {
+          "race": "tdf27",
+          "raceName": "2027 Tour de France",
+          "raceShort": "Tour de France",
+          "raceFile": null,
+          "stage": 3,
+          "stageStart": "Welshpool",
+          "stageFinish": "Cardiff",
+          "stageDate": "2027-07-04",
+          "ordinal": null,
+          "route": null,
+          "len": 1.4,
+          "grad": 4.9,
+          "elev": 246,
+          "cat": "TBC",
+          "kbf": null,
+          "profile": [
+            5.7,
+            2.9
+          ],
+          "notes": "Stage 3 (Welshpool to Cardiff) — sixth of eight categorised climbs, around the 193km mark. Official category not yet announced.",
+          "rawName": "Côte de Gelligaer"
+        }
+      ]
+    },
+    {
+      "slug": "cote-de-hengoed",
+      "name": "Côte de Hengoed",
+      "range": "Caerphilly County Borough",
+      "cat": "TBC",
+      "len": 0.7,
+      "grad": 11.0,
+      "elev": 194,
+      "profile": [
+        10.7
+      ],
+      "isSummitFinish": false,
+      "ascentsVary": false,
+      "races": [
+        "tdf27"
+      ],
+      "hasPage": true,
+      "gateReasons": [
+        "preview"
+      ],
+      "notes": [
+        "Stage 3 (Welshpool to Cardiff) — seventh of eight categorised climbs, around the 197.5km mark. Official category not yet announced."
+      ],
+      "ascents": [
+        {
+          "race": "tdf27",
+          "raceName": "2027 Tour de France",
+          "raceShort": "Tour de France",
+          "raceFile": null,
+          "stage": 3,
+          "stageStart": "Welshpool",
+          "stageFinish": "Cardiff",
+          "stageDate": "2027-07-04",
+          "ordinal": null,
+          "route": null,
+          "len": 0.7,
+          "grad": 11.0,
+          "elev": 194,
+          "cat": "TBC",
+          "kbf": null,
+          "profile": [
+            10.7
+          ],
+          "notes": "Stage 3 (Welshpool to Cardiff) — seventh of eight categorised climbs, around the 197.5km mark. Official category not yet announced.",
+          "rawName": "Côte de Hengoed"
+        }
+      ]
+    },
+    {
+      "slug": "cote-de-caerffili",
+      "name": "Côte de Caerffili",
+      "range": "Caerphilly County Borough",
+      "cat": "TBC",
+      "len": 2.0,
+      "grad": 8.1,
+      "elev": 247,
+      "profile": [
+        4.6,
+        11.6
+      ],
+      "isSummitFinish": false,
+      "ascentsVary": false,
+      "races": [
+        "tdf27"
+      ],
+      "hasPage": true,
+      "gateReasons": [
+        "preview"
+      ],
+      "notes": [
+        "Stage 3 (Welshpool to Cardiff) — final climb, around the 210.5km mark, roughly 12.5km before the finish in Cardiff. Official category not yet announced."
+      ],
+      "ascents": [
+        {
+          "race": "tdf27",
+          "raceName": "2027 Tour de France",
+          "raceShort": "Tour de France",
+          "raceFile": null,
+          "stage": 3,
+          "stageStart": "Welshpool",
+          "stageFinish": "Cardiff",
+          "stageDate": "2027-07-04",
+          "ordinal": null,
+          "route": null,
+          "len": 2.0,
+          "grad": 8.1,
+          "elev": 247,
+          "cat": "TBC",
+          "kbf": null,
+          "profile": [
+            4.6,
+            11.6
+          ],
+          "notes": "Stage 3 (Welshpool to Cardiff) — final climb, around the 210.5km mark, roughly 12.5km before the finish in Cardiff. Official category not yet announced.",
+          "rawName": "Côte de Caerffili"
         }
       ]
     }

@@ -1503,6 +1503,30 @@ const ROADBOOK_ANCHORS: Record<string, RoadbookAnchors> = {
     lengthKm: 14.32,
     ascentM: 1155, // naive cumulative ascent within the trimmed span
   },
+  // 2027 Tour de France — UK Grand Départ, stages 1-3 (all confirmed Jan
+  // 2026; full route into France still pending as of this build). Robin's
+  // own GPX exports for all 14 climbs, each already trimmed and matched
+  // against the official ASO stage-profile graphics' published length and
+  // gradient (within ~0.03km/~0.3pp of the official figures — see
+  // data/tdf2027/routes/ for the untouched originals). These carry real
+  // embedded per-point elevation, same case as the Cheq/RPI files above —
+  // anchors are each trimmed GPX's own first-point and true-max elevation,
+  // its own haversine length, and its own naive cumulative rolling ascent:
+  // a no-op rescale, not an externally-sourced correction.
+  'cote-de-melrose': { startElevationM: 95, summitElevationM: 242, lengthKm: 2.19, ascentM: 147 }, // Stage 1, Edinburgh -> Carlisle
+  'cote-de-jubilee-tower': { startElevationM: 52, summitElevationM: 284, lengthKm: 3.8, ascentM: 239 }, // Stage 2, Keswick -> Liverpool
+  'cote-de-trough-of-bowland': { startElevationM: 190, summitElevationM: 288, lengthKm: 1.9, ascentM: 99 },
+  'cote-de-waddington-fell': { startElevationM: 128, summitElevationM: 348, lengthKm: 3.43, ascentM: 228 },
+  'cote-de-belmont': { startElevationM: 245, summitElevationM: 325, lengthKm: 2.0, ascentM: 85 },
+  'cote-de-parbold': { startElevationM: 15, summitElevationM: 116, lengthKm: 1.8, ascentM: 103 },
+  'cote-de-epynt': { startElevationM: 159, summitElevationM: 452, lengthKm: 3.71, ascentM: 296 }, // Stage 3, Welshpool -> Cardiff
+  'cote-de-bannau-brycheiniog': { startElevationM: 201, summitElevationM: 432, lengthKm: 6.61, ascentM: 234 },
+  'cote-de-rhigos': { startElevationM: 217, summitElevationM: 483, lengthKm: 4.59, ascentM: 272 },
+  'cote-de-penrhys': { startElevationM: 158, summitElevationM: 288, lengthKm: 1.3, ascentM: 130 },
+  'cote-de-maerdy': { startElevationM: 278, summitElevationM: 404, lengthKm: 1.48, ascentM: 126 },
+  'cote-de-gelligaer': { startElevationM: 178, summitElevationM: 246, lengthKm: 1.4, ascentM: 71 },
+  'cote-de-hengoed': { startElevationM: 122, summitElevationM: 194, lengthKm: 0.68, ascentM: 75 },
+  'cote-de-caerffili': { startElevationM: 85, summitElevationM: 247, lengthKm: 2.0, ascentM: 162 }, // final climb of stage 3
 };
 
 interface GpxPoint {

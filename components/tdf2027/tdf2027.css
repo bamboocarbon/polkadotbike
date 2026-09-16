@@ -1,0 +1,101 @@
+/* 2027 Tour de France — UK Grand Départ preview page.
+   Reuses content.css's .container/.glass/.sec for the outer shell (loaded
+   first in app/tour-de-france-2027/page.tsx); this file only adds what's
+   unique to this page — the status banner, stage-card terrain badges and
+   climb-row list, and the route-map/elevation-profile image slots. The
+   terrain badge colours (.badge-m/.badge-h/.badge-s) and the TBC pill
+   (.cat-tbc) deliberately match the exact values used on the interactive
+   /tdf, /giro26 and /vuelta pages (components/race/race.css) so a climb
+   marked TBC reads the same way across the site. */
+
+/* Route map — same rules as components/race/race.css uses on /tdf, /giro26
+   and /vuelta, copied rather than imported wholesale (race.css's own
+   .container/.glass differ slightly from content.css's, which this page
+   uses instead — importing both risked one silently overriding the other). */
+.map-outer { position: relative; z-index: 1; max-width: 780px; margin: 0 auto 22px; padding: 0 20px; }
+.map-outer .leaflet-container { height: 400px; border-radius: 14px; border: 1px solid rgba(100, 130, 150, 0.3); background: #cfe8f7; }
+.map-skeleton { height: 400px; border-radius: 14px; border: 1px solid rgba(100, 130, 150, 0.3); background: #cfe8f7; }
+.map-city { display: inline-block; transform: translate(-50%, 10px); white-space: nowrap; font-family: 'Inter', system-ui, sans-serif; font-size: 10.5px; font-weight: 600; color: #1e293b; pointer-events: none; }
+.map-city.right { transform: translate(14px, -50%); }
+.map-city.left { transform: translate(calc(-100% - 14px), -50%); }
+.map-country { display: inline-block; transform: translate(-50%, -50%); white-space: nowrap; font-family: 'Inter', system-ui, sans-serif; font-size: 15px; font-weight: 800; letter-spacing: 0.35em; pointer-events: none; }
+.map-legend { display: flex; gap: 18px; align-items: center; justify-content: center; flex-wrap: wrap; margin-top: 9px; font-size: 11px; color: var(--sec); }
+.ml-item { display: flex; align-items: center; gap: 5px; }
+.ml-dot { width: 9px; height: 9px; border-radius: 50%; display: inline-block; flex-shrink: 0; }
+.ml-m { background: #ee1c28; }
+.ml-h { background: #000; }
+.ml-s { background: #12b05f; }
+.map-dot { width: 22px; height: 22px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 9px; font-weight: 800; color: #fff; border: none; cursor: pointer; font-family: 'Inter', system-ui, sans-serif; transition: transform 0.12s, box-shadow 0.12s; line-height: 1; }
+.map-dot:hover { box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.2); transform: scale(1.3); }
+.map-dot.active { box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.3); transform: scale(1.35); }
+.map-dot.md-m { background: #ee1c28; }
+.map-dot.md-h { background: #000; }
+.map-dot.md-s { background: #12b05f; }
+.leaflet-tooltip.map-tip { background: rgba(4, 9, 26, 0.96); border: 1px solid rgba(255, 255, 255, 0.12); color: #e8edf5; font-family: 'Inter', system-ui, sans-serif; font-size: 12px; border-radius: 8px; padding: 6px 10px; white-space: nowrap; box-shadow: 0 4px 16px rgba(0, 0, 0, 0.5); }
+.leaflet-tooltip.map-tip::before { border-top-color: rgba(255, 255, 255, 0.12); }
+.leaflet-control-attribution { font-size: 10px !important; background: rgba(255, 255, 255, 0.75) !important; color: #475569 !important; border-radius: 6px 0 0 0 !important; }
+.leaflet-control-attribution a { color: #1e40af !important; }
+
+.status-banner {
+  display: flex; align-items: flex-start; gap: 10px;
+  padding: 14px 18px; margin-bottom: 18px;
+  background: rgba(245, 158, 11, 0.12);
+  border: 1px solid rgba(245, 158, 11, 0.4);
+  border-radius: 12px;
+  color: #fde68a;
+  font-size: 13.5px; line-height: 1.55;
+}
+.status-banner strong { color: #fff; }
+
+.stage-card { padding: 20px 24px; margin-bottom: 16px; }
+.stage-card-head { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; margin-bottom: 8px; }
+.stage-card-head h2 { font-size: 19px; font-weight: 800; color: #fff; letter-spacing: -0.3px; margin: 0; }
+
+.type-badge { font-size: 8px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.07em; padding: 3px 8px; border-radius: 4px; }
+.badge-m { background: #ee1c28; color: #fff; }
+.badge-h { background: #000; color: #fff; box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.25); }
+.badge-s { background: #12b05f; color: #fff; }
+
+.stage-meta-row { display: flex; gap: 16px; flex-wrap: wrap; font-size: 13px; color: var(--sec); margin-bottom: 10px; }
+.stage-summary { font-size: 14px; color: var(--text); font-style: italic; margin-bottom: 16px; }
+
+.climb-list-head { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: var(--muted); margin-bottom: 8px; }
+.climb-list { display: flex; flex-direction: column; gap: 10px; margin-bottom: 4px; }
+
+/* Climb cards — this is components/race/ClimbCard.tsx, the exact same
+   component the live /tdf, /giro26 and /vuelta pages use, so these rules
+   are copied verbatim from race.css rather than reinvented (that's what
+   keeps a climb here the same size/shape as a Vuelta climb box). */
+.climb-card { padding: 15px 17px; background: var(--glass); border: 1px solid rgba(255, 255, 255, 0.09); border-radius: 13px; }
+.climb-card.is-finish { border-color: rgba(239, 68, 68, 0.28); }
+.cc-top { display: flex; align-items: flex-start; gap: 8px; margin-bottom: 10px; flex-wrap: wrap; }
+.cc-cat { font-size: 9px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.07em; padding: 3px 8px; border-radius: 5px; white-space: nowrap; flex-shrink: 0; margin-top: 2px; border: none; }
+.cat-tbc { background: #475569; color: #fff; }
+.cc-name-block { flex: 1; min-width: 0; }
+.cc-name { font-size: 14px; font-weight: 700; color: #fff; line-height: 1.25; }
+.cc-range { font-size: 10px; color: var(--muted); margin-top: 2px; }
+.cc-stats { display: flex; gap: 20px; flex-wrap: wrap; margin-bottom: 9px; align-items: flex-end; }
+.cs-item { display: flex; flex-direction: column; }
+.cs-val { font-family: 'IBM Plex Sans', Inter, system-ui, sans-serif; font-size: 22px; font-weight: 700; letter-spacing: 0; color: #fff; line-height: 1; }
+.cs-label { font-size: 9px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.08em; color: var(--muted); margin-top: 3px; }
+.cs-val.sm { font-size: 15px; letter-spacing: 0; }
+.cc-notes { font-size: 13px; color: var(--text); line-height: 1.55; margin-bottom: 10px; }
+.tbc-note { font-size: 11px; color: var(--muted); font-style: italic; margin-top: 4px; }
+/* Scoped under .climb-card (2 classes), not bare .plan-btn/.gpx-btn (1 class)
+   — content.css's `.sec a` (1 class + 1 type = higher specificity than a lone
+   class) was winning the color property otherwise, since every climb-card
+   here sits inside a .sec block. That silently repainted both buttons'
+   text var(--accent-light) instead of white, which is what actually made
+   them look off-colour next to the real Vuelta page (no .sec ancestor
+   there, so no conflict) — not a wrong hex value. */
+.climb-card .plan-btn { display: inline-flex; align-self: flex-start; align-items: center; gap: 6px; padding: 7px 14px; background: #1a72e0; border: none; border-radius: 9px; color: #fff; font-size: 12px; font-weight: 700; text-decoration: none; transition: all 0.15s; cursor: pointer; }
+.climb-card .plan-btn:hover { background: #3b8ef0; color: #fff; }
+.climb-card .gpx-btn { display: inline-flex; align-self: flex-start; align-items: center; gap: 6px; padding: 7px 14px; background: transparent; border: 1px solid rgba(255, 255, 255, 0.3); border-radius: 9px; color: var(--sec); font-size: 12px; font-weight: 700; text-decoration: none; transition: all 0.15s; cursor: pointer; }
+.climb-card .gpx-btn:hover { border-color: #fff; color: #fff; }
+.cc-body { display: flex; flex-wrap: wrap; gap: 16px; align-items: flex-start; margin-top: 10px; }
+.cc-body .cc-profile { flex-shrink: 1; flex-basis: auto; min-width: 180px; max-width: 100%; margin: 0; }
+.cc-body-right { flex: 1; min-width: 200px; display: flex; flex-direction: column; gap: 10px; }
+.cc-body-right .cc-stats { margin-bottom: 0; gap: 6px 18px; }
+.cc-profile { margin: 8px 0 10px; }
+.cc-profile svg { display: block; max-width: 100%; height: auto; }
+.profile-meta { display: flex; justify-content: space-between; margin-top: 3px; font-size: 11px; color: var(--sec); }

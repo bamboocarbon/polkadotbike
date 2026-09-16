@@ -1,0 +1,95 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<gpx version="1.1" creator="polkadotbike-trim" xmlns="http://www.topografix.com/GPX/1/1">
+  <trk>
+    <name>Côte De Hengoed</name>
+    <trkseg>
+      <trkpt lat="51.643105" lon="-3.233884">
+        <ele>121.50</ele>
+      </trkpt>
+      <trkpt lat="51.643410" lon="-3.233436">
+        <ele>126.50</ele>
+      </trkpt>
+      <trkpt lat="51.643720" lon="-3.233009">
+        <ele>131.25</ele>
+      </trkpt>
+      <trkpt lat="51.643901" lon="-3.232685">
+        <ele>132.75</ele>
+      </trkpt>
+      <trkpt lat="51.643966" lon="-3.232556">
+        <ele>131.75</ele>
+      </trkpt>
+      <trkpt lat="51.644010" lon="-3.232501">
+        <ele>131.25</ele>
+      </trkpt>
+      <trkpt lat="51.644072" lon="-3.232467">
+        <ele>132.00</ele>
+      </trkpt>
+      <trkpt lat="51.644247" lon="-3.232429">
+        <ele>134.75</ele>
+      </trkpt>
+      <trkpt lat="51.644403" lon="-3.232335">
+        <ele>137.50</ele>
+      </trkpt>
+      <trkpt lat="51.644475" lon="-3.232271">
+        <ele>137.50</ele>
+      </trkpt>
+      <trkpt lat="51.644923" lon="-3.231778">
+        <ele>139.50</ele>
+      </trkpt>
+      <trkpt lat="51.644958" lon="-3.231739">
+        <ele>139.50</ele>
+      </trkpt>
+      <trkpt lat="51.645124" lon="-3.231672">
+        <ele>143.50</ele>
+      </trkpt>
+      <trkpt lat="51.645162" lon="-3.231648">
+        <ele>144.50</ele>
+      </trkpt>
+      <trkpt lat="51.645285" lon="-3.231570">
+        <ele>147.25</ele>
+      </trkpt>
+      <trkpt lat="51.645347" lon="-3.231559">
+        <ele>148.50</ele>
+      </trkpt>
+      <trkpt lat="51.645830" lon="-3.231504">
+        <ele>154.25</ele>
+      </trkpt>
+      <trkpt lat="51.646170" lon="-3.231495">
+        <ele>159.25</ele>
+      </trkpt>
+      <trkpt lat="51.646377" lon="-3.231489">
+        <ele>162.50</ele>
+      </trkpt>
+      <trkpt lat="51.646623" lon="-3.231502">
+        <ele>164.50</ele>
+      </trkpt>
+      <trkpt lat="51.646869" lon="-3.231514">
+        <ele>167.25</ele>
+      </trkpt>
+      <trkpt lat="51.647016" lon="-3.231542">
+        <ele>169.25</ele>
+      </trkpt>
+      <trkpt lat="51.647254" lon="-3.231569">
+        <ele>172.00</ele>
+      </trkpt>
+      <trkpt lat="51.647262" lon="-3.231483">
+        <ele>171.75</ele>
+      </trkpt>
+      <trkpt lat="51.647254" lon="-3.231569">
+        <ele>172.00</ele>
+      </trkpt>
+      <trkpt lat="51.647601" lon="-3.231637">
+        <ele>177.25</ele>
+      </trkpt>
+      <trkpt lat="51.647988" lon="-3.231755">
+        <ele>183.50</ele>
+      </trkpt>
+      <trkpt lat="51.648487" lon="-3.231876">
+        <ele>192.25</ele>
+      </trkpt>
+      <trkpt lat="51.648643" lon="-3.231904">
+        <ele>194.50</ele>
+      </trkpt>
+    </trkseg>
+  </trk>
+</gpx>
