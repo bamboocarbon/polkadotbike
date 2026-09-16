@@ -6,6 +6,7 @@ import { buildClimbSummary, GEAR_TOOL_SENTENCE } from '@/lib/climbSummary';
 import { hasRouteData } from '@/lib/climbRouteData';
 import { CLIMB_STRAVA_SEGMENTS } from '@/lib/climbStravaSegments';
 import { CLIMB_HISTORY_NOTES } from '@/lib/climbHistory';
+import { CLIMB_PROFILE_NOTES } from '@/lib/climbProfileNotes';
 
 interface RawClimb {
   slug: string;
@@ -136,7 +137,7 @@ export default async function ClimbDetailPage({ params }: { params: Promise<{ sl
   // tacked on past the app pitch. History (broader race context) comes
   // before the notable-performance note (a specific record), when a climb
   // has both.
-  const extraFacts = [CLIMB_HISTORY_NOTES[slug], CLIMB_STRAVA_SEGMENTS[slug]?.notablePerformance].filter(Boolean).join(' ');
+  const extraFacts = [CLIMB_HISTORY_NOTES[slug], CLIMB_PROFILE_NOTES[slug], CLIMB_STRAVA_SEGMENTS[slug]?.notablePerformance].filter(Boolean).join(' ');
   const summary = extraFacts ? baseSummary.replace(GEAR_TOOL_SENTENCE, `${extraFacts} ${GEAR_TOOL_SENTENCE}`) : baseSummary;
 
   return (
