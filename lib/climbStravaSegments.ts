@@ -18,10 +18,28 @@ export interface ClimbStravaSegment {
   lengthKm: number;
   /** How this segment's own start/finish compares to this climb's, in plain terms. */
   fit: string;
+  /**
+   * A named, public-figure performance worth stating outright, as distinct
+   * from the ordinary KOM/QOM holders on these segments — Robin's call,
+   * 2026-09-16: Pavel Sivakov (a WorldTour pro) is "more widely known than
+   * just Strava", unlike the private individuals holding the other 13
+   * climbs' fastest times, which stay unpublished. Couldn't independently
+   * corroborate the specific time outside Strava itself, so it's presented
+   * as a fact about a public figure's public athletic performance (the same
+   * category cycling media routinely reports), not as republished
+   * leaderboard data — only add further entries here on the same basis.
+   */
+  notablePerformance?: string;
 }
 
 export const CLIMB_STRAVA_SEGMENTS: Record<string, ClimbStravaSegment> = {
-  'cote-de-melrose': { id: 7193276, name: 'Dingleton Road Climb', lengthKm: 2.19, fit: 'Exact match' },
+  'cote-de-melrose': {
+    id: 7193276,
+    name: 'Dingleton Road Climb',
+    lengthKm: 2.19,
+    fit: 'Exact match',
+    notablePerformance: 'WorldTour pro Pavel Sivakov holds the fastest recorded ascent, 4:39 (2019).',
+  },
   'cote-de-jubilee-tower': { id: 6688053, name: 'Jubilee Tower', lengthKm: 4.12, fit: 'Close match — segment runs on past the summit' },
   'cote-de-trough-of-bowland': { id: 682721, name: 'Trough of Bowland', lengthKm: 4.31, fit: 'Longer segment — this climb covers roughly km 2.0–3.9 of it' },
   'cote-de-waddington-fell': { id: 14302965, name: 'Newton Fell', lengthKm: 3.39, fit: 'Exact match' },

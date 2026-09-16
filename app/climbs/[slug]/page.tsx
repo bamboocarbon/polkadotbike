@@ -2,8 +2,9 @@ import type { Metadata, Viewport } from 'next';
 import { notFound } from 'next/navigation';
 import climbIndexData from '@/data/climb-index.json';
 import ClimbDetailClient from './ClimbDetailClient';
-import { buildClimbSummary } from '@/lib/climbSummary';
+import { buildClimbSummary, GEAR_TOOL_SENTENCE } from '@/lib/climbSummary';
 import { hasRouteData } from '@/lib/climbRouteData';
+import { CLIMB_STRAVA_SEGMENTS } from '@/lib/climbStravaSegments';
 
 interface RawClimb {
   slug: string;
@@ -120,7 +121,7 @@ export default async function ClimbDetailPage({ params }: { params: Promise<{ sl
   const climb = findClimb(slug);
   if (!climb) notFound();
 
-  const summary = buildClimbSummary({
+  const baseSummary = buildClimbSummary({
     name: climb.name,
     range: climb.range,
     cat: climb.cat,
@@ -129,6 +130,13 @@ export default async function ClimbDetailPage({ params }: { params: Promise<{ sl
     elev: climb.elev,
     race: climb.races[0] as 'tdf' | 'giro' | 'vuelta',
   });
+  // Inserted just before the fixed gear-tool sentence, not appended to the
+  // very end, so it reads as a climb fact rather than an afterthought tacked
+  // on past the app pitch.
+  const notablePerformance = CLIMB_STRAVA_SEGMENTS[slug]?.notablePerformance;
+  const summary = notablePerformance
+    ? baseSummary.replace(GEAR_TOOL_SENTENCE, `${notablePerformance} ${GEAR_TOOL_SENTENCE}`)
+    : baseSummary;
 
   return (
     <>
