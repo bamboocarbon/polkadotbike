@@ -5,6 +5,7 @@ import ClimbDetailClient from './ClimbDetailClient';
 import { buildClimbSummary, GEAR_TOOL_SENTENCE } from '@/lib/climbSummary';
 import { hasRouteData } from '@/lib/climbRouteData';
 import { CLIMB_STRAVA_SEGMENTS } from '@/lib/climbStravaSegments';
+import { CLIMB_HISTORY_NOTES } from '@/lib/climbHistory';
 
 interface RawClimb {
   slug: string;
@@ -131,12 +132,12 @@ export default async function ClimbDetailPage({ params }: { params: Promise<{ sl
     race: climb.races[0] as 'tdf' | 'giro' | 'vuelta',
   });
   // Inserted just before the fixed gear-tool sentence, not appended to the
-  // very end, so it reads as a climb fact rather than an afterthought tacked
-  // on past the app pitch.
-  const notablePerformance = CLIMB_STRAVA_SEGMENTS[slug]?.notablePerformance;
-  const summary = notablePerformance
-    ? baseSummary.replace(GEAR_TOOL_SENTENCE, `${notablePerformance} ${GEAR_TOOL_SENTENCE}`)
-    : baseSummary;
+  // very end, so they read as climb facts rather than an afterthought
+  // tacked on past the app pitch. History (broader race context) comes
+  // before the notable-performance note (a specific record), when a climb
+  // has both.
+  const extraFacts = [CLIMB_HISTORY_NOTES[slug], CLIMB_STRAVA_SEGMENTS[slug]?.notablePerformance].filter(Boolean).join(' ');
+  const summary = extraFacts ? baseSummary.replace(GEAR_TOOL_SENTENCE, `${extraFacts} ${GEAR_TOOL_SENTENCE}`) : baseSummary;
 
   return (
     <>
