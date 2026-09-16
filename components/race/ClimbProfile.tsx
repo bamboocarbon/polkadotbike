@@ -12,9 +12,13 @@ export default function ClimbProfile({
    *  default width. Deliberately not "to scale" against other races'
    *  climbs when raised; that's the point Robin asked for here. */
   widthScale?: number;
-  /** Multiplies the per-100m-elevation (height) pixel scale — independent
-   *  of widthScale, since scaling both by the same factor turned short/
-   *  steep climbs into a tall thin spike instead of a wider wedge. */
+  /** Multiplies how tall the drawn wedge climbs within its box — the box
+   *  itself (H below) stays fixed regardless, so raising this doesn't grow
+   *  the surrounding card the way scaling H directly did (found 2026-09-16:
+   *  that made cards visibly taller, which Robin then asked to undo while
+   *  keeping the graphic itself more prominent — this achieves both:
+   *  climbs with modest elevation gain now fill more of the same fixed
+   *  height instead of a short fraction of it). */
   heightScale?: number;
 }) {
   const p = climb.profile;
@@ -27,7 +31,7 @@ export default function ClimbProfile({
 
   const KM_PX = 12 * widthScale; // fixed display pixels per km
   const PX_PER_100M = 6 * heightScale; // fixed display pixels per 100m elevation gain
-  const H = 90 * heightScale;
+  const H = 90; // fixed box height — see heightScale's comment
   const pad = 4;
   const W = p.length * KM_PX + pad * 2; // total width scales with climb length
   const iH = H - pad * 2; // = 82px — fits all profiled climbs at 6px/100m
