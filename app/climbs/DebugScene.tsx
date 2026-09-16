@@ -1720,17 +1720,21 @@ export default function DebugScene({
             Download GPX
           </a>
         )}
-        {CLIMB_STRAVA_SEGMENTS[slug] && (
-          <a
-            className="map-gpx-btn"
-            href={`https://www.strava.com/segments/${CLIMB_STRAVA_SEGMENTS[slug].id}`}
-            target="_blank"
-            rel="noopener"
-            title={`${CLIMB_STRAVA_SEGMENTS[slug].name}, ${CLIMB_STRAVA_SEGMENTS[slug].lengthKm}km — ${CLIMB_STRAVA_SEGMENTS[slug].fit}`}
-          >
-            View segment on Strava ↗
-          </a>
-        )}
+        {CLIMB_STRAVA_SEGMENTS[slug] && (() => {
+          const seg = CLIMB_STRAVA_SEGMENTS[slug];
+          const label = seg.name ? `${seg.name}, ${seg.lengthKm}km` : `${seg.lengthKm}km segment`;
+          return (
+            <a
+              className="map-gpx-btn"
+              href={`https://www.strava.com/segments/${seg.id}`}
+              target="_blank"
+              rel="noopener"
+              title={`${label} — ${seg.fit}`}
+            >
+              View segment on Strava ↗
+            </a>
+          );
+        })()}
         <button
           onClick={() => controlsRef.current?.resetView()}
           style={{ padding: '8px 16px', background: '#555', color: '#fff', border: 'none', borderRadius: 6, cursor: 'pointer' }}
