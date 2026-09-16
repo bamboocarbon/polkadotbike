@@ -60,20 +60,21 @@ const CHEQ_MAX_SMOOTHING_M = 5000;
 // 25-67km course range rather than a flat duration regardless of length.
 const CHEQ_PLAY_TARGET_MPS = 800;
 
+// Plan was dropped sitewide (2026-09-16, Robin) — 3D View is now the only
+// map view besides Wedge, and the one the page opens on.
 const STOPS = [
-  { key: 'A', label: 'Plan', state: 'A' as const, mapStyle: 'flat' as const },
   { key: 'B-3d', label: '3D View', state: 'B' as const, mapStyle: 'terrain' as const },
   { key: 'C', label: 'Wedge', state: 'C' as const, mapStyle: 'flat' as const },
 ];
 
 export default function CheqRouteDetailClient({ route }: { route: CheqRoute }) {
-  const [stopKey, setStopKey] = useState<string>('A');
+  const [stopKey, setStopKey] = useState<string>('B-3d');
   const [travel, setTravel] = useState<TravelInfo | null>(null);
   const [S, setS] = useState<ClimbCalcState>(defaultClimbState);
   const [setupInitDone, setSetupInitDone] = useState(false);
   const [panelTab, setPanelTab] = useState<'setup' | 'gears'>('gears');
   const stop = STOPS.find((s) => s.key === stopKey)!;
-  const influences: [number, number] = stop.state === 'A' ? [0, 0] : stop.state === 'B' ? [1, 0] : [0, 1];
+  const influences: [number, number] = stop.state === 'B' ? [1, 0] : [0, 1];
   const gradientPct = travel?.gradientPct ?? 0;
   const gears = useMemo(() => computeClimbGears(S, gradientPct), [S, gradientPct]);
   const playDurationS = (route.lengthKm * 1000) / CHEQ_PLAY_TARGET_MPS;
@@ -239,8 +240,7 @@ export default function CheqRouteDetailClient({ route }: { route: CheqRoute }) {
               How to use the map
             </div>
             <ul className="controls" style={{ margin: 0 }}>
-              <li><b>Plan</b> — the course laid out on a 2D map, drag the slider under the map to travel along it.</li>
-              <li><b>3D View</b> — the same course over real 3D terrain relief.</li>
+              <li><b>3D View</b> — the course over real 3D terrain relief, drag the slider under the map to travel along it.</li>
               <li><b>Wedge</b> — a side-on profile of the course, showing gradient as a rising/falling wedge.</li>
               <li>Whichever view is open, dragging the slider moves you along the course — the gradient, distance and elevation readouts update live as you go.</li>
             </ul>

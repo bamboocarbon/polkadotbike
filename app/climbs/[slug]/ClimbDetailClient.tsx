@@ -78,9 +78,10 @@ function useSmoothedValue(target: number, tauMs: number, snap = false): number {
 
 // "Route (flat map)" was dropped sitewide (2026-08-27) — the gradient-line
 // redesign (trialled on col-de-sarenne, see DebugScene.tsx) superseded its
-// old job everywhere, not just on that one climb.
+// old job everywhere, not just on that one climb. Plan itself was dropped
+// sitewide (2026-09-16, Robin) — 3D View is now the only map view besides
+// Wedge, and the one the page opens on.
 const STOPS = [
-  { key: 'A', label: 'Plan', state: 'A' as const, mapStyle: 'flat' as const },
   { key: 'B-3d', label: '3D View', state: 'B' as const, mapStyle: 'terrain' as const },
   { key: 'C', label: 'Wedge', state: 'C' as const, mapStyle: 'flat' as const },
 ];
@@ -93,13 +94,13 @@ interface ClimbDetailClientProps {
 export default function ClimbDetailClient({ name, summary }: ClimbDetailClientProps) {
   const params = useParams<{ slug: string }>();
   const slug = params.slug;
-  const [stopKey, setStopKey] = useState<string>('A');
+  const [stopKey, setStopKey] = useState<string>('B-3d');
   const [travel, setTravel] = useState<TravelInfo | null>(null);
   const [S, setS] = useState<ClimbCalcState>(defaultClimbState);
   const [setupInitDone, setSetupInitDone] = useState(false);
   const [panelTab, setPanelTab] = useState<'setup' | 'gears'>('gears');
   const stop = STOPS.find((s) => s.key === stopKey)!;
-  const influences: [number, number] = stop.state === 'A' ? [0, 0] : stop.state === 'B' ? [1, 0] : [0, 1];
+  const influences: [number, number] = stop.state === 'B' ? [1, 0] : [0, 1];
   const rawGradientPct = travel?.gradientPct ?? 0;
   // travel is null until the route loads, so its first-ever non-null value
   // is the climb's real starting gradient, not a change to ease toward —
@@ -276,8 +277,7 @@ export default function ClimbDetailClient({ name, summary }: ClimbDetailClientPr
               How to use the map
             </div>
             <ul className="controls" style={{ margin: 0 }}>
-              <li><b>Plan</b> — the climb laid out on a 2D map, drag the slider under the map to travel along it.</li>
-              <li><b>3D View</b> — the same route over real 3D elevation data.</li>
+              <li><b>3D View</b> — the climb over real 3D elevation data, drag the slider under the map to travel along it.</li>
               <li><b>Wedge</b> — a side-on profile of the climb, showing gradient as a rising wedge.</li>
               <li>Whichever view is open, dragging the slider moves you along the climb — the gradient, distance and elevation readouts on the right update live as you go.</li>
               <li><b>Smoothing</b> (bottom-right of the map) — averages the gradient colour band over a distance window from 0 (off) up to 1000m, so noisy raw gradient data reads as a cleaner gradient.</li>

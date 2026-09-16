@@ -19,7 +19,7 @@ import { useMemo, useRef, useEffect, useState, forwardRef, useImperativeHandle }
 import * as THREE from 'three';
 import { buildMorphGeometry, buildRibbonColors, smoothGradients, computeExaggeration, type RoutePoint } from '@/lib/climbs/morphGeometry';
 import { colourForGradient } from '@/lib/climbs/gradientColour';
-import { GPX_PARTIAL_CLIMB_SLUGS, GPX_PARTIAL_CLIMB_CAVEAT } from '@/lib/climbGpxCaveats';
+import { GPX_PARTIAL_CLIMB_SLUGS, GPX_PARTIAL_CLIMB_CAVEAT, GPX_UNAVAILABLE_CLIMB_SLUGS } from '@/lib/climbGpxCaveats';
 import { trackGpxDownload } from '@/lib/trackGpxDownload';
 
 // Basemap imagery + terrain data (webp/json/terrain.json per climb) live in
@@ -1684,15 +1684,17 @@ export default function DebugScene({
   return (
     <div style={{ width: '100%', height: '100%', position: 'relative' }}>
       <div style={{ position: 'absolute', top: 10, right: 10, zIndex: 10, display: 'flex', gap: 8 }}>
-        <a
-          className="map-gpx-btn"
-          href={`/api/gpx/${slug}`}
-          download
-          onClick={() => trackGpxDownload(slug)}
-          title={GPX_PARTIAL_CLIMB_SLUGS.has(slug) ? GPX_PARTIAL_CLIMB_CAVEAT : undefined}
-        >
-          Download GPX
-        </a>
+        {!GPX_UNAVAILABLE_CLIMB_SLUGS.has(slug) && (
+          <a
+            className="map-gpx-btn"
+            href={`/api/gpx/${slug}`}
+            download
+            onClick={() => trackGpxDownload(slug)}
+            title={GPX_PARTIAL_CLIMB_SLUGS.has(slug) ? GPX_PARTIAL_CLIMB_CAVEAT : undefined}
+          >
+            Download GPX
+          </a>
+        )}
         <button
           onClick={() => controlsRef.current?.resetView()}
           style={{ padding: '8px 16px', background: '#555', color: '#fff', border: 'none', borderRadius: 6, cursor: 'pointer' }}
