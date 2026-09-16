@@ -13,10 +13,10 @@ const TYPE_COLOR: Record<string, string> = { Flat: '#12b05f', Hilly: '#000000', 
 
 // France (250) kept at exactly the fill the live 2026 TDF page uses — it's
 // still fundamentally the Tour de France's home country, no route drawn
-// through it yet. United Kingdom (826) gets a deliberately different,
-// deeper gold so the confirmed stages read as the "active" part of the map.
+// through it yet. United Kingdom (826) copies the 2026 TDF page's own
+// Spain fill (#fff3b8, pale lemon) — Robin's call, 2026-09-16.
 const COUNTRY_FILL: Record<string, string> = {
-  '826': '#e8b400',
+  '826': '#fff3b8',
   '250': '#ffe94d',
 };
 
