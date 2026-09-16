@@ -1265,6 +1265,29 @@ function terrainAwareBounds(rd: RouteData, base: ReturnType<typeof stateBounds>,
   };
 }
 
+// The 14 2027 Tour de France UK climbs open their 3D View a bit further
+// back than the standard framing — Robin, 2026-09-16: "about 3 clicks on
+// the mouse wheel" zoomed out from the default. OrbitControls' default
+// zoomSpeed (1) dollies by a factor of 1/0.95 (~1.053x) per wheel notch, so
+// 3 notches out is ~1.053^3 ≈ 1.17x the normal initial distance.
+const TDF27_UK_CLIMB_SLUGS = new Set<string>([
+  'cote-de-bannau-brycheiniog',
+  'cote-de-belmont',
+  'cote-de-caerffili',
+  'cote-de-epynt',
+  'cote-de-gelligaer',
+  'cote-de-hengoed',
+  'cote-de-jubilee-tower',
+  'cote-de-maerdy',
+  'cote-de-melrose',
+  'cote-de-parbold',
+  'cote-de-penrhys',
+  'cote-de-rhigos',
+  'cote-de-trough-of-bowland',
+  'cote-de-waddington-fell',
+]);
+const TDF27_UK_INITIAL_ZOOM_OUT = 1.17;
+
 const SceneControls = forwardRef<ControlsHandle, { rd: RouteData; slug: string; state: SceneState; mapStyle: MapStyle }>(
   function SceneControls({ rd, slug, state, mapStyle }, ref) {
     const { camera } = useThree();
@@ -1413,7 +1436,8 @@ const SceneControls = forwardRef<ControlsHandle, { rd: RouteData; slug: string; 
       // A generic elevated 3/4 view — frames Plan/Route's quite different
       // shapes (spread-out plan, raised route) reasonably well without
       // needing a bespoke angle per state.
-      const offset = new THREE.Vector3(0.6, 0.5, 0.6).normalize().multiplyScalar(bounds.diag * 0.8);
+      const zoomOut = TDF27_UK_CLIMB_SLUGS.has(slug) ? TDF27_UK_INITIAL_ZOOM_OUT : 1;
+      const offset = new THREE.Vector3(0.6, 0.5, 0.6).normalize().multiplyScalar(bounds.diag * 0.8 * zoomOut);
       desiredOffsetRef.current = offset.clone();
       const camPos = new THREE.Vector3(bounds.cx + offset.x, bounds.cy + offset.y, bounds.cz + offset.z);
       if (isTerrain && terrain) {
