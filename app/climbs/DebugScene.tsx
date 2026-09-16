@@ -20,6 +20,7 @@ import * as THREE from 'three';
 import { buildMorphGeometry, buildRibbonColors, smoothGradients, computeExaggeration, type RoutePoint } from '@/lib/climbs/morphGeometry';
 import { colourForGradient } from '@/lib/climbs/gradientColour';
 import { GPX_PARTIAL_CLIMB_SLUGS, GPX_PARTIAL_CLIMB_CAVEAT, GPX_UNAVAILABLE_CLIMB_SLUGS } from '@/lib/climbGpxCaveats';
+import { CLIMB_STRAVA_SEGMENTS } from '@/lib/climbStravaSegments';
 import { trackGpxDownload } from '@/lib/trackGpxDownload';
 
 // Basemap imagery + terrain data (webp/json/terrain.json per climb) live in
@@ -1717,6 +1718,17 @@ export default function DebugScene({
             title={GPX_PARTIAL_CLIMB_SLUGS.has(slug) ? GPX_PARTIAL_CLIMB_CAVEAT : undefined}
           >
             Download GPX
+          </a>
+        )}
+        {CLIMB_STRAVA_SEGMENTS[slug] && (
+          <a
+            className="map-gpx-btn"
+            href={`https://www.strava.com/segments/${CLIMB_STRAVA_SEGMENTS[slug].id}`}
+            target="_blank"
+            rel="noopener"
+            title={`${CLIMB_STRAVA_SEGMENTS[slug].name}, ${CLIMB_STRAVA_SEGMENTS[slug].lengthKm}km — ${CLIMB_STRAVA_SEGMENTS[slug].fit}`}
+          >
+            View segment on Strava ↗
           </a>
         )}
         <button
