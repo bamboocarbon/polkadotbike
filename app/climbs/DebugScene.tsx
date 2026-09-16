@@ -19,7 +19,7 @@ import { useMemo, useRef, useEffect, useState, forwardRef, useImperativeHandle }
 import * as THREE from 'three';
 import { buildMorphGeometry, buildRibbonColors, smoothGradients, computeExaggeration, type RoutePoint } from '@/lib/climbs/morphGeometry';
 import { colourForGradient } from '@/lib/climbs/gradientColour';
-import { GPX_PARTIAL_CLIMB_SLUGS, GPX_PARTIAL_CLIMB_CAVEAT, GPX_UNAVAILABLE_CLIMB_SLUGS } from '@/lib/climbGpxCaveats';
+import { GPX_PARTIAL_CLIMB_SLUGS, GPX_PARTIAL_CLIMB_CAVEAT, GPX_UNAVAILABLE_CLIMB_SLUGS, GPX_2026_GRAND_TOUR_SLUGS } from '@/lib/climbGpxCaveats';
 import { CLIMB_STRAVA_SEGMENTS } from '@/lib/climbStravaSegments';
 import { trackGpxDownload } from '@/lib/trackGpxDownload';
 
@@ -1709,7 +1709,7 @@ export default function DebugScene({
   return (
     <div style={{ width: '100%', height: '100%', position: 'relative' }}>
       <div style={{ position: 'absolute', top: 10, right: 10, zIndex: 10, display: 'flex', gap: 8 }}>
-        {!GPX_UNAVAILABLE_CLIMB_SLUGS.has(slug) && (
+        {!GPX_UNAVAILABLE_CLIMB_SLUGS.has(slug) && !GPX_2026_GRAND_TOUR_SLUGS.has(slug) && (
           <a
             className="map-gpx-btn"
             href={`/api/gpx/${slug}`}
