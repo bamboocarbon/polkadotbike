@@ -769,12 +769,25 @@ function RouteHighlight({
   state,
   mapStyle,
   smoothWindowM,
+  highlightOffsetScale = 1,
 }: {
   rd: RouteData;
   slug: string;
   state: SceneState;
   mapStyle: MapStyle;
   smoothWindowM: number;
+  /** Multiplies the computed highlightOffset below — see its own comment.
+   *  Added for UCI Worlds Montréal 2026 (2026-09-18): its footprintScale
+   *  (5, like RPI) AND a 2x exaggerationMultiplier (like Chequamegon)
+   *  compound in that formula, producing a much bigger margin than either
+   *  page needed on its own — visibly floating the route line above the
+   *  terrain (Robin: "hovering in the air above the map"). Montréal's
+   *  terrain is gentle/urban (unlike RPI's rugged mountain grid cells the
+   *  formula was tuned against), so the real per-cell disagreement this
+   *  margin guards against is small here regardless of how large
+   *  `exaggeration` is — scaling it down is safe for this route without
+   *  touching the shared default other pages still rely on. */
+  highlightOffsetScale?: number;
 }) {
   const meta = useBasemapMeta(slug, rd.footprintScale);
   const terrain = useTerrainData(slug, rd.footprintScale, meta ? meta.terrainVersion ?? '' : null);
@@ -811,9 +824,9 @@ function RouteHighlight({
   const baseExaggeration = computeExaggeration(rd.lengthM, rd.totalAscentM);
   const exaggerationBoosted = rd.exaggeration > baseExaggeration + 0.01;
   const highlightOffset =
-    rd.footprintScale === DEFAULT_FOOTPRINT_SCALE && !exaggerationBoosted
+    (rd.footprintScale === DEFAULT_FOOTPRINT_SCALE && !exaggerationBoosted
       ? 15
-      : 15 * (rd.footprintScale / DEFAULT_FOOTPRINT_SCALE) * (rd.exaggeration / 3);
+      : 15 * (rd.footprintScale / DEFAULT_FOOTPRINT_SCALE) * (rd.exaggeration / 3)) * highlightOffsetScale;
   const points = useMemo(() => {
     if (state === 'C') return null;
     // Route (flat map) is no longer reachable via the UI (its button was
@@ -1604,6 +1617,7 @@ export default function DebugScene({
   playDurationS = DEFAULT_PLAY_DURATION_S,
   maxSmoothingM = DEFAULT_MAX_SMOOTHING_M,
   exaggerationMultiplier = 1,
+  highlightOffsetScale = 1,
   endLabel = 'Summit',
 }: {
   slug: string;
@@ -1631,6 +1645,11 @@ export default function DebugScene({
    *  small that even the 15x ceiling reads as flat. Defaults to 1 (a
    *  no-op) for every Grand Tour climb and RPI route. */
   exaggerationMultiplier?: number;
+  /** Multiplies RouteHighlight's own computed line-clearance margin — see
+   *  its own comment. Defaults to 1 (a no-op) for every existing page;
+   *  Montréal Worlds dials it down since its footprintScale+exaggeration
+   *  combination otherwise floats the line well clear of the terrain. */
+  highlightOffsetScale?: number;
   /** Word used for the route's final marker/altitude-line label (RouteMarkers'
    *  last km tick, WedgeAltitudeLines' end-of-ribbon label) — "Summit" reads
    *  wrong for a point-to-point/loop race that doesn't crest a mountain.
@@ -1817,7 +1836,7 @@ export default function DebugScene({
         <BasemapPlane slug={slug} visible={state === 'A' || (state === 'B' && mapStyle === 'flat')} footprintScale={footprintScale} />
         <TerrainMesh slug={slug} rd={rd} visible={state === 'B' && mapStyle === 'terrain'} />
         <TerrainSkirt slug={slug} rd={rd} visible={state === 'B' && mapStyle === 'terrain'} />
-        <RouteHighlight rd={rd} slug={slug} state={state} mapStyle={mapStyle} smoothWindowM={smoothWindowM} />
+        <RouteHighlight rd={rd} slug={slug} state={state} mapStyle={mapStyle} smoothWindowM={smoothWindowM} highlightOffsetScale={highlightOffsetScale} />
         <TerrainTravelMarker rd={rd} slug={slug} state={state} mapStyle={mapStyle} travelM={travelKm} />
         <PlanTravelMarker rd={rd} state={state} travelM={travelKm} />
         <RouteMarkers rd={rd} slug={slug} state={state} mapStyle={mapStyle} endLabel={endLabel} travelM={travelKm} />

@@ -60,6 +60,42 @@ const ROADBOOK_ANCHORS: Record<string, RoadbookAnchors> = {
   'cheq-40-pro': { startElevationM: 371, summitElevationM: 532, lengthKm: 62.81, ascentM: 913 },
   'cheq-40': { startElevationM: 368, summitElevationM: 532, lengthKm: 66.97, ascentM: 913 },
   'cheq-short-fat': { startElevationM: 416, summitElevationM: 501, lengthKm: 25.34, ascentM: 338 },
+  // UCI Road World Championships, Montréal, 20-27 Sept 2026
+  // (montreal2026.org/en/challenges) — Robin's own GPX exports, both
+  // already carrying real embedded per-point elevation, same precedent as
+  // RPI/Cheq below (anchors are this GPX's own first-point and global-max
+  // elevation, a no-op rescale, not an independently-sourced correction).
+  //
+  // montreal-worlds-tt: Robin's file is deliberately just the finishing
+  // climb of the 39.2km ITT course (shared by the Elite Men's and Women's
+  // time trials, both 20 Sept), not the whole route — "the only real
+  // climb" on that course per Robin. File is monotonic start-to-finish
+  // (21.5m -> 76.75m); the true global min (12.0m) sits fractionally
+  // before the first point, but per the standing convention for these
+  // deliberately-pre-trimmed non-Grand-Tour exports the file's own first
+  // point is used as-is rather than second-guessed. ascentM is this GPX's
+  // own naive cumulative-rise sum (84m); buildRoute()'s 75m-smoothing pass
+  // brings the built figure down to 70m (real GPS-noise reduction, same
+  // as every other route here) — anchor nudged toward that so the
+  // warn-threshold check doesn't fire on an expected smoothing delta.
+  'montreal-worlds-tt': { startElevationM: 22, summitElevationM: 77, lengthKm: 4.14, ascentM: 75 },
+  // montreal-worlds-circuit: the Mount Royal finishing circuit itself (a
+  // closed loop back to the same point, not a single ascent) — ridden 12
+  // times by the Elite Men (27 Sept) and 8 times by the Elite Women (26
+  // Sept), per the UCI's own course reveal (flobikes.com/articles/
+  // 16184384, checked 2026-09-18). Takes in Voie Camillien-Houde and the
+  // steep Chemin de la Polytechnique before finishing up the rising Avenue
+  // du Parc — a multi-summit lap like RPI/Cheq below, not one bottom-to-
+  // top climb, so same treatment: first-point/global-max anchors, no-op
+  // rescale. This GPX's own naive cumulative ascent (287m) corroborates
+  // the published "~269m of climbing per lap" figure closely (within 7%,
+  // expected given the different measurement methods) — used the GPX's
+  // own figure since, as with RPI/Cheq, the GPX here IS the roadbook.
+  // buildRoute()'s 75m-smoothing pass brings the built figure down to
+  // 261m (real GPS-noise reduction on rolling terrain, same as every
+  // other multi-summit route here) — anchor kept at the raw naive sum
+  // since it's only used for the warn-threshold check, not the output.
+  'montreal-worlds-circuit': { startElevationM: 75, summitElevationM: 214, lengthKm: 13.5, ascentM: 287 },
   // Rebecca's Private Idaho (rebeccasprivateidaho.com) — a one-day gravel
   // event with several distance options, not a Grand Tour mountain climb.
   // These GPX exports already carry real embedded per-point elevation

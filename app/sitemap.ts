@@ -3,6 +3,7 @@ import climbIndexData from '@/data/climb-index.json';
 import { hasRouteData } from '@/lib/climbRouteData';
 import { RPI_ROUTES } from '@/data/rpiRoutes';
 import { CHEQ_ROUTES } from '@/data/cheqRoutes';
+import { MONTREAL_WORLDS_ROUTES } from '@/data/montrealWorldsRoutes';
 
 const BASE = 'https://polkadotbike.com';
 
@@ -22,6 +23,7 @@ const STATIC_PATHS = [
   '/climbs',
   '/rebeccas-private-idaho',
   '/chequamegon',
+  '/uci-worlds-montreal-2026',
   '/about',
   '/guide',
   '/glossary',
@@ -76,5 +78,14 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 0.65,
   }));
 
-  return [...staticEntries, ...climbEntries, ...rpiEntries, ...cheqEntries];
+  // Indexable from the start — see app/uci-worlds-montreal-2026/page.tsx
+  // for why (event starts 20 Sept 2026, no local-only review window).
+  const montrealWorldsEntries: MetadataRoute.Sitemap = MONTREAL_WORLDS_ROUTES.map((r) => ({
+    url: `${BASE}/uci-worlds-montreal-2026/${r.slug}`,
+    lastModified: now,
+    changeFrequency: 'monthly',
+    priority: 0.65,
+  }));
+
+  return [...staticEntries, ...climbEntries, ...rpiEntries, ...cheqEntries, ...montrealWorldsEntries];
 }

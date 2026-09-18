@@ -21,6 +21,38 @@
    race.css's own comment on that). Give it an explicit height instead. */
 .rpi-stay-card .stay22-frame { height: 420px; }
 
+/* UCI Worlds Montréal 2026 route pages: Stay22 + BikesBookingCard side by
+   side, same layout as race pages' own .stay-row/.stay-col/.bike-hire-card
+   (components/race/race.css) — ported here rather than importing race.css
+   on a non-race page, matching this file's own "each page carries its own
+   copy" convention above. Rendered per-route (not once on an index page
+   like RPI) since Robin asked for both cards on the TT and RR pages
+   directly (2026-09-18). */
+.stay-row { display: grid; grid-template-columns: 1fr 260px; gap: 18px; align-items: stretch; }
+.stay-row .stay-card { margin-top: 0; display: flex; flex-direction: column; flex: 1; }
+.stay-col { display: flex; flex-direction: column; gap: 14px; height: 100%; }
+.bike-hire-card { display: flex; flex-direction: column; gap: 14px; }
+.stay22-frame { flex: 1; }
+@media (max-width: 900px) {
+  .stay-row { grid-template-columns: 1fr; }
+  .stay-row .stay-card { flex: none; }
+  .stay22-frame { flex: none; height: 340px; }
+}
+
+/* Montréal route pages only have BikesBookingCard in the right column (no
+   KiwiCard, Robin asked for bike hire specifically, not flights), and this
+   page has no 270px stage sidebar narrowing the main column the way race
+   pages do — both mean .stay-row's plain flex-stretch left the map too
+   wide/short here (a bar, not square). Capped to roughly the same box
+   size race pages render at instead (Robin: "match the size it was in
+   the tour and vuelta stages", 2026-09-18 — 850x495 matches what a Grand
+   Tour stage's own .stay-row measures at). */
+.mtl-stay-row { max-width: 850px; }
+.mtl-stay-row .stay22-frame { flex: none; height: 495px; }
+@media (max-width: 900px) {
+  .mtl-stay-row .stay22-frame { height: 340px; }
+}
+
 /* Rebecca's Private Idaho: BikesBookingCard + KiwiCard side by side as two
    smaller boxes instead of full-width stacked (Robin, 2026-08-31) — race
    pages keep their own stacked/stay-row layouts untouched. */
