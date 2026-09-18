@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
 import Footer from '@/components/Footer';
+import AADSUnit from '@/components/AADSUnit';
 import Stay22Embed from '@/components/affiliate/Stay22Embed';
 import BikesBookingCard from '@/components/affiliate/BikesBookingCard';
 import { MONTREAL_WORLDS_ROUTES, type MontrealWorldsRoute } from '@/data/montrealWorldsRoutes';
@@ -271,6 +272,8 @@ export default function MontrealWorldsPage() {
           Schedule via montreal2026.org. Circuit lap counts and climb names via the UCI&apos;s own course reveal.
         </p>
       </div>
+
+      <AADSUnit />
 
       <Footer
         attribution="Polka Dot Bike — 3D route visualiser. Terrain and gradient are indicative."
