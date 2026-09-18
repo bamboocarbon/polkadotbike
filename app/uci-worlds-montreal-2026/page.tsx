@@ -1,9 +1,21 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
 import Footer from '@/components/Footer';
+import Stay22Embed from '@/components/affiliate/Stay22Embed';
+import BikesBookingCard from '@/components/affiliate/BikesBookingCard';
 import { MONTREAL_WORLDS_ROUTES, type MontrealWorldsRoute } from '@/data/montrealWorldsRoutes';
 import '@/components/climb/climb.css';
 import '@/components/climbs/climbs-index.css';
+import '@/components/affiliate/affiliate.css';
+
+// Robin's own Stay22 Hub link for Montréal, 2026-09-18 — same
+// letmeallez/lmaID partner account as every other Stay22 embed on the
+// site (see data/stay22.json / RpiRouteDetailClient.tsx's RPI_STAY22_SRC).
+// Lives on the hub page, not per-route — moved off the TT/RR pages
+// 2026-09-18 (Robin: "move the stay22 and bike hire... below the rr
+// categorys box") — one stay/bike-hire section for the whole event reads
+// better than a duplicate on both route pages.
+const MONTREAL_STAY22_SRC = 'https://www.stay22.com/embed/6aadab8c45261ada6ba406a1';
 
 const SITE = 'https://polkadotbike.com';
 const PAGE_URL = `${SITE}/uci-worlds-montreal-2026`;
@@ -242,6 +254,18 @@ export default function MontrealWorldsPage() {
           Every road race finishes on the same 13.4km Mount Royal circuit featured in 3D below — each category&apos;s
           own published distance divides out exactly to its lap count above.
         </p>
+
+        <div className="stay-row mtl-stay-row" style={{ marginTop: 24 }}>
+          <div className="stay-col">
+            <div className="stage-header glass stay-card">
+              <div className="stay-card-title">🏨 Where to stay in Montréal</div>
+              <Stay22Embed src={MONTREAL_STAY22_SRC} />
+            </div>
+          </div>
+          <div className="bike-hire-card">
+            <BikesBookingCard blurb="Riding either course yourself, or just want wheels while you're in Montréal? Compare rental rates worldwide." />
+          </div>
+        </div>
 
         <p style={{ fontSize: 11, color: 'var(--muted)', textAlign: 'center', marginTop: 24 }}>
           Schedule via montreal2026.org. Circuit lap counts and climb names via the UCI&apos;s own course reveal.

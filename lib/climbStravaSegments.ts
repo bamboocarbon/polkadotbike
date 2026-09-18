@@ -158,4 +158,20 @@ export const CLIMB_STRAVA_SEGMENTS: Record<string, ClimbStravaSegment> = {
   'puerto-el-remolcador': { id: 9190390, lengthKm: 14.78, fit: 'Close match' },
   'sierra-de-la-pandera': { id: 15910681, lengthKm: 8.23, fit: 'Partial — covers the top ~66%' },
   'venta-de-la-cebada': { id: 4161785, lengthKm: 7.43, fit: 'Exact match' },
+
+  // UCI Worlds Montréal 2026 — found/verified via Claude in Chrome in a
+  // real logged-in Strava session, 2026-09-18 (this page's own route is a
+  // custom closed-road course, not something regular riders log as a
+  // whole, so the usual public-search-then-verify approach didn't apply
+  // here). The two candidates found by plain web search first (segment
+  // IDs 638378 and 32791013) turned out to be dead/wrong once checked
+  // logged-in — replaced with the real current segment below. No segment
+  // covers the TT climb (montreal-worlds-tt) or the full 13.5km RR
+  // circuit lap itself — only this named climb feature within the lap.
+  'montreal-worlds-circuit': {
+    id: 37991154,
+    name: 'Camillien-Houde after median',
+    lengthKm: 1.59,
+    fit: 'Exact match for the Camillien-Houde climb only — a short segment partway round this 13.5km lap, not the full circuit',
+  },
 };

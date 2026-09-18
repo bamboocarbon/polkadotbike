@@ -1728,17 +1728,10 @@ export default function DebugScene({
   return (
     <div style={{ width: '100%', height: '100%', position: 'relative' }}>
       <div style={{ position: 'absolute', top: 10, right: 10, zIndex: 10, display: 'flex', gap: 8 }}>
-        {!GPX_UNAVAILABLE_CLIMB_SLUGS.has(slug) && !GPX_2026_GRAND_TOUR_SLUGS.has(slug) && (
-          <a
-            className="map-gpx-btn"
-            href={`/api/gpx/${slug}`}
-            download
-            onClick={() => trackGpxDownload(slug)}
-            title={GPX_PARTIAL_CLIMB_SLUGS.has(slug) ? GPX_PARTIAL_CLIMB_CAVEAT : undefined}
-          >
-            Download GPX
-          </a>
-        )}
+        {/* Strava link before Download GPX (Robin, 2026-09-18, re Montréal's
+            Camillien-Houde link — applies to every climb with a Strava
+            segment, not just this one, since both buttons share this one
+            control row). */}
         {CLIMB_STRAVA_SEGMENTS[slug] && (() => {
           const seg = CLIMB_STRAVA_SEGMENTS[slug];
           const label = seg.name ? `${seg.name}, ${seg.lengthKm}km` : `${seg.lengthKm}km segment`;
@@ -1754,6 +1747,17 @@ export default function DebugScene({
             </a>
           );
         })()}
+        {!GPX_UNAVAILABLE_CLIMB_SLUGS.has(slug) && !GPX_2026_GRAND_TOUR_SLUGS.has(slug) && (
+          <a
+            className="map-gpx-btn"
+            href={`/api/gpx/${slug}`}
+            download
+            onClick={() => trackGpxDownload(slug)}
+            title={GPX_PARTIAL_CLIMB_SLUGS.has(slug) ? GPX_PARTIAL_CLIMB_CAVEAT : undefined}
+          >
+            Download GPX
+          </a>
+        )}
         <button
           onClick={() => controlsRef.current?.resetView()}
           style={{ padding: '8px 16px', background: '#555', color: '#fff', border: 'none', borderRadius: 6, cursor: 'pointer' }}

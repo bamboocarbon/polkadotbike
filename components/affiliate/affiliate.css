@@ -21,13 +21,15 @@
    race.css's own comment on that). Give it an explicit height instead. */
 .rpi-stay-card .stay22-frame { height: 420px; }
 
-/* UCI Worlds Montréal 2026 route pages: Stay22 + BikesBookingCard side by
-   side, same layout as race pages' own .stay-row/.stay-col/.bike-hire-card
+/* UCI Worlds Montréal 2026: Stay22 + BikesBookingCard side by side, same
+   layout as race pages' own .stay-row/.stay-col/.bike-hire-card
    (components/race/race.css) — ported here rather than importing race.css
    on a non-race page, matching this file's own "each page carries its own
-   copy" convention above. Rendered per-route (not once on an index page
-   like RPI) since Robin asked for both cards on the TT and RR pages
-   directly (2026-09-18). */
+   copy" convention above. Lives on the hub page (app/uci-worlds-
+   montreal-2026/page.tsx), below the Road Races table — briefly rendered
+   per-route (both TT and RR pages) instead, moved to the hub 2026-09-18
+   (Robin: one stay/bike-hire section for the whole event reads better
+   than a duplicate on both route pages). */
 .stay-row { display: grid; grid-template-columns: 1fr 260px; gap: 18px; align-items: stretch; }
 .stay-row .stay-card { margin-top: 0; display: flex; flex-direction: column; flex: 1; }
 .stay-col { display: flex; flex-direction: column; gap: 14px; height: 100%; }

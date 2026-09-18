@@ -12,19 +12,19 @@
  * kbf lookups) — that depends on Grand Tour stage data these routes don't
  * have, same as RPI/Cheq.
  *
- * BuyCard (Performance Bicycle affiliate), the Stay22 hotel embed,
- * BikesBookingCard (bike hire) and AADSUnit all render unconditionally, no
- * feature-flag gating — unlike RPI's initial RPI_AFFILIATES_ENABLED
- * caution (a small third-party event organiser relationship question),
- * this is the UCI's own official public World Championship, and Robin
- * asked for all of these explicitly (2026-09-18). Stay22/BikesBookingCard
- * are rendered per-route here (both TT and RR pages) in race pages' own
- * .stay-row layout (ported into affiliate.css, not imported from
- * race.css) — unlike RPI, where Stay22 is once on the index page and
- * BikesBookingCard is a separate row on each route page. Montréal's own
- * Stay22 Hub link (2026-09-18), not the RPI/Ketchum one. KiwiCard
- * (flights) is NOT here — Robin asked for bike hire specifically, not
- * flights.
+ * BuyCard (Performance Bicycle affiliate) and AADSUnit render
+ * unconditionally, no feature-flag gating — unlike RPI's initial
+ * RPI_AFFILIATES_ENABLED caution (a small third-party event organiser
+ * relationship question), this is the UCI's own official public World
+ * Championship, and Robin asked for the buy card explicitly (2026-09-18).
+ * Stay22 (hotel embed) + BikesBookingCard (bike hire) briefly lived here
+ * per-route (both TT and RR pages) but were moved to the hub page
+ * (app/uci-worlds-montreal-2026/page.tsx, below the Road Races table)
+ * 2026-09-18 — one stay/bike-hire section for the whole event reads
+ * better than a duplicate on both route pages, closer to RPI's own
+ * once-on-the-index-page pattern than Grand Tour race pages' per-stage
+ * one. KiwiCard (flights) was never added — Robin asked for bike hire
+ * specifically, not flights.
  */
 import dynamic from 'next/dynamic';
 import { useEffect, useMemo, useState } from 'react';
@@ -35,22 +35,19 @@ import AchievabilityCards from '@/components/climb/AchievabilityCards';
 import ClimbConfigPanel from '@/components/climb/ClimbConfigPanel';
 import PersonalisedClimbReport from '@/components/climb/PersonalisedClimbReport';
 import BuyCard from '@/components/climb/BuyCard';
-import Stay22Embed from '@/components/affiliate/Stay22Embed';
-import BikesBookingCard from '@/components/affiliate/BikesBookingCard';
+import { CLIMB_STRAVA_SEGMENTS } from '@/lib/climbStravaSegments';
 import { computeClimbGears, computeBuyInfo } from '@/lib/climbGearCalc';
 import { ClimbCalcState, defaultClimbState, initClimbStateFromShared, BRAND_LABELS } from '@/lib/climbCalcState';
 import { readSharedSetup, writeSharedSetup } from '@/lib/sharedSetup';
 import { lbsToKg } from '@/lib/units';
 import type { MontrealWorldsRoute } from '@/data/montrealWorldsRoutes';
 import '@/components/climb/climb.css';
+// Only needed here for .rpi-affiliate-row (the statsCard/BuyCard side-by-
+// side grid below) — Stay22Embed/BikesBookingCard themselves moved to the
+// hub page 2026-09-18, but this file still needs the grid class.
 import '@/components/affiliate/affiliate.css';
 
 const DebugScene = dynamic(() => import('@/app/climbs/DebugScene'), { ssr: false });
-
-// Robin's own Stay22 Hub link for Montréal, 2026-09-18 — same
-// letmeallez/lmaID partner account as every other Stay22 embed on the
-// site (see data/stay22.json / RpiRouteDetailClient.tsx's RPI_STAY22_SRC).
-const MONTREAL_STAY22_SRC = 'https://www.stay22.com/embed/6aadab8c45261ada6ba406a1';
 
 // Wider than the Grand Tour default (2) — the circuit's low average
 // gradient over a longer distance (13.5km, multi-summit) pushes
@@ -172,6 +169,13 @@ export default function MontrealWorldsRouteDetailClient({ route }: { route: Mont
         <p className="climb-summary">{route.blurb}</p>
         <p style={{ fontSize: 13, color: 'var(--muted)', marginTop: -8, marginBottom: 18, textAlign: 'center' }}>{route.eventLabel}</p>
         <PersonalisedClimbReport slug={route.slug} S={S} gears={gears} />
+        {CLIMB_STRAVA_SEGMENTS[route.slug] && (
+          <p style={{ fontSize: 12, color: 'var(--muted)', textAlign: 'center', marginTop: 14, marginBottom: 24 }}>
+            The Strava link in the top right of the map below is just the {CLIMB_STRAVA_SEGMENTS[route.slug].lengthKm}km{' '}
+            {CLIMB_STRAVA_SEGMENTS[route.slug].name ?? 'climb'} segment — a short section of this {route.lengthKm}km
+            lap, not the whole circuit.
+          </p>
+        )}
       </div>
 
       <div className="container" style={{ maxWidth: 1400 }}>
@@ -265,20 +269,6 @@ export default function MontrealWorldsRouteDetailClient({ route }: { route: Mont
                 </p>
               </div>
             )}
-          </div>
-        </div>
-      </div>
-
-      <div className="container" style={{ maxWidth: 1400 }}>
-        <div className="stay-row mtl-stay-row">
-          <div className="stay-col">
-            <div className="stage-header glass stay-card">
-              <div className="stay-card-title">🏨 Where to stay in Montréal</div>
-              <Stay22Embed src={MONTREAL_STAY22_SRC} />
-            </div>
-          </div>
-          <div className="bike-hire-card">
-            <BikesBookingCard blurb="Riding the route yourself, or just want wheels while you're in Montréal? Compare rental rates worldwide." />
           </div>
         </div>
       </div>
