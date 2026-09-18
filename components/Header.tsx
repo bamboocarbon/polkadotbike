@@ -18,7 +18,6 @@ const NAV_ROW_1: { href: string; label: ReactNode }[] = [
 const NAV_ROW_2: { href: string; label: ReactNode }[] = [
   { href: '/climbs', label: 'Climbs' },
   { href: '/uci-worlds-montreal-2026', label: <>UCI Worlds<br />2026</> },
-  { href: '/tour-de-france-2027', label: 'TDF 2027' },
   { href: '/giro26', label: 'Giro 2026' },
   { href: '/tdf', label: 'TDF 2026' },
   { href: '/vuelta', label: 'Vuelta 2026' },
