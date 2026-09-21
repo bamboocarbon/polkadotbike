@@ -59,7 +59,31 @@ const NS = 'pdb:pv';
 //   same day points to one shared bot/prefetch service with a hardcoded
 //   fake UA, not organic traffic. Matched on the exact OS+Safari-version
 //   combination so it can't collide with any real visitor's UA.
-const BOT_UA = /bot|spider|crawl|slurp|facebookexternalhit|meta-externalagent|headless|lighthouse|pingdom|uptimerobot|monitor|preview|whatsapp|telegrambot|discordbot|google-inspectiontool|googleother|barkrowler|curl\/|wget\/|python-requests|python-urllib|go-http-client|okhttp|axios\/|node-fetch|postmanruntime|libwww-perl|apache-httpclient|guzzlehttp|insomnia|http\.rb|get_titles|forestengine|networkingextension|crusader-worker|appengine-google|chrome\/[\d.]+ safari\/604\.1|iphone os 13_2_3.*version\/13\.0\.3/i;
+//
+// 2026-09-21, fifth widening (ported from the same fix on
+// digital-credit-yield — Robin asked why our counter still runs well ahead
+// of Vercel Web Analytics; read the recentUAs sample directly on both
+// sites). Found:
+// - `panscient` — Panscient's commercial company-data crawler, undisguised.
+// - `WP-Safe-Scanner`, `CensysInspect`, `domain-harvester`, `NoMoreVibe` —
+//   plainly-named scanners/crawlers, none containing bot/spider/crawl.
+// - UAs literally starting with the string `User-Agent:` — a broken
+//   scraper that pasted the header name into its own value; no real
+//   browser's UA can begin with that.
+// - A bare `Windows NT 10.0)` with no `Win64; x64` / `WOW64` token before
+//   the closing paren — every real Chrome/Edge build includes one of those;
+//   this exact string hit every single page on both sites within 800ms
+//   (18:49:47.4-48.3, same UTC second on both), an unmistakable full-site
+//   crawl, not a person.
+// - Chrome majors below 90 (Chrome 90 shipped Apr 2021): Chrome auto-updates
+//   continuously, so five-plus-year-old majors in 2026 traffic are a long
+//   tail of one-off values from a rotated fake-UA pool, not real browsers
+//   that simply haven't updated. Excludes WeChat's embedded browser
+//   (MicroMessenger/Weixin/XWEB) — its bundled Chromium kernel genuinely
+//   reports old Chrome majors on current phones; one such UA was in this
+//   same sample, so this is a confirmed false-positive risk, not a
+//   hypothetical one.
+const BOT_UA = /bot|spider|crawl|slurp|facebookexternalhit|meta-externalagent|headless|lighthouse|pingdom|uptimerobot|monitor|preview|whatsapp|telegrambot|discordbot|google-inspectiontool|googleother|barkrowler|curl\/|wget\/|python-requests|python-urllib|go-http-client|okhttp|axios\/|node-fetch|postmanruntime|libwww-perl|apache-httpclient|guzzlehttp|insomnia|http\.rb|get_titles|forestengine|networkingextension|crusader-worker|appengine-google|chrome\/[\d.]+ safari\/604\.1|iphone os 13_2_3.*version\/13\.0\.3|panscient|wp-safe-scanner|censysinspect|domain-harvester|nomorevibe|^user-agent:|windows nt 10\.0\) applewebkit|^(?!.*(?:micromessenger|weixin|xweb)).*chrome\/(?:[0-9]|[1-8][0-9])\./i;
 
 // A different bot class UA filtering can never catch: these self-identify
 // by hitting a PATH that isn't a real route on this site at all, often with
