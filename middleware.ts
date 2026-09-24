@@ -130,6 +130,68 @@ function regionFor(request: NextRequest): 'regulated' | 'open' {
   return REGULATED_COUNTRIES.has(country.toUpperCase()) ? 'regulated' : 'open';
 }
 
+// 2026-09-24 (ported from the same fix on digital-credit-yield) — a
+// UA-string blocklist can't keep up with this class of bot: DCY's daily
+// email showed it at ~390 pageviews/day with no matching rise in Vercel Web
+// Analytics. The recentUAs sample there showed why — four fixed, plausible,
+// current-version UAs (Mac Chrome/142, Mac Chrome/148, Windows Chrome/124,
+// Android Chrome/114) each swept nearly every page on the site within about
+// a second, repeating every 10-40 minutes around the clock — 83% of one
+// day's recorded events there. None self-identify or look fake
+// individually, so nothing in BOT_UA can catch them, and rotating through a
+// bigger UA pool defeats a blocklist by design. Vercel Analytics never saw
+// it because it's a client-side beacon — a scraper fetching raw HTML with a
+// spoofed UA never executes the page's JS to fire it. This site has been
+// hit by the same shared bot UAs as DCY before (see the 2026-08-31/09-02
+// widenings above), so the same gap is assumed here even without its own
+// email flagging it yet.
+//
+// The reliable signal is behavioural, not the UA string: a real visitor
+// never opens several distinct pages inside the same few seconds. Counted
+// per client IP (`x-forwarded-for` is Vercel's edge-network header for the
+// client's address, same pattern as `x-vercel-ip-country` above) with a
+// short Redis TTL — not stored anywhere else, consistent with this file's
+// no-cookie/no-per-visitor-ID design. This only stops counting a client's
+// pageviews once it's swept past a threshold no human reaches; it never
+// blocks the request — the page is still served normally either way, this
+// only corrects what lands in the reports.
+const BURST_WINDOW_SECONDS = 3;
+const BURST_ALLOWANCE = 4;
+
+function clientIp(request: NextRequest): string {
+  const forwardedFor = request.headers.get('x-forwarded-for');
+  if (forwardedFor) return forwardedFor.split(',')[0].trim();
+  return request.headers.get('x-real-ip') || 'unknown';
+}
+
+async function recordPageview(encoded: string, ip: string, ua: string): Promise<void> {
+  const burstKey = `${NS}:burst:${ip}`;
+  const hitsInWindow = await redis.incr(burstKey);
+  if (hitsInWindow === 1) await redis.expire(burstKey, BURST_WINDOW_SECONDS);
+  // Past the allowance for this window — a full-site sweep, not a person.
+  if (hitsInWindow > BURST_ALLOWANCE) return;
+
+  const now = new Date();
+  const day = now.toISOString().slice(0, 10);
+  const month = day.slice(0, 7);
+  await redis
+    .pipeline()
+    .incr(`${NS}:day:${day}`)
+    .incr(`${NS}:month:${month}`)
+    .sadd(`${NS}:months`, month)
+    .hincrby(`${NS}:paths`, encoded, 1)
+    .incr(`${NS}:total`)
+    // Bounded rolling sample of the last 500 events (timestamp, path,
+    // UA) — replaces the old per-event-forever log that caused the
+    // quota problem, while keeping the ability to diagnose a new bot
+    // pattern from real data (the method that caught GoogleOther,
+    // crusader-worker, ForestEngine, the stale-iOS UA, etc. in past
+    // sessions) without unbounded growth.
+    .lpush(`${NS}:recentUAs`, `${now.toISOString()}\t${encoded}\t${ua}`)
+    .ltrim(`${NS}:recentUAs`, 0, 499)
+    .exec();
+}
+
 /**
  * Increments day/month/path/total counters in Redis on every real page
  * load — no cookies, no per-visitor ID, so it isn't gated by cookie consent
@@ -172,28 +234,7 @@ export function middleware(request: NextRequest, event: NextFetchEvent) {
   // reliable bot signal, not just "unknown".
   if (ua && !BOT_UA.test(ua) && !SCAN_PATH.test(request.nextUrl.pathname)) {
     const encoded = encodePath(request.nextUrl.pathname);
-    const now = new Date();
-    const day = now.toISOString().slice(0, 10);
-    const month = day.slice(0, 7);
-    event.waitUntil(
-      redis
-        .pipeline()
-        .incr(`${NS}:day:${day}`)
-        .incr(`${NS}:month:${month}`)
-        .sadd(`${NS}:months`, month)
-        .hincrby(`${NS}:paths`, encoded, 1)
-        .incr(`${NS}:total`)
-        // Bounded rolling sample of the last 500 events (timestamp, path,
-        // UA) — replaces the old per-event-forever log that caused the
-        // quota problem, while keeping the ability to diagnose a new bot
-        // pattern from real data (the method that caught GoogleOther,
-        // crusader-worker, ForestEngine, the stale-iOS UA, etc. in past
-        // sessions) without unbounded growth.
-        .lpush(`${NS}:recentUAs`, `${now.toISOString()}\t${encoded}\t${ua}`)
-        .ltrim(`${NS}:recentUAs`, 0, 499)
-        .exec()
-        .catch(() => {})
-    );
+    event.waitUntil(recordPageview(encoded, clientIp(request), ua).catch(() => {}));
   }
   return response;
 }
