@@ -21,6 +21,7 @@ const NAV_ROW_2: { href: string; label: ReactNode }[] = [
   { href: '/giro26', label: 'Giro 2026' },
   { href: '/tdf', label: 'TDF 2026' },
   { href: '/vuelta', label: 'Vuelta 2026' },
+  { href: '/tour-de-france-2027', label: 'TDF 2027' },
   { href: '/about', label: 'About' },
   { href: '/guide', label: 'Guide' },
   { href: '/glossary', label: 'Glossary' },
