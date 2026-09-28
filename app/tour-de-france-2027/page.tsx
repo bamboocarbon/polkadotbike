@@ -201,12 +201,21 @@ function buildJsonLd() {
       eventAttendanceMode: 'https://schema.org/OfflineEventAttendanceMode',
       location: { '@type': 'Place', name: 'United Kingdom' },
       organizer: { '@type': 'Organization', name: 'Amaury Sport Organisation (ASO)' },
+      image: 'https://polkadotbike.com/og-card-tdf-red.png',
+      // No `offers`/`performer` — this is free roadside viewing with no
+      // ticketing and no single fixed "performer", so neither field
+      // legitimately applies (not fabricating values just to silence the
+      // validator's optional-field warnings).
       subEvent: STAGES.map((s) => ({
         '@type': 'SportsEvent',
         name: `2027 Tour de France — Stage ${s.num}: ${s.start} to ${s.finish}`,
         description: `${s.dateLabel} · ${s.start} to ${s.finish}, ${s.dist}km, ${s.terrain.toLowerCase()}.`,
         startDate: s.date,
+        // Single-day stage — end date is the same calendar day as the start.
+        endDate: s.date,
         eventStatus: 'https://schema.org/EventScheduled',
+        organizer: { '@type': 'Organization', name: 'Amaury Sport Organisation (ASO)' },
+        image: 'https://polkadotbike.com/og-card-tdf-red.png',
         location: {
           '@type': 'Place',
           name: s.finish,
