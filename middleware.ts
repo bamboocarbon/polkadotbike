@@ -164,6 +164,17 @@ function clientIp(request: NextRequest): string {
   return request.headers.get('x-real-ip') || 'unknown';
 }
 
+// 2026-09-30 (same change as digital-credit-yield's proxy.js) — Robin's own
+// visits (home router, from phone/iPad/computer) shouldn't count.
+// Comma-separated client IPs in the PV_EXCLUDE_IPS Vercel env var — an env
+// var and not a constant because this repo is public. Matches the same
+// client IP the burst check above uses. Only works while Robin is on that
+// network; mobile data / other wifi still counts. If the home ISP rotates
+// the address, update the env var and redeploy.
+const EXCLUDED_IPS = new Set(
+  (process.env.PV_EXCLUDE_IPS || '').split(',').map((s) => s.trim()).filter(Boolean),
+);
+
 async function recordPageview(encoded: string, ip: string, ua: string): Promise<void> {
   const burstKey = `${NS}:burst:${ip}`;
   const hitsInWindow = await redis.incr(burstKey);
@@ -232,9 +243,10 @@ export function middleware(request: NextRequest, event: NextFetchEvent) {
   const ua = request.headers.get('user-agent') || '';
   // A real browser always sends a User-Agent — a blank one is itself a
   // reliable bot signal, not just "unknown".
-  if (ua && !BOT_UA.test(ua) && !SCAN_PATH.test(request.nextUrl.pathname)) {
+  const ip = clientIp(request);
+  if (ua && !EXCLUDED_IPS.has(ip) && !BOT_UA.test(ua) && !SCAN_PATH.test(request.nextUrl.pathname)) {
     const encoded = encodePath(request.nextUrl.pathname);
-    event.waitUntil(recordPageview(encoded, clientIp(request), ua).catch(() => {}));
+    event.waitUntil(recordPageview(encoded, ip, ua).catch(() => {}));
   }
   return response;
 }
