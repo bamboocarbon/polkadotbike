@@ -159,6 +159,14 @@ const BURST_WINDOW_SECONDS = 3;
 const BURST_ALLOWANCE = 4;
 
 function clientIp(request: NextRequest): string {
+  // polkadotbike.com is proxied through Cloudflare (orange cloud), so
+  // `x-forwarded-for` is Cloudflare's edge IP, shared by many visitors —
+  // not the visitor's. Cloudflare puts the real client address in
+  // `cf-connecting-ip`. (digital-credit-yield is not proxied, so its
+  // proxy.js doesn't need this.) Found 2026-09-30 when the PV_EXCLUDE_IPS
+  // exclusion below didn't match Robin's own home IP here.
+  const cfIp = request.headers.get('cf-connecting-ip');
+  if (cfIp) return cfIp.trim();
   const forwardedFor = request.headers.get('x-forwarded-for');
   if (forwardedFor) return forwardedFor.split(',')[0].trim();
   return request.headers.get('x-real-ip') || 'unknown';
