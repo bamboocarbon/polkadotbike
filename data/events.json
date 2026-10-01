@@ -1744,9 +1744,18 @@
       ],
       "angle": "Closes the loop on the September and October posts. Pair with an indoor-training piece — your audience is on a trainer that week anyway.",
       "postWindow": "Sat 12 Dec, plus an indoor training guide the Monday before",
-      "lastVerifiedAt": "2026-08-29",
-      "verifiedBy": "seed",
-      "reviewLog": []
+      "lastVerifiedAt": "2026-10-01",
+      "verifiedBy": "review-2m",
+      "reviewLog": [
+        {
+          "runId": "2026-10-01-2m",
+          "checkedAt": "2026-10-01",
+          "horizon": "2m",
+          "outcome": "confirmed",
+          "changes": [],
+          "note": "UCI press release confirms the final remains 12 December 2026 across two venues (North America and Europe) on MyWhoosh."
+        }
+      ]
     },
     {
       "id": "cx-world-cup-r3-glasgow",
@@ -1779,9 +1788,18 @@
       ],
       "angle": "The UK cycling story of December, and free to attend. Search volume will spike with almost no competition for it yet — build the preview page early.",
       "postWindow": "Preview live by Mon 7 Dec; posts on the day Sun 13 Dec",
-      "lastVerifiedAt": "2026-08-29",
-      "verifiedBy": "seed",
-      "reviewLog": []
+      "lastVerifiedAt": "2026-10-01",
+      "verifiedBy": "review-2m",
+      "reviewLog": [
+        {
+          "runId": "2026-10-01-2m",
+          "checkedAt": "2026-10-01",
+          "horizon": "2m",
+          "outcome": "confirmed",
+          "changes": [],
+          "note": "Confirmed for Sun 13 Dec 2026 at Kelvingrove Park by British Cycling, Scottish Cycling and Cycling Weekly coverage."
+        }
+      ]
     },
     {
       "id": "cx-world-cup-r4-antwerp",
@@ -1813,9 +1831,18 @@
       ],
       "angle": "The Christmas block starts here — six rounds in nine days. Batch and schedule all of them before the 18th.",
       "postWindow": "Sat 19 Dec",
-      "lastVerifiedAt": "2026-08-29",
-      "verifiedBy": "seed",
-      "reviewLog": []
+      "lastVerifiedAt": "2026-10-01",
+      "verifiedBy": "review-2m",
+      "reviewLog": [
+        {
+          "runId": "2026-10-01-2m",
+          "checkedAt": "2026-10-01",
+          "horizon": "2m",
+          "outcome": "confirmed",
+          "changes": [],
+          "note": "Confirmed for Sat 19 Dec 2026 (Scheldecross) on the published 2026-27 UCI Cyclo-cross World Cup calendar."
+        }
+      ]
     },
     {
       "id": "cx-world-cup-r5-koksijde",
@@ -1847,9 +1874,18 @@
       ],
       "angle": "Sand riding technique. Most visually distinctive round of the series.",
       "postWindow": "Sun 20 Dec",
-      "lastVerifiedAt": "2026-08-29",
-      "verifiedBy": "seed",
-      "reviewLog": []
+      "lastVerifiedAt": "2026-10-01",
+      "verifiedBy": "review-2m",
+      "reviewLog": [
+        {
+          "runId": "2026-10-01-2m",
+          "checkedAt": "2026-10-01",
+          "horizon": "2m",
+          "outcome": "confirmed",
+          "changes": [],
+          "note": "Confirmed for Sun 20 Dec 2026 (Duinencross) on the published 2026-27 UCI Cyclo-cross World Cup calendar."
+        }
+      ]
     },
     {
       "id": "rapha-festive-500",
@@ -1880,9 +1916,18 @@
       ],
       "angle": "Highest-engagement week of the winter and it costs nothing to enter. Publish a planning tool: 500km split into eight rides, with gearing and winter-kit checklists.",
       "postWindow": "Planning post Mon 21 Dec; daily posts 24–31 Dec",
-      "lastVerifiedAt": "2026-08-29",
-      "verifiedBy": "seed",
-      "reviewLog": []
+      "lastVerifiedAt": "2026-10-01",
+      "verifiedBy": "review-2m",
+      "reviewLog": [
+        {
+          "runId": "2026-10-01-2m",
+          "checkedAt": "2026-10-01",
+          "horizon": "2m",
+          "outcome": "confirmed",
+          "changes": [],
+          "note": "Festive 500 runs every year 24-31 Dec by definition; confirmed unchanged for 2026."
+        }
+      ]
     },
     {
       "id": "cx-world-cup-r6-gavere",
@@ -1914,9 +1959,18 @@
       ],
       "angle": "Boxing Day is dead for most publishers and alive for cycling. Scheduled posts do well.",
       "postWindow": "Sat 26 Dec, scheduled in advance",
-      "lastVerifiedAt": "2026-08-29",
-      "verifiedBy": "seed",
-      "reviewLog": []
+      "lastVerifiedAt": "2026-10-01",
+      "verifiedBy": "review-2m",
+      "reviewLog": [
+        {
+          "runId": "2026-10-01-2m",
+          "checkedAt": "2026-10-01",
+          "horizon": "2m",
+          "outcome": "confirmed",
+          "changes": [],
+          "note": "Confirmed for Sat 26 Dec 2026 on the published 2026-27 UCI Cyclo-cross World Cup calendar."
+        }
+      ]
     },
     {
       "id": "cx-world-cup-r7-namur",
@@ -1948,9 +2002,18 @@
       ],
       "angle": "Steepest course of the series. Genuinely good gradient content in a discipline nobody applies it to.",
       "postWindow": "Sun 27 Dec",
-      "lastVerifiedAt": "2026-08-29",
-      "verifiedBy": "seed",
-      "reviewLog": []
+      "lastVerifiedAt": "2026-10-01",
+      "verifiedBy": "review-2m",
+      "reviewLog": [
+        {
+          "runId": "2026-10-01-2m",
+          "checkedAt": "2026-10-01",
+          "horizon": "2m",
+          "outcome": "confirmed",
+          "changes": [],
+          "note": "Confirmed for Sun 27 Dec 2026 (Citadelcross) on the published 2026-27 UCI Cyclo-cross World Cup calendar."
+        }
+      ]
     },
     {
       "id": "cx-world-cup-r8-besancon",
@@ -1982,9 +2045,18 @@
       ],
       "angle": "Year-end wrap. Link it to the Festive 500 posts and your 2027 preview.",
       "postWindow": "Tue 29 Dec, then the year in review on 31 Dec",
-      "lastVerifiedAt": "2026-08-29",
-      "verifiedBy": "seed",
-      "reviewLog": []
+      "lastVerifiedAt": "2026-10-01",
+      "verifiedBy": "review-2m",
+      "reviewLog": [
+        {
+          "runId": "2026-10-01-2m",
+          "checkedAt": "2026-10-01",
+          "horizon": "2m",
+          "outcome": "confirmed",
+          "changes": [],
+          "note": "Confirmed for Tue 29 Dec 2026 on the published 2026-27 UCI Cyclo-cross World Cup calendar."
+        }
+      ]
     },
     {
       "id": "uae-tour",
@@ -2629,6 +2701,246 @@
         }
       ],
       "priorityRationale": "Good UK participation fit but small-scale and still date-unconfirmed — worth a mention only if the week is otherwise thin."
+    },
+    {
+      "id": "paris-roubaix-2027",
+      "name": "Paris-Roubaix 2027",
+      "category": "road",
+      "audience": [
+        "watch"
+      ],
+      "priority": 1,
+      "start": "2027-04-11",
+      "end": "2027-04-11",
+      "dateConfidence": "confirmed",
+      "country": "FR",
+      "place": "Compiègne to the Roubaix Velodrome, France — full pavé sector set including Arenberg, Mons-en-Pévèle and Carrefour de l'Arbre",
+      "officialUrl": null,
+      "sourceUrls": [
+        "https://www.cyclingnews.com/pro-cycling/racing/uci-reveals-2027-worldtour-racing-calendars-with-super-world-championships-in-france-forcing-changes/",
+        "https://www.granfondoguide.com/Events/Index/5996/2027-paris-roubaix"
+      ],
+      "handles": {
+        "instagram": null,
+        "x": null
+      },
+      "handleConfidence": "none",
+      "hashtags": [],
+      "angle": "Pair race-day coverage with a pavé gearing and tyre-pressure piece built on the gear ratio calculator — wide-tyre, low-pressure setups for cobbles are a recurring reader question every April — and link a Roubaix velodrome day-trip guide through the Stay22 affiliate widget for UK readers planning to go.",
+      "postWindow": "Gearing/tyre piece by Fri 9 Apr; preview Sun 11 Apr morning; live race-day notes Sun 11 Apr.",
+      "lastVerifiedAt": "2026-10-01",
+      "verifiedBy": "review-6m",
+      "reviewLog": [
+        {
+          "runId": "2026-10-01-6m",
+          "checkedAt": "2026-10-01",
+          "horizon": "6m",
+          "outcome": "new",
+          "changes": [],
+          "note": "Monument-level watch interest; date set by the UCI's officially approved 2027 WorldTour calendar."
+        }
+      ],
+      "priorityRationale": "Monument-level watch interest; the single highest-search-volume Classic this site covers in April."
+    },
+    {
+      "id": "liege-bastogne-liege-2027",
+      "name": "Liege-Bastogne-Liege 2027",
+      "category": "road",
+      "audience": [
+        "watch"
+      ],
+      "priority": 1,
+      "start": "2027-04-25",
+      "end": "2027-04-25",
+      "dateConfidence": "confirmed",
+      "country": "BE",
+      "place": "Liège to Liège, Belgium — via La Redoute and the Roche-aux-Faucons",
+      "officialUrl": null,
+      "sourceUrls": [
+        "https://www.cyclingnews.com/pro-cycling/racing/uci-reveals-2027-worldtour-racing-calendars-with-super-world-championships-in-france-forcing-changes/",
+        "https://sportivebreaks.com/springclassics/liege-bastogne-liege/"
+      ],
+      "handles": {
+        "instagram": null,
+        "x": null
+      },
+      "handleConfidence": "none",
+      "hashtags": [],
+      "angle": "Run La Redoute and the Roche-aux-Faucons through the 3D climb visualiser — both climbs are already in the Grand Tour climb dataset's format, and readers consistently ask why LBL's hills look tamer on paper than the Alps. This is the one Ardennes classic worth a full profile treatment this month.",
+      "postWindow": "3D visualiser piece live by Wed 21 Apr; race-day post Sun 25 Apr.",
+      "lastVerifiedAt": "2026-10-01",
+      "verifiedBy": "review-6m",
+      "reviewLog": [
+        {
+          "runId": "2026-10-01-6m",
+          "checkedAt": "2026-10-01",
+          "horizon": "6m",
+          "outcome": "new",
+          "changes": [],
+          "note": "Oldest Monument; climbs are a strong match for the site's climb-visualiser content."
+        }
+      ],
+      "priorityRationale": "Oldest Monument and the clearest match this month to the site's distinguishing climb-data asset."
+    },
+    {
+      "id": "la-fleche-wallonne-2027",
+      "name": "La Fleche Wallonne 2027",
+      "category": "road",
+      "audience": [
+        "watch"
+      ],
+      "priority": 2,
+      "start": "2027-04-21",
+      "end": "2027-04-21",
+      "dateConfidence": "confirmed",
+      "country": "BE",
+      "place": "Charleroi to Huy, Belgium — finishes atop the Mur de Huy",
+      "officialUrl": null,
+      "sourceUrls": [
+        "https://www.cyclingnews.com/pro-cycling/racing/uci-reveals-2027-worldtour-racing-calendars-with-super-world-championships-in-france-forcing-changes/",
+        "https://visitwallonia.fr/fr/produit/evenement/sport/la-fleche-wallonne-course-velo/8082"
+      ],
+      "handles": {
+        "instagram": null,
+        "x": null
+      },
+      "handleConfidence": "none",
+      "hashtags": [],
+      "angle": "The Mur de Huy's 26% ramp is the most dramatic gradient spike in the climb database — a short 3D-visualiser clip of the final kick will outperform a full race preview for shares. Four days before Liège, so keep it brief and point traffic at the LBL piece.",
+      "postWindow": "Short Mur de Huy clip Mon 19 Apr; same-day post Wed 21 Apr.",
+      "lastVerifiedAt": "2026-10-01",
+      "verifiedBy": "review-6m",
+      "reviewLog": [
+        {
+          "runId": "2026-10-01-6m",
+          "checkedAt": "2026-10-01",
+          "horizon": "6m",
+          "outcome": "new",
+          "changes": [],
+          "note": "Four days before Liège-Bastogne-Liège; single dramatic climb finish."
+        }
+      ],
+      "priorityRationale": "Strong single-climb hook, but sits four days from the bigger LBL push — keep it light, not a full feature."
+    },
+    {
+      "id": "amstel-gold-race-2027",
+      "name": "Amstel Gold Race 2027",
+      "category": "road",
+      "audience": [
+        "watch"
+      ],
+      "priority": 3,
+      "start": "2027-04-18",
+      "end": "2027-04-18",
+      "dateConfidence": "confirmed",
+      "country": "NL",
+      "place": "Maastricht to Berg en Terblijt, Netherlands — via the Cauberg",
+      "officialUrl": "https://www.amstel.nl/amstelgoldrace",
+      "sourceUrls": [
+        "https://www.cyclingnews.com/pro-cycling/racing/uci-reveals-2027-worldtour-racing-calendars-with-super-world-championships-in-france-forcing-changes/",
+        "https://www.amstel.nl/amstelgoldrace"
+      ],
+      "handles": {
+        "instagram": null,
+        "x": null
+      },
+      "handleConfidence": "none",
+      "hashtags": [],
+      "angle": "First of three Ardennes classics inside eight days (Amstel, Flèche, Liège) — the Cauberg has already appeared in the climb visualiser in previous years, so a fresh angle is hard to find. If posting, recycle the existing Cauberg clip rather than re-rendering it; otherwise fold it into a single 'Ardennes week' roundup instead of its own post.",
+      "postWindow": "Same-day only, Sun 18 Apr, or skip entirely in favour of the Flèche/Liège pieces.",
+      "lastVerifiedAt": "2026-10-01",
+      "verifiedBy": "review-6m",
+      "reviewLog": [
+        {
+          "runId": "2026-10-01-6m",
+          "checkedAt": "2026-10-01",
+          "horizon": "6m",
+          "outcome": "new",
+          "changes": [],
+          "note": "First of three Ardennes classics inside eight days this year."
+        }
+      ],
+      "priorityRationale": "Third similar climb story of the week on a climb already covered before — skip unless the week is thin."
+    },
+    {
+      "id": "dirty-reiver-2027",
+      "name": "Dirty Reiver 2027",
+      "category": "gravel",
+      "audience": [
+        "ride"
+      ],
+      "priority": 2,
+      "start": "2027-04-24",
+      "end": "2027-04-24",
+      "dateConfidence": "confirmed",
+      "country": "GB",
+      "place": "Kielder Castle Forest Park, Northumberland, UK — new 280km Epic pairs format for 2027",
+      "officialUrl": "https://focalevents.eventrac.co.uk/e/dirty-reiver-2027-10353",
+      "sourceUrls": [
+        "https://endurance.biz/2026/industry-news/dirty-reiver-adds-new-epic-280km-pairs-format-for-2027/",
+        "https://sportive.com/2026/08/21/dirty-reiver-dials-it-up-to-11-for-27/"
+      ],
+      "handles": {
+        "instagram": null,
+        "x": null
+      },
+      "handleConfidence": "none",
+      "hashtags": [],
+      "angle": "UK gravel race that sold out within 24 hours of entries opening — riders who missed out are actively searching for Kielder gearing advice and route detail on the new 280km Epic pairs format. A gravel-specific gear ratio calculator post timed to race week is exactly this site's ride audience.",
+      "postWindow": "Gearing/route piece Mon 19 Apr; results and route wrap Sat 24-Sun 25 Apr.",
+      "lastVerifiedAt": "2026-10-01",
+      "verifiedBy": "review-6m",
+      "reviewLog": [
+        {
+          "runId": "2026-10-01-6m",
+          "checkedAt": "2026-10-01",
+          "horizon": "6m",
+          "outcome": "new",
+          "changes": [],
+          "note": "UK gravel race, entries already sold out within 24 hours of opening — strong fit for this site's UK ride audience."
+        }
+      ],
+      "priorityRationale": "UK, ride audience, direct fit with the gear calculator — but one regional sportive among many, not Monument-scale."
+    },
+    {
+      "id": "sea-otter-classic-2027",
+      "name": "Sea Otter Classic 2027",
+      "category": "show",
+      "audience": [
+        "visit"
+      ],
+      "priority": 3,
+      "start": "2027-04-15",
+      "end": "2027-04-18",
+      "dateConfidence": "unverified",
+      "country": "US",
+      "place": "WeatherTech Raceway Laguna Seca, Monterey, California, USA",
+      "officialUrl": "https://www.seaotterclassic.com/about/",
+      "sourceUrls": [
+        "https://www.seaotterclassic.com/about/",
+        "https://pegatin.com/blog/sea-otter-classic-2027-dates-rides-and-bike-preparation/"
+      ],
+      "handles": {
+        "instagram": null,
+        "x": null
+      },
+      "handleConfidence": "none",
+      "hashtags": [],
+      "angle": "US industry show at Laguna Seca — relevant mainly as a gear-trends roundup tied to the gear ratio calculator, plus a Travelpayouts/Booking.com flight-and-hotel angle for the small number of UK readers who make the trip. Keep it to a single paragraph in a wider roundup rather than a dedicated post.",
+      "postWindow": "One roundup paragraph during the show, 15-18 Apr.",
+      "lastVerifiedAt": "2026-10-01",
+      "verifiedBy": "review-6m",
+      "reviewLog": [
+        {
+          "runId": "2026-10-01-6m",
+          "checkedAt": "2026-10-01",
+          "horizon": "6m",
+          "outcome": "new",
+          "changes": [],
+          "note": "World's largest cycling festival, but US-based so lower direct relevance to this site's UK-skewed audience — dates reported consistently but not fetched from a single primary source this run, so marked unverified."
+        }
+      ],
+      "priorityRationale": "World's largest cycling festival, but US-based with limited direct relevance to this site's UK-skewed audience."
     }
   ],
   "reviewRuns": [
@@ -2659,6 +2971,22 @@
     {
       "runId": "2026-09-01-2m",
       "ranAt": "2026-09-01",
+      "horizon": "2m",
+      "eventsChecked": 8,
+      "changesFound": 0,
+      "errors": 0
+    },
+    {
+      "runId": "2026-10-01-6m",
+      "ranAt": "2026-10-01",
+      "horizon": "6m",
+      "eventsChecked": 6,
+      "changesFound": 6,
+      "errors": 0
+    },
+    {
+      "runId": "2026-10-01-2m",
+      "ranAt": "2026-10-01",
       "horizon": "2m",
       "eventsChecked": 8,
       "changesFound": 0,
