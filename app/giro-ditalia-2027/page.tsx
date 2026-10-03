@@ -39,22 +39,12 @@ export const metadata: Metadata = {
 
 export const viewport: Viewport = { themeColor: '#e0408f' };
 
-// Minimal structured data on purpose: the event with its confirmed dates only, plus
-// breadcrumbs. No location, stages or offers until they are real.
+// Breadcrumbs only, on purpose. A SportsEvent block needs a `location` for Google's Event
+// validation, and the route (so the start/host location) isn't known until 12 Oct 2026 —
+// no guessing. Add the SportsEvent (startDate 2027-05-08, endDate 2027-05-30, organiser
+// RCS Sport, real location, subEvent stages) once the route is official.
 function buildJsonLd() {
   return [
-    {
-      '@context': 'https://schema.org',
-      '@type': 'SportsEvent',
-      name: '2027 Giro d’Italia',
-      description: DESCRIPTION,
-      url: PAGE_URL,
-      startDate: '2027-05-08',
-      endDate: '2027-05-30',
-      eventStatus: 'https://schema.org/EventScheduled',
-      organizer: { '@type': 'Organization', name: 'RCS Sport' },
-      image: 'https://polkadotbike.com/og-card.png',
-    },
     {
       '@context': 'https://schema.org',
       '@type': 'BreadcrumbList',
