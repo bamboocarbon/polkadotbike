@@ -85,7 +85,11 @@ export default function Giro2027Page() {
 
       <div className="hero">
         <h1>2027 Giro d’Italia Route</h1>
-        <p>Saturday 8 – Sunday 30 May 2027. Route announcement: 12 October 2026.</p>
+        <p>
+          Saturday 8 – Sunday 30 May 2027.
+          <br />
+          Route announcement: 12 October 2026.
+        </p>
       </div>
 
       <div className="container" style={{ maxWidth: 880 }}>
