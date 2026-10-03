@@ -339,6 +339,7 @@ export default function TdfUk2027Page() {
           links={[
             { href: '/', label: '← Gear Calculator' },
             { href: '/tdf', label: 'TDF 2026' },
+            { href: '/giro-ditalia-2027', label: 'Giro 2027' },
             { href: '/climbs', label: 'Climbs' },
             { href: '/guide', label: 'Guide' },
             { href: '/about', label: 'About' },
