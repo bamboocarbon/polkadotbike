@@ -5,7 +5,7 @@ import AADSUnit from '@/components/AADSUnit';
 import '@/components/content/content.css';
 import '@/components/tdf2027/tdf2027.css';
 
-// PLACEHOLDER (created 2026-10-03, ahead of the official route reveal on 12 Oct 2026).
+// PLACEHOLDER (created 2026-10-03, ahead of the official route reveal on 3 Nov 2026).
 // Deliberately indexable from day one so the URL has crawl history by announcement day.
 // Only facts Robin has confirmed are stated here (race dates, reveal date) — no host
 // country, start town or stage data until the route is official. Build the stages into
@@ -14,7 +14,7 @@ import '@/components/tdf2027/tdf2027.css';
 const PAGE_URL = 'https://polkadotbike.com/giro-ditalia-2027';
 const TITLE = '2027 Giro d’Italia Route — Stages, Climbs & 3D Maps · Polka Dot Bike';
 const DESCRIPTION =
-  'The 2027 Giro d’Italia runs 8–30 May 2027, with the official route revealed on 12 October 2026. Stage profiles, categorised climbs and 3D climb maps will be added here as soon as it is announced.';
+  'The 2027 Giro d’Italia runs 8–30 May 2027, with the official route revealed on 3 November 2026. Stage profiles, categorised climbs and 3D climb maps will be added here as soon as it is announced.';
 
 export const metadata: Metadata = {
   title: { absolute: TITLE },
@@ -40,7 +40,7 @@ export const metadata: Metadata = {
 export const viewport: Viewport = { themeColor: '#e0408f' };
 
 // Breadcrumbs only, on purpose. A SportsEvent block needs a `location` for Google's Event
-// validation, and the route (so the start/host location) isn't known until 12 Oct 2026 —
+// validation, and the route (so the start/host location) isn't known until 3 Nov 2026 —
 // no guessing. Add the SportsEvent (startDate 2027-05-08, endDate 2027-05-30, organiser
 // RCS Sport, real location, subEvent stages) once the route is official.
 function buildJsonLd() {
@@ -78,14 +78,14 @@ export default function Giro2027Page() {
         <p>
           Saturday 8 – Sunday 30 May 2027.
           <br />
-          Route announcement: 12 October 2026.
+          Route announcement: 3 November 2026.
         </p>
       </div>
 
       <div className="container" style={{ maxWidth: 880 }}>
         <div className="status-banner">
           <span>
-            <strong>Route not yet announced.</strong> The official 2027 Giro d’Italia route is revealed on 12 October 2026 — this page will be
+            <strong>Route not yet announced.</strong> The official 2027 Giro d’Italia route is revealed on 3 November 2026 — this page will be
             filled in with the full stage-by-stage route as soon as it is.
           </span>
         </div>
@@ -129,7 +129,7 @@ export default function Giro2027Page() {
         <AADSUnit />
 
         <Footer
-          attribution="Polka Dot Bike · 2027 Giro d’Italia · dates confirmed; full route pending official announcement on 12 October 2026."
+          attribution="Polka Dot Bike · 2027 Giro d’Italia · dates confirmed; full route pending official announcement on 3 November 2026."
           links={[
             { href: '/', label: '← Gear Calculator' },
             { href: '/giro26', label: 'Giro 2026' },
