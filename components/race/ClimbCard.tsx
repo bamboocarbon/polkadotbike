@@ -16,6 +16,7 @@ const CLIMB_3D_SLUGS: Record<string, string> = {
   'Côte de Domancy': 'cote-de-domancy',
   'Col du Tourmalet (2027)': 'col-du-tourmalet-2027',
   'Col du Portet': 'col-de-portet',
+  'Col du Soulor': 'col-du-soulor',
   "Hourquette d'Ancizan": 'hourquette-d-ancizan',
   'Col de Marie Blanque': 'col-du-marie-blanque',
   'Côte de la Croix Neuve (Montée Jalabert)': 'cote-de-la-croix-neuve',

@@ -57,6 +57,12 @@ const ROADBOOK_ANCHORS: Record<string, RoadbookAnchors> = {
   // add up to far more total climbing than that range alone suggests) —
   // there's no external elevation-gain figure published on cheqmtb.com to
   // reconcile against for any of the three courses.
+  // col-du-soulor: 2027 Tour de France stage 18 (km 50), official 11.8km at
+  // 7.3%. Robin's own BRouter-Web export (29.7km, running on over the summit
+  // toward Argeles-Gazost) trimmed to the official 11.8km ending at the
+  // summit point (1472.5m GPX, 1474m official). Over that official length the
+  // GPX gains 911m (7.7%) vs the official 7.3% (~861m) — kept as measured.
+  'col-du-soulor': { startElevationM: 561, summitElevationM: 1474, lengthKm: 11.8, ascentM: 925 },
   'cheq-40-pro': { startElevationM: 371, summitElevationM: 532, lengthKm: 62.81, ascentM: 913 },
   'cheq-40': { startElevationM: 368, summitElevationM: 532, lengthKm: 66.97, ascentM: 913 },
   'cheq-short-fat': { startElevationM: 416, summitElevationM: 501, lengthKm: 25.34, ascentM: 338 },

@@ -260,10 +260,14 @@ export const STAGES: Stage[] = [
   },
   {
     num: 18, date: '2027-07-22', dateLabel: 'Thursday 22 July 2027', start: 'Pau', finish: 'Saint-Lary-Soulan (Col du Portet)',
-    dist: 174, terrain: 'Mountainous', mapType: 'Mountain', badgeCls: 'badge-m', vgain: 5400, climbCount: 5,
+    dist: 174, terrain: 'Mountainous', mapType: 'Mountain', badgeCls: 'badge-m', vgain: 5400, climbCount: 4,
     summary: 'The big Pyrenean day: Soulor, Tourmalet and Hourquette d’Ancizan before a summit finish on the Col du Portet.',
     climbs: [
-      { name: 'Col du Soulor', position: 'km 50', len: 11.8, grad: 7.3 },
+      {
+        name: 'Col du Soulor', position: 'km 50', len: 11.8, grad: 7.7,
+        profile: [8.0, 6.5, 6.0, 8.7, 8.2, 7.1, 9.7, 9.0, 8.3, 6.6, 8.6, 5.8], gain: 913,
+        history: "Figures are our own GPX measurement over ASO's 11.8 km. ASO's official gradient for the climb is 7.3%; their start point is slightly different, which is why the two don't match exactly.",
+      },
       { name: 'Col du Tourmalet (2027)', position: 'km 106.5, Souvenir Jacques Goddet', len: 19, grad: 7.4, profile: [4.4, 6.8, 6.8, 8.6, 6.9, 7.8, 8.0, 8.2, 8.2, 5.9, 6.7, 7.2, 8.3, 8.1, 6.9, 8.7, 6.3, 9.6, 9.1], gain: 1408 },
       {
         name: "Hourquette d'Ancizan", position: 'km 140.5', len: 15.2, grad: 4.7,

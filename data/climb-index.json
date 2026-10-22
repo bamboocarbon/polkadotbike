@@ -9817,6 +9817,74 @@
           "rawName": "Hourquette d'Ancizan"
         }
       ]
+    },
+    {
+      "slug": "col-du-soulor",
+      "name": "Col du Soulor",
+      "range": "Pyrenees",
+      "cat": "TBC",
+      "len": 11.8,
+      "grad": 7.7,
+      "elev": 1474,
+      "profile": [
+        8.0,
+        6.5,
+        6.0,
+        8.7,
+        8.2,
+        7.1,
+        9.7,
+        9.0,
+        8.3,
+        6.6,
+        8.6,
+        5.8
+      ],
+      "isSummitFinish": false,
+      "ascentsVary": false,
+      "races": [
+        "tdf27"
+      ],
+      "hasPage": true,
+      "gateReasons": [],
+      "notes": [
+        "Stage 18 climbs the Col du Soulor at km 50, 11.8 km. ASO's official figures are 11.8 km at 7.3%; these are our own measurement over the same length."
+      ],
+      "ascents": [
+        {
+          "race": "tdf27",
+          "raceName": "2027 Tour de France",
+          "raceShort": "TDF 2027",
+          "raceFile": null,
+          "stage": 18,
+          "stageStart": "Pau",
+          "stageFinish": "Saint-Lary-Soulan (Col du Portet)",
+          "stageDate": "2027-07-22",
+          "ordinal": null,
+          "route": null,
+          "len": 11.8,
+          "grad": 7.7,
+          "elev": 1474,
+          "cat": "TBC",
+          "kbf": null,
+          "profile": [
+            8.0,
+            6.5,
+            6.0,
+            8.7,
+            8.2,
+            7.1,
+            9.7,
+            9.0,
+            8.3,
+            6.6,
+            8.6,
+            5.8
+          ],
+          "notes": "Stage 18 climbs the Col du Soulor at km 50, 11.8 km. ASO's official figures are 11.8 km at 7.3%; these are our own measurement over the same length.",
+          "rawName": "Col du Soulor"
+        }
+      ]
     }
   ]
 }
