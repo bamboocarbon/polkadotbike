@@ -265,7 +265,6 @@ export const STAGES: Stage[] = [
     climbs: [
       { name: 'Col du Soulor', position: 'km 50', len: 11.8, grad: 7.3 },
       { name: 'Col du Tourmalet (2027)', position: 'km 106.5, Souvenir Jacques Goddet', len: 19, grad: 7.4, profile: [4.4, 6.8, 6.8, 8.6, 6.9, 7.8, 8.0, 8.2, 8.2, 5.9, 6.7, 7.2, 8.3, 8.1, 6.9, 8.7, 6.3, 9.6, 9.1], gain: 1408 },
-      { name: "Hourquette d'Ancizan", position: 'km 140.5', len: 8.2, grad: 5.1 },
       {
         name: "Hourquette d'Ancizan", position: 'km 140.5', len: 15.2, grad: 4.7,
         profile: [4.9, 1.4, 3.8, 3.5, 3.4, 6.5, 1.0, 2.8, 3.6, 8.2, 6.7, 6.7, 5.5, 5.9, 8.0, 1.3], gain: 721,
