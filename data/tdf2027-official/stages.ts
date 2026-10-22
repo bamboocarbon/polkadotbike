@@ -189,7 +189,11 @@ export const STAGES: Stage[] = [
         profile: [8.7, 10.1, 8.7, 6.9, 6.8, 6.4, 1.0], gain: 480,
         history: "Figures are our own GPX measurement. ASO's official figures are 6.3 km at 7.5%, which our measurement matches closely.",
       },
-      { name: 'Côte des Neyrolles', position: 'km 77', len: 3.6, grad: 7.7 },
+      {
+        name: "Côte des Neyrolles", position: "km 77", len: 4.2, grad: 6.6,
+        profile: [7.3, 6.1, 8.9, 4.8, 3.1], gain: 279,
+        history: "Figures are our own GPX measurement, cut to match ASO's 277 m of height gain. ASO's official figures are 3.6 km at 7.7%; our road is longer for the same climb, which is why the gradient is lower.",
+      },
       {
         name: "Col de Richemond", position: "km 115", len: 7.6, grad: 5.9,
         profile: [6.4, 3.6, 5.7, 6.6, 6.4, 6.5, 6.2, 6.0], gain: 453,

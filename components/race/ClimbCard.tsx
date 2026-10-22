@@ -18,6 +18,7 @@ const CLIMB_3D_SLUGS: Record<string, string> = {
   'Col du Portet': 'col-de-portet',
   'Col du Soulor': 'col-du-soulor',
   'Col du Berthiand': 'col-du-berthiand',
+  'Côte des Neyrolles': 'cote-des-neyrolles',
   'Col de Richemond': 'col-de-richemond',
   'Grand Colombier': 'grand-colombier',
   'Col de la Colombière': 'col-de-la-colombiere',

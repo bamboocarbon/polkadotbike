@@ -81,6 +81,11 @@ const ROADBOOK_ANCHORS: Record<string, RoadbookAnchors> = {
   'col-de-richemond': { startElevationM: 583, summitElevationM: 1036, lengthKm: 7.64, ascentM: 456 },
   // grand-colombier: Stage 9 summit finish, official 17.4km at 7.1%. Robin's export runs on over the top; trimmed to the summit.
   'grand-colombier': { startElevationM: 252, summitElevationM: 1501, lengthKm: 17.39, ascentM: 1259 },
+  // cote-des-neyrolles: Stage 9 (km 77), official 3.6km at 7.7% to 825m. Robin's export (Nantua to 862m)
+  // runs past the official summit and over a longer road than ASO's figure, so it is trimmed to the
+  // official altitudes — from the 548m start (official summit minus 3.6km x 7.7%) to the first point at
+  // 825m — keeping ASO's 277m of gain at the cost of length (4.24km vs 3.6km).
+  'cote-des-neyrolles': { startElevationM: 546, summitElevationM: 825, lengthKm: 4.24, ascentM: 282 },
   'cheq-40-pro': { startElevationM: 371, summitElevationM: 532, lengthKm: 62.81, ascentM: 913 },
   'cheq-40': { startElevationM: 368, summitElevationM: 532, lengthKm: 66.97, ascentM: 913 },
   'cheq-short-fat': { startElevationM: 416, summitElevationM: 501, lengthKm: 25.34, ascentM: 338 },

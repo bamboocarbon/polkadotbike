@@ -10413,6 +10413,60 @@
           "rawName": "Grand Colombier"
         }
       ]
+    },
+    {
+      "slug": "cote-des-neyrolles",
+      "name": "Côte des Neyrolles",
+      "range": "Jura",
+      "cat": "TBC",
+      "len": 4.24,
+      "grad": 6.6,
+      "elev": 825,
+      "profile": [
+        7.3,
+        6.1,
+        8.9,
+        4.8,
+        3.1
+      ],
+      "isSummitFinish": false,
+      "ascentsVary": false,
+      "races": [
+        "tdf27"
+      ],
+      "hasPage": true,
+      "gateReasons": [],
+      "notes": [
+        "Stage 9 climbs the Côte des Neyrolles (km 77). ASO's official figures are 3.6 km at 7.7%; this is our own measurement (4.2 km at 6.6%), cut to match ASO's 277 m of height gain."
+      ],
+      "ascents": [
+        {
+          "race": "tdf27",
+          "raceName": "2027 Tour de France",
+          "raceShort": "TDF 2027",
+          "raceFile": null,
+          "stage": 9,
+          "stageStart": "Villars-les-Dombes Parc des Oiseaux",
+          "stageFinish": "Grand Colombier",
+          "stageDate": "2027-07-11",
+          "ordinal": null,
+          "route": null,
+          "len": 4.24,
+          "grad": 6.6,
+          "elev": 825,
+          "cat": "TBC",
+          "kbf": null,
+          "profile": [
+            7.3,
+            6.1,
+            8.9,
+            4.8,
+            3.1
+          ],
+          "notes": "Stage 9 climbs the Côte des Neyrolles (km 77). ASO's official figures are 3.6 km at 7.7%; this is our own measurement (4.2 km at 6.6%), cut to match ASO's 277 m of height gain.",
+          "rawName": "Côte des Neyrolles"
+        }
+      ]
     }
   ]
 }

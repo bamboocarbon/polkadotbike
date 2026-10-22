@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- trimmed to the 2027 Tour de France Côte des Neyrolles: from the official start altitude (548m) to the official summit altitude (825m) -->
+<gpx 
+ xmlns="http://www.topografix.com/GPX/1/1" 
+ xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+ xsi:schemaLocation="http://www.topografix.com/GPX/1/1 http://www.topografix.com/GPX/1/1/gpx.xsd" 
+ version="1.1" 
+ creator="BRouter-Web 0.18.1">
+ <trk>
+  <name>Côte des Neyrolles (4.2km)</name>
+  <trkseg>
+   <trkpt lat="46.141394" lon="5.635258"><ele>545.75</ele></trkpt>
+   <trkpt lat="46.141401" lon="5.63604"><ele>549.5</ele></trkpt>
+   <trkpt lat="46.141403" lon="5.636223"><ele>551.5</ele></trkpt>
+   <trkpt lat="46.141744" lon="5.637484"><ele>557.75</ele></trkpt>
+   <trkpt lat="46.142067" lon="5.638213"><ele>562.5</ele></trkpt>
+   <trkpt lat="46.142338" lon="5.63875"><ele>564.25</ele></trkpt>
+   <trkpt lat="46.142449" lon="5.639383"><ele>569.25</ele></trkpt>
+   <trkpt lat="46.142638" lon="5.640274"><ele>575.25</ele></trkpt>
+   <trkpt lat="46.142705" lon="5.640412"><ele>575.75</ele></trkpt>
+   <trkpt lat="46.142797" lon="5.640524"><ele>576.25</ele></trkpt>
+   <trkpt lat="46.143246" lon="5.640606"><ele>579.25</ele></trkpt>
+   <trkpt lat="46.143345" lon="5.640709"><ele>581.25</ele></trkpt>
+   <trkpt lat="46.143519" lon="5.641032"><ele>584.75</ele></trkpt>
+   <trkpt lat="46.143593" lon="5.641142"><ele>586.25</ele></trkpt>
+   <trkpt lat="46.143805" lon="5.641204"><ele>584</ele></trkpt>
+   <trkpt lat="46.143914" lon="5.64134"><ele>584.75</ele></trkpt>
+   <trkpt lat="46.144124" lon="5.641872"><ele>591.75</ele></trkpt>
+   <trkpt lat="46.144695" lon="5.64236"><ele>600.5</ele></trkpt>
+   <trkpt lat="46.145358" lon="5.642806"><ele>604</ele></trkpt>
+   <trkpt lat="46.148208" lon="5.645552"><ele>632.5</ele></trkpt>
+   <trkpt lat="46.148653" lon="5.646035"><ele>636</ele></trkpt>
+   <trkpt lat="46.148781" lon="5.646174"><ele>636</ele></trkpt>
+   <trkpt lat="46.149848" lon="5.647759"><ele>642</ele></trkpt>
+   <trkpt lat="46.150474" lon="5.648993"><ele>650.75</ele></trkpt>
+   <trkpt lat="46.151065" lon="5.650447"><ele>667.25</ele></trkpt>
+   <trkpt lat="46.152182" lon="5.651722"><ele>673.5</ele></trkpt>
+   <trkpt lat="46.15262" lon="5.65231"><ele>679.25</ele></trkpt>
+   <trkpt lat="46.153133" lon="5.65297"><ele>675</ele></trkpt>
+   <trkpt lat="46.153475" lon="5.653453"><ele>683.75</ele></trkpt>
+   <trkpt lat="46.15375" lon="5.653898"><ele>689.25</ele></trkpt>
+   <trkpt lat="46.154077" lon="5.654655"><ele>693.25</ele></trkpt>
+   <trkpt lat="46.154411" lon="5.655373"><ele>695.75</ele></trkpt>
+   <trkpt lat="46.154664" lon="5.65577"><ele>697.75</ele></trkpt>
+   <trkpt lat="46.155281" lon="5.656725"><ele>706.5</ele></trkpt>
+   <trkpt lat="46.155727" lon="5.657567"><ele>712</ele></trkpt>
+   <trkpt lat="46.155898" lon="5.657857"><ele>716</ele></trkpt>
+   <trkpt lat="46.156147" lon="5.658222"><ele>722</ele></trkpt>
+   <trkpt lat="46.156522" lon="5.658576"><ele>721.5</ele></trkpt>
+   <trkpt lat="46.156641" lon="5.658823"><ele>726.25</ele></trkpt>
+   <trkpt lat="46.156771" lon="5.659128"><ele>726.5</ele></trkpt>
+   <trkpt lat="46.156892" lon="5.659639"><ele>735</ele></trkpt>
+   <trkpt lat="46.156985" lon="5.660028"><ele>741</ele></trkpt>
+   <trkpt lat="46.157407" lon="5.662848"><ele>791.5</ele></trkpt>
+   <trkpt lat="46.157594" lon="5.66409"><ele>772.5</ele></trkpt>
+   <trkpt lat="46.157566" lon="5.664217"><ele>767.5</ele></trkpt>
+   <trkpt lat="46.157471" lon="5.664386"><ele>764.5</ele></trkpt>
+   <trkpt lat="46.157271" lon="5.664565"><ele>763.75</ele></trkpt>
+   <trkpt lat="46.156518" lon="5.664957"><ele>772</ele></trkpt>
+   <trkpt lat="46.156197" lon="5.665217"><ele>775.5</ele></trkpt>
+   <trkpt lat="46.155613" lon="5.665829"><ele>781.25</ele></trkpt>
+   <trkpt lat="46.155225" lon="5.666024"><ele>784.5</ele></trkpt>
+   <trkpt lat="46.154588" lon="5.66636"><ele>791.75</ele></trkpt>
+   <trkpt lat="46.154241" lon="5.666754"><ele>790.5</ele></trkpt>
+   <trkpt lat="46.15392" lon="5.666955"><ele>794</ele></trkpt>
+   <trkpt lat="46.153388" lon="5.667333"><ele>801.25</ele></trkpt>
+   <trkpt lat="46.15302" lon="5.667537"><ele>803.25</ele></trkpt>
+   <trkpt lat="46.152663" lon="5.66769"><ele>806.75</ele></trkpt>
+   <trkpt lat="46.152078" lon="5.667999"><ele>808.5</ele></trkpt>
+   <trkpt lat="46.151938" lon="5.668125"><ele>807.25</ele></trkpt>
+   <trkpt lat="46.15183" lon="5.668241"><ele>807.25</ele></trkpt>
+   <trkpt lat="46.151745" lon="5.668412"><ele>807</ele></trkpt>
+   <trkpt lat="46.151552" lon="5.669101"><ele>807.75</ele></trkpt>
+   <trkpt lat="46.151385" lon="5.669473"><ele>809.25</ele></trkpt>
+   <trkpt lat="46.151329" lon="5.669592"><ele>809.75</ele></trkpt>
+   <trkpt lat="46.15111" lon="5.669999"><ele>811</ele></trkpt>
+   <trkpt lat="46.150844" lon="5.670394"><ele>813.5</ele></trkpt>
+   <trkpt lat="46.150599" lon="5.670863"><ele>816</ele></trkpt>
+   <trkpt lat="46.150541" lon="5.671094"><ele>815.75</ele></trkpt>
+   <trkpt lat="46.150533" lon="5.671367"><ele>816.75</ele></trkpt>
+   <trkpt lat="46.150571" lon="5.67189"><ele>819</ele></trkpt>
+   <trkpt lat="46.150563" lon="5.672169"><ele>819.75</ele></trkpt>
+   <trkpt lat="46.150489" lon="5.672432"><ele>821.25</ele></trkpt>
+   <trkpt lat="46.150194" lon="5.672962"><ele>823.5</ele></trkpt>
+   <trkpt lat="46.150066" lon="5.673242"><ele>824.75</ele></trkpt>
+   <trkpt lat="46.149972" lon="5.673539"><ele>824.75</ele></trkpt>
+   <trkpt lat="46.14988" lon="5.673844"><ele>823.5</ele></trkpt>
+   <trkpt lat="46.149812" lon="5.674077"><ele>825.25</ele></trkpt>
+  </trkseg>
+ </trk>
+</gpx>
