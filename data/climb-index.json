@@ -10215,6 +10215,204 @@
           "rawName": "Montée de Bisanne"
         }
       ]
+    },
+    {
+      "slug": "col-du-berthiand",
+      "name": "Col du Berthiand",
+      "range": "Jura",
+      "cat": "TBC",
+      "len": 6.3,
+      "grad": 7.6,
+      "elev": 780,
+      "profile": [
+        8.7,
+        10.1,
+        8.7,
+        6.9,
+        6.8,
+        6.4,
+        1.0
+      ],
+      "isSummitFinish": false,
+      "ascentsVary": false,
+      "races": [
+        "tdf27"
+      ],
+      "hasPage": true,
+      "gateReasons": [],
+      "notes": [
+        "Stage 9 climbs the Col du Berthiand (km 57.5). ASO's official figures are 6.3 km at 7.5%, matching our own GPX measurement."
+      ],
+      "ascents": [
+        {
+          "race": "tdf27",
+          "raceName": "2027 Tour de France",
+          "raceShort": "TDF 2027",
+          "raceFile": null,
+          "stage": 9,
+          "stageStart": "Villars-les-Dombes Parc des Oiseaux",
+          "stageFinish": "Grand Colombier",
+          "stageDate": "2027-07-11",
+          "ordinal": null,
+          "route": null,
+          "len": 6.3,
+          "grad": 7.6,
+          "elev": 780,
+          "cat": "TBC",
+          "kbf": null,
+          "profile": [
+            8.7,
+            10.1,
+            8.7,
+            6.9,
+            6.8,
+            6.4,
+            1.0
+          ],
+          "notes": "Stage 9 climbs the Col du Berthiand (km 57.5). ASO's official figures are 6.3 km at 7.5%, matching our own GPX measurement.",
+          "rawName": "Col du Berthiand"
+        }
+      ]
+    },
+    {
+      "slug": "col-de-richemond",
+      "name": "Col de Richemond",
+      "range": "Jura",
+      "cat": "TBC",
+      "len": 7.64,
+      "grad": 5.9,
+      "elev": 1036,
+      "profile": [
+        6.4,
+        3.6,
+        5.7,
+        6.6,
+        6.4,
+        6.5,
+        6.2,
+        6.0
+      ],
+      "isSummitFinish": false,
+      "ascentsVary": false,
+      "races": [
+        "tdf27"
+      ],
+      "hasPage": true,
+      "gateReasons": [],
+      "notes": [
+        "Stage 9 climbs the Col de Richemond (km 115). ASO's official figures are 7.7 km at 6%, matching our own GPX measurement."
+      ],
+      "ascents": [
+        {
+          "race": "tdf27",
+          "raceName": "2027 Tour de France",
+          "raceShort": "TDF 2027",
+          "raceFile": null,
+          "stage": 9,
+          "stageStart": "Villars-les-Dombes Parc des Oiseaux",
+          "stageFinish": "Grand Colombier",
+          "stageDate": "2027-07-11",
+          "ordinal": null,
+          "route": null,
+          "len": 7.64,
+          "grad": 5.9,
+          "elev": 1036,
+          "cat": "TBC",
+          "kbf": null,
+          "profile": [
+            6.4,
+            3.6,
+            5.7,
+            6.6,
+            6.4,
+            6.5,
+            6.2,
+            6.0
+          ],
+          "notes": "Stage 9 climbs the Col de Richemond (km 115). ASO's official figures are 7.7 km at 6%, matching our own GPX measurement.",
+          "rawName": "Col de Richemond"
+        }
+      ]
+    },
+    {
+      "slug": "grand-colombier",
+      "name": "Grand Colombier",
+      "range": "Jura",
+      "cat": "TBC",
+      "len": 17.39,
+      "grad": 7.2,
+      "elev": 1501,
+      "profile": [
+        6.4,
+        9.5,
+        8.7,
+        7.7,
+        9.5,
+        11.1,
+        6.9,
+        2.2,
+        5.7,
+        9.0,
+        10.3,
+        7.9,
+        6.4,
+        1.5,
+        7.1,
+        5.8,
+        5.5,
+        9.3
+      ],
+      "isSummitFinish": true,
+      "ascentsVary": false,
+      "races": [
+        "tdf27"
+      ],
+      "hasPage": true,
+      "gateReasons": [],
+      "notes": [
+        "Stage 9 climbs the Grand Colombier (summit finish). ASO's official figures are 17.4 km at 7.1%, matching our own GPX measurement."
+      ],
+      "ascents": [
+        {
+          "race": "tdf27",
+          "raceName": "2027 Tour de France",
+          "raceShort": "TDF 2027",
+          "raceFile": null,
+          "stage": 9,
+          "stageStart": "Villars-les-Dombes Parc des Oiseaux",
+          "stageFinish": "Grand Colombier",
+          "stageDate": "2027-07-11",
+          "ordinal": null,
+          "route": null,
+          "len": 17.39,
+          "grad": 7.2,
+          "elev": 1501,
+          "cat": "TBC",
+          "kbf": 0,
+          "profile": [
+            6.4,
+            9.5,
+            8.7,
+            7.7,
+            9.5,
+            11.1,
+            6.9,
+            2.2,
+            5.7,
+            9.0,
+            10.3,
+            7.9,
+            6.4,
+            1.5,
+            7.1,
+            5.8,
+            5.5,
+            9.3
+          ],
+          "notes": "Stage 9 climbs the Grand Colombier (summit finish). ASO's official figures are 17.4 km at 7.1%, matching our own GPX measurement.",
+          "rawName": "Grand Colombier"
+        }
+      ]
     }
   ]
 }

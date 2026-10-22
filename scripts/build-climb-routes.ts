@@ -74,6 +74,13 @@ const ROADBOOK_ANCHORS: Record<string, RoadbookAnchors> = {
   'col-de-la-croix-fry-la-clusaz': { startElevationM: 1026, summitElevationM: 1477, lengthKm: 7.2, ascentM: 444 },
   // col-de-la-colombiere: Stage 11 (km 16), official 15.9km at 7%. Robin's export starts on a hillside and drops ~130m into Cluses first, so it is trimmed from the foot of the climb (544m, 14.4km) rather than to the full official length, which would begin on that descent.
   'col-de-la-colombiere': { startElevationM: 544, summitElevationM: 1618, lengthKm: 14.4, ascentM: 1076 },
+  // 2027 Tour de France stage 9 climbs — Robin's own BRouter-Web exports, trimmed.
+  // col-du-berthiand: Stage 9 (km 57.5), official 6.3km at 7.5%.
+  'col-du-berthiand': { startElevationM: 300, summitElevationM: 780, lengthKm: 6.3, ascentM: 486 },
+  // col-de-richemond: Stage 9 (km 115), official 7.7km at 6%. Ends at the lower crest (~1030m at 9.55km into Robin's export), not the later 1053m bump — that window matches the official start/end altitudes and gradient.
+  'col-de-richemond': { startElevationM: 583, summitElevationM: 1036, lengthKm: 7.64, ascentM: 456 },
+  // grand-colombier: Stage 9 summit finish, official 17.4km at 7.1%. Robin's export runs on over the top; trimmed to the summit.
+  'grand-colombier': { startElevationM: 252, summitElevationM: 1501, lengthKm: 17.39, ascentM: 1259 },
   'cheq-40-pro': { startElevationM: 371, summitElevationM: 532, lengthKm: 62.81, ascentM: 913 },
   'cheq-40': { startElevationM: 368, summitElevationM: 532, lengthKm: 66.97, ascentM: 913 },
   'cheq-short-fat': { startElevationM: 416, summitElevationM: 501, lengthKm: 25.34, ascentM: 338 },

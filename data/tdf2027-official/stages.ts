@@ -184,10 +184,22 @@ export const STAGES: Stage[] = [
     dist: 162, terrain: 'Mountainous', mapType: 'Mountain', badgeCls: 'badge-m', vgain: 3750, climbCount: 4,
     summary: 'Out of the Ain plain into the Jura, finishing on a summit finish at the Grand Colombier.',
     climbs: [
-      { name: 'Col du Berthiand', position: 'km 57.5', len: 6.3, grad: 7.5 },
+      {
+        name: "Col du Berthiand", position: "km 57.5", len: 6.3, grad: 7.6,
+        profile: [8.7, 10.1, 8.7, 6.9, 6.8, 6.4, 1.0], gain: 480,
+        history: "Figures are our own GPX measurement. ASO's official figures are 6.3 km at 7.5%, which our measurement matches closely.",
+      },
       { name: 'Côte des Neyrolles', position: 'km 77', len: 3.6, grad: 7.7 },
-      { name: 'Col de Richemond', position: 'km 115', len: 7.7, grad: 6 },
-      { name: 'Grand Colombier', position: 'summit finish', len: 17.4, grad: 7.1 },
+      {
+        name: "Col de Richemond", position: "km 115", len: 7.6, grad: 5.9,
+        profile: [6.4, 3.6, 5.7, 6.6, 6.4, 6.5, 6.2, 6.0], gain: 453,
+        history: "Figures are our own GPX measurement. ASO's official figures are 7.7 km at 6%, which our measurement matches closely.",
+      },
+      {
+        name: "Grand Colombier", position: "summit finish", len: 17.4, grad: 7.2,
+        profile: [6.4, 9.5, 8.7, 7.7, 9.5, 11.1, 6.9, 2.2, 5.7, 9.0, 10.3, 7.9, 6.4, 1.5, 7.1, 5.8, 5.5, 9.3], gain: 1249,
+        history: "Figures are our own GPX measurement. ASO's official figures are 17.4 km at 7.1%, which our measurement matches closely.",
+      },
     ],
   },
   {
