@@ -208,11 +208,31 @@ export const STAGES: Stage[] = [
     dist: 150, terrain: 'Mountainous', mapType: 'Mountain', badgeCls: 'badge-m', vgain: 4750, climbCount: 5,
     summary: 'Five categorised climbs from Haute-Savoie into Savoie, ending on the Montée de Bisanne and a summit finish at Les Saisies.',
     climbs: [
-      { name: 'Col de la Colombière', position: 'km 16', len: 15.9, grad: 7 },
-      { name: 'Col de la Croix Fry', position: 'km 40', len: 7.2, grad: 5.5 },
-      { name: 'Col de la Forclaz de Queige', position: 'km 85', len: 5.1, grad: 8.2 },
-      { name: 'Col du Pré', position: 'km 113', len: 12.6, grad: 7.8 },
-      { name: 'Montée de Bisanne', position: 'km 146, before the finish at Les Saisies', len: 12.4, grad: 8.3 },
+      {
+        name: "Col de la Colombière", position: "km 16", len: 14.4, grad: 7.5,
+        profile: [5.3, 7.7, 8.3, 7.1, 7.5, 2.4, 3.3, 3.4, 8.6, 11.7, 10.3, 7.7, 10.0, 10.0, 10.0], gain: 1074,
+        history: "Figures are our own GPX measurement from the foot of the climb in Cluses (14.4 km). ASO's official figures are 15.9 km at 7%, measured from an earlier start point.",
+      },
+      {
+        name: "Col de la Croix Fry", position: "km 40", len: 7.2, grad: 6.3,
+        profile: [2.2, 4.9, 8.7, 6.3, 7.6, 6.6, 7.6, 6.7], gain: 451,
+        history: "Figures are our own GPX measurement. ASO's official figures are 7.2 km at 5.5%. Their start point differs slightly, which is why the two don't match exactly.",
+      },
+      {
+        name: "Col de la Forclaz de Queige", position: "km 85", len: 5.1, grad: 7.0,
+        profile: [7.1, 7.4, 8.8, 8.6, 4.2, -3.8], gain: 357,
+        history: "Figures are our own GPX measurement. ASO's official figures are 5.1 km at 8.2%. Their start point differs slightly, which is why the two don't match exactly.",
+      },
+      {
+        name: "Col du Pré", position: "km 113", len: 12.6, grad: 7.9,
+        profile: [7.1, 7.6, 7.4, 5.4, 2.6, 8.5, 9.6, 9.8, 9.3, 10.1, 10.3, 9.7, 3.9], gain: 996,
+        history: "Figures are our own GPX measurement. ASO's official figures are 12.6 km at 7.8%, which our measurement matches closely.",
+      },
+      {
+        name: "Montée de Bisanne", position: "km 146, before the finish at Les Saisies", len: 12.4, grad: 8.2,
+        profile: [6.1, 7.1, 7.9, 7.3, 8.2, 6.1, 8.7, 9.4, 9.0, 8.5, 9.7, 9.9, 8.6], gain: 1013,
+        history: "Figures are our own GPX measurement. ASO's official figures are 12.4 km at 8.3%, which our measurement matches closely.",
+      },
     ],
   },
   {

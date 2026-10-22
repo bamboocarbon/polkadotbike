@@ -9885,6 +9885,336 @@
           "rawName": "Col du Soulor"
         }
       ]
+    },
+    {
+      "slug": "col-de-la-colombiere",
+      "name": "Col de la Colombière",
+      "range": "Alps",
+      "cat": "TBC",
+      "len": 14.4,
+      "grad": 7.5,
+      "elev": 1618,
+      "profile": [
+        5.3,
+        7.7,
+        8.3,
+        7.1,
+        7.5,
+        2.4,
+        3.3,
+        3.4,
+        8.6,
+        11.7,
+        10.3,
+        7.7,
+        10.0,
+        10.0,
+        10.0
+      ],
+      "isSummitFinish": false,
+      "ascentsVary": false,
+      "races": [
+        "tdf27"
+      ],
+      "hasPage": true,
+      "gateReasons": [],
+      "notes": [
+        "Stage 11 climbs the Col de la Colombière at km 16. ASO's official figures are 15.9 km at 7%; these are our own measurement (14.4 km at 7.5%). Measured from the foot of the climb in Cluses — the official length starts earlier."
+      ],
+      "ascents": [
+        {
+          "race": "tdf27",
+          "raceName": "2027 Tour de France",
+          "raceShort": "TDF 2027",
+          "raceFile": null,
+          "stage": 11,
+          "stageStart": "Cluses",
+          "stageFinish": "Les Saisies",
+          "stageDate": "2027-07-14",
+          "ordinal": null,
+          "route": null,
+          "len": 14.4,
+          "grad": 7.5,
+          "elev": 1618,
+          "cat": "TBC",
+          "kbf": null,
+          "profile": [
+            5.3,
+            7.7,
+            8.3,
+            7.1,
+            7.5,
+            2.4,
+            3.3,
+            3.4,
+            8.6,
+            11.7,
+            10.3,
+            7.7,
+            10.0,
+            10.0,
+            10.0
+          ],
+          "notes": "Stage 11 climbs the Col de la Colombière at km 16. ASO's official figures are 15.9 km at 7%; these are our own measurement (14.4 km at 7.5%). Measured from the foot of the climb in Cluses — the official length starts earlier.",
+          "rawName": "Col de la Colombière"
+        }
+      ]
+    },
+    {
+      "slug": "col-de-la-croix-fry-la-clusaz",
+      "name": "Col de la Croix Fry",
+      "range": "Alps",
+      "cat": "TBC",
+      "len": 7.2,
+      "grad": 6.3,
+      "elev": 1477,
+      "profile": [
+        2.2,
+        4.9,
+        8.7,
+        6.3,
+        7.6,
+        6.6,
+        7.6,
+        6.7
+      ],
+      "isSummitFinish": false,
+      "ascentsVary": false,
+      "races": [
+        "tdf27"
+      ],
+      "hasPage": true,
+      "gateReasons": [],
+      "notes": [
+        "Stage 11 climbs the Col de la Croix Fry at km 40. ASO's official figures are 7.2 km at 5.5%; these are our own measurement (7.2 km at 6.3%)."
+      ],
+      "ascents": [
+        {
+          "race": "tdf27",
+          "raceName": "2027 Tour de France",
+          "raceShort": "TDF 2027",
+          "raceFile": null,
+          "stage": 11,
+          "stageStart": "Cluses",
+          "stageFinish": "Les Saisies",
+          "stageDate": "2027-07-14",
+          "ordinal": null,
+          "route": null,
+          "len": 7.2,
+          "grad": 6.3,
+          "elev": 1477,
+          "cat": "TBC",
+          "kbf": null,
+          "profile": [
+            2.2,
+            4.9,
+            8.7,
+            6.3,
+            7.6,
+            6.6,
+            7.6,
+            6.7
+          ],
+          "notes": "Stage 11 climbs the Col de la Croix Fry at km 40. ASO's official figures are 7.2 km at 5.5%; these are our own measurement (7.2 km at 6.3%).",
+          "rawName": "Col de la Croix Fry"
+        }
+      ]
+    },
+    {
+      "slug": "col-de-la-forclaz-de-queige",
+      "name": "Col de la Forclaz de Queige",
+      "range": "Alps",
+      "cat": "TBC",
+      "len": 5.1,
+      "grad": 7.0,
+      "elev": 853,
+      "profile": [
+        7.1,
+        7.4,
+        8.8,
+        8.6,
+        4.2,
+        -3.8
+      ],
+      "isSummitFinish": false,
+      "ascentsVary": false,
+      "races": [
+        "tdf27"
+      ],
+      "hasPage": true,
+      "gateReasons": [],
+      "notes": [
+        "Stage 11 climbs the Col de la Forclaz de Queige at km 85. ASO's official figures are 5.1 km at 8.2%; these are our own measurement (5.1 km at 7.0%)."
+      ],
+      "ascents": [
+        {
+          "race": "tdf27",
+          "raceName": "2027 Tour de France",
+          "raceShort": "TDF 2027",
+          "raceFile": null,
+          "stage": 11,
+          "stageStart": "Cluses",
+          "stageFinish": "Les Saisies",
+          "stageDate": "2027-07-14",
+          "ordinal": null,
+          "route": null,
+          "len": 5.1,
+          "grad": 7.0,
+          "elev": 853,
+          "cat": "TBC",
+          "kbf": null,
+          "profile": [
+            7.1,
+            7.4,
+            8.8,
+            8.6,
+            4.2,
+            -3.8
+          ],
+          "notes": "Stage 11 climbs the Col de la Forclaz de Queige at km 85. ASO's official figures are 5.1 km at 8.2%; these are our own measurement (5.1 km at 7.0%).",
+          "rawName": "Col de la Forclaz de Queige"
+        }
+      ]
+    },
+    {
+      "slug": "col-du-pre",
+      "name": "Col du Pré",
+      "range": "Alps",
+      "cat": "TBC",
+      "len": 12.6,
+      "grad": 7.9,
+      "elev": 1748,
+      "profile": [
+        7.1,
+        7.6,
+        7.4,
+        5.4,
+        2.6,
+        8.5,
+        9.6,
+        9.8,
+        9.3,
+        10.1,
+        10.3,
+        9.7,
+        3.9
+      ],
+      "isSummitFinish": false,
+      "ascentsVary": false,
+      "races": [
+        "tdf27"
+      ],
+      "hasPage": true,
+      "gateReasons": [],
+      "notes": [
+        "Stage 11 climbs the Col du Pré at km 113. ASO's official figures are 12.6 km at 7.8%, matching our own GPX measurement."
+      ],
+      "ascents": [
+        {
+          "race": "tdf27",
+          "raceName": "2027 Tour de France",
+          "raceShort": "TDF 2027",
+          "raceFile": null,
+          "stage": 11,
+          "stageStart": "Cluses",
+          "stageFinish": "Les Saisies",
+          "stageDate": "2027-07-14",
+          "ordinal": null,
+          "route": null,
+          "len": 12.6,
+          "grad": 7.9,
+          "elev": 1748,
+          "cat": "TBC",
+          "kbf": null,
+          "profile": [
+            7.1,
+            7.6,
+            7.4,
+            5.4,
+            2.6,
+            8.5,
+            9.6,
+            9.8,
+            9.3,
+            10.1,
+            10.3,
+            9.7,
+            3.9
+          ],
+          "notes": "Stage 11 climbs the Col du Pré at km 113. ASO's official figures are 12.6 km at 7.8%, matching our own GPX measurement.",
+          "rawName": "Col du Pré"
+        }
+      ]
+    },
+    {
+      "slug": "montee-de-bisanne",
+      "name": "Montée de Bisanne",
+      "range": "Alps",
+      "cat": "TBC",
+      "len": 12.4,
+      "grad": 8.2,
+      "elev": 1723,
+      "profile": [
+        6.1,
+        7.1,
+        7.9,
+        7.3,
+        8.2,
+        6.1,
+        8.7,
+        9.4,
+        9.0,
+        8.5,
+        9.7,
+        9.9,
+        8.6
+      ],
+      "isSummitFinish": false,
+      "ascentsVary": false,
+      "races": [
+        "tdf27"
+      ],
+      "hasPage": true,
+      "gateReasons": [],
+      "notes": [
+        "Stage 11 climbs the Montée de Bisanne at km 146, before the finish at Les Saisies. ASO's official figures are 12.4 km at 8.3%, matching our own GPX measurement."
+      ],
+      "ascents": [
+        {
+          "race": "tdf27",
+          "raceName": "2027 Tour de France",
+          "raceShort": "TDF 2027",
+          "raceFile": null,
+          "stage": 11,
+          "stageStart": "Cluses",
+          "stageFinish": "Les Saisies",
+          "stageDate": "2027-07-14",
+          "ordinal": null,
+          "route": null,
+          "len": 12.4,
+          "grad": 8.2,
+          "elev": 1723,
+          "cat": "TBC",
+          "kbf": null,
+          "profile": [
+            6.1,
+            7.1,
+            7.9,
+            7.3,
+            8.2,
+            6.1,
+            8.7,
+            9.4,
+            9.0,
+            8.5,
+            9.7,
+            9.9,
+            8.6
+          ],
+          "notes": "Stage 11 climbs the Montée de Bisanne at km 146, before the finish at Les Saisies. ASO's official figures are 12.4 km at 8.3%, matching our own GPX measurement.",
+          "rawName": "Montée de Bisanne"
+        }
+      ]
     }
   ]
 }

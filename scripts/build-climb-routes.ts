@@ -63,6 +63,17 @@ const ROADBOOK_ANCHORS: Record<string, RoadbookAnchors> = {
   // summit point (1472.5m GPX, 1474m official). Over that official length the
   // GPX gains 911m (7.7%) vs the official 7.3% (~861m) — kept as measured.
   'col-du-soulor': { startElevationM: 561, summitElevationM: 1474, lengthKm: 11.8, ascentM: 925 },
+  // 2027 Tour de France stage 11 climbs — Robin's own BRouter-Web exports, trimmed.
+  // montee-de-bisanne: Stage 11 summit-finish approach (km 146), official 12.4km at 8.3%.
+  'montee-de-bisanne': { startElevationM: 710, summitElevationM: 1723, lengthKm: 12.4, ascentM: 1023 },
+  // col-du-pre: Stage 11 (km 113), official 12.6km at 7.8%.
+  'col-du-pre': { startElevationM: 752, summitElevationM: 1748, lengthKm: 12.6, ascentM: 993 },
+  // col-de-la-forclaz-de-queige: Stage 11 (km 85), official 5.1km at 8.2%. The GPX's end point (853m) is the official col altitude, so the track end is treated as the summit; the highest point just before it (870m) is ignored.
+  'col-de-la-forclaz-de-queige': { startElevationM: 486, summitElevationM: 853, lengthKm: 5.1, ascentM: 370 },
+  // col-de-la-croix-fry-la-clusaz: Stage 11 (km 40), official 7.2km at 5.5%, climbed from La Clusaz. Separate slug from the earlier leaked-route Croix Fry (a different, Manigod-side ascent).
+  'col-de-la-croix-fry-la-clusaz': { startElevationM: 1026, summitElevationM: 1477, lengthKm: 7.2, ascentM: 444 },
+  // col-de-la-colombiere: Stage 11 (km 16), official 15.9km at 7%. Robin's export starts on a hillside and drops ~130m into Cluses first, so it is trimmed from the foot of the climb (544m, 14.4km) rather than to the full official length, which would begin on that descent.
+  'col-de-la-colombiere': { startElevationM: 544, summitElevationM: 1618, lengthKm: 14.4, ascentM: 1076 },
   'cheq-40-pro': { startElevationM: 371, summitElevationM: 532, lengthKm: 62.81, ascentM: 913 },
   'cheq-40': { startElevationM: 368, summitElevationM: 532, lengthKm: 66.97, ascentM: 913 },
   'cheq-short-fat': { startElevationM: 416, summitElevationM: 501, lengthKm: 25.34, ascentM: 338 },
