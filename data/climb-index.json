@@ -9410,6 +9410,337 @@
           "rawName": "Côte de Caerffili"
         }
       ]
+    },
+    {
+      "slug": "cote-de-domancy",
+      "name": "Côte de Domancy",
+      "range": "Alps",
+      "cat": "TBC",
+      "len": 2.61,
+      "grad": 8.6,
+      "elev": 787,
+      "profile": [
+        6.7,
+        11.2,
+        7.6
+      ],
+      "isSummitFinish": false,
+      "ascentsVary": false,
+      "races": [
+        "tdf27"
+      ],
+      "hasPage": true,
+      "gateReasons": [],
+      "notes": [
+        "Climbed twice on Stage 10 (km 111.5 and again at km 162) — the short, punchy climb that decided the 1980 UCI Road World Championships in Sallanches."
+      ],
+      "ascents": [
+        {
+          "race": "tdf27",
+          "raceName": "2027 Tour de France",
+          "raceShort": "TDF 2027",
+          "raceFile": null,
+          "stage": 10,
+          "stageStart": "Annecy",
+          "stageFinish": "Sallanches",
+          "stageDate": "2027-07-13",
+          "ordinal": null,
+          "route": null,
+          "len": 2.61,
+          "grad": 8.6,
+          "elev": 787,
+          "cat": "TBC",
+          "kbf": null,
+          "profile": [
+            6.7,
+            11.2,
+            7.6
+          ],
+          "notes": "Climbed twice on Stage 10 (km 111.5 and again at km 162) — the short, punchy climb that decided the 1980 UCI Road World Championships in Sallanches.",
+          "rawName": "Côte de Domancy"
+        }
+      ]
+    },
+    {
+      "slug": "col-du-tourmalet-2027",
+      "name": "Col du Tourmalet (2027)",
+      "range": "Pyrenees",
+      "cat": "TBC",
+      "len": 18.81,
+      "grad": 7.5,
+      "elev": 2117,
+      "profile": [
+        4.4,
+        6.6,
+        7.0,
+        8.5,
+        7.1,
+        7.6,
+        7.8,
+        8.4,
+        8.3,
+        5.8,
+        6.7,
+        7.3,
+        8.2,
+        8.2,
+        6.8,
+        8.7,
+        6.5,
+        9.4,
+        9.3
+      ],
+      "isSummitFinish": false,
+      "ascentsVary": false,
+      "races": [
+        "tdf27"
+      ],
+      "hasPage": true,
+      "gateReasons": [
+        "unlisted-alternate-ascent"
+      ],
+      "speculative": true,
+      "notes": [
+        "Stage 18 climbs the Tourmalet from the west, up from Luz-Saint-Sauveur (19 km at 7.4%) — the opposite side to the 2026 route."
+      ],
+      "ascents": [
+        {
+          "race": "tdf27",
+          "raceName": "2027 Tour de France",
+          "raceShort": "TDF 2027",
+          "raceFile": null,
+          "stage": 18,
+          "stageStart": "Pau",
+          "stageFinish": "Saint-Lary-Soulan (Col du Portet)",
+          "stageDate": "2027-07-22",
+          "ordinal": null,
+          "route": null,
+          "len": 18.81,
+          "grad": 7.5,
+          "elev": 2117,
+          "cat": "TBC",
+          "kbf": null,
+          "profile": [
+            4.4,
+            6.6,
+            7.0,
+            8.5,
+            7.1,
+            7.6,
+            7.8,
+            8.4,
+            8.3,
+            5.8,
+            6.7,
+            7.3,
+            8.2,
+            8.2,
+            6.8,
+            8.7,
+            6.5,
+            9.4,
+            9.3
+          ],
+          "notes": "Stage 18 climbs the Tourmalet from the west, up from Luz-Saint-Sauveur (19 km at 7.4%) — the opposite side to the 2026 route.",
+          "rawName": "Col du Tourmalet (2027)"
+        }
+      ]
+    },
+    {
+      "slug": "col-de-portet",
+      "name": "Col de Portet",
+      "range": "Pyrenees",
+      "cat": "TBC",
+      "len": 16.59,
+      "grad": 8.5,
+      "elev": 2210,
+      "profile": [
+        5.3,
+        9.8,
+        10.7,
+        10.3,
+        9.2,
+        8.3,
+        9.0,
+        6.4,
+        8.0,
+        8.8,
+        8.2,
+        9.0,
+        9.1,
+        8.3,
+        7.4,
+        7.9,
+        8.5
+      ],
+      "isSummitFinish": true,
+      "ascentsVary": false,
+      "races": [
+        "tdf27"
+      ],
+      "hasPage": true,
+      "gateReasons": [],
+      "notes": [
+        "Stage 18 summit finish."
+      ],
+      "ascents": [
+        {
+          "race": "tdf27",
+          "raceName": "2027 Tour de France",
+          "raceShort": "TDF 2027",
+          "raceFile": null,
+          "stage": 18,
+          "stageStart": "Pau",
+          "stageFinish": "Saint-Lary-Soulan (Col du Portet)",
+          "stageDate": "2027-07-22",
+          "ordinal": null,
+          "route": null,
+          "len": 16.59,
+          "grad": 8.5,
+          "elev": 2210,
+          "cat": "TBC",
+          "kbf": 0,
+          "profile": [
+            5.3,
+            9.8,
+            10.7,
+            10.3,
+            9.2,
+            8.3,
+            9.0,
+            6.4,
+            8.0,
+            8.8,
+            8.2,
+            9.0,
+            9.1,
+            8.3,
+            7.4,
+            7.9,
+            8.5
+          ],
+          "notes": "Stage 18 summit finish.",
+          "rawName": "Col de Portet"
+        }
+      ]
+    },
+    {
+      "slug": "col-du-marie-blanque",
+      "name": "Col du Marie Blanque",
+      "range": "Pyrenees",
+      "cat": "TBC",
+      "len": 9.06,
+      "grad": 7.7,
+      "elev": 1036,
+      "profile": [
+        2.1,
+        3.7,
+        5.5,
+        5.0,
+        6.1,
+        11.0,
+        12.4,
+        11.9,
+        12.0,
+        5.0
+      ],
+      "isSummitFinish": false,
+      "ascentsVary": false,
+      "races": [
+        "tdf27"
+      ],
+      "hasPage": true,
+      "gateReasons": [],
+      "notes": [
+        "Stage 19 climbs the Marie Blanque at km 141.5, 7.7 km at 8.6% — the final categorised climb before the finish in Laruns."
+      ],
+      "ascents": [
+        {
+          "race": "tdf27",
+          "raceName": "2027 Tour de France",
+          "raceShort": "TDF 2027",
+          "raceFile": null,
+          "stage": 19,
+          "stageStart": "Hasparren",
+          "stageFinish": "Laruns",
+          "stageDate": "2027-07-23",
+          "ordinal": null,
+          "route": null,
+          "len": 9.06,
+          "grad": 7.7,
+          "elev": 1036,
+          "cat": "TBC",
+          "kbf": null,
+          "profile": [
+            2.1,
+            3.7,
+            5.5,
+            5.0,
+            6.1,
+            11.0,
+            12.4,
+            11.9,
+            12.0,
+            5.0
+          ],
+          "notes": "Stage 19 climbs the Marie Blanque at km 141.5, 7.7 km at 8.6% — the final categorised climb before the finish in Laruns.",
+          "rawName": "Col du Marie Blanque"
+        }
+      ]
+    },
+    {
+      "slug": "cote-de-la-croix-neuve",
+      "name": "Côte de la Croix Neuve (Mende airfield)",
+      "range": "Lozère",
+      "cat": "TBC",
+      "len": 4.57,
+      "grad": 7.0,
+      "elev": 1057,
+      "profile": [
+        8.4,
+        13.0,
+        9.9,
+        -4.3,
+        1.0
+      ],
+      "isSummitFinish": true,
+      "ascentsVary": false,
+      "races": [
+        "tdf27"
+      ],
+      "hasPage": true,
+      "gateReasons": [],
+      "notes": [
+        "Stage 14 summit finish: the Côte de la Croix Neuve (Montée Jalabert), 3 km at 10.1%, then a descent onto the Mende airfield runway for the finish."
+      ],
+      "ascents": [
+        {
+          "race": "tdf27",
+          "raceName": "2027 Tour de France",
+          "raceShort": "TDF 2027",
+          "raceFile": null,
+          "stage": 14,
+          "stageStart": "Montpellier",
+          "stageFinish": "Mende",
+          "stageDate": "2027-07-17",
+          "ordinal": null,
+          "route": null,
+          "len": 4.57,
+          "grad": 7.0,
+          "elev": 1057,
+          "cat": "TBC",
+          "kbf": 0,
+          "profile": [
+            8.4,
+            13.0,
+            9.9,
+            -4.3,
+            1.0
+          ],
+          "notes": "Stage 14 summit finish: the Côte de la Croix Neuve (Montée Jalabert), 3 km at 10.1%, then a descent onto the Mende airfield runway for the finish.",
+          "rawName": "Côte de la Croix Neuve (Mende airfield)"
+        }
+      ]
     }
   ]
 }

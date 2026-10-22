@@ -20,14 +20,382 @@
       "sLng": -3.147,
       "fLat": 51.4816,
       "fLng": -3.1791
+    },
+    {
+      "num": 4,
+      "sLat": 49.6425343,
+      "sLng": -1.6249565,
+      "fLat": 49.6425343,
+      "fLng": -1.6249565
+    },
+    {
+      "num": 5,
+      "sLat": 48.5527,
+      "sLng": -1.512,
+      "fLat": 47.8378469,
+      "fLng": -2.6396508
+    },
+    {
+      "num": 6,
+      "sLat": 47.6586772,
+      "sLng": -2.7599079,
+      "fLat": 47.4739884,
+      "fLng": -0.5515588
+    },
+    {
+      "num": 7,
+      "sLat": 47.5861,
+      "sLng": 1.3359,
+      "fLat": 47.6161,
+      "fLng": 1.517
+    },
+    {
+      "num": 8,
+      "sLat": 47.0811658,
+      "sLng": 2.399125,
+      "fLat": 46.8054064,
+      "fLng": 4.4285961
+    },
+    {
+      "num": 9,
+      "sLat": 46.0013,
+      "sLng": 5.03,
+      "fLat": 45.8517,
+      "fLng": 5.7506
+    },
+    {
+      "num": 10,
+      "sLat": 45.8992,
+      "sLng": 6.1294,
+      "fLat": 45.9361,
+      "fLng": 6.6303
+    },
+    {
+      "num": 11,
+      "sLat": 46.0603,
+      "sLng": 6.5799,
+      "fLat": 45.7573,
+      "fLng": 6.5394
+    },
+    {
+      "num": 12,
+      "sLat": 45.5646,
+      "sLng": 5.9178,
+      "fLat": 44.9334,
+      "fLng": 4.8924
+    },
+    {
+      "num": 13,
+      "sLat": 44.62,
+      "sLng": 4.39,
+      "fLat": 43.6108,
+      "fLng": 3.8767
+    },
+    {
+      "num": 14,
+      "sLat": 43.6108,
+      "sLng": 3.8767,
+      "fLat": 44.518,
+      "fLng": 3.4991
+    },
+    {
+      "num": 15,
+      "sLat": 44.3511,
+      "sLng": 2.5728,
+      "fLat": 43.9277,
+      "fLng": 2.1479
+    },
+    {
+      "num": 16,
+      "sLat": 43.6047,
+      "sLng": 1.4442,
+      "fLat": 43.6047,
+      "fLng": 1.4442
+    },
+    {
+      "num": 17,
+      "sLat": 43.4606,
+      "sLng": 1.3256,
+      "fLat": 43.2957547,
+      "fLng": -0.3685668
+    },
+    {
+      "num": 18,
+      "sLat": 43.2957547,
+      "sLng": -0.3685668,
+      "fLat": 42.8331096,
+      "fLng": 0.2364994
+    },
+    {
+      "num": 19,
+      "sLat": 43.3833,
+      "sLng": -1.3,
+      "fLat": 42.9882368,
+      "fLng": -0.4266324
+    },
+    {
+      "num": 20,
+      "sLat": 43.4667,
+      "sLng": 0.0333,
+      "fLat": 44.9167,
+      "fLng": -0.2433
+    },
+    {
+      "num": 21,
+      "sLat": 48.783,
+      "sLng": 2.033,
+      "fLat": 48.8698,
+      "fLng": 2.3076
     }
   ],
   "CITY_LABELS": [
-    { "num": 1, "end": "s", "name": "Edinburgh" },
-    { "num": 1, "end": "f", "name": "Carlisle", "cls": "right" },
-    { "num": 2, "end": "s", "name": "Keswick" },
-    { "num": 2, "end": "f", "name": "Liverpool", "cls": "left" },
-    { "num": 3, "end": "s", "name": "Welshpool" },
-    { "num": 3, "end": "f", "name": "Cardiff", "cls": "left" }
+    {
+      "num": 1,
+      "end": "s",
+      "name": "Edinburgh"
+    },
+    {
+      "num": 1,
+      "end": "f",
+      "name": "Carlisle",
+      "cls": "right"
+    },
+    {
+      "num": 2,
+      "end": "s",
+      "name": "Keswick"
+    },
+    {
+      "num": 2,
+      "end": "f",
+      "name": "Liverpool",
+      "cls": "left"
+    },
+    {
+      "num": 3,
+      "end": "s",
+      "name": "Welshpool"
+    },
+    {
+      "num": 3,
+      "end": "f",
+      "name": "Cardiff",
+      "cls": "left"
+    },
+    {
+      "num": 5,
+      "end": "s",
+      "name": "Pontorson",
+      "dense": true
+    },
+    {
+      "num": 5,
+      "end": "f",
+      "name": "Plumelec",
+      "cls": "left",
+      "dense": true
+    },
+    {
+      "num": 6,
+      "end": "s",
+      "name": "Vannes",
+      "dense": true
+    },
+    {
+      "num": 6,
+      "end": "f",
+      "name": "Angers",
+      "cls": "right",
+      "dense": true
+    },
+    {
+      "num": 7,
+      "end": "s",
+      "name": "Blois",
+      "dense": true
+    },
+    {
+      "num": 7,
+      "end": "f",
+      "name": "Chambord (ITT)",
+      "cls": "right",
+      "dense": true
+    },
+    {
+      "num": 8,
+      "end": "s",
+      "name": "Bourges",
+      "dense": true
+    },
+    {
+      "num": 8,
+      "end": "f",
+      "name": "Le Creusot",
+      "cls": "right",
+      "dense": true
+    },
+    {
+      "num": 4,
+      "end": "f",
+      "name": "Cherbourg-en-Cotentin",
+      "cls": "left"
+    },
+    {
+      "num": 9,
+      "end": "s",
+      "name": "Villars-les-Dombes",
+      "dense": true
+    },
+    {
+      "num": 9,
+      "end": "f",
+      "name": "Grand Colombier",
+      "dense": true,
+      "cls": "right"
+    },
+    {
+      "num": 10,
+      "end": "s",
+      "name": "Annecy",
+      "dense": true,
+      "cls": "left"
+    },
+    {
+      "num": 10,
+      "end": "f",
+      "name": "Sallanches",
+      "dense": true,
+      "cls": "right"
+    },
+    {
+      "num": 11,
+      "end": "s",
+      "name": "Cluses",
+      "dense": true
+    },
+    {
+      "num": 11,
+      "end": "f",
+      "name": "Les Saisies",
+      "dense": true,
+      "cls": "right"
+    },
+    {
+      "num": 12,
+      "end": "s",
+      "name": "Chambéry",
+      "dense": true,
+      "cls": "left"
+    },
+    {
+      "num": 12,
+      "end": "f",
+      "name": "Valence",
+      "dense": true,
+      "cls": "left"
+    },
+    {
+      "num": 13,
+      "end": "s",
+      "name": "Aubenas",
+      "dense": true
+    },
+    {
+      "num": 13,
+      "end": "f",
+      "name": "Montpellier",
+      "dense": true,
+      "cls": "left"
+    },
+    {
+      "num": 14,
+      "end": "f",
+      "name": "Mende",
+      "dense": true,
+      "cls": "left"
+    },
+    {
+      "num": 15,
+      "end": "s",
+      "name": "Rodez",
+      "dense": true,
+      "cls": "left"
+    },
+    {
+      "num": 15,
+      "end": "f",
+      "name": "Albi",
+      "dense": true,
+      "cls": "left"
+    },
+    {
+      "num": 16,
+      "end": "f",
+      "name": "Toulouse (ITT)",
+      "dense": true,
+      "cls": "left"
+    },
+    {
+      "num": 17,
+      "end": "s",
+      "name": "Muret",
+      "dense": true,
+      "cls": "left"
+    },
+    {
+      "num": 17,
+      "end": "f",
+      "name": "Pau",
+      "dense": true,
+      "cls": "left"
+    },
+    {
+      "num": 18,
+      "end": "f",
+      "name": "Saint-Lary-Soulan",
+      "dense": true,
+      "cls": "right"
+    },
+    {
+      "num": 19,
+      "end": "s",
+      "name": "Hasparren",
+      "dense": true
+    },
+    {
+      "num": 19,
+      "end": "f",
+      "name": "Laruns",
+      "dense": true,
+      "cls": "left"
+    },
+    {
+      "num": 20,
+      "end": "s",
+      "name": "Maubourguet",
+      "dense": true,
+      "cls": "right"
+    },
+    {
+      "num": 20,
+      "end": "f",
+      "name": "Libourne",
+      "dense": true,
+      "cls": "right"
+    },
+    {
+      "num": 21,
+      "end": "s",
+      "name": "Saint-Quentin-en-Yvelines",
+      "dense": true,
+      "cls": "left"
+    },
+    {
+      "num": 21,
+      "end": "f",
+      "name": "Paris",
+      "dense": true,
+      "cls": "right"
+    }
   ]
 }

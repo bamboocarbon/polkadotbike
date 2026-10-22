@@ -61,6 +61,9 @@ interface RawClimb {
   elev: number;
   races: string[];
   hasPage: boolean;
+  /** Hand-flagged entries (alternate ascents of an already-listed climb) — never
+   *  listed here regardless of category. */
+  speculative?: boolean;
 }
 
 function fold(s: string): string {
@@ -74,7 +77,7 @@ function fold(s: string): string {
 const MAJOR_CATS = new Set(['HC', 'Cat1', 'Cat2', 'ESP']);
 
 const climbs: ClimbIndexItem[] = (climbIndexData.climbs as RawClimb[])
-  .filter((c) => c.hasPage && MAJOR_CATS.has(c.cat))
+  .filter((c) => c.hasPage && MAJOR_CATS.has(c.cat) && !c.speculative)
   .map((c) => {
     const race = c.races[0] as 'tdf' | 'giro' | 'vuelta';
     return {

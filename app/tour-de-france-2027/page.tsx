@@ -1,16 +1,19 @@
 import type { Metadata, Viewport } from 'next';
+import { Fragment } from 'react';
 import Footer from '@/components/Footer';
 import AADSUnit from '@/components/AADSUnit';
-import Tdf27Map from '@/components/tdf2027/Tdf27Map';
+import Tdf27Explorer from '@/components/tdf2027/Tdf27Explorer';
 import ClimbCard from '@/components/race/ClimbCard';
 import type { Stage as MapStage, Climb } from '@/lib/raceHelpers';
+import { STAGES, REST_DAYS, OFFICIAL_TOTALS, type Stage, type StageClimb, type RestDay } from '@/data/tdf2027-official/stages';
 import '@/components/content/content.css';
+import '@/components/race/race.css';
 import '@/components/tdf2027/tdf2027.css';
 
 const PAGE_URL = 'https://polkadotbike.com/tour-de-france-2027';
-const TITLE = '2027 Tour de France — UK Grand Départ (Stages 1–3) · Polka Dot Bike';
+const TITLE = '2027 Tour de France Route — All 21 Stages & Climbs · Polka Dot Bike';
 const DESCRIPTION =
-  'The 2027 Tour de France opens with a Grand Départ in Scotland: three confirmed UK stages, Edinburgh to Carlisle, Keswick to Liverpool and Welshpool to Cardiff, 2–4 July 2027. Full route into France expected October 2026.';
+  'The official 2027 Tour de France route: Grand Départ in Edinburgh on 2 July, 21 stages and 3,479 km through the Alps, Jura, Massif Central and Pyrenees to Paris on 25 July. Stage-by-stage map, profiles and climbs.';
 
 export const metadata: Metadata = {
   title: { absolute: TITLE },
@@ -35,158 +38,15 @@ export const metadata: Metadata = {
 
 export const viewport: Viewport = { themeColor: '#ef4444' };
 
-interface StageClimb {
-  name: string;
-  /** Where in the stage it falls, e.g. "after Lancaster", "~85.5km mark", "final climb" */
-  position?: string;
-  len?: number; // km
-  grad?: number; // %
-  /** Real per-km average-gradient profile, trimmed from Robin's GPX (data/tdf2027/routes/) — only
-   *  set once a climb has been trimmed and matched against its official length/gradient. */
-  profile?: number[];
-  /** GPS elevation gain (m) over the trimmed GPX segment — cross-checked against len*grad, not a
-   *  fabricated figure. No absolute summit altitude shown (GPS altitude itself isn't reliable enough). */
-  gain?: number;
-  /** Verified prior race history only (Tour of Britain etc.) — researched 2026-09-15, each claim
-   *  checked against a real source before being added here. Left blank rather than guessed where
-   *  nothing solid turned up; see the memory note for what came back unconfirmed. */
-  history?: string;
-}
-
-interface Stage {
-  num: 1 | 2 | 3;
-  date: string; // ISO, for JSON-LD
-  dateLabel: string;
-  start: string;
-  finish: string;
-  dist: number;
-  terrain: 'Flat' | 'Hilly' | 'Mountainous';
-  /** Same terrain, in the type key the map's route-line colours use ('Mountain', not 'Mountainous') */
-  mapType: 'Flat' | 'Hilly' | 'Mountain';
-  badgeCls: string;
-  vgain: number;
-  climbCount: number;
-  summary: string;
-  climbs: StageClimb[];
-}
-
-const STAGES: Stage[] = [
-  {
-    num: 1,
-    date: '2027-07-02',
-    dateLabel: 'Friday 2 July 2027',
-    start: 'Edinburgh',
-    finish: 'Carlisle',
-    dist: 184,
-    terrain: 'Flat',
-    mapType: 'Flat',
-    badgeCls: 'badge-s',
-    vgain: 2000,
-    climbCount: 1,
-    summary: 'Likely bunch sprint finish.',
-    climbs: [
-      {
-        name: 'Côte de Melrose (Dingleton)', position: 'early in the stage', len: 2.2, grad: 6.7, profile: [6.4, 6.7, 7.9], gain: 146,
-        history: "Climbed twice as the race's final categorised ascent in the 2025 Tour of Britain Women.",
-      },
-    ],
-  },
-  {
-    num: 2,
-    date: '2027-07-03',
-    dateLabel: 'Saturday 3 July 2027',
-    start: 'Keswick',
-    finish: 'Liverpool',
-    dist: 223,
-    terrain: 'Hilly',
-    mapType: 'Hilly',
-    badgeCls: 'badge-h',
-    vgain: 2800,
-    climbCount: 5,
-    summary: 'Expected breakaway stage.',
-    climbs: [
-      {
-        name: 'Côte de Jubilee Tower', position: 'km 88, after Lancaster', len: 3.8, grad: 6.1, profile: [4.1, 10.4, 4.2, 5.7], gain: 232,
-        history: 'The steepest test comes early — a 10%+ second kilometre — before three gentler kilometres carry the road to the top.',
-      },
-      {
-        name: 'Côte de Trough of Bowland', position: 'km 98.5', len: 1.9, grad: 5.2, profile: [2.9, 7.7], gain: 98,
-        history: 'A gentle opening kilometre gives way to a much steeper final pitch near 8%.',
-      },
-      {
-        name: 'Côte de Waddington Fell', position: 'km 112', len: 3.4, grad: 6.4, profile: [5.4, 6.1, 7.0, 8.1], gain: 220,
-        history: "The opening Category 1 climb of Stage 2, 2026 Tour of Britain Women.",
-      },
-      {
-        // The old note here ("Part of the 2023 Tour of Britain men's Stage 1
-        // route... on Rivington Road") was checked and found false — that
-        // stage's real categorised climbs were Grains Bar and Ramsbottom
-        // Rake, no mention of Rivington Road anywhere (2026-09-16). Replaced
-        // with a descriptive line grounded in this climb's own profile data.
-        name: 'Côte de Belmont', position: 'km 152.5, after Blackburn', len: 2, grad: 4, profile: [2.5, 5.5, 0.6], gain: 80,
-        history: 'A short, punchy middle kilometre near 5.5%, bookended by two much easier ones.',
-      },
-      {
-        name: 'Côte de Parbold', position: 'km 183', len: 1.8, grad: 5.6, profile: [3.9, 7.8], gain: 101,
-        history: 'Doubles in gradient for its second and final kilometre, close to 8%.',
-      },
-    ],
-  },
-  {
-    num: 3,
-    date: '2027-07-04',
-    dateLabel: 'Sunday 4 July 2027',
-    start: 'Welshpool',
-    finish: 'Cardiff',
-    dist: 223,
-    terrain: 'Mountainous',
-    mapType: 'Mountain',
-    badgeCls: 'badge-m',
-    vgain: 3000,
-    climbCount: 8,
-    summary: 'GC / puncheur stage.',
-    climbs: [
-      {
-        name: "Côte d'Épynt", position: 'km 85.5', len: 3.7, grad: 7.9, profile: [5.4, 7.7, 9.8, 9.0], gain: 293,
-        history: 'Builds steadily to a genuinely hard third kilometre near 10%, and barely eases before the summit.',
-      },
-      {
-        name: 'Côte de Bannau Brycheiniog', position: 'km 121.5', len: 6.6, grad: 3.5, profile: [3.1, 3.3, 3.4, 3.7, 3.8, 3.8, 3.2], gain: 231,
-        history: 'The longest of the UK climbs, but remarkably steady — every kilometre sits within a point of 3.5%, with no real sting in the tail.',
-      },
-      {
-        name: 'Côte de Rhigos', position: 'km 145.5', len: 4.6, grad: 5.8, profile: [4.9, 6.1, 6.5, 5.4, 6.2], gain: 266,
-        history: 'A Category 1 KOM on Stage 8 of the 2023 Tour of Britain, en route to a finish on the Côte de Caerffili below.',
-      },
-      {
-        name: 'Côte de Penrhys', position: 'km 160.5', len: 1.3, grad: 10.1, profile: [9.8, 10.9], gain: 130,
-        history: 'Short and consistently brutal — both kilometres average close to 10%, with the second slightly steeper again.',
-      },
-      {
-        name: 'Côte de Maerdy', position: 'km 169', len: 1.5, grad: 8.7, profile: [9.1, 7.3], gain: 126,
-        history: 'Hardest right from the gun — over 9% in the opening kilometre — before easing slightly into the finish.',
-      },
-      {
-        name: 'Côte de Gelligaer', position: 'km 193', len: 1.4, grad: 4.9, profile: [5.7, 2.9], gain: 68,
-        history: 'A demanding opening kilometre at nearly 6% softens to a gentle run-in for the second.',
-      },
-      {
-        name: 'Côte de Hengoed', position: 'km 197.5', len: 0.7, grad: 11, profile: [10.7], gain: 73,
-        history: 'Barely 700m long but averaging almost 11% throughout — a short, sharp shock of a climb.',
-      },
-      {
-        name: 'Côte de Caerffili', position: 'final climb, km 210.5', len: 2, grad: 8.1, profile: [4.6, 11.6], gain: 162,
-        history: 'A regular Tour of Britain finishing climb — used in 2012, 2013 (Sam Bennett won there) and 2023, its fourth appearance in the race.',
-      },
-    ],
-  },
+// Reference cities for the initial map view — chosen so none overlaps a stage dot, route line
+// or label (checked at several zoom scales); hidden again once the map is zoomed in.
+const PLACE_LABELS = [
+  { lat: 48.39, lng: -4.49, name: 'Brest', side: 'left' as const },
+  { lat: 50.63, lng: 3.06, name: 'Lille' },
+  { lat: 49.26, lng: 4.03, name: 'Reims' },
+  { lat: 43.7, lng: 7.26, name: 'Nice' },
 ];
 
-// UPDATE IN OCTOBER 2026 once the full route into France is announced:
-//  - add `endDate` to the main SportsEvent below (omitted for now — the
-//    race's actual finish date isn't public yet)
-//  - broaden `location` beyond "United Kingdom" once later stages are known
-//  - append a subEvent entry per additional stage as they're confirmed
 function buildJsonLd() {
   return [
     {
@@ -197,21 +57,20 @@ function buildJsonLd() {
       description: DESCRIPTION,
       url: PAGE_URL,
       startDate: '2027-07-02',
+      endDate: '2027-07-25',
       eventStatus: 'https://schema.org/EventScheduled',
       eventAttendanceMode: 'https://schema.org/OfflineEventAttendanceMode',
-      location: { '@type': 'Place', name: 'United Kingdom' },
+      location: [
+        { '@type': 'Place', name: 'United Kingdom' },
+        { '@type': 'Place', name: 'France' },
+      ],
       organizer: { '@type': 'Organization', name: 'Amaury Sport Organisation (ASO)' },
       image: 'https://polkadotbike.com/og-card-tdf-red.png',
-      // No `offers`/`performer` — this is free roadside viewing with no
-      // ticketing and no single fixed "performer", so neither field
-      // legitimately applies (not fabricating values just to silence the
-      // validator's optional-field warnings).
       subEvent: STAGES.map((s) => ({
         '@type': 'SportsEvent',
         name: `2027 Tour de France — Stage ${s.num}: ${s.start} to ${s.finish}`,
         description: `${s.dateLabel} · ${s.start} to ${s.finish}, ${s.dist}km, ${s.terrain.toLowerCase()}.`,
         startDate: s.date,
-        // Single-day stage — end date is the same calendar day as the start.
         endDate: s.date,
         eventStatus: 'https://schema.org/EventScheduled',
         organizer: { '@type': 'Organization', name: 'Amaury Sport Organisation (ASO)' },
@@ -219,7 +78,7 @@ function buildJsonLd() {
         location: {
           '@type': 'Place',
           name: s.finish,
-          address: { '@type': 'PostalAddress', addressLocality: s.finish, addressCountry: 'GB' },
+          address: { '@type': 'PostalAddress', addressLocality: s.finish, addressCountry: s.num <= 3 ? 'GB' : 'FR' },
         },
       })),
     },
@@ -228,22 +87,25 @@ function buildJsonLd() {
       '@type': 'BreadcrumbList',
       itemListElement: [
         { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://polkadotbike.com/' },
-        { '@type': 'ListItem', position: 2, name: '2027 Tour de France — UK Grand Départ', item: PAGE_URL },
+        { '@type': 'ListItem', position: 2, name: '2027 Tour de France', item: PAGE_URL },
       ],
     },
   ];
 }
 
-function ClimbRow({ c }: { c: StageClimb }) {
+function ClimbRow({ c, scaleUp }: { c: StageClimb; scaleUp: boolean }) {
   const hasData = c.len != null && c.grad != null;
   const climbObj: Climb = {
     race: 'tdf27', stage: 0, name: c.name, range: c.position ?? '',
     len: hasData ? c.len! : null, grad: hasData ? c.grad! : null, elev: null,
-    // 'TBC' rather than 'Uncat' — these climbs are real and confirmed, just not
-    // yet officially categorised by ASO (expected alongside the full route reveal).
+    // 'TBC' rather than 'Uncat' — the climbs are real and on the official route; categories aren't entered yet.
     cat: 'TBC', kbf: null, profile: c.profile, notes: c.history ?? '',
   };
-  return <ClimbCard climb={climbObj} hideGpxDownload profileWidthScale={2} profileHeightScale={2} />;
+  // The 3 UK stages are short, sharp climbs that need the enlarged profile to read properly;
+  // the continental climbs use the site's standard ClimbCard scale.
+  return scaleUp
+    ? <ClimbCard climb={climbObj} hideGpxDownload profileWidthScale={2} profileHeightScale={2} />
+    : <ClimbCard climb={climbObj} hideGpxDownload />;
 }
 
 function StageCard({ s }: { s: Stage }) {
@@ -257,17 +119,29 @@ function StageCard({ s }: { s: Stage }) {
       </div>
       <div className="stage-meta-row">
         <span>{s.dateLabel}</span>
-        <span>{s.dist}km</span>
-        <span>~{s.vgain.toLocaleString()}m elevation gain</span>
+        <span>{s.dist != null ? `${s.dist}km` : 'Distance TBC'}</span>
+        <span>{s.vgain != null ? `~${s.vgain.toLocaleString()}m elevation gain` : 'Elevation TBC'}</span>
       </div>
       <p className="stage-summary">{s.summary}</p>
 
-      <h3 className="climb-list-head">Climbs ({s.climbCount})</h3>
-      <div className="climb-list">
-        {s.climbs.map((c, i) => (
-          <ClimbRow key={i} c={c} />
-        ))}
-      </div>
+      {s.climbCount > 0 && (
+        <>
+          <h3 className="climb-list-head">Climbs ({s.climbCount})</h3>
+          <div className="climb-list">
+            {s.climbs.map((c, i) => (
+              <ClimbRow key={i} c={c} scaleUp={s.num <= 3} />
+            ))}
+          </div>
+        </>
+      )}
+    </div>
+  );
+}
+
+function RestDayCard({ r }: { r: RestDay }) {
+  return (
+    <div className="glass sec stage-card" style={{ textAlign: 'center', padding: '14px 20px', opacity: 0.85 }}>
+      <strong>Rest day</strong> — {r.dateLabel}{r.location ? ` — ${r.location}` : ''}
     </div>
   );
 }
@@ -283,7 +157,7 @@ const STAGES_FOR_MAP: MapStage[] = STAGES.map((s) => ({
   notes: s.summary,
 }));
 
-export default function TdfUk2027Page() {
+export default function Tdf2027Page() {
   return (
     <>
       {buildJsonLd().map((block, i) => (
@@ -301,41 +175,44 @@ export default function TdfUk2027Page() {
       />
 
       <div className="hero">
-        <h1>2027 Tour de France — UK Grand Départ</h1>
-        <p>Stages 1–3: Edinburgh to Cardiff, 2–4 July 2027.</p>
+        <h1>2027 Tour de France</h1>
+        <p>
+          {OFFICIAL_TOTALS.dates}, Edinburgh to Paris — {OFFICIAL_TOTALS.distanceKm.toLocaleString()}km, {OFFICIAL_TOTALS.elevationM.toLocaleString()}m of
+          climbing.
+        </p>
       </div>
 
-      <Tdf27Map stages={STAGES_FOR_MAP} />
-
-      <div className="container" style={{ maxWidth: 880 }}>
-        <div className="status-banner">
-          <span>
-            <strong>UK stages confirmed January 2026.</strong> Full route into France expected October 2026 — this page will be updated then.
-          </span>
-        </div>
-
+      <Tdf27Explorer stages={STAGES_FOR_MAP} placeLabels={PLACE_LABELS}>
         <div className="glass intro" style={{ padding: '22px 24px', marginBottom: 18 }}>
           <p style={{ fontSize: '15px', lineHeight: 1.62, color: 'var(--text)' }}>
             The 2027 Tour de France opens with its Grand Départ in Scotland — the first time the race has started north of the border, and only the
-            third UK start in the Tour&apos;s history, after London in 2007 and Yorkshire in 2014. As with those, both the men&apos;s and
-            women&apos;s races begin here: three confirmed stages taking the peloton from Edinburgh down through the Lake District and North West
-            England into Wales, before the race crosses into France for the rest of the route.
+            third UK start in its history. Three stages take the peloton from Edinburgh through the Lake District and North West England into
+            Wales, before the race crosses to Cherbourg-en-Cotentin and heads south through the Loire, the Alps, the Massif Central and the
+            Pyrenees, finishing on the Champs-Élysées on Sunday 25 July.
           </p>
           <p style={{ fontSize: '15px', lineHeight: 1.62, color: 'var(--text)', marginTop: 12 }}>
-            Only the UK portion is confirmed so far — a likely sprint finish in Carlisle, a hilly stage into Liverpool suited to a breakaway, and a
-            punchy finish over the Côte de Caerffili in Cardiff that could shake up the GC early. What comes after that, into France, isn&apos;t
-            known yet.
+            There are {OFFICIAL_TOTALS.itts.count} individual time trials ({OFFICIAL_TOTALS.itts.totalKm}km in all), {OFFICIAL_TOTALS.sprint} flat stages,{' '}
+            {OFFICIAL_TOTALS.hilly} hilly stages and {OFFICIAL_TOTALS.mountain} mountain stages, with summit finishes at the Grand Colombier, Les Saisies,
+            Mende and the Col du Portet. Climb lengths and gradients below are from ASO&apos;s official stage profiles; official climb categories
+            haven&apos;t been entered yet.
           </p>
         </div>
 
         {STAGES.map((s) => (
-          <StageCard key={s.num} s={s} />
+          <Fragment key={s.num}>
+            {REST_DAYS.filter((r) => r.beforeStage === s.num).map((r) => (
+              <RestDayCard key={r.beforeStage} r={r} />
+            ))}
+            <StageCard s={s} />
+          </Fragment>
         ))}
+      </Tdf27Explorer>
 
+      <div className="container" style={{ maxWidth: 1100 }}>
         <AADSUnit />
 
         <Footer
-          attribution="Polka Dot Bike · 2027 Tour de France · UK Grand Départ stage data confirmed January 2026; full route pending official announcement."
+          attribution="Polka Dot Bike · 2027 Tour de France · Stage data from the official ASO route presentation (22 October 2026); gradients are average values."
           links={[
             { href: '/', label: '← Gear Calculator' },
             { href: '/tdf', label: 'TDF 2026' },

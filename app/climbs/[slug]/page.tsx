@@ -17,6 +17,10 @@ interface RawClimb {
   grad: number;
   elev: number;
   races: string[];
+  /** Hand-flagged entries (e.g. an alternate ascent of an already-listed climb) —
+   *  always noindex/nofollow and never tied to the WebApplication JSON-LD node,
+   *  regardless of whether real route data exists. */
+  speculative?: boolean;
 }
 
 function findClimb(slug: string): RawClimb | undefined {
@@ -35,7 +39,7 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   // the string, not the start — the raw stats and GPX mention can afford to
   // be the part that gets clipped on a long climb name.
   const DESCRIPTION = `Get your personalised time and pace for ${climb.name} — ${climb.len}km at ${climb.grad}% to ${climb.elev.toLocaleString()}m in ${climb.range} — from your own power and weight. Ride it in 3D, pick your gearing, download the GPX.`;
-  const indexable = hasRouteData(slug);
+  const indexable = hasRouteData(slug) && !climb.speculative;
 
   return {
     title: { absolute: TITLE },
@@ -65,7 +69,7 @@ export const viewport: Viewport = {
 
 function buildJsonLd(climb: RawClimb, slug: string, summary: string) {
   const PAGE_URL = `https://polkadotbike.com/climbs/${slug}`;
-  const indexable = hasRouteData(slug);
+  const indexable = hasRouteData(slug) && !climb.speculative;
 
   return [
     {

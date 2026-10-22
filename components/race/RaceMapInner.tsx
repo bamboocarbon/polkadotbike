@@ -24,9 +24,11 @@ export interface CityLabel {
   /** Dynamic placement mode only (Vuelta) — preferred side, overridden
    *  when it collides with a route line/dot/other label. */
   pref?: 'left' | 'right' | 'top' | 'bottom';
-  /** Dynamic placement mode only — hidden until the user zooms in past the
-   *  initial fitBounds view (Vuelta's southern cluster is too tightly
-   *  packed to label at the default zoom). */
+  /** Hidden until the user zooms in past the initial fitBounds view — for
+   *  a cluster too tightly packed to label at the default zoom. Works in
+   *  both placement modes: dynamic mode (Vuelta) also runs collision
+   *  avoidance once shown; static mode (2027 TDF's continental leg) just
+   *  toggles the fixed-offset label's visibility, no repositioning. */
   dense?: boolean;
 }
 
@@ -36,6 +38,14 @@ export interface CountryLabel {
   name: string;
   color: string;
   size?: string;
+}
+
+export interface PlaceLabel {
+  lat: number;
+  lng: number;
+  name: string;
+  /** Which side of the dot the name sits on (default right). */
+  side?: 'left' | 'right';
 }
 
 export interface RaceMapProps {
@@ -59,6 +69,9 @@ export interface RaceMapProps {
    *  2027 TDF preview map: France is shown as context but has no plotted
    *  route). Omit for the normal case (bounds driven by stages alone). */
   extraBoundsPoints?: [number, number][];
+  /** Reference cities (small grey dot + name) with no stage attached — shown only at the
+   *  initial zoom, hidden once the user zooms in so they can't clash with the dense stage labels. */
+  placeLabels?: PlaceLabel[];
   /** TDF/Vuelta: `zoomControl: true`, no `separate`, mobile view just pans
    *  left by 16px. Giro differs on both (its own `L.control.zoom` at
    *  bottomleft, mobile re-centres and zooms in on Italy).
@@ -152,6 +165,7 @@ export default function RaceMapInner({
   onStageClick,
   fitBoundsPadding,
   extraBoundsPoints = [],
+  placeLabels = [],
   zoomControl = { position: 'topright' },
   mobileView = { type: 'panBy', dx: -16 },
   zoomDelta,
@@ -243,7 +257,7 @@ export default function RaceMapInner({
       }).addTo(map);
 
       marker.bindTooltip(
-        `<b>Stage ${sc.num}</b> · ${stage.start} → ${stage.finish}<br>${stage.dist} km · ${stage.type}`,
+        `<b>Stage ${sc.num}</b> · ${stage.start} → ${stage.finish}<br>${stage.dist != null ? `${stage.dist} km · ` : ''}${stage.type}`,
         { className: 'map-tip', direction: tooltipDirection, offset: [0, -12] }
       );
       marker.on('click', () => onStageClick(sc.num));
@@ -396,16 +410,50 @@ export default function RaceMapInner({
       placeCityLabels();
       map.on('zoomend moveend', placeCityLabels);
     } else {
+      const denseMarkers: L.Marker[] = [];
       cityLabels.forEach((c) => {
         const sc = stageCoords.find((x) => x.num === c.num);
         if (!sc) return;
         const lat = c.end === 's' ? sc.sLat : sc.fLat;
         const lng = c.end === 's' ? sc.sLng : sc.fLng;
-        L.marker([lat, lng], {
+        const marker = L.marker([lat, lng], {
           pane: 'maplabels', interactive: false, keyboard: false,
           icon: L.divIcon({ className: '', html: `<div class="map-city ${c.cls || ''}">${c.name}</div>`, iconSize: [0, 0] }),
         }).addTo(map);
+        if (c.dense) denseMarkers.push(marker);
       });
+
+      // Dense static labels: no repositioning (unlike dynamic mode), just
+      // hidden until the user zooms in past the initial fitBounds view.
+      if (denseMarkers.length) {
+        const updateDenseVisibility = () => {
+          const show = map.getZoom() > initialZoom;
+          denseMarkers.forEach((marker) => {
+            const inner = marker.getElement()?.querySelector('.map-city') as HTMLElement | null;
+            if (inner) inner.style.display = show ? '' : 'none';
+          });
+        };
+        updateDenseVisibility();
+        map.on('zoomend', updateDenseVisibility);
+      }
+    }
+
+    if (placeLabels.length) {
+      const placeMarkers = placeLabels.map((c) =>
+        L.marker([c.lat, c.lng], {
+          pane: 'maplabels', interactive: false, keyboard: false,
+          icon: L.divIcon({ className: '', html: `<div class="map-place ${c.side === 'left' ? 'left' : ''}">${c.side === 'left' ? `${c.name}<i></i>` : `<i></i>${c.name}`}</div>`, iconSize: [0, 0] }),
+        }).addTo(map)
+      );
+      const updatePlaceVisibility = () => {
+        const show = map.getZoom() <= initialZoom;
+        placeMarkers.forEach((m) => {
+          const inner = m.getElement()?.querySelector('.map-place') as HTMLElement | null;
+          if (inner) inner.style.display = show ? '' : 'none';
+        });
+      };
+      updatePlaceVisibility();
+      map.on('zoomend', updatePlaceVisibility);
     }
 
     countryLabels.forEach((c) => {

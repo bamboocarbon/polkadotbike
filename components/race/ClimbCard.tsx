@@ -10,6 +10,14 @@ import { trackGpxDownload } from '@/lib/trackGpxDownload';
 // exists for every climb but only these have actual terrain to show.
 // Extend as more climbs get their pipeline run.
 const CLIMB_3D_SLUGS: Record<string, string> = {
+  // 2027 Tour de France climbs with prebuilt 3D data. Tourmalet carries a
+  // "(2027)" suffix so it can't overwrite the 2026 Tourmalet's mapping below
+  // (this is the opposite, Luz-Saint-Sauveur side).
+  'Côte de Domancy': 'cote-de-domancy',
+  'Col du Tourmalet (2027)': 'col-du-tourmalet-2027',
+  'Col du Portet': 'col-de-portet',
+  'Col de Marie Blanque': 'col-du-marie-blanque',
+  'Côte de la Croix Neuve (Montée Jalabert)': 'cote-de-la-croix-neuve',
   "Alpe d'Huez": 'alpe-dhuez',
   "Ballon d'Alsace": 'ballon-dalsace',
   'Col Bayard': 'col-bayard',

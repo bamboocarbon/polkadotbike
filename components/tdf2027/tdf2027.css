@@ -104,3 +104,9 @@
 .cc-profile { margin: 8px 0 10px; }
 .cc-profile svg { display: block; max-width: 100%; height: auto; }
 .profile-meta { display: flex; justify-content: space-between; margin-top: 3px; font-size: 11px; color: var(--sec); }
+
+/* Reference cities with no stage — small grey dot + name, lighter than the stage labels. */
+.map-place { display: inline-block; transform: translate(6px, -50%); white-space: nowrap; font-family: 'Inter', system-ui, sans-serif; font-size: 10px; font-weight: 500; color: rgba(30, 41, 59, 0.55); pointer-events: none; }
+.map-place.left { transform: translate(calc(-100% - 6px), -50%); }
+.map-place i { display: inline-block; width: 5px; height: 5px; border-radius: 50%; background: rgba(30, 41, 59, 0.45); margin-right: 4px; vertical-align: middle; }
+.map-place.left i { margin: 0 0 0 4px; }
