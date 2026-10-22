@@ -260,12 +260,17 @@ export const STAGES: Stage[] = [
   },
   {
     num: 18, date: '2027-07-22', dateLabel: 'Thursday 22 July 2027', start: 'Pau', finish: 'Saint-Lary-Soulan (Col du Portet)',
-    dist: 174, terrain: 'Mountainous', mapType: 'Mountain', badgeCls: 'badge-m', vgain: 5400, climbCount: 4,
+    dist: 174, terrain: 'Mountainous', mapType: 'Mountain', badgeCls: 'badge-m', vgain: 5400, climbCount: 5,
     summary: 'The big Pyrenean day: Soulor, Tourmalet and Hourquette d’Ancizan before a summit finish on the Col du Portet.',
     climbs: [
       { name: 'Col du Soulor', position: 'km 50', len: 11.8, grad: 7.3 },
       { name: 'Col du Tourmalet (2027)', position: 'km 106.5, Souvenir Jacques Goddet', len: 19, grad: 7.4, profile: [4.4, 6.8, 6.8, 8.6, 6.9, 7.8, 8.0, 8.2, 8.2, 5.9, 6.7, 7.2, 8.3, 8.1, 6.9, 8.7, 6.3, 9.6, 9.1], gain: 1408 },
       { name: "Hourquette d'Ancizan", position: 'km 140.5', len: 8.2, grad: 5.1 },
+      {
+        name: "Hourquette d'Ancizan", position: 'km 140.5', len: 15.2, grad: 4.7,
+        profile: [4.9, 1.4, 3.8, 3.5, 3.4, 6.5, 1.0, 2.8, 3.6, 8.2, 6.7, 6.7, 5.5, 5.9, 8.0, 1.3], gain: 721,
+        history: "Figures are our own GPX measurement, the full climb from Sainte-Marie-de-Campan. ASO's official figures for the categorised climb are 8.2 km at 5.1%; their start point is different, which is why the two don't match.",
+      },
       { name: 'Col du Portet', position: 'summit finish, Souvenir Henri Desgrange', len: 16, grad: 8.7, profile: [8.5, 10.5, 10.7, 9.4, 10.0, 6.8, 10.2, 5.1, 8.5, 8.8, 8.8, 8.8, 9.3, 6.0, 8.8, 8.2], gain: 1384 },
     ],
   },

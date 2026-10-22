@@ -9741,6 +9741,82 @@
           "rawName": "Côte de la Croix Neuve (Mende airfield)"
         }
       ]
+    },
+    {
+      "slug": "hourquette-d-ancizan",
+      "name": "Hourquette d'Ancizan",
+      "range": "Pyrenees",
+      "cat": "TBC",
+      "len": 15.21,
+      "grad": 4.9,
+      "elev": 1565,
+      "profile": [
+        4.9,
+        1.3,
+        3.9,
+        3.4,
+        3.4,
+        6.5,
+        1.0,
+        2.9,
+        3.3,
+        8.3,
+        6.7,
+        6.8,
+        5.5,
+        5.8,
+        8.1,
+        1.3
+      ],
+      "isSummitFinish": false,
+      "ascentsVary": false,
+      "races": [
+        "tdf27"
+      ],
+      "hasPage": true,
+      "gateReasons": [],
+      "notes": [
+        "Stage 18 climbs the Hourquette d'Ancizan at km 140.5, from Sainte-Marie-de-Campan. ASO lists the categorised climb as 8.2 km at 5.1%; these figures are our own measurement of the full ascent."
+      ],
+      "ascents": [
+        {
+          "race": "tdf27",
+          "raceName": "2027 Tour de France",
+          "raceShort": "TDF 2027",
+          "raceFile": null,
+          "stage": 18,
+          "stageStart": "Pau",
+          "stageFinish": "Saint-Lary-Soulan (Col du Portet)",
+          "stageDate": "2027-07-22",
+          "ordinal": null,
+          "route": null,
+          "len": 15.21,
+          "grad": 4.9,
+          "elev": 1565,
+          "cat": "TBC",
+          "kbf": null,
+          "profile": [
+            4.9,
+            1.3,
+            3.9,
+            3.4,
+            3.4,
+            6.5,
+            1.0,
+            2.9,
+            3.3,
+            8.3,
+            6.7,
+            6.8,
+            5.5,
+            5.8,
+            8.1,
+            1.3
+          ],
+          "notes": "Stage 18 climbs the Hourquette d'Ancizan at km 140.5, from Sainte-Marie-de-Campan. ASO lists the categorised climb as 8.2 km at 5.1%; these figures are our own measurement of the full ascent.",
+          "rawName": "Hourquette d'Ancizan"
+        }
+      ]
     }
   ]
 }
