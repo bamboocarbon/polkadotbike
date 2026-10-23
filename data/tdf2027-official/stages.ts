@@ -211,8 +211,16 @@ export const STAGES: Stage[] = [
     dist: 171, terrain: 'Mountainous', mapType: 'Mountain', badgeCls: 'badge-m', vgain: 3750, climbCount: 6,
     summary: 'Haute-Savoie stage that passes through Sallanches at km 107 before finishing there after a second loop over the Côte de Domancy.',
     climbs: [
-      { name: 'Col du Plan du Salève', position: 'km 26', len: 9.6, grad: 5.4 },
-      { name: 'Montée de Brison', position: 'km 74', len: 5, grad: 10.2 },
+      {
+        name: 'Col du Plan du Salève', position: 'km 26', len: 9.4, grad: 5.6,
+        profile: [3.5, 5.7, 7.4, 5.2, 6.5, 5.5, 5.7, 5.9, 5.7, 4.5], gain: 531,
+        history: "Figures are our own GPX measurement, 9.4 km from Cruseilles to the crest. ASO's official figures are 9.6 km at 5.4%; our export starts at the foot of the climb, so it can't be stretched to their full length.",
+      },
+      {
+        name: 'Montée de Brison', position: 'km 74', len: 5.0, grad: 10.0,
+        profile: [9.8, 9.8, 10.7, 10.4, 9.2], gain: 498,
+        history: "Figures are our own GPX measurement over ASO's 5.0 km, ending at the crest. Our 10.0% is close to ASO's official 10.2%.",
+      },
       { name: 'Côte de Domancy', position: 'km 111.5, first passage', len: 2.5, grad: 9.4, profile: [7.5, 11.1, 7.0], gain: 221 },
       { name: 'Montée du Bettex', position: 'km 126.5', len: 5.5, grad: 8 },
       { name: "Côte du Plateau d'Assy", position: 'km 147.5', len: 5.1, grad: 7.5 },
@@ -268,8 +276,16 @@ export const STAGES: Stage[] = [
     dist: 199, terrain: 'Mountainous', mapType: 'Mountain', badgeCls: 'badge-m', vgain: 4300, climbCount: 4,
     summary: 'From the Hérault up into the Lozère, finishing on a summit finish at Mende via the Montée Jalabert.',
     climbs: [
-      { name: 'Col du Vent', position: 'km 40.5', len: 8.4, grad: 5.8 },
-      { name: 'Col de la Lusette', position: 'km 108.5', len: 11.6, grad: 7.3 },
+      {
+        name: 'Col du Vent', position: 'km 40.5', len: 8.4, grad: 5.7,
+        profile: [5.9, 6.2, 5.3, 5.6, 6.0, 5.9, 5.9, 5.9, 1.9], gain: 475,
+        history: "Figures are our own GPX measurement over ASO's 8.4 km, ending at the crest. Our 5.7% is close to ASO's official 5.8%.",
+      },
+      {
+        name: 'Col de la Lusette', position: 'km 108.5', len: 11.6, grad: 7.2,
+        profile: [6.2, 4.7, 6.3, 7.7, 7.0, 9.0, 9.3, 10.8, 10.5, 6.8, 3.2, 4.0], gain: 839,
+        history: "Figures are our own GPX measurement over ASO's 11.6 km, ending at the crest. Our 7.2% matches ASO's official 7.3%.",
+      },
       { name: "Côte de l'Estrade", position: 'km 175', len: 5.7, grad: 8.3 },
       { name: 'Côte de la Croix Neuve (Montée Jalabert)', position: 'km 197.5, summit finish', len: 3, grad: 10.1, profile: [9.1, 13.0, 8.9], gain: 311 },
     ],
@@ -318,9 +334,21 @@ export const STAGES: Stage[] = [
     dist: 160, terrain: 'Mountainous', mapType: 'Mountain', badgeCls: 'badge-m', vgain: 4300, climbCount: 4,
     summary: 'Four categorised climbs through the Pyrénées-Atlantiques, ending with the Marie Blanque before the finish in Laruns.',
     climbs: [
-      { name: 'Col de Burdincurutcheta', position: 'km 44.5', len: 8.7, grad: 9.3 },
-      { name: 'Col de Bagargui', position: 'km 52.5', len: 4.8, grad: 6.4 },
-      { name: 'Col de Soudet', position: 'km 95.5', len: 15.1, grad: 7.2 },
+      {
+        name: 'Col de Burdincurutcheta', position: 'km 44.5', len: 8.7, grad: 9.1,
+        profile: [11.8, 11.3, 9.9, 10.8, 5.8, 8.0, 9.1, 9.6, 4.7], gain: 796,
+        history: "Figures are our own GPX measurement over ASO's 8.7 km, ending at the crest. ASO's official gradient is 9.3%; the small difference is down to where the start is measured from.",
+      },
+      {
+        name: 'Col de Bagargui', position: 'km 52.5', len: 4.8, grad: 5.3,
+        profile: [4.3, 3.9, 8.0, 8.6, 0.7], gain: 253,
+        history: "A short second climb on the same Basque road as the Burdincurutcheta, after a dip of around 110 m. Figures are our own GPX measurement over ASO's 4.8 km. ASO's official gradient is 6.4% — more than our 5.3% — so their start point or route must differ from ours; we've kept our measurement.",
+      },
+      {
+        name: 'Col de Soudet', position: 'km 95.5', len: 15.1, grad: 7.2,
+        profile: [4.7, 4.5, 5.0, 4.2, 6.9, 10.4, 8.5, 5.2, 4.8, 9.6, 10.7, 6.3, 11.1, 8.1, 8.6, 2.2], gain: 1089,
+        history: "Figures are our own GPX measurement over ASO's 15.1 km, ending at the crest. Our 7.2% matches ASO's official gradient.",
+      },
       { name: 'Col de Marie Blanque', position: 'km 141.5', len: 7.7, grad: 8.6, profile: [4.9, 5.3, 4.9, 8.5, 11.0, 12.4, 11.8, 11.4], gain: 669 },
     ],
   },

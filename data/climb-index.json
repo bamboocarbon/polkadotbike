@@ -2,7 +2,7 @@
   "generated": "2026-08-07",
   "source": "Extracted from the CLIMBS arrays in tdf.html, giro26.html and vuelta.html by lib/climbs.js. Do not hand-edit — edit the race pages and re-run.",
   "counts": {
-    "distinctClimbs": 174,
+    "distinctClimbs": 181,
     "pagesGenerated": 101
   },
   "climbs": [
@@ -10465,6 +10465,446 @@
           ],
           "notes": "Stage 9 climbs the Côte des Neyrolles (km 77). ASO's official figures are 3.6 km at 7.7%; this is our own measurement (4.2 km at 6.6%), cut to match ASO's 277 m of height gain.",
           "rawName": "Côte des Neyrolles"
+        }
+      ]
+    },
+    {
+      "slug": "col-de-burdincurutcheta",
+      "name": "Col de Burdincurutcheta",
+      "range": "Pyrenees",
+      "cat": "TBC",
+      "len": 8.7,
+      "grad": 9.1,
+      "elev": 1133,
+      "profile": [
+        11.8,
+        11.3,
+        9.9,
+        10.8,
+        5.8,
+        8.0,
+        9.1,
+        9.6,
+        4.7
+      ],
+      "isSummitFinish": false,
+      "ascentsVary": false,
+      "races": [
+        "tdf27"
+      ],
+      "hasPage": true,
+      "gateReasons": [],
+      "notes": [
+        "Stage 19 climbs the Col de Burdincurutcheta at km 44.5, 8.7 km. ASO's official figures are 8.7 km at 9.3%; these are our own measurement over the same length."
+      ],
+      "ascents": [
+        {
+          "race": "tdf27",
+          "raceName": "2027 Tour de France",
+          "raceShort": "TDF 2027",
+          "raceFile": null,
+          "stage": 19,
+          "stageStart": "Hasparren",
+          "stageFinish": "Laruns",
+          "stageDate": "2027-07-23",
+          "ordinal": null,
+          "route": null,
+          "len": 8.7,
+          "grad": 9.1,
+          "elev": 1133,
+          "cat": "TBC",
+          "kbf": null,
+          "profile": [
+            11.8,
+            11.3,
+            9.9,
+            10.8,
+            5.8,
+            8.0,
+            9.1,
+            9.6,
+            4.7
+          ],
+          "notes": "Stage 19 climbs the Col de Burdincurutcheta at km 44.5, 8.7 km. ASO's official figures are 8.7 km at 9.3%; these are our own measurement over the same length.",
+          "rawName": "Col de Burdincurutcheta"
+        }
+      ]
+    },
+    {
+      "slug": "col-de-bagargui",
+      "name": "Col de Bagargui",
+      "range": "Pyrenees",
+      "cat": "TBC",
+      "len": 4.8,
+      "grad": 5.3,
+      "elev": 1327,
+      "profile": [
+        4.3,
+        3.9,
+        8.0,
+        8.6,
+        0.7
+      ],
+      "isSummitFinish": false,
+      "ascentsVary": false,
+      "races": [
+        "tdf27"
+      ],
+      "hasPage": true,
+      "gateReasons": [],
+      "notes": [
+        "Stage 19 climbs the Col de Bagargui at km 52.5, 4.8 km. ASO's official figures are 4.8 km at 6.4%; these are our own measurement over the same length."
+      ],
+      "ascents": [
+        {
+          "race": "tdf27",
+          "raceName": "2027 Tour de France",
+          "raceShort": "TDF 2027",
+          "raceFile": null,
+          "stage": 19,
+          "stageStart": "Hasparren",
+          "stageFinish": "Laruns",
+          "stageDate": "2027-07-23",
+          "ordinal": null,
+          "route": null,
+          "len": 4.8,
+          "grad": 5.3,
+          "elev": 1327,
+          "cat": "TBC",
+          "kbf": null,
+          "profile": [
+            4.3,
+            3.9,
+            8.0,
+            8.6,
+            0.7
+          ],
+          "notes": "Stage 19 climbs the Col de Bagargui at km 52.5, 4.8 km. ASO's official figures are 4.8 km at 6.4%; these are our own measurement over the same length.",
+          "rawName": "Col de Bagargui"
+        }
+      ]
+    },
+    {
+      "slug": "col-de-soudet",
+      "name": "Col de Soudet",
+      "range": "Pyrenees",
+      "cat": "TBC",
+      "len": 15.1,
+      "grad": 7.2,
+      "elev": 1532,
+      "profile": [
+        4.7,
+        4.5,
+        5.0,
+        4.2,
+        6.9,
+        10.4,
+        8.5,
+        5.2,
+        4.8,
+        9.6,
+        10.7,
+        6.3,
+        11.1,
+        8.1,
+        8.6,
+        2.2
+      ],
+      "isSummitFinish": false,
+      "ascentsVary": false,
+      "races": [
+        "tdf27"
+      ],
+      "hasPage": true,
+      "gateReasons": [],
+      "notes": [
+        "Stage 19 climbs the Col de Soudet at km 95.5, 15.1 km. ASO's official figures are 15.1 km at 7.2%; these are our own measurement over the same length."
+      ],
+      "ascents": [
+        {
+          "race": "tdf27",
+          "raceName": "2027 Tour de France",
+          "raceShort": "TDF 2027",
+          "raceFile": null,
+          "stage": 19,
+          "stageStart": "Hasparren",
+          "stageFinish": "Laruns",
+          "stageDate": "2027-07-23",
+          "ordinal": null,
+          "route": null,
+          "len": 15.1,
+          "grad": 7.2,
+          "elev": 1532,
+          "cat": "TBC",
+          "kbf": null,
+          "profile": [
+            4.7,
+            4.5,
+            5.0,
+            4.2,
+            6.9,
+            10.4,
+            8.5,
+            5.2,
+            4.8,
+            9.6,
+            10.7,
+            6.3,
+            11.1,
+            8.1,
+            8.6,
+            2.2
+          ],
+          "notes": "Stage 19 climbs the Col de Soudet at km 95.5, 15.1 km. ASO's official figures are 15.1 km at 7.2%; these are our own measurement over the same length.",
+          "rawName": "Col de Soudet"
+        }
+      ]
+    },
+    {
+      "slug": "col-de-la-lusette",
+      "name": "Col de la Lusette",
+      "range": "Pyrenees",
+      "cat": "TBC",
+      "len": 11.6,
+      "grad": 7.2,
+      "elev": 1354,
+      "profile": [
+        6.2,
+        4.7,
+        6.3,
+        7.7,
+        7.0,
+        9.0,
+        9.3,
+        10.8,
+        10.5,
+        6.8,
+        3.2,
+        4.0
+      ],
+      "isSummitFinish": false,
+      "ascentsVary": false,
+      "races": [
+        "tdf27"
+      ],
+      "hasPage": true,
+      "gateReasons": [],
+      "notes": [
+        "Stage 14 climbs the Col de la Lusette at km 108.5, 11.6 km. ASO's official figures are 11.6 km at 7.3%; these are our own measurement over the same length."
+      ],
+      "ascents": [
+        {
+          "race": "tdf27",
+          "raceName": "2027 Tour de France",
+          "raceShort": "TDF 2027",
+          "raceFile": null,
+          "stage": 14,
+          "stageStart": "Montpellier",
+          "stageFinish": "Mende",
+          "stageDate": "2027-07-17",
+          "ordinal": null,
+          "route": null,
+          "len": 11.6,
+          "grad": 7.2,
+          "elev": 1354,
+          "cat": "TBC",
+          "kbf": null,
+          "profile": [
+            6.2,
+            4.7,
+            6.3,
+            7.7,
+            7.0,
+            9.0,
+            9.3,
+            10.8,
+            10.5,
+            6.8,
+            3.2,
+            4.0
+          ],
+          "notes": "Stage 14 climbs the Col de la Lusette at km 108.5, 11.6 km. ASO's official figures are 11.6 km at 7.3%; these are our own measurement over the same length.",
+          "rawName": "Col de la Lusette"
+        }
+      ]
+    },
+    {
+      "slug": "col-du-vent",
+      "name": "Col du Vent",
+      "range": "Pyrenees",
+      "cat": "TBC",
+      "len": 8.4,
+      "grad": 5.7,
+      "elev": 703,
+      "profile": [
+        5.9,
+        6.2,
+        5.3,
+        5.6,
+        6.0,
+        5.9,
+        5.9,
+        5.9,
+        1.9
+      ],
+      "isSummitFinish": false,
+      "ascentsVary": false,
+      "races": [
+        "tdf27"
+      ],
+      "hasPage": true,
+      "gateReasons": [],
+      "notes": [
+        "Stage 14 climbs the Col du Vent at km 40.5, 8.4 km. ASO's official figures are 8.4 km at 5.8%; these are our own measurement over the same length."
+      ],
+      "ascents": [
+        {
+          "race": "tdf27",
+          "raceName": "2027 Tour de France",
+          "raceShort": "TDF 2027",
+          "raceFile": null,
+          "stage": 14,
+          "stageStart": "Montpellier",
+          "stageFinish": "Mende",
+          "stageDate": "2027-07-17",
+          "ordinal": null,
+          "route": null,
+          "len": 8.4,
+          "grad": 5.7,
+          "elev": 703,
+          "cat": "TBC",
+          "kbf": null,
+          "profile": [
+            5.9,
+            6.2,
+            5.3,
+            5.6,
+            6.0,
+            5.9,
+            5.9,
+            5.9,
+            1.9
+          ],
+          "notes": "Stage 14 climbs the Col du Vent at km 40.5, 8.4 km. ASO's official figures are 8.4 km at 5.8%; these are our own measurement over the same length.",
+          "rawName": "Col du Vent"
+        }
+      ]
+    },
+    {
+      "slug": "col-du-plan-du-saleve",
+      "name": "Col du Plan du Salève",
+      "range": "Pyrenees",
+      "cat": "TBC",
+      "len": 9.4,
+      "grad": 5.6,
+      "elev": 1305,
+      "profile": [
+        3.5,
+        5.7,
+        7.4,
+        5.2,
+        6.5,
+        5.5,
+        5.7,
+        5.9,
+        5.7,
+        4.5
+      ],
+      "isSummitFinish": false,
+      "ascentsVary": false,
+      "races": [
+        "tdf27"
+      ],
+      "hasPage": true,
+      "gateReasons": [],
+      "notes": [
+        "Stage 10 climbs the Col du Plan du Salève at km 26. ASO's official figures are 9.6 km at 5.4%; ours is a 9.4 km measurement from Cruseilles to the crest."
+      ],
+      "ascents": [
+        {
+          "race": "tdf27",
+          "raceName": "2027 Tour de France",
+          "raceShort": "TDF 2027",
+          "raceFile": null,
+          "stage": 10,
+          "stageStart": "Annecy",
+          "stageFinish": "Sallanches",
+          "stageDate": "2027-07-13",
+          "ordinal": null,
+          "route": null,
+          "len": 9.4,
+          "grad": 5.6,
+          "elev": 1305,
+          "cat": "TBC",
+          "kbf": null,
+          "profile": [
+            3.5,
+            5.7,
+            7.4,
+            5.2,
+            6.5,
+            5.5,
+            5.7,
+            5.9,
+            5.7,
+            4.5
+          ],
+          "notes": "Stage 10 climbs the Col du Plan du Salève at km 26. ASO's official figures are 9.6 km at 5.4%; ours is a 9.4 km measurement from Cruseilles to the crest.",
+          "rawName": "Col du Plan du Salève"
+        }
+      ]
+    },
+    {
+      "slug": "montee-de-brison",
+      "name": "Montée de Brison",
+      "range": "Pyrenees",
+      "cat": "TBC",
+      "len": 5.0,
+      "grad": 10.0,
+      "elev": 990,
+      "profile": [
+        9.8,
+        9.8,
+        10.7,
+        10.4,
+        9.2
+      ],
+      "isSummitFinish": false,
+      "ascentsVary": false,
+      "races": [
+        "tdf27"
+      ],
+      "hasPage": true,
+      "gateReasons": [],
+      "notes": [
+        "Stage 10 climbs the Montée de Brison at km 74, 5.0 km. ASO's official figures are 5.0 km at 10.2%; these are our own measurement over the same length."
+      ],
+      "ascents": [
+        {
+          "race": "tdf27",
+          "raceName": "2027 Tour de France",
+          "raceShort": "TDF 2027",
+          "raceFile": null,
+          "stage": 10,
+          "stageStart": "Annecy",
+          "stageFinish": "Sallanches",
+          "stageDate": "2027-07-13",
+          "ordinal": null,
+          "route": null,
+          "len": 5.0,
+          "grad": 10.0,
+          "elev": 990,
+          "cat": "TBC",
+          "kbf": null,
+          "profile": [
+            9.8,
+            9.8,
+            10.7,
+            10.4,
+            9.2
+          ],
+          "notes": "Stage 10 climbs the Montée de Brison at km 74, 5.0 km. ASO's official figures are 5.0 km at 10.2%; these are our own measurement over the same length.",
+          "rawName": "Montée de Brison"
         }
       ]
     }

@@ -86,6 +86,23 @@ const ROADBOOK_ANCHORS: Record<string, RoadbookAnchors> = {
   // official altitudes — from the 548m start (official summit minus 3.6km x 7.7%) to the first point at
   // 825m — keeping ASO's 277m of gain at the cost of length (4.24km vs 3.6km).
   'cote-des-neyrolles': { startElevationM: 546, summitElevationM: 825, lengthKm: 4.24, ascentM: 282 },
+  // 2027 Tour de France stage 19 climbs — Robin's own BRouter-Web exports, trimmed.
+  // col-de-soudet: Stage 19 (km 95.5), official 15.1km at 7.2%. Export (23.1km) runs on past the summit; trimmed to 15.10km ending at the 1532m crest (official ~1540m) — measures 7.2%, matching ASO.
+  'col-de-soudet': { startElevationM: 443, summitElevationM: 1532, lengthKm: 15.1, ascentM: 1100 },
+  // col-de-burdincurutcheta: Stage 19 (km 44.5), official 8.7km at 9.3%. From Robin's Saint-Jean-le-Vieux to Larrau export (28.8km, which also holds Bagargui): trimmed to 8.70km ending at the 1133m crest (official 1135m) — measures 9.15%.
+  'col-de-burdincurutcheta': { startElevationM: 337, summitElevationM: 1133, lengthKm: 8.7, ascentM: 804 },
+  // col-de-bagargui: Stage 19 (km 52.5), official 4.8km at 6.4% — the small second climb in the same export, after a ~110m dip. Trimmed to ASO's 4.8km ending at the ~1327m crest (official 1330m); the road measures only 5.3% over that length (ASO's 6.4% would need ~307m of gain), kept as measured.
+  'col-de-bagargui': { startElevationM: 1074, summitElevationM: 1327, lengthKm: 4.78, ascentM: 255 },
+  // 2027 Tour de France stage 14 climbs — Robin's own BRouter-Web exports, trimmed.
+  // col-de-la-lusette: Stage 14 (km 108.5), official 11.6km at 7.3% to 1351m. Export (20.4km) trimmed to 11.59km ending at the 1354m crest — measures 7.2%, matching ASO.
+  'col-de-la-lusette': { startElevationM: 515, summitElevationM: 1354, lengthKm: 11.59, ascentM: 848 },
+  // col-du-vent: Stage 14 (km 40.5), official 8.4km at 5.8% to 703m. Export (12.1km) trimmed to 8.40km ending at the 703m crest — measures 5.7%.
+  'col-du-vent': { startElevationM: 226, summitElevationM: 703, lengthKm: 8.4, ascentM: 482 },
+  // 2027 Tour de France stage 10 climbs — Robin's own BRouter-Web exports, trimmed.
+  // montee-de-brison: Stage 10 (km 74), official 5.0km at 10.2% to 991m. Export (Pontchy to Brizon, 7.6km) trimmed to 5.0km ending at the 989.5m crest — measures 10.0%.
+  'montee-de-brison': { startElevationM: 492, summitElevationM: 990, lengthKm: 4.99, ascentM: 502 },
+  // col-du-plan-du-saleve: Stage 10 (km 26), official 9.6km at 5.4% to 1300m. Export (Cruseilles to Le Châble, 9.7km) starts at the foot, so it is trimmed only at the top — to the 1305m crest at 9.42km (measures 5.6%) rather than the full official 9.6km, which would start before the export does.
+  'col-du-plan-du-saleve': { startElevationM: 774, summitElevationM: 1305, lengthKm: 9.42, ascentM: 537 },
   'cheq-40-pro': { startElevationM: 371, summitElevationM: 532, lengthKm: 62.81, ascentM: 913 },
   'cheq-40': { startElevationM: 368, summitElevationM: 532, lengthKm: 66.97, ascentM: 913 },
   'cheq-short-fat': { startElevationM: 416, summitElevationM: 501, lengthKm: 25.34, ascentM: 338 },
