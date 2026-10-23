@@ -13,8 +13,8 @@
    .container/.glass differ slightly from content.css's, which this page
    uses instead — importing both risked one silently overriding the other). */
 .map-outer { position: relative; z-index: 1; max-width: 780px; margin: 0 auto 22px; padding: 0 20px; }
-.map-outer .leaflet-container { height: 400px; border-radius: 14px; border: 1px solid rgba(100, 130, 150, 0.3); background: #cfe8f7; }
-.map-skeleton { height: 400px; border-radius: 14px; border: 1px solid rgba(100, 130, 150, 0.3); background: #cfe8f7; }
+.map-outer .leaflet-container { height: 560px; border-radius: 14px; border: 1px solid rgba(100, 130, 150, 0.3); background: #cfe8f7; }
+.map-skeleton { height: 560px; border-radius: 14px; border: 1px solid rgba(100, 130, 150, 0.3); background: #cfe8f7; }
 .map-city { display: inline-block; transform: translate(-50%, 10px); white-space: nowrap; font-family: 'Inter', system-ui, sans-serif; font-size: 10.5px; font-weight: 600; color: #1e293b; pointer-events: none; }
 .map-city.right { transform: translate(14px, -50%); }
 .map-city.left { transform: translate(calc(-100% - 14px), -50%); }
@@ -52,7 +52,8 @@
 }
 .status-banner strong { color: #fff; }
 
-.stage-card { padding: 20px 24px; margin-bottom: 16px; }
+.stage-card { padding: 20px 24px; margin-bottom: 16px; scroll-margin-top: calc(var(--header-h) + 16px); }
+@media (max-width: 740px) { .map-outer .leaflet-container, .map-skeleton { height: 440px; } }
 .stage-card-head { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; margin-bottom: 8px; }
 .stage-card-head h2 { font-size: 19px; font-weight: 800; color: #fff; letter-spacing: -0.3px; margin: 0; }
 

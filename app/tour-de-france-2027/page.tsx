@@ -157,6 +157,17 @@ const STAGES_FOR_MAP: MapStage[] = STAGES.map((s) => ({
   notes: s.summary,
 }));
 
+// Climb categories aren't entered yet, so no "HC passes" stat — summit finishes (4 named in the
+// intro copy: Grand Colombier, Les Saisies, Mende, Col du Portet) and total distance stand in.
+const HERO_STATS = [
+  { val: OFFICIAL_TOTALS.stages, label: 'Stages' },
+  { val: OFFICIAL_TOTALS.mountain, label: 'Mountain stages' },
+  { val: 4, label: 'Summit finishes' },
+  { val: `${OFFICIAL_TOTALS.distanceKm.toLocaleString('en-GB')} km`, label: 'Total distance' },
+  { val: '2 Jul', label: 'Race start' },
+  { val: '25 Jul', label: 'Paris' },
+];
+
 export default function Tdf2027Page() {
   return (
     <>
@@ -168,18 +179,24 @@ export default function Tdf2027Page() {
         dangerouslySetInnerHTML={{
           __html: `
         .hero { flex-direction: column; align-items: center; text-align: center; gap: 6px; }
-        .hero > h1 { margin: 0 0 2px; text-align: center; font-size: clamp(24px, 4.6vw, 42px); }
-        .hero > p { text-align: center; max-width: min(460px, 100%); }
+        .hero > h1 { margin: 0 0 2px; text-align: center; font-size: clamp(26px, 5vw, 46px); }
+        .hero > p { text-align: center; max-width: min(340px, 100%); }
+        .hero-stats { width: 100%; }
       `,
         }}
       />
 
       <div className="hero">
-        <h1>2027 Tour de France</h1>
-        <p>
-          {OFFICIAL_TOTALS.dates}, Edinburgh to Paris — {OFFICIAL_TOTALS.distanceKm.toLocaleString()}km, {OFFICIAL_TOTALS.elevationM.toLocaleString()}m of
-          climbing.
-        </p>
+        <h1>Tour de France 2027 Climbs</h1>
+        <p>Pick a climb — see the gradient, length, and category, then send it straight to the Climb Planner with your setup.</p>
+        <div className="hero-stats">
+          {HERO_STATS.map((h) => (
+            <div className="hs-item" key={h.label}>
+              <div className="hs-val">{h.val}</div>
+              <div className="hs-lbl">{h.label}</div>
+            </div>
+          ))}
+        </div>
       </div>
 
       <Tdf27Explorer stages={STAGES_FOR_MAP} placeLabels={PLACE_LABELS}>
