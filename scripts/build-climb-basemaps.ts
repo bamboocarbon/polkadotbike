@@ -221,7 +221,7 @@ async function buildBasemap(slug: string): Promise<void> {
   // this is a manual override rather than a general fix. Add a slug here
   // if the same north/south quality split turns up on another
   // border-straddling climb.
-  const FORCE_OPENTOPO_SLUGS = new Set(['gavarnie-gedre']);
+  const FORCE_OPENTOPO_SLUGS = new Set(['gavarnie-gedre', 'hourquette-d-ancizan']);
 
   // Probe the first tile against the preferred source; fall back to the next
   // source for the whole mosaic rather than mixing cartography styles
