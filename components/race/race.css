@@ -196,3 +196,6 @@
 .si-climbs a { color: #3b8ef0; text-decoration: none; }
 .si-climbs a:hover { text-decoration: underline; }
 .si-climbs .cc-cat { margin-right: 6px; }
+
+/* Anchor/scroll targets must land below the sticky header, not under it. */
+.si-stage, #stage-detail, #stage-explorer, #all-stages { scroll-margin-top: calc(var(--header-h) + 16px); }

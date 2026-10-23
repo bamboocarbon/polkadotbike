@@ -67,6 +67,24 @@ function RacePageClientInner({
   const searchParams = useSearchParams();
   const [selectedStage, setSelectedStage] = useState(staticDefaultStage);
 
+  // Picking a stage swaps the detail in place, so the page keeps its old scroll
+  // position — if the user had scrolled down a long stage (or clicked a map
+  // marker above the fold) the new stage's top sits under the sticky header or
+  // off-screen. Scroll the detail's top back into view; scroll-margin-top in
+  // race.css keeps it clear of the header. No-op when it's already well placed.
+  function selectStage(num: number) {
+    setSelectedStage(num);
+    requestAnimationFrame(() => {
+      const el = document.getElementById('stage-detail');
+      if (!el) return;
+      const top = el.getBoundingClientRect().top;
+      const headerH = parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--header-h')) || 0;
+      if (top < headerH + 8 || top > window.innerHeight * 0.6) {
+        el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+    });
+  }
+
   // Runs once, on mount, matching the original's one-time
   // `renderStage(parseInt(...get('s')) || defaultStage())` call at page
   // load. Nothing in this app pushes a new ?s= into the URL after that —
@@ -94,7 +112,7 @@ function RacePageClientInner({
           countryFill={mapConfig.countryFill}
           typeColor={mapConfig.typeColor}
           activeStage={selectedStage}
-          onStageClick={setSelectedStage}
+          onStageClick={selectStage}
           fitBoundsPadding={mapConfig.fitBoundsPadding}
           zoomControl={mapConfig.zoomControl}
           mobileView={mapConfig.mobileView}
@@ -112,9 +130,9 @@ function RacePageClientInner({
         </div>
       </div>
       <div className="container" id="stage-explorer">
-        <StageMobileSelect stages={race.stages} selected={selectedStage} onSelect={setSelectedStage} />
+        <StageMobileSelect stages={race.stages} selected={selectedStage} onSelect={selectStage} />
         <div className="tdf-grid">
-          <StageSidebar stages={race.stages} selected={selectedStage} onSelect={setSelectedStage} label={sidebarLabel} />
+          <StageSidebar stages={race.stages} selected={selectedStage} onSelect={selectStage} label={sidebarLabel} />
           <StageDetail race={race} climbs={climbs} stageNum={selectedStage} stay22Links={stay22Links} />
         </div>
       </div>
