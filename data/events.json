@@ -2941,6 +2941,247 @@
         }
       ],
       "priorityRationale": "World's largest cycling festival, but US-based with limited direct relevance to this site's UK-skewed audience."
+    },
+    {
+      "id": "giro-d-italia-2027",
+      "name": "Giro d'Italia 2027",
+      "category": "road",
+      "audience": [
+        "watch"
+      ],
+      "priority": 1,
+      "start": "2027-05-08",
+      "end": "2027-05-30",
+      "dateConfidence": "unverified",
+      "country": "IT",
+      "place": "Trieste (reported Grande Partenza) → Rome. Climbs rumoured to include the Mortirolo (twice), Gavia and Monte Zoncolan, plus a mountain time trial in the first week; full route due 3 Nov 2026",
+      "officialUrl": "https://www.giroditalia.it",
+      "sourceUrls": [
+        "https://www.domestiquecycling.com/en/2027-uci-worldtour-calendar/",
+        "https://en.brujulabike.com/the-super-worlds-force-some-date-changes-uci-confirms-the-2027-worldtour-calendar/"
+      ],
+      "handles": {
+        "instagram": null,
+        "x": null
+      },
+      "handleConfidence": "none",
+      "hashtags": [],
+      "angle": "Three weeks of fresh Grand Tour climb data to build before the Tour even starts — if the rumoured Mortirolo-twice-and-Zoncolan route holds, it's the richest 3D climb-visualiser set of the year. The route lands 3 Nov 2026, two days after this review, so mountain-stage page templates should already be in progress.",
+      "postWindow": "One 3D climb morph per mountain stage through 8-30 May 2027; first post the moment the 3 Nov 2026 route presentation drops",
+      "lastVerifiedAt": "2026-11-01",
+      "verifiedBy": "review-6m",
+      "reviewLog": [
+        {
+          "runId": "2026-11-01-6m",
+          "checkedAt": "2026-11-01",
+          "horizon": "6m",
+          "outcome": "new",
+          "changes": [],
+          "note": "2027 Giro dates (8-30 May) reported via UCI WorldTour calendar coverage in trade press (Domestique, Brujula Bike); not yet cross-checked against uci.org directly. Route presentation falls 3 Nov 2026, two days after this review."
+        }
+      ],
+      "priorityRationale": "Biggest Grand Tour block of the spring and the same tier of climb-data hook as the Vuelta in the seed calendar."
+    },
+    {
+      "id": "the-gralloch",
+      "name": "The Gralloch",
+      "category": "gravel",
+      "audience": [
+        "ride",
+        "watch"
+      ],
+      "priority": 1,
+      "start": "2027-05-14",
+      "end": "2027-05-16",
+      "dateConfidence": "unverified",
+      "country": "GB",
+      "place": "Gatehouse of Fleet, Galloway Forest Park, Scotland — first UCI Gravel World Series round held in Britain, 111km elite route. UCI race 14 May, sportive 16 May per event listings (sportive day unconfirmed, may be 15 May)",
+      "officialUrl": "https://www.grallochgravel.com",
+      "sourceUrls": [
+        "https://www.grallochgravel.com/uci-gravel-world-series",
+        "https://www.granfondoguide.com/Contents/IndexFull/9177/the-gralloch-2026-closes-in-galloway-schreurs-p%C3%B6stlberger-clayton-and-mcintosh-headline-a-three-day-weekend"
+      ],
+      "handles": {
+        "instagram": null,
+        "x": null
+      },
+      "handleConfidence": "none",
+      "hashtags": [],
+      "angle": "First UCI Gravel World Series round ever held in Britain, in Galloway Forest Park — a home-turf gravel gearing piece (tyre width and 1x ratios for Scottish forest tracks) feeds the gear calculator directly and gives a genuine domestic angle the Traka and Big Sugar can't offer.",
+      "postWindow": "Gravel gearing guide live Mon 10 May; race and sportive posts 14-16 May",
+      "lastVerifiedAt": "2026-11-01",
+      "verifiedBy": "review-6m",
+      "reviewLog": [
+        {
+          "runId": "2026-11-01-6m",
+          "checkedAt": "2026-11-01",
+          "horizon": "6m",
+          "outcome": "new",
+          "changes": [],
+          "note": "2027 dates (14-16 May) per organiser site and Granfondo Guide coverage of the confirmed 2027 calendar; exact split between race day and sportive day not fully confirmed."
+        }
+      ],
+      "priorityRationale": "UK-based, UCI-sanctioned and growing fast (3,000+ riders from 47 nations in 2026) — a rare home gravel story for a site that otherwise covers this category abroad."
+    },
+    {
+      "id": "fred-whitton-challenge",
+      "name": "Fred Whitton Challenge",
+      "category": "road",
+      "audience": [
+        "ride"
+      ],
+      "priority": 2,
+      "start": "2027-05-09",
+      "end": "2027-05-09",
+      "dateConfidence": "unverified",
+      "country": "GB",
+      "place": "Lake District, Cumbria — roughly 112-mile sportive over Hardknott, Wrynose, Honister and Newlands passes. Entry by ballot",
+      "officialUrl": "https://fredwhittonchallenge.co.uk",
+      "sourceUrls": [
+        "https://sportive.com/event/fred-whitton-challenge-2027/",
+        "https://www.visiteden.co.uk/whats-on/may-2027/fred-whitton-challenge-2027/"
+      ],
+      "handles": {
+        "instagram": null,
+        "x": null
+      },
+      "handleConfidence": "none",
+      "hashtags": [],
+      "angle": "Hardknott and Wrynose are among the steepest tarmac climbs in England — a 'what gearing you actually need for 30%+' piece is one of the most directly useful things the gear calculator can say to UK riders this spring, and the Lake District setting is a natural Stay22/Booking.com tie-in for anyone travelling up.",
+      "postWindow": "Gearing-for-Hardknott piece live Mon 3 May; event-day posts Sun 9 May",
+      "lastVerifiedAt": "2026-11-01",
+      "verifiedBy": "review-6m",
+      "reviewLog": [
+        {
+          "runId": "2026-11-01-6m",
+          "checkedAt": "2026-11-01",
+          "horizon": "6m",
+          "outcome": "new",
+          "changes": [],
+          "note": "2027 date (9 May) per sportive.com and Visit Eden event listings; the organiser's own site (fredwhittonchallenge.co.uk) could not be reached from this session's network to cross-check directly — confirm before publishing."
+        }
+      ],
+      "priorityRationale": "Strong UK sportive with a direct gear-calculator hook, kept at 2 rather than 1 since only aggregator listings (not the organiser's own site) have the date so far — revisit once confirmed."
+    },
+    {
+      "id": "giro-d-italia-women",
+      "name": "Giro d'Italia Women",
+      "category": "road",
+      "audience": [
+        "watch"
+      ],
+      "priority": 2,
+      "start": "2027-05-29",
+      "end": "2027-06-06",
+      "dateConfidence": "unverified",
+      "country": "IT",
+      "place": "Italy — nine-day UCI Women's WorldTour stage race, exact route not yet announced",
+      "officialUrl": null,
+      "sourceUrls": [
+        "https://allsportdb.com/Events/2027-UCI-Cycling-Womens-World-Tour-Giro-dItalia-20816",
+        "https://www.domestiquecycling.com/en/2027-uci-women-worldtour-calendar/"
+      ],
+      "handles": {
+        "instagram": null,
+        "x": null
+      },
+      "handleConfidence": "none",
+      "hashtags": [],
+      "angle": "A second Grand Tour climb set the same month, once the route lands — worth a page only if the stage list repeats a climb already in the site's Grand Tour data.",
+      "postWindow": "Cover in full only if the route overlaps known climbs; otherwise a short results wrap after each summit finish, 29 May - 6 June",
+      "lastVerifiedAt": "2026-11-01",
+      "verifiedBy": "review-6m",
+      "reviewLog": [
+        {
+          "runId": "2026-11-01-6m",
+          "checkedAt": "2026-11-01",
+          "horizon": "6m",
+          "outcome": "new",
+          "changes": [],
+          "note": "2027 dates (29 May - 6 June) per UCI Women's WorldTour calendar coverage; route not yet announced, and no official organiser URL confirmed yet."
+        }
+      ],
+      "priorityRationale": "Genuine Grand Tour, but the route is unannounced and it draws less UK attention than the men's race — a lighter commitment than the Giro proper."
+    },
+    {
+      "id": "eschborn-frankfurt",
+      "name": "Eschborn-Frankfurt",
+      "category": "road",
+      "audience": [
+        "watch"
+      ],
+      "priority": 3,
+      "start": "2027-05-01",
+      "end": "2027-05-01",
+      "dateConfidence": "unverified",
+      "country": "DE",
+      "place": "Eschborn → Frankfurt, Germany — one-day WorldTour Classic, decided on the Mittelgebirge climbs near the finish. A UCI calendar listing briefly showed 2 May before organisers (ASO) confirmed 1 May to Tour-Magazin",
+      "officialUrl": "https://www.eschborn-frankfurt.de",
+      "sourceUrls": [
+        "https://www.tour-magazin.de/en/professional-cycling/day-race/uci-worldtour-2027-eschborn-frankfurt-no-longer-on-1-may-or-is-it/"
+      ],
+      "handles": {
+        "instagram": null,
+        "x": null
+      },
+      "handleConfidence": "none",
+      "hashtags": [],
+      "angle": "A flat, sprinter-friendly Classic with no climb-data angle of its own — only worth a post because it shares 1 May with the Garda Trentino marathon opener, so the two could run as a single light 'what's on May Day' roundup.",
+      "postWindow": "Single result post Sat 1 May, folded into a May Day roundup with the Garda Trentino marathon opener",
+      "lastVerifiedAt": "2026-11-01",
+      "verifiedBy": "review-6m",
+      "reviewLog": [
+        {
+          "runId": "2026-11-01-6m",
+          "checkedAt": "2026-11-01",
+          "horizon": "6m",
+          "outcome": "new",
+          "changes": [],
+          "note": "ASO confirmed 1 May 2027 directly to Tour-Magazin after a UCI calendar entry briefly listed 2 May; worth a re-check closer to the race given that date wobble."
+        }
+      ],
+      "priorityRationale": "No climb content and no UK tie-in — skip unless the week is otherwise thin."
+    },
+    {
+      "id": "uci-mtb-marathon-world-cup-garda-trentino",
+      "name": "UCI MTB Marathon World Cup — Garda Trentino",
+      "category": "mtb",
+      "audience": [
+        "ride",
+        "watch"
+      ],
+      "priority": 3,
+      "start": "2027-05-01",
+      "end": "2027-05-01",
+      "dateConfidence": "unverified",
+      "country": "IT",
+      "place": "Riva del Garda, Trentino, Italy — season opener of the HERO UCI Cross-country Marathon (XCM) World Cup, held alongside the FSA Bike Festival Riva del Garda. First year Garda Trentino has joined the World Cup",
+      "officialUrl": "https://www.gardatrentino.it/en/outdoor/bike/MTB/bike-marathon-routes",
+      "sourceUrls": [
+        "https://en.brujulabike.com/the-2027-xcm-world-cup-calendar-is-set-five-races-and-the-final-once-again-at-tramun/",
+        "https://www.gardatrentino.it/en/outdoor/bike/MTB/bike-marathon-routes"
+      ],
+      "handles": {
+        "instagram": null,
+        "x": null
+      },
+      "handleConfidence": "none",
+      "hashtags": [],
+      "angle": "A new World Cup venue and a genuine marathon-distance gearing question — how low you actually need to go for a multi-hour Alpine XCM — pairs with the gear calculator the same way the Marathon Worlds post did in the seed calendar. Shares 1 May with Eschborn-Frankfurt; this one takes any dedicated feed post since it fits the gear-calculator angle, Eschborn-Frankfurt rides along in a roundup.",
+      "postWindow": "Preview Thu 29 Apr; results post Sat 1 May",
+      "lastVerifiedAt": "2026-11-01",
+      "verifiedBy": "review-6m",
+      "reviewLog": [
+        {
+          "runId": "2026-11-01-6m",
+          "checkedAt": "2026-11-01",
+          "horizon": "6m",
+          "outcome": "new",
+          "changes": [],
+          "note": "2027 XCM World Cup calendar (five rounds, final again at La Tramuntana/Girona) confirmed per Brujula Bike's reporting; Garda Trentino is the new season opener on 1 May."
+        }
+      ],
+      "priorityRationale": "Solid marathon-gearing content but a first-year venue overseas with no UK angle — same tier as the other MTB World Cup rounds already on the calendar."
     }
   ],
   "reviewRuns": [
@@ -2989,6 +3230,22 @@
       "ranAt": "2026-10-01",
       "horizon": "2m",
       "eventsChecked": 8,
+      "changesFound": 0,
+      "errors": 0
+    },
+    {
+      "runId": "2026-11-01-6m",
+      "ranAt": "2026-11-01",
+      "horizon": "6m",
+      "eventsChecked": 6,
+      "changesFound": 6,
+      "errors": 0
+    },
+    {
+      "runId": "2026-11-01-2m",
+      "ranAt": "2026-11-01",
+      "horizon": "2m",
+      "eventsChecked": 0,
       "changesFound": 0,
       "errors": 0
     }
