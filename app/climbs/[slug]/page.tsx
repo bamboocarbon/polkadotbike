@@ -17,9 +17,9 @@ interface RawClimb {
   grad: number;
   elev: number;
   races: string[];
-  /** Hand-flagged entries (e.g. an alternate ascent of an already-listed climb) —
-   *  always noindex/nofollow and never tied to the WebApplication JSON-LD node,
-   *  regardless of whether real route data exists. */
+  /** Hand-flagged entries (unconfirmed leaked-route climbs, or an alternate ascent of an
+   *  already-listed climb) — always noindex/nofollow and never tied to the WebApplication
+   *  JSON-LD node, regardless of whether real route data exists, until confirmed. */
   speculative?: boolean;
 }
 

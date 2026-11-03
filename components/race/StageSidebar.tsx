@@ -33,7 +33,7 @@ export function StageSidebar({ stages, selected, onSelect, label }: StageSidebar
             <div className="s-info">
               <div className="s-finish">{s.start} → {s.finish}</div>
               <div className="s-meta">{fmtDate(s.date).slice(4)}</div>
-              <div className="s-stats">{s.dist} km &nbsp;·&nbsp; ▲ {s.vgain.toLocaleString()} m</div>
+              <div className="s-stats">{s.dist} km{s.vgain != null && <>&nbsp;·&nbsp; ▲ {s.vgain.toLocaleString()} m</>}</div>
             </div>
           </button>
         );

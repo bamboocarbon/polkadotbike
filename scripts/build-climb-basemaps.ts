@@ -381,6 +381,10 @@ async function buildBasemap(slug: string): Promise<void> {
 // (e.g. after a tile-source/rendering change, like the placeholder-tile fix)
 // with FORCE=1 npx tsx scripts/build-climb-basemaps.ts.
 const FORCE = process.env.FORCE === '1';
+// Scope a run to specific slugs (comma-separated). A fresh worktree has an
+// empty staging dir, so without this every existing climb looks stale and
+// gets rebuilt AND re-uploaded to the shared R2 bucket.
+const ONLY_SLUGS = process.env.SLUGS ? new Set(process.env.SLUGS.split(',').map((s) => s.trim())) : null;
 function isUpToDate(slug: string): boolean {
   const outPath = join(OUT_DIR, `${slug}.webp`);
   if (!existsSync(outPath)) return false;
@@ -398,6 +402,7 @@ async function main() {
   let skipped = 0;
   for (const file of files) {
     const slug = file.replace(/\.json$/, '');
+    if (ONLY_SLUGS && !ONLY_SLUGS.has(slug)) continue;
     if (!FORCE && isUpToDate(slug)) {
       skipped++;
       continue;

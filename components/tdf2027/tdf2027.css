@@ -111,3 +111,8 @@
 .map-place.left { transform: translate(calc(-100% - 6px), -50%); }
 .map-place i { display: inline-block; width: 5px; height: 5px; border-radius: 50%; background: rgba(30, 41, 59, 0.45); margin-right: 4px; vertical-align: middle; }
 .map-place.left i { margin: 0 0 0 4px; }
+
+/* Stage announced, terrain not yet published */
+.badge-tbc { background: #475569; color: #fff; }
+.map-dot.md-tbc { background: #94a3b8; }
+.s-badge.type-tbc { background: #475569; color: #fff; }

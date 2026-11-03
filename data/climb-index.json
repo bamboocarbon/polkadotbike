@@ -10907,6 +10907,247 @@
           "rawName": "Montée de Brison"
         }
       ]
+    },
+    {
+      "slug": "mortirolo-mazzo",
+      "name": "Mortirolo (Mazzo side)",
+      "range": "Alps",
+      "cat": "TBC",
+      "len": 12.4,
+      "grad": 10.6,
+      "elev": 1854,
+      "profile": [
+        3.6,
+        9.5,
+        11.8,
+        11.7,
+        14.6,
+        13.5,
+        11.6,
+        13.1,
+        11.0,
+        9.1,
+        9.6,
+        8.4
+      ],
+      "isSummitFinish": false,
+      "ascentsVary": false,
+      "races": [
+        "giro27"
+      ],
+      "hasPage": true,
+      "gateReasons": [],
+      "notes": [
+        "Stage 16, climbed twice from Mazzo di Valtellina (summit at km 45.2 and again at km 158.7)."
+      ],
+      "ascents": [
+        {
+          "race": "giro27",
+          "raceName": "2027 Giro d'Italia",
+          "raceShort": "Giro 2027",
+          "raceFile": null,
+          "stage": 16,
+          "stageStart": "Sondrio",
+          "stageFinish": "Aprica",
+          "stageDate": "2027-05-25",
+          "ordinal": 1,
+          "route": null,
+          "len": 12.4,
+          "grad": 10.6,
+          "elev": 1854,
+          "cat": "TBC",
+          "kbf": 0,
+          "profile": [
+            3.6,
+            9.5,
+            11.8,
+            11.7,
+            14.6,
+            13.5,
+            11.6,
+            13.1,
+            11.0,
+            9.1,
+            9.6,
+            8.4
+          ],
+          "notes": "Stage 16, first ascent (km 45.2).",
+          "rawName": "Mortirolo (Mazzo side)"
+        },
+        {
+          "race": "giro27",
+          "raceName": "2027 Giro d'Italia",
+          "raceShort": "Giro 2027",
+          "raceFile": null,
+          "stage": 16,
+          "stageStart": "Sondrio",
+          "stageFinish": "Aprica",
+          "stageDate": "2027-05-25",
+          "ordinal": 2,
+          "route": null,
+          "len": 12.4,
+          "grad": 10.6,
+          "elev": 1854,
+          "cat": "TBC",
+          "kbf": 0,
+          "profile": [
+            3.6,
+            9.5,
+            11.8,
+            11.7,
+            14.6,
+            13.5,
+            11.6,
+            13.1,
+            11.0,
+            9.1,
+            9.6,
+            8.4
+          ],
+          "notes": "Stage 16, second ascent (km 158.7).",
+          "rawName": "Mortirolo (Mazzo side)"
+        }
+      ]
+    },
+    {
+      "slug": "gavia-ponte-di-legno",
+      "name": "Gavia (Ponte di Legno side)",
+      "range": "Alps",
+      "cat": "TBC",
+      "len": 16.5,
+      "grad": 8.0,
+      "elev": 2618,
+      "profile": [
+        4.9,
+        5.4,
+        6.1,
+        9.6,
+        5.6,
+        9.3,
+        11.3,
+        9.1,
+        8.5,
+        7.2,
+        8.6,
+        7.3,
+        8.7,
+        10.0,
+        9.3,
+        7.8
+      ],
+      "isSummitFinish": false,
+      "ascentsVary": false,
+      "races": [
+        "giro27"
+      ],
+      "hasPage": true,
+      "gateReasons": [],
+      "notes": [
+        "Stage 16 — Cima Coppi, the highest point of the 2027 Giro (km 91.5)."
+      ],
+      "ascents": [
+        {
+          "race": "giro27",
+          "raceName": "2027 Giro d'Italia",
+          "raceShort": "Giro 2027",
+          "raceFile": null,
+          "stage": 16,
+          "stageStart": "Sondrio",
+          "stageFinish": "Aprica",
+          "stageDate": "2027-05-25",
+          "ordinal": null,
+          "route": null,
+          "len": 16.5,
+          "grad": 8.0,
+          "elev": 2618,
+          "cat": "TBC",
+          "kbf": 0,
+          "profile": [
+            4.9,
+            5.4,
+            6.1,
+            9.6,
+            5.6,
+            9.3,
+            11.3,
+            9.1,
+            8.5,
+            7.2,
+            8.6,
+            7.3,
+            8.7,
+            10.0,
+            9.3,
+            7.8
+          ],
+          "notes": "Stage 16 — Cima Coppi (km 91.5).",
+          "rawName": "Gavia (Ponte di Legno side)"
+        }
+      ]
+    },
+    {
+      "slug": "zoncolan-ovaro",
+      "name": "Zoncolan (Ovaro side)",
+      "range": "Carnic Alps",
+      "cat": "TBC",
+      "len": 9.91,
+      "grad": 12.2,
+      "elev": 1730,
+      "profile": [
+        8.8,
+        6.4,
+        13.6,
+        16.7,
+        15.8,
+        14.7,
+        15.3,
+        13.6,
+        7.5,
+        9.2
+      ],
+      "isSummitFinish": true,
+      "ascentsVary": false,
+      "races": [
+        "giro27"
+      ],
+      "hasPage": true,
+      "gateReasons": [],
+      "notes": [
+        "Stage 20 summit finish."
+      ],
+      "ascents": [
+        {
+          "race": "giro27",
+          "raceName": "2027 Giro d'Italia",
+          "raceShort": "Giro 2027",
+          "raceFile": null,
+          "stage": 20,
+          "stageStart": "Pordenone",
+          "stageFinish": "Monte Zoncolan",
+          "stageDate": "2027-05-29",
+          "ordinal": null,
+          "route": null,
+          "len": 9.91,
+          "grad": 12.2,
+          "elev": 1730,
+          "cat": "TBC",
+          "kbf": 0,
+          "profile": [
+            8.8,
+            6.4,
+            13.6,
+            16.7,
+            15.8,
+            14.7,
+            15.3,
+            13.6,
+            7.5,
+            9.2
+          ],
+          "notes": "Stage 20 summit finish.",
+          "rawName": "Zoncolan (Ovaro side)"
+        }
+      ]
     }
   ]
 }

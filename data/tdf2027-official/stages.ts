@@ -27,11 +27,11 @@ export interface Stage {
   start: string;
   finish: string;
   dist: number;
-  terrain: 'Flat' | 'Hilly' | 'Mountainous' | 'ITT';
+  terrain: 'Flat' | 'Hilly' | 'Mountainous' | 'ITT' | 'TBC';
   /** Same terrain, in the type key the map's route-line colours use ('Mountain', not 'Mountainous') */
-  mapType: 'Flat' | 'Hilly' | 'Mountain' | 'ITT';
+  mapType: 'Flat' | 'Hilly' | 'Mountain' | 'ITT' | 'TBC';
   badgeCls: string;
-  vgain: number;
+  vgain: number | null;
   climbCount: number;
   summary: string;
   climbs: StageClimb[];

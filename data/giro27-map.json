@@ -1,0 +1,393 @@
+{
+  "STAGE_COORDS": [
+    {
+      "num": 1,
+      "sLat": 45.6495,
+      "sLng": 13.7768,
+      "fLat": 45.6495,
+      "fLng": 13.7768
+    },
+    {
+      "num": 2,
+      "sLat": 46.0569,
+      "sLng": 14.5058,
+      "fLat": 45.5481,
+      "fLng": 13.7302
+    },
+    {
+      "num": 3,
+      "sLat": 45.8219,
+      "sLng": 13.3358,
+      "fLat": 45.8517,
+      "fLng": 11.8975
+    },
+    {
+      "num": 4,
+      "sLat": 44.6129,
+      "sLng": 11.8333,
+      "fLat": 43.9786,
+      "fLng": 12.7183
+    },
+    {
+      "num": 5,
+      "sLat": 43.4306,
+      "sLng": 13.3597,
+      "fLat": 43.0136,
+      "fLng": 13.2325
+    },
+    {
+      "num": 6,
+      "sLat": 42.8333,
+      "sLng": 13.9167,
+      "fLat": 42.2297,
+      "fLng": 14.3903
+    },
+    {
+      "num": 7,
+      "sLat": 42.0467,
+      "sLng": 13.9269,
+      "fLat": 42.0167,
+      "fLng": 14.0944
+    },
+    {
+      "num": 8,
+      "sLat": 41.9625,
+      "sLng": 13.5217,
+      "fLat": 40.8518,
+      "fLng": 14.2681
+    },
+    {
+      "num": 9,
+      "sLat": 41.2992,
+      "sLng": 13.5283,
+      "fLat": 41.9375,
+      "fLng": 13.1086
+    },
+    {
+      "num": 10,
+      "sLat": 42.0667,
+      "sLng": 12.7667,
+      "fLat": 42.7919,
+      "fLng": 13.0928
+    },
+    {
+      "num": 11,
+      "sLat": 43.2333,
+      "sLng": 12.7833,
+      "fLat": 43.9944,
+      "fLng": 11.3583
+    },
+    {
+      "num": 12,
+      "sLat": 43.8833,
+      "sLng": 10.7667,
+      "fLat": 44.3667,
+      "fLng": 9.85
+    },
+    {
+      "num": 13,
+      "sLat": 44.4867,
+      "sLng": 9.7767,
+      "fLat": 44.6989,
+      "fLng": 10.6297
+    },
+    {
+      "num": 14,
+      "sLat": 45.738,
+      "sLng": 9.1286,
+      "fLat": 45.9622,
+      "fLng": 9.4939
+    },
+    {
+      "num": 15,
+      "sLat": 45.5845,
+      "sLng": 9.2744,
+      "fLat": 45.4642,
+      "fLng": 9.19
+    },
+    {
+      "num": 16,
+      "sLat": 46.1699,
+      "sLng": 9.8789,
+      "fLat": 46.1544,
+      "fLng": 10.1511
+    },
+    {
+      "num": 17,
+      "sLat": 45.5372,
+      "sLng": 9.9275,
+      "fLat": 45.3167,
+      "fLng": 11.6
+    },
+    {
+      "num": 18,
+      "sLat": 45.8906,
+      "sLng": 11.04,
+      "fLat": 46.2285,
+      "fLng": 10.8268
+    },
+    {
+      "num": 19,
+      "sLat": 45.8906,
+      "sLng": 11.04,
+      "fLat": 45.9544,
+      "fLng": 12.4994
+    },
+    {
+      "num": 20,
+      "sLat": 45.9569,
+      "sLng": 12.6603,
+      "fLat": 46.495,
+      "fLng": 12.905
+    },
+    {
+      "num": 21,
+      "sLat": 41.9028,
+      "sLng": 12.4964,
+      "fLat": 41.9028,
+      "fLng": 12.4964
+    }
+  ],
+  "CITY_LABELS": [
+    {
+      "num": 1,
+      "end": "s",
+      "name": "Trieste",
+      "cls": "left"
+    },
+    {
+      "num": 2,
+      "end": "s",
+      "name": "Ljubljana",
+      "dense": true
+    },
+    {
+      "num": 2,
+      "end": "f",
+      "name": "Koper",
+      "dense": true
+    },
+    {
+      "num": 3,
+      "end": "s",
+      "name": "Cervignano del Friuli",
+      "dense": true
+    },
+    {
+      "num": 3,
+      "end": "f",
+      "name": "Possagno",
+      "dense": true
+    },
+    {
+      "num": 4,
+      "end": "s",
+      "name": "Argenta",
+      "dense": true
+    },
+    {
+      "num": 4,
+      "end": "f",
+      "name": "Misano Adriatico",
+      "dense": true
+    },
+    {
+      "num": 5,
+      "end": "s",
+      "name": "Filottrano",
+      "dense": true
+    },
+    {
+      "num": 5,
+      "end": "f",
+      "name": "Sarnano-Sassotetto",
+      "dense": true
+    },
+    {
+      "num": 6,
+      "end": "s",
+      "name": "Alba Adriatica",
+      "dense": true
+    },
+    {
+      "num": 6,
+      "end": "f",
+      "name": "Lanciano",
+      "dense": true
+    },
+    {
+      "num": 7,
+      "end": "s",
+      "name": "Sulmona",
+      "dense": true
+    },
+    {
+      "num": 7,
+      "end": "f",
+      "name": "Campo di Giove",
+      "dense": true
+    },
+    {
+      "num": 8,
+      "end": "s",
+      "name": "Trasacco",
+      "dense": true
+    },
+    {
+      "num": 8,
+      "end": "f",
+      "name": "Napoli",
+      "cls": "right"
+    },
+    {
+      "num": 9,
+      "end": "s",
+      "name": "Itri",
+      "dense": true
+    },
+    {
+      "num": 9,
+      "end": "f",
+      "name": "Subiaco-Monte Livata",
+      "dense": true
+    },
+    {
+      "num": 10,
+      "end": "s",
+      "name": "Palombara Sabina",
+      "dense": true
+    },
+    {
+      "num": 10,
+      "end": "f",
+      "name": "Norcia",
+      "dense": true
+    },
+    {
+      "num": 11,
+      "end": "s",
+      "name": "Gualdo Tadino",
+      "dense": true
+    },
+    {
+      "num": 11,
+      "end": "f",
+      "name": "Scarperia",
+      "dense": true
+    },
+    {
+      "num": 12,
+      "end": "s",
+      "name": "Montecatini Terme",
+      "dense": true
+    },
+    {
+      "num": 12,
+      "end": "f",
+      "name": "Zeri",
+      "dense": true
+    },
+    {
+      "num": 13,
+      "end": "s",
+      "name": "Borgo Val di Taro",
+      "dense": true
+    },
+    {
+      "num": 13,
+      "end": "f",
+      "name": "Reggio Emilia",
+      "dense": true
+    },
+    {
+      "num": 14,
+      "end": "s",
+      "name": "Cantù",
+      "dense": true
+    },
+    {
+      "num": 14,
+      "end": "f",
+      "name": "Piani di Bobbio",
+      "dense": true
+    },
+    {
+      "num": 15,
+      "end": "s",
+      "name": "Monza",
+      "dense": true
+    },
+    {
+      "num": 15,
+      "end": "f",
+      "name": "Milano",
+      "dense": true
+    },
+    {
+      "num": 16,
+      "end": "s",
+      "name": "Sondrio",
+      "dense": true
+    },
+    {
+      "num": 16,
+      "end": "f",
+      "name": "Aprica",
+      "dense": true
+    },
+    {
+      "num": 17,
+      "end": "s",
+      "name": "Chiari",
+      "dense": true
+    },
+    {
+      "num": 17,
+      "end": "f",
+      "name": "Vo’",
+      "dense": true
+    },
+    {
+      "num": 18,
+      "end": "s",
+      "name": "Rovereto",
+      "dense": true
+    },
+    {
+      "num": 18,
+      "end": "f",
+      "name": "Madonna di Campiglio",
+      "dense": true
+    },
+    {
+      "num": 19,
+      "end": "s",
+      "name": "Rovereto",
+      "dense": true
+    },
+    {
+      "num": 19,
+      "end": "f",
+      "name": "Sacile",
+      "dense": true
+    },
+    {
+      "num": 20,
+      "end": "s",
+      "name": "Pordenone",
+      "dense": true
+    },
+    {
+      "num": 20,
+      "end": "f",
+      "name": "Monte Zoncolan",
+      "dense": true
+    },
+    {
+      "num": 21,
+      "end": "s",
+      "name": "Roma",
+      "dense": true
+    }
+  ]
+}

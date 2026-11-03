@@ -56,7 +56,7 @@ export default function StageDetail({ race, climbs, stageNum, stay22Links }: Sta
         <div className="sh-route">Stage {stage.num}: {stage.start} → {stage.finish}</div>
         <div className="sh-stats">
           <span><strong>{stage.dist}</strong> km</span>
-          <span><strong>{stage.vgain.toLocaleString()}</strong> m elevation gain</span>
+          <span>{stage.vgain != null ? <><strong>{stage.vgain.toLocaleString()}</strong> m elevation gain</> : 'Elevation TBC'}</span>
           {stageClimbList.length > 0 && (
             <span><strong>{stageClimbList.length}</strong> categorised climb{stageClimbList.length !== 1 ? 's' : ''}</span>
           )}

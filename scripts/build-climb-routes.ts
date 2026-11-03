@@ -1257,6 +1257,13 @@ const ROADBOOK_ANCHORS: Record<string, RoadbookAnchors> = {
     lengthKm: 7.76,
     ascentM: 503,
   },
+  // Giro d'Italia 2027 climbs on the official route (revealed 3 Nov 2026). Robin's own BRouter-Web exports, cut at the true
+  // summit; anchors are each file's own first-point/global-max elevation (a
+  // no-op rescale preserving the real profile), haversine length, and naive
+  // cumulative rise (refined to the script's smoothed figure on first build).
+  'gavia-ponte-di-legno': { startElevationM: 1292.25, summitElevationM: 2618.5, lengthKm: 16.5, ascentM: 1330 },
+  'mortirolo-mazzo': { startElevationM: 551, summitElevationM: 1860, lengthKm: 12.4, ascentM: 1310 },
+  'zoncolan-ovaro': { startElevationM: 529.75, summitElevationM: 1738, lengthKm: 9.91, ascentM: 1209 },
   'borovets-pass': {
     // BRouter-Web export ("Raduil -> Borovets (10.5km)"), Robin's raw file
     // — bottom already clean (file's own first point, 844m, is within 3m of

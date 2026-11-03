@@ -51,8 +51,8 @@ export default function sitemap(): MetadataRoute.Sitemap {
   // these are differentiated interactive tools, not generic climb-stats
   // pages, so they rank just under the site's own calculator tools (0.7).
   const climbEntries: MetadataRoute.Sitemap = (climbIndexData.climbs as { slug: string; speculative?: boolean }[])
-    // Hand-flagged entries (alternate ascents of an already-listed climb) stay out
-    // of the sitemap even when route data exists.
+    // Hand-flagged entries (unconfirmed leaked-route climbs, alternate ascents) stay out of the
+    // sitemap even when route data exists.
     .filter((c) => hasRouteData(c.slug) && !c.speculative)
     .map((c) => ({
       url: `${BASE}/climbs/${c.slug}`,

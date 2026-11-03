@@ -15,6 +15,7 @@ const TYPE_COLOR: Record<string, string> = {
   Hilly: '#000000',
   Mountain: '#ee1c28',
   ITT: '#1a72e0',
+  TBC: '#94a3b8',
 };
 
 // United Kingdom (826) keeps the live page's pale-lemon fill; France (250)
@@ -52,6 +53,9 @@ export default function Tdf27Explorer({
   mapData = tdf27Map,
   mapId = 'tdf27-map',
   placeLabels,
+  countryFill = COUNTRY_FILL,
+  countryLabels = COUNTRY_LABELS,
+  sidebarLabel = '2027 Route',
 }: {
   stages: Stage[];
   children: ReactNode;
@@ -59,6 +63,10 @@ export default function Tdf27Explorer({
   mapData?: MapData;
   mapId?: string;
   placeLabels?: PlaceLabel[];
+  /** Reused by the 2027 Giro page — default to the TDF values above. */
+  countryFill?: Record<string, string>;
+  countryLabels?: CountryLabel[];
+  sidebarLabel?: string;
 }) {
   const [selected, setSelected] = useState(1);
 
@@ -75,8 +83,8 @@ export default function Tdf27Explorer({
           stages={stages}
           stageCoords={mapData.STAGE_COORDS as StageCoord[]}
           cityLabels={mapData.CITY_LABELS as CityLabel[]}
-          countryLabels={COUNTRY_LABELS}
-          countryFill={COUNTRY_FILL}
+          countryLabels={countryLabels}
+          countryFill={countryFill}
           typeColor={TYPE_COLOR}
           activeStage={selected}
           onStageClick={selectAndScroll}
@@ -96,7 +104,7 @@ export default function Tdf27Explorer({
       <div className="container" style={{ maxWidth: 1100 }}>
         <StageMobileSelect stages={stages} selected={selected} onSelect={selectAndScroll} />
         <div className="tdf-grid">
-          <StageSidebar stages={stages} selected={selected} onSelect={selectAndScroll} label="2027 Route" />
+          <StageSidebar stages={stages} selected={selected} onSelect={selectAndScroll} label={sidebarLabel} />
           <div>{children}</div>
         </div>
       </div>

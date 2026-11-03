@@ -32,7 +32,7 @@ export default function StaticIndex({ race, climbs, intro, h2Color }: StaticInde
               </a>
             </h3>
             <p className="si-meta">
-              {s.type} · {s.dist}km · {s.vgain.toLocaleString()}m of climbing
+              {s.type} · {s.dist}km{s.vgain != null ? ` · ${s.vgain.toLocaleString()}m of climbing` : ''}
             </p>
             <p className="si-notes">{s.notes}</p>
             {allTBC ? (

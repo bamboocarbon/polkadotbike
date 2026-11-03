@@ -61,8 +61,8 @@ interface RawClimb {
   elev: number;
   races: string[];
   hasPage: boolean;
-  /** Hand-flagged entries (alternate ascents of an already-listed climb) — never
-   *  listed here regardless of category. */
+  /** Hand-flagged entries (unconfirmed leaked-route climbs, alternate ascents of an already-listed
+   *  climb) — never listed here regardless of category. */
   speculative?: boolean;
 }
 

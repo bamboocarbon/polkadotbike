@@ -199,3 +199,8 @@
 
 /* Anchor/scroll targets must land below the sticky header, not under it. */
 .si-stage, #stage-detail, #stage-explorer, #all-stages { scroll-margin-top: calc(var(--header-h) + 16px); }
+
+/* Stage announced, terrain not yet published */
+.badge-tbc { background: #475569; color: #fff; }
+.map-dot.md-tbc { background: #94a3b8; }
+.s-badge.type-tbc { background: #475569; color: #fff; }

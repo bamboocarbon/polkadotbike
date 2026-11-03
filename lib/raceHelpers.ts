@@ -4,8 +4,9 @@ export interface Stage {
   start: string;
   finish: string;
   dist: number;
-  type: 'Mountain' | 'Hilly' | 'Sprint' | 'TTT' | 'ITT' | 'Medium' | 'Flat';
-  vgain: number;
+  type: 'Mountain' | 'Hilly' | 'Sprint' | 'TTT' | 'ITT' | 'Medium' | 'Flat' | 'TBC';
+  /** null until the official profile is published (2027 Giro, stages announced before their profiles) */
+  vgain: number | null;
   notes: string;
 }
 
@@ -42,6 +43,8 @@ export const TYPE_INFO: Record<string, { badge: string; cls: string; sidebarCls:
   // these; TDF/Giro never produce them so adding them here is additive).
   Medium: { badge: 'Medium Mtns', cls: 'badge-mm', sidebarCls: 'type-mm' },
   Flat: { badge: 'Flat', cls: 'badge-s', sidebarCls: 'type-s' },
+  // Route announced but the stage profile/terrain not yet published.
+  TBC: { badge: 'Terrain TBC', cls: 'badge-tbc', sidebarCls: 'type-tbc' },
 };
 
 export const CAT_CLS: Record<string, string> = {

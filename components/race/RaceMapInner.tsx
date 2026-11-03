@@ -117,6 +117,7 @@ const TYPE_DOT_CLS: Record<string, string> = {
   Sprint: 'md-s',
   TTT: 'md-t',
   ITT: 'md-t',
+  TBC: 'md-tbc',
 };
 
 // Vuelta's dynamic city-label placement — pure geometry helpers, ported
