@@ -1267,6 +1267,11 @@ const ROADBOOK_ANCHORS: Record<string, RoadbookAnchors> = {
   'subiaco-monte-livata': { startElevationM: 394.5, summitElevationM: 1352, lengthKm: 13.94, ascentM: 967 },
   'passo-dei-due-santi-zeri': { startElevationM: 672.75, summitElevationM: 1392, lengthKm: 8.17, ascentM: 726 },
   'madonna-di-campiglio': { startElevationM: 817.25, summitElevationM: 1514, lengthKm: 12.35, ascentM: 704 },
+  'passo-daone': { startElevationM: 644.5, summitElevationM: 1292, lengthKm: 7.11, ascentM: 654 },
+  'passo-durone': { startElevationM: 405.75, summitElevationM: 1020, lengthKm: 10.42, ascentM: 620 },
+  'passo-ballino': { startElevationM: 99.5, summitElevationM: 763, lengthKm: 13.48, ascentM: 670 },
+  'forca-di-presta': { startElevationM: 645.5, summitElevationM: 1536, lengthKm: 12.85, ascentM: 899 },
+  'piani-di-bobbio': { startElevationM: 730.25, summitElevationM: 1682, lengthKm: 10.09, ascentM: 961 },
   'zoncolan-ovaro': { startElevationM: 529.75, summitElevationM: 1738, lengthKm: 9.91, ascentM: 1209 },
   'borovets-pass': {
     // BRouter-Web export ("Raduil -> Borovets (10.5km)"), Robin's raw file

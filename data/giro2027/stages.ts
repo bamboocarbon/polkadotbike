@@ -103,7 +103,7 @@ export const STAGES: Stage[] = [
     terrain: 'Hilly', mapType: 'Hilly', badgeCls: 'badge-h', vgain: null,
     summary: 'A long 218 km Apennine stage from Palombara Sabina to Norcia, crossing the Forca di Presta and the Forca Ventolosa in the closing 35 km. RCS rate it 3 of 5 stars.',
     climbCount: 2, climbs: [
-      { name: 'Forca di Presta', position: 'km 184.7 · summit 1,536 m' },
+      { name: 'Forca di Presta (Arquata side)', position: 'km 184.7 · summit 1,536 m', len: 12.85, grad: 6.9, profile: [3.8, 7.2, 7.2, 7.6, 7.5, 6.6, 5.2, 5.7, 6.8, 6.5, 7.6, 10.0, 8.5], history: 'Measured from Piedilama (about 645 m) to the 1,536 m pass: 12.9 km at 6.9%. RCS publish no climb figures for it.' },
       { name: 'Forca Ventolosa', position: 'km 198.1 · summit 1,521 m' },
     ],
   },
@@ -137,7 +137,7 @@ export const STAGES: Stage[] = [
       { name: 'Culmine di San Pietro', position: 'km 80.4 · summit 1,254 m' },
       { name: 'Mirago', position: 'km 129.0 · summit 945 m' },
       { name: 'Alino', position: 'km 150.0 · summit 687 m' },
-      { name: 'Piani di Bobbio', position: 'Summit finish · from 776 m', len: 10.1, grad: 9.0, gain: 906, history: 'RCS’s profile: 10.1 km and 906 m of climbing at 9.0% from 776 m, with a maximum gradient of 18%. The finish is at 1,682 m.' },
+      { name: 'Piani di Bobbio (Valtorta side)', position: 'Summit finish · Valtorta side', len: 10.09, grad: 9.4, profile: [5.5, 6.3, 6.3, 9.5, 9.9, 10.1, 9.3, 8.8, 14.6, 13.6], history: 'RCS’s profile: 10.1 km and 906 m of climbing at 9.0% from 776 m, with a maximum gradient of 18%; our route measures 10.09 km and 946 m at 9.4%, starting 46 m lower. The finish is at 1,682 m, reached via Valtorta (933 m).' },
     ],
   },
   {
@@ -167,10 +167,10 @@ export const STAGES: Stage[] = [
     terrain: 'Mountainous', mapType: 'Mountain', badgeCls: 'badge-m', vgain: null,
     summary: 'A 154 km mountain day, run entirely in Trentino, from Rovereto to Madonna di Campiglio: the Passo Ballino, Passo Durone, Passo Daone and the Durone again, then a 12.5 km finishing climb at 5.7% from Pinzolo. RCS rate it 4 of 5 stars.',
     climbCount: 5, climbs: [
-      { name: 'Passo Ballino', position: 'km 34.6 · summit 763 m' },
-      { name: 'Passo Durone', position: 'km 58.7 · summit 1,020 m' },
-      { name: 'Passo Daone', position: 'km 83.3 · summit 1,292 m' },
-      { name: 'Passo Durone', position: 'km 115.8 · summit 1,020 m · second ascent' },
+      { name: 'Passo Ballino (Riva del Garda side)', position: 'km 34.6 · summit 763 m', len: 13.48, grad: 4.9, profile: [3.9, 5.2, 9.5, 7.6, 5.0, 7.3, 5.0, 6.9, 2.1, 2.6, 3.8, 5.1, 1.5], history: 'From the Riva del Garda side (100 m) to the 763 m pass: 13.5 km at 4.9%. RCS’s markers put Tenno (427 m) 8.8 km from the summit, against 8.3 km on our route, and Riva del Garda 16.3 km out, so RCS’s stage may start the climb slightly lower down.' },
+      { name: 'Passo Durone (Ponte Arche side)', position: 'km 58.7 · summit 1,020 m · first ascent', len: 10.42, grad: 5.9, profile: [6.9, 3.5, 6.6, 6.2, 3.5, 4.8, 6.7, 8.0, 6.7, 5.9], history: 'From Ponte Arche (406 m) to the 1,020 m pass: 10.4 km at 5.9%, against about 10.6 km on RCS’s profile markers. The race climbs it twice from this side (km 58.7 and km 115.8).' },
+      { name: 'Passo Daone (Spiazzo side)', position: 'km 83.3 · summit 1,292 m', len: 7.11, grad: 9.1, profile: [1.4, 10.3, 12.1, 11.6, 11.4, 10.7, 6.5], history: 'Measured from Spiazzo (about 644 m) to the 1,292 m pass, 7.1 km at 9.1% — in line with RCS’s profile markers (Spiazzo 652 m at 7.1 km from the summit). RCS publish no climb figures for it.' },
+      { name: 'Passo Durone (Ponte Arche side)', position: 'km 115.8 · summit 1,020 m · second ascent', len: 10.42, grad: 5.9, profile: [6.9, 3.5, 6.6, 6.2, 3.5, 4.8, 6.7, 8.0, 6.7, 5.9], history: 'From Ponte Arche (406 m) to the 1,020 m pass: 10.4 km at 5.9%, against about 10.6 km on RCS’s profile markers. The race climbs it twice from this side (km 58.7 and km 115.8).' },
       { name: 'Madonna di Campiglio (Pinzolo side)', position: 'Summit finish · from Pinzolo-Carisolo', len: 12.35, grad: 5.6, profile: [0.9, 4.4, 7.7, 9.3, 8.6, 7.0, 7.4, 6.8, 6.0, 6.3, 2.9, 1.1], history: 'RCS’s profile: 12.5 km and 709 m of climbing at 5.7% from Pinzolo-Carisolo (805 m), with a maximum gradient of 9%; our route measures 12.35 km at 5.6%. The finish is at 1,514 m.' },
     ],
   },

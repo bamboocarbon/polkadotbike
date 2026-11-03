@@ -11418,6 +11418,363 @@
           "rawName": "Madonna di Campiglio (Pinzolo side)"
         }
       ]
+    },
+    {
+      "slug": "passo-daone",
+      "name": "Passo Daone (Spiazzo side)",
+      "range": "Alps",
+      "cat": "TBC",
+      "len": 7.11,
+      "grad": 9.1,
+      "elev": 1292,
+      "profile": [
+        1.4,
+        10.3,
+        12.1,
+        11.6,
+        11.4,
+        10.7,
+        6.5
+      ],
+      "isSummitFinish": false,
+      "ascentsVary": false,
+      "races": [
+        "giro27"
+      ],
+      "hasPage": true,
+      "gateReasons": [],
+      "notes": [
+        "Stage 18 climb."
+      ],
+      "ascents": [
+        {
+          "race": "giro27",
+          "raceName": "2027 Giro d'Italia",
+          "raceShort": "Giro 2027",
+          "raceFile": null,
+          "stage": 18,
+          "stageStart": "Rovereto",
+          "stageFinish": "Madonna di Campiglio",
+          "stageDate": "2027-05-27",
+          "ordinal": null,
+          "route": null,
+          "len": 7.11,
+          "grad": 9.1,
+          "elev": 1292,
+          "cat": "TBC",
+          "kbf": 0,
+          "profile": [
+            1.4,
+            10.3,
+            12.1,
+            11.6,
+            11.4,
+            10.7,
+            6.5
+          ],
+          "notes": "Stage 18 climb.",
+          "rawName": "Passo Daone (Spiazzo side)"
+        }
+      ]
+    },
+    {
+      "slug": "passo-durone",
+      "name": "Passo Durone (Ponte Arche side)",
+      "range": "Alps",
+      "cat": "TBC",
+      "len": 10.42,
+      "grad": 5.9,
+      "elev": 1020,
+      "profile": [
+        6.9,
+        3.5,
+        6.6,
+        6.2,
+        3.5,
+        4.8,
+        6.7,
+        8.0,
+        6.7,
+        5.9
+      ],
+      "isSummitFinish": false,
+      "ascentsVary": false,
+      "races": [
+        "giro27"
+      ],
+      "hasPage": true,
+      "gateReasons": [],
+      "notes": [
+        "Stage 18 climb."
+      ],
+      "ascents": [
+        {
+          "race": "giro27",
+          "raceName": "2027 Giro d'Italia",
+          "raceShort": "Giro 2027",
+          "raceFile": null,
+          "stage": 18,
+          "stageStart": "Rovereto",
+          "stageFinish": "Madonna di Campiglio",
+          "stageDate": "2027-05-27",
+          "ordinal": 1,
+          "route": null,
+          "len": 10.42,
+          "grad": 5.9,
+          "elev": 1020,
+          "cat": "TBC",
+          "kbf": 0,
+          "profile": [
+            6.9,
+            3.5,
+            6.6,
+            6.2,
+            3.5,
+            4.8,
+            6.7,
+            8.0,
+            6.7,
+            5.9
+          ],
+          "notes": "Stage 18 climb, ascent 1 of 2.",
+          "rawName": "Passo Durone (Ponte Arche side)"
+        },
+        {
+          "race": "giro27",
+          "raceName": "2027 Giro d'Italia",
+          "raceShort": "Giro 2027",
+          "raceFile": null,
+          "stage": 18,
+          "stageStart": "Rovereto",
+          "stageFinish": "Madonna di Campiglio",
+          "stageDate": "2027-05-27",
+          "ordinal": 2,
+          "route": null,
+          "len": 10.42,
+          "grad": 5.9,
+          "elev": 1020,
+          "cat": "TBC",
+          "kbf": 0,
+          "profile": [
+            6.9,
+            3.5,
+            6.6,
+            6.2,
+            3.5,
+            4.8,
+            6.7,
+            8.0,
+            6.7,
+            5.9
+          ],
+          "notes": "Stage 18 climb, ascent 2 of 2.",
+          "rawName": "Passo Durone (Ponte Arche side)"
+        }
+      ]
+    },
+    {
+      "slug": "passo-ballino",
+      "name": "Passo Ballino (Riva del Garda side)",
+      "range": "Alps",
+      "cat": "TBC",
+      "len": 13.48,
+      "grad": 4.9,
+      "elev": 763,
+      "profile": [
+        3.9,
+        5.2,
+        9.5,
+        7.6,
+        5.0,
+        7.3,
+        5.0,
+        6.9,
+        2.1,
+        2.6,
+        3.8,
+        5.1,
+        1.5
+      ],
+      "isSummitFinish": false,
+      "ascentsVary": false,
+      "races": [
+        "giro27"
+      ],
+      "hasPage": true,
+      "gateReasons": [],
+      "notes": [
+        "Stage 18 climb."
+      ],
+      "ascents": [
+        {
+          "race": "giro27",
+          "raceName": "2027 Giro d'Italia",
+          "raceShort": "Giro 2027",
+          "raceFile": null,
+          "stage": 18,
+          "stageStart": "Rovereto",
+          "stageFinish": "Madonna di Campiglio",
+          "stageDate": "2027-05-27",
+          "ordinal": null,
+          "route": null,
+          "len": 13.48,
+          "grad": 4.9,
+          "elev": 763,
+          "cat": "TBC",
+          "kbf": 0,
+          "profile": [
+            3.9,
+            5.2,
+            9.5,
+            7.6,
+            5.0,
+            7.3,
+            5.0,
+            6.9,
+            2.1,
+            2.6,
+            3.8,
+            5.1,
+            1.5
+          ],
+          "notes": "Stage 18 climb.",
+          "rawName": "Passo Ballino (Riva del Garda side)"
+        }
+      ]
+    },
+    {
+      "slug": "forca-di-presta",
+      "name": "Forca di Presta (Arquata side)",
+      "range": "Apennines",
+      "cat": "TBC",
+      "len": 12.85,
+      "grad": 6.9,
+      "elev": 1536,
+      "profile": [
+        3.8,
+        7.2,
+        7.2,
+        7.6,
+        7.5,
+        6.6,
+        5.2,
+        5.7,
+        6.8,
+        6.5,
+        7.6,
+        10.0,
+        8.5
+      ],
+      "isSummitFinish": false,
+      "ascentsVary": false,
+      "races": [
+        "giro27"
+      ],
+      "hasPage": true,
+      "gateReasons": [],
+      "notes": [
+        "Stage 10 climb."
+      ],
+      "ascents": [
+        {
+          "race": "giro27",
+          "raceName": "2027 Giro d'Italia",
+          "raceShort": "Giro 2027",
+          "raceFile": null,
+          "stage": 10,
+          "stageStart": "Palombara Sabina",
+          "stageFinish": "Norcia",
+          "stageDate": "2027-05-18",
+          "ordinal": null,
+          "route": null,
+          "len": 12.85,
+          "grad": 6.9,
+          "elev": 1536,
+          "cat": "TBC",
+          "kbf": 0,
+          "profile": [
+            3.8,
+            7.2,
+            7.2,
+            7.6,
+            7.5,
+            6.6,
+            5.2,
+            5.7,
+            6.8,
+            6.5,
+            7.6,
+            10.0,
+            8.5
+          ],
+          "notes": "Stage 10 climb.",
+          "rawName": "Forca di Presta (Arquata side)"
+        }
+      ]
+    },
+    {
+      "slug": "piani-di-bobbio",
+      "name": "Piani di Bobbio (Valtorta side)",
+      "range": "Alps",
+      "cat": "TBC",
+      "len": 10.09,
+      "grad": 9.4,
+      "elev": 1682,
+      "profile": [
+        5.5,
+        6.3,
+        6.3,
+        9.5,
+        9.9,
+        10.1,
+        9.3,
+        8.8,
+        14.6,
+        13.6
+      ],
+      "isSummitFinish": true,
+      "ascentsVary": false,
+      "races": [
+        "giro27"
+      ],
+      "hasPage": true,
+      "gateReasons": [],
+      "notes": [
+        "Stage 14 summit finish."
+      ],
+      "ascents": [
+        {
+          "race": "giro27",
+          "raceName": "2027 Giro d'Italia",
+          "raceShort": "Giro 2027",
+          "raceFile": null,
+          "stage": 14,
+          "stageStart": "Cantù",
+          "stageFinish": "Piani di Bobbio",
+          "stageDate": "2027-05-22",
+          "ordinal": null,
+          "route": null,
+          "len": 10.09,
+          "grad": 9.4,
+          "elev": 1682,
+          "cat": "TBC",
+          "kbf": 0,
+          "profile": [
+            5.5,
+            6.3,
+            6.3,
+            9.5,
+            9.9,
+            10.1,
+            9.3,
+            8.8,
+            14.6,
+            13.6
+          ],
+          "notes": "Stage 14 summit finish.",
+          "rawName": "Piani di Bobbio (Valtorta side)"
+        }
+      ]
     }
   ]
 }
