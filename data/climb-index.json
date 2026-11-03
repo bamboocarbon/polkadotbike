@@ -11781,6 +11781,432 @@
           "rawName": "Piani di Bobbio (Valtorta side)"
         }
       ]
+    },
+    {
+      "slug": "madonna-del-ghisallo",
+      "name": "Madonna del Ghisallo (Canzo side)",
+      "range": "Alps",
+      "cat": "TBC",
+      "len": 9.78,
+      "grad": 3.7,
+      "elev": 754,
+      "profile": [
+        1.6,
+        6.5,
+        1.7,
+        3.4,
+        2.3,
+        3.8,
+        2.6,
+        6.3,
+        6.4,
+        2.1
+      ],
+      "isSummitFinish": false,
+      "ascentsVary": false,
+      "races": [
+        "giro27"
+      ],
+      "hasPage": true,
+      "gateReasons": [],
+      "notes": [
+        "Stage 14 climb."
+      ],
+      "ascents": [
+        {
+          "race": "giro27",
+          "raceName": "2027 Giro d'Italia",
+          "raceShort": "Giro 2027",
+          "raceFile": null,
+          "stage": 14,
+          "stageStart": "Cantù",
+          "stageFinish": "Piani di Bobbio",
+          "stageDate": "2027-05-22",
+          "ordinal": null,
+          "route": null,
+          "len": 9.78,
+          "grad": 3.7,
+          "elev": 754,
+          "cat": "TBC",
+          "kbf": 0,
+          "profile": [
+            1.6,
+            6.5,
+            1.7,
+            3.4,
+            2.3,
+            3.8,
+            2.6,
+            6.3,
+            6.4,
+            2.1
+          ],
+          "notes": "Stage 14 climb.",
+          "rawName": "Madonna del Ghisallo (Canzo side)"
+        }
+      ]
+    },
+    {
+      "slug": "culmine-di-san-pietro",
+      "name": "Culmine di San Pietro (Barzio side)",
+      "range": "Alps",
+      "cat": "TBC",
+      "len": 10.81,
+      "grad": 4.7,
+      "elev": 1254,
+      "profile": [
+        2.7,
+        5.8,
+        4.8,
+        -0.9,
+        3.0,
+        6.8,
+        7.7,
+        7.6,
+        6.8,
+        5.9,
+        0.8
+      ],
+      "isSummitFinish": false,
+      "ascentsVary": false,
+      "races": [
+        "giro27"
+      ],
+      "hasPage": true,
+      "gateReasons": [],
+      "notes": [
+        "Stage 14 climb."
+      ],
+      "ascents": [
+        {
+          "race": "giro27",
+          "raceName": "2027 Giro d'Italia",
+          "raceShort": "Giro 2027",
+          "raceFile": null,
+          "stage": 14,
+          "stageStart": "Cantù",
+          "stageFinish": "Piani di Bobbio",
+          "stageDate": "2027-05-22",
+          "ordinal": null,
+          "route": null,
+          "len": 10.81,
+          "grad": 4.7,
+          "elev": 1254,
+          "cat": "TBC",
+          "kbf": 0,
+          "profile": [
+            2.7,
+            5.8,
+            4.8,
+            -0.9,
+            3.0,
+            6.8,
+            7.7,
+            7.6,
+            6.8,
+            5.9,
+            0.8
+          ],
+          "notes": "Stage 14 climb.",
+          "rawName": "Culmine di San Pietro (Barzio side)"
+        }
+      ]
+    },
+    {
+      "slug": "mirago",
+      "name": "Mirago (Zogno side)",
+      "range": "Alps",
+      "cat": "TBC",
+      "len": 10.3,
+      "grad": 6.1,
+      "elev": 945,
+      "profile": [
+        4.6,
+        5.1,
+        6.5,
+        7.6,
+        6.4,
+        8.2,
+        7.1,
+        8.2,
+        6.4,
+        1.8
+      ],
+      "isSummitFinish": false,
+      "ascentsVary": false,
+      "races": [
+        "giro27"
+      ],
+      "hasPage": true,
+      "gateReasons": [],
+      "notes": [
+        "Stage 14 climb."
+      ],
+      "ascents": [
+        {
+          "race": "giro27",
+          "raceName": "2027 Giro d'Italia",
+          "raceShort": "Giro 2027",
+          "raceFile": null,
+          "stage": 14,
+          "stageStart": "Cantù",
+          "stageFinish": "Piani di Bobbio",
+          "stageDate": "2027-05-22",
+          "ordinal": null,
+          "route": null,
+          "len": 10.3,
+          "grad": 6.1,
+          "elev": 945,
+          "cat": "TBC",
+          "kbf": 0,
+          "profile": [
+            4.6,
+            5.1,
+            6.5,
+            7.6,
+            6.4,
+            8.2,
+            7.1,
+            8.2,
+            6.4,
+            1.8
+          ],
+          "notes": "Stage 14 climb.",
+          "rawName": "Mirago (Zogno side)"
+        }
+      ]
+    },
+    {
+      "slug": "bieno-borgo-valsugana",
+      "name": "Bieno (Borgo Valsugana side)",
+      "range": "Alps",
+      "cat": "TBC",
+      "len": 11.82,
+      "grad": 4.2,
+      "elev": 887,
+      "profile": [
+        0.2,
+        -2.5,
+        -1.2,
+        0.6,
+        1.8,
+        6.1,
+        7.2,
+        8.8,
+        7.5,
+        7.8,
+        7.9,
+        7.2
+      ],
+      "isSummitFinish": false,
+      "ascentsVary": false,
+      "races": [
+        "giro27"
+      ],
+      "hasPage": true,
+      "gateReasons": [],
+      "notes": [
+        "Stage 19 climb."
+      ],
+      "ascents": [
+        {
+          "race": "giro27",
+          "raceName": "2027 Giro d'Italia",
+          "raceShort": "Giro 2027",
+          "raceFile": null,
+          "stage": 19,
+          "stageStart": "Rovereto",
+          "stageFinish": "Sacile",
+          "stageDate": "2027-05-28",
+          "ordinal": null,
+          "route": null,
+          "len": 11.82,
+          "grad": 4.2,
+          "elev": 887,
+          "cat": "TBC",
+          "kbf": 0,
+          "profile": [
+            0.2,
+            -2.5,
+            -1.2,
+            0.6,
+            1.8,
+            6.1,
+            7.2,
+            8.8,
+            7.5,
+            7.8,
+            7.9,
+            7.2
+          ],
+          "notes": "Stage 19 climb.",
+          "rawName": "Bieno (Borgo Valsugana side)"
+        }
+      ]
+    },
+    {
+      "slug": "sella-valcalda",
+      "name": "Sella Valcalda (Cercivento side)",
+      "range": "Alps",
+      "cat": "TBC",
+      "len": 6.06,
+      "grad": 6.2,
+      "elev": 958,
+      "profile": [
+        3.1,
+        2.3,
+        7.3,
+        9.6,
+        9.2,
+        5.9
+      ],
+      "isSummitFinish": false,
+      "ascentsVary": false,
+      "races": [
+        "giro27"
+      ],
+      "hasPage": true,
+      "gateReasons": [],
+      "notes": [
+        "Stage 20 climb."
+      ],
+      "ascents": [
+        {
+          "race": "giro27",
+          "raceName": "2027 Giro d'Italia",
+          "raceShort": "Giro 2027",
+          "raceFile": null,
+          "stage": 20,
+          "stageStart": "Pordenone",
+          "stageFinish": "Monte Zoncolan",
+          "stageDate": "2027-05-29",
+          "ordinal": null,
+          "route": null,
+          "len": 6.06,
+          "grad": 6.2,
+          "elev": 958,
+          "cat": "TBC",
+          "kbf": 0,
+          "profile": [
+            3.1,
+            2.3,
+            7.3,
+            9.6,
+            9.2,
+            5.9
+          ],
+          "notes": "Stage 20 climb.",
+          "rawName": "Sella Valcalda (Cercivento side)"
+        }
+      ]
+    },
+    {
+      "slug": "passo-duron",
+      "name": "Passo Duron (Paularo side)",
+      "range": "Alps",
+      "cat": "TBC",
+      "len": 4.57,
+      "grad": 9.4,
+      "elev": 1069,
+      "profile": [
+        7.7,
+        11.1,
+        10.5,
+        9.0,
+        7.8
+      ],
+      "isSummitFinish": false,
+      "ascentsVary": false,
+      "races": [
+        "giro27"
+      ],
+      "hasPage": true,
+      "gateReasons": [],
+      "notes": [
+        "Stage 20 climb."
+      ],
+      "ascents": [
+        {
+          "race": "giro27",
+          "raceName": "2027 Giro d'Italia",
+          "raceShort": "Giro 2027",
+          "raceFile": null,
+          "stage": 20,
+          "stageStart": "Pordenone",
+          "stageFinish": "Monte Zoncolan",
+          "stageDate": "2027-05-29",
+          "ordinal": null,
+          "route": null,
+          "len": 4.57,
+          "grad": 9.4,
+          "elev": 1069,
+          "cat": "TBC",
+          "kbf": 0,
+          "profile": [
+            7.7,
+            11.1,
+            10.5,
+            9.0,
+            7.8
+          ],
+          "notes": "Stage 20 climb.",
+          "rawName": "Passo Duron (Paularo side)"
+        }
+      ]
+    },
+    {
+      "slug": "forca-ventolosa",
+      "name": "Forca Ventolosa (Piano Grande side)",
+      "range": "Apennines",
+      "cat": "TBC",
+      "len": 4.75,
+      "grad": 5.1,
+      "elev": 1521,
+      "profile": [
+        0.1,
+        3.7,
+        6.3,
+        7.9,
+        8.4
+      ],
+      "isSummitFinish": false,
+      "ascentsVary": false,
+      "races": [
+        "giro27"
+      ],
+      "hasPage": true,
+      "gateReasons": [],
+      "notes": [
+        "Stage 10 climb."
+      ],
+      "ascents": [
+        {
+          "race": "giro27",
+          "raceName": "2027 Giro d'Italia",
+          "raceShort": "Giro 2027",
+          "raceFile": null,
+          "stage": 10,
+          "stageStart": "Palombara Sabina",
+          "stageFinish": "Norcia",
+          "stageDate": "2027-05-18",
+          "ordinal": null,
+          "route": null,
+          "len": 4.75,
+          "grad": 5.1,
+          "elev": 1521,
+          "cat": "TBC",
+          "kbf": 0,
+          "profile": [
+            0.1,
+            3.7,
+            6.3,
+            7.9,
+            8.4
+          ],
+          "notes": "Stage 10 climb.",
+          "rawName": "Forca Ventolosa (Piano Grande side)"
+        }
+      ]
     }
   ]
 }

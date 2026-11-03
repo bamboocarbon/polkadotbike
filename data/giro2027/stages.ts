@@ -104,7 +104,7 @@ export const STAGES: Stage[] = [
     summary: 'A long 218 km Apennine stage from Palombara Sabina to Norcia, crossing the Forca di Presta and the Forca Ventolosa in the closing 35 km. RCS rate it 3 of 5 stars.',
     climbCount: 2, climbs: [
       { name: 'Forca di Presta (Arquata side)', position: 'km 184.7 · summit 1,536 m', len: 12.85, grad: 6.9, profile: [3.8, 7.2, 7.2, 7.6, 7.5, 6.6, 5.2, 5.7, 6.8, 6.5, 7.6, 10.0, 8.5], history: 'Measured from Piedilama (about 645 m) to the 1,536 m pass: 12.9 km at 6.9%. RCS publish no climb figures for it.' },
-      { name: 'Forca Ventolosa', position: 'km 198.1 · summit 1,521 m' },
+      { name: 'Forca Ventolosa (Piano Grande side)', position: 'km 198.1 · summit 1,521 m', len: 4.75, grad: 5.1, profile: [0.1, 3.7, 6.3, 7.9, 8.4], history: 'The stage’s second pass, from the Piano Grande at Castelluccio (1278 m) to 1,521 m: 4.75 km at 5.1%, after the Forca di Presta.' },
     ],
   },
   {
@@ -133,9 +133,9 @@ export const STAGES: Stage[] = [
     terrain: 'Mountainous', mapType: 'Mountain', badgeCls: 'badge-m', vgain: null,
     summary: 'From Cantù past the Madonna del Ghisallo, Culmine di San Pietro, Mirago and Alino to a summit finish at Piani di Bobbio (Valtorta): the final climb is 10.1 km at 9.0% (18% at its steepest). RCS rate it 4 of 5 stars.',
     climbCount: 5, climbs: [
-      { name: 'Madonna del Ghisallo', position: 'km 25.7 · summit 754 m' },
-      { name: 'Culmine di San Pietro', position: 'km 80.4 · summit 1,254 m' },
-      { name: 'Mirago', position: 'km 129.0 · summit 945 m' },
+      { name: 'Madonna del Ghisallo (Canzo side)', position: 'km 25.7 · summit 754 m', len: 9.78, grad: 3.7, profile: [1.6, 6.5, 1.7, 3.4, 2.3, 3.8, 2.6, 6.3, 6.4, 2.1], history: 'From Canzo (392 m) to the 754 m Madonna del Ghisallo: 9.78 km at 3.7%, matching RCS’s profile markers (392 m, 9.8 km from the summit).' },
+      { name: 'Culmine di San Pietro (Barzio side)', position: 'km 80.4 · summit 1,254 m', len: 10.81, grad: 4.7, profile: [2.7, 5.8, 4.8, -0.9, 3.0, 6.8, 7.7, 7.6, 6.8, 5.9, 0.8], history: 'From Barzio (744 m) to the 1,254 m pass: 10.81 km at 4.7%; RCS’s profile markers put Barzio (748 m) about 10.5 km from the summit.' },
+      { name: 'Mirago (Zogno side)', position: 'km 129.0 · summit 945 m', len: 10.3, grad: 6.1, profile: [4.6, 5.1, 6.5, 7.6, 6.4, 8.2, 7.1, 8.2, 6.4, 1.8], history: 'From Zogno (321 m) to the 945 m summit: 10.3 km at 6.1%.' },
       { name: 'Alino', position: 'km 150.0 · summit 687 m' },
       { name: 'Piani di Bobbio (Valtorta side)', position: 'Summit finish · Valtorta side', len: 10.09, grad: 9.4, profile: [5.5, 6.3, 6.3, 9.5, 9.9, 10.1, 9.3, 8.8, 14.6, 13.6], history: 'RCS’s profile: 10.1 km and 906 m of climbing at 9.0% from 776 m, with a maximum gradient of 18%; our route measures 10.09 km and 946 m at 9.4%, starting 46 m lower. The finish is at 1,682 m, reached via Valtorta (933 m).' },
     ],
@@ -180,7 +180,7 @@ export const STAGES: Stage[] = [
     summary: '199 km from Rovereto to Sacile, with climbs at Vigolo Vattaro and Bieno early on and Montaner late. RCS rate it 2 of 5 stars.',
     climbCount: 3, climbs: [
       { name: 'Vigolo Vattaro', position: 'km 19.6 · summit 718 m' },
-      { name: 'Bieno', position: 'km 57.9 · summit 887 m' },
+      { name: 'Bieno (Borgo Valsugana side)', position: 'km 57.9 · summit 887 m', len: 11.82, grad: 4.2, profile: [0.2, -2.5, -1.2, 0.6, 1.8, 6.1, 7.2, 8.8, 7.5, 7.8, 7.9, 7.2], history: 'From Borgo Valsugana (386 m) to Bieno (887 m): 11.82 km at 4.2%, with a valley run for the first 3–4 km before the climb proper. RCS’s profile markers put Borgo Valsugana (391 m) about 12.5 km from the summit.' },
       { name: 'Montaner', position: 'km 173.1 · summit 310 m' },
     ],
   },
@@ -189,8 +189,8 @@ export const STAGES: Stage[] = [
     terrain: 'Mountainous', mapType: 'Mountain', badgeCls: 'badge-m', vgain: null,
     summary: 'The five-star finale in the mountains: the Passo Duron and Sella Valcalda, then the Monte Zoncolan from Ovaro, which RCS measure at 10.1 km and 11.9% with pitches of 22%. RCS rate it 5 of 5 stars.',
     climbCount: 3, climbs: [
-      { name: 'Passo Duron', position: 'km 141.4 · summit 1,069 m' },
-      { name: 'Sella Valcalda', position: 'km 159.9 · summit 958 m' },
+      { name: 'Passo Duron (Paularo side)', position: 'km 141.4 · summit 1,069 m', len: 4.57, grad: 9.4, profile: [7.7, 11.1, 10.5, 9.0, 7.8], history: 'From Paularo (642 m) to the 1,069 m pass: 4.57 km at 9.4%; RCS’s profile markers put Paularo (648 m) about 4.3 km from the summit.' },
+      { name: 'Sella Valcalda (Cercivento side)', position: 'km 159.9 · summit 958 m', len: 6.06, grad: 6.2, profile: [3.1, 2.3, 7.3, 9.6, 9.2, 5.9], history: 'From Cercivento (581 m) to the 958 m summit: 6.06 km at 6.2%; RCS’s profile markers put Cercivento (607 m) about 5.5 km from the summit.' },
       { name: 'Zoncolan (Ovaro side)', position: 'Summit finish', len: 9.91, grad: 12.2, profile: [8.8, 6.4, 13.6, 16.7, 15.8, 14.7, 15.3, 13.6, 7.5, 9.2], history: 'RCS’s profile gives 10.1 km and 1,200 m of climbing at 11.9% from Ovaro (530 m) to the 1,730 m finish, with maximum gradients of 20% and 22%; our measurement of the same road is 9.91 km at 12.2%.' },
     ],
   },

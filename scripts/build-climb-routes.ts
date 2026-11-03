@@ -1272,6 +1272,13 @@ const ROADBOOK_ANCHORS: Record<string, RoadbookAnchors> = {
   'passo-ballino': { startElevationM: 72.5, summitElevationM: 763, lengthKm: 16.30, ascentM: 698 },
   'forca-di-presta': { startElevationM: 645.5, summitElevationM: 1536, lengthKm: 12.85, ascentM: 899 },
   'piani-di-bobbio': { startElevationM: 730.25, summitElevationM: 1682, lengthKm: 10.09, ascentM: 961 },
+  'madonna-del-ghisallo': { startElevationM: 392.0, summitElevationM: 754, lengthKm: 9.78, ascentM: 366 },
+  'bieno-borgo-valsugana': { startElevationM: 386.0, summitElevationM: 887, lengthKm: 11.82, ascentM: 506 },
+  'mirago': { startElevationM: 321.0, summitElevationM: 945, lengthKm: 10.30, ascentM: 630 },
+  'culmine-di-san-pietro': { startElevationM: 744.0, summitElevationM: 1254, lengthKm: 10.81, ascentM: 515 },
+  'sella-valcalda': { startElevationM: 581.25, summitElevationM: 958, lengthKm: 6.06, ascentM: 381 },
+  'passo-duron': { startElevationM: 641.5, summitElevationM: 1069, lengthKm: 4.57, ascentM: 432 },
+  'forca-ventolosa': { startElevationM: 1278.0, summitElevationM: 1521, lengthKm: 4.75, ascentM: 245 },
   'zoncolan-ovaro': { startElevationM: 529.75, summitElevationM: 1738, lengthKm: 9.91, ascentM: 1209 },
   'borovets-pass': {
     // BRouter-Web export ("Raduil -> Borovets (10.5km)"), Robin's raw file
