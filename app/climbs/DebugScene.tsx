@@ -1309,6 +1309,13 @@ const INITIAL_VIEW_YAW_DEG: Record<string, number> = {
   'passo-daone': 90,
   'forca-ventolosa': 90,
   'madonna-del-ghisallo': -90,
+  // Camera behind the start (Sulmona), looking along the route toward the finish: start->finish heading in scene
+  // coordinates is (+10.4 km east, +5.0 km south), so the camera sits west-north-west of the start.
+  'sulmona-campo-di-giove': -160,
+};
+// Per-climb extra pull-back of the starting view (1 = default), where the start sits too close to the frame edge.
+const INITIAL_VIEW_ZOOM_OUT: Record<string, number> = {
+  'sulmona-campo-di-giove': 1.2,
 };
 
 const SceneControls = forwardRef<ControlsHandle, { rd: RouteData; slug: string; state: SceneState; mapStyle: MapStyle }>(
@@ -1459,7 +1466,7 @@ const SceneControls = forwardRef<ControlsHandle, { rd: RouteData; slug: string; 
       // A generic elevated 3/4 view — frames Plan/Route's quite different
       // shapes (spread-out plan, raised route) reasonably well without
       // needing a bespoke angle per state.
-      const zoomOut = TDF27_UK_CLIMB_SLUGS.has(slug) ? TDF27_UK_INITIAL_ZOOM_OUT : 1;
+      const zoomOut = (TDF27_UK_CLIMB_SLUGS.has(slug) ? TDF27_UK_INITIAL_ZOOM_OUT : 1) * (INITIAL_VIEW_ZOOM_OUT[slug] ?? 1);
       const offset = new THREE.Vector3(0.6, 0.5, 0.6).normalize().multiplyScalar(bounds.diag * 0.8 * zoomOut);
       const yawDeg = INITIAL_VIEW_YAW_DEG[slug];
       if (yawDeg) offset.applyAxisAngle(new THREE.Vector3(0, 1, 0), (yawDeg * Math.PI) / 180);
