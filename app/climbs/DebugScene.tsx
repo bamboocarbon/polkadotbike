@@ -1302,6 +1302,13 @@ const TDF27_UK_CLIMB_SLUGS = new Set<string>([
 ]);
 const TDF27_UK_INITIAL_ZOOM_OUT = 1.17;
 
+// Per-climb rotation (degrees, about the vertical axis) of the default 3/4 starting view, for climbs where the
+// default angle looks along the route or hides the summit behind a ridge. Also what "Reset view" returns to.
+// Positive turns the camera anticlockwise seen from above.
+const INITIAL_VIEW_YAW_DEG: Record<string, number> = {
+  'passo-daone': 90,
+};
+
 const SceneControls = forwardRef<ControlsHandle, { rd: RouteData; slug: string; state: SceneState; mapStyle: MapStyle }>(
   function SceneControls({ rd, slug, state, mapStyle }, ref) {
     const { camera } = useThree();
@@ -1452,6 +1459,8 @@ const SceneControls = forwardRef<ControlsHandle, { rd: RouteData; slug: string; 
       // needing a bespoke angle per state.
       const zoomOut = TDF27_UK_CLIMB_SLUGS.has(slug) ? TDF27_UK_INITIAL_ZOOM_OUT : 1;
       const offset = new THREE.Vector3(0.6, 0.5, 0.6).normalize().multiplyScalar(bounds.diag * 0.8 * zoomOut);
+      const yawDeg = INITIAL_VIEW_YAW_DEG[slug];
+      if (yawDeg) offset.applyAxisAngle(new THREE.Vector3(0, 1, 0), (yawDeg * Math.PI) / 180);
       desiredOffsetRef.current = offset.clone();
       const camPos = new THREE.Vector3(bounds.cx + offset.x, bounds.cy + offset.y, bounds.cz + offset.z);
       if (isTerrain && terrain) {
