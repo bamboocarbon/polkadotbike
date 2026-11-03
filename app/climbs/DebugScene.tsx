@@ -1307,6 +1307,8 @@ const TDF27_UK_INITIAL_ZOOM_OUT = 1.17;
 // Positive turns the camera anticlockwise seen from above.
 const INITIAL_VIEW_YAW_DEG: Record<string, number> = {
   'passo-daone': 90,
+  'forca-ventolosa': 90,
+  'madonna-del-ghisallo': -90,
 };
 
 const SceneControls = forwardRef<ControlsHandle, { rd: RouteData; slug: string; state: SceneState; mapStyle: MapStyle }>(
