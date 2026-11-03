@@ -1263,6 +1263,10 @@ const ROADBOOK_ANCHORS: Record<string, RoadbookAnchors> = {
   // cumulative rise (refined to the script's smoothed figure on first build).
   'gavia-ponte-di-legno': { startElevationM: 1292.25, summitElevationM: 2618.5, lengthKm: 16.5, ascentM: 1330 },
   'mortirolo-mazzo': { startElevationM: 551, summitElevationM: 1860, lengthKm: 12.4, ascentM: 1310 },
+  'sarnano-sassotetto': { startElevationM: 523.5, summitElevationM: 1445, lengthKm: 13.12, ascentM: 931 },
+  'subiaco-monte-livata': { startElevationM: 394.5, summitElevationM: 1352, lengthKm: 13.94, ascentM: 967 },
+  'passo-dei-due-santi-zeri': { startElevationM: 672.75, summitElevationM: 1392, lengthKm: 8.17, ascentM: 726 },
+  'madonna-di-campiglio': { startElevationM: 817.25, summitElevationM: 1514, lengthKm: 12.35, ascentM: 704 },
   'zoncolan-ovaro': { startElevationM: 529.75, summitElevationM: 1738, lengthKm: 9.91, ascentM: 1209 },
   'borovets-pass': {
     // BRouter-Web export ("Raduil -> Borovets (10.5km)"), Robin's raw file

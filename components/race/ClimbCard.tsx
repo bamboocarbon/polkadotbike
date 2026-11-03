@@ -14,6 +14,10 @@ const CLIMB_3D_SLUGS: Record<string, string> = {
   'Mortirolo (Mazzo side)': 'mortirolo-mazzo',
   'Gavia (Ponte di Legno side)': 'gavia-ponte-di-legno',
   'Zoncolan (Ovaro side)': 'zoncolan-ovaro',
+  "Sassotetto (Sarnano side)": 'sarnano-sassotetto',
+  "Monte Livata (Subiaco side)": 'subiaco-monte-livata',
+  "Passo dei Due Santi (San Lorenzo side)": 'passo-dei-due-santi-zeri',
+  "Madonna di Campiglio (Pinzolo side)": 'madonna-di-campiglio',
   // 2027 Tour de France climbs with prebuilt 3D data. Tourmalet carries a
   // "(2027)" suffix so it can't overwrite the 2026 Tourmalet's mapping below
   // (this is the opposite, Luz-Saint-Sauveur side).

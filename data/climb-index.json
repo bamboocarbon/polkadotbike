@@ -11148,6 +11148,276 @@
           "rawName": "Zoncolan (Ovaro side)"
         }
       ]
+    },
+    {
+      "slug": "sarnano-sassotetto",
+      "name": "Sassotetto (Sarnano side)",
+      "range": "Apennines",
+      "cat": "TBC",
+      "len": 13.12,
+      "grad": 7.0,
+      "elev": 1445,
+      "profile": [
+        1.4,
+        0.6,
+        3.8,
+        5.7,
+        7.2,
+        5.7,
+        8.6,
+        11.5,
+        11.3,
+        13.1,
+        8.6,
+        5.0,
+        8.6
+      ],
+      "isSummitFinish": true,
+      "ascentsVary": false,
+      "races": [
+        "giro27"
+      ],
+      "hasPage": true,
+      "gateReasons": [],
+      "notes": [
+        "Stage 5 summit finish."
+      ],
+      "ascents": [
+        {
+          "race": "giro27",
+          "raceName": "2027 Giro d'Italia",
+          "raceShort": "Giro 2027",
+          "raceFile": null,
+          "stage": 5,
+          "stageStart": "Filottrano",
+          "stageFinish": "Sarnano-Sassotetto",
+          "stageDate": "2027-05-12",
+          "ordinal": null,
+          "route": null,
+          "len": 13.12,
+          "grad": 7.0,
+          "elev": 1445,
+          "cat": "TBC",
+          "kbf": 0,
+          "profile": [
+            1.4,
+            0.6,
+            3.8,
+            5.7,
+            7.2,
+            5.7,
+            8.6,
+            11.5,
+            11.3,
+            13.1,
+            8.6,
+            5.0,
+            8.6
+          ],
+          "notes": "Stage 5 summit finish.",
+          "rawName": "Sassotetto (Sarnano side)"
+        }
+      ]
+    },
+    {
+      "slug": "subiaco-monte-livata",
+      "name": "Monte Livata (Subiaco side)",
+      "range": "Apennines",
+      "cat": "TBC",
+      "len": 13.94,
+      "grad": 6.8,
+      "elev": 1352,
+      "profile": [
+        7.4,
+        10.4,
+        10.3,
+        11.1,
+        7.6,
+        7.3,
+        6.1,
+        5.7,
+        5.4,
+        6.0,
+        6.0,
+        5.8,
+        4.6,
+        1.2
+      ],
+      "isSummitFinish": true,
+      "ascentsVary": false,
+      "races": [
+        "giro27"
+      ],
+      "hasPage": true,
+      "gateReasons": [],
+      "notes": [
+        "Stage 9 summit finish."
+      ],
+      "ascents": [
+        {
+          "race": "giro27",
+          "raceName": "2027 Giro d'Italia",
+          "raceShort": "Giro 2027",
+          "raceFile": null,
+          "stage": 9,
+          "stageStart": "Itri",
+          "stageFinish": "Subiaco-Monte Livata",
+          "stageDate": "2027-05-16",
+          "ordinal": null,
+          "route": null,
+          "len": 13.94,
+          "grad": 6.8,
+          "elev": 1352,
+          "cat": "TBC",
+          "kbf": 0,
+          "profile": [
+            7.4,
+            10.4,
+            10.3,
+            11.1,
+            7.6,
+            7.3,
+            6.1,
+            5.7,
+            5.4,
+            6.0,
+            6.0,
+            5.8,
+            4.6,
+            1.2
+          ],
+          "notes": "Stage 9 summit finish.",
+          "rawName": "Monte Livata (Subiaco side)"
+        }
+      ]
+    },
+    {
+      "slug": "passo-dei-due-santi-zeri",
+      "name": "Passo dei Due Santi (San Lorenzo side)",
+      "range": "Apennines",
+      "cat": "TBC",
+      "len": 8.17,
+      "grad": 8.8,
+      "elev": 1392,
+      "profile": [
+        8.8,
+        6.5,
+        7.8,
+        7.6,
+        8.5,
+        8.9,
+        12.5,
+        9.8
+      ],
+      "isSummitFinish": true,
+      "ascentsVary": false,
+      "races": [
+        "giro27"
+      ],
+      "hasPage": true,
+      "gateReasons": [],
+      "notes": [
+        "Stage 12 summit finish."
+      ],
+      "ascents": [
+        {
+          "race": "giro27",
+          "raceName": "2027 Giro d'Italia",
+          "raceShort": "Giro 2027",
+          "raceFile": null,
+          "stage": 12,
+          "stageStart": "Montecatini Terme",
+          "stageFinish": "Zeri",
+          "stageDate": "2027-05-20",
+          "ordinal": null,
+          "route": null,
+          "len": 8.17,
+          "grad": 8.8,
+          "elev": 1392,
+          "cat": "TBC",
+          "kbf": 0,
+          "profile": [
+            8.8,
+            6.5,
+            7.8,
+            7.6,
+            8.5,
+            8.9,
+            12.5,
+            9.8
+          ],
+          "notes": "Stage 12 summit finish.",
+          "rawName": "Passo dei Due Santi (San Lorenzo side)"
+        }
+      ]
+    },
+    {
+      "slug": "madonna-di-campiglio",
+      "name": "Madonna di Campiglio (Pinzolo side)",
+      "range": "Alps",
+      "cat": "TBC",
+      "len": 12.35,
+      "grad": 5.6,
+      "elev": 1514,
+      "profile": [
+        0.9,
+        4.4,
+        7.7,
+        9.3,
+        8.6,
+        7.0,
+        7.4,
+        6.8,
+        6.0,
+        6.3,
+        2.9,
+        1.1
+      ],
+      "isSummitFinish": true,
+      "ascentsVary": false,
+      "races": [
+        "giro27"
+      ],
+      "hasPage": true,
+      "gateReasons": [],
+      "notes": [
+        "Stage 18 summit finish."
+      ],
+      "ascents": [
+        {
+          "race": "giro27",
+          "raceName": "2027 Giro d'Italia",
+          "raceShort": "Giro 2027",
+          "raceFile": null,
+          "stage": 18,
+          "stageStart": "Rovereto",
+          "stageFinish": "Madonna di Campiglio",
+          "stageDate": "2027-05-27",
+          "ordinal": null,
+          "route": null,
+          "len": 12.35,
+          "grad": 5.6,
+          "elev": 1514,
+          "cat": "TBC",
+          "kbf": 0,
+          "profile": [
+            0.9,
+            4.4,
+            7.7,
+            9.3,
+            8.6,
+            7.0,
+            7.4,
+            6.8,
+            6.0,
+            6.3,
+            2.9,
+            1.1
+          ],
+          "notes": "Stage 18 summit finish.",
+          "rawName": "Madonna di Campiglio (Pinzolo side)"
+        }
+      ]
     }
   ]
 }

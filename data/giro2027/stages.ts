@@ -60,7 +60,7 @@ export const STAGES: Stage[] = [
       { name: 'Camerino', position: 'km 64.1 · summit 625 m' },
       { name: 'San Ginesio', position: 'km 97.3 · summit 634 m' },
       { name: 'Gualdo', position: 'km 116.1 · summit 621 m' },
-      { name: 'Sarnano-Sassotetto', position: 'Summit finish · from 500 m', len: 13.1, grad: 7.4, gain: 965, history: 'RCS’s profile: 13.1 km and 965 m of climbing at 7.4% from the foot at Sarnano, with a maximum gradient of 14%.' },
+      { name: 'Sassotetto (Sarnano side)', position: 'Summit finish · from Sarnano', len: 13.12, grad: 7.0, profile: [1.4, 0.6, 3.8, 5.7, 7.2, 5.7, 8.6, 11.5, 11.3, 13.1, 8.6, 5.0, 8.6], history: 'RCS’s profile: 13.1 km and 965 m of climbing at 7.4% from the foot at Sarnano, with a maximum gradient of 14%; our route measures 13.12 km at 7.0%, with the steepest ramps a little earlier than RCS’s smoother 8.1% middle section. The finish is at 1,445 m.' },
     ],
   },
   {
@@ -95,7 +95,7 @@ export const STAGES: Stage[] = [
     climbCount: 3, climbs: [
       { name: 'Bellegra', position: 'km 128.0 · summit 760 m' },
       { name: 'Colle Ferro', position: 'km 151.5 · summit 665 m' },
-      { name: 'Subiaco-Monte Livata', position: 'Summit finish · from 408 m', len: 13.9, grad: 6.9, gain: 960, history: 'RCS’s profile: 13.9 km and 960 m of climbing at 6.9% from Subiaco (408 m), with a maximum gradient of 17%. The finish is at 1,352 m.' },
+      { name: 'Monte Livata (Subiaco side)', position: 'Summit finish · from Subiaco', len: 13.94, grad: 6.8, profile: [7.4, 10.4, 10.3, 11.1, 7.6, 7.3, 6.1, 5.7, 5.4, 6.0, 6.0, 5.8, 4.6, 1.2], history: 'RCS’s profile: 13.9 km and 960 m of climbing at 6.9% from Subiaco (408 m), with a maximum gradient of 17%; our route measures 13.94 km at 6.8%. The finish is at 1,352 m.' },
     ],
   },
   {
@@ -119,7 +119,7 @@ export const STAGES: Stage[] = [
     summary: 'From Montecatini Terme over the Foce Carpinelli to a summit finish at Passo dei Due Santi, Zeri: the closing climb from San Lorenzo is 8.4 km at 8.7% (14% at its steepest). RCS rate it 3 of 5 stars.',
     climbCount: 2, climbs: [
       { name: 'Foce Carpinelli', position: 'km 94.3 · summit 839 m' },
-      { name: 'Passo dei Due Santi (Zeri)', position: 'Summit finish · from 665 m', len: 8.4, grad: 8.7, gain: 727, history: 'RCS’s profile: 8.4 km and 727 m of climbing at 8.7% from San Lorenzo (665 m), with a maximum gradient of 14%. The finish is at 1,392 m.' },
+      { name: 'Passo dei Due Santi (San Lorenzo side)', position: 'Summit finish · from San Lorenzo', len: 8.17, grad: 8.8, profile: [8.8, 6.5, 7.8, 7.6, 8.5, 8.9, 12.5, 9.8], history: 'RCS’s profile: 8.4 km and 727 m of climbing at 8.7% from San Lorenzo (665 m), with a maximum gradient of 14%; our route measures 8.17 km at 8.8%. The finish is at 1,392 m.' },
     ],
   },
   {
@@ -171,7 +171,7 @@ export const STAGES: Stage[] = [
       { name: 'Passo Durone', position: 'km 58.7 · summit 1,020 m' },
       { name: 'Passo Daone', position: 'km 83.3 · summit 1,292 m' },
       { name: 'Passo Durone', position: 'km 115.8 · summit 1,020 m · second ascent' },
-      { name: 'Madonna di Campiglio', position: 'Summit finish · from 805 m', len: 12.5, grad: 5.7, gain: 709, history: 'RCS’s profile: 12.5 km and 709 m of climbing at 5.7% from Pinzolo-Carisolo (805 m), with a maximum gradient of 9%. The finish is at 1,514 m.' },
+      { name: 'Madonna di Campiglio (Pinzolo side)', position: 'Summit finish · from Pinzolo-Carisolo', len: 12.35, grad: 5.6, profile: [0.9, 4.4, 7.7, 9.3, 8.6, 7.0, 7.4, 6.8, 6.0, 6.3, 2.9, 1.1], history: 'RCS’s profile: 12.5 km and 709 m of climbing at 5.7% from Pinzolo-Carisolo (805 m), with a maximum gradient of 9%; our route measures 12.35 km at 5.6%. The finish is at 1,514 m.' },
     ],
   },
   {
