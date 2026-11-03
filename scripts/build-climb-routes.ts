@@ -1279,6 +1279,7 @@ const ROADBOOK_ANCHORS: Record<string, RoadbookAnchors> = {
   'sella-valcalda': { startElevationM: 581.25, summitElevationM: 958, lengthKm: 6.06, ascentM: 381 },
   'passo-duron': { startElevationM: 641.5, summitElevationM: 1069, lengthKm: 4.57, ascentM: 432 },
   'forca-ventolosa': { startElevationM: 1278.0, summitElevationM: 1521, lengthKm: 4.75, ascentM: 245 },
+  'sulmona-campo-di-giove': { startElevationM: 402.75, summitElevationM: 1075.5, lengthKm: 18.75, ascentM: 679 },
   'zoncolan-ovaro': { startElevationM: 529.75, summitElevationM: 1738, lengthKm: 9.91, ascentM: 1209 },
   'borovets-pass': {
     // BRouter-Web export ("Raduil -> Borovets (10.5km)"), Robin's raw file

@@ -30,6 +30,7 @@ const CLIMB_3D_SLUGS: Record<string, string> = {
   "Sella Valcalda (Cercivento side)": 'sella-valcalda',
   "Passo Duron (Paularo side)": 'passo-duron',
   "Forca Ventolosa (Piano Grande side)": 'forca-ventolosa',
+  "Sulmona to Campo di Giove (time trial)": 'sulmona-campo-di-giove',
   // 2027 Tour de France climbs with prebuilt 3D data. Tourmalet carries a
   // "(2027)" suffix so it can't overwrite the 2026 Tourmalet's mapping below
   // (this is the opposite, Luz-Saint-Sauveur side).

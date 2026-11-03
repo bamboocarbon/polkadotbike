@@ -77,7 +77,7 @@ export const STAGES: Stage[] = [
     terrain: 'ITT', mapType: 'ITT', badgeCls: 'badge-t', vgain: null,
     summary: 'A 19.6 km individual time trial (the TUDOR ITT) from Sulmona to Campo di Giove, with timing points at Cansano and the Campo di Giove junction; the second half climbs at about 5%. RCS rate it 4 of 5 stars.',
     climbCount: 1, climbs: [
-      { name: 'Campo di Giove', position: 'Finish (GPM)' },
+      { name: 'Sulmona to Campo di Giove (time trial)', position: 'Whole time trial · finish at Campo di Giove', len: 18.75, grad: 3.6, profile: [1.4, 1.6, 1.6, 1.9, 2.5, 2.8, 3.6, 4.1, 5.0, 6.0, 5.6, 5.1, 4.6, 4.1, 4.2, 5.2, 5.6, 2.3, -0.8], history: 'The whole 19.6 km time trial, Sulmona to Campo di Giove. RCS’s profile: the final climb is 12.5 km at 4.4% (9% at its steepest) from the Cansano junction (528 m) to the 1,068 m finish, with time checks at the junction and Cansano. Our route measures 18.75 km at 3.6%, starting in the centre of Sulmona (about 403 m); its climb matches RCS’s 12.5 km, but it is about 0.85 km shorter than RCS’s 19.6 km overall, in the flat opening through the valley.' },
     ],
   },
   {

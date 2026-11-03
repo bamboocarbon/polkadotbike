@@ -12207,6 +12207,88 @@
           "rawName": "Forca Ventolosa (Piano Grande side)"
         }
       ]
+    },
+    {
+      "slug": "sulmona-campo-di-giove",
+      "name": "Sulmona to Campo di Giove (time trial)",
+      "range": "Apennines",
+      "cat": "TBC",
+      "len": 18.75,
+      "grad": 3.6,
+      "elev": 1068,
+      "profile": [
+        1.4,
+        1.6,
+        1.6,
+        1.9,
+        2.5,
+        2.8,
+        3.6,
+        4.1,
+        5.0,
+        6.0,
+        5.6,
+        5.1,
+        4.6,
+        4.1,
+        4.2,
+        5.2,
+        5.6,
+        2.3,
+        -0.8
+      ],
+      "isSummitFinish": true,
+      "ascentsVary": false,
+      "races": [
+        "giro27"
+      ],
+      "hasPage": true,
+      "gateReasons": [],
+      "notes": [
+        "Stage 7 individual time trial (TUDOR ITT), finishing at Campo di Giove."
+      ],
+      "ascents": [
+        {
+          "race": "giro27",
+          "raceName": "2027 Giro d'Italia",
+          "raceShort": "Giro 2027",
+          "raceFile": null,
+          "stage": 7,
+          "stageStart": "Sulmona",
+          "stageFinish": "Campo di Giove",
+          "stageDate": "2027-05-14",
+          "ordinal": null,
+          "route": null,
+          "len": 18.75,
+          "grad": 3.6,
+          "elev": 1068,
+          "cat": "TBC",
+          "kbf": 0,
+          "profile": [
+            1.4,
+            1.6,
+            1.6,
+            1.9,
+            2.5,
+            2.8,
+            3.6,
+            4.1,
+            5.0,
+            6.0,
+            5.6,
+            5.1,
+            4.6,
+            4.1,
+            4.2,
+            5.2,
+            5.6,
+            2.3,
+            -0.8
+          ],
+          "notes": "Stage 7 individual time trial.",
+          "rawName": "Sulmona to Campo di Giove (time trial)"
+        }
+      ]
     }
   ]
 }
