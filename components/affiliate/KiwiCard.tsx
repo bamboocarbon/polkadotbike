@@ -20,6 +20,12 @@ export default function KiwiCard({
   const [country, setCountry] = useState<string | null>(null);
 
   useEffect(() => {
+    // Cookie set by /api/geo (30 days) — skip the function call when we already have it.
+    const m = document.cookie.match(/(?:^|; )geo_country=([A-Za-z]{2})/);
+    if (m) {
+      setCountry(m[1].toUpperCase());
+      return;
+    }
     fetch('/api/geo')
       .then((r) => r.json())
       .then((d) => setCountry(d.country))
