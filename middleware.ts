@@ -265,5 +265,27 @@ export const config = {
   // path — covers favicon.ico, robots.txt, sitemap.xml, images, etc.). One
   // combined negative-lookahead pattern, not multiple matcher entries —
   // multiple entries are OR'd together, which would defeat the exclusions.
-  matcher: ['/((?!api/|_next/static/|_next/image/|admin|.*\\.).*)'],
+  matcher: [
+    {
+      source: '/((?!api/|_next/static/|_next/image/|admin|.*\\.).*)',
+      // TEMP 2026-11-09 — Vercel Hobby Fluid Active CPU hit 100% of its 4h cap (pause
+      // threatened); polkadotbike rose to ~3.3 min/day from 7 Nov. Same fix as DCY's proxy.js
+      // (16 Oct + 9 Nov). `missing` entries are AND'd: middleware is skipped entirely if ANY
+      // is present — link prefetches, self-identified bots/HTTP clients, and returning
+      // visitors who already carry the 30-day consent_region cookie. Side effect: the pageview
+      // counter undercounts (sees a visitor's first page per 30 days only). Disguised crawlers
+      // still reach middleware, whose own BOT_UA/burst checks stay as the backstop. Remove the
+      // consent_region line once the rolling 30-day CPU total is comfortably under 4h.
+      missing: [
+        { type: 'header', key: 'next-router-prefetch' },
+        { type: 'header', key: 'purpose', value: 'prefetch' },
+        { type: 'cookie', key: 'consent_region' },
+        {
+          type: 'header',
+          key: 'user-agent',
+          value: '.*(?:[Bb]ot|[Ss]pider|[Cc]rawl|[Ss]lurp|[Hh]eadless|[Ll]ighthouse|[Pp]review|curl/|[Ww]get/|python-requests|python-urllib|Go-http-client|okhttp|axios/|node-fetch|facebookexternalhit|[Pp]ingdom|[Uu]ptime[Rr]obot).*',
+        },
+      ],
+    },
+  ],
 };
