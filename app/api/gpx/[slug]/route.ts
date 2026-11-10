@@ -46,6 +46,9 @@ export async function GET(_request: Request, { params }: { params: { slug: strin
       'Content-Type': 'application/gpx+xml',
       'Content-Disposition': `attachment; filename="${slug}.gpx"`,
       'Cache-Control': 'public, max-age=31536000, immutable',
+      // A raw file can't carry a canonical tag; keep it out of the search
+      // index (Search Console: "Duplicate without user-selected canonical").
+      'X-Robots-Tag': 'noindex',
     },
   });
 }
