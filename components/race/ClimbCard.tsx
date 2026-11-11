@@ -239,7 +239,7 @@ export default function ClimbCard({
           {!hideGpxDownload && (
             <a
               className="gpx-btn"
-              href={`/api/gpx/${climb3dSlug}`}
+              href={`/climbs/routes/${climb3dSlug}.gpx`}
               download
               onClick={() => trackGpxDownload(climb3dSlug)}
               title={GPX_PARTIAL_CLIMB_SLUGS.has(climb3dSlug) ? GPX_PARTIAL_CLIMB_CAVEAT : undefined}

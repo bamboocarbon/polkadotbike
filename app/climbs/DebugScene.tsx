@@ -1768,7 +1768,7 @@ export default function DebugScene({
         {!GPX_UNAVAILABLE_CLIMB_SLUGS.has(slug) && !GPX_2026_GRAND_TOUR_SLUGS.has(slug) && (
           <a
             className="map-gpx-btn"
-            href={`/api/gpx/${slug}`}
+            href={`/climbs/routes/${slug}.gpx`}
             download
             onClick={() => trackGpxDownload(slug)}
             title={GPX_PARTIAL_CLIMB_SLUGS.has(slug) ? GPX_PARTIAL_CLIMB_CAVEAT : undefined}

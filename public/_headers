@@ -1,0 +1,7 @@
+# GPX files: download rather than display, keep out of the search index,
+# and cache hard (file names are stable per climb).
+/climbs/routes/*
+  Content-Type: application/gpx+xml
+  Content-Disposition: attachment
+  X-Robots-Tag: noindex
+  Cache-Control: public, max-age=31536000, immutable

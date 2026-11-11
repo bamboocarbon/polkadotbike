@@ -1,6 +1,6 @@
 import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
-import { findMontrealWorldsRoute, type MontrealWorldsRoute } from '@/data/montrealWorldsRoutes';
+import { findMontrealWorldsRoute, MONTREAL_WORLDS_ROUTES, type MontrealWorldsRoute } from '@/data/montrealWorldsRoutes';
 import MontrealWorldsRouteDetailClient from './MontrealWorldsRouteDetailClient';
 
 const SITE = 'https://polkadotbike.com';
@@ -13,6 +13,12 @@ const SITE = 'https://polkadotbike.com';
 // calculator" — same phrasing as the homepage's own title, for
 // consistent keyword targeting sitewide. Both kept under ~155 chars so
 // Google doesn't truncate the description.
+// Static export (Cloudflare): pre-build every route page at build time.
+export const dynamicParams = false;
+export function generateStaticParams() {
+  return MONTREAL_WORLDS_ROUTES.map((r) => ({ slug: r.slug }));
+}
+
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
   const { slug } = await params;
   const route = findMontrealWorldsRoute(slug);

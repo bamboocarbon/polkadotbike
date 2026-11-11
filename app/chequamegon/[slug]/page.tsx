@@ -1,12 +1,18 @@
 import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
-import { findCheqRoute, type CheqRoute } from '@/data/cheqRoutes';
+import { findCheqRoute, CHEQ_ROUTES, type CheqRoute } from '@/data/cheqRoutes';
 import CheqRouteDetailClient from './CheqRouteDetailClient';
 
 const SITE = 'https://polkadotbike.com';
 
 // Went index:true 2026-09-08 alongside app/chequamegon/page.tsx — see its
 // comment for the launch note.
+// Static export (Cloudflare): pre-build every route page at build time.
+export const dynamicParams = false;
+export function generateStaticParams() {
+  return CHEQ_ROUTES.map((r) => ({ slug: r.slug }));
+}
+
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
   const { slug } = await params;
   const route = findCheqRoute(slug);

@@ -23,6 +23,12 @@ interface RawClimb {
   speculative?: boolean;
 }
 
+// Static export (Cloudflare): pre-build every climb page at build time.
+export const dynamicParams = false;
+export function generateStaticParams() {
+  return (climbIndexData.climbs as RawClimb[]).map((c) => ({ slug: c.slug }));
+}
+
 function findClimb(slug: string): RawClimb | undefined {
   return (climbIndexData.climbs as RawClimb[]).find((c) => c.slug === slug);
 }

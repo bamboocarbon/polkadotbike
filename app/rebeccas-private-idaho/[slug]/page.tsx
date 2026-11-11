@@ -1,6 +1,6 @@
 import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
-import { findRpiRoute, type RpiRoute } from '@/data/rpiRoutes';
+import { findRpiRoute, RPI_ROUTES, type RpiRoute } from '@/data/rpiRoutes';
 import RpiRouteDetailClient from './RpiRouteDetailClient';
 
 const SITE = 'https://polkadotbike.com';
@@ -14,6 +14,12 @@ const SITE = 'https://polkadotbike.com';
 // gear-ratio panel, personalised time/speed report, GPX download) that
 // pattern was built for. Was noindex/no-metadata-at-all while
 // local-only/unreviewed.
+// Static export (Cloudflare): pre-build every route page at build time.
+export const dynamicParams = false;
+export function generateStaticParams() {
+  return RPI_ROUTES.map((r) => ({ slug: r.slug }));
+}
+
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
   const { slug } = await params;
   const route = findRpiRoute(slug);
