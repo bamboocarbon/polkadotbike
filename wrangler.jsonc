@@ -10,8 +10,8 @@
     "html_handling": "auto-trailing-slash",
     // Unknown paths get Next's generated 404 page with a real 404 status.
     "not_found_handling": "404-page",
-    // Only /api/geo runs the Worker; everything else is plain static.
-    "run_worker_first": ["/api/geo"]
+    // Only /api/geo and /api/pv (pageview counter) run the Worker; everything else is plain static.
+    "run_worker_first": ["/api/geo", "/api/pv"]
   },
   "routes": [
     { "pattern": "polkadotbike.com", "custom_domain": true },

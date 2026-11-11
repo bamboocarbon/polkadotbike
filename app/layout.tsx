@@ -4,6 +4,7 @@ import Header from '@/components/Header';
 import { ConsentProvider } from '@/components/ConsentProvider';
 import ConsentBanner from '@/components/ConsentBanner';
 import Analytics from '@/components/Analytics';
+import PageviewBeacon from '@/components/PageviewBeacon';
 import Stay22Script from '@/components/Stay22Script';
 
 // Site-wide fallback metadata only. Page-specific title/description/OG/
@@ -81,6 +82,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
               values. */}
           <ConsentBanner />
           <Analytics />
+          <PageviewBeacon />
           <Stay22Script />
         </ConsentProvider>
       </body>
