@@ -8,6 +8,14 @@
 const NS = 'pdb:pv';
 const BURST_WINDOW_SECONDS = 3;
 const BURST_ALLOWANCE = 4;
+// Per-week path hash (keyed by that week's Monday, UTC) so the daily report can show LAST WEEK's top pages; the
+// all-time `paths` hash can't be split by period. Expires after ~10 weeks. Added 2026-11-11.
+const WPATHS_TTL_SECONDS = 60 * 60 * 24 * 70;
+function mondayOf(d) {
+  const m = new Date(Date.UTC(d.getUTCFullYear(), d.getUTCMonth(), d.getUTCDate()));
+  m.setUTCDate(m.getUTCDate() - ((m.getUTCDay() + 6) % 7));
+  return m.toISOString().slice(0, 10);
+}
 
 // Best-effort bot filter, copied verbatim from the old middleware (widened several times against real UA
 // data — see that file's history). Bots that never run JavaScript don't reach this endpoint at all.
@@ -58,11 +66,14 @@ export async function recordPageview(env, { path, ip, ua, now = new Date() }) {
   const encoded = encodePath(path);
   const day = now.toISOString().slice(0, 10);
   const month = day.slice(0, 7);
+  const weekKey = `${NS}:wpaths:${mondayOf(now)}`;
   await redis(env, [
     ['INCR', `${NS}:day:${day}`],
     ['INCR', `${NS}:month:${month}`],
     ['SADD', `${NS}:months`, month],
     ['HINCRBY', `${NS}:paths`, encoded, 1],
+    ['HINCRBY', weekKey, encoded, 1],
+    ['EXPIRE', weekKey, WPATHS_TTL_SECONDS],
     ['INCR', `${NS}:total`],
     // Bounded rolling sample of the last 500 events, for diagnosing new bot patterns from real data.
     ['LPUSH', `${NS}:recentUAs`, `${now.toISOString()}\t${encoded}\t${ua}`],
