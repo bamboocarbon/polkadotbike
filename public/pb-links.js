@@ -34,8 +34,7 @@ const PB_LINKS = {
     'gravel|shimano|GRX RX820 1× (2022–)': 'https://performancebicycle.avln.me/c/wNQjdgfJMStT',
     'gravel|sram|Force XPLR AXS (2022–)': 'https://performancebicycle.avln.me/c/WiFZuaaWMFzH',
     'gravel|sram|Rival XPLR AXS (2022–)': 'https://performancebicycle.avln.me/c/YknJubPAFNpm',
-    'gravel|sram|Apex XPLR AXS (2022–)': 'https://performancebicycle.avln.me/c/bwDyPCgmTywP',
-    'gravel|campagnolo|Ekar (2021–)': 'https://performancebicycle.avln.me/c/XgHAQIpdMAZh'
+    'gravel|sram|Apex XPLR AXS (2022–)': 'https://performancebicycle.avln.me/c/bwDyPCgmTywP'
 };
 const PB_BRAND_FALLBACK = {
     shimano: 'https://performancebicycle.avln.me/c/vxevSRiDwcZX',
