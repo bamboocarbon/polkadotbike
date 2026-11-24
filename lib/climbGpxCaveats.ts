@@ -25,27 +25,11 @@ export const GPX_PARTIAL_CLIMB_SLUGS = new Set<string>([
 export const GPX_PARTIAL_CLIMB_CAVEAT =
   "This GPX covers the official categorised climb — a real ascent continues below this start point on the same road.";
 
-// The 14 2027 Tour de France UK climbs (races: ["tdf27"] in climb-index.json,
-// gateReasons: ["preview"]) — categories are still "TBC", pending official
-// announcement, so Robin doesn't want a downloadable GPX offered for these
-// yet (2026-09-16). Remove entries here once a climb's category is
-// confirmed and Robin wants its GPX offered again.
-export const GPX_UNAVAILABLE_CLIMB_SLUGS = new Set<string>([
-  'cote-de-bannau-brycheiniog',
-  'cote-de-belmont',
-  'cote-de-caerffili',
-  'cote-de-epynt',
-  'cote-de-gelligaer',
-  'cote-de-hengoed',
-  'cote-de-jubilee-tower',
-  'cote-de-maerdy',
-  'cote-de-melrose',
-  'cote-de-parbold',
-  'cote-de-penrhys',
-  'cote-de-rhigos',
-  'cote-de-trough-of-bowland',
-  'cote-de-waddington-fell',
-]);
+// Climbs whose GPX download is withheld everywhere (race-page card and 3D map). Empty since 2026-11-24: it held
+// the 14 2027 Tour de France UK climbs, hidden on 2026-09-16 while their categories were still "TBC", and Robin
+// has now said to offer their downloads. Kept as an (empty) set so ClimbCard and DebugScene need no change if a
+// climb has to be withdrawn again.
+export const GPX_UNAVAILABLE_CLIMB_SLUGS = new Set<string>([]);
 
 // The 80 already-built 2026 Grand Tour climbs (TDF/Giro/Vuelta) — GPX
 // download removed sitewide 2026-09-16 (Robin), the map toolbar slot it
@@ -138,4 +122,71 @@ export const GPX_2026_GRAND_TOUR_SLUGS = new Set<string>([
   'puerto-el-remolcador',
   'sierra-de-la-pandera',
   'venta-de-la-cebada',
+]);
+
+// The 2027 Tour de France and Giro climbs. Same end state as the 2026 Grand Tours above: the race-page card keeps
+// "Download GPX" and the 3D map shows the "View segment on Strava" link instead of it. Unlike 2026, most of these
+// don't have a Strava segment matched yet, so the 3D map only drops its Download GPX button for a climb once it has
+// one (see DebugScene) — until then it keeps the download rather than showing neither. Add a climb's Strava
+// segment to lib/climbStravaSegments.ts and the swap happens by itself.
+export const GPX_2027_GRAND_TOUR_SLUGS = new Set<string>([
+  // Tour de France 2027 (37)
+  'col-de-bagargui',
+  'col-de-burdincurutcheta',
+  'col-de-la-colombiere',
+  'col-de-la-croix-fry-la-clusaz',
+  'col-de-la-forclaz-de-queige',
+  'col-de-la-lusette',
+  'col-de-portet',
+  'col-de-richemond',
+  'col-de-soudet',
+  'col-du-berthiand',
+  'col-du-marie-blanque',
+  'col-du-plan-du-saleve',
+  'col-du-pre',
+  'col-du-soulor',
+  'col-du-tourmalet-2027',
+  'col-du-vent',
+  'cote-de-bannau-brycheiniog',
+  'cote-de-belmont',
+  'cote-de-caerffili',
+  'cote-de-domancy',
+  'cote-de-epynt',
+  'cote-de-gelligaer',
+  'cote-de-hengoed',
+  'cote-de-jubilee-tower',
+  'cote-de-la-croix-neuve',
+  'cote-de-maerdy',
+  'cote-de-melrose',
+  'cote-de-parbold',
+  'cote-de-penrhys',
+  'cote-de-rhigos',
+  'cote-de-trough-of-bowland',
+  'cote-de-waddington-fell',
+  'cote-des-neyrolles',
+  'grand-colombier',
+  'hourquette-d-ancizan',
+  'montee-de-bisanne',
+  'montee-de-brison',
+  // Giro d'Italia 2027 (20)
+  'bieno-borgo-valsugana',
+  'culmine-di-san-pietro',
+  'forca-di-presta',
+  'forca-ventolosa',
+  'gavia-ponte-di-legno',
+  'madonna-del-ghisallo',
+  'madonna-di-campiglio',
+  'mirago',
+  'mortirolo-mazzo',
+  'passo-ballino',
+  'passo-daone',
+  'passo-dei-due-santi-zeri',
+  'passo-duron',
+  'passo-durone',
+  'piani-di-bobbio',
+  'sarnano-sassotetto',
+  'sella-valcalda',
+  'subiaco-monte-livata',
+  'sulmona-campo-di-giove',
+  'zoncolan-ovaro',
 ]);

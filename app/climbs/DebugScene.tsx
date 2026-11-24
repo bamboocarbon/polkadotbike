@@ -19,7 +19,7 @@ import { useMemo, useRef, useEffect, useState, forwardRef, useImperativeHandle }
 import * as THREE from 'three';
 import { buildMorphGeometry, buildRibbonColors, smoothGradients, computeExaggeration, type RoutePoint } from '@/lib/climbs/morphGeometry';
 import { colourForGradient } from '@/lib/climbs/gradientColour';
-import { GPX_PARTIAL_CLIMB_SLUGS, GPX_PARTIAL_CLIMB_CAVEAT, GPX_UNAVAILABLE_CLIMB_SLUGS, GPX_2026_GRAND_TOUR_SLUGS } from '@/lib/climbGpxCaveats';
+import { GPX_PARTIAL_CLIMB_SLUGS, GPX_PARTIAL_CLIMB_CAVEAT, GPX_UNAVAILABLE_CLIMB_SLUGS, GPX_2026_GRAND_TOUR_SLUGS, GPX_2027_GRAND_TOUR_SLUGS } from '@/lib/climbGpxCaveats';
 import { CLIMB_STRAVA_SEGMENTS } from '@/lib/climbStravaSegments';
 import { trackGpxDownload } from '@/lib/trackGpxDownload';
 
@@ -1765,7 +1765,7 @@ export default function DebugScene({
             </a>
           );
         })()}
-        {!GPX_UNAVAILABLE_CLIMB_SLUGS.has(slug) && !GPX_2026_GRAND_TOUR_SLUGS.has(slug) && (
+        {!GPX_UNAVAILABLE_CLIMB_SLUGS.has(slug) && !GPX_2026_GRAND_TOUR_SLUGS.has(slug) && !(GPX_2027_GRAND_TOUR_SLUGS.has(slug) && CLIMB_STRAVA_SEGMENTS[slug]) && (
           <a
             className="map-gpx-btn"
             href={`/climbs/routes/${slug}.gpx`}

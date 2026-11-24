@@ -2,7 +2,7 @@
 
 import ClimbProfile from './ClimbProfile';
 import { CAT_CLS, buildPlanUrl, gradColor, type Climb } from '@/lib/raceHelpers';
-import { GPX_PARTIAL_CLIMB_SLUGS, GPX_PARTIAL_CLIMB_CAVEAT } from '@/lib/climbGpxCaveats';
+import { GPX_PARTIAL_CLIMB_SLUGS, GPX_PARTIAL_CLIMB_CAVEAT, GPX_UNAVAILABLE_CLIMB_SLUGS } from '@/lib/climbGpxCaveats';
 import { trackGpxDownload } from '@/lib/trackGpxDownload';
 
 // Climbs with real, built 3D route data (data/climbs/), keyed by name —
@@ -236,7 +236,7 @@ export default function ClimbCard({
           <a className="plan-btn" href={`/climbs/${climb3dSlug}`} style={{ background: '#12b05f' }}>
             Plan this climb in 3D →
           </a>
-          {!hideGpxDownload && (
+          {!hideGpxDownload && !GPX_UNAVAILABLE_CLIMB_SLUGS.has(climb3dSlug) && (
             <a
               className="gpx-btn"
               href={`/climbs/routes/${climb3dSlug}.gpx`}

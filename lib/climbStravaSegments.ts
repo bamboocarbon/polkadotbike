@@ -174,4 +174,32 @@ export const CLIMB_STRAVA_SEGMENTS: Record<string, ClimbStravaSegment> = {
     lengthKm: 1.59,
     fit: 'Exact match for the Camillien-Houde climb only — a short segment partway round this 13.5km lap, not the full circuit',
   },
+
+  // 2027 Giro (matched 2026-11-24). Candidates found by web search, then each segment page opened logged-in and its
+  // distance + lowest/highest elevation compared with the climb's own route file (km, start m, summit m); the
+  // segment's own title is used for `name`. Climbs not listed here still have no usable match found yet.
+  'mortirolo-mazzo': {
+    id: 902913,
+    name: 'Mortirolo',
+    lengthKm: 11.28,
+    fit: 'Close match — segment starts about 1km further up the road (602m vs 551m) and finishes at the same pass',
+  },
+  'zoncolan-ovaro': {
+    id: 1635485,
+    name: 'Monte Zoncolan. Ovaro to top',
+    lengthKm: 10.08,
+    fit: 'Close match — same road, from Ovaro to the summit',
+  },
+  'forca-di-presta': {
+    id: 7416611,
+    name: 'Forca di Presta dal Borgo di Arquata',
+    lengthKm: 12.58,
+    fit: 'Close match — segment starts a few hundred metres further up from Arquata and finishes at the same pass',
+  },
+  'passo-duron': {
+    id: 21412376,
+    name: 'Passo Duron',
+    lengthKm: 4.27,
+    fit: "Close match — segment stops about 25m short of this climb's summit",
+  },
 };

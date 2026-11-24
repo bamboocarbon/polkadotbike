@@ -104,8 +104,8 @@ function ClimbRow({ c, scaleUp }: { c: StageClimb; scaleUp: boolean }) {
   // The 3 UK stages are short, sharp climbs that need the enlarged profile to read properly;
   // the continental climbs use the site's standard ClimbCard scale.
   return scaleUp
-    ? <ClimbCard climb={climbObj} hideGpxDownload profileWidthScale={2} profileHeightScale={2} />
-    : <ClimbCard climb={climbObj} hideGpxDownload />;
+    ? <ClimbCard climb={climbObj} profileWidthScale={2} profileHeightScale={2} />
+    : <ClimbCard climb={climbObj} />;
 }
 
 function StageCard({ s }: { s: Stage }) {

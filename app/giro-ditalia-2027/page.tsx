@@ -178,7 +178,7 @@ function ClimbRow({ c }: { c: StageClimb }) {
     len: hasData ? c.len! : null, grad: hasData ? c.grad! : null, elev: null,
     cat: 'TBC', kbf: null, profile: c.profile, notes: c.history ?? '',
   };
-  return <ClimbCard climb={climbObj} hideGpxDownload />;
+  return <ClimbCard climb={climbObj} />;
 }
 
 function StageCard({ s }: { s: Stage }) {
