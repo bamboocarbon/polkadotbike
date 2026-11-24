@@ -342,4 +342,10 @@ export const CLIMB_STRAVA_SEGMENTS: Record<string, ClimbStravaSegment> = {
     lengthKm: 2.56,
     fit: 'Exact match',
   },
+  'mirago': {
+    id: 31159306,
+    name: 'Camanghè - Miragolo',
+    lengthKm: 9.08,
+    fit: 'Shorter segment — starts at Camanghè, about 1km into this climb; finishes at the same place',
+  },
 };
