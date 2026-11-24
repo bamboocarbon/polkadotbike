@@ -141,6 +141,7 @@ footer p{margin:0 0 8px}
     <button class="chip mono" data-month="all" aria-pressed="true">All months</button>
     <button class="chip mono" id="usOnly" aria-pressed="false">US only</button>
     <button class="chip mono" id="hidePast" aria-pressed="false">Hide finished</button>
+    <button class="chip mono" id="earlier" aria-pressed="false">Show earlier months</button>
     <input class="search" id="q" type="search" placeholder="Search event, place, angle…" aria-label="Search events">
   </div>
   <div class="count" id="count"></div>
@@ -164,8 +165,12 @@ const AUDS = ${audiencesJson};
 const EVENTS = ${eventsJson};
 const REVIEW_RUNS = ${reviewRunsJson};
 
-const state={cats:new Set(Object.keys(CATS)),auds:new Set(Object.keys(AUDS)),month:'all',q:'',hidePast:false,us:false};
+const state={cats:new Set(Object.keys(CATS)),auds:new Set(Object.keys(AUDS)),month:'all',q:'',hidePast:false,us:false,earlier:false};
 const TODAY=new Date(); TODAY.setHours(0,0,0,0);
+// The calendar opens at the current month: events that finished before the 1st of this month are hidden until
+// "Show earlier months" is pressed. Computed in the browser, so it rolls forward by itself every month.
+const MONTH_START=new Date(TODAY.getFullYear(),TODAY.getMonth(),1);
+const isEarlier=ev=>parse(ev.end||ev.start)<MONTH_START;
 const parse=s=>{const[y,m,d]=s.split('-').map(Number);return new Date(y,m-1,d);};
 const MON=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
 const MONFULL=['January','February','March','April','May','June','July','August','September','October','November','December'];
@@ -270,11 +275,34 @@ usBtn.addEventListener('click',function(){
 });
 document.getElementById('q').addEventListener('input',e=>{state.q=e.target.value.toLowerCase();render();});
 
+function monthHasVisible(m){return EVENTS.some(ev=>parse(ev.start).getMonth()===m&&(state.earlier||!isEarlier(ev)));}
+function refreshMonthChips(){
+  whenRow.querySelectorAll('[data-month]').forEach(b=>{
+    if(b.dataset.month==='all') return;
+    b.style.display=monthHasVisible(Number(b.dataset.month))?'':'none';
+  });
+  if(state.month!=='all'&&!monthHasVisible(Number(state.month))){
+    state.month='all';
+    whenRow.querySelectorAll('[data-month]').forEach(x=>x.setAttribute('aria-pressed',x.dataset.month==='all'?'true':'false'));
+  }
+}
+document.getElementById('earlier').addEventListener('click',function(){
+  state.earlier=!state.earlier;
+  this.setAttribute('aria-pressed',String(state.earlier));
+  this.textContent=state.earlier?'Hide earlier months':'Show earlier months';
+  refreshMonthChips();
+  document.getElementById('weeks').innerHTML='';
+  buildStrip();
+  render();
+});
+refreshMonthChips();
+
 function buildStrip(){
   const wrap=document.getElementById('weeks');
   if(!EVENTS.length) return;
   const allStarts=EVENTS.map(ev=>parse(ev.start));
   let cur=new Date(Math.min(...allStarts.map(d=>d.getTime())));
+  if(!state.earlier&&cur<MONTH_START) cur=new Date(MONTH_START);
   cur.setDate(cur.getDate()-cur.getDay());
   const lastEnd=Math.max(...EVENTS.map(ev=>parse(ev.end||ev.start).getTime()));
   const end=new Date(lastEnd);end.setDate(end.getDate()+7);
@@ -369,12 +397,14 @@ function render(){
     .filter(ev=>ev.audience.some(a=>state.auds.has(a)))
     .filter(ev=>state.cats.has(ev.category))
     .filter(ev=>!state.us||ev.country==='US')
+    .filter(ev=>state.earlier||!isEarlier(ev))
     .filter(ev=>state.month==='all'||parse(ev.start).getMonth()===Number(state.month))
     .filter(ev=>!state.hidePast||status(ev)!=='done')
     .filter(ev=>!state.q||(ev.name+' '+ev.place+' '+ev.angle+' '+(ev.hashtags||[]).join(' ')).toLowerCase().includes(state.q))
     .sort((a,b)=>a.start.localeCompare(b.start));
 
-  document.getElementById('count').textContent=\`\${rows.length} of \${EVENTS.length} entries shown\`;
+  const hiddenEarlier=state.earlier?0:EVENTS.filter(isEarlier).length;
+  document.getElementById('count').textContent=rows.length+' of '+EVENTS.length+' entries shown'+(hiddenEarlier?' — '+hiddenEarlier+' from earlier months hidden':'');
 
   if(!rows.length){
     list.innerHTML='<p class="empty">Nothing matches. Widen the filters or clear the search.</p>';
@@ -382,13 +412,15 @@ function render(){
   }
 
   list.innerHTML='';
-  let lastMonth=-1;
+  let lastMonth=-2;
+  // Events that began before this month but haven't finished sit under "Still running", not their start month.
+  const groupOf=ev=>(!state.earlier&&parse(ev.start)<MONTH_START)?-1:parse(ev.start).getMonth();
   rows.forEach(ev=>{
-    const m=parse(ev.start).getMonth();
+    const m=groupOf(ev);
     if(m!==lastMonth){
-      const n=rows.filter(r=>parse(r.start).getMonth()===m).length;
+      const n=rows.filter(r=>groupOf(r)===m).length;
       const h2=document.createElement('h2');h2.className='month';
-      h2.innerHTML=\`\${MONFULL[m]}<span>\${n} entries</span>\`;
+      h2.innerHTML=(m===-1?'Still running':MONFULL[m])+'<span>'+n+(n===1?' entry':' entries')+'</span>';
       list.appendChild(h2);
       lastMonth=m;
     }
