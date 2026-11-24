@@ -19,7 +19,7 @@ function mondayOf(d) {
 
 // Best-effort bot filter, copied verbatim from the old middleware (widened several times against real UA
 // data — see that file's history). Bots that never run JavaScript don't reach this endpoint at all.
-const BOT_UA = /bot|spider|crawl|slurp|facebookexternalhit|meta-externalagent|headless|lighthouse|pingdom|uptimerobot|monitor|preview|whatsapp|telegrambot|discordbot|google-inspectiontool|googleother|barkrowler|curl\/|wget\/|python-requests|python-urllib|go-http-client|okhttp|axios\/|node-fetch|postmanruntime|libwww-perl|apache-httpclient|guzzlehttp|insomnia|http\.rb|get_titles|forestengine|networkingextension|crusader-worker|appengine-google|chrome\/[\d.]+ safari\/604\.1|iphone os 13_2_3.*version\/13\.0\.3|panscient|wp-safe-scanner|censysinspect|domain-harvester|nomorevibe|^user-agent:|windows nt 10\.0\) applewebkit|^(?!.*(?:micromessenger|weixin|xweb)).*chrome\/(?:[0-9]|[1-8][0-9])\./i;
+export const BOT_UA = /bot|spider|crawl|slurp|facebookexternalhit|meta-externalagent|headless|lighthouse|pingdom|uptimerobot|monitor|preview|whatsapp|telegrambot|discordbot|google-inspectiontool|googleother|barkrowler|curl\/|wget\/|python-requests|python-urllib|go-http-client|okhttp|axios\/|node-fetch|postmanruntime|libwww-perl|apache-httpclient|guzzlehttp|insomnia|http\.rb|get_titles|forestengine|networkingextension|crusader-worker|appengine-google|chrome\/[\d.]+ safari\/604\.1|iphone os 13_2_3.*version\/13\.0\.3|panscient|wp-safe-scanner|censysinspect|domain-harvester|nomorevibe|^user-agent:|windows nt 10\.0\) applewebkit|^(?!.*(?:micromessenger|weixin|xweb)).*chrome\/(?:[0-9]|[1-8][0-9])\./i;
 
 const SCAN_PATH = /^\/(wp-|wordpress|xmlrpc\.php|\.env|\.git|phpmyadmin|pma\/|file-manager|elfinder|cgi-bin|actuator|vendor\/phpunit|config\.php|\.aws|\.ssh|shell\.php|eval-stdin\.php|_profiler)/i;
 
@@ -34,7 +34,7 @@ export function encodePath(pathname) {
 }
 
 // Upstash REST pipeline: POST <url>/pipeline with [[CMD, ...args], ...] → [{result}, ...].
-async function redis(env, commands) {
+export async function redis(env, commands) {
   const res = await fetch(`${env.KV_REST_API_URL}/pipeline`, {
     method: 'POST',
     headers: { Authorization: `Bearer ${env.KV_REST_API_TOKEN}`, 'Content-Type': 'application/json' },
