@@ -252,4 +252,34 @@ export const CLIMB_STRAVA_SEGMENTS: Record<string, ClimbStravaSegment> = {
     lengthKm: 5.66,
     fit: "Longer segment — starts about 1.2km before this climb's start and stops about 0.3km short of the summit",
   },
+  'col-du-tourmalet-2027': {
+    id: 32746259,
+    name: 'Tourmalet par Luz St Sauveur',
+    lengthKm: 18.57,
+    fit: 'Close match — same start in Luz-Saint-Sauveur and the same col',
+  },
+  'col-de-la-colombiere': {
+    id: 7754806,
+    name: 'Col de la Colombiere (from Cluses) 18Km',
+    lengthKm: 18.09,
+    fit: "Longer segment — starts in Cluses, about 3.7km before this climb's start (this climb is its last 14.4km); same col",
+  },
+  'grand-colombier': {
+    id: 12739693,
+    name: 'Gd Colombier (par Culoz)',
+    lengthKm: 17.85,
+    fit: "Close match — starts about 0.2km before this climb's start and stops about 15m short of the summit",
+  },
+  'col-du-soulor': {
+    id: 20440337,
+    name: 'Soulor complet',
+    lengthKm: 11.67,
+    fit: 'Close match — same start; stops a few metres short of the col',
+  },
+  'gavia-ponte-di-legno': {
+    id: 38214495,
+    name: 'PASSO GAVIA (Ponte di Legno)',
+    lengthKm: 16.68,
+    fit: "Close match — starts about 0.2km before this climb's start; same summit",
+  },
 };
