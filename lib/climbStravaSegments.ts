@@ -175,9 +175,11 @@ export const CLIMB_STRAVA_SEGMENTS: Record<string, ClimbStravaSegment> = {
     fit: 'Exact match for the Camillien-Houde climb only — a short segment partway round this 13.5km lap, not the full circuit',
   },
 
-  // 2027 Giro (matched 2026-11-24). Candidates found by web search, then each segment page opened logged-in and its
-  // distance + lowest/highest elevation compared with the climb's own route file (km, start m, summit m); the
-  // segment's own title is used for `name`. Climbs not listed here still have no usable match found yet.
+  // 2027 Giro + TDF (matched 2026-11-24). Candidates found by web search, then each segment page opened logged-in:
+  // distance + lowest/highest elevation compared with the climb's own route file, AND the segment's start point
+  // (the centre of its "Explore Segments" link) checked to lie on the climb's own route polyline — which rejected
+  // Sella Valcalda (3931985, climbs the same pass from the other side) and Forca Ventolosa's look-alike (8123003,
+  // 3.5km away). The segment's own title is used for `name`. Climbs not listed still have no verified match.
   'mortirolo-mazzo': {
     id: 902913,
     name: 'Mortirolo',
@@ -201,5 +203,29 @@ export const CLIMB_STRAVA_SEGMENTS: Record<string, ClimbStravaSegment> = {
     name: 'Passo Duron',
     lengthKm: 4.27,
     fit: "Close match — segment stops about 25m short of this climb's summit",
+  },
+  'col-de-portet': {
+    id: 12771926,
+    name: 'Col de Portet (par Saint Lary Soulan)',
+    lengthKm: 16.02,
+    fit: 'Close match — segment starts about 0.5km further up the road and finishes at the same summit',
+  },
+  'col-du-marie-blanque': {
+    id: 9630348,
+    name: 'Marie-Blanque Completo',
+    lengthKm: 9.29,
+    fit: "Close match — same start at Escot; finishes about 15m below this climb's summit",
+  },
+  'col-de-burdincurutcheta': {
+    id: 5572854,
+    name: 'Burdincurutcheta Col',
+    lengthKm: 9.39,
+    fit: "Longer segment — starts about 0.5km before this climb's start and stops about 30m short of the summit",
+  },
+  'col-du-pre': {
+    id: 4704218,
+    name: 'Col de Pré (from Beaufort stop)',
+    lengthKm: 12.28,
+    fit: "Close match — same start at Beaufort; stops about 30m short of this climb's summit",
   },
 };
