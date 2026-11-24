@@ -179,7 +179,7 @@ export const CLIMB_STRAVA_SEGMENTS: Record<string, ClimbStravaSegment> = {
   // distance + lowest/highest elevation compared with the climb's own route file, AND the segment's start point
   // (the centre of its "Explore Segments" link) checked to lie on the climb's own route polyline — which rejected
   // Sella Valcalda (3931985, climbs the same pass from the other side) and Forca Ventolosa's look-alike (8123003,
-  // 3.5km away). The segment's own title is used for `name`. Climbs not listed still have no verified match.
+  // 3.5km away) and the two obvious Sarnano-Sassotetto segments (1958537, 1374281: they start 2km from this climb's start yet are the same length, so they take a different road). The segment's own title is used for `name`. Climbs not listed still have no verified match.
   'mortirolo-mazzo': {
     id: 902913,
     name: 'Mortirolo',
@@ -281,5 +281,23 @@ export const CLIMB_STRAVA_SEGMENTS: Record<string, ClimbStravaSegment> = {
     name: 'PASSO GAVIA (Ponte di Legno)',
     lengthKm: 16.68,
     fit: "Close match — starts about 0.2km before this climb's start; same summit",
+  },
+  'madonna-di-campiglio': {
+    id: 36603292,
+    name: 'Madonna di Campiglio',
+    lengthKm: 11.99,
+    fit: "Close match — starts about 0.2km after this climb's start and finishes at the same place",
+  },
+  'subiaco-monte-livata': {
+    id: 9862428,
+    name: 'Livata Climb',
+    lengthKm: 14.21,
+    fit: "Close match — starts about 0.65km after this climb's start and stops about 35m short of the summit",
+  },
+  'col-de-la-lusette': {
+    id: 21746917,
+    name: 'Col de la Lusette',
+    lengthKm: 11.64,
+    fit: 'Close match — same start at Mandagout and the same col',
   },
 };
