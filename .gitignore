@@ -15,7 +15,7 @@ next-env.d.ts
 baseline/
 .env*.local
 
-# npm run calendar:export output
+# generated output (no longer used by the calendar, which now lives outside this repo)
 dist/
 
 # Climb basemap/terrain build output — uploaded to R2 (assets.polkadotbike.com)

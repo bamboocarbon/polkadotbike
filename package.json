@@ -7,11 +7,8 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "calendar:export": "tsx scripts/calendar-export.ts",
-    "calendar:apply-review": "tsx scripts/calendar-apply-review.ts",
     "deploy": "next build && wrangler deploy",
-    "preview": "next build && wrangler dev",
-    "calendar:local": "tsx scripts/calendar-local.ts"
+    "preview": "next build && wrangler dev"
   },
   "dependencies": {
     "@react-three/drei": "^9.114.3",
