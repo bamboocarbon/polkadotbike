@@ -300,4 +300,28 @@ export const CLIMB_STRAVA_SEGMENTS: Record<string, ClimbStravaSegment> = {
     lengthKm: 11.64,
     fit: 'Close match — same start at Mandagout and the same col',
   },
+  'piani-di-bobbio': {
+    id: 35269181,
+    name: 'Piani di Bobbio da Valtorta',
+    lengthKm: 8.15,
+    fit: 'Shorter segment — starts at Valtorta, about 3.3km into this climb (this climb adds the road below it); same summit',
+  },
+  'passo-daone': {
+    id: 10600900,
+    name: 'Passo Daone',
+    lengthKm: 6.3,
+    fit: "Close match — starts about 0.4km after this climb's start and finishes at the same pass",
+  },
+  'passo-ballino': {
+    id: 12320940,
+    name: 'Varone - Ballino',
+    lengthKm: 13.58,
+    fit: 'Shorter segment — starts at Varone, about 3.4km into this climb; same summit',
+  },
+  'passo-durone': {
+    id: 13130731,
+    name: 'Comano - Passo Durone',
+    lengthKm: 10.06,
+    fit: 'Close match — same start at Comano and the same pass',
+  },
 };
