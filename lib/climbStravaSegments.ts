@@ -228,4 +228,28 @@ export const CLIMB_STRAVA_SEGMENTS: Record<string, ClimbStravaSegment> = {
     lengthKm: 12.28,
     fit: "Close match — same start at Beaufort; stops about 30m short of this climb's summit",
   },
+  'col-du-berthiand': {
+    id: 7002059,
+    name: 'Col de Berthiand',
+    lengthKm: 6.10,
+    fit: 'Close match — same road from Serrières-sur-Ain, finishing at the summit',
+  },
+  'col-de-la-forclaz-de-queige': {
+    id: 18287101,
+    name: 'Col de la Forclaz de Queige',
+    lengthKm: 4.91,
+    fit: 'Close match — same start and the same col',
+  },
+  'col-de-richemond': {
+    id: 14521785,
+    name: 'Col de richemond',
+    lengthKm: 7.18,
+    fit: "Close match — starts about 0.5km before this climb's start and stops about 1km short of the summit",
+  },
+  'col-de-bagargui': {
+    id: 6422424,
+    name: 'IRATI BAGARGI',
+    lengthKm: 5.66,
+    fit: "Longer segment — starts about 1.2km before this climb's start and stops about 0.3km short of the summit",
+  },
 };
