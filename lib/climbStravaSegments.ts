@@ -324,4 +324,22 @@ export const CLIMB_STRAVA_SEGMENTS: Record<string, ClimbStravaSegment> = {
     lengthKm: 10.06,
     fit: 'Close match — same start at Comano and the same pass',
   },
+  'montee-de-bisanne': {
+    id: 38429049,
+    name: 'Montée de Bisanne depuis Villard sur Doron',
+    lengthKm: 12.27,
+    fit: "Close match — same start at Villard-sur-Doron; stops about 60m short of this climb's summit",
+  },
+  'madonna-del-ghisallo': {
+    id: 2378566,
+    name: 'Asso FS - Ghisallo',
+    lengthKm: 9.4,
+    fit: "Close match — starts about 0.4km after this climb's start and finishes at the Madonna del Ghisallo",
+  },
+  'cote-de-domancy': {
+    id: 12400983,
+    name: 'Côte Domancy',
+    lengthKm: 2.56,
+    fit: 'Exact match',
+  },
 };
